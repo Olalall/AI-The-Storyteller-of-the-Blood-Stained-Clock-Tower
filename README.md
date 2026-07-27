@@ -6,6 +6,10 @@ Pad 优先的《血染钟楼》线下说书人辅助工具。它围绕官方/实
 
 > 非官方社区项目。不代表 The Pandemonium Institute，也不替代官方魔典。AI 只提供草稿、提醒和建议；身份、阵营、死亡、毒醉、处决、胜负和昼夜推进都必须由说书人确认。
 
+## English summary
+
+An unofficial, Pad-first storyteller companion for in-person Blood on the Clocktower games. It helps with smart setup drafts, current-game night order assistance, day voting records, structured journals, archive review, and AI-generated draft suggestions. It is not an official grimoire replacement, not a rules engine, and never applies authoritative game state without storyteller confirmation.
+
 ## 项目状态
 
 `alpha / preview`

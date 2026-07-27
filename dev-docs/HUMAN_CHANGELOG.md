@@ -1,3 +1,22 @@
+## 2026-07-27 - GitHub 英文摘要与 Topics
+
+### 给非开发者看的交付说明
+- README 顶部新增英文短摘要，方便非中文访问者快速理解项目是什么、不是什么。
+- GitHub topics 增加 `self-hosted`、`board-game`、`offline-first`，让项目更容易被搜索到。
+- 这轮是 GitHub 展示优化，不改产品功能、不部署、不调用真实 AI。
+
+### Before / After
+- Before：README 主要是中文，GitHub 搜索标签偏基础。
+- After：仓库首页有一段清楚的英文定位，同时 topics 覆盖自托管、桌游和离线优先场景。
+
+### 验证
+- `gh repo view` 已确认 topics 更新成功。
+- `npm run audit:public` 通过。
+- `npm run check` 通过。
+
+### 风险
+- 英文摘要只用于公开介绍；产品边界仍以中文 README 和 dev-docs 为准。
+
 ## 2026-07-27 - GitHub Issue Templates
 
 ### 给非开发者看的交付说明
