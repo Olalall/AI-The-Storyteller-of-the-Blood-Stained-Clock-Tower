@@ -1,3 +1,21 @@
+## 2026-07-27 - GitHub 公开前最终门禁
+
+### 给非开发者看的交付说明
+- 新增 `GITHUB_PUBLIC_READINESS_FINAL_CHECK.md`，记录公开前最后一次审计、测试、GitHub 仓库状态和剩余动作。
+- 当前结论：可以由项目所有者确认后切换为 Public，但只能作为 alpha / preview 非官方项目公开。
+- 本轮没有直接把仓库改成 Public；外部可见性仍需要你明确确认。
+
+### Before / After
+- Before：README、截图、License 都已收口，但缺少一份最终“可以公开了吗”的门禁记录。
+- After：公开前检查结果、边界、剩余动作都固定成文档。
+
+### 验证
+- `npm run audit:public` 通过。
+- `npm run check` 通过：178 个测试文件通过、1 个跳过；840 项测试通过、3 项 live AI 测试跳过。
+- GitHub licenseInfo 确认为 MIT，仓库仍是 Private。
+
+### 风险
+- 这仍是 alpha / preview，不是正式稳定版；公开后也不能宣传为官方工具或自动规则引擎。
 ## 2026-07-27 - GitHub 首屏横幅与功能一览
 
 ### 给非开发者看的交付说明

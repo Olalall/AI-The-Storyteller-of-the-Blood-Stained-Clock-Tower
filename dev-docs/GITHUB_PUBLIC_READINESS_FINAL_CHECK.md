@@ -1,0 +1,98 @@
+# GitHub Public Readiness Final Check
+
+Date: 2026-07-27
+Repository: `Olalall/botc-storyteller-companion`
+URL: https://github.com/Olalall/botc-storyteller-companion
+Current visibility: Private
+Default branch: `main`
+License: MIT License, original source code and original project documentation only
+
+## Verdict
+
+Ready for owner-confirmed GitHub Public switch as an alpha / preview repository.
+
+Do not market it as a stable official product. Recommended public label:
+
+> alpha / preview — unofficial storyteller companion for in-person Blood on the Clocktower games.
+
+## Final checks performed
+
+```powershell
+npm run audit:public
+npm run check
+gh repo view Olalall/botc-storyteller-companion --json nameWithOwner,description,visibility,url,defaultBranchRef,licenseInfo,repositoryTopics
+```
+
+Results:
+
+- `npm run audit:public`: passed.
+- `npm run check`: passed.
+- Test result: 178 test files passed, 1 skipped; 840 tests passed, 3 live AI tests skipped.
+- Build: passed.
+- Architecture verification: passed.
+- GitHub license detection: `mit` / MIT License.
+- GitHub visibility at check time: Private.
+- Working tree: clean before this readiness document was written.
+
+Known non-blocking warning:
+
+- Vite still reports one large client chunk after minification. This is a performance/packaging improvement item, not a public-release blocker for alpha / preview.
+
+## Public repository boundaries
+
+Confirmed in README / notices:
+
+- Non-official community project.
+- Not affiliated with, endorsed by, sponsored by, or approved by The Pandemonium Institute.
+- Not an official grimoire replacement.
+- Not an automatic rules engine.
+- AI suggestions remain drafts; the storyteller is final authority.
+- MIT License applies only to original source code and original project documentation.
+- MIT License does not grant rights to Blood on the Clocktower, official/community scripts, role names, rules text, visual assets, trademarks, provider-owned materials, or any third-party content.
+- Official/community binary assets remain excluded from the public repository by default.
+
+## GitHub homepage readiness
+
+README currently includes:
+
+- Original hero banner.
+- Project state: `alpha / preview`.
+- What problem it solves.
+- Feature matrix.
+- 12 screenshot walkthrough.
+- One-game usage flow.
+- Core capabilities.
+- AI authority boundary.
+- Quick start.
+- Backend and AI configuration.
+- Public repository / asset pack boundary.
+- Third-party notices and license note.
+
+## What remains before switching Public
+
+Only owner confirmation remains.
+
+Required explicit command from owner in chat:
+
+```text
+确认公开 GitHub
+```
+
+After that, the safe action is:
+
+```powershell
+gh repo edit Olalall/botc-storyteller-companion --visibility public
+```
+
+Optional after public:
+
+- Create first GitHub Release: `alpha-preview-20260727`.
+- Add a short pinned issue or Discussion for feedback.
+- Add an English one-paragraph summary later if desired.
+
+## Not done intentionally
+
+- Did not switch repository to Public without explicit owner confirmation.
+- Did not create a Release yet.
+- Did not upload or redistribute official/community binary art assets.
+- Did not run live AI smoke, because it requires real model credentials and may consume API quota.
