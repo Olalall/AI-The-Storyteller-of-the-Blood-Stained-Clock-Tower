@@ -109,6 +109,7 @@ P1 建议：
 
 - 第一个 GitHub Release 已创建：`alpha-preview-20260727`。地址：https://github.com/Olalall/botc-storyteller-companion/releases/tag/alpha-preview-20260727。Release Notes 见 `dev-docs/releases/alpha-preview-20260727.md`。
 - README 可后续补英文摘要，但不是公开阻塞。
+- 自托管 / VPS 手册已补充：`dev-docs/SELF_HOSTING_RUNBOOK.md`。
 - 如需获星，可补一张更像封面的项目横幅图；不是工程阻塞。
 
 ## GitHub 反馈入口

@@ -63,6 +63,7 @@
 25. `RUNTIME_MOUNT_CLOSURE_AUDIT.md`：runtime mount 收口审计。
 26. `UI_HTTP_ADAPTER_DECISION.md`：UI 是否接 HTTP adapter 的决策记录。
 27. `VPS_DEPLOYMENT_PREP.md`：VPS 部署准备和 V2.5 共存边界。
+28. `SELF_HOSTING_RUNBOOK.md`：本机/VPS 自托管运行手册，覆盖打包、同步、启动、健康检查、备份、AI 环境变量和回滚。
 
 ## 无人推进文档
 
