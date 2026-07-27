@@ -1,3 +1,19 @@
+## 2026-07-27 - 公开前 License 收口
+
+### 给非开发者看的交付说明
+- 项目已采用 MIT License，但只覆盖本仓库原创代码和原创项目文档。
+- README、LICENSE、THIRD_PARTY_NOTICES 和公开发布状态页都同步写清楚：MIT 不授权 BOTC 官方/社区脚本、角色名、规则文本、视觉素材、商标或第三方提供方材料。
+- 这一步解决的是“GitHub 公开前授权口径不明确”的阻塞；仓库仍保持 Private，是否切 Public 仍需单独执行。
+
+### Before / After
+- Before：License 是 pending，公开 GitHub 前还有一个核心阻塞。
+- After：代码授权已收口为 MIT with third-party exclusions；公开前剩余动作主要是最终审计和切换仓库可见性。
+
+### 验证
+- 后续随本轮运行 `npm run audit:public`、`npm run check` 和 `git diff --check`。
+
+### 风险
+- 这不是法律意见；MIT 只覆盖原创代码和原创文档，不覆盖 BOTC 或社区/官方/第三方内容。
 ## 2026-07-27 - License 决策指南
 
 ### 给非开发者看的交付说明
