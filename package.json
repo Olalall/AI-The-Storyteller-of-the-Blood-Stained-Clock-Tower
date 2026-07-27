@@ -20,6 +20,7 @@
     "package:vps": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/package-vps.ps1",
     "sync:vps": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/sync-to-vps.ps1",
     "smoke:smart-scripts:browser": "node scripts/run-smart-script-browser-smoke.mjs",
+    "smoke:ai-night-live": "node scripts/run-real-ai-night-quality-smoke.mjs",
     "audit:public": "node scripts/public-release-audit.mjs"
   },
   "dependencies": {

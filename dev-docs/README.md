@@ -46,9 +46,11 @@
 36. `SMART_SCRIPT_ROLE_RESEARCH_RECHECK_13_4.md`：已导入智能板子的 AI 角色调研复核、乱码修正和质量门加固。
 37. `script-import-work/batch-03/`：官方魔典 132 条可搜索剧本的来源锁定、导入队列、角色复用清点和规则风险清点。
 38. `SMOKE_HOSTING_SCENARIOS.md`：替代真实局硬门槛的模拟主持流程验收、AI 质量回归和 VPS 稳定性验证。
-39. `PUBLIC_RELEASE_BOUNDARY.md`：公开仓库、素材包、AI Key 和发布措辞边界。
-40. `GITHUB_RELEASE_CHECKLIST.md`：GitHub alpha / preview 发布前检查清单。
-41. `PUBLIC_RELEASE_FINAL_AUDIT.md`：公开发布前最终审计记录、命令结果和剩余人工决策。
+39. `AI_NIGHT_QUALITY_REGRESSION.md`：夜间 AI 复杂角色质量回归标准，规定导入新智能板子时哪些角色必须补回归。
+40. `PUBLIC_RELEASE_BOUNDARY.md`：公开仓库、素材包、AI Key 和发布措辞边界。
+41. `GITHUB_RELEASE_CHECKLIST.md`：GitHub alpha / preview 发布前检查清单。
+42. `PUBLIC_RELEASE_FINAL_AUDIT.md`：公开发布前最终审计记录、命令结果和剩余人工决策。
+43. `PROJECT_CRITIQUE_AUDIT.md`：当前项目完整度、正式版短板、P0/P1/P2 挑刺审查。
 
 ## 后端 P0 与 runtime
 
@@ -90,6 +92,7 @@
 - 能进入开局列表的必须是智能板子包，不是任意 JSON。
 - AI 输出只能是候选、草稿、提醒或润色；权威状态必须由说书人确认。
 - 复杂角色先写入 `role-research/` 调研记录，再提炼成结构化摘要；当前 71 个复杂/高风险角色摘要已接入配板 AI / 夜间 AI 上下文，但仍不能在页面里写角色 ID 专属自动结算分支。
+- 夜间 AI 建议质量按 `AI_NIGHT_QUALITY_REGRESSION.md` 加回归；涉及死亡、身份、阵营、毒醉、疯狂、延迟结算或胜负的角色，不能只靠模型自由发挥。
 - 无人推进只做 `UNATTENDED_TASK_INDEX.md` 中第一个 `Ready` 任务；完成后再自动读下一项。
 - 官方魔典 132 条已经锁定为目标池，但不能一次性全注册；必须按 `script-import-work/batch-03/IMPORT_QUEUE_132.md` 逐板闭环导入。
 - 新功能不得新增第二套玩家状态源、第二套夜序、巨型 store、角色 ID if/else 规则引擎。

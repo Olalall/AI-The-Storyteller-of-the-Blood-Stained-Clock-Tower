@@ -3,7 +3,7 @@ import { applyOutcome, outcomeReady } from '../../features/night-workbench/state
 import type { AIAdapter, CreateNightResultAdviceInput } from './types'
 import { getPrototypeAIResultTemplate } from './prototypeNightAdvice'
 import { getComplexRoleKnowledge, type ComplexRoleKnowledge, type RoleKnowledgeRiskTag } from '../../domain/role-knowledge'
-import { roleResearchForAI, type AIRoleResearchBrief } from '../../domain/scripts'
+import { roleResearchForAI, roleTeamByIdForScript, type AIRoleResearchBrief } from '../../domain/scripts'
 import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
 import { createLocalGameReviewDraft } from './gameReviewProjection'
 
@@ -23,7 +23,7 @@ function projectedAdviceDrafts({ item, draft, outcomeId, roleKnowledge, roleRese
   ].slice(0, 5)
   const authorityWarnings = [
     '采用建议只会填入本项草稿；确认本项前不写日志、不改状态。',
-    ...(roleKnowledge?.aiCannot.slice(0, 2).map((item) => `AI不能${item}`) ?? []),
+    ...(roleKnowledge?.aiCannot.slice(0, 3).map((item) => `AI不能${item}`) ?? []),
   ]
 
   return { journalDrafts, playerMessageDrafts, stateChangeDrafts, authorityWarnings }
@@ -34,11 +34,15 @@ function stateChangeDraftsFor(roleKnowledge: ComplexRoleKnowledge) {
     identity: '可能涉及身份变化：确认后从玩家卡片追加身份更改。',
     team: '可能涉及阵营变化：确认后单独记录阵营更改。',
     death: '可能涉及死亡：确认后手动更新生死状态。',
+    protection: '可能涉及保护或免死：确认后保留为候选，不自动取消死亡。',
     poison: '可能涉及中毒：确认后在玩家状态中标记。',
     drunk: '可能涉及醉酒：确认后在玩家状态中标记。',
     madness: '涉及疯狂：只给提醒和告知草稿，不判断玩家是否破疯狂。',
+    'hidden-info': '涉及隐藏信息：只生成说书人草稿，不自动发送或公开。',
+    setup: '涉及开局或人数修正：仅作为核对提醒，不在局中自动重算。',
     delayed: '存在延迟结算：确认后追加后续待办或记录。',
     discretion: '包含说书人裁量：建议仅供核对，最终由你决定。',
+    victory: '可能影响胜负：只提醒核对，不自动判定胜负。',
   }
 
   return roleKnowledge.riskTags
@@ -55,17 +59,59 @@ function researchStateChangeDraftsFor(roleResearch: AIRoleResearchBrief) {
   ].slice(0, 3)
 }
 
+function readyOutcomeId(input: CreateNightResultAdviceInput, outcomeId: string) {
+  return input.item.outcomeOptions.some((candidate) => candidate.id === outcomeId && outcomeReady(candidate, input.item, input.draft))
+    ? outcomeId
+    : undefined
+}
+
+function inferNightOutcome(input: CreateNightResultAdviceInput) {
+  const { state, item, draft } = input
+  const actorImpaired = item.status.impairments.includes('poisoned') || item.status.impairments.includes('drunk')
+  if (actorImpaired && readyOutcomeId(input, 'no-effect')) return 'no-effect'
+
+  const targetSeatId = draft.targets[0]
+  const target = targetSeatId ? state.seatSnapshots[targetSeatId] : undefined
+  const targetRoleId = target?.role?.id
+  if (!targetRoleId) return undefined
+
+  if (item.roleId === 'gambler' && draft.roleChoice) {
+    return readyOutcomeId(input, targetRoleId === draft.roleChoice ? 'correct' : 'wrong')
+  }
+
+  if (item.roleId === 'snakecharmer') {
+    const targetTeam = roleTeamByIdForScript(state.scriptId)[targetRoleId]
+    return readyOutcomeId(input, targetTeam === 'demon' ? 'swap' : 'miss')
+  }
+
+  if (item.roleId === 'fanggu') {
+    const targetTeam = roleTeamByIdForScript(state.scriptId)[targetRoleId]
+    return readyOutcomeId(input, targetTeam === 'outsider' ? 'convert' : 'kill')
+  }
+
+  if (item.roleId === 'pithag' && draft.roleChoice) {
+    const currentRoleIds = new Set(Object.values(state.seatSnapshots)
+      .map((seat) => seat.role?.id)
+      .filter((roleId): roleId is string => Boolean(roleId)))
+    return readyOutcomeId(input, currentRoleIds.has(draft.roleChoice) ? 'already-in-play' : 'changed')
+  }
+
+  return undefined
+}
+
 function createNightResultAdvice({ state, item, draft }: CreateNightResultAdviceInput) {
+  const input = { state, item, draft }
   const explicitTemplate = getPrototypeAIResultTemplate(item.id)
   const roleKnowledge = getComplexRoleKnowledge(item.roleId)
   const roleResearch = roleResearchForAI(state.scriptId, item.roleId)
   const selectedTargets = selectedNightTargetsForAI(state, draft)
   const statusFacts = nightStatusFactsForAI(item, selectedTargets)
   const fallbackOption = item.outcomeOptions.find((candidate) => outcomeReady(candidate, item, draft)) ?? item.outcomeOptions[0]
+  const inferredOutcomeId = inferNightOutcome(input)
   const template = explicitTemplate ?? (fallbackOption ? {
-    recommendedOutcomeId: fallbackOption.id,
-    summary: `建议先记录为“${fallbackOption.label}”；确认前不会改变权威状态。`,
-    facts: [`当前角色：${item.roleName}`, fallbackOption.requiredInputs.length ? '已按当前选择生成候选' : '该结果不需要额外目标'],
+    recommendedOutcomeId: inferredOutcomeId ?? fallbackOption.id,
+    summary: `建议先记录为“${item.outcomeOptions.find((option) => option.id === (inferredOutcomeId ?? fallbackOption.id))?.label ?? fallbackOption.label}”；确认前不会改变权威状态。`,
+    facts: [`当前角色：${item.roleName}`, inferredOutcomeId ? '已按当前目标身份生成核对建议' : fallbackOption.requiredInputs.length ? '已按当前选择生成候选' : '该结果不需要额外目标'],
     confidence: 'low' as const,
   } : null)
 
