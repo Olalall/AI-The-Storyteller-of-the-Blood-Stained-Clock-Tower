@@ -1,0 +1,46 @@
+{
+  "name": "botc-storyteller-companion",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:backend": "npm run build:backend && node dist-server/runtime.mjs",
+    "build": "tsc -b && vite build",
+    "build:backend": "vite build --config vite.backend.config.ts",
+    "lint": "oxlint",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:server": "vitest run server",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test",
+    "smoke:backend": "npm run build:backend && node scripts/smoke-backend-runtime.mjs",
+    "verify:architecture": "node scripts/verify-architecture.mjs",
+    "check": "npm run lint && npm run test && npm run build && npm run verify:architecture",
+    "package:vps": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/package-vps.ps1",
+    "sync:vps": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/sync-to-vps.ps1",
+    "smoke:smart-scripts:browser": "node scripts/run-smart-script-browser-smoke.mjs",
+    "audit:public": "node scripts/public-release-audit.mjs"
+  },
+  "dependencies": {
+    "@radix-ui/react-dialog": "^1.1.19",
+    "lucide-react": "^1.24.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.61.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "jsdom": "^29.1.1",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1",
+    "vitest": "^4.1.10"
+  }
+}

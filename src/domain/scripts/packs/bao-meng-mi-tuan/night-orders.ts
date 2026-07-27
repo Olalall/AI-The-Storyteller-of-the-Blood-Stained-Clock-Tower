@@ -1,0 +1,41 @@
+import type { NightOrderEntry } from '../../types'
+
+export const baoMengMiTuanFirstNight: readonly NightOrderEntry[] = [
+  {"roleId": "bureaucrat", "order": 1, "note": "官员指向一名玩家。将三票标记放在那名玩家旁。", "knowledgeStatus": "confirmed"},
+  {"roleId": "alchemist", "order": 3, "note": "展示给炼金术士一个不在场的角色标记。", "knowledgeStatus": "confirmed"},
+  {"roleId": "lunatic", "order": 7, "note": "如果有七名或更多玩家，唤醒疯子：展示“他们是你的爪牙”信息标记。指向任意对应数量的玩家。展示“这些角色不在场”信息标记。展示三个善良角色。让疯子重新入睡。唤醒恶魔。展示“你是”信息标记和恶魔角色标记。展示“这名玩家是”信息标记和疯子角色标记，然后指向疯子玩家。", "knowledgeStatus": "confirmed"},
+  {"roleId": "marionette", "order": 11, "note": "选择一个邻近恶魔的善良玩家放置提线木偶标记。唤醒恶魔并告知他谁是提线木偶。", "knowledgeStatus": "confirmed"},
+  {"roleId": "engineer", "order": 13, "note": "工程师选择不使用能力，或在剧本列表中选择恶魔或爪牙角色。如果他选择爪牙角色，则需要选择对应数量的爪牙。然后将这些玩家依次唤醒，并告知他们变成了什么角色。", "knowledgeStatus": "confirmed"},
+  {"roleId": "lilmonsta", "order": 16, "note": "唤醒所有爪牙，允许他们以指向的方式决定谁照看小怪宝，但不能产生其他交流，否则会有非常糟糕的事情发生。", "knowledgeStatus": "confirmed"},
+  {"roleId": "eviltwin", "order": 23, "note": "唤醒镜像双子和他的对立双子，让他们进行眼神接触。对镜像双子展示对立双子的角色标记，并对对立双子展示镜像双子的角色标记。", "knowledgeStatus": "confirmed"},
+  {"roleId": "witch", "order": 24, "note": "让女巫选择一名玩家。标记那名玩家被诅咒。", "knowledgeStatus": "confirmed"},
+  {"roleId": "pixie", "order": 29, "note": "对小精灵展示一个在场的镇民角色。", "knowledgeStatus": "confirmed"},
+  {"roleId": "investigator", "order": 34, "note": "展示那个爪牙角色标记。指向被你标记“爪牙”和“错误”的两名玩家。", "knowledgeStatus": "confirmed"},
+  {"roleId": "empath", "order": 36, "note": "给他展示数字手势来告诉他与他邻近的存活玩家有几人是邪恶的。", "knowledgeStatus": "confirmed"},
+  {"roleId": "grandmother", "order": 39, "note": "指向她的孙子玩家，并展示该玩家的角色标记。", "knowledgeStatus": "confirmed"},
+  {"roleId": "dreamer", "order": 41, "note": "让筑梦师指向一名玩家。对他展示善良和邪恶的角色标记各一个，其中一个是属于该玩家的角色。", "knowledgeStatus": "confirmed"},
+  {"roleId": "noble", "order": 43, "note": "以任意顺序指向三名玩家，其中一名邪恶。", "knowledgeStatus": "confirmed"},
+  {"roleId": "bountyhunter", "order": 45, "note": "指向一名邪恶玩家。随后唤醒那名因赏金猎人而转变为邪恶的镇民，并告知他变成了邪恶阵营。", "knowledgeStatus": "confirmed"},
+]
+
+export const baoMengMiTuanOtherNight: readonly NightOrderEntry[] = [
+  {"roleId": "bureaucrat", "order": 1, "note": "官员指向一名玩家。将三票标记放在那名玩家旁。", "knowledgeStatus": "confirmed"},
+  {"roleId": "bonecollector", "order": 1, "note": "集骨者选择不使用能力，或指向一名死亡玩家。放置恢复能力标记提示，并且该玩家当晚可能会因此醒来并使用能力。", "knowledgeStatus": "confirmed"},
+  {"roleId": "harlot", "order": 1, "note": "流莺选择一名玩家，将其唤醒，那名玩家选择同意或拒绝。如果同意，将他的角色标记展示给流莺看。然后说书人可以决定两名玩家是否会一起死去。", "knowledgeStatus": "confirmed"},
+  {"roleId": "engineer", "order": 6, "note": "工程师选择不使用能力，或在剧本列表中选择恶魔或爪牙角色。如果他选择爪牙角色，则需要选择对应数量的爪牙。然后将这些玩家依次唤醒，并告知他们变成了什么角色。", "knowledgeStatus": "confirmed"},
+  {"roleId": "witch", "order": 15, "note": "让女巫选择一名玩家。标记那名玩家被诅咒。", "knowledgeStatus": "confirmed"},
+  {"roleId": "pithag", "order": 17, "note": "让麻脸巫婆选择一名玩家和一个角色。如果她选择的角色不在场：让麻脸巫婆重新入睡。唤醒她的目标玩家。对该玩家展示“你是”信息标记和他的新角色标记。", "knowledgeStatus": "confirmed"},
+  {"roleId": "lunatic", "order": 21, "note": "做任何需要做的事情来模拟一位恶魔的行动。让疯子重新入睡。唤醒恶魔。对恶魔展示疯子角色标记，并指向疯子玩家，随后是疯子的攻击目标。", "knowledgeStatus": "confirmed"},
+  {"roleId": "vortox", "order": 31, "note": "让涡流选择一名玩家。标记那名玩家死亡。", "knowledgeStatus": "confirmed"},
+  {"roleId": "legion", "order": 34, "note": "由说书人决定，让哪一名玩家死亡。", "knowledgeStatus": "confirmed"},
+  {"roleId": "lilmonsta", "order": 36, "note": "唤醒所有爪牙，允许他们以指向的方式决定谁照看小怪宝，但不能产生其他交流，否则会有非常糟糕的事情发生。说书人选择一名玩家，那名玩家死亡。", "knowledgeStatus": "confirmed"},
+  {"roleId": "assassin", "order": 37, "note": "刺客可以选择一名玩家。如果他这么做了，标记那名玩家死亡，且刺客失去能力，之后的夜晚无需再唤醒刺客。", "knowledgeStatus": "confirmed"},
+  {"roleId": "farmer", "order": 46, "note": "如果农民在夜晚死去，则选择另一位善良玩家成为农民。唤醒这名玩家，并告知他成为了农民。", "knowledgeStatus": "confirmed"},
+  {"roleId": "moonchild", "order": 49, "note": "如果月之子在白天触发了死亡能力并选择了一名善良玩家，该玩家死亡。标记那名玩家死亡。", "knowledgeStatus": "confirmed"},
+  {"roleId": "grandmother", "order": 50, "note": "如果孙子被恶魔杀死，祖母也会一同死亡。标记祖母死亡。", "knowledgeStatus": "confirmed"},
+  {"roleId": "empath", "order": 53, "note": "给他展示数字手势来告诉他与他邻近的存活玩家有几人是邪恶的。", "knowledgeStatus": "confirmed"},
+  {"roleId": "dreamer", "order": 57, "note": "让筑梦师指向一名玩家。对他展示善良和邪恶的角色标记各一个，其中一个是属于该玩家的角色。", "knowledgeStatus": "confirmed"},
+  {"roleId": "towncrier", "order": 59, "note": "对他点头或摇头示意今天白天是否有爪牙发起过提名。", "knowledgeStatus": "confirmed"},
+  {"roleId": "oracle", "order": 60, "note": "给他展示数字手势来告诉他当前已死亡的玩家中有多少玩家是邪恶的。", "knowledgeStatus": "confirmed"},
+  {"roleId": "bountyhunter", "order": 65, "note": "如果赏金猎人知晓的邪恶玩家死亡，指向另一名邪恶玩家。", "knowledgeStatus": "confirmed"},
+]

@@ -1,0 +1,43 @@
+import type { NightOrderEntry } from '../../types'
+
+export const shenFenWeiJiFirstNight: readonly NightOrderEntry[] = [
+  { roleId: "alchemist", order: 3, note: "展示给炼金术士一个不在场的角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "poppygrower", order: 4, note: "不要让恶魔和爪牙相认。", knowledgeStatus: 'confirmed' },
+  { roleId: "lunatic", order: 7, note: "如果有七名或更多玩家，唤醒疯子：展示“他们是你的爪牙”信息标记。指向任意对应数量的玩家。展示“这些角色不在场”信息标记。展示三个善良角色。让疯子重新入睡。唤醒恶魔。展示“你是”信息标记和恶魔角色标记。展示“这名玩家是”信息标记和疯子角色标记，然后指向疯子玩家。", knowledgeStatus: 'confirmed' },
+  { roleId: "sailor", order: 10, note: "让水手选择一名存活玩家。标记那名玩家或水手醉酒。", knowledgeStatus: 'confirmed' },
+  { roleId: "marionette", order: 11, note: "选择一个邻近恶魔的善良玩家放置提线木偶标记。唤醒恶魔并告知他谁是提线木偶。", knowledgeStatus: 'confirmed' },
+  { roleId: "amnesiac", order: 12, note: "决定失忆者的能力。如果失忆者的能力会让他在今晚醒来：唤醒他并执行其能力。", knowledgeStatus: 'confirmed' },
+  { roleId: "preacher", order: 14, note: "传教士选择一名玩家。如果选中了爪牙，则唤醒并告知他被传教士选中。", knowledgeStatus: 'confirmed' },
+  { roleId: "lleech", order: 15, note: "寄生蛭指向一名玩家。放置寄生标记，那名玩家中毒。", knowledgeStatus: 'confirmed' },
+  { roleId: "lilmonsta", order: 16, note: "唤醒所有爪牙，允许他们以指向的方式决定谁照看小怪宝，但不能产生其他交流，否则会有非常糟糕的事情发生。", knowledgeStatus: 'confirmed' },
+  { roleId: "snakecharmer", order: 20, note: "让舞蛇人选择一名玩家。如果舞蛇人选中了恶魔：展示“你是”信息标记和恶魔角色标记。用拇指向下代表他阵营变为邪恶。在魔典中交换舞蛇人和恶魔的角色标记。让原来的舞蛇人重新入睡。唤醒原来的恶魔。对老恶魔展示“你是”信息标记和舞蛇人角色标记，并用拇指向上代表他阵营变为善良。", knowledgeStatus: 'confirmed' },
+  { roleId: "cerenovus", order: 25, note: "让洗脑师选择一名玩家和一个善良角色。标记那名玩家疯狂。让洗脑师重新入睡。唤醒洗脑师的目标。对这名玩家展示“该角色的能力对你生效”信息标记，洗脑师角色标记，该玩家需要疯狂证明的角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "mezepheles", order: 27, note: "告诉灵言师他的秘密词语。", knowledgeStatus: 'confirmed' },
+  { roleId: "pixie", order: 29, note: "对小精灵展示一个在场的镇民角色。", knowledgeStatus: 'confirmed' },
+  { roleId: "balloonist", order: 44, note: "选择一种角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。", knowledgeStatus: 'confirmed' },
+  { roleId: "bountyhunter", order: 45, note: "指向一名邪恶玩家。随后唤醒那名因赏金猎人而转变为邪恶的镇民，并告知他变成了邪恶阵营。", knowledgeStatus: 'confirmed' },
+  { roleId: "general", order: 49, note: "告诉将军你认为的答案。", knowledgeStatus: 'confirmed' },
+]
+
+export const shenFenWeiJiOtherNight: readonly NightOrderEntry[] = [
+  { roleId: "poppygrower", order: 3, note: "如果罂粟种植者死亡，安排恶魔和爪牙相认环节。", knowledgeStatus: 'confirmed' },
+  { roleId: "sailor", order: 4, note: "让水手选择一名存活玩家。标记那名玩家或水手醉酒。", knowledgeStatus: 'confirmed' },
+  { roleId: "amnesiac", order: 5, note: "如果失忆者的能力会让他在今晚醒来：唤醒他并执行其能力。", knowledgeStatus: 'confirmed' },
+  { roleId: "preacher", order: 7, note: "传教士选择一名玩家。如果选中了爪牙，则唤醒并告知他被传教士选中。", knowledgeStatus: 'confirmed' },
+  { roleId: "gambler", order: 11, note: "让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "snakecharmer", order: 12, note: "让舞蛇人选择一名玩家。如果舞蛇人选中了恶魔：展示“你是”信息标记和恶魔角色标记。用拇指向下代表他阵营变为邪恶。在魔典中交换舞蛇人和恶魔的角色标记。让原来的舞蛇人重新入睡。唤醒原来的恶魔。对老恶魔展示“你是”信息标记和舞蛇人角色标记，并用拇指向上代表他阵营变为善良。", knowledgeStatus: 'confirmed' },
+  { roleId: "cerenovus", order: 16, note: "让洗脑师选择一名玩家和一个善良角色。标记那名玩家疯狂。让洗脑师重新入睡。唤醒洗脑师的目标。对这名玩家展示“该角色的能力对你生效”信息标记，洗脑师角色标记，该玩家需要疯狂证明的角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "pithag", order: 17, note: "让麻脸巫婆选择一名玩家和一个角色。如果她选择的角色不在场：让麻脸巫婆重新入睡。唤醒她的目标玩家。对该玩家展示“你是”信息标记和他的新角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "mezepheles", order: 19, note: "唤醒第一个说出灵言师词语的玩家并告知他已经变成邪恶阵营。", knowledgeStatus: 'confirmed' },
+  { roleId: "lunatic", order: 21, note: "做任何需要做的事情来模拟一位恶魔的行动。让疯子重新入睡。唤醒恶魔。对恶魔展示疯子角色标记，并指向疯子玩家，随后是疯子的攻击目标。", knowledgeStatus: 'confirmed' },
+  { roleId: "fanggu", order: 29, note: "让方古选择一名玩家。标记那名玩家死亡。如果他选择了外来者，且“首次”标记未放置在魔典中：用备用的方古角色标记替换那名外来者的角色标记。让方古重新入睡。唤醒方古的目标玩家。对该玩家展示“你是”信息标记和方古角色标记，并用拇指向下代表他阵营变为邪恶。将“首次”标记放置在魔典中。标记原本的方古玩家死亡，且他选择的玩家不会被标记为死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "alhadikhia", order: 33, note: "哈迪寂亚选择三名玩家。对所有人宣告第一位玩家，然后唤醒他并让他秘密选择活着还是死去。依次对第二第三位玩家如此做。如果三名玩家都选择活着，他们都死去。", knowledgeStatus: 'confirmed' },
+  { roleId: "lleech", order: 35, note: "寄生蛭指向一名玩家。那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "lilmonsta", order: 36, note: "唤醒所有爪牙，允许他们以指向的方式决定谁照看小怪宝，但不能产生其他交流，否则会有非常糟糕的事情发生。说书人选择一名玩家，那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "barber", order: 40, note: "如果理发师今天死亡了，唤醒恶魔并展示“该角色的效果对你生效”信息标记和理发师角色标记。如果恶魔选择了两名玩家，将这两名玩家分别独自唤醒。对他们展示“你是”信息标记和他们的新角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "farmer", order: 46, note: "如果农民在夜晚死去，则选择另一位善良玩家成为农民。唤醒这名玩家，并告知他成为了农民。", knowledgeStatus: 'confirmed' },
+  { roleId: "moonchild", order: 49, note: "如果月之子在白天触发了死亡能力并选择了一名善良玩家，该玩家死亡。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "balloonist", order: 63, note: "选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", knowledgeStatus: 'confirmed' },
+  { roleId: "bountyhunter", order: 65, note: "如果赏金猎人知晓的邪恶玩家死亡，指向另一名邪恶玩家。", knowledgeStatus: 'confirmed' },
+  { roleId: "general", order: 69, note: "告诉将军你认为的答案。", knowledgeStatus: 'confirmed' },
+]

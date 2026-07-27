@@ -1,0 +1,42 @@
+import type { NightOrderEntry } from '../../types'
+
+export const siDongFeiDongFirstNightOrder: readonly NightOrderEntry[] = [
+  { roleId: "thief", order: 1, note: "窃贼指向一名玩家。将负票标记放在那名玩家旁。", knowledgeStatus: 'confirmed' },
+  { roleId: "apprentice", order: 1, note: "对学徒展示一个镇民或爪牙标记。在魔典中，用那个角色标记代替学徒标记，并在一旁标识该玩家是学徒。", knowledgeStatus: 'confirmed' },
+  { roleId: "bureaucrat", order: 1, note: "官员指向一名玩家。将三票标记放在那名玩家旁。", knowledgeStatus: 'confirmed' },
+  { roleId: "barista", order: 1, note: "说书人选择一名玩家唤醒，并告诉他触发了咖啡师的什么效果。", knowledgeStatus: 'confirmed' },
+  { roleId: "godfather", order: 21, note: "对他展示所有在场的外来者标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "harpy", order: 26, note: "唤醒鹰身女妖并让他依次指向两名玩家。标记第一名玩家“疯狂”，标记第二名玩家“第二名”。", knowledgeStatus: 'confirmed' },
+  { roleId: "pukka", order: 28, note: "让普卡选择一名玩家。标记那名玩家中毒。", knowledgeStatus: 'confirmed' },
+  { roleId: "chef", order: 35, note: "给他展示数字手势来告诉他场上邻座邪恶玩家有多少对。", knowledgeStatus: 'confirmed' },
+  { roleId: "knight", order: 42, note: "唤醒骑士，然后指向标记了“得知”的两名玩家。", knowledgeStatus: 'confirmed' },
+  { roleId: "balloonist", order: 44, note: "选择一种角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。", knowledgeStatus: 'confirmed' },
+  { roleId: "bountyhunter", order: 45, note: "指向一名邪恶玩家。随后唤醒那名因赏金猎人而转变为邪恶的镇民，并告知他变成了邪恶阵营。", knowledgeStatus: 'confirmed' },
+  { roleId: "mathematician", order: 51, note: "给他展示数字手势来告诉他在首个夜晚里有多少玩家的角色能力受他人影响而未正常生效。", knowledgeStatus: 'confirmed' },
+]
+
+export const siDongFeiDongOtherNightOrder: readonly NightOrderEntry[] = [
+  { roleId: "harlot", order: 1, note: "流莺选择一名玩家，将其唤醒，那名玩家选择同意或拒绝。如果同意，将他的角色标记展示给流莺看。然后说书人可以决定两名玩家是否会一起死去。", knowledgeStatus: 'confirmed' },
+  { roleId: "thief", order: 1, note: "窃贼指向一名玩家。将负票标记放在那名玩家旁。", knowledgeStatus: 'confirmed' },
+  { roleId: "bureaucrat", order: 1, note: "官员指向一名玩家。将三票标记放在那名玩家旁。", knowledgeStatus: 'confirmed' },
+  { roleId: "bonecollector", order: 1, note: "集骨者选择不使用能力，或指向一名死亡玩家。放置恢复能力标记提示，并且该玩家当晚可能会因此醒来并使用能力。", knowledgeStatus: 'confirmed' },
+  { roleId: "barista", order: 1, note: "说书人选择一名玩家唤醒，并告诉他触发了咖啡师的什么效果。", knowledgeStatus: 'confirmed' },
+  { roleId: "innkeeper", order: 9, note: "让旅店老板选择两名玩家。标记这两名玩家不会死亡，并标记其中一人醉酒。", knowledgeStatus: 'confirmed' },
+  { roleId: "gambler", order: 11, note: "让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "harpy", order: 18, note: "唤醒鹰身女妖并让他依次指向两名玩家。标记第一名玩家“疯狂”，标记第二名玩家“第二名”。", knowledgeStatus: 'confirmed' },
+  { roleId: "scarletwoman", order: 20, note: "如果红唇女郎今天变成了小恶魔，对她展示“你是”信息标记，和小恶魔角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "exorcist", order: 22, note: "让驱魔人选择一名玩家，不能是上一夜他选择过的玩家。让驱魔人重新入睡。如果驱魔人选中了恶魔：唤醒恶魔。展示“该角色的能力对你生效”信息标记和驱魔人角色标记。指向驱魔人玩家。", knowledgeStatus: 'confirmed' },
+  { roleId: "pukka", order: 26, note: "让普卡选择一名玩家。标记那名玩家中毒。上一个因普卡中毒的玩家死亡，随后恢复健康。", knowledgeStatus: 'confirmed' },
+  { roleId: "po", order: 28, note: "珀可以选择一名玩家；或如果上一次他被唤醒时未做选择，让他选择三名玩家。标记这些玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "nodashii", order: 30, note: "让诺-达鲺选择一名玩家。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "ojo", order: 36, note: "唤醒奥赫。让奥赫指向角色列表上的一个角色标记。如果被选择的角色在场，对应的玩家死亡——使用“死亡”提示标记标记那名玩家。如果被选择的角色不在场，那么改为你来选择任意一名玩家，那名玩家死亡——使用“死亡”提示标记标记那名玩家。让奥赫重新入睡。", knowledgeStatus: 'confirmed' },
+  { roleId: "godfather", order: 38, note: "如果有外来者在今天白天死亡，让教父选择一名玩家。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "barber", order: 40, note: "如果理发师今天死亡了，唤醒恶魔并展示“该角色的效果对你生效”信息标记和理发师角色标记。如果恶魔选择了两名玩家，将这两名玩家分别独自唤醒。对他们展示“你是”信息标记和他们的新角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "gossip", order: 47, note: "如果白天的声明为真，会有一名玩家死亡，并由说书人来选择一名玩家，标记该玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "tinker", order: 48, note: "修补匠可能会死亡。如果说书人选择让修补匠死亡，放置死亡标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "moonchild", order: 49, note: "如果月之子在白天触发了死亡能力并选择了一名善良玩家，该玩家死亡。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "oracle", order: 60, note: "给他展示数字手势来告诉他当前已死亡的玩家中有多少玩家是邪恶的。", knowledgeStatus: 'confirmed' },
+  { roleId: "balloonist", order: 63, note: "选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", knowledgeStatus: 'confirmed' },
+  { roleId: "bountyhunter", order: 65, note: "如果赏金猎人知晓的邪恶玩家死亡，指向另一名邪恶玩家。", knowledgeStatus: 'confirmed' },
+  { roleId: "mathematician", order: 71, note: "给他展示数字手势来告诉他从上个黎明到数学家醒来前有多少玩家的角色能力受他人影响而未正常生效。", knowledgeStatus: 'confirmed' },
+]

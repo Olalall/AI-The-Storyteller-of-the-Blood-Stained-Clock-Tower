@@ -1,0 +1,104 @@
+.opening-script {
+  width: min(820px, 100%);
+  min-height: calc(100dvh - 97px);
+  margin: 0 auto;
+  padding: clamp(var(--space-20), 4cqw, var(--space-32));
+  display: grid;
+}
+
+.opening-script__preview,
+.opening-script__editor {
+  align-self: start;
+  display: grid;
+  gap: var(--space-20);
+}
+
+.opening-script__preview > span,
+.opening-script__editor label {
+  color: var(--accent-text);
+  font-size: var(--type-meta);
+  font-weight: 800;
+  letter-spacing: .1em;
+}
+
+.opening-script__preview > p {
+  margin: 0;
+  color: var(--text-body);
+  font: 700 clamp(1.25rem, 3vw, 1.8rem)/1.7 var(--font-display);
+  white-space: pre-wrap;
+}
+
+.opening-script__editor label {
+  display: grid;
+  gap: var(--space-10);
+}
+
+.opening-script__editor textarea {
+  min-height: min(46dvh, 480px);
+  resize: vertical;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  padding: var(--space-16);
+  background: var(--surface-soft);
+  color: var(--text-strong);
+  font: var(--type-body)/1.65 var(--font-body);
+}
+
+.opening-script__editor textarea:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.opening-script__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-12);
+}
+
+.opening-script__actions .ui-button {
+  flex: 1 1 160px;
+}
+
+.opening-script__restore {
+  justify-self: start;
+}
+
+.opening-script__display {
+  min-height: calc(100dvh - 97px);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: clamp(var(--space-24), 5vh, var(--space-40));
+  text-align: center;
+}
+
+.opening-script__display > span {
+  color: var(--accent-text);
+  font-size: var(--type-label);
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+
+.opening-script__display > p {
+  max-width: 19em;
+  margin: 0;
+  color: var(--text-strong);
+  font: 800 clamp(1.8rem, 5vw, 3.4rem)/1.6 var(--font-display);
+  white-space: pre-wrap;
+}
+
+@media (max-width: 560px) {
+  .opening-script {
+    min-height: calc(100dvh - 89px);
+    padding: var(--space-20) var(--space-16);
+  }
+
+  .opening-script__actions .ui-button,
+  .opening-script__restore {
+    width: 100%;
+  }
+
+  .opening-script__display {
+    min-height: calc(100dvh - 89px);
+  }
+}

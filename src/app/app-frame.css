@@ -1,0 +1,18 @@
+.app-frame {
+  min-height: 100dvh;
+  background: var(--surface-base);
+  container: app-frame / inline-size;
+}
+
+.app-frame__body { min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); }
+.app-frame__rail { display: none; min-width: 0; }
+.app-frame__workspace { min-width: 0; }
+
+@container app-frame (min-width: 1024px) {
+  .app-frame[data-has-rail='true'] .app-frame__body { grid-template-columns: 216px minmax(0, 1fr); }
+  .app-frame[data-has-rail='true'] .app-frame__rail { display: block; }
+}
+
+@container app-frame (min-width: 1280px) {
+  .app-frame[data-has-rail='true'] .app-frame__body { grid-template-columns: 264px minmax(0, 1fr); }
+}

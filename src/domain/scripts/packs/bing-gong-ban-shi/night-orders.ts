@@ -1,0 +1,40 @@
+import type { NightOrderEntry } from '../../types'
+
+export const bingGongBanShiFirstNightOrder: readonly NightOrderEntry[] = [
+  { roleId: "officialstoryteller", order: 1, note: "《秉公办事V6.0》这个剧本是清清对维齐尔和华灯初上的角色设计的特制剧本。", knowledgeStatus: 'confirmed' },
+  { roleId: "djinn", order: 2, note: "说书人宣布三条相克规则。", knowledgeStatus: 'confirmed' },
+  { roleId: "alchemist", order: 3, note: "展示给炼金术士一个不在场的爪牙标记", knowledgeStatus: 'confirmed' },
+  { roleId: "qianke", order: 4, note: "唤醒掮客，让他指向两名存活玩家。如果这两名玩家阵营相同，在这些玩家的角色标记旁放置“熟客”提示标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "lunatic", order: 5, note: "如果有七名或更多玩家，唤醒疯子：展示“他们是你的爪牙”信息标记。指向任意对应数量的玩家。展示“这些角色不在场”信息标记。展示三个善良角色。让疯子重新入睡。唤醒恶魔。展示“你是”信息标记和恶魔角色标记。展示“这名玩家是”信息标记和疯子角色标记，然后指向疯子玩家。", knowledgeStatus: 'confirmed' },
+  { roleId: "poppygrower", order: 6, note: "不要让恶魔和爪牙相认。", knowledgeStatus: 'confirmed' },
+  { roleId: "taowu", order: 7, note: "（清清自编）不要唤醒拿到梼杌的玩家，他不会得知自己的爪牙是谁，也不会得知三个不在场的角色。", knowledgeStatus: 'confirmed' },
+  { roleId: "godfather", order: 8, note: "对他展示所有在场的外来者标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "pixie", order: 9, note: "对小精灵展示“这些角色在场”和被标记了疯狂的角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "damsel", order: 10, note: "如果落难少女被巡山人选中，唤醒落难少女，展示“你是”信息标记和一个不在场的镇民角色标记，将落难少女的角色标记替换成新的镇民角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "grandmother", order: 11, note: "指向她的孙子玩家，并展示该玩家的角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "nichen", order: 12, note: "让逆臣选择一名玩家，在那名玩家上放置“不共戴天”标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "general", order: 13, note: "对将军展示：用拇指向上代表善良优势、向下代表邪恶优势、两边代表双方均势。", knowledgeStatus: 'confirmed' },
+  { roleId: "vizier", order: 14, note: "告诉所有玩家维齐尔在场，并指向维齐尔玩家。", knowledgeStatus: 'confirmed' },
+  { roleId: "investigator", order: 15, note: "展示那个爪牙角色标记。指向被你标记“爪牙”和“错误”的两名玩家。", knowledgeStatus: 'confirmed' },
+]
+
+export const bingGongBanShiOtherNightOrder: readonly NightOrderEntry[] = [
+  { roleId: "wudaozhe", order: 1, note: "如果白天有邪恶玩家的能力对悟道者造成影响，告知悟道者变成一个不在场的镇民。", knowledgeStatus: 'confirmed' },
+  { roleId: "qianke", order: 2, note: "移除上个夜晚放置的“熟客”标记。唤醒掮客，让他指向两名存活玩家。如果这两名玩家阵营相同，在这些玩家的角色标记旁放置“熟客”提示标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "poppygrower", order: 3, note: "如果罂粟种植者死亡，安排恶魔和爪牙相认环节。", knowledgeStatus: 'confirmed' },
+  { roleId: "gambler", order: 4, note: "让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "jinyiwei", order: 5, note: "移除上个夜晚放置的“保护”标记。唤醒锦衣卫，让其选择一名玩家。在该玩家角色标记旁放置“保护”提示标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "nichen", order: 6, note: "如果逆臣或标记了“不共戴天”的玩家死于处决，唤醒两者之中的另一名玩家，告诉他变为邪恶阵营。", knowledgeStatus: 'confirmed' },
+  { roleId: "pithag", order: 7, note: "让麻脸巫婆选择一名玩家和一个角色。如果她选择的角色不在场：让麻脸巫婆重新入睡。唤醒她的目标玩家。对该玩家展示“你是”信息标记和他的新角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "lunatic", order: 8, note: "做任何需要做的事情来模拟一位恶魔的行动。让疯子重新入睡。唤醒恶魔。对恶魔展示疯子角色标记，并指向疯子玩家，随后是疯子的攻击目标。", knowledgeStatus: 'confirmed' },
+  { roleId: "imp", order: 9, note: "让小恶魔选择一名玩家。标记那名玩家死亡。如果小恶魔选择了自己：用一个备用的小恶魔标记替换一个存活的爪牙角色标记。让原来的小恶魔重新入睡。唤醒新的小恶魔。对他展示“你是”信息标记，和小恶魔角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "alhadikhia", order: 10, note: "哈迪寂亚选择三名玩家。对所有人宣告第一位玩家，然后唤醒他并让他秘密选择活着还是死去。依次对第二第三位玩家如此做。如果三名玩家都选择活着，他们都死去。", knowledgeStatus: 'confirmed' },
+  { roleId: "taowu", order: 11, note: "（清清自编）让梼杌选择一名玩家。标记那名玩家死亡。如果梼杌选择了自己，在一名存活且具有能力的爪牙身边放置“失去能力”标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "qiongqi", order: 12, note: "（清清自编）让穷奇选择一名玩家。如果白天没有外来者死亡，标记该玩家死亡。如果白天有外来者死亡，标记该玩家“视为存活”。说书人选择一名玩家，那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "godfather", order: 13, note: "如果有外来者在今天白天死亡，让教父选择一名玩家。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "professor", order: 14, note: "教授可以选择一名死亡玩家。如果他这么做了，标记教授失去能力，然后如果那名玩家是镇民，标记那名玩家被复活。之后的夜晚无需再唤醒教授。", knowledgeStatus: 'confirmed' },
+  { roleId: "moonchild", order: 15, note: "如果月之子在白天触发了死亡能力并选择了一名善良玩家，该玩家死亡。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "grandmother", order: 16, note: "如果孙子被恶魔杀死，祖母也会一同死亡。标记祖母死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "damsel", order: 17, note: "如果落难少女被巡山人选中，唤醒落难少女，展示“你是”信息标记和一个不在场的镇民角色标记，将落难少女的角色标记替换成新的镇民角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "general", order: 18, note: "对将军展示：用拇指向上代表善良优势、向下代表邪恶优势、两边代表双方均势。", knowledgeStatus: 'confirmed' },
+]

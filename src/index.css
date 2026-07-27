@@ -1,0 +1,9 @@
+@import './styles/tokens.css';
+
+* { box-sizing: border-box; }
+html { color-scheme: dark; background: var(--surface-base); }
+html, body, #root { min-width: 320px; min-height: 100%; margin: 0; }
+body { font-family: var(--font-body); font-size: var(--type-body); line-height: var(--line-body); background: var(--surface-base); color: var(--text-strong); -webkit-font-smoothing: antialiased; }
+button, input, textarea, select { font: inherit; }
+button { -webkit-tap-highlight-color: transparent; }
+::selection { background: var(--accent); color: #17120a; }

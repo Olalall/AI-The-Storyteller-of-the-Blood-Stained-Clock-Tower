@@ -1,0 +1,317 @@
+import { render, screen, waitFor } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { useMemo } from 'react'
+import { beforeEach, describe, expect, it } from 'vitest'
+import { gameSessionStorageKey } from '../game-session/data/createPrototypeSession'
+import { projectNightConfirmedRecords } from '../game-session/state/projectors'
+import { useGameSession } from '../game-session/state/useGameSession'
+import type { GameSessionState } from '../game-session/types'
+import { NightWorkbench } from './NightWorkbench'
+
+describe('NightWorkbench', () => {
+  beforeEach(() => window.localStorage.clear())
+
+  function NightWorkbenchHarness() {
+    const { session, dispatch } = useGameSession()
+    const sessionBinding = useMemo(() => ({ session, dispatchSession: dispatch }), [session, dispatch])
+    return <NightWorkbench sessionBinding={sessionBinding} onExit={() => undefined} />
+  }
+
+  function storedState() {
+    const session = storedSession()
+    const activeNightRunId = session.activeNightRunId
+    const run = activeNightRunId ? session.nightRuns[activeNightRunId] : undefined
+    return {
+      ...run,
+      confirmedRecords: activeNightRunId ? projectNightConfirmedRecords(session, activeNightRunId) : {},
+      roleChangeEvents: session.timeline.filter((entry) => entry.kind === 'setup_changed'),
+    } as any
+  }
+
+  function storedSession() {
+    return JSON.parse(window.localStorage.getItem(gameSessionStorageKey) ?? '{}') as GameSessionState
+  }
+
+  async function completeCurrentDraft(user: ReturnType<typeof userEvent.setup>) {
+    await user.click(screen.getByRole('button', { name: '选择3号玩家' }))
+    await user.click(screen.getByRole('button', { name: '调查员' }))
+  }
+
+  async function prepareCurrentAI(user: ReturnType<typeof userEvent.setup>) {
+    await user.click(screen.getByRole('button', { name: '选择3号玩家' }))
+    await user.click(screen.getByRole('button', { name: '调查员' }))
+  }
+  it('opens the night order on the current game by default', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+
+    await user.click(screen.getByRole('button', { name: /夜间顺序/ }))
+
+    expect(screen.getByRole('dialog')).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '夜间顺序' })).toBeInTheDocument()
+    expect(screen.getByRole('tab', { name: '本局' })).toHaveAttribute('aria-selected', 'true')
+    expect(screen.getByText(/本局 · 10项/)).toBeInTheDocument()
+  })
+
+  it('shows the official order read-only without moving the game cursor', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+
+    await user.click(screen.getByRole('button', { name: /夜间顺序/ }))
+    await user.click(screen.getByRole('tab', { name: '官方' }))
+
+    expect(screen.getByText(/官方 · 其他夜 · 99项/)).toBeInTheDocument()
+    expect(screen.getByText('Duchess')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: /预览夜序第1项/ })).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: '关闭夜间顺序' }))
+    await user.click(screen.getByRole('button', { name: /夜间顺序/ }))
+    expect(screen.getByRole('tab', { name: '本局' })).toHaveAttribute('aria-selected', 'true')
+  })
+
+  it('keeps every confirmed queue item backed by an immutable record snapshot', async () => {
+    render(<NightWorkbenchHarness />)
+
+    await waitFor(() => expect(window.localStorage.getItem(gameSessionStorageKey)).not.toBeNull())
+    const state = storedState()
+    const confirmedItems = state.queue.filter((item: { progress: string }) => item.progress === 'confirmed')
+
+    expect(confirmedItems.length).toBeGreaterThan(0)
+    for (const item of confirmedItems) {
+      expect(state.confirmedRecords[item.id]?.length).toBeGreaterThan(0)
+    }
+  })
+
+  it('previews the next role without moving the authoritative cursor', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+
+    await user.click(screen.getByRole('button', { name: '预览下一位' }))
+
+    expect(screen.getByText('正在预览')).toBeInTheDocument()
+    expect(screen.getByRole('region', { name: '夜间角色预览' })).toHaveTextContent('洗脑师')
+    expect(screen.queryByRole('button', { name: '确认本项' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '确认并下一位' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '退出预览，回到正在处理的10号 洗脑师；夜间处理位置不变' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '将夜间处理位置切换到11号 麻脸巫婆；不确认或保存记录' })).toBeEnabled()
+
+    await user.click(screen.getByRole('button', { name: '退出预览，回到正在处理的10号 洗脑师；夜间处理位置不变' }))
+    expect(screen.queryByText('正在预览')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '确认本项' })).toBeInTheDocument()
+  })
+
+  it('uses the default next destination after confirmation', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+
+    await completeCurrentDraft(user)
+    expect(screen.getByRole('button', { name: '确认并下一位' })).toBeEnabled()
+    await user.click(screen.getByRole('button', { name: '确认并下一位' }))
+
+    expect(screen.getByRole('region', { name: '夜间角色预览' })).toHaveTextContent('麻脸巫婆')
+    expect(screen.getByText(/当前进入11号 · 玩家11/)).toBeInTheDocument()
+    await waitFor(() => {
+      const latest = storedState().confirmedRecords['night-3-cerenovus'].at(-1)
+      expect(latest.snapshot.outputSource).toEqual({ kind: 'preset', templateId: 'applied', specVersion: 'click-flow-1' })
+    })
+  })
+
+  it('can confirm and stay without creating a second completion action', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+
+    await completeCurrentDraft(user)
+    await user.click(screen.getByRole('button', { name: '确认本项' }))
+
+    expect(screen.getByRole('region', { name: '夜间角色预览' })).toHaveTextContent('洗脑师')
+    expect(screen.getByRole('button', { name: /进入下一位/ })).toBeEnabled()
+    await waitFor(() => expect(storedState().confirmedRecords['night-3-cerenovus']).toHaveLength(1))
+  })
+
+  it('applies an AI suggestion to the draft but keeps confirmation manual', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+    await prepareCurrentAI(user)
+    await user.click(screen.getByRole('button', { name: 'AI推荐' }))
+    await waitFor(() => expect(screen.getAllByText('AI草稿').length).toBeGreaterThan(0))
+    expect(screen.getByText('已采用到草稿。')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'AI推荐' })).not.toBeInTheDocument()
+    expect(screen.getAllByText('AI建议').length).toBeGreaterThan(0)
+    expect(screen.getByRole('button', { name: '受到影响，AI建议' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getAllByText('明天请疯狂地声称自己是调查员。').length).toBeGreaterThan(0)
+    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    await waitFor(() => {
+      const state = storedState()
+      expect(state.confirmedRecords['night-3-cerenovus']).toBeUndefined()
+      expect(state.activeCursorId).toBe('night-3-cerenovus')
+      expect(Object.keys(state.aiAdviceLog)).toHaveLength(1)
+    })
+
+    await user.click(screen.getByRole('button', { name: '确认本项' }))
+    await waitFor(() => {
+      const source = storedState().confirmedRecords['night-3-cerenovus'].at(-1).snapshot.outputSource
+      expect(source.kind).toBe('ai')
+      expect(source.adviceId).toContain('night-3-cerenovus-ai-')
+      expect(source.knowledgeVersion).toBe('catfishing-11.1.1+nightsheet-99a2815b')
+    })
+  })
+  it('keeps missing AI inputs visible on the current card until the draft changes', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+    await user.click(screen.getByRole('button', { name: 'AI推荐' }))
+    expect(await screen.findByText('AI缺少')).toBeInTheDocument()
+    expect(screen.getAllByText(/缺少玩家、缺少声称角色/)).toHaveLength(2)
+    expect(screen.getByText('补齐后可重新推荐')).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '受到影响，AI建议' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '确认本项' })).toBeDisabled()
+    await waitFor(() => expect(Object.keys(storedState().aiAdviceLog)).toHaveLength(1))
+    expect(storedState().confirmedRecords['night-3-cerenovus']).toBeUndefined()
+    await user.click(screen.getByRole('button', { name: '选择3号玩家' }))
+    expect(screen.queryByText('AI缺少')).not.toBeInTheDocument()
+  })
+  it('marks an AI result when the storyteller overrides it', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+    await prepareCurrentAI(user)
+    await user.click(screen.getByRole('button', { name: 'AI推荐' }))
+    await waitFor(() => expect(screen.getAllByText('AI建议').length).toBeGreaterThan(0))
+
+    await user.click(screen.getByRole('button', { name: '未受影响' }))
+
+    expect(screen.getByText('已改为手动结果')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'AI推荐' })).toBeEnabled()
+  })
+
+  it('generates the record from clicks and invalidates it when a selection changes', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+    expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
+    await completeCurrentDraft(user)
+    expect(screen.getByText('明天请疯狂地声称自己是调查员。')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '受到影响' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('region', { name: '确认前预览' })).toHaveTextContent(/确认后写入.*不自动改身份、阵营、死亡、毒醉。/s)
+    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    await waitFor(() => {
+      const draft = storedState().drafts['night-3-cerenovus']
+      expect(draft.playerChoice).toBe('选择3号 · 声称角色：调查员')
+      expect(draft.storytellerResult).toBe('10号洗脑师选择3号成为调查员，目标受到影响。')
+    })
+
+    await user.click(screen.getByRole('button', { name: '选择4号玩家' }))
+    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    await waitFor(() => expect(storedState().drafts['night-3-cerenovus'].storytellerResult).toBe('10号洗脑师选择4号成为调查员，目标受到影响。'))
+  })
+
+  it('locks a confirmed record and only allows an appended correction', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+    await completeCurrentDraft(user)
+    await user.click(screen.getByRole('button', { name: '确认本项' }))
+
+    expect(screen.getByRole('button', { name: '受到影响' })).toBeDisabled()
+    await user.click(screen.getByRole('button', { name: /追加更正/ }))
+    expect(screen.getByRole('button', { name: '确认更正' })).toBeEnabled()
+    await user.click(screen.getByRole('button', { name: '选择4号玩家' }))
+    await user.click(screen.getByRole('button', { name: '未受影响' }))
+    await user.click(screen.getByRole('button', { name: '确认更正' }))
+
+    expect(screen.getByText(/更正记录已追加/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '未受影响' })).toBeDisabled()
+    await waitFor(() => {
+      const records = storedState().confirmedRecords['night-3-cerenovus']
+      expect(records).toHaveLength(2)
+      expect(records[1].correctionOf).toBe(records[0].id)
+      expect(records[1].snapshot.storytellerResult).toBe('10号洗脑师选择4号成为调查员，目标未受影响。')
+    })
+  })
+
+  it('cancels a correction without changing the confirmed record', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+    await completeCurrentDraft(user)
+    await user.click(screen.getByRole('button', { name: '确认本项' }))
+    await user.click(screen.getByRole('button', { name: /追加更正/ }))
+    await user.click(screen.getByRole('button', { name: '选择4号玩家' }))
+
+    await user.click(screen.getByRole('button', { name: '暂不更正' }))
+
+    expect(screen.getByText(/原记录未变化/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '受到影响' })).toBeDisabled()
+    await waitFor(() => {
+      const state = storedState()
+      expect(state.confirmedRecords['night-3-cerenovus']).toHaveLength(1)
+      expect(state.drafts['night-3-cerenovus'].targets).toEqual([3])
+      expect(state.correctionItemId).toBeNull()
+      expect(state.queue.find((item: { id: string }) => item.id === 'night-3-cerenovus').progress).toBe('confirmed')
+    })
+  })
+
+  it('defers without moving and can explicitly restore the deferred item', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+
+    await user.click(screen.getByRole('button', { name: '稍后处理' }))
+    expect(screen.getByRole('region', { name: '夜间角色预览' })).toHaveTextContent('洗脑师')
+    expect(screen.getByText(/夜间光标未移动/)).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /进入下一位/ }))
+    expect(screen.getByRole('region', { name: '夜间角色预览' })).toHaveTextContent('麻脸巫婆')
+
+    await user.click(screen.getByRole('button', { name: /夜间顺序/ }))
+    await user.click(screen.getByRole('button', { name: '预览夜序第4项：10号洗脑师' }))
+    await user.click(screen.getByRole('button', { name: '将夜间处理位置切换到10号 洗脑师；不确认或保存记录' }))
+    expect(screen.getByRole('region', { name: '夜间角色预览' })).toHaveTextContent('洗脑师')
+    expect(screen.getByRole('button', { name: '恢复处理' })).toBeEnabled()
+    expect(storedState().queue.find((item: { id: string }) => item.id === 'night-3-cerenovus').progress).toBe('deferred')
+
+    await user.click(screen.getByRole('button', { name: '恢复处理' }))
+    expect(storedState().queue.find((item: { id: string }) => item.id === 'night-3-cerenovus').progress).toBe('pending')
+  })
+
+  it('conceals role, draft, history and AI content together', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+    await prepareCurrentAI(user)
+    await user.click(screen.getByRole('button', { name: 'AI推荐' }))
+    await waitFor(() => expect(screen.getAllByText('AI建议').length).toBeGreaterThan(0))
+
+    await user.click(screen.getByRole('button', { name: '展示信息' }))
+    await user.click(screen.getByRole('button', { name: '收起并遮蔽' }))
+    expect(screen.getByText('已遮蔽')).toBeInTheDocument()
+    expect(screen.queryByText('存活')).not.toBeInTheDocument()
+    expect(screen.queryByText('10号洗脑师选择3号成为调查员，目标受到影响。')).not.toBeInTheDocument()
+    expect(screen.queryAllByText('AI建议')).toHaveLength(0)
+    expect(screen.queryByText('洗脑师', { exact: true })).not.toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: '本局记录，共3条' }))
+    expect(screen.getByText('记录已遮蔽')).toBeInTheDocument()
+    expect(screen.queryByText('5号舞蛇人选择2号，没有发生交换。')).not.toBeInTheDocument()
+  })
+
+  it('focuses only the prepared player information and keeps the workspace shielded afterwards', async () => {
+    const user = userEvent.setup()
+    render(<NightWorkbenchHarness />)
+    await completeCurrentDraft(user)
+    const before = storedState()
+    const sessionBefore = JSON.parse(window.localStorage.getItem(gameSessionStorageKey) ?? '{}') as GameSessionState
+
+    await user.click(screen.getByRole('button', { name: '展示信息' }))
+    const reveal = screen.getByRole('dialog', { name: '请查看信息' })
+    expect(reveal).toHaveTextContent('明天请疯狂地声称自己是调查员。')
+    expect(reveal).not.toHaveTextContent('洗脑师')
+    expect(reveal).not.toHaveTextContent('10号')
+    expect(reveal).not.toHaveTextContent('AI建议')
+
+    await user.click(screen.getByRole('button', { name: '收起并遮蔽' }))
+    expect(screen.queryByRole('dialog', { name: '请查看信息' })).not.toBeInTheDocument()
+    expect(screen.getByText('已遮蔽')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '解除遮蔽' })).toBeVisible()
+    await waitFor(() => {
+      const after = storedState()
+      expect(after.activeCursorId).toBe(before.activeCursorId)
+      expect(after.drafts['night-3-cerenovus']).toEqual(before.drafts['night-3-cerenovus'])
+      expect(after.confirmedRecords).toEqual(before.confirmedRecords)
+      const session = JSON.parse(window.localStorage.getItem(gameSessionStorageKey) ?? '{}') as GameSessionState
+      expect(session.timeline).toEqual(sessionBefore.timeline)
+      expect(JSON.stringify(session)).not.toContain('privateInformation')
+    })
+  })
+})
