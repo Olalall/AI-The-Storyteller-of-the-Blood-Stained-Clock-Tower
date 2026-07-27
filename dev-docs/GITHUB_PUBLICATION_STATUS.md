@@ -107,6 +107,6 @@ P0 阻塞：
 
 P1 建议：
 
-- 建议创建第一个 GitHub Release：`alpha-preview-YYYYMMDD`。
+- 建议创建第一个 GitHub Release：lpha-preview-20260727。Release Notes 草稿见 dev-docs/releases/alpha-preview-20260727.md。
 - README 可后续补英文摘要，但不是公开阻塞。
 - 如需获星，可补一张更像封面的项目横幅图；不是工程阻塞。

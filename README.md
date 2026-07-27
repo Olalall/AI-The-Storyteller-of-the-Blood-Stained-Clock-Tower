@@ -316,7 +316,8 @@ npm run screenshots:github
 - `dev-docs/AI_INTEGRATION_PLAN.md`：真实 AI 接入和上下文最小化。
 - `dev-docs/SMOKE_HOSTING_SCENARIOS.md`：模拟主持流程验收。
 - `dev-docs/GITHUB_RELEASE_CHECKLIST.md`：GitHub 发布检查清单。
-- `dev-docs/GITHUB_PUBLICATION_STATUS.md`：GitHub 公开发布状态。
+- dev-docs/GITHUB_PUBLICATION_STATUS.md：GitHub 公开发布状态。
+- dev-docs/releases/alpha-preview-20260727.md：首个 alpha preview Release Notes 草稿。
 
 ## 第三方与免责声明
 

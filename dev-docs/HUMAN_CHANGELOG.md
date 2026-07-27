@@ -1,3 +1,19 @@
+## 2026-07-27 - Alpha Preview Release Notes 草稿
+
+### 给非开发者看的交付说明
+- 新增 `dev-docs/releases/alpha-preview-20260727.md`，整理首个 GitHub Release 的发布说明草稿。
+- Release Notes 包含项目摘要、功能亮点、验证结果、License/第三方边界、未包含功能和建议发布文案。
+- 本轮没有直接创建 GitHub Release；创建 Release 仍需要项目所有者确认。
+
+### Before / After
+- Before：仓库已公开，但如果马上点 GitHub Release，还缺一份完整发布说明。
+- After：Release 文案已经准备好，后续可以直接用 `alpha-preview-20260727` 创建首个发布版本。
+
+### 验证
+- 后续随本轮运行 `npm run audit:public` 和 `git diff --check`。
+
+### 风险
+- Release Notes 是 alpha / preview 口径，不能宣传为正式稳定版或官方工具。
 ## 2026-07-27 - GitHub 仓库公开
 
 ### 给非开发者看的交付说明
