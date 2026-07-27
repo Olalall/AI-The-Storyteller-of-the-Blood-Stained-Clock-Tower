@@ -1,3 +1,19 @@
+## 2026-07-27 - 创建首个 GitHub Release
+
+### 给非开发者看的交付说明
+- 已创建第一个 GitHub Release：`alpha-preview-20260727`。
+- Release 是 prerelease，符合当前 alpha / preview 定位，不宣传为正式稳定版。
+- Release 页面使用 `dev-docs/releases/alpha-preview-20260727.md` 的说明，包含功能亮点、验证结果、边界和未包含功能。
+
+### Before / After
+- Before：仓库已公开，但没有版本发布入口。
+- After：GitHub 上已有首个可分享的 alpha preview Release 页面。
+
+### 验证
+- `gh release view alpha-preview-20260727 --repo Olalall/botc-storyteller-companion --json tagName,name,url,isDraft,isPrerelease,publishedAt,targetCommitish` 返回：isDraft `false`，isPrerelease `true`，targetCommitish `main`。
+
+### 风险
+- 这是 prerelease；后续仍不能宣传为正式稳定版或官方工具。
 ## 2026-07-27 - Alpha Preview Release Notes 草稿
 
 ### 给非开发者看的交付说明
