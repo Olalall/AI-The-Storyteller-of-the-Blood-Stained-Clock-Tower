@@ -1,3 +1,20 @@
+## 2026-07-27 - GitHub 首页截图与功能介绍
+
+### 给非开发者看的交付说明
+- README 现在更像 GitHub 项目首页：先说明项目定位、适合谁、不适合宣传成什么，再用截图展示常驻面板、AI 配板、夜晚、白天投票和复盘。
+- 新增 `npm run screenshots:github`，以后 UI 稳定后可以一键刷新 GitHub 展示截图。
+- 截图只展示产品 UI 预览，不把官方/社区素材包作为可复用资源发布；公开素材边界仍按 `PUBLIC_RELEASE_BOUNDARY.md` 执行。
+
+### Before / After
+- Before：README 主要是文字说明，陌生人点进 GitHub 不容易马上理解这个工具长什么样、解决什么问题。
+- After：README 第一屏有清晰定位和截图，功能边界、AI 边界、启动方式和公开发布注意事项都集中可读。
+
+### 验证
+- 已运行 `npm run screenshots:github`，生成 5 张 GitHub 展示截图。
+- 后续随本轮统一运行 `npm run check` 与 `npm run audit:public`。
+
+### 风险
+- 截图是当前 alpha UI 快照；如果后续 UI 大改，需要重新运行截图命令刷新。
 ## 2026-07-27 - P1 真实模型夜间质量 smoke
 
 - 新增可选命令 `npm run smoke:ai-night-live`，用于在已经配置真实 AI Key 时抽查夜间复杂角色建议。
