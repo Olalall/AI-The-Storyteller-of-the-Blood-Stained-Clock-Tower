@@ -95,6 +95,8 @@ botc, blood-on-the-clocktower, storyteller, react, vite, typescript, ai-assistan
 
 当前：`License decision pending`。
 
+决策参考：`dev-docs/LICENSE_DECISION_GUIDE.md`。
+
 不要默认选 MIT / Apache / GPL。因为项目涉及 BOTC 相关概念、社区脚本、可选素材包和免责声明，代码 License 需要项目所有者单独确认。
 
 可选方向：

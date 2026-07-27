@@ -200,4 +200,6 @@ npm run screenshots:github
 
 ## License
 
-License decision pending. See dev-docs/LICENSE_DECISION_GUIDE.md.\n\nNo license is granted for third-party assets, Blood on the Clocktower content, community script content, provider-owned materials, or any official/community visual assets.
+License decision pending. See `dev-docs/LICENSE_DECISION_GUIDE.md`.
+
+No license is granted for third-party assets, Blood on the Clocktower content, community script content, provider-owned materials, or any official/community visual assets.
