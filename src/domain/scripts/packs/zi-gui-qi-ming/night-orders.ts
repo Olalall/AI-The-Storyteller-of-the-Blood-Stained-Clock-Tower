@@ -1,0 +1,41 @@
+import type { NightOrderEntry } from '../../types'
+
+export const ziGuiQiMingFirstNight: readonly NightOrderEntry[] = [
+  { roleId: "marionette", order: 1, knowledgeStatus: 'confirmed' },
+  { roleId: "lilmonsta", order: 2, knowledgeStatus: 'confirmed' },
+  { roleId: "gudiao", order: 3, knowledgeStatus: 'confirmed' },
+  { roleId: "godfather", order: 4, knowledgeStatus: 'confirmed' },
+  { roleId: "harpy", order: 5, knowledgeStatus: 'confirmed' },
+  { roleId: "dianyuzhang", order: 6, knowledgeStatus: 'confirmed' },
+  { roleId: "shutong", order: 7, knowledgeStatus: 'confirmed' },
+  { roleId: "chef", order: 8, knowledgeStatus: 'confirmed' },
+  { roleId: "empath", order: 9, knowledgeStatus: 'confirmed' },
+  { roleId: "fortuneteller", order: 10, knowledgeStatus: 'confirmed' },
+  { roleId: "yinyangshi", order: 11, knowledgeStatus: 'confirmed' },
+  { roleId: "fangshi", order: 12, knowledgeStatus: 'confirmed' },
+  { roleId: "daoke", order: 13, knowledgeStatus: 'confirmed' },
+  { roleId: "yanluo", order: 14, knowledgeStatus: 'confirmed' },
+  { roleId: "chambermaid", order: 15, knowledgeStatus: 'confirmed' },
+]
+
+export const ziGuiQiMingOtherNight: readonly NightOrderEntry[] = [
+  { roleId: "gudiao", order: 1, knowledgeStatus: 'confirmed' },
+  { roleId: "harpy", order: 2, knowledgeStatus: 'confirmed' },
+  { roleId: "xuncha", order: 3, knowledgeStatus: 'confirmed' },
+  { roleId: "lilmonsta", order: 4, knowledgeStatus: 'confirmed' },
+  { roleId: "dianyuzhang", order: 5, knowledgeStatus: 'confirmed' },
+  { roleId: "yanluo", order: 6, knowledgeStatus: 'confirmed' },
+  { roleId: "guhuoniao", order: 7, knowledgeStatus: 'confirmed' },
+  { roleId: "godfather", order: 8, knowledgeStatus: 'confirmed' },
+  { roleId: "zhen", order: 9, knowledgeStatus: 'confirmed' },
+  { roleId: "shutong", order: 10, knowledgeStatus: 'confirmed' },
+  { roleId: "plaguedoctor", order: 11, knowledgeStatus: 'confirmed' },
+  { roleId: "bingbi", order: 12, knowledgeStatus: 'confirmed' },
+  { roleId: "empath", order: 13, knowledgeStatus: 'confirmed' },
+  { roleId: "fortuneteller", order: 14, knowledgeStatus: 'confirmed' },
+  { roleId: "undertaker", order: 15, knowledgeStatus: 'confirmed' },
+  { roleId: "tixingguan", order: 16, knowledgeStatus: 'confirmed' },
+  { roleId: "yishi", order: 17, knowledgeStatus: 'confirmed' },
+  { roleId: "fangshi", order: 18, knowledgeStatus: 'confirmed' },
+  { roleId: "chambermaid", order: 19, knowledgeStatus: 'confirmed' },
+]

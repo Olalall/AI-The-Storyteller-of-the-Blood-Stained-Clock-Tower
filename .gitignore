@@ -1,0 +1,42 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-server
+dist-ssr
+artifacts
+.tmp-vps-sync
+playwright-report
+test-results
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.pid
+# Local scratch/generated files
+tmp_*
+*.tmp
+# Public repository boundary: BOTC official/community visual assets are local optional packs.
+# Keep source manifests/notices, but do not commit redistributed binary art by default.
+public/assets/characters/*.webp
+public/assets/community/*
+!public/assets/community/README.md

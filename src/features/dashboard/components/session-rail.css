@@ -1,0 +1,32 @@
+.session-rail {
+  min-height: 100dvh;
+  position: sticky;
+  top: 0;
+  padding: var(--space-20) var(--space-16) var(--space-24);
+  display: grid;
+  align-content: start;
+  gap: var(--space-20);
+  border-right: 1px solid var(--border);
+  background: #0b1016;
+  overflow: auto;
+}
+
+.session-rail__session, .session-rail__section { min-width: 0; display: grid; gap: 6px; }
+.session-rail__session > span, .session-rail__section > span { color: var(--text-subtle); font-size: var(--type-meta); font-weight: 800; letter-spacing: .1em; }
+.session-rail__session > strong { color: var(--text-strong); font: 800 var(--type-section)/1.25 var(--font-display); }
+.session-rail__session > p, .session-rail__section > p { margin: 0; color: var(--text-muted); font-size: var(--type-label); line-height: 1.55; }
+.session-rail__segments { margin: 0; padding: 0; display: grid; gap: 6px; list-style: none; }
+.session-rail__segments li { min-height: 32px; padding: 6px 8px; border-left: 2px solid var(--accent-border); background: var(--accent-soft); color: var(--accent-text); font-size: var(--type-label); font-weight: 800; }
+.session-rail__seats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.session-rail__seats > button { min-height: 46px; position: relative; padding: 6px; display: grid; grid-template-columns: 1fr auto; align-content: space-between; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-panel); color: var(--text-strong); font: inherit; text-align: left; cursor: pointer; }
+.session-rail__seats > button:hover { border-color: var(--border-strong); background: var(--surface-hover); }
+.session-rail__seats > button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.session-rail__seats strong { font: 800 1rem/1 var(--font-display); }
+.session-rail__seats > button > svg { width: 13px; height: 13px; color: var(--success-text); }
+.session-rail__seats > button.is-dead { border-style: dashed; color: var(--text-muted); }
+.session-rail__seats > button.is-dead > svg { color: var(--text-subtle); }
+.session-rail__seats i { position: absolute; right: 5px; bottom: 5px; display: flex; gap: 2px; color: var(--text-subtle); }
+.session-rail__seats i svg { width: 11px; height: 11px; }
+.session-rail__seats i svg:first-child { color: var(--danger-text); }
+.session-rail__latest { padding-top: var(--space-16); border-top: 1px solid var(--border); }
+.session-rail__latest p { color: var(--text-body); }

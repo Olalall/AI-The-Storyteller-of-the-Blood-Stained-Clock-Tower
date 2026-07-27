@@ -1,0 +1,307 @@
+import type { AbilityInputKind, RoleResearchMetadata, RoleTeam, SmartRoleDefinition } from '../../types'
+
+const sourceUrl = "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21096_69654.json"
+const rolesSourceUrl = 'https://clocktower.gstonegames.com/ct/grimoireRoleJson/'
+const reviewedAt = '2026-07-21'
+
+type RoleInput = {
+  id: string
+  name: string
+  officialName: string
+  team: RoleTeam
+  abilityText: string
+  iconPath?: string
+  inputKinds: readonly AbilityInputKind[]
+  setupImpact?: readonly string[]
+  possibleOutcomes?: readonly string[]
+  stateChanges?: readonly string[]
+  identityChanges?: readonly string[]
+  teamChanges?: readonly string[]
+  playerMessageTemplates?: readonly string[]
+  highRiskNotes?: readonly string[]
+}
+
+function role(input: RoleInput): SmartRoleDefinition {
+  return {
+    id: input.id,
+    name: input.name,
+    officialName: input.officialName,
+    team: input.team,
+    abilityText: input.abilityText,
+    iconPath: input.iconPath ?? `/assets/characters/${input.id}.webp`,
+    inputKinds: input.inputKinds,
+    knowledgeStatus: 'confirmed',
+    research: research(input),
+  }
+}
+
+function research(input: RoleInput): RoleResearchMetadata {
+  return {
+    edition: "浊月毕方",
+    setupImpact: input.setupImpact ?? [],
+    possibleOutcomes: input.possibleOutcomes ?? [],
+    stateChanges: input.stateChanges ?? [],
+    identityChanges: input.identityChanges ?? [],
+    teamChanges: input.teamChanges ?? [],
+    playerMessageTemplates: input.playerMessageTemplates ?? [],
+    highRiskNotes: input.highRiskNotes ?? [],
+    sourceUrls: [sourceUrl, rolesSourceUrl],
+    reviewedAt,
+  }
+}
+
+export const zhuoYueBiFangRoles = [
+  role({
+    id: "grandmother",
+    name: "祖母",
+    officialName: "grandmother",
+    team: "townsfolk",
+    abilityText: "在你的首个夜晚，你会得知一名善良玩家和他的角色。如果恶魔杀死了他，你也会死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/grandmother.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["First-night source reminder: 指向她的孙子玩家，并展示该玩家的角色标记。", "Other-night source reminder: 如果孙子被恶魔杀死，祖母也会一同死亡。标记祖母死亡。"],
+  }),
+  role({
+    id: "yinyangshi",
+    name: "阴阳师",
+    officialName: "yinyangshi",
+    team: "townsfolk",
+    abilityText: "在你的首个夜晚，你会得知两个善良角色和两个邪恶角色。其中有且只有两个角色在场。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202301/c_4630967694761_bd56d041.jpg",
+    inputKinds: ["none"],
+    highRiskNotes: ["First-night source reminder: 唤醒阴阳师，并对其展示两个善良角色，两个邪恶角色，共四个角色标记。其中正好只有两个角色在场。"],
+  }),
+  role({
+    id: "highpriestess",
+    name: "女祭司",
+    officialName: "high_priestess",
+    team: "townsfolk",
+    abilityText: "每个夜晚，你会得知一名说书人认为你最应该与其交流的玩家。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202403/c_7239274181171_90052fc9.jpg",
+    inputKinds: ["none"],
+    highRiskNotes: ["First-night source reminder: 唤醒女祭司，指向一名玩家。", "Other-night source reminder: 唤醒女祭司，指向一名玩家"],
+  }),
+  role({
+    id: "empath",
+    name: "共情者",
+    officialName: "empath",
+    team: "townsfolk",
+    abilityText: "每个夜晚，你会得知与你邻近的两名存活的玩家中邪恶玩家的数量。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/empath.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["First-night source reminder: 给他展示数字手势来告诉他与他邻近的存活玩家有几人是邪恶的。", "Other-night source reminder: 给他展示数字手势来告诉他与他邻近的存活玩家有几人是邪恶的。"],
+  }),
+  role({
+    id: "chambermaid",
+    name: "侍女",
+    officialName: "chambermaid",
+    team: "townsfolk",
+    abilityText: "每个夜晚，你要选择除你以外的两名存活的玩家：你会得知他们中有几人在当晚因其自身能力而被唤醒。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/chambermaid.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["First-night source reminder: 让侍女选择除自己外的两名存活玩家。给她展示数字手势来告诉她这些玩家中有几人因自身能力被唤醒。", "Other-night source reminder: 让侍女选择除自己外的两名存活玩家。给她展示数字手势来告诉她这些玩家中有几人因自身能力被唤醒。"],
+  }),
+  role({
+    id: "innkeeper",
+    name: "旅店老板",
+    officialName: "innkeeper",
+    team: "townsfolk",
+    abilityText: "每个夜晚*，你要选择两名玩家：他们当晚不会死亡，但其中一人会醉酒到下个黄昏。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/innkeeper.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 让旅店老板选择两名玩家。标记这两名玩家不会死亡，并标记其中一人醉酒。"],
+  }),
+  role({
+    id: "gambler",
+    name: "赌徒",
+    officialName: "gambler",
+    team: "townsfolk",
+    abilityText: "每个夜晚*，你要选择一名玩家并猜测他的角色：如果你猜错了，你会死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/gambler.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。"],
+  }),
+  role({
+    id: "oracle",
+    name: "神谕者",
+    officialName: "oracle",
+    team: "townsfolk",
+    abilityText: "每个夜晚*，你会得知有多少名死亡的玩家是邪恶的。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/oracle.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 给他展示数字手势来告诉他当前已死亡的玩家中有多少玩家是邪恶的。"],
+  }),
+  role({
+    id: "jinyiwei",
+    name: "锦衣卫",
+    officialName: "jinyiwei",
+    team: "townsfolk",
+    abilityText: "每个夜晚*，你要选择一名玩家：如果他在下个黄昏前死亡，你代替他死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202301/c_5878087694761_691045fa.jpg",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 移除上个夜晚放置的“保护”标记。唤醒锦衣卫，让其选择一名玩家。在该玩家角色标记旁放置“保护”提示标记。"],
+  }),
+  role({
+    id: "gossip",
+    name: "造谣者",
+    officialName: "gossip",
+    team: "townsfolk",
+    abilityText: "每个白天，你可以公开发表一个声明。如果该声明正确，在当晚会有一名玩家死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/gossip.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 如果白天的声明为真，会有一名玩家死亡，并由说书人来选择一名玩家，标记该玩家死亡。"],
+  }),
+  role({
+    id: "ravenkeeper",
+    name: "守鸦人",
+    officialName: "ravenkeeper",
+    team: "townsfolk",
+    abilityText: "如果你在夜晚死亡，你会被唤醒，然后你要选择一名玩家：你会得知他的角色。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/ravenkeeper.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 如果守鸦人今晚死亡，唤醒他并让他选择一名玩家。对他展示那名玩家的角色标记。"],
+  }),
+  role({
+    id: "tealady",
+    name: "茶艺师",
+    officialName: "tea_lady",
+    team: "townsfolk",
+    abilityText: "如果与你邻近的两名存活的玩家是善良的，他们不会死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/tea_lady.png",
+    inputKinds: ["none"],
+    possibleOutcomes: ["Record the information or choice; storyteller confirms the final result."],
+  }),
+  role({
+    id: "cannibal",
+    name: "食人族",
+    officialName: "cannibal",
+    team: "townsfolk",
+    abilityText: "你拥有上个死于处决的玩家的能力。如果该玩家属于邪恶阵营，你中毒直到下个善良玩家死于处决。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/cannibal.png",
+    inputKinds: ["none"],
+    possibleOutcomes: ["Record the information or choice; storyteller confirms the final result."],
+  }),
+  role({
+    id: "moonchild",
+    name: "月之子",
+    officialName: "moonchild",
+    team: "outsider",
+    abilityText: "当你得知你死亡时，你要公开选择一名存活的玩家。如果他是善良的，在当晚他会死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/moonchild.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 如果月之子在白天触发了死亡能力并选择了一名善良玩家，该玩家死亡。标记那名玩家死亡。"],
+  }),
+  role({
+    id: "shaxing",
+    name: "煞星",
+    officialName: "shaxing",
+    team: "outsider",
+    abilityText: "如果你死亡，当晚与你邻近的存活玩家之一可能会死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202310/c_0178555308961_1721ee8f.jpg",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 如果煞星死亡，将与其邻近的存活善良玩家之一标记为死亡。"],
+  }),
+  role({
+    id: "tinker",
+    name: "修补匠",
+    officialName: "tinker",
+    team: "outsider",
+    abilityText: "你随时可能死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/tinker.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 修补匠可能会死亡。如果说书人选择让修补匠死亡，放置死亡标记。"],
+  }),
+  role({
+    id: "drunk",
+    name: "酒鬼",
+    officialName: "drunk",
+    team: "outsider",
+    abilityText: "你不知道你是酒鬼。你以为你是一个镇民角色，但其实你不是。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/drunk.png",
+    inputKinds: ["none"],
+    possibleOutcomes: ["Record the information or choice; storyteller confirms the final result."],
+  }),
+  role({
+    id: "harpy",
+    name: "鹰身女妖",
+    officialName: "harpy",
+    team: "minion",
+    abilityText: "每个夜晚，你要选择两名玩家:明天第一名玩家需要“疯狂”地证明第二名玩家是邪恶的，否则他们之中可能会有人死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202307/c_4331482099861_0db1bfaf.jpg",
+    inputKinds: ["none"],
+    highRiskNotes: ["First-night source reminder: 每个夜晚，唤醒鹰身女妖。让鹰身女妖指向一名玩家，再指向另一名玩家。用“疯狂”提示标记标记第一名玩家，并用“第二名”提示标记标记第二名玩家。让鹰身女妖重新入睡。唤醒标记了“疯狂”的玩家。对他展示“该角色的能力对你生效”信息标记，以及鹰身女妖的角色标记。然后指向标记了“第二名”的玩家。让这名玩家重新入睡。", "Other-night source reminder: 每个夜晚，唤醒鹰身女妖。让鹰身女妖指向一名玩家，再指向另一名玩家。用“疯狂”提示标记标记第一名玩家，并用“第二名”提示标记标记第二名玩家。让鹰身女妖重新入睡。唤醒标记了“疯狂”的玩家。对他展示“该角色的能力对你生效”信息标记，以及鹰身女妖的角色标记。然后指向标记了“第二名”的玩家。让这名玩家重新入睡。"],
+  }),
+  role({
+    id: "godfather",
+    name: "教父",
+    officialName: "godfather",
+    team: "minion",
+    abilityText: "在你的首个夜晚，你会得知有哪些外来者角色在场。如果有外来者在白天死亡，你会在当晚被唤醒并且你要选择一名玩家：他死亡。[-1或+1外来者]",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/godfather.png",
+    inputKinds: ["none"],
+    setupImpact: ["Setup bracket text applies; storyteller confirms any composition change before using the template."],
+    highRiskNotes: ["First-night source reminder: 对他展示所有在场的外来者标记。", "Other-night source reminder: 如果有外来者在今天白天死亡，让教父选择一名玩家。标记那名玩家死亡。"],
+  }),
+  role({
+    id: "ganshiren",
+    name: "赶尸人",
+    officialName: "ganshiren",
+    team: "minion",
+    abilityText: "与你邻近的两名镇民玩家会在其首次死亡时被当作仍然存活。[-1外来者]",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202301/c_4215797694761_97f10b13.jpg",
+    inputKinds: ["none"],
+    setupImpact: ["Setup bracket text applies; storyteller confirms any composition change before using the template."],
+  }),
+  role({
+    id: "mastermind",
+    name: "主谋",
+    officialName: "mastermind",
+    team: "minion",
+    abilityText: "如果恶魔因为死于处决而因此导致游戏结束时，再额外进行一个夜晚和一个白天。在那个白天如果有玩家被处决，他的阵营落败。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/mastermind.png",
+    inputKinds: ["none"],
+    possibleOutcomes: ["Record the information or choice; storyteller confirms the final result."],
+  }),
+  role({
+    id: "dianyuzhang",
+    name: "典狱长",
+    officialName: "dianyuzhang",
+    team: "demon",
+    abilityText: "每个夜晚，你要选择至多三名玩家：如果明天白天他们之一死于处决，上次被你选择的其他玩家会在当晚死亡。否则，当晚他们之中会有一名玩家死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202401/c_5570117816071_2f5793fd.jpg",
+    inputKinds: ["none"],
+    highRiskNotes: ["First-night source reminder: 唤醒典狱长，选择一至三名玩家。", "Other-night source reminder: 唤醒典狱长，选择一至三名玩家。"],
+  }),
+  role({
+    id: "vigormortis",
+    name: "亡骨魔",
+    officialName: "vigormortis",
+    team: "demon",
+    abilityText: "每个夜晚*，你要选择一名玩家：他死亡。被你杀死的爪牙保留他的能力，且与他邻近的两名镇民之一中毒。[-1外来者]",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/vigormortis.png",
+    inputKinds: ["none"],
+    setupImpact: ["Setup bracket text applies; storyteller confirms any composition change before using the template."],
+    highRiskNotes: ["Other-night source reminder: 让亡骨魔选择一名玩家。标记那名玩家死亡。如果该玩家是爪牙，标记该玩家保留能力，并标记与该玩家邻近的镇民玩家之一中毒。"],
+  }),
+  role({
+    id: "zombuul",
+    name: "僵怖",
+    officialName: "zombuul",
+    team: "demon",
+    abilityText: "每个夜晚*，如果今天白天没有人死亡，你会被唤醒并要选择一名玩家：他死亡。当你首次死亡后，你仍存活，但会被当作死亡。",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/zombuul.png",
+    inputKinds: ["none"],
+    highRiskNotes: ["Other-night source reminder: 如果今天白天没有人死亡，让僵怖选择一名玩家。标记那名玩家死亡。"],
+  }),
+  role({
+    id: "legion",
+    name: "军团",
+    officialName: "legion",
+    team: "demon",
+    abilityText: "每个夜晚*，可能有一名玩家死亡。如果一项提名只有邪恶玩家投票，投票无效。你也会被当作是爪牙。[多数玩家为军团]",
+    iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/legion.png",
+    inputKinds: ["none"],
+    setupImpact: ["Setup bracket text applies; storyteller confirms any composition change before using the template."],
+    highRiskNotes: ["Other-night source reminder: 由说书人决定，让哪一名玩家死亡。"],
+  }),
+] as const satisfies readonly SmartRoleDefinition[]

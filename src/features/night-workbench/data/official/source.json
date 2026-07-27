@@ -1,0 +1,13 @@
+{
+  "source": "https://release.botc.app/resources/",
+  "retrievedAt": "2026-07-13",
+  "nightsheet": {
+    "url": "https://release.botc.app/resources/data/nightsheet.json",
+    "sha256": "99a2815bb31bcec3e107bf7f1c2fb305e301d317981d855704d3d954ec4c3f75"
+  },
+  "roles": {
+    "url": "https://release.botc.app/resources/data/roles.json",
+    "sha256": "6c659354dee75cf3afdeaf6cbc750b274a87d1099cc5f68651a2114881eb85ca"
+  },
+  "roleIndexSha256": "4df842819e1cdc130455e13db8a2f4060eddc29fe7f4ec010ecce3e274b4b8d2"
+}

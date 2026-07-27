@@ -1,0 +1,109 @@
+import type {
+  ScriptId,
+} from '../../../domain/scripts'
+import type {
+  DayActionDraft,
+  DayVoteDraft,
+  NightRunState,
+  PhaseKind,
+  PlayerExperience,
+  PlayerState,
+  SetupDraft,
+} from '../types'
+import type { ConfirmedWakeRecord, RoleChangeEvent, RoleSnapshot } from '../../night-workbench/types'
+import type { PhaseTimelineEntryInput, TimelineAppendInput } from './timeline'
+
+export type GameSessionAction =
+  | { type: 'set-setup-draft'; draft: SetupDraft | null }
+  | { type: 'set-day-vote-draft'; draft: DayVoteDraft }
+  | { type: 'clear-day-vote-draft' }
+  | { type: 'set-day-action-draft'; draft: DayActionDraft }
+  | { type: 'clear-day-action-draft' }
+  | { type: 'confirm-setup'; id: string; confirmedAt: string }
+  | {
+    type: 'append-phase-entry'
+    phaseKind: PhaseKind
+    entry: PhaseTimelineEntryInput
+    input: TimelineAppendInput
+  }
+  | {
+    type: 'append-correction'
+    originalEntryId: string
+    entry: PhaseTimelineEntryInput
+    input: TimelineAppendInput
+  }
+  | {
+    /**
+     * 白天最终处决是一个领域命令：处决事实和死亡状态必须同时进入同一条审计链。
+     * 不经由通用 append，避免半次保存或在错误的白天段写入结果。
+     */
+    type: 'confirm-day-execution'
+    daySegmentId: string
+    nomineeSeatId: number
+    sourceRoundId: string
+    executionEntryId: string
+    playerStateEntryId: string
+    confirmedAt: string
+  }
+  | {
+    /** 白天最终无处决同样必须显式确认，且只能写入当前开放的白天段。 */
+    type: 'confirm-day-no-execution'
+    daySegmentId: string
+    entryId: string
+    confirmedAt: string
+  }
+  | {
+    type: 'confirm-player-state-change'
+    seatId: number
+    expectedBefore: PlayerState
+    after: PlayerState
+    segmentId: string | null
+    entryId: string
+    confirmedAt: string
+    reason: string
+  }
+  | {
+    /** 说书人本机辨认用昵称；不属于身份、状态或昼夜事实。 */
+    type: 'update-seat-nickname'
+    seatId: number
+    nickname: string
+  }
+  | {
+    type: 'append-setup-change'
+    id: string
+    createdAt: string
+    seatId: number
+    fromRole: RoleSnapshot
+    toRole: RoleSnapshot
+    reason: string
+  }
+  | {
+    /**
+     * 夜间工作台的单次交互提交：运行态、已确认记录和角色变更同一次写入会话。
+     * 草稿/浏览只更新 NightRun；首次确认才会由记录创建夜晚段。
+     */
+    type: 'commit-night-workbench'
+    nightRun: NightRunState
+    records: ConfirmedWakeRecord[]
+    roleChanges: RoleChangeEvent[]
+  }
+  | { type: 'replace-night-run'; nightRun: NightRunState }
+  | { type: 'set-active-night-run'; nightRunId: string | null }
+  | { type: 'open-phase-segment'; phaseKind: PhaseKind; createdAt: string }
+  | { type: 'close-active-night-run'; nightRunId: string; closedAt: string }
+  | { type: 'start-next-night-run' }
+  | { type: 'close-open-segment'; phaseKind: PhaseKind; closedAt: string }
+  | {
+    type: 'start-setup-session'
+    scriptId: ScriptId
+    createdAt: string
+    playerCount?: number
+    seats?: readonly { seatId: number; nickname?: string; experience?: PlayerExperience | null }[]
+  }
+  | {
+    type: 'start-catfishing-setup-session'
+    createdAt: string
+    playerCount?: number
+    seats?: readonly { seatId: number; nickname?: string; experience?: PlayerExperience | null }[]
+  }
+  | { type: 'reset-session' }

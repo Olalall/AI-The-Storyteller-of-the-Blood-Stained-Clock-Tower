@@ -1,0 +1,48 @@
+import type { PlayerCount, RoleId, SetupAdjustment, SetupTemplate, SetupTemplateStyle } from '../../types'
+
+const scriptId = "shi-yan-jiao-chi"
+
+const godfatherAddOutsiderAdjustment = {
+  ruleId: 'godfather-outsider',
+  choiceId: 'add-outsider',
+  compositionDelta: { townsfolk: -1, outsider: 1 },
+  note: 'Add 1 Outsider and remove 1 Townsfolk',
+} as const
+
+type TemplateInput = { id: string; count: PlayerCount; style: SetupTemplateStyle; roles: readonly RoleId[]; bluffs: readonly RoleId[]; note: string; godfatherAddsOutsider?: boolean }
+
+function template(input: TemplateInput): SetupTemplate {
+  const setupAdjustments = adjustmentsFor(input)
+  return { templateId: `${scriptId}-${input.count}-${input.id}`, scriptId, playerCount: input.count, style: input.style, roles: input.roles, bluffs: input.bluffs, setupAdjustments: setupAdjustments.length > 0 ? setupAdjustments : undefined, notes: [input.note], verified: true }
+}
+
+function adjustmentsFor(input: TemplateInput): SetupAdjustment[] {
+  const adjustments: SetupAdjustment[] = []
+  if (input.godfatherAddsOutsider) adjustments.push(godfatherAddOutsiderAdjustment)
+  return adjustments
+}
+
+export const shiYanJiaoChiSetupTemplates: readonly SetupTemplate[] = [
+  template({ id: "steady", count: 7, style: "balanced", roles: ["snakecharmer", "gossip", "qianke", "monk", "bingbi", "widow", "vortox"], bluffs: ["qintianjian", "steward", "tixingguan"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "long", count: 7, style: "long-game", roles: ["qianke", "monk", "bingbi", "ranfangfangzhu", "qintianjian", "eviltwin", "nodashii"], bluffs: ["empath", "dreamer", "cannibal"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "pressure", count: 7, style: "chaos", roles: ["bingbi", "ranfangfangzhu", "qintianjian", "steward", "tixingguan", "widow", "hundun"], bluffs: ["yinluren", "snakecharmer", "gossip"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "steady", count: 8, style: "balanced", roles: ["gossip", "qianke", "monk", "bingbi", "ranfangfangzhu", "ogre", "widow", "nodashii"], bluffs: ["qintianjian", "steward", "tixingguan"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "long", count: 8, style: "long-game", roles: ["monk", "bingbi", "ranfangfangzhu", "qintianjian", "steward", "drunk", "eviltwin", "hundun"], bluffs: ["empath", "dreamer", "cannibal"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "steady", count: 9, style: "balanced", roles: ["qianke", "monk", "bingbi", "ranfangfangzhu", "qintianjian", "drunk", "klutz", "widow", "hundun"], bluffs: ["steward", "tixingguan", "empath"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "long", count: 9, style: "long-game", roles: ["bingbi", "ranfangfangzhu", "qintianjian", "steward", "tixingguan", "klutz", "acrobat", "eviltwin", "vortox"], bluffs: ["empath", "dreamer", "cannibal"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "steady", count: 10, style: "balanced", roles: ["monk", "bingbi", "ranfangfangzhu", "qintianjian", "steward", "tixingguan", "empath", "widow", "eviltwin", "vortox"], bluffs: ["dreamer", "cannibal", "yinluren"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "long", count: 10, style: "long-game", roles: ["ranfangfangzhu", "qintianjian", "steward", "tixingguan", "empath", "dreamer", "cannibal", "eviltwin", "widow", "nodashii"], bluffs: ["yinluren", "snakecharmer", "gossip"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "pressure", count: 10, style: "chaos", roles: ["steward", "tixingguan", "empath", "dreamer", "cannibal", "yinluren", "snakecharmer", "widow", "eviltwin", "hundun"], bluffs: ["gossip", "qianke", "monk"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "steady", count: 11, style: "balanced", roles: ["bingbi", "ranfangfangzhu", "qintianjian", "steward", "tixingguan", "empath", "dreamer", "acrobat", "widow", "eviltwin", "nodashii"], bluffs: ["cannibal", "yinluren", "snakecharmer"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "long", count: 11, style: "long-game", roles: ["qintianjian", "steward", "tixingguan", "empath", "dreamer", "cannibal", "yinluren", "ogre", "eviltwin", "widow", "hundun"], bluffs: ["snakecharmer", "gossip", "qianke"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "steady", count: 12, style: "balanced", roles: ["ranfangfangzhu", "qintianjian", "steward", "tixingguan", "empath", "dreamer", "cannibal", "ogre", "drunk", "widow", "eviltwin", "hundun"], bluffs: ["yinluren", "snakecharmer", "gossip"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "long", count: 12, style: "long-game", roles: ["steward", "tixingguan", "empath", "dreamer", "cannibal", "yinluren", "snakecharmer", "drunk", "klutz", "eviltwin", "widow", "vortox"], bluffs: ["gossip", "qianke", "monk"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "pressure", count: 12, style: "chaos", roles: ["empath", "dreamer", "cannibal", "yinluren", "snakecharmer", "gossip", "qianke", "klutz", "acrobat", "widow", "eviltwin", "nodashii"], bluffs: ["monk", "bingbi", "ranfangfangzhu"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment." }),
+  template({ id: "steady", count: 13, style: "balanced", roles: ["qintianjian", "steward", "tixingguan", "empath", "dreamer", "cannibal", "yinluren", "snakecharmer", "drunk", "godfather", "widow", "eviltwin", "vortox"], bluffs: ["gossip", "qianke", "monk"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment.", godfatherAddsOutsider: true }),
+  template({ id: "long", count: 13, style: "long-game", roles: ["tixingguan", "empath", "dreamer", "cannibal", "yinluren", "snakecharmer", "gossip", "qianke", "klutz", "widow", "eviltwin", "godfather", "nodashii"], bluffs: ["monk", "bingbi", "ranfangfangzhu"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment.", godfatherAddsOutsider: true }),
+  template({ id: "steady", count: 14, style: "balanced", roles: ["steward", "tixingguan", "empath", "dreamer", "cannibal", "yinluren", "snakecharmer", "gossip", "klutz", "acrobat", "godfather", "widow", "eviltwin", "nodashii"], bluffs: ["qintianjian", "qianke", "monk"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment.", godfatherAddsOutsider: true }),
+  template({ id: "long", count: 14, style: "long-game", roles: ["empath", "dreamer", "cannibal", "yinluren", "snakecharmer", "gossip", "qianke", "monk", "acrobat", "ogre", "widow", "eviltwin", "godfather", "hundun"], bluffs: ["bingbi", "ranfangfangzhu", "qintianjian"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment.", godfatherAddsOutsider: true }),
+  template({ id: "steady", count: 15, style: "balanced", roles: ["tixingguan", "empath", "dreamer", "cannibal", "yinluren", "snakecharmer", "gossip", "qianke", "acrobat", "ogre", "drunk", "godfather", "widow", "eviltwin", "hundun"], bluffs: ["qintianjian", "steward", "monk"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment.", godfatherAddsOutsider: true }),
+  template({ id: "long", count: 15, style: "long-game", roles: ["dreamer", "cannibal", "yinluren", "snakecharmer", "gossip", "qianke", "monk", "bingbi", "ogre", "drunk", "klutz", "widow", "eviltwin", "godfather", "vortox"], bluffs: ["empath", "ranfangfangzhu", "qintianjian"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment.", godfatherAddsOutsider: true }),
+  template({ id: "pressure", count: 15, style: "chaos", roles: ["yinluren", "snakecharmer", "gossip", "qianke", "monk", "bingbi", "ranfangfangzhu", "qintianjian", "drunk", "klutz", "acrobat", "eviltwin", "godfather", "widow", "nodashii"], bluffs: ["steward", "tixingguan", "empath"], note: "Verified setup; Summoner and Taotie stay as manual setup-changing reminders; Godfather templates carry Outsider adjustment.", godfatherAddsOutsider: true }),
+]
