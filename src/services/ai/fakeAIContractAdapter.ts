@@ -30,9 +30,9 @@ function setupAdvice(request: Extract<AIContractRequest, { kind: 'setup_advice' 
       recommendedCandidateIds: request.context.candidateIds.slice(0, 3),
       warnings: request.context.candidateIds.length ? [] : ['当前人数暂无已核对模板候选。'],
       balanceSummary: request.context.candidateIds.length
-        ? ['????????????????????????????????']
+        ? ['候选仅按当前人数和模板顺序排序；说书人确认前不写入身份。']
         : [],
-      storytellerNotes: ['AI ???????????????????????'],
+      storytellerNotes: ['AI 只给配板草稿；座位、身份和伪装仍由说书人核对。'],
       microAdjustments: [],
       qualityTags: request.context.candidateIds.slice(0, 3).map((candidateId) => ({
         candidateId,

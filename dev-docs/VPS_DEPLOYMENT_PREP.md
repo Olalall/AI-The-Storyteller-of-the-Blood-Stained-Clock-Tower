@@ -10,13 +10,20 @@ Status: Deployed on Tencent Lighthouse. Public assistant URL: http://203.0.113.1
 - 新辅助工具：使用独立目录、独立端口、独立服务名。
 - 当前同步阶段：只上传/解压新辅助工具部署包；不默认重启远端服务，不修改 nginx，不碰 V2.5。
 
-## 默认目录与端口
+## 目录与端口口径
 
-| 项目 | 默认远端目录 | 默认端口 | 说明 |
+| 项目 | 目录 | 端口 | 说明 |
 |---|---|---:|---|
-| V2.5 | `C:\botc-mvp` | `3000` | 旧项目保留，不由新脚本处理 |
-| 新辅助工具 | `C:\botc-storyteller-companion` | `8787` | archive HTTP runtime |
+| V2.5 | `C:\botc-mvp` | 旧服务端口 | 旧项目保留，不由新脚本处理 |
+| 新辅助工具本地 runtime 默认 | 本机项目目录 | `8787` | `npm run dev:backend` 默认端口 |
+| 当前 VPS 新辅助工具 | `C:\botc-storyteller-companion` | `3000` | 当前对外访问端口：`http://203.0.113.10:3000/` |
 | 新辅助工具临时上传 | `C:\botc-storyteller-companion-deploy` | - | 只放同步 zip |
+
+不要把这三层混在一起：
+
+- 本机开发默认端口：`8787`。
+- 当前 VPS 对外端口：`3000`。
+- `scripts/sync-to-vps.ps1` 默认 `BackendPort=3000`，是为了匹配当前 VPS 对外端口，不代表本机 runtime 默认端口。
 
 如果 VPS 是 Linux，需要把远端目录改成 Linux 路径，例如：
 
@@ -71,6 +78,8 @@ $env:BOTC_ASSISTANT_STAGING_DIR = 'C:\botc-storyteller-companion-deploy'
 $env:BOTC_ASSISTANT_BACKEND_PORT = '3000'
 ```
 
+如果只是本机启动，不需要这些 VPS 同步变量；本机后端默认读 `BOTC_BACKEND_PORT`，未设置时为 `8787`。
+
 ## VPS 只读确认
 
 真正启动服务前，先在 VPS 上确认：
@@ -119,14 +128,18 @@ curl https://<your-domain>/healthz
   - `<local-v2.5-backup-path>/botc-v2.5-complete-private-backup-20260713.zip`
   - SHA256 已核对。
 
-## 2026-07-18 ??????
+## 2026-07-18 远端状态记录
 
-- ????????`instance-placeholder`?Windows Server 2022??? IP `203.0.113.10`?
-- ? V2.5???????? `http://203.0.113.10/`????? `http://203.0.113.10/healthz` ?? `blood-on-clocktower-server`?
-- ????????? `C:\botc-storyteller-companion`?????? `C:\botc-storyteller-companion-deploy`?
-- ??????????`http://203.0.113.10:3000/`?
-- ??????????`http://203.0.113.10:3000/healthz` ?? `botc-storyteller-backend`?
-- 8787 ???????????????????????????????????????????? 3000?
-- ?????`C:\botc-storyteller-companion\start-assistant.ps1`?
-- ???`C:\botc-storyteller-companion\logs\runtime.log` ? `C:\botc-storyteller-companion\logs\runtime.err.log`?
-- ??? SHA256?`89DD5D0DF2CCD24E27506463404E7D5525ABE3FB10CDBD7EDBCD3D27375A5E84`?
+- 腾讯云轻量服务器：Windows Server 2022，公网 IP `203.0.113.10`。
+- 旧 V2.5 继续保留在 `http://203.0.113.10/`，不由新项目脚本处理。
+- 新辅助工具目录：`C:\botc-storyteller-companion`。
+- 新辅助工具临时上传目录：`C:\botc-storyteller-companion-deploy`。
+- 新辅助工具对外地址：`http://203.0.113.10:3000/`。
+- 新辅助工具健康检查：`http://203.0.113.10:3000/healthz`。
+- 远端服务名曾记录为 `botc-storyteller-backend`。
+- 本机 runtime 默认 `8787`；当前 VPS 对外使用 `3000`，避免与旧服务和访问习惯混淆。
+- 曾记录启动脚本：`C:\botc-storyteller-companion\start-assistant.ps1`。
+- 曾记录日志路径：
+  - `C:\botc-storyteller-companion\logs\runtime.log`
+  - `C:\botc-storyteller-companion\logs\runtime.err.log`
+- 历史部署包 SHA256：`89DD5D0DF2CCD24E27506463404E7D5525ABE3FB10CDBD7EDBCD3D27375A5E84`。

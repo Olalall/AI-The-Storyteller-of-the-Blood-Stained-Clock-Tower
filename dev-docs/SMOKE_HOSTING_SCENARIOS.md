@@ -135,3 +135,28 @@ VPS 自用前至少验证：
 > AI 会自动正确结算全部规则。
 
 > 可替代官方魔典。
+
+## 2026-07-27 执行记录
+
+本轮把模拟主持流程从“文档标准”推进为“可重复浏览器 smoke”。
+
+执行命令：
+
+```powershell
+npx playwright test tests/e2e/manual-click-smoke.spec.ts tests/e2e/game-end-prototype.spec.ts tests/e2e/smoke-hosting-scenarios.spec.ts --reporter=line
+```
+
+结果：5 passed。
+
+覆盖关系：
+
+- 场景 A：由 `manual-click-smoke.spec.ts` 与 `game-end-prototype.spec.ts` 覆盖 12 人瓦釜雷鸣主链路、AI 设置、开场白、配板微调、夜间确认、白天计时、技能、投票、处决、日记、保存归档、历史复盘和重置后重新开局。
+- 场景 B：由 `smoke-hosting-scenarios.spec.ts` 覆盖 7 人开局、身份领取、夜序按在场角色投影、状态确认写入。
+- 场景 C：由 `smoke-hosting-scenarios.spec.ts` 覆盖 15 人开局、夜序入口、AI 推荐入口、两轮白天投票、日记可查。
+- 场景 D：由 `smoke-hosting-scenarios.spec.ts` 覆盖角色图标缺失时仍可开局并进入夜序。
+
+当前边界：
+
+- 这是模拟主持验收，不等同于真实线下局验证。
+- AI 推荐入口已覆盖，但不在本 smoke 中强制真实模型调用；真实模型质量回归仍按 AI 质量回归章节单独执行。
+- 测试只确认“权威状态由确认动作写入”，不允许夜间 AI 自动改身份、阵营、死亡、毒醉或胜负。

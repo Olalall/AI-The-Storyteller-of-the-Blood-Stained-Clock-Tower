@@ -1,3 +1,26 @@
+## 2026-07-27 - P1 真实模型夜间质量 smoke
+
+- 新增可选命令 `npm run smoke:ai-night-live`，用于在已经配置真实 AI Key 时抽查夜间复杂角色建议。
+- 当前 smoke 覆盖赌徒、舞蛇人、洗脑师三类高风险场景，检查真实模型是否给出正确 `recommendedOutcomeId`，并确认输出仍是说书人草稿。
+- 默认 `npm run check` 不调用真实模型，避免日常开发被网络、API 费用或 provider 排队阻塞。
+- 顺手重写了 `AI_NIGHT_QUALITY_REGRESSION.md` 和 `AI_RUNTIME_STARTUP.md`，让真实 AI 启动、回归边界和 live smoke 用法变成可读中文。
+
+### Before / After
+
+- Before：本地复杂角色回归已完成，但真实模型只靠浏览器 smoke 粗测，无法专门验证赌徒/舞蛇人/洗脑师这类容易错的夜间结算。
+- After：可以单独跑真实模型夜间质量 smoke；失败时能明确知道是哪类复杂角色建议不稳。
+
+### 验证
+
+- `npx vitest run server/ai/nightSettlementProvider.live.test.ts --reporter=verbose` 通过：默认模式 3 个 live 用例全部跳过，不会偷偷调用真实模型。
+- `npm run audit:public` 通过。
+- `npm run check` 通过：178 个测试文件通过、1 个 live 测试文件跳过；840 项测试通过、3 项 live 用例跳过；build 和 architecture verification 全部通过。
+- 本轮默认不调用真实模型；如需 live 调用，需要显式设置 `BOTC_AI_BASE_URL`、`BOTC_AI_MODEL`、`BOTC_AI_API_KEY` 后运行 `npm run smoke:ai-night-live`。
+
+### 风险
+
+- live smoke 会消耗真实模型 API，并受网络、限流、模型版本影响；它是发布/部署前抽查，不是默认开发检查。
+
 ## 2026-07-27 - P1-4 ????????
 
 - ????????/???????????????????????????????/???????/?????????
@@ -3074,6 +3097,44 @@ UI 体验优化 / 测试加固 / 文档收口。没有新增板子，没有玩�
 - ????????????????????? AI ???????? 100% ??????????????????
 
 
+## 2026-07-27 - 挑刺 P0 文档口径修复
+
+### 给非开发者看的交付说明
+- 修掉挑刺审查里的前三个 P0 文档问题：README 真实 AI 状态不一致、AI 启动说明乱码、VPS 端口说明混乱。
+- README 现在明确：真实 AI 连通测试入口已存在，但默认关闭；AI 配板、夜间结算和复盘仍只是草稿建议。
+- `AI_RUNTIME_STARTUP.md` 已重写为可读中文，说明本机/VPS AI 环境变量、设置页操作、live test 和错误码。
+- `VPS_DEPLOYMENT_PREP.md` 已把本机默认端口 `8787`、当前 VPS 对外端口 `3000`、同步脚本默认端口 `3000` 分开解释。
+
+### Before / After
+- Before：用户看 README 会误解真实 AI 是否存在；AI 启动文档乱码；VPS 文档把本地默认端口和当前远端端口混在一起。
+- After：GitHub 用户能看懂真实 AI 是“可手动连通测试、默认关闭、永远草稿建议”；VPS 端口口径也更明确。
+
+### 验证
+- `npm run audit:public` 通过；素材引用提示是预期提醒，不是失败。
+- `npm run check` 通过：177 个测试文件 / 828 项测试，build 与 architecture verification 全部通过。
+- 乱码固定字符串扫描通过：`AI_RUNTIME_STARTUP.md` 和 `VPS_DEPLOYMENT_PREP.md` 已无乱码命中；`PROJECT_CRITIQUE_AUDIT.md` 中保留的 `?????` 是历史问题证据。
+
+### 风险
+- 还没有执行新的 `SMOKE_HOSTING_SCENARIOS.md` 7/12/15 人模拟主持流程，这是剩余 P0 验收问题。
+
+## 2026-07-27 - 项目完整度挑刺审查
+
+### 给非开发者看的交付说明
+- 新增 `PROJECT_CRITIQUE_AUDIT.md`，对当前项目做了一次不加功能的挑刺审查。
+- 结论：GitHub alpha / preview 可发布；正式稳定版还不建议宣传。
+- 找到的核心短板不是主流程缺失，而是 README 真实 AI 状态不一致、AI 启动文档乱码、VPS 端口口径混乱、模拟主持流程未按新标准重跑、真实 AI 质量回归未系统化、大规模板子数据文件后续维护风险。
+
+### Before / After
+- Before：只能口头判断“差不多能发，但还不是正式版”。
+- After：P0/P1/P2 问题有文档记录，后续按优先级修，不靠聊天记忆。
+
+### 验证
+- `npm run audit:public` 通过；素材引用提示是预期提醒，不是失败。
+- `npm run smoke:backend` 通过：本地 runtime 可启动，archive 和 fake review provider 正常。
+
+### 风险
+- 本轮只审查和记录，没有修复审查中列出的 P0/P1 问题。
+
 ## 2026-07-27 - 公开发布前最终审计
 
 ### 给非开发者看的交付说明
@@ -3228,3 +3289,63 @@ UI 体验优化 / 测试加固 / 文档收口。没有新增板子，没有玩�
 ### 风险
 - 面板只做质量投影，不负责修复板子；如果某个板子显示“需复核”，仍需要按规则调研和板子导入流程处理。
 - 当前质量判断是结构化启发式，不等于官方权威认证。
+
+## 2026-07-27 - 模拟主持流程 smoke 收口
+
+### 给非开发者看的交付说明
+- 把“7/12/15 人模拟主持验收”做成了可以自动点击真实页面按钮的浏览器测试。
+- 现在会分别验证：7 人开局与夜序投影、12 人主主持链路、15 人大局投票密度、结束归档/复盘/重置、缺角色图标时仍能继续开局。
+- 修了一个测试里暴露出的流程问题：夜间“受到影响”如果已经被 AI 建议预选，测试不会再点一次把它取消掉；这能防止按钮语义被误测成不可确认。
+
+### Before / After
+- Before：`SMOKE_HOSTING_SCENARIOS.md` 只是验收标准，没有一次新标准下的执行记录。
+- After：新增 `smoke-hosting-scenarios.spec.ts`，并记录 5 个浏览器 smoke 全部通过；模拟主持验收从“口头标准”变成“可重复检查”。
+
+### 验证
+- `npx playwright test tests/e2e/manual-click-smoke.spec.ts tests/e2e/game-end-prototype.spec.ts tests/e2e/smoke-hosting-scenarios.spec.ts --reporter=line` 通过：5 passed。
+- `npm run check` 通过：177 个测试文件 / 828 项测试，build 与 architecture verification 全部通过。
+- `npm run audit:public` 通过。
+
+### 风险
+- 这是模拟主持验收，不等同于真实线下局验证。
+- 本轮没有强制真实模型 live 调用；AI 质量回归仍需要单独跑。
+
+## 2026-07-27 - P1 夜间 AI 复杂角色质量回归
+
+### 给非开发者看的交付说明
+- 给夜间 AI 增加了一组复杂角色回归测试，专门防止它在关键角色上“看起来会说话，但建议不靠谱”。
+- 现在本地回退建议能识别：赌徒猜错、赌徒醉酒、舞蛇人选中恶魔、方古击杀外来者、麻脸巫婆换成已在场/未在场角色、洗脑师疯狂告知。
+- 所有建议仍然只是草稿：死亡、换身份、改阵营、中毒、醉酒、疯狂处罚都不会自动写入权威状态。
+
+### Before / After
+- Before：AI 上下文已经带了角色知识和目标状态，但缺少固定回归；以后改 prompt 或导入板子时，复杂角色建议质量可能悄悄退化。
+- After：关键复杂角色有可执行测试卡住；新增板子遇到高风险角色时，要按同一标准补角色知识和回归。
+
+### 验证
+- `npx vitest run src/services/ai/nightSettlementQualityRegression.test.ts src/services/ai/aiContract.test.ts src/services/ai/aiService.test.ts --reporter=verbose` 通过：3 个测试文件 / 15 项测试。
+- `npm run check` 通过：178 个测试文件 / 834 项测试，build 与 architecture verification 全部通过。
+- `npm run audit:public` 通过。
+
+### 风险
+- 当前只覆盖第一批高风险角色；普卡、诺-达鲺、熬药女巫、红唇女郎、疯子、数学家还需要继续补。
+- 本轮不调用真实模型；真实模型 live 质量抽查仍是后续独立步骤。
+
+## 2026-07-27 - P1 夜间 AI 复杂角色回归第二批
+
+### 给非开发者看的交付说明
+- 继续补强夜间 AI 建议的复杂角色底座：普卡、诺-达鲺、红唇女郎、炼金术士、数学家、疯子已加入回归。
+- 本地 AI 回退现在会把“隐藏信息、开局修正、保护、胜负”也转成明确的待确认草稿提醒，不再只覆盖死亡、身份、阵营、毒醉。
+- 红唇女郎这类会影响胜负边界的角色，现在会保留“AI不能自动判胜”的提醒，避免建议看起来像裁定。
+
+### Before / After
+- Before：第一批只卡住赌徒、舞蛇人、方古、麻脸巫婆、洗脑师；部分风险标签没有转成草稿提醒。
+- After：复杂角色回归扩大到 12 个场景；涉及隐藏信息、开局修正、胜负、保护的角色也能输出更清楚的说书人核对点。
+
+### 验证
+- `npx vitest run src/services/ai/nightSettlementQualityRegression.test.ts src/services/ai/aiContract.test.ts src/services/ai/aiService.test.ts --reporter=verbose` 通过：3 个测试文件 / 21 项测试。
+- `npm run check` 通过：178 个测试文件 / 840 项测试，build 与 architecture verification 全部通过。
+- `npm run audit:public` 通过。
+
+### 风险
+- 仍然不是完整规则引擎；普卡上一晚毒目标、诺-达鲺两侧最近镇民、红唇女郎接恶魔等都只是草稿提醒，最终由说书人确认。
+- 真实模型 live 抽查还未扩展到这些第二批角色。

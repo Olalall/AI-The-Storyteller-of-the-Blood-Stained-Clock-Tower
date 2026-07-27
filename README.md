@@ -34,7 +34,7 @@ Pad 优先的《血染钟楼》线下说书人辅助工具。它围绕官方/实
 - **白天投票**：提名人、被提名人、票型、死亡票、暂列处决和平票记录；确认处决才改死亡状态。
 - **日记与更正**：按昼夜记录技能、信息、状态、投票、处决和更正；更正追加记录，不覆盖旧记录。
 - **结束与复盘**：保存本局、查看历史复盘、生成 AI 复盘草稿、导出 JSON、确认后重置游戏。
-- **AI 设置**：右上角齿轮配置 AI API；前端不保存真实 API Key。
+- **AI 设置**：右上角齿轮配置 AI API；前端不保存真实 API Key。真实 AI 连通测试入口已存在，但默认关闭，所有 AI 输出仍只是草稿建议。
 - **素材包提示**：官方/社区二进制素材默认不进仓库，缺图时有导入说明，不阻塞核心流程。
 
 ## 不做什么
@@ -77,6 +77,13 @@ npm run dev:backend
 
 真实 AI 走后端代理，前端只保存非敏感设置。不要把 API Key 写入源码或提交到 Git。
 
+当前状态：
+
+- 后端已有 OpenAI-compatible provider 配置和一次性 live test 入口。
+- 默认 `BOTC_AI_ENABLED=false`，不调用真实模型。
+- AI 配板、夜间结算和赛后复盘仍是草稿建议；不会自动改权威状态。
+- 详细启动方式见 `dev-docs/AI_RUNTIME_STARTUP.md`。
+
 环境变量示例：
 
 ```powershell
@@ -95,10 +102,12 @@ AI 不可用时，开局、夜序、投票、日志、计时和归档仍应可�
 npm run check
 npm run test:e2e
 npm run smoke:backend
+npm run smoke:ai-night-live
 npm run audit:public
 ```
 
 `audit:public` 用于拦截真实 API Key、本机个人路径和素材误提交风险。
+`smoke:ai-night-live` 是可选真实模型抽查，运行前必须设置 `BOTC_AI_BASE_URL`、`BOTC_AI_MODEL` 和 `BOTC_AI_API_KEY`；默认检查不会调用真实模型。
 
 ## 公开仓库与素材包
 
