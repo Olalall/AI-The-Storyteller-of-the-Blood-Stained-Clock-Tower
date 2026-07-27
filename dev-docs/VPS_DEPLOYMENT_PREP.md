@@ -155,6 +155,7 @@ curl https://<your-domain>/healthz
 - 实际成功路径：Tencent TAT 分片写入 zip base64 → 远端重组 zip → SHA256 校验 → 备份旧新工具目录 → 解压 → 使用绝对路径启动 Node runtime。
 - 远端 Node 路径：`C:\nodejs\node.exe`。
 - TAT 以 SYSTEM 身份运行时找不到 `npm.cmd`，本次跳过 `npm ci` 后直接启动 `dist-server\runtime.mjs`；当前 runtime 打包产物可独立启动。
+- 后续已补充正式脚本：`scripts\vps\start-assistant.ps1` 和 `scripts\vps\install-windows-scheduled-task.ps1`；部署包会自动携带，用于把 `C:\nodejs\node.exe` 绝对路径固化到 Windows Scheduled Task。
 - 新工具远端健康检查通过：`http://203.0.113.10:3000/healthz` 返回 `{"ok":true,"service":"botc-storyteller-backend"}`。
 - 新工具首页通过：`http://203.0.113.10:3000/` 返回 200。
 - 旧 V2.5 首页仍可访问：`http://203.0.113.10/` 返回 200。

@@ -70,6 +70,7 @@ Copy-RequiredPath "package-lock.json" (Join-Path $stagePath "package-lock.json")
 Copy-RequiredPath "README.md" (Join-Path $stagePath "README.md")
 Copy-RequiredPath "THIRD_PARTY_NOTICES.md" (Join-Path $stagePath "THIRD_PARTY_NOTICES.md")
 Copy-RequiredPath "dev-docs\VPS_DEPLOYMENT_PREP.md" (Join-Path $stagePath "VPS_DEPLOYMENT_PREP.md")
+Copy-RequiredPath "scripts\vps" (Join-Path $stagePath "scripts\vps")
 
 $manifest = [ordered]@{
   project = "botc-storyteller-companion"
@@ -84,6 +85,8 @@ $manifest = [ordered]@{
     frontend = "dist"
     backend = "dist-server\runtime.mjs"
     healthz = "/healthz"
+    windowsStartScript = "scripts\vps\start-assistant.ps1"
+    windowsScheduledTaskInstaller = "scripts\vps\install-windows-scheduled-task.ps1"
   }
 }
 $manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $stagePath "DEPLOYMENT_MANIFEST.json") -Encoding UTF8
