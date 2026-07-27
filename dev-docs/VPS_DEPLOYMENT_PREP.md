@@ -143,3 +143,19 @@ curl https://<your-domain>/healthz
   - `C:\botc-storyteller-companion\logs\runtime.log`
   - `C:\botc-storyteller-companion\logs\runtime.err.log`
 - 历史部署包 SHA256：`89DD5D0DF2CCD24E27506463404E7D5525ABE3FB10CDBD7EDBCD3D27375A5E84`。
+
+## 2026-07-27 远端同步记录
+
+- 同步 commit：`d0416ef`。
+- 部署包：`botc-storyteller-companion-20260727-170223.zip`。
+- 部署包 SHA256：`F8C050D235D82746D3723E852D44785996162C9B6A1F95F776D05FD2C565CD56`。
+- Release asset 地址：`https://github.com/Olalall/botc-storyteller-companion/releases/download/alpha-preview-20260727/botc-storyteller-companion-20260727-170223.zip`。
+- SSH/SCP 路径失败：`203.0.113.10:22` 连接被关闭。
+- GitHub Release asset 远端下载失败：VPS 上 `curl` / `Invoke-WebRequest` 到 GitHub 均出现连接重置或无法连接远程服务器。
+- 实际成功路径：Tencent TAT 分片写入 zip base64 → 远端重组 zip → SHA256 校验 → 备份旧新工具目录 → 解压 → 使用绝对路径启动 Node runtime。
+- 远端 Node 路径：`C:\nodejs\node.exe`。
+- TAT 以 SYSTEM 身份运行时找不到 `npm.cmd`，本次跳过 `npm ci` 后直接启动 `dist-server\runtime.mjs`；当前 runtime 打包产物可独立启动。
+- 新工具远端健康检查通过：`http://203.0.113.10:3000/healthz` 返回 `{"ok":true,"service":"botc-storyteller-backend"}`。
+- 新工具首页通过：`http://203.0.113.10:3000/` 返回 200。
+- 旧 V2.5 首页仍可访问：`http://203.0.113.10/` 返回 200。
+- 备份目录由远端脚本创建在：`C:\botc-storyteller-companion-deploy\backup-20260727-172205`。
