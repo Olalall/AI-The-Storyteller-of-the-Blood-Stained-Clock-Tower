@@ -1,3 +1,19 @@
+## 2026-07-27 - License 决策指南
+
+### 给非开发者看的交付说明
+- 新增 `LICENSE_DECISION_GUIDE.md`，把 GitHub 公开前最容易卡住的 License 问题拆成几种选择。
+- 当前建议仍是保守路线：保持 Private 和 `License decision pending`；如果要公开，推荐“原创代码 MIT，第三方 BOTC/社区/素材内容明确排除”。
+- README 和 GitHub 公开发布状态页都已链接到这份指南，后续不用再翻聊天记录。
+
+### Before / After
+- Before：公开前只知道 License 是阻塞项，但不知道具体怎么选、每种选择有什么后果。
+- After：有一份可执行决策文档，能支持你之后一句话确认路线。
+
+### 验证
+- 后续随本轮运行 `npm run audit:public` 和 `git diff --check`。
+
+### 风险
+- 这不是法律意见；真正公开、商用或大规模分发前，仍建议人工复核第三方条款和免责声明。
 ## 2026-07-27 - GitHub 公开发布状态页
 
 ### 给非开发者看的交付说明
