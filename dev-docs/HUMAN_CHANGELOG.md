@@ -1,3 +1,22 @@
+## 2026-07-27 - GitHub 反馈入口与路线图 Issue
+
+### 给非开发者看的交付说明
+- GitHub 仓库现在有公开反馈入口：Issues 和 Discussions 都已开启。
+- 新建并置顶了 Alpha preview roadmap and known limitations，用于集中说明 alpha 版本定位、已知限制、反馈格式和近期路线图。
+- 这不是新增产品功能，而是发布治理：让外部用户看到项目边界，反馈也不会散在 README 或 Release 里。
+
+### Before / After
+- Before：仓库已经公开和发布 Release，但没有一个固定入口收集问题、建议和路线图反馈。
+- After：访问者可以直接从置顶 Issue 了解当前限制，并按模板提供复现步骤、设备、板子和 AI 状态。
+
+### 验证
+- gh repo view Olalall/botc-storyteller-companion --json hasIssuesEnabled,hasDiscussionsEnabled 确认 Issues / Discussions 已开启。
+- gh issue create 创建 Issue #1。
+- gh issue pin 1 已置顶 Issue #1。
+
+### 风险
+- 如果未来反馈量变大，还需要增加正式 Issue Templates；当前先用置顶 Issue 足够。
+
 ## 2026-07-27 - 创建首个 GitHub Release
 
 ### 给非开发者看的交付说明
