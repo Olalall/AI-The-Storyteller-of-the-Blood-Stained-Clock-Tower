@@ -1,3 +1,23 @@
+## 2026-07-27 - VPS Windows 启动与计划任务脚本
+
+### 给非开发者看的交付说明
+- 新增正式的 Windows VPS 启动脚本和计划任务安装脚本，后续不再依赖临时 TAT 脚本里手写 `C:\nodejs\node.exe`。
+- 部署包会自动带上 `scripts/vps/`，远端可以直接注册 `botc-storyteller-backend` 开机自启任务。
+- 这轮是部署稳定性治理，不改 UI、不接真实 AI、不碰旧 V2.5。
+
+### Before / After
+- Before：本次 VPS 同步靠临时脚本生成 `start-assistant.ps1`，TAT 的 SYSTEM 环境找不到 `npm.cmd`，Node 绝对路径没有正式沉淀到仓库。
+- After：仓库内有可复用脚本：`start-assistant.ps1` 负责启动 runtime，`install-windows-scheduled-task.ps1` 负责注册 Windows Scheduled Task。
+
+### 验证
+- `npm run audit:public` 通过。
+- `npm run check` 通过。
+- `npm run package:vps` 通过，部署包已包含 `scripts/vps/start-assistant.ps1` 和 `scripts/vps/install-windows-scheduled-task.ps1`。
+
+### 风险
+- 本轮脚本默认使用 `C:\nodejs\node.exe`；如果 VPS Node 位置变化，需要用 `-NodePath` 参数覆盖。
+- 注册计划任务会修改远端系统状态，必须在明确部署/安装时执行；本轮先完成仓库脚本和打包验证。
+
 ## 2026-07-27 - VPS 同步最新 GitHub 版本
 
 ### 给非开发者看的交付说明

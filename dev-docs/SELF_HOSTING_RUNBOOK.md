@@ -198,12 +198,31 @@ curl.exe http://<VPS_IP>:3000/healthz
 
 ## 持久运行建议
 
-当前仓库不强制引入 PM2、NSSM、Docker 或 systemd。自用 VPS 可以按熟悉程度选一种。
+当前仓库提供 Windows VPS 的最小托管脚本，不强制引入 PM2、NSSM、Docker 或 systemd。
 
-最小建议：
+部署包会包含：
 
-- Windows：用计划任务、NSSM 或 PM2 托管 `node dist-server\runtime.mjs`。
-- Linux：用 systemd 托管 `node dist-server/runtime.mjs`。
+```text
+scripts/vps/start-assistant.ps1
+scripts/vps/install-windows-scheduled-task.ps1
+```
+
+Windows VPS 注册开机自启计划任务：
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\botc-storyteller-companion\scripts\vps\install-windows-scheduled-task.ps1 `
+  -AppDir 'C:\botc-storyteller-companion' `
+  -NodePath 'C:\nodejs\node.exe' `
+  -Port 3000 `
+  -StartNow
+```
+
+这会注册名为 `botc-storyteller-backend` 的 Windows Scheduled Task，并用 `C:\nodejs\node.exe` 绝对路径启动 `dist-server\runtime.mjs`。
+
+Linux：当前只记录建议，用 systemd 托管 `node dist-server/runtime.mjs`；仓库暂未提供 Linux service 文件。
+
+共同要求：
+
 - 保持 `BOTC_BACKEND_HOST=0.0.0.0`，否则公网无法访问。
 - 把日志写到部署目录下的 `logs/`，不要写到仓库源码目录。
 - 把 AI Key 写进服务环境变量或服务器 secret，不写进启动脚本模板。
@@ -304,6 +323,7 @@ http://<VPS_IP>:3000/
 | 现象 | 先查什么 | 常见原因 |
 | --- | --- | --- |
 | 页面打不开 | `curl /healthz`、端口监听、防火墙 | 服务没启动、端口未开放、host 不是 `0.0.0.0` |
+| 重启后服务没起来 | `Get-ScheduledTask botc-storyteller-backend`、`logs/runtime.log` | 计划任务没注册、Node 路径不对、runtime 文件缺失 |
 | 前端打开但归档失败 | 后端地址设置、`/api/archives` 响应 | 前端仍指向本地、后端没启动、CORS/反代错误 |
 | AI 显示不可用 | `/api/settings/ai`、环境变量 | `BOTC_AI_ENABLED=false` 或缺 Key/model/baseUrl |
 | AI 超时 | provider 网络、`BOTC_AI_TIMEOUT_MS` | 模型慢、网络不稳、限流 |
