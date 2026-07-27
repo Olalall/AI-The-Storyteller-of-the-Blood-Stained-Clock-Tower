@@ -3,13 +3,13 @@
 Date: 2026-07-27
 Repository: `Olalall/botc-storyteller-companion`
 URL: https://github.com/Olalall/botc-storyteller-companion
-Current visibility: Private
+Current visibility: Public
 Default branch: `main`
 License: MIT License, original source code and original project documentation only
 
 ## Verdict
 
-Ready for owner-confirmed GitHub Public switch as an alpha / preview repository.
+Public switch completed after owner confirmation. The repository is public as an alpha / preview repository.
 
 Do not market it as a stable official product. Recommended public label:
 
@@ -31,7 +31,7 @@ Results:
 - Build: passed.
 - Architecture verification: passed.
 - GitHub license detection: `mit` / MIT License.
-- GitHub visibility at check time: Private.
+- GitHub visibility after owner-confirmed switch: Public.
 - Working tree: clean before this readiness document was written.
 
 Known non-blocking warning:
@@ -68,23 +68,11 @@ README currently includes:
 - Public repository / asset pack boundary.
 - Third-party notices and license note.
 
-## What remains before switching Public
+## After public switch
 
-Only owner confirmation remains.
+Public visibility has been enabled after explicit owner confirmation.
 
-Required explicit command from owner in chat:
-
-```text
-确认公开 GitHub
-```
-
-After that, the safe action is:
-
-```powershell
-gh repo edit Olalall/botc-storyteller-companion --visibility public
-```
-
-Optional after public:
+Optional next steps:
 
 - Create first GitHub Release: `alpha-preview-20260727`.
 - Add a short pinned issue or Discussion for feedback.
@@ -92,7 +80,7 @@ Optional after public:
 
 ## Not done intentionally
 
-- Did not switch repository to Public without explicit owner confirmation.
+- Repository was switched to Public only after explicit owner confirmation.
 - Did not create a Release yet.
 - Did not upload or redistribute official/community binary art assets.
 - Did not run live AI smoke, because it requires real model credentials and may consume API quota.

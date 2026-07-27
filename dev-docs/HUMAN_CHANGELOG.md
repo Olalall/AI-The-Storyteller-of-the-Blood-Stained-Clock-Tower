@@ -1,3 +1,19 @@
+## 2026-07-27 - GitHub 仓库公开
+
+### 给非开发者看的交付说明
+- 已按项目所有者明确确认，将 `Olalall/botc-storyteller-companion` 从 Private 切换为 Public。
+- GitHub 公开状态已验证：默认分支 main，License 识别为 MIT，仓库 visibility 为 PUBLIC。
+- 同步更新公开发布状态文档和最终门禁文档，避免文档继续写 Private。
+
+### Before / After
+- Before：仓库已准备好公开，但仍是 Private。
+- After：仓库已经公开，外部用户可以访问 README、截图、源码和 License。
+
+### 验证
+- `gh repo view Olalall/botc-storyteller-companion --json nameWithOwner,visibility,url,defaultBranchRef,licenseInfo,isPrivate` 返回 visibility `PUBLIC`、isPrivate `false`、licenseInfo `MIT License`。
+
+### 风险
+- 仓库已对外公开；后续提交仍必须继续运行 `npm run audit:public`，避免误提交 API Key、个人路径或第三方二进制素材。
 ## 2026-07-27 - GitHub 公开前最终门禁
 
 ### 给非开发者看的交付说明
