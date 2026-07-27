@@ -1,0 +1,52 @@
+name: Feature request
+description: Suggest a product or UX improvement.
+title: "[Feature] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This project is a storyteller companion, not an automatic rules engine.
+        AI suggestions must remain drafts until the storyteller confirms them.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What real hosting pain does this solve?
+      placeholder: "Example: During night order, I need a faster way to show one player their private information."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should the tool do?
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Product area
+      options:
+        - Setup / smart setup
+        - Identity handoff
+        - Night workbench
+        - Day / voting
+        - Journal / corrections
+        - Archive / review
+        - AI settings
+        - Self-hosting / VPS
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: boundary
+    attributes:
+      label: Authority boundary
+      description: What must still require storyteller confirmation?
+      placeholder: "Example: AI may draft state changes, but death/poison/drunk must not be applied automatically."
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Optional. Mention manual workflow, UI-only option, or lower-risk version.

@@ -1,0 +1,68 @@
+name: Bug report
+description: Report a reproducible bug in the storyteller companion.
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. This is an unofficial alpha / preview tool.
+        Please do not paste API keys, private player data, or copyrighted rule text dumps.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the bug in one or two paragraphs.
+      placeholder: "Example: After resetting a game, the script selector is no longer available."
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: List the exact clicks or actions.
+      placeholder: |
+        1. Open dashboard
+        2. Click ...
+        3. ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: "What should have happened?"
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: "What happened instead?"
+    validations:
+      required: true
+  - type: input
+    id: script
+    attributes:
+      label: Script / player count
+      placeholder: "Example: Catfishing / 12 players"
+  - type: dropdown
+    id: ai
+    attributes:
+      label: Was real AI enabled?
+      options:
+        - "No / local fallback"
+        - "Yes / real provider"
+        - "Not sure"
+    validations:
+      required: true
+  - type: input
+    id: device
+    attributes:
+      label: Device / browser / viewport
+      placeholder: "Example: OPPO Pad, Android Chrome, landscape split-screen"
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshot or logs
+      description: Attach screenshots if UI-related. Redact secrets before pasting logs.
