@@ -21,7 +21,8 @@
     "sync:vps": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/sync-to-vps.ps1",
     "smoke:smart-scripts:browser": "node scripts/run-smart-script-browser-smoke.mjs",
     "smoke:ai-night-live": "node scripts/run-real-ai-night-quality-smoke.mjs",
-    "audit:public": "node scripts/public-release-audit.mjs"
+    "audit:public": "node scripts/public-release-audit.mjs",
+    "screenshots:github": "node scripts/generate-github-screenshots.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.19",
