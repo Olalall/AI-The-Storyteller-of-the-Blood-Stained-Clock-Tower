@@ -13,10 +13,12 @@
 - `npm run audit:public` 通过。
 - `npm run check` 通过。
 - `npm run package:vps` 通过，部署包已包含 `scripts/vps/start-assistant.ps1` 和 `scripts/vps/install-windows-scheduled-task.ps1`。
+- 已通过 Tencent TAT 把两个脚本写入 VPS，并注册 Windows Scheduled Task：`botc-storyteller-backend`。
+- 远端任务状态为 `Ready`，当前服务 `/healthz` 返回正常。
 
 ### 风险
-- 本轮脚本默认使用 `C:\nodejs\node.exe`；如果 VPS Node 位置变化，需要用 `-NodePath` 参数覆盖。
-- 注册计划任务会修改远端系统状态，必须在明确部署/安装时执行；本轮先完成仓库脚本和打包验证。
+- 脚本默认使用 `C:\nodejs\node.exe`；如果 VPS Node 位置变化，需要用 `-NodePath` 参数覆盖。
+- 本轮已修改远端 Windows Scheduled Task，但没有重启 VPS；真正的“重启后自动恢复”仍需等下次服务器重启或单独做重启演练。
 
 ## 2026-07-27 - VPS 同步最新 GitHub 版本
 
