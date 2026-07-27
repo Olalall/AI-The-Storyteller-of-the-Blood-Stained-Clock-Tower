@@ -1,3 +1,19 @@
+## 2026-07-27 - GitHub README 展示深化
+
+### 给非开发者看的交付说明
+- README 从“功能列表”升级成“产品导览”：先解释工具解决什么问题，再按截图逐个说明每个界面的用途。
+- GitHub 展示截图从 5 张扩展到 12 张，覆盖本局、板子库、AI 配板、身份交接、夜晚、白天投票、倒计时、AI 设置、开场白、玩家详情、日记和复盘。
+- 新增“一局游戏怎么用”和“AI 权限边界”说明，陌生人更容易理解这个工具不是官方魔典，也不是自动规则引擎。
+
+### Before / After
+- Before：README 有截图和核心能力，但介绍偏概括，不能很好展示完整主持流程。
+- After：README 更像 GitHub 产品首页，能按线下开局、夜晚、白天、归档复盘的顺序读懂项目。
+
+### 验证
+- 后续随本轮运行 `npm run screenshots:github`、`npm run audit:public`、`npm run check` 和 `git diff --check`。
+
+### 风险
+- 截图是 alpha UI 快照；后续 UI 改动后需要重新运行 `npm run screenshots:github`。
 ## 2026-07-27 - 公开前 License 收口
 
 ### 给非开发者看的交付说明
