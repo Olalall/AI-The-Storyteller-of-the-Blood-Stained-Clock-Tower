@@ -95,7 +95,7 @@ botc, blood-on-the-clocktower, storyteller, react, vite, typescript, ai-assistan
 
 当前：原创代码和原创项目文档使用 MIT License。
 
-边界：MIT License 不授权 Blood on the Clocktower、官方/社区脚本、角色名、规则文本、视觉素材、商标、provider-owned materials 或任何第三方内容。详见 `LICENSE` 与 `THIRD_PARTY_NOTICES.md`。
+边界：`LICENSE` 保持标准 MIT，便于 GitHub 正确识别；第三方内容排除说明见 `README.md` 与 `THIRD_PARTY_NOTICES.md`。MIT 授权不覆盖 Blood on the Clocktower、官方/社区脚本、角色名、规则文本、视觉素材、商标、provider-owned materials 或任何第三方内容。
 
 决策参考留档：`dev-docs/LICENSE_DECISION_GUIDE.md`。
 

@@ -30,7 +30,9 @@
 
 ## 已落地文件
 
-- `LICENSE`：MIT License，并追加第三方内容排除说明。
+说明：第三方内容排除说明放在 README 与 THIRD_PARTY_NOTICES，避免破坏 GitHub 对 MIT License 的自动识别。
+
+- `LICENSE`：标准 MIT License，便于 GitHub 正确识别。
 - `README.md`：License 区说明原创代码 MIT、第三方内容不授权。
 - `THIRD_PARTY_NOTICES.md`：第三方声明和素材包边界。
 - `dev-docs/GITHUB_PUBLICATION_STATUS.md`：公开发布状态更新为 License 已收口。
