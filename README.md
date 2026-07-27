@@ -200,6 +200,8 @@ npm run screenshots:github
 
 ## License
 
-License decision pending. See `dev-docs/LICENSE_DECISION_GUIDE.md`.
+The original source code and original project documentation in this repository are licensed under the MIT License. See `LICENSE`.
 
-No license is granted for third-party assets, Blood on the Clocktower content, community script content, provider-owned materials, or any official/community visual assets.
+This MIT License does not grant any rights to Blood on the Clocktower, official or community scripts, role names, rules text, visual assets, trademarks, provider-owned materials, or any third-party content. See `THIRD_PARTY_NOTICES.md`.
+
+中文说明：本仓库原创代码和原创项目文档按 MIT License 授权；但该授权不包含 Blood on the Clocktower 相关内容、官方/社区脚本、角色名、规则文本、视觉素材、商标或第三方提供方材料。

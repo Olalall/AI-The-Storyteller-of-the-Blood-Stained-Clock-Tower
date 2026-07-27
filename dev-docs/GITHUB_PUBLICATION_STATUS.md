@@ -9,9 +9,9 @@
 
 可以作为 **GitHub alpha / preview 私有仓库** 使用。
 
-暂不建议直接改成 Public，除非完成下面的人工确认项：
+暂不建议直接改成 Public，除非完成下面的最终确认项：
 
-1. 选择代码 License。
+1. 代码 License 已选择：MIT，仅覆盖原创代码和原创项目文档。
 2. 确认 README 与第三方声明没有把本项目说成官方工具。
 3. 确认不提交 API Key、个人路径、本地素材二进制包。
 4. 确认官方/社区素材继续走“可选加载包 + 来源说明 + 用户自行同意下载/放置”的边界。
@@ -93,23 +93,17 @@ botc, blood-on-the-clocktower, storyteller, react, vite, typescript, ai-assistan
 
 ## License 状态
 
-当前：`License decision pending`。
+当前：原创代码和原创项目文档使用 MIT License。
 
-决策参考：`dev-docs/LICENSE_DECISION_GUIDE.md`。
+边界：MIT License 不授权 Blood on the Clocktower、官方/社区脚本、角色名、规则文本、视觉素材、商标、provider-owned materials 或任何第三方内容。详见 `LICENSE` 与 `THIRD_PARTY_NOTICES.md`。
 
-不要默认选 MIT / Apache / GPL。因为项目涉及 BOTC 相关概念、社区脚本、可选素材包和免责声明，代码 License 需要项目所有者单独确认。
-
-可选方向：
-
-- 私有自用：暂不添加 License。
-- 公开源码但保留授权：自定义限制性许可证或 `All rights reserved` 说明。
-- 开源代码：选择 MIT / Apache-2.0 等，但必须明确第三方 BOTC 内容和素材不在该 License 授权范围内。
+决策参考留档：`dev-docs/LICENSE_DECISION_GUIDE.md`。
 
 ## 当前剩余阻塞
 
 P0 阻塞：
 
-- License / 授权口径未最终确认。
+- 暂无。
 
 P1 建议：
 

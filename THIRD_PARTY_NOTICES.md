@@ -69,4 +69,14 @@ AI provider names, APIs, and model names belong to their respective providers. T
 
 ## License note
 
-The project code license has not been finalized in this repository. No license is granted for third-party assets, Blood on the Clocktower content, community script content, or provider-owned materials.
+The original source code and original project documentation in this repository are licensed under the MIT License.
+
+The MIT License does not grant any rights to Blood on the Clocktower, official or community scripts, role names, rules text, visual assets, trademarks, provider-owned materials, or any third-party content.
+
+For clarity:
+
+- The code license does not license Blood on the Clocktower itself.
+- The code license does not license official or community visual assets.
+- The code license does not license official or community scripts as standalone game content.
+- Optional local asset packs remain subject to their original sources and rights holders.
+- AI provider APIs, model names, trademarks, and provider-owned materials remain subject to their respective providers.
