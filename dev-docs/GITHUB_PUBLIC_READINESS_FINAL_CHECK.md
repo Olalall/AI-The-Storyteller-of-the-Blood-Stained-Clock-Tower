@@ -75,12 +75,18 @@ Public visibility has been enabled after explicit owner confirmation.
 Optional next steps:
 
 - Create first GitHub Release: `alpha-preview-20260727`.
-- Add a short pinned issue or Discussion for feedback.
+- GitHub Issues / Discussions 已开启；反馈路线图 issue 已创建并置顶：#1 https://github.com/Olalall/botc-storyteller-companion/issues/1
 - Add an English one-paragraph summary later if desired.
 
 ## Not done intentionally
 
 - Repository was switched to Public only after explicit owner confirmation.
-- Did not create a Release yet.
 - Did not upload or redistribute official/community binary art assets.
 - Did not run live AI smoke, because it requires real model credentials and may consume API quota.
+
+## Public feedback intake
+
+- Issues: enabled.
+- Discussions: enabled.
+- Pinned roadmap / known limitations issue: https://github.com/Olalall/botc-storyteller-companion/issues/1
+- Purpose: collect alpha feedback without changing the product boundary. AI remains draft-only and the repository remains an unofficial companion tool.
