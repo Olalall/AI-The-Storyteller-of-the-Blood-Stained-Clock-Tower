@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Alpha preview roadmap / known limitations
+    url: https://github.com/Olalall/botc-storyteller-companion/issues/1
+    about: Read current boundaries, known limitations, and near-term roadmap before filing broad feedback.

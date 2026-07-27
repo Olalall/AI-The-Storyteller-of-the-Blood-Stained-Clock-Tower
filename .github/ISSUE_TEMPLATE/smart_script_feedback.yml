@@ -1,0 +1,66 @@
+name: Smart script / rule reminder feedback
+description: Report a smart setup, night order, role reminder, or AI suggestion quality issue.
+title: "[Smart Script] "
+labels: ["smart-script", "rules-review"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this for script pack quality, role reminder, night order, setup candidate, or AI suggestion issues.
+        Do not paste large copyrighted rule text. Short references, links, screenshots, and paraphrases are preferred.
+  - type: input
+    id: script
+    attributes:
+      label: Script name
+      placeholder: "Example: Catfishing / 瓦釜雷鸣"
+    validations:
+      required: true
+  - type: input
+    id: player_count
+    attributes:
+      label: Player count
+      placeholder: "Example: 12"
+  - type: input
+    id: role
+    attributes:
+      label: Role(s) involved
+      placeholder: "Example: Gambler, Snake Charmer, Cerenovus"
+  - type: dropdown
+    id: issue_type
+    attributes:
+      label: Issue type
+      options:
+        - Smart setup candidate quality
+        - Night order / wake order
+        - Role ability reminder
+        - AI settlement suggestion
+        - Demon bluff suggestion
+        - Chinese wording / translation
+        - Setup count / Outsider modification
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current behavior
+      description: What did the tool show or suggest?
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected reminder or suggestion
+      description: What should the storyteller see instead?
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source / evidence
+      description: Link to script source, official/community reference, or screenshot. Avoid pasting long rule text.
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety note
+      description: If this touches death, identity, alignment, poison/drunk, madness, delayed effects, or win/loss, say what must remain storyteller-confirmed.
