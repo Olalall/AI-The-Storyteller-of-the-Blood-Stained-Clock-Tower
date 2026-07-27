@@ -1,3 +1,26 @@
+## 2026-07-27 - VPS 同步最新 GitHub 版本
+
+### 给非开发者看的交付说明
+- 已把当前 GitHub 最新版本同步到自用 VPS 的新工具目录，访问地址仍是 `http://203.0.113.10:3000/`。
+- 旧 V2.5 没有删除、没有覆盖，`http://203.0.113.10/` 仍然可访问。
+- 本次部署没有写入 API Key，也没有开启真实 AI；远端服务仍按手动主持优先的边界运行。
+
+### Before / After
+- Before：GitHub 已公开并补了 README、Release、Issue 模板和自托管文档，但 VPS 还不确定是否同步到最新 commit。
+- After：VPS 新工具已更新到当前部署包，并通过公网 `/healthz` 和首页检查；旧 V2.5 保持共存。
+
+### 验证
+- 本地 `npm run package:vps` 通过，包含 `npm run check` 和 `npm run smoke:backend`。
+- 部署包 SHA256：`F8C050D235D82746D3723E852D44785996162C9B6A1F95F776D05FD2C565CD56`。
+- `http://203.0.113.10:3000/healthz` 返回 200。
+- `http://203.0.113.10:3000/` 返回 200。
+- `http://203.0.113.10/` 返回 200，旧 V2.5 未误伤。
+
+### 风险
+- SSH/SCP 不通，VPS 也无法稳定下载 GitHub Release asset；本次实际采用 Tencent TAT 分片上传。
+- TAT 的 SYSTEM 环境找不到 `npm.cmd`，远端启动依赖 `C:\nodejs\node.exe` 绝对路径。后续如要长期稳定，建议把该路径写进正式服务托管脚本，或配置系统 PATH。
+- 本次没有做真实 AI live smoke；如要在 VPS 上启用真实 AI，需要单独配置后端环境变量并手动测试。
+
 ## 2026-07-27 - GitHub 英文摘要与 Topics
 
 ### 给非开发者看的交付说明
