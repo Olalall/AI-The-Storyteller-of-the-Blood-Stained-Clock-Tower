@@ -2,14 +2,14 @@
 
 日期：2026-07-27
 仓库：`Olalall/botc-storyteller-companion`
-当前可见性：Private
+当前可见性：Public
 当前默认分支：`main`
 
 ## 当前结论
 
-可以作为 **GitHub alpha / preview 私有仓库** 使用。
+可以作为 **GitHub alpha / preview 公开仓库** 使用。
 
-暂不建议直接改成 Public，除非完成下面的最终确认项：
+已经切换为 Public；后续公开介绍仍需遵守下面的边界：
 
 1. 代码 License 已选择：MIT，仅覆盖原创代码和原创项目文档。
 2. 确认 README 与第三方声明没有把本项目说成官方工具。
@@ -89,7 +89,7 @@ Topics 建议：
 botc, blood-on-the-clocktower, storyteller, react, vite, typescript, ai-assistant, tabletop
 ```
 
-公开前仍建议保持 `Private`，确认 License 后再切 `Public`。
+当前已公开为 `Public`。
 
 ## License 状态
 
@@ -107,6 +107,6 @@ P0 阻塞：
 
 P1 建议：
 
-- 如果转 Public，创建第一个 GitHub Release：`alpha-preview-YYYYMMDD`。
+- 建议创建第一个 GitHub Release：`alpha-preview-YYYYMMDD`。
 - README 可后续补英文摘要，但不是公开阻塞。
 - 如需获星，可补一张更像封面的项目横幅图；不是工程阻塞。
