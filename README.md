@@ -269,6 +269,16 @@ $env:BOTC_AI_MODEL='your-model-name'
 $env:BOTC_AI_API_KEY='your-local-secret'
 ```
 
+## 自托管 / VPS
+
+本项目可以本机运行，也可以部署到自用 VPS。推荐先看：
+
+- `dev-docs/SELF_HOSTING_RUNBOOK.md`：从本机验证、打包、VPS 同步、启动、健康检查、备份到回滚的完整说明。
+- `dev-docs/VPS_DEPLOYMENT_PREP.md`：当前自用 VPS 与旧 V2.5 的目录、端口和共存边界。
+- `dev-docs/AI_RUNTIME_STARTUP.md`：真实 AI provider 的环境变量和连通测试。
+
+关键边界：API Key 只放后端环境变量；归档数据默认是 JSON 文件；AI 不可用时，手动主持流程仍必须可用。
+
 ## 验证
 
 ```powershell
