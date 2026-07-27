@@ -107,6 +107,6 @@ P0 阻塞：
 
 P1 建议：
 
-- 建议创建第一个 GitHub Release：lpha-preview-20260727。Release Notes 草稿见 dev-docs/releases/alpha-preview-20260727.md。
+- 第一个 GitHub Release 已创建：`alpha-preview-20260727`。地址：https://github.com/Olalall/botc-storyteller-companion/releases/tag/alpha-preview-20260727。Release Notes 见 `dev-docs/releases/alpha-preview-20260727.md`。
 - README 可后续补英文摘要，但不是公开阻塞。
 - 如需获星，可补一张更像封面的项目横幅图；不是工程阻塞。

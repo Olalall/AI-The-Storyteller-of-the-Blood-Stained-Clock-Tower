@@ -3,6 +3,8 @@
 Release type: GitHub alpha / preview
 Date: 2026-07-27
 Repository: https://github.com/Olalall/botc-storyteller-companion
+GitHub Release URL: https://github.com/Olalall/botc-storyteller-companion/releases/tag/alpha-preview-20260727
+GitHub Release status: prerelease, published
 
 ## Summary
 
