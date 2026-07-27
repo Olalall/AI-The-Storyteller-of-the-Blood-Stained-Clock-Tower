@@ -160,3 +160,16 @@ curl https://<your-domain>/healthz
 - 新工具首页通过：`http://203.0.113.10:3000/` 返回 200。
 - 旧 V2.5 首页仍可访问：`http://203.0.113.10/` 返回 200。
 - 备份目录由远端脚本创建在：`C:\botc-storyteller-companion-deploy\backup-20260727-172205`。
+
+## 2026-07-27 Windows Scheduled Task 托管记录
+
+- 已把仓库脚本写入远端：`C:\botc-storyteller-companion\scripts\vps\start-assistant.ps1`。
+- 已把仓库脚本写入远端：`C:\botc-storyteller-companion\scripts\vps\install-windows-scheduled-task.ps1`。
+- 已注册 Windows Scheduled Task：`botc-storyteller-backend`。
+- 任务运行身份：`SYSTEM`。
+- 任务启动 Node：`C:\nodejs\node.exe`。
+- 任务启动目录：`C:\botc-storyteller-companion`。
+- 任务端口：`3000`。
+- 安装后任务状态：`Ready`。
+- 安装后当前服务健康检查通过：`http://127.0.0.1:3000/healthz` 返回 `{"ok":true,"service":"botc-storyteller-backend"}`。
+- 本次没有重启 VPS，没有改旧 V2.5，没有写入真实 AI Key。
