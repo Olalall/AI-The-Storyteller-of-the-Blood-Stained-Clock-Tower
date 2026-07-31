@@ -13,5 +13,5 @@ export const yinHeManBuSmartScriptPack = {
   nightOrders: { firstNight: yinHeManBuFirstNight, otherNight: yinHeManBuOtherNight },
   setupTemplates: yinHeManBuSetupTemplates,
   setupRules: yinHeManBuSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

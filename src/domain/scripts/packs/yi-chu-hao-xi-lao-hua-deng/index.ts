@@ -14,5 +14,5 @@ export const yiChuHaoXiLaoHuaDengSmartScriptPack = {
   setupTemplates: yiChuHaoXiLaoHuaDengSetupTemplates,
   setupRules: yiChuHaoXiLaoHuaDengSetupRules,
   demonBluffPolicy: { count: 3, eligibleTeams: ['townsfolk'], requireNotInPlay: true, summary: 'Use three not-in-play Townsfolk bluffs; avoid Atheist/Xi Zi unless ST intentionally builds that script.' },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

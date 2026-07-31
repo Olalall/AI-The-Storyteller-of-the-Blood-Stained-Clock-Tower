@@ -5,12 +5,12 @@ import { validateTemplateComposition } from '../../../setup-templates'
 import { oneInOneOutSmartScriptPack } from '.'
 
 describe('One in one out smart script pack', () => {
-  it('registers as a playable TPI Recommended pack that still needs storyteller review', () => {
+  it('registers as a playable TPI Recommended pack with a verified source', () => {
     const registry = createScriptRegistry([oneInOneOutSmartScriptPack])
 
     expect(registry.get('one-in-one-out')).toBe(oneInOneOutSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([oneInOneOutSmartScriptPack])
-    expect(oneInOneOutSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(oneInOneOutSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(oneInOneOutSmartScriptPack.source.author).toBe('Baron von Klutz')
     expect(oneInOneOutSmartScriptPack.playerCounts).toEqual([7, 8, 9, 10, 11, 12, 13, 14, 15])
   })

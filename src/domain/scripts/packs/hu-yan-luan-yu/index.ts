@@ -13,5 +13,5 @@ export const huYanLuanYuSmartScriptPack = {
   nightOrders: { firstNight: huYanLuanYuFirstNight, otherNight: huYanLuanYuOtherNight },
   setupTemplates: huYanLuanYuSetupTemplates,
   setupRules: huYanLuanYuSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

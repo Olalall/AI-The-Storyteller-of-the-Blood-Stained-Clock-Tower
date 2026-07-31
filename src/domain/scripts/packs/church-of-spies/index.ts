@@ -10,9 +10,9 @@ export const churchOfSpiesSmartScriptPack = {
   source: {
     author: 'Andrew Nathenson',
     version: '1.0.0',
-    url: 'https://www.botcscripts.com/script/2378/1.0.0/download',
-    contentHash: 'sha256:dd5fea53947a5818eacc406e2fc09b3595815b3588567d7cc1b4d541acbe837d',
-    verifiedAt: '2026-07-21',
+    url: 'https://www.botcscripts.com/api/scripts/4156/json/',
+    contentHash: 'sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc',
+    verifiedAt: '2026-07-31',
   },
   playerCounts: [7, 8, 9, 10, 11, 12, 13, 14, 15],
   roles: churchOfSpiesRoles,
@@ -22,5 +22,5 @@ export const churchOfSpiesSmartScriptPack = {
   },
   setupTemplates: churchOfSpiesSetupTemplates,
   setupRules: churchOfSpiesSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

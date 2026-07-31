@@ -14,5 +14,5 @@ export const chuChuMaoLuLaoHuaDengSmartScriptPack = {
   setupTemplates: chuChuMaoLuLaoHuaDengSetupTemplates,
   setupRules: chuChuMaoLuLaoHuaDengSetupRules,
   demonBluffPolicy: { count: 3, eligibleTeams: ['townsfolk'], requireNotInPlay: true, summary: 'Use three not-in-play Townsfolk bluffs; avoid Drunk projection roles unless ST intentionally builds them.' },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

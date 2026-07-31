@@ -20,5 +20,5 @@ export const liuAnHuaMingLaoHuaDengSmartScriptPack = {
   setupTemplates: liuAnHuaMingLaoHuaDengSetupTemplates,
   setupRules: liuAnHuaMingLaoHuaDengSetupRules,
   demonBluffPolicy: { count: 3, eligibleTeams: ['townsfolk'], requireNotInPlay: true, summary: 'Use not-in-play Townsfolk bluffs; setup modifiers stay storyteller-confirmed.' },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

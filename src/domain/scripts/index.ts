@@ -34,4 +34,11 @@ export type {
   SmartScriptPack,
 } from './types'
 export { buildScriptQualityReport, buildScriptQualitySummary } from './quality'
-export type { KnowledgeStatusCounts, ScriptQualityReport, ScriptQualitySummary, ScriptReadiness } from './quality'
+export type {
+  KnowledgeStatusCounts,
+  ScriptQualityReport,
+  ScriptQualityReviewReason,
+  ScriptQualityReviewReasonId,
+  ScriptQualitySummary,
+  ScriptReadiness,
+} from './quality'

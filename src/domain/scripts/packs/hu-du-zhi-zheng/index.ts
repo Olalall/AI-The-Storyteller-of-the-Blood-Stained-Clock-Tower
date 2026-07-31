@@ -19,5 +19,5 @@ export const huDuZhiZhengSmartScriptPack = {
   nightOrders: { firstNight: huDuZhiZhengFirstNightOrder, otherNight: huDuZhiZhengOtherNightOrder },
   setupTemplates: huDuZhiZhengSetupTemplates,
   setupRules: huDuZhiZhengSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

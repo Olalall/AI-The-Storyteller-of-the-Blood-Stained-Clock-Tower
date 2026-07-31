@@ -7,12 +7,12 @@ import { lunarEclipseSmartScriptPack } from '.'
 const nonStandardRoleIds = ['barista', 'harlot', 'apprentice', 'beggar', 'voudon', 'spiritofivory']
 
 describe('Lunar Eclipse smart script pack', () => {
-  it('registers as a playable TPI Recommended pack that still needs storyteller review', () => {
+  it('registers as a playable TPI Recommended pack with a verified source', () => {
     const registry = createScriptRegistry([lunarEclipseSmartScriptPack])
 
     expect(registry.get('lunar-eclipse')).toBe(lunarEclipseSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([lunarEclipseSmartScriptPack])
-    expect(lunarEclipseSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(lunarEclipseSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(lunarEclipseSmartScriptPack.source.contentHash).toBe(
       'sha256:070cb29f3835ee8b19312a6a7d19fe163cb1db3661d679c50f1d6296cbfcbe95',
     )

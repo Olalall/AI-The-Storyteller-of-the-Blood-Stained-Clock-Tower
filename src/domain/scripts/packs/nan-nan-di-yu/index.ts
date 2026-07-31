@@ -22,5 +22,5 @@ export const nanNanDiYuSmartScriptPack = {
   },
   setupTemplates: nanNanDiYuSetupTemplates,
   setupRules: nanNanDiYuSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

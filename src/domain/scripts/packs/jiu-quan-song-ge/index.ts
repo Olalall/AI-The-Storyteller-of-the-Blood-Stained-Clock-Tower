@@ -13,5 +13,5 @@ export const jiuQuanSongGeSmartScriptPack = {
   nightOrders: { firstNight: jiuQuanSongGeFirstNight, otherNight: jiuQuanSongGeOtherNight },
   setupTemplates: jiuQuanSongGeSetupTemplates,
   setupRules: jiuQuanSongGeSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

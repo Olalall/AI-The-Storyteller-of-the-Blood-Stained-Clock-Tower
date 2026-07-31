@@ -13,5 +13,5 @@ export const feiFanYingTianSmartScriptPack = {
   nightOrders: { firstNight: feiFanYingTianFirstNight, otherNight: feiFanYingTianOtherNight },
   setupTemplates: feiFanYingTianSetupTemplates,
   setupRules: feiFanYingTianSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

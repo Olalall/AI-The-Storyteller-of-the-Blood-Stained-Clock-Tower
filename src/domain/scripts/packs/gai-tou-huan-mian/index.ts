@@ -20,5 +20,5 @@ export const gaiTouHuanMianSmartScriptPack = {
   setupTemplates: gaiTouHuanMianSetupTemplates,
   setupRules: gaiTouHuanMianSetupRules,
   demonBluffPolicy: { count: 3, eligibleTeams: ['townsfolk'], requireNotInPlay: true, summary: 'Use not-in-play Townsfolk bluffs; setup and hidden-information roles are bluff-only unless storyteller hand-adjusts.' },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

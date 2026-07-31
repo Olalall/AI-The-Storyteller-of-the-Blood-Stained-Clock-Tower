@@ -10,9 +10,9 @@ export const catfishingSmartScriptPack = {
   source: {
     author: 'Emily',
     version: '11.1.1',
-    url: 'https://www.botcscripts.com/script/3/11.1.1/download',
-    contentHash: 'sha256:02664ff82e0ba47526d8cc00a77331f71b996299c9b6b2683728bc4d104b8d06',
-    verifiedAt: '2026-07-19',
+    url: 'https://www.botcscripts.com/api/scripts/12578/json/',
+    contentHash: 'sha256:7540d967a28eb257fee4a2be28805108f2f4d8e5b1da3bed2bcc1d07b0ab2689',
+    verifiedAt: '2026-07-31',
   },
   playerCounts: [7, 8, 9, 10, 11, 12, 13, 14, 15],
   roles: catfishingRoles,
@@ -22,5 +22,5 @@ export const catfishingSmartScriptPack = {
   },
   setupTemplates: catfishingSetupTemplates,
   setupRules: catfishingSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

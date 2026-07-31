@@ -13,5 +13,5 @@ export const quanMianSuQingSmartScriptPack = {
   nightOrders: { firstNight: quanMianSuQingFirstNight, otherNight: quanMianSuQingOtherNight },
   setupTemplates: quanMianSuQingSetupTemplates,
   setupRules: quanMianSuQingSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

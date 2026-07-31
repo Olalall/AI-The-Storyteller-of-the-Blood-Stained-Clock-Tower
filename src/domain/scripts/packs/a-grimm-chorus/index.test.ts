@@ -7,12 +7,12 @@ import { aGrimmChorusSmartScriptPack } from '.'
 const travelerRoleIds = ['thief', 'harlot', 'judge', 'beggar', 'scapegoat']
 
 describe('A Grimm Chorus smart script pack', () => {
-  it('registers as a playable TPI Recommended pack that still needs storyteller review', () => {
+  it('registers as a playable TPI Recommended pack with a verified source', () => {
     const registry = createScriptRegistry([aGrimmChorusSmartScriptPack])
 
     expect(registry.get('a-grimm-chorus')).toBe(aGrimmChorusSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([aGrimmChorusSmartScriptPack])
-    expect(aGrimmChorusSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(aGrimmChorusSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(aGrimmChorusSmartScriptPack.source.contentHash).toBe(
       'sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d',
     )

@@ -13,5 +13,5 @@ export const haoShiDuoMoSmartScriptPack = {
   nightOrders: { firstNight: haoShiDuoMoFirstNight, otherNight: haoShiDuoMoOtherNight },
   setupTemplates: haoShiDuoMoSetupTemplates,
   setupRules: haoShiDuoMoSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

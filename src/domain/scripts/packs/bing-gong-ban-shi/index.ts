@@ -22,5 +22,5 @@ export const bingGongBanShiSmartScriptPack = {
   },
   setupTemplates: bingGongBanShiSetupTemplates,
   setupRules: bingGongBanShiSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

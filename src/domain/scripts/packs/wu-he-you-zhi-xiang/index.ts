@@ -22,5 +22,5 @@ export const wuHeYouZhiXiangSmartScriptPack = {
   },
   setupTemplates: wuHeYouZhiXiangSetupTemplates,
   setupRules: wuHeYouZhiXiangSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

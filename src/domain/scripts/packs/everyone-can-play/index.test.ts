@@ -9,9 +9,9 @@ describe('Everyone Can Play smart script pack', () => {
 
     expect(registry.get('everyone-can-play')).toBe(everyoneCanPlaySmartScriptPack)
     expect(registry.playableFor(12)).toEqual([everyoneCanPlaySmartScriptPack])
-    expect(everyoneCanPlaySmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(everyoneCanPlaySmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(everyoneCanPlaySmartScriptPack.source.contentHash).toBe(
-      'sha256:acf6387ace9760b6eb07ac083aba61e12215973253cf55f2510fcb9e26e0880c',
+      'sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35',
     )
     expect(everyoneCanPlaySmartScriptPack.playerCounts).toEqual([7, 8, 9, 10, 11, 12, 13, 14, 15])
   })

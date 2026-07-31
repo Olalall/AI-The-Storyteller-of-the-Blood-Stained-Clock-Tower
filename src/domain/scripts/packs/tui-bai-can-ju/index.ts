@@ -13,5 +13,5 @@ export const tuiBaiCanJuSmartScriptPack = {
   nightOrders: { firstNight: tuiBaiCanJuFirstNight, otherNight: tuiBaiCanJuOtherNight },
   setupTemplates: tuiBaiCanJuSetupTemplates,
   setupRules: tuiBaiCanJuSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

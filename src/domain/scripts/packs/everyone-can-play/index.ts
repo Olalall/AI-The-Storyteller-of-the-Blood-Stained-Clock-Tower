@@ -10,9 +10,9 @@ export const everyoneCanPlaySmartScriptPack = {
   source: {
     author: 'Ben Burns',
     version: '1.0.2',
-    url: 'https://botcscripts.com/script/1945/1.0.2/download',
-    contentHash: 'sha256:acf6387ace9760b6eb07ac083aba61e12215973253cf55f2510fcb9e26e0880c',
-    verifiedAt: '2026-07-21',
+    url: 'https://www.botcscripts.com/api/scripts/6670/json/',
+    contentHash: 'sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35',
+    verifiedAt: '2026-07-31',
   },
   playerCounts: [7, 8, 9, 10, 11, 12, 13, 14, 15],
   roles: everyoneCanPlayRoles,
@@ -22,5 +22,5 @@ export const everyoneCanPlaySmartScriptPack = {
   },
   setupTemplates: everyoneCanPlaySetupTemplates,
   setupRules: everyoneCanPlaySetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

@@ -13,5 +13,5 @@ export const shiSanHangSmartScriptPack = {
   nightOrders: { firstNight: shiSanHangFirstNightOrder, otherNight: shiSanHangOtherNightOrder },
   setupTemplates: shiSanHangSetupTemplates,
   setupRules: shiSanHangSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

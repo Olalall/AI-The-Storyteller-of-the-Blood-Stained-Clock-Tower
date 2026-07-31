@@ -25,5 +25,5 @@ export const yiYeYuLongWuSmartScriptPack = {
     requireNotInPlay: true,
     summary: 'Use three not-in-play Townsfolk bluffs; do not bluff Travelers or Dragon Body.',
   },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

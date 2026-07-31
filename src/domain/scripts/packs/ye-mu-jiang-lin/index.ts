@@ -22,5 +22,5 @@ export const yeMuJiangLinSmartScriptPack = {
   },
   setupTemplates: yeMuJiangLinSetupTemplates,
   setupRules: yeMuJiangLinSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

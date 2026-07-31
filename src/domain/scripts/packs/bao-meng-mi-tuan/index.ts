@@ -13,5 +13,5 @@ export const baoMengMiTuanSmartScriptPack = {
   nightOrders: { firstNight: baoMengMiTuanFirstNight, otherNight: baoMengMiTuanOtherNight },
   setupTemplates: baoMengMiTuanSetupTemplates,
   setupRules: baoMengMiTuanSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

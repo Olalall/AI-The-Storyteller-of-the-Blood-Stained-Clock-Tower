@@ -5,12 +5,12 @@ import { createScriptRegistry } from '../../registry'
 import { punchySmartScriptPack } from '.'
 
 describe('Punchy smart script pack', () => {
-  it('registers as a playable Carousel pack that still needs storyteller review', () => {
+  it('registers as a playable Carousel pack with a verified source', () => {
     const registry = createScriptRegistry([punchySmartScriptPack])
 
     expect(registry.get('punchy')).toBe(punchySmartScriptPack)
     expect(registry.playableFor(12)).toEqual([punchySmartScriptPack])
-    expect(punchySmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(punchySmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(punchySmartScriptPack.source.author).toBe('Zets')
     expect(punchySmartScriptPack.playerCounts).toEqual([7, 8, 9, 10, 11, 12, 13, 14, 15])
   })

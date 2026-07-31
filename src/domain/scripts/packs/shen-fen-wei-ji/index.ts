@@ -13,5 +13,5 @@ export const shenFenWeiJiSmartScriptPack = {
   nightOrders: { firstNight: shenFenWeiJiFirstNight, otherNight: shenFenWeiJiOtherNight },
   setupTemplates: shenFenWeiJiSetupTemplates,
   setupRules: shenFenWeiJiSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

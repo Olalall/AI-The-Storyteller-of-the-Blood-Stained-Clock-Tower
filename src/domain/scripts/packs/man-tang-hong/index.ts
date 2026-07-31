@@ -13,5 +13,5 @@ export const manTangHongSmartScriptPack = {
   nightOrders: { firstNight: manTangHongFirstNight, otherNight: manTangHongOtherNight },
   setupTemplates: manTangHongSetupTemplates,
   setupRules: manTangHongSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

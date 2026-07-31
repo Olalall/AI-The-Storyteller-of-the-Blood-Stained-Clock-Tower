@@ -62,18 +62,20 @@ describe('script quality projector', () => {
     const summary = buildScriptQualitySummary(pack())
 
     expect(summary.readiness).toBe('ready')
-    expect(summary.readinessLabel).toBe('可开局')
-    expect(summary.aiQualityLabel).toBe('AI强')
+    expect(summary.readinessLabel).toBe('可直接开局')
+    expect(summary.aiQualityLabel).toBe('AI建议：已核验')
     expect(summary.playerCounts.missing).toEqual([])
     expect(summary.roleResearch).toEqual({ reviewed: 2, total: 2 })
+    expect(summary.reviewReasons).toEqual([])
   })
 
   it('marks playable scripts with weak AI knowledge as review', () => {
     const summary = buildScriptQualitySummary(pack({ roles: [role('gambler', { knowledgeStatus: 'needs-review' })] }))
 
     expect(summary.readiness).toBe('review')
-    expect(summary.aiQualityLabel).toBe('AI可用')
+    expect(summary.aiQualityLabel).toBe('AI建议：需人工核对')
     expect(summary.warnings).toContain('角色待复核 1')
+    expect(summary.reviewReasons).toContainEqual({ id: 'role-knowledge', label: '角色知识', count: 1 })
   })
 
   it('blocks scripts that miss a player count template', () => {
@@ -81,9 +83,10 @@ describe('script quality projector', () => {
     const summary = buildScriptQualitySummary(pack({ setupTemplates: templates }))
 
     expect(summary.readiness).toBe('blocked')
-    expect(summary.readinessLabel).toBe('暂缓')
+    expect(summary.readinessLabel).toBe('暂缓开局')
     expect(summary.playerCounts.missing).toEqual([15])
     expect(summary.warnings).toContain('缺人数 15')
+    expect(summary.reviewReasons).toContainEqual({ id: 'player-count', label: '人数模板', count: 1 })
   })
 
   it('summarizes catalog totals for the UI panel', () => {

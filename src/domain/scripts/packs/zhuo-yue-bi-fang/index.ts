@@ -22,5 +22,5 @@ export const zhuoYueBiFangSmartScriptPack = {
   },
   setupTemplates: zhuoYueBiFangSetupTemplates,
   setupRules: zhuoYueBiFangSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

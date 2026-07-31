@@ -13,5 +13,5 @@ export const baiZhouWeiShiSmartScriptPack = {
   nightOrders: { firstNight: baiZhouWeiShiFirstNight, otherNight: baiZhouWeiShiOtherNight },
   setupTemplates: baiZhouWeiShiSetupTemplates,
   setupRules: baiZhouWeiShiSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

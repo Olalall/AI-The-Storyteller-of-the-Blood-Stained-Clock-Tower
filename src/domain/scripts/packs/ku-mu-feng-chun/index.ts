@@ -13,5 +13,5 @@ export const kuMuFengChunSmartScriptPack = {
   nightOrders: { firstNight: kuMuFengChunFirstNight, otherNight: kuMuFengChunOtherNight },
   setupTemplates: kuMuFengChunSetupTemplates,
   setupRules: kuMuFengChunSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

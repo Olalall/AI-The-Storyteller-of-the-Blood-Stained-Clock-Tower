@@ -32,7 +32,23 @@ export interface ScriptQualitySummary {
     covered: readonly PlayerCount[]
     missing: readonly PlayerCount[]
   }
+  reviewReasons: readonly ScriptQualityReviewReason[]
   warnings: readonly string[]
+}
+
+export type ScriptQualityReviewReasonId =
+  | 'source'
+  | 'player-count'
+  | 'role-knowledge'
+  | 'role-research'
+  | 'setup-rule'
+  | 'night-order'
+  | 'template'
+
+export interface ScriptQualityReviewReason {
+  id: ScriptQualityReviewReasonId
+  label: string
+  count: number
 }
 
 export interface ScriptQualityReport {
@@ -99,6 +115,17 @@ export function buildScriptQualitySummary(pack: SmartScriptPack): ScriptQualityS
     totalTemplates: pack.setupTemplates.length,
     packStatus: pack.knowledgeStatus,
   })
+  const reviewReasons = buildReviewReasons({
+    missingPlayerCounts,
+    roleStatus,
+    setupRuleStatus,
+    nightOrderStatus,
+    reviewedRoleCount,
+    totalRoles: pack.roles.length,
+    verifiedTemplateCount,
+    totalTemplates: pack.setupTemplates.length,
+    packStatus: pack.knowledgeStatus,
+  })
 
   return {
     scriptId: pack.scriptId,
@@ -121,8 +148,25 @@ export function buildScriptQualitySummary(pack: SmartScriptPack): ScriptQualityS
       covered: coveredPlayerCounts,
       missing: missingPlayerCounts,
     },
+    reviewReasons,
     warnings,
   }
+}
+
+function buildReviewReasons(input: QualityDecisionInput): readonly ScriptQualityReviewReason[] {
+  const reasons: ScriptQualityReviewReason[] = []
+  if (input.packStatus !== 'confirmed') reasons.push({ id: 'source', label: '来源', count: 1 })
+  if (input.missingPlayerCounts.length > 0) reasons.push({ id: 'player-count', label: '人数模板', count: input.missingPlayerCounts.length })
+  const roleKnowledgeCount = input.roleStatus.missing + input.roleStatus.needsReview
+  if (roleKnowledgeCount > 0) reasons.push({ id: 'role-knowledge', label: '角色知识', count: roleKnowledgeCount })
+  if (input.reviewedRoleCount < input.totalRoles) reasons.push({ id: 'role-research', label: '角色调研', count: input.totalRoles - input.reviewedRoleCount })
+  const setupRuleCount = input.setupRuleStatus.missing + input.setupRuleStatus.needsReview
+  if (setupRuleCount > 0) reasons.push({ id: 'setup-rule', label: '板子规则', count: setupRuleCount })
+  const nightOrderCount = input.nightOrderStatus.missing + input.nightOrderStatus.needsReview
+  if (nightOrderCount > 0) reasons.push({ id: 'night-order', label: '夜序', count: nightOrderCount })
+  const templateCount = input.totalTemplates - input.verifiedTemplateCount
+  if (templateCount > 0) reasons.push({ id: 'template', label: '模板核验', count: templateCount })
+  return reasons
 }
 
 function countKnowledgeStatuses(statuses: readonly KnowledgeStatus[]): KnowledgeStatusCounts {
@@ -188,18 +232,18 @@ function buildWarnings(input: QualityDecisionInput) {
   if (input.setupRuleStatus.needsReview > 0) warnings.push(`规则待复核 ${input.setupRuleStatus.needsReview}`)
   if (input.nightOrderStatus.missing > 0) warnings.push(`夜序缺知识 ${input.nightOrderStatus.missing}`)
   if (input.nightOrderStatus.needsReview > 0) warnings.push(`夜序待复核 ${input.nightOrderStatus.needsReview}`)
-  if (input.packStatus !== 'confirmed') warnings.push('板子待复核')
+  if (input.packStatus !== 'confirmed') warnings.push('来源待核对')
   return warnings.slice(0, 4)
 }
 
 function readinessText(readiness: ScriptReadiness) {
-  if (readiness === 'ready') return '可开局'
-  if (readiness === 'review') return '需复核'
-  return '暂缓'
+  if (readiness === 'ready') return '可直接开局'
+  if (readiness === 'review') return '可开局·需核对'
+  return '暂缓开局'
 }
 
 function aiQualityText(readiness: ScriptReadiness) {
-  if (readiness === 'ready') return 'AI强'
-  if (readiness === 'review') return 'AI可用'
-  return 'AI偏弱'
+  if (readiness === 'ready') return 'AI建议：已核验'
+  if (readiness === 'review') return 'AI建议：需人工核对'
+  return 'AI建议：仅作提示'
 }

@@ -20,5 +20,5 @@ export const guiYiTongHuaXinSmartScriptPack = {
   setupTemplates: guiYiTongHuaXinSetupTemplates,
   setupRules: guiYiTongHuaXinSetupRules,
   demonBluffPolicy: { count: 3, eligibleTeams: ['townsfolk'], requireNotInPlay: true, summary: 'Use not-in-play Townsfolk bluffs; avoid setup/decree roles unless storyteller intentionally hand-adjusts.' },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack
