@@ -4,12 +4,12 @@ import { createScriptRegistry } from '../../registry'
 import { quickMathsSmartScriptPack } from '.'
 
 describe('Quick Maths smart script pack', () => {
-  it('registers as a playable Carousel pack that still needs storyteller review', () => {
+  it('registers as a playable Carousel pack with a verified source', () => {
     const registry = createScriptRegistry([quickMathsSmartScriptPack])
 
     expect(registry.get('quick-maths')).toBe(quickMathsSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([quickMathsSmartScriptPack])
-    expect(quickMathsSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(quickMathsSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(quickMathsSmartScriptPack.source.author).toBe('Fran')
     expect(quickMathsSmartScriptPack.playerCounts).toEqual([7, 8, 9, 10, 11, 12, 13, 14, 15])
   })

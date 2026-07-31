@@ -14,7 +14,7 @@ const firstBatchScriptIds = [
   'devout-theists',
 ] as const
 
-const communityScriptIds = [
+const confirmedCommunityScriptIds = [
   'one-in-one-out',
   'a-grimm-chorus',
   'hide-and-seek',
@@ -33,12 +33,13 @@ describe('batch 01 smart script acceptance', () => {
     expect(firstBatchScriptIds.every((scriptId) => registeredIds.includes(scriptId))).toBe(true)
   })
 
-  it('keeps community scripts marked as review-needed rather than official confirmed packs', () => {
-    for (const scriptId of communityScriptIds) {
+  it('keeps source verification status explicit for community scripts', () => {
+    for (const scriptId of confirmedCommunityScriptIds) {
       const pack = smartScriptPacks.find((candidate) => candidate.scriptId === scriptId)
 
-      expect(pack?.knowledgeStatus, scriptId).toBe('needs-review')
+      expect(pack?.knowledgeStatus, scriptId).toBe('confirmed')
     }
+
   })
 
   it('keeps every first-batch script usable for 7-15 player setup and night workflow', () => {

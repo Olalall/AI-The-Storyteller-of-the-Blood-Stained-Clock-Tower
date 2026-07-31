@@ -13,6 +13,8 @@ dist-server
 dist-ssr
 artifacts
 .tmp-vps-sync
+.tmp-portable
+release
 playwright-report
 test-results
 *.local

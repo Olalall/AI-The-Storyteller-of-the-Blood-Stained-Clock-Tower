@@ -4,12 +4,12 @@ import { createScriptRegistry } from '../../registry'
 import { devoutTheistsSmartScriptPack } from '.'
 
 describe('Devout Theists smart script pack', () => {
-  it('registers as a playable Carousel pack that still needs storyteller review', () => {
+  it('registers as a playable Carousel pack with a verified source', () => {
     const registry = createScriptRegistry([devoutTheistsSmartScriptPack])
 
     expect(registry.get('devout-theists')).toBe(devoutTheistsSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([devoutTheistsSmartScriptPack])
-    expect(devoutTheistsSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(devoutTheistsSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(devoutTheistsSmartScriptPack.source.author).toBe('Emerald')
     expect(devoutTheistsSmartScriptPack.playerCounts).toEqual([7, 8, 9, 10, 11, 12, 13, 14, 15])
   })

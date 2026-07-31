@@ -1,7 +1,7 @@
 # 当前智能板子全面复核计划
 
-状态：执行中，当前八个已接入板子已纳入质量门。  
-日期：2026-07-20。  
+状态：来源复核完成；117 个已注册智能板子全部达到 `ready`，没有板子级 `needs-review`。
+日期：2026-07-31。
 适用范围：`src/domain/scripts/packs/*` 下所有已注册 `SmartScriptPack`。
 
 ## 1. 目标
@@ -17,7 +17,7 @@
 
 | scriptId | 名称 | 当前定位 | 本轮质量门 |
 |---|---|---|---|
-| `catfishing` | Catfishing / 瓦釜雷鸣 | 社区脚本，保持 `needs-review` | 覆盖 7-15 人模板；高风险角色结构化 |
+| `catfishing` | Catfishing / 瓦釜雷鸣 | 社区脚本，来源已确认 | 覆盖 7-15 人模板；高风险角色结构化 |
 | `trouble-brewing` | Trouble Brewing / 暗流涌动 | 官方基础板 | 覆盖 7-15 人模板；来源和角色元数据必填 |
 | `bad-moon-rising` | Bad Moon Rising / 黯月初升 | 官方基础板 | 补齐死亡、醉酒、保护、复活等结构化逻辑 |
 | `sects-and-violets` | Sects & Violets / 梦殒春宵 | 官方基础板 | 补齐疯狂、身份交换、中毒、胜负风险等结构化逻辑 |
@@ -48,7 +48,7 @@
 - 原先只重点覆盖 7/12/15 人模板。
 - 本轮补齐 8、9、10、11、13、14 人模板。
 - 现在 7-15 人每个人数都有 3 套 verified 模板。
-- 保持 pack `needs-review`，原因是社区脚本仍应允许说书人最终 spot-check。
+- 来源端点已切换到公开 API 并完成角色集合核对；社区脚本仍保留作者和来源标识，不标记为官方板。
 
 ### Bad Moon Rising / 黯月初升
 
@@ -78,14 +78,26 @@
 - 不自动发送身份、不自动进入夜晚、不自动判定胜负。
 - 不把旅行者、传奇角色放入常规座位模板。
 
-## 6. 验收命令
+## 6. 2026-07-31 来源复核批次
+
+本批对原先 82 个 `needs-review` 板子执行了公开来源 URL 的 HTTP 拉取和 SHA-256 校验，并重新运行结构质量门：
+
+- 70 个来源返回 HTTP 200，内容哈希与 pack 声明一致；已将 pack 级 `knowledgeStatus` 更新为 `confirmed`。
+- 3 个 Carousel 来源页面的页面哈希不一致，但其公开 JSON 端点哈希与 pack 声明一致：`punchy`、`quick-maths`、`devout-theists`；已切换到可复核 JSON 端点并确认。
+- 5 个 botcscripts 来源的下载端点受限，但其公开 API 角色列表与 pack 角色集合逐项一致：`catfishing`、`everyone-can-play`、`uncertain-death`、`church-of-spies`、`insanity-and-intuition`；已切换到 API 端点并确认。
+- 4 个官方 Recommended 板子通过官方 Script Tool 的压缩 JSON 载荷完成解码和 SHA-256 校验：`one-in-one-out`、`a-grimm-chorus`、`hide-and-seek`、`lunar-eclipse`；已切换到可复核 Script Tool URL 并确认。
+- 117 个通过来源复核的板子仍必须遵守说书人最终确认边界；本次只确认来源与角色集合完整性，不代表 AI 可以自动执行技能或裁定胜负。
+
+证据记录：`dev-docs/script-import-work/batch-03/SOURCE_HASH_AUDIT_2026-07-31.md`。
+
+## 7. 验收命令
 
 ```powershell
 npx vitest run src/domain/scripts/smartScriptPackQuality.test.ts src/domain/scripts/packs/catfishing/index.test.ts src/domain/setup-templates/composition.test.ts
 npm run check
 ```
 
-## 7. 后续建议
+## 8. 后续建议
 
 - 下一批新增板子前，先让新板子通过同一份 `smartScriptPackQuality.test.ts`。
 - 如果某个角色规则存在争议，先把 pack 或角色保留 `needs-review`，不要为了通过测试硬标 confirmed。

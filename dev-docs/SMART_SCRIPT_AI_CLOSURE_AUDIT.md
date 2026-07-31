@@ -14,7 +14,7 @@
 |---|---|---|
 | 10.1 domain/scripts 基础 | Done | `src/domain/scripts/types.ts`、`src/domain/scripts/registry.ts`、`src/domain/scripts/registry.test.ts` |
 | 10.2 Catfishing pack 草案 | Done | `src/domain/scripts/packs/catfishing/` 下 roles / night-orders / setup-templates / setup-rules / acceptance |
-| 10.3 Catfishing 规则调研 | Done | 30 个角色技能、官方夜序、高风险交互 notes；pack 仍保持 `needs-review` |
+| 10.3 Catfishing 规则调研 | Done | 30 个角色技能、官方夜序、高风险交互 notes；来源已核对 |
 | 10.4 模板库与随机候选引擎 | Done | `src/domain/setup-templates/composition.ts`、`src/services/setup-candidates/selectSetupCandidates.ts` |
 | 10.5 7-15 人开局数据流和 UI | Done | `SetupStartPanel`、`SetupPanel`、`setupRosterMemory`、`createPrototypeSession` |
 | 10.6 身份交接与重置后引导 | Done | `IdentityDealSheet`、identity deal service、重置后打开开局流程 |
@@ -45,7 +45,7 @@
 ### 智能板子边界
 
 - 角色使用稳定英文 ID，中文名只做展示。
-- Catfishing / 瓦釜雷鸣保留社区脚本来源和 `needs-review` 状态。
+- Catfishing / 瓦釜雷鸣保留社区脚本来源和作者标识，来源已核对；仍不代表自动规则结算。
 - 7 / 12 / 15 人模板有 verified 模板；8-11、13-14 人仍待补充 verified 模板。
 - 高风险角色交互只做提醒和草稿，不做自动结算。
 

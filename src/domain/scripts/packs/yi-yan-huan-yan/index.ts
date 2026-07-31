@@ -22,5 +22,5 @@ export const yiYanHuanYanSmartScriptPack = {
   },
   setupTemplates: yiYanHuanYanSetupTemplates,
   setupRules: yiYanHuanYanSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

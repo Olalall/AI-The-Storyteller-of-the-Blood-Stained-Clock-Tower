@@ -5,12 +5,12 @@ import { validateTemplateComposition } from '../../../setup-templates'
 import { hideAndSeekSmartScriptPack } from '.'
 
 describe('Hide & Seek smart script pack', () => {
-  it('registers as a playable TPI Recommended pack that still needs storyteller review', () => {
+  it('registers as a playable TPI Recommended pack with a verified source', () => {
     const registry = createScriptRegistry([hideAndSeekSmartScriptPack])
 
     expect(registry.get('hide-and-seek')).toBe(hideAndSeekSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([hideAndSeekSmartScriptPack])
-    expect(hideAndSeekSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(hideAndSeekSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(hideAndSeekSmartScriptPack.source.contentHash).toBe(
       'sha256:d50e711952349f51adc87356c2a3a1e29991bc131b906a5c49a795fd50f9c823',
     )

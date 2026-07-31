@@ -13,5 +13,5 @@ export const wenWuShuangQuanSmartScriptPack = {
   nightOrders: { firstNight: wenWuShuangQuanFirstNightOrder, otherNight: wenWuShuangQuanOtherNightOrder },
   setupTemplates: wenWuShuangQuanSetupTemplates,
   setupRules: wenWuShuangQuanSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

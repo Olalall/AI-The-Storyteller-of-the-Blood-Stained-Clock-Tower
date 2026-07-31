@@ -22,5 +22,5 @@ export const siDongFeiDongSmartScriptPack = {
   },
   setupTemplates: siDongFeiDongSetupTemplates,
   setupRules: siDongFeiDongSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

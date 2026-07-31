@@ -1,4 +1,4 @@
-﻿import type { SmartScriptPack } from '../../types'
+import type { SmartScriptPack } from '../../types'
 import { uncertainDeathFirstNightOrder, uncertainDeathOtherNightOrder } from './night-orders'
 import { uncertainDeathRoles } from './roles'
 import { uncertainDeathSetupRules } from './setup-rules'
@@ -10,9 +10,9 @@ export const uncertainDeathSmartScriptPack = {
   source: {
     author: 'Ekin',
     version: '1.0.1',
-    url: 'https://www.botcscripts.com/script/68/1.0.1/download',
-    contentHash: 'sha256:05d854f75fb7ea6821b111368ad2c9d55ee5b736cc44578eea1bb84e8b0d6e2c',
-    verifiedAt: '2026-07-21',
+    url: 'https://www.botcscripts.com/api/scripts/344/json/',
+    contentHash: 'sha256:ead01f20e15e2516209092a555addf0528778178806784647584c9ae59d10d30',
+    verifiedAt: '2026-07-31',
   },
   playerCounts: [7, 8, 9, 10, 11, 12, 13, 14, 15],
   roles: uncertainDeathRoles,
@@ -22,5 +22,5 @@ export const uncertainDeathSmartScriptPack = {
   },
   setupTemplates: uncertainDeathSetupTemplates,
   setupRules: uncertainDeathSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

@@ -13,5 +13,5 @@ export const jiMengTaXiangSmartScriptPack = {
   nightOrders: { firstNight: jiMengTaXiangFirstNight, otherNight: jiMengTaXiangOtherNight },
   setupTemplates: jiMengTaXiangSetupTemplates,
   setupRules: jiMengTaXiangSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

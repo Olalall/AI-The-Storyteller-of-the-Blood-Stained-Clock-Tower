@@ -9,9 +9,9 @@ describe('Church of Spies smart script pack', () => {
 
     expect(registry.get('church-of-spies')).toBe(churchOfSpiesSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([churchOfSpiesSmartScriptPack])
-    expect(churchOfSpiesSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(churchOfSpiesSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(churchOfSpiesSmartScriptPack.source.contentHash).toBe(
-      'sha256:dd5fea53947a5818eacc406e2fc09b3595815b3588567d7cc1b4d541acbe837d',
+      'sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc',
     )
     expect(churchOfSpiesSmartScriptPack.playerCounts).toEqual([7, 8, 9, 10, 11, 12, 13, 14, 15])
   })

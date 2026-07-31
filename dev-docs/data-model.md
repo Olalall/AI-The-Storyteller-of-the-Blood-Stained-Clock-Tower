@@ -24,7 +24,7 @@
 - `setupPolicy`：基础人数、允许的修正选项和确认前阻断条件
 - `coverage`：`setup | nightOrder | roleFacts | interactions` 的核对状态
 
-导入向导可在后台先保存“待核对草稿”，但只有 `ScriptDefinition.contentHash === ScriptKnowledgePack.scriptContentHash` 且四项 `coverage` 均为 `ready` 时，剧本才能进入“可开局/可智能配板”列表。角色列表、技能文本或关键顺序变更后必须重新核对；不能继续沿用旧知识包悄悄给出智能建议。
+导入向导可在后台先保存“待核对草稿”，但只有 `ScriptDefinition.contentHash === ScriptKnowledgePack.scriptContentHash` 且四项 `coverage` 均为 `ready` 时，剧本才能进入“可开局/可智能配板”列表。角色列表、技能文本或关键顺序变更后必须重新核对；不能继续沿用旧知识包悄悄给出智能建议。若四项 coverage 已完整、但剧本来源或社区版本仍标记为 `needs-review`，可以进入列表并正常开局；此时 AI 建议必须明确“需人工核对”，不能显示为已核验。
 
 多数社区剧本复用已知 `roleId` 时，可自动关联本地已核对的角色事实；未知或自定义角色必须补充规则事实并由说书人确认。AI 未来只能把能力文本与来源整理成知识包草稿，不能仅凭文本猜出 Jinx、冲突或开局人数修正后就标为“已理解”。
 

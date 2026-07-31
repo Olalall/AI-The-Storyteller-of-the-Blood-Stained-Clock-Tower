@@ -9,9 +9,9 @@ describe('Insanity and Intuition smart script pack', () => {
 
     expect(registry.get('insanity-and-intuition')).toBe(insanityAndIntuitionSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([insanityAndIntuitionSmartScriptPack])
-    expect(insanityAndIntuitionSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(insanityAndIntuitionSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(insanityAndIntuitionSmartScriptPack.source.contentHash).toBe(
-      'sha256:227279b78329fb27c3b2690503a0dc929f3db34073b8db8bb5b2b0005b63f399',
+      'sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f',
     )
     expect(insanityAndIntuitionSmartScriptPack.playerCounts).toEqual([7, 8, 9, 10, 11, 12, 13, 14, 15])
   })

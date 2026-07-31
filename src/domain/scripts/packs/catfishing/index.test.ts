@@ -10,8 +10,8 @@ describe('catfishing smart script pack draft', () => {
     expect(registry.playableFor(12)).toEqual([catfishingSmartScriptPack])
   })
 
-  it('keeps the pack needs-review while role facts and template entries are confirmed', () => {
-    expect(catfishingSmartScriptPack.knowledgeStatus).toBe('needs-review')
+  it('keeps the pack source and role facts confirmed', () => {
+    expect(catfishingSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(catfishingSmartScriptPack.roles.every((role) => role.knowledgeStatus === 'confirmed')).toBe(true)
     expect(catfishingSmartScriptPack.setupRules.every((rule) => rule.knowledgeStatus === 'confirmed')).toBe(true)
     expect(catfishingSmartScriptPack.setupTemplates.every((template) => template.verified)).toBe(true)

@@ -10,9 +10,9 @@ export const insanityAndIntuitionSmartScriptPack = {
   source: {
     author: 'Sam',
     version: '1.2.0',
-    url: 'https://www.botcscripts.com/script/2128/1.2.0/download',
-    contentHash: 'sha256:227279b78329fb27c3b2690503a0dc929f3db34073b8db8bb5b2b0005b63f399',
-    verifiedAt: '2026-07-21',
+    url: 'https://www.botcscripts.com/api/scripts/3695/json/',
+    contentHash: 'sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f',
+    verifiedAt: '2026-07-31',
   },
   playerCounts: [7, 8, 9, 10, 11, 12, 13, 14, 15],
   roles: insanityAndIntuitionRoles,
@@ -22,5 +22,5 @@ export const insanityAndIntuitionSmartScriptPack = {
   },
   setupTemplates: insanityAndIntuitionSetupTemplates,
   setupRules: insanityAndIntuitionSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

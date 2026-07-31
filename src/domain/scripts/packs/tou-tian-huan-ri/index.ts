@@ -13,5 +13,5 @@ export const touTianHuanRiSmartScriptPack = {
   nightOrders: { firstNight: touTianHuanRiFirstNight, otherNight: touTianHuanRiOtherNight },
   setupTemplates: touTianHuanRiSetupTemplates,
   setupRules: touTianHuanRiSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

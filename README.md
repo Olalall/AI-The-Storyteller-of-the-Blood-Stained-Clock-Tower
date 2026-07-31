@@ -345,4 +345,10 @@ The original source code and original project documentation in this repository a
 
 This MIT License does not grant any rights to Blood on the Clocktower, official or community scripts, role names, rules text, visual assets, trademarks, provider-owned materials, or any third-party content. See `THIRD_PARTY_NOTICES.md`.
 
+## Windows 便捷启动包
+
+给不熟悉命令行的使用者，GitHub Release 提供 Windows 便捷包：解压后双击 `scripts/portable/Start-Storyteller.cmd` 即可启动。首次启动会询问是否配置 AI；不配置 AI 也能使用夜序、记录、投票、日志和归档。配置只保存在本机 `.env`，不会随仓库发布。
+
+便捷包说明：[`docs/QUICK_START_WINDOWS.md`](docs/QUICK_START_WINDOWS.md)。开发者仍可使用 `npm install`、`npm run dev` 和 `npm run dev:backend`。
+
 中文说明：本仓库原创代码和原创项目文档按 MIT License 授权；但该授权不包含 Blood on the Clocktower 相关内容、官方/社区脚本、角色名、规则文本、视觉素材、商标或第三方提供方材料。

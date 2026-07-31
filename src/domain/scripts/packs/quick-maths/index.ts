@@ -10,9 +10,9 @@ export const quickMathsSmartScriptPack = {
   source: {
     author: 'Fran',
     version: 'Carousel Collection snapshot 2026-07-20 / Quick Maths',
-    url: 'https://botc-script-viewer.sthom.kiwi/carousel/quick-maths/',
+    url: 'https://botc-script-viewer.sthom.kiwi/carousel/quick-maths/quick-maths.json',
     contentHash: 'sha256:2960bb5ebba764e8cc812500a4cba1c759ef6817859e836db7121f4b89e4ae03',
-    verifiedAt: '2026-07-20',
+    verifiedAt: '2026-07-31',
   },
   playerCounts: [7, 8, 9, 10, 11, 12, 13, 14, 15],
   roles: quickMathsRoles,
@@ -22,5 +22,5 @@ export const quickMathsSmartScriptPack = {
   },
   setupTemplates: quickMathsSetupTemplates,
   setupRules: quickMathsSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

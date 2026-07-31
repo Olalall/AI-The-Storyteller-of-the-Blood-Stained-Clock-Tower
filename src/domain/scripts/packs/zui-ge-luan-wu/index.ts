@@ -13,5 +13,5 @@ export const zuiGeLuanWuSmartScriptPack = {
   nightOrders: { firstNight: zuiGeLuanWuFirstNight, otherNight: zuiGeLuanWuOtherNight },
   setupTemplates: zuiGeLuanWuSetupTemplates,
   setupRules: zuiGeLuanWuSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

@@ -25,5 +25,5 @@ export const geJuMeiYingXinSmartScriptPack = {
     requireNotInPlay: true,
     summary: 'Use not-in-play Townsfolk bluffs; avoid hidden/setup-modifier roles unless storyteller intentionally hand-adjusts.',
   },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

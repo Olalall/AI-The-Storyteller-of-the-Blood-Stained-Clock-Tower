@@ -22,5 +22,5 @@ export const chouHaiNiXingSmartScriptPack = {
   },
   setupTemplates: chouHaiNiXingSetupTemplates,
   setupRules: chouHaiNiXingSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

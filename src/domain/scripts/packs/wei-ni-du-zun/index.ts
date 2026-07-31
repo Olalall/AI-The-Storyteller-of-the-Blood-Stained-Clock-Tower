@@ -20,5 +20,5 @@ export const weiNiDuZunSmartScriptPack = {
   setupTemplates: weiNiDuZunSetupTemplates,
   setupRules: weiNiDuZunSetupRules,
   demonBluffPolicy: { count: 3, eligibleTeams: ['townsfolk'], requireNotInPlay: true, summary: 'Use not-in-play Townsfolk bluffs; hidden setup and fabled roles are reminders only.' },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

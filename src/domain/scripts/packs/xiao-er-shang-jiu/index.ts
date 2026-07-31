@@ -14,5 +14,5 @@ export const xiaoErShangJiuSmartScriptPack = {
   setupTemplates: xiaoErShangJiuSetupTemplates,
   setupRules: xiaoErShangJiuSetupRules,
   demonBluffPolicy: { count: 3, eligibleTeams: ['townsfolk'], requireNotInPlay: true, summary: 'Use three not-in-play Townsfolk bluffs; do not bluff Travelers.' },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

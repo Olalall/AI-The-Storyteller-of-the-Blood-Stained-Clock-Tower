@@ -13,5 +13,5 @@ export const xinKouCiHuangSmartScriptPack = {
   nightOrders: { firstNight: xinKouCiHuangFirstNightOrder, otherNight: xinKouCiHuangOtherNightOrder },
   setupTemplates: xinKouCiHuangSetupTemplates,
   setupRules: xinKouCiHuangSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack

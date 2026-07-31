@@ -20,5 +20,5 @@ export const zhuiChaiQiYuanLaoHuaDengSmartScriptPack = {
   setupTemplates: zhuiChaiQiYuanLaoHuaDengSetupTemplates,
   setupRules: zhuiChaiQiYuanLaoHuaDengSetupRules,
   demonBluffPolicy: { count: 3, eligibleTeams: ['townsfolk'], requireNotInPlay: true, summary: 'Use not-in-play Townsfolk bluffs; avoid setup-modifier roles unless storyteller intentionally hand-adjusts.' },
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

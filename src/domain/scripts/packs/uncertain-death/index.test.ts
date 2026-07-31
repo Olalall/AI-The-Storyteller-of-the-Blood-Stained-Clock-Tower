@@ -9,9 +9,9 @@ describe('Uncertain Death smart script pack', () => {
 
     expect(registry.get('uncertain-death')).toBe(uncertainDeathSmartScriptPack)
     expect(registry.playableFor(12)).toEqual([uncertainDeathSmartScriptPack])
-    expect(uncertainDeathSmartScriptPack.knowledgeStatus).toBe('needs-review')
+    expect(uncertainDeathSmartScriptPack.knowledgeStatus).toBe('confirmed')
     expect(uncertainDeathSmartScriptPack.source.contentHash).toBe(
-      'sha256:05d854f75fb7ea6821b111368ad2c9d55ee5b736cc44578eea1bb84e8b0d6e2c',
+      'sha256:ead01f20e15e2516209092a555addf0528778178806784647584c9ae59d10d30',
     )
     expect(uncertainDeathSmartScriptPack.playerCounts).toEqual([7, 8, 9, 10, 11, 12, 13, 14, 15])
   })

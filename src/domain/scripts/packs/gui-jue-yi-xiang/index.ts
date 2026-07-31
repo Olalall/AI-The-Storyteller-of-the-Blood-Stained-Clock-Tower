@@ -13,5 +13,5 @@ export const guiJueYiXiangSmartScriptPack = {
   nightOrders: { firstNight: guiJueYiXiangFirstNight, otherNight: guiJueYiXiangOtherNight },
   setupTemplates: guiJueYiXiangSetupTemplates,
   setupRules: guiJueYiXiangSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } as const satisfies SmartScriptPack

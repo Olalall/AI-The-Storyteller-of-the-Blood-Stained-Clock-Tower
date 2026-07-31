@@ -22,5 +22,5 @@ export const heFangJiaoZhongSmartScriptPack = {
   },
   setupTemplates: heFangJiaoZhongSetupTemplates,
   setupRules: heFangJiaoZhongSetupRules,
-  knowledgeStatus: 'needs-review',
+  knowledgeStatus: 'confirmed',
 } satisfies SmartScriptPack
