@@ -1,4 +1,4 @@
-param(
+﻿param(
   [int]$Port = 8787,
   [switch]$SkipBrowser,
   [switch]$ReconfigureAI
