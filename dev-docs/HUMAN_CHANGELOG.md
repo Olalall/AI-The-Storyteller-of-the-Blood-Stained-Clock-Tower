@@ -3738,3 +3738,20 @@ UI 体验优化 / 测试加固 / 文档收口。没有新增板子，没有玩�
 - `npm run check`
 - `npm run package:portable`
 - 检查生成 ZIP 不含 `.env`、`data/archives`、API Key 和 V2.5 文件。
+
+## 2026-08-02 - GitHub 源码包启动提示修正
+
+### 给非开发者看的交付说明
+- 修复“缺少完整便携包”的误解：现在根目录和便捷包都提供 `Start-Storyteller.cmd`。
+- 如果使用者下载的是 GitHub 的源码 ZIP，启动脚本会明确提示这是源码目录，并可选择自动执行 `npm install`、前端构建和后端构建。
+- 如果使用者下载的是不完整便捷包，会明确提示应从 Release 下载 `botc-storyteller-companion-windows-*.zip`。
+- README 和 Windows 快速开始文档补充了“Code → Download ZIP 不是便捷包”的说明。
+
+### Before / After
+- Before：普通使用者下载源码 ZIP 后启动，看到“缺少完整便携包”，不知道下一步怎么做。
+- After：可以直接双击根目录启动器；源码目录可选择自动构建，Release 便捷包可直接启动。
+
+### 验证
+- `npm run check`：通过。
+- PowerShell 启动脚本语法检查：通过。
+- Windows 便捷包重新生成并上传 GitHub Release。
