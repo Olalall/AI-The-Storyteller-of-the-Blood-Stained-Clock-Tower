@@ -79,13 +79,36 @@ function Configure-AI([hashtable]$values) {
   $values.BOTC_AI_API_KEY = $key
 }
 
-if (-not (Test-Path -LiteralPath $runtime)) { Fail "缺少 $runtime，请从 GitHub Release 下载完整便捷包。" }
-if (-not (Test-Path -LiteralPath $staticDir)) { Fail "缺少 $staticDir，请从 GitHub Release 下载完整便捷包。" }
-
 $node = Get-Command node -ErrorAction SilentlyContinue
 if (-not $node) { Fail '未找到 Node.js。请安装 Node.js 20 LTS 或更高版本，再重新运行。' }
 $nodeVersion = (& node --version).Trim()
 if ($nodeVersion -notmatch '^v(\d+)' -or [int]$Matches[1] -lt 20) { Fail "当前 Node.js 为 $nodeVersion，需要 Node.js 20 LTS 或更高版本。" }
+
+if (-not (Test-Path -LiteralPath $runtime) -or -not (Test-Path -LiteralPath $staticDir)) {
+  $sourcePackage = Join-Path $appDir 'package.json'
+  if (-not (Test-Path -LiteralPath $sourcePackage)) {
+    Fail "便捷包不完整。请下载 GitHub Release 中的 botc-storyteller-companion-windows-*.zip，不要下载源码 ZIP。"
+  }
+
+  $npm = Get-Command npm.cmd -ErrorAction SilentlyContinue
+  if (-not $npm) { Fail '检测到源码目录，但未找到 npm。请安装 Node.js 20 LTS，或直接下载 GitHub Release 便捷包。' }
+  Write-Host "`n检测到这是源码目录，不是已构建便捷包。" -ForegroundColor Yellow
+  $buildAnswer = Read-Host '现在自动安装依赖并构建吗？(Y/N)'
+  if ($buildAnswer -notmatch '^(y|yes|是)$') {
+    Fail '未构建。若不想使用命令行，请下载 GitHub Release 的 Windows 便捷包。'
+  }
+  Set-Location $appDir
+  & $npm.Source install
+  if ($LASTEXITCODE -ne 0) { Fail 'npm install 失败。请检查网络后重试。' }
+  & $npm.Source run build
+  if ($LASTEXITCODE -ne 0) { Fail '前端构建失败。' }
+  & $npm.Source run build:backend
+  if ($LASTEXITCODE -ne 0) { Fail '后端构建失败。' }
+}
+
+if (-not (Test-Path -LiteralPath $runtime) -or -not (Test-Path -LiteralPath $staticDir)) {
+  Fail '构建完成但缺少 dist 或 dist-server。请重新运行，或下载 GitHub Release 便捷包。'
+}
 
 $values = Read-DotEnv $envFile
 if ($ReconfigureAI -or -not (Test-Path -LiteralPath $envFile)) {

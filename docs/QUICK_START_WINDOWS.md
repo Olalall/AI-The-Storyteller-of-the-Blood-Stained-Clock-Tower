@@ -10,13 +10,17 @@
 
 ## 一键启动
 
-双击 `scripts/portable/Start-Storyteller.cmd`（或右键 PowerShell 脚本选择“使用 PowerShell 运行”）。第一次运行时：
+推荐双击便捷包根目录的 `Start-Storyteller.cmd`（也可以双击 `scripts/portable/Start-Storyteller.cmd`）。第一次运行时：
 
 - 可以配置 AI：填写接入地址、模型名称和 API Key；
 - 也可以跳过 AI，记录、夜序、投票、日志和归档仍然可用；
 - 配置只写入解压目录里的 `.env`，不会上传到 GitHub，也不会显示在页面上。
 
 启动后浏览器会打开 `http://127.0.0.1:8787`。关闭 PowerShell 窗口即可停止本机服务。
+
+## 不要下载错文件
+
+GitHub 的 **Code → Download ZIP** 是源码包，不是可直接启动的便捷包。源码包没有 `dist/` 和 `dist-server/`，第一次运行启动脚本会询问是否自动安装依赖并构建；不想等待构建时，请打开 Release 页面，下载名称以 `botc-storyteller-companion-windows-` 开头的 ZIP。
 
 ## 修改 AI 配置
 
