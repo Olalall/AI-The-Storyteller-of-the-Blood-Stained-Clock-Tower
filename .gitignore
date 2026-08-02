@@ -40,5 +40,12 @@ tmp_*
 # Public repository boundary: BOTC official/community visual assets are local optional packs.
 # Keep source manifests/notices, but do not commit redistributed binary art by default.
 public/assets/characters/*.webp
+public/assets/characters/*.png
+public/assets/characters/*.jpg
+public/assets/characters/*.jpeg
+public/assets/characters/*.gif
+public/assets/characters/*.svg
 public/assets/community/*
 !public/assets/community/README.md
+!public/assets/community/source-manifest.json
+data/

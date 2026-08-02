@@ -467,6 +467,13 @@
   line-height: 1.65;
 }
 
+.asset-pack-guide__ccc {
+  width: min(220px, 72%);
+  height: auto;
+  margin-top: var(--space-12);
+  object-fit: contain;
+}
+
 .asset-pack-guide__grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

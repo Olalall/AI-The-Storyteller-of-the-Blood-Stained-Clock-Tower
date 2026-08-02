@@ -11,6 +11,8 @@
 - 构建时从 Node.js 官方分发地址下载运行时，并用官方 `SHASUMS256.txt` 校验。
 - 只提取 `node.exe` 与上游 `LICENSE`，减少包体和供应链面积。
 - 首次启动可配置 AI，也可跳过；API Key 只写入本机 `.env`。
+- 首次启动显式询问是否安装角色图标；用户确认来源与政策后，才从 TPI Toolmaker Resources、GStone 与社区原始来源下载并校验。
+- 素材下载器同时安装 Community Created Content 标识，二进制素材仍不进入 Git 或基础 Release ZIP。
 - runtime 默认绑定 `127.0.0.1:8787`，端口冲突可用 `-Port` 修改。
 - VPS 继续走独立的 `package:vps` / `sync:vps` 流程，不触碰 V2.5。
 
@@ -40,6 +42,8 @@ npm run package:portable
 4. AI 设置只在本机 `.env` 生效。
 5. 包中没有 `.env`、API Key、`data/archives`、`node_modules`、本机路径或 V2.5 文件。
 6. 包中包含 Node.js `LICENSE`，下载归档哈希与官方校验文件一致。
+7. 用户同意后可安装清单内 718 个官方及第三方角色图标；任一哈希不符立即停止且不覆盖目标文件。
+8. 用户拒绝素材后不联网下载，并可稍后运行 `Install-Character-Assets.cmd`。
 
 ## 后续升级条件
 

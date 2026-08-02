@@ -278,6 +278,7 @@ npm run screenshots:github
 
 - `public/assets/characters/source-manifest.json`
 - `public/assets/community/README.md`
+- `public/assets/community/source-manifest.json`
 - `THIRD_PARTY_NOTICES.md`
 
 详细边界见 `dev-docs/PUBLIC_RELEASE_BOUNDARY.md`。
@@ -312,7 +313,7 @@ This MIT License does not grant any rights to Blood on the Clocktower, official 
 
 普通使用者无需安装 Node.js、npm 或开发工具。请在 GitHub Release 下载 `botc-storyteller-companion-windows-portable.zip`，完整解压后双击根目录 `Start-Storyteller.cmd`。便捷包内置经过官方 SHA-256 校验的 Node.js LTS 运行时及其许可证。
 
-首次启动可以配置 AI，也可以跳过；夜序、记录、投票、日志和归档不依赖 AI。配置只保存在本机 `.env`，不会随仓库发布。
+首次启动会先询问是否安装角色图标：用户确认来源和使用提示后，启动器从 TPI Toolmaker Resources、GStone 及清单记录的社区来源下载当前智能板子所需素材，逐文件校验 SHA-256，并安装 Community Created Content 标识。当前清单覆盖 718 个角色图标（约 102 MB）；基础便捷包与 Git 仓库仍不包含这些二进制素材。随后可以配置 AI，也可以跳过；夜序、记录、投票、日志和归档不依赖 AI。配置只保存在本机 `.env`，不会随仓库发布。
 
 详细说明：[`docs/QUICK_START_WINDOWS.md`](docs/QUICK_START_WINDOWS.md)。开发者仍可使用 `npm install`、`npm run dev` 和 `npm run dev:backend`。
 

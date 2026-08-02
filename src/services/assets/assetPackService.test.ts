@@ -73,6 +73,23 @@ describe('assetPackService', () => {
     })
   })
 
+  it('does not treat the SPA HTML fallback as an installed image', async () => {
+    const fetcher = vi.fn(async () => ({
+      ok: true,
+      headers: { get: () => 'text/html; charset=utf-8' },
+    }))
+
+    const availability = await checkCharacterAssetAvailability(projectCharacterAssetPack([pack()]).requirements, fetcher)
+
+    expect(availability).toMatchObject({ status: 'missing', available: 0, missing: 2 })
+  })
+
+  it('counts duplicate remote icon URLs once', () => {
+    const projection = projectCharacterAssetPack([pack(), pack({ scriptId: 'second-script' })])
+
+    expect(projection.remoteIconCount).toBe(1)
+  })
+
   it('reports unknown when the browser cannot fetch asset status', async () => {
     const availability = await checkCharacterAssetAvailability(projectCharacterAssetPack([pack()]).requirements, null)
 

@@ -1,5 +1,6 @@
 import type { AIRoleResearchBrief, RoleId, RoleTeam, ScriptId, SmartRoleDefinition, SmartScriptPack } from './types'
 import { createScriptRegistry } from './registry'
+import { resolveCharacterIconPath } from './roleIconPaths'
 import { aGrimmChorusSmartScriptPack } from './packs/a-grimm-chorus'
 import { anDuChenCangSmartScriptPack } from './packs/an-du-chen-cang'
 import { badMoonRisingSmartScriptPack } from './packs/bad-moon-rising'
@@ -143,7 +144,7 @@ const roleIdAliases: Readonly<Record<RoleId, RoleId>> = {
   high_priestess: 'highpriestess',
 }
 
-export const smartScriptPacks = [
+const sourceSmartScriptPacks = [
   catfishingSmartScriptPack,
   anDuChenCangSmartScriptPack,
   wuRenShengHuanSmartScriptPack,
@@ -263,10 +264,18 @@ export const smartScriptPacks = [
   baoMengMiTuanSmartScriptPack,
 ] as const satisfies readonly SmartScriptPack[]
 
+export const smartScriptPacks = sourceSmartScriptPacks.map((pack) => ({
+  ...pack,
+  roles: pack.roles.map((role) => ({
+    ...role,
+    iconPath: resolveCharacterIconPath(role),
+  })),
+})) satisfies readonly SmartScriptPack[]
+
 export const smartScriptRegistry = createScriptRegistry(smartScriptPacks)
 
 export function getSmartScriptPack(scriptId: ScriptId) {
-  return smartScriptRegistry.get(scriptId) ?? catfishingSmartScriptPack
+  return smartScriptRegistry.get(scriptId) ?? smartScriptPacks[0]
 }
 
 export function scriptDisplayName(scriptId: ScriptId) {
@@ -290,7 +299,7 @@ export function roleSnapshotsForScript(scriptId: ScriptId) {
     id: role.id,
     name: role.name,
     initial: role.name.slice(0, 1),
-    iconPath: role.iconPath ?? `/assets/characters/${role.id}.webp`,
+    iconPath: resolveCharacterIconPath(role),
   }))
 }
 

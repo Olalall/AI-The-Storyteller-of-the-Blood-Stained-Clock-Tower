@@ -27,11 +27,14 @@ export interface CharacterAssetAvailability {
   missingPaths: readonly string[]
 }
 
-export type AssetFetch = (input: string, init?: { method?: 'HEAD' }) => Promise<{ ok: boolean }>
+export type AssetFetch = (input: string, init?: { method?: 'HEAD' }) => Promise<{
+  ok: boolean
+  headers?: { get(name: string): string | null }
+}>
 
 export function projectCharacterAssetPack(packs: readonly SmartScriptPack[]): CharacterAssetPackProjection {
   const requirements = new Map<string, CharacterAssetRequirement>()
-  let remoteIconCount = 0
+  const remoteIcons = new Set<string>()
 
   for (const pack of packs) {
     for (const role of pack.roles) {
@@ -39,14 +42,14 @@ export function projectCharacterAssetPack(packs: readonly SmartScriptPack[]): Ch
       if (iconPath.startsWith(characterAssetUrlPrefix)) {
         requirements.set(iconPath, { roleId: role.id, roleName: role.name, path: iconPath })
       } else if (/^https?:\/\//.test(iconPath)) {
-        remoteIconCount += 1
+        remoteIcons.add(iconPath)
       }
     }
   }
 
   return {
     requirements: [...requirements.values()].sort((left, right) => left.path.localeCompare(right.path)),
-    remoteIconCount,
+    remoteIconCount: remoteIcons.size,
     localDirectory: characterAssetDirectory,
     manifestPath: characterAssetManifestPath,
   }
@@ -64,12 +67,24 @@ export async function checkCharacterAssetAvailability(
     return { status: 'unknown', checked: 0, available: 0, missing: 0, missingPaths: [] }
   }
 
-  const checks = await Promise.all(requirements.map(async (item) => {
-    try {
-      const response = await fetcher(item.path, { method: 'HEAD' })
-      return { path: item.path, ok: response.ok }
-    } catch {
-      return { path: item.path, ok: false }
+  const checks = new Array<{ path: string; ok: boolean }>(requirements.length)
+  let cursor = 0
+  const workerCount = Math.min(12, requirements.length)
+  await Promise.all(Array.from({ length: workerCount }, async () => {
+    while (cursor < requirements.length) {
+      const index = cursor
+      cursor += 1
+      const item = requirements[index]
+      try {
+        const response = await fetcher(item.path, { method: 'HEAD' })
+        const contentType = response.headers?.get('content-type')
+        checks[index] = {
+          path: item.path,
+          ok: response.ok && (contentType === undefined || contentType === null || contentType.startsWith('image/')),
+        }
+      } catch {
+        checks[index] = { path: item.path, ok: false }
+      }
     }
   }))
 
