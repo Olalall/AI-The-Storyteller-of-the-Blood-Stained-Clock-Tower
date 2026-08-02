@@ -67,6 +67,14 @@ Allowed as source notes:
 
 AI provider names, APIs, and model names belong to their respective providers. This project does not include API keys. Real keys must be configured only in the user's local environment or backend secret store.
 
+## Node.js runtime in the Windows portable package
+
+The Windows portable release includes an unmodified Node.js executable obtained from the official Node.js distribution server. Its official SHA-256 checksum is verified during packaging. The upstream license is included inside the package at `runtime/node/LICENSE`.
+
+- Project: https://nodejs.org/
+- Distribution: https://nodejs.org/dist/
+- License: https://github.com/nodejs/node/blob/main/LICENSE
+
 ## License note
 
 The original source code and original project documentation in this repository are licensed under the MIT License.

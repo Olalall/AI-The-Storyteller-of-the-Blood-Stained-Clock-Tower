@@ -3755,3 +3755,19 @@ UI 体验优化 / 测试加固 / 文档收口。没有新增板子，没有玩�
 - `npm run check`：通过。
 - PowerShell 启动脚本语法检查：通过。
 - Windows 便捷包重新生成并上传 GitHub Release。
+
+## 2026-08-02 - Windows 零安装便捷包
+
+### 给非开发者看的交付说明
+- Release 便捷包现在自带 Node.js LTS 运行环境，不再要求使用者先安装 Node.js 或 npm。
+- 普通用户只需下载 `botc-storyteller-companion-windows-portable.zip`、完整解压、双击根目录启动器。
+- 打包脚本会核对 Node.js 官方 SHA-256，并把上游许可证放进 `runtime/node/LICENSE`。
+- 源码 ZIP 的开发者自动构建入口仍保留，但不再与普通用户下载方式混淆。
+
+### Before / After
+- Before：即使下载了正确便捷包，普通用户仍需先安装 Node.js。
+- After：Release ZIP 包含运行时，解压后可直接启动。
+
+### 风险与边界
+- Windows 脚本尚未购买商业代码签名，首次运行可能出现 SmartScreen 提示。
+- 仍不引入 Electron/Tauri，也不打包第三方角色二进制素材，避免体积和版权边界膨胀。

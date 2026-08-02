@@ -10,6 +10,7 @@ $runtime = Join-Path $appDir 'dist-server\runtime.mjs'
 $staticDir = Join-Path $appDir 'dist'
 $envFile = Join-Path $appDir '.env'
 $archiveFile = Join-Path $appDir 'data\archives\archives.json'
+$bundledNode = Join-Path $appDir 'runtime\node\node.exe'
 
 function Fail([string]$message) {
   Write-Host "`n启动失败：$message" -ForegroundColor Red
@@ -79,9 +80,16 @@ function Configure-AI([hashtable]$values) {
   $values.BOTC_AI_API_KEY = $key
 }
 
-$node = Get-Command node -ErrorAction SilentlyContinue
-if (-not $node) { Fail '未找到 Node.js。请安装 Node.js 20 LTS 或更高版本，再重新运行。' }
-$nodeVersion = (& node --version).Trim()
+$nodePath = if (Test-Path -LiteralPath $bundledNode) {
+  $bundledNode
+} else {
+  $systemNode = Get-Command node -ErrorAction SilentlyContinue
+  if ($systemNode) { $systemNode.Source } else { $null }
+}
+if (-not $nodePath) {
+  Fail '未找到内置运行环境。请下载 GitHub Release 的 Windows 便捷包，或安装 Node.js 20 LTS。'
+}
+$nodeVersion = (& $nodePath --version).Trim()
 if ($nodeVersion -notmatch '^v(\d+)' -or [int]$Matches[1] -lt 20) { Fail "当前 Node.js 为 $nodeVersion，需要 Node.js 20 LTS 或更高版本。" }
 
 if (-not (Test-Path -LiteralPath $runtime) -or -not (Test-Path -LiteralPath $staticDir)) {
@@ -131,5 +139,5 @@ Write-Host "浏览器地址：http://127.0.0.1:$Port"
 Write-Host '关闭此窗口将停止服务。'
 if (-not $SkipBrowser) { Start-Process "http://127.0.0.1:$Port" }
 Set-Location $appDir
-& $node.Source $runtime
+& $nodePath $runtime
 if ($LASTEXITCODE -ne 0) { Fail "后端退出，退出码 $LASTEXITCODE。" }

@@ -1,45 +1,46 @@
-# Windows 便捷包
+# Windows 零安装便捷包
 
-这是给不熟悉 GitHub、Node.js 和命令行的使用者准备的启动方式。它不是安装器，也不会修改系统服务；解压后运行一个脚本即可。
+这是给不熟悉 GitHub、Node.js 和命令行的用户准备的启动方式。它不是安装器，不修改系统服务或注册表；完整解压后双击即可运行。
 
-## 使用前准备
+## 三步启动
 
-1. 安装 [Node.js 20 LTS 或更高版本](https://nodejs.org/)。
-2. 从 GitHub Release 下载 `botc-storyteller-companion-windows-*.zip`。
-3. 解压到一个没有中文特殊权限限制的目录，例如 `D:\BOTC\storyteller`。
+1. 打开 GitHub **Releases**，下载 `botc-storyteller-companion-windows-portable.zip`。
+2. 右键 ZIP，选择“全部解压”。不要在压缩包预览窗口里直接运行。
+3. 双击解压目录根部的 `Start-Storyteller.cmd`。
 
-## 一键启动
+便捷包已包含经过官方 SHA-256 校验的 Node.js LTS 运行时，不需要安装 Node.js、npm 或其他开发工具。启动后浏览器会打开 `http://127.0.0.1:8787`；关闭启动窗口即可停止本机服务。
 
-推荐双击便捷包根目录的 `Start-Storyteller.cmd`（也可以双击 `scripts/portable/Start-Storyteller.cmd`）。第一次运行时：
+## 首次启动与 AI
 
-- 可以配置 AI：填写接入地址、模型名称和 API Key；
-- 也可以跳过 AI，记录、夜序、投票、日志和归档仍然可用；
-- 配置只写入解压目录里的 `.env`，不会上传到 GitHub，也不会显示在页面上。
+首次运行时可以填写接入地址、模型名称和 API Key，也可以跳过 AI。跳过后，记录、夜序、投票、日志和归档仍可使用。
 
-启动后浏览器会打开 `http://127.0.0.1:8787`。关闭 PowerShell 窗口即可停止本机服务。
+配置只写入解压目录内的 `.env`，不会进入 GitHub，也不会显示在页面上。不要把 `.env` 发给别人、上传 GitHub 或截图公开。
 
-## 不要下载错文件
-
-GitHub 的 **Code → Download ZIP** 是源码包，不是可直接启动的便捷包。源码包没有 `dist/` 和 `dist-server/`，第一次运行启动脚本会询问是否自动安装依赖并构建；不想等待构建时，请打开 Release 页面，下载名称以 `botc-storyteller-companion-windows-` 开头的 ZIP。
-
-## 修改 AI 配置
-
-再次运行脚本时加 `-ReconfigureAI`，或在 PowerShell 中执行：
+重新配置 AI：
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\portable\Start-Storyteller.ps1 -ReconfigureAI
 ```
 
-API Key 只保存在本机 `.env`。不要把 `.env` 发给别人、上传 GitHub 或截图公开。
+## 不要下载错文件
+
+GitHub 的 **Code → Download ZIP** 是源码包，不是零安装便捷包。源码包没有预构建文件和内置运行环境，适合开发者使用。
+
+普通用户只下载 Releases 中名称完全一致的：
+
+`botc-storyteller-companion-windows-portable.zip`
 
 ## 常见问题
 
-- **没有 Node.js**：安装 Node.js 20 LTS 后重试。
-- **AI 不可用**：检查接入地址、模型名和 Key；即使 AI 不可用，手动记录流程不受阻塞。
-- **端口被占用**：用 `-Port 8788` 启动，然后打开 `http://127.0.0.1:8788`。
-- **想清空本地对局**：使用应用内的“结束对局 / 重置”，不要直接删除归档文件。
+- **提示缺少内置运行环境**：下载了源码 ZIP、旧版便捷包，或没有完整解压。重新下载上述 portable ZIP 并“全部解压”。
+- **Windows SmartScreen 提示**：脚本尚未进行商业代码签名。确认下载来源是本项目 GitHub Release 后，可选择“更多信息 → 仍要运行”。
+- **AI 不可用**：检查接入地址、模型名和 Key；AI 故障不会阻塞手动记录流程。
+- **端口被占用**：在 PowerShell 中用 `-Port 8788` 启动，然后打开 `http://127.0.0.1:8788`。
+- **想清空本地对局**：使用应用内“结束对局 / 重置”，不要直接删除归档文件。
 
-## 安全边界
+## 包内运行环境与安全边界
 
-便捷包不包含 API Key、V2.5 服务、官方魔典同步器或玩家端。AI 只给建议草稿，状态仍由说书人确认。
-角色图标等第三方二进制素材不随公开便捷包分发；缺少素材时页面会显示文字/占位，不影响记录、夜序、投票和归档。
+- 内置 Node.js 的许可证位于 `runtime/node/LICENSE`。
+- 便捷包不包含 API Key、个人对局数据、V2.5 服务、官方魔典同步器或玩家端。
+- 第三方角色图标等二进制素材不随公开便捷包分发；缺少素材时显示文字/占位，不影响核心操作。
+- AI 只给建议草稿，状态仍由说书人确认。
