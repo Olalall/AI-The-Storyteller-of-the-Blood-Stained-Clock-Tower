@@ -53,6 +53,8 @@ Public repository policy:
 - Optional local asset packs may be imported by the user after source and usage confirmation.
 - Missing assets must degrade gracefully and must not block core app flows.
 
+The base Git repository and Windows ZIP do not redistribute these binary assets. After explicit confirmation, the optional installer downloads the required official and third-party character icons directly from TPI Toolmaker Resources, GStone-hosted source records, and the community URLs recorded in the tracked manifest. It verifies every file against SHA-256 and installs the Community Created Content mark. TPI assets remain subject to TPI's current policy; community assets remain subject to their creators' or other rightsholders' terms. None of these assets are covered by this project's MIT License.
+
 Ignored by default:
 
 - `public/assets/characters/*.webp`
@@ -62,6 +64,7 @@ Allowed as source notes:
 
 - `public/assets/characters/source-manifest.json`
 - `public/assets/community/README.md`
+- `public/assets/community/source-manifest.json`
 
 ## AI providers
 

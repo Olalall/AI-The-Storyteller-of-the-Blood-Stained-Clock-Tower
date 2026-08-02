@@ -12,7 +12,11 @@
 
 ## 首次启动与 AI
 
-首次运行时可以填写接入地址、模型名称和 API Key，也可以跳过 AI。跳过后，记录、夜序、投票、日志和归档仍可使用。
+首次运行会先询问是否安装角色图标。选择安装后，会显示来源与使用提示，并从 TPI Toolmaker Resources、GStone 及清单记录的社区来源下载角色图标和 Community Created Content 标识。当前清单覆盖 718 个图标，约 102 MB；每个文件都会校验 SHA-256。拒绝后不会下载，核心功能仍可使用。
+
+以后需要补装或重新校验素材时，双击根目录 `Install-Character-Assets.cmd`。
+
+随后可以填写接入地址、模型名称和 API Key，也可以跳过 AI。跳过后，记录、夜序、投票、日志和归档仍可使用。
 
 配置只写入解压目录内的 `.env`，不会进入 GitHub，也不会显示在页面上。不要把 `.env` 发给别人、上传 GitHub 或截图公开。
 
@@ -32,6 +36,7 @@ GitHub 的 **Code → Download ZIP** 是源码包，不是零安装便捷包。�
 
 ## 常见问题
 
+- **角色图标是文字占位**：首次启动时跳过了素材安装，或下载中断。联网后双击 `Install-Character-Assets.cmd`。
 - **提示缺少内置运行环境**：下载了源码 ZIP、旧版便捷包，或没有完整解压。重新下载上述 portable ZIP 并“全部解压”。
 - **Windows SmartScreen 提示**：脚本尚未进行商业代码签名。确认下载来源是本项目 GitHub Release 后，可选择“更多信息 → 仍要运行”。
 - **AI 不可用**：检查接入地址、模型名和 Key；AI 故障不会阻塞手动记录流程。
@@ -42,5 +47,6 @@ GitHub 的 **Code → Download ZIP** 是源码包，不是零安装便捷包。�
 
 - 内置 Node.js 的许可证位于 `runtime/node/LICENSE`。
 - 便捷包不包含 API Key、个人对局数据、V2.5 服务、官方魔典同步器或玩家端。
-- 第三方角色图标等二进制素材不随公开便捷包分发；缺少素材时显示文字/占位，不影响核心操作。
+- 角色图标不直接放进 GitHub ZIP；用户确认后由安装器从 TPI、GStone 与社区原始地址下载，并按仓库清单逐文件校验。
+- TPI 素材适用 Community Created Content Policy；第三方角色素材仍归各自作者或权利人，均不属于本项目 MIT License 授权范围。
 - AI 只给建议草稿，状态仍由说书人确认。

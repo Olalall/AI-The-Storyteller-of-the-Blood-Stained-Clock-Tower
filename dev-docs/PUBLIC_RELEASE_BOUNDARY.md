@@ -19,7 +19,7 @@
 相关忽略规则：
 
 ```text
-public/assets/characters/*.webp
+public/assets/characters/*.{webp,png,jpg,jpeg,gif,svg}
 public/assets/community/*
 !public/assets/community/README.md
 .env
@@ -43,12 +43,13 @@ public/assets/community/*
 - 社区袖标、板子图、截图图；
 - 从网页抓取的任何素材。
 
-后续如果做下载或导入功能，必须满足：
+当前可选下载器以及后续导入功能必须满足：
 
 1. 用户先看到来源、用途、版权和非官方说明。
 2. 用户显式确认后才下载或导入。
 3. 素材存放在本机或自用 VPS，不进入 Git。
 4. 缺素材不阻塞开局、夜序、日志、投票或 AI 建议。
+5. 来源清单必须记录原始 URL 和 SHA-256；下载器不得绕过校验。
 
 ## AI 与密钥
 

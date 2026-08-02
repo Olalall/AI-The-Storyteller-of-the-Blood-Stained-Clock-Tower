@@ -11,6 +11,9 @@ $staticDir = Join-Path $appDir 'dist'
 $envFile = Join-Path $appDir '.env'
 $archiveFile = Join-Path $appDir 'data\archives\archives.json'
 $bundledNode = Join-Path $appDir 'runtime\node\node.exe'
+$assetInstaller = Join-Path $appDir 'scripts\portable\Install-CharacterAssets.ps1'
+$assetChoiceFile = Join-Path $appDir 'data\asset-packs\character-assets-choice.json'
+$isPortableBundle = Test-Path -LiteralPath (Join-Path $appDir 'asset-packs\characters\source-manifest.json')
 
 function Fail([string]$message) {
   Write-Host "`n启动失败：$message" -ForegroundColor Red
@@ -116,6 +119,29 @@ if (-not (Test-Path -LiteralPath $runtime) -or -not (Test-Path -LiteralPath $sta
 
 if (-not (Test-Path -LiteralPath $runtime) -or -not (Test-Path -LiteralPath $staticDir)) {
   Fail '构建完成但缺少 dist 或 dist-server。请重新运行，或下载 GitHub Release 便捷包。'
+}
+
+if ($isPortableBundle -and (Test-Path -LiteralPath $assetInstaller) -and -not (Test-Path -LiteralPath $assetChoiceFile)) {
+  Write-Host "`n角色图标（推荐安装）" -ForegroundColor Cyan
+  Write-Host '素材来自 TPI Toolmaker Resources、GStone 与社区角色作者，安装前会显示来源与使用提示。'
+  Write-Host '当前清单约 102 MB，需要联网下载。'
+  Write-Host '政策：https://bloodontheclocktower.com/pages/community-created-content-policy'
+  Write-Host '不安装仍可使用，但夜序和身份卡会显示文字占位。'
+  $assetAnswer = Read-Host '现在查看提示并安装角色图标吗？(Y/N)'
+  New-Item -ItemType Directory -Force -Path (Split-Path -Parent $assetChoiceFile) | Out-Null
+  if ($assetAnswer -match '^(y|yes|是)$') {
+    & powershell.exe -NoProfile -ExecutionPolicy Bypass -File $assetInstaller -AcceptPolicy
+    if ($LASTEXITCODE -eq 0) {
+      [ordered]@{ choice = 'installed'; updatedAt = (Get-Date).ToString('o') } |
+        ConvertTo-Json | Set-Content -LiteralPath $assetChoiceFile -Encoding UTF8
+    } else {
+      Write-Host '角色素材未安装完成；本次继续启动核心功能。' -ForegroundColor Yellow
+    }
+  } else {
+    [ordered]@{ choice = 'skipped'; updatedAt = (Get-Date).ToString('o') } |
+      ConvertTo-Json | Set-Content -LiteralPath $assetChoiceFile -Encoding UTF8
+    Write-Host '已跳过。以后可双击根目录 Install-Character-Assets.cmd 安装。' -ForegroundColor DarkGray
+  }
 }
 
 $values = Read-DotEnv $envFile

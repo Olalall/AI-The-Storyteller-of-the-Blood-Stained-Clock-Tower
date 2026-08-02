@@ -32,11 +32,17 @@ Copy-Item dist-server (Join-Path $stage 'dist-server') -Recurse -Force
 New-Item -ItemType Directory -Force -Path (Join-Path $stage 'scripts\portable') | Out-Null
 Copy-Item scripts\portable\Start-Storyteller.ps1 (Join-Path $stage 'scripts\portable\Start-Storyteller.ps1') -Force
 Copy-Item scripts\portable\Start-Storyteller.cmd (Join-Path $stage 'scripts\portable\Start-Storyteller.cmd') -Force
+Copy-Item scripts\portable\Install-CharacterAssets.ps1 (Join-Path $stage 'scripts\portable\Install-CharacterAssets.ps1') -Force
+Copy-Item scripts\portable\Install-Character-Assets.cmd (Join-Path $stage 'scripts\portable\Install-Character-Assets.cmd') -Force
 Copy-Item Start-Storyteller.cmd (Join-Path $stage 'Start-Storyteller.cmd') -Force
+Copy-Item Install-Character-Assets.cmd (Join-Path $stage 'Install-Character-Assets.cmd') -Force
 Copy-Item README.md (Join-Path $stage 'README.md') -Force
 Copy-Item THIRD_PARTY_NOTICES.md (Join-Path $stage 'THIRD_PARTY_NOTICES.md') -Force
 Copy-Item docs\QUICK_START_WINDOWS.md (Join-Path $stage 'QUICK_START_WINDOWS.md') -Force
 Copy-Item .env.example (Join-Path $stage '.env.example') -Force
+New-Item -ItemType Directory -Force -Path (Join-Path $stage 'asset-packs\characters'), (Join-Path $stage 'asset-packs\community') | Out-Null
+Copy-Item public\assets\characters\source-manifest.json (Join-Path $stage 'asset-packs\characters\source-manifest.json') -Force
+Copy-Item public\assets\community\source-manifest.json (Join-Path $stage 'asset-packs\community\source-manifest.json') -Force
 
 # The source repository keeps third-party binary art as an optional local pack.
 # Do not redistribute it inside the public convenience package.
@@ -88,6 +94,7 @@ $manifest = [ordered]@{
   nodeRequirement = if ($SkipNodeRuntime) { 'Node.js 20 LTS or newer' } else { 'Bundled; no separate installation required' }
   defaultUrl = 'http://127.0.0.1:8787'
   ai = 'optional; configured locally by Start-Storyteller.ps1'
+  characterAssets = 'optional; official and community role art downloaded from original sources after explicit user confirmation'
   secretsIncluded = $false
   v25Boundary = 'V2.5 is not included or modified.'
   entry = 'scripts\portable\Start-Storyteller.ps1'

@@ -41,11 +41,26 @@ describe('AssetPackSettingsSection', () => {
     await user.click(screen.getByRole('button', { name: '查看导入说明' }))
 
     expect(screen.getByRole('heading', { name: '角色图标素材包' })).toBeInTheDocument()
-    expect(screen.getByText('不会自动下载素材。')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: '下载功能待接入' })).toBeDisabled()
+    expect(screen.getByText('便捷包首次启动会询问是否安装 718 个官方及第三方图标（约 102 MB）；拒绝后不会下载。')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '我已了解' })).toBeDisabled()
 
     await user.click(screen.getByLabelText('我已了解来源与版权提示'))
 
-    expect(screen.getByRole('button', { name: '下载功能待接入' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '我已了解' })).toBeEnabled()
+  })
+
+  it('shows the community-created-content mark when assets are ready', async () => {
+    const user = userEvent.setup()
+    const fetcher = vi.fn(async () => ({ ok: true }))
+
+    render(<AssetPackSettingsSection packs={packs} fetcher={fetcher} />)
+
+    expect(await screen.findByText('已就绪')).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: '查看导入说明' }))
+
+    expect(screen.getByRole('img', { name: 'Community Created Content' })).toHaveAttribute(
+      'src',
+      '/assets/community/ccc-sleeve.png',
+    )
   })
 })

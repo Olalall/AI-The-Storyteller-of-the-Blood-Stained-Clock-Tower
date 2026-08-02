@@ -72,13 +72,13 @@ export function AssetPackSettingsSection({
         </div>
         <div>
           <strong>{projection.remoteIconCount}</strong>
-          <span>外部来源</span>
+          <span>未缓存外链</span>
         </div>
         <StatusBadge tone={copy.tone}>{copy.label}</StatusBadge>
       </div>
 
       <div className="asset-pack-footer">
-        <p className="ai-settings-note"><FileWarning aria-hidden="true" />公开仓库不携带官方/社区二进制素材。</p>
+        <p className="ai-settings-note"><FileWarning aria-hidden="true" />便捷包首次启动可安装官方及第三方角色图标。</p>
         <div className="ai-settings-test-actions">
           <Button type="button" variant="ghost" onClick={() => { void refresh() }}>
             <RefreshCw aria-hidden="true" />重新检测
@@ -100,7 +100,8 @@ export function AssetPackSettingsSection({
           <section className="asset-pack-guide__hero">
             <span><ShieldCheck aria-hidden="true" />需手动确认</span>
             <h3>角色图标素材包</h3>
-            <p>核心功能不依赖素材包；缺图时仍可开局、记录、投票和请求 AI 建议。</p>
+            <p>素材来自 TPI Toolmaker Resources、GStone 与社区作者；确认后下载到本机，不进入 Git 仓库。</p>
+            {available > 0 ? <img className="asset-pack-guide__ccc" src="/assets/community/ccc-sleeve.png" alt="Community Created Content" /> : null}
           </section>
 
           <section className="asset-pack-guide__grid" aria-label="素材包导入信息">
@@ -119,9 +120,9 @@ export function AssetPackSettingsSection({
           </section>
 
           <ul className="asset-pack-guide__list">
-            <li>不会自动下载素材。</li>
+            <li>便捷包首次启动会询问是否安装 718 个官方及第三方图标（约 102 MB）；拒绝后不会下载。</li>
             <li>不会把素材提交到公开仓库。</li>
-            <li>导入前需要确认来源、作者、用途和免责声明。</li>
+            <li>以后可双击根目录 Install-Character-Assets.cmd 重新安装。</li>
           </ul>
 
           <label className="asset-pack-guide__ack">
@@ -130,7 +131,7 @@ export function AssetPackSettingsSection({
           </label>
 
           <footer className="asset-pack-guide__actions">
-            <Button type="button" variant="secondary" disabled={!acknowledged}>下载功能待接入</Button>
+            <Button type="button" variant="secondary" disabled={!acknowledged} onClick={() => setGuideOpen(false)}>我已了解</Button>
             <Button type="button" variant="ghost" onClick={() => setGuideOpen(false)}>返回设置</Button>
           </footer>
         </div>
