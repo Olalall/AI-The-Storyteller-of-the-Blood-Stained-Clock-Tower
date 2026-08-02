@@ -1,5 +1,7 @@
 # 血染钟楼AI说书人辅助工具
 
+> **Windows 用户：**查看 [简洁安装教程](安装教程.md)。请从 Releases 下载 `botc-storyteller-companion-windows-portable.zip`，不要下载源码 ZIP。
+
 根据个人理解制作的，AI血染钟楼说书人辅助工具，因为本人线下组局常常遇到这种问题，1.配板需要说书人非常熟悉技能，角色，有理解，才能配出比较好玩的板子，耗时长。2.技能结算，夜间处理长。3.投票记录麻烦。4.发送玩家身份太过古法，不够方便。5.全局日志需要手动记录。6.复盘评分复杂等问题。
 内置100个智能板子，什么叫智能板子？智能板子是AI根据导入的板子，角色技能，发动逻辑，夜间技能顺序等，做成了一个知识库，是真的懂如何配板，在什么情况下能够做出什么判断而不出错。
 
@@ -311,11 +313,11 @@ This MIT License does not grant any rights to Blood on the Clocktower, official 
 
 ## Windows 零安装便捷包
 
-普通使用者无需安装 Node.js、npm 或开发工具。请在 GitHub Release 下载 `botc-storyteller-companion-windows-portable.zip`，完整解压后双击根目录 `Start-Storyteller.cmd`。便捷包内置经过官方 SHA-256 校验的 Node.js LTS 运行时及其许可证。
+普通使用者无需安装 Node.js、npm 或开发工具。请在 GitHub Release 下载 `botc-storyteller-companion-windows-portable.zip`，完整解压后双击根目录 `启动血染钟楼AI说书人工具.cmd`。便捷包内置经过官方 SHA-256 校验的 Node.js LTS 运行时及其许可证。
 
 首次启动会先询问是否安装角色图标：用户确认来源和使用提示后，启动器从 TPI Toolmaker Resources、GStone 及清单记录的社区来源下载当前智能板子所需素材，逐文件校验 SHA-256，并安装 Community Created Content 标识。当前清单覆盖 718 个角色图标（约 102 MB）；基础便捷包与 Git 仓库仍不包含这些二进制素材。随后可以配置 AI，也可以跳过；夜序、记录、投票、日志和归档不依赖 AI。配置只保存在本机 `.env`，不会随仓库发布。
 
-详细说明：[`docs/QUICK_START_WINDOWS.md`](docs/QUICK_START_WINDOWS.md)。开发者仍可使用 `npm install`、`npm run dev` 和 `npm run dev:backend`。
+简洁教程：[`安装教程.md`](安装教程.md)。完整说明：[`docs/QUICK_START_WINDOWS.md`](docs/QUICK_START_WINDOWS.md)。开发者仍可使用 `npm install`、`npm run dev` 和 `npm run dev:backend`。
 
 > GitHub 的 **Code → Download ZIP** 是源码包，不是零安装便捷包。普通使用者只下载 Releases 中名称完全一致的 portable ZIP。
 

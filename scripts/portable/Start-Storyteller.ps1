@@ -140,7 +140,7 @@ if ($isPortableBundle -and (Test-Path -LiteralPath $assetInstaller) -and -not (T
   } else {
     [ordered]@{ choice = 'skipped'; updatedAt = (Get-Date).ToString('o') } |
       ConvertTo-Json | Set-Content -LiteralPath $assetChoiceFile -Encoding UTF8
-    Write-Host '已跳过。以后可双击根目录 Install-Character-Assets.cmd 安装。' -ForegroundColor DarkGray
+    Write-Host '已跳过。以后可双击根目录“安装角色素材.cmd”安装。' -ForegroundColor DarkGray
   }
 }
 
