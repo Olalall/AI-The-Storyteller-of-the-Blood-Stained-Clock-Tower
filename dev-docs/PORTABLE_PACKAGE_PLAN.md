@@ -37,13 +37,13 @@ npm run package:portable
 验收要求：
 
 1. 没安装系统 Node.js 时也能用包内 `runtime/node/node.exe` 启动。
-2. 双击根目录 `Start-Storyteller.cmd` 能打开本地页面。
+2. 双击根目录 `启动血染钟楼AI说书人工具.cmd` 能打开本地页面。
 3. 跳过 AI 后核心手动流程仍可用。
 4. AI 设置只在本机 `.env` 生效。
 5. 包中没有 `.env`、API Key、`data/archives`、`node_modules`、本机路径或 V2.5 文件。
 6. 包中包含 Node.js `LICENSE`，下载归档哈希与官方校验文件一致。
 7. 用户同意后可安装清单内 718 个官方及第三方角色图标；任一哈希不符立即停止且不覆盖目标文件。
-8. 用户拒绝素材后不联网下载，并可稍后运行 `Install-Character-Assets.cmd`。
+8. 用户拒绝素材后不联网下载，并可稍后运行 `安装角色素材.cmd`。
 
 ## 后续升级条件
 

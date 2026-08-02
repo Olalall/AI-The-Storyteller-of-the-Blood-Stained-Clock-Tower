@@ -6,7 +6,7 @@
 
 1. 打开 GitHub **Releases**，下载 `botc-storyteller-companion-windows-portable.zip`。
 2. 右键 ZIP，选择“全部解压”。不要在压缩包预览窗口里直接运行。
-3. 双击解压目录根部的 `Start-Storyteller.cmd`。
+3. 双击解压目录根部的 `启动血染钟楼AI说书人工具.cmd`。
 
 便捷包已包含经过官方 SHA-256 校验的 Node.js LTS 运行时，不需要安装 Node.js、npm 或其他开发工具。启动后浏览器会打开 `http://127.0.0.1:8787`；关闭启动窗口即可停止本机服务。
 
@@ -14,7 +14,7 @@
 
 首次运行会先询问是否安装角色图标。选择安装后，会显示来源与使用提示，并从 TPI Toolmaker Resources、GStone 及清单记录的社区来源下载角色图标和 Community Created Content 标识。当前清单覆盖 718 个图标，约 102 MB；每个文件都会校验 SHA-256。拒绝后不会下载，核心功能仍可使用。
 
-以后需要补装或重新校验素材时，双击根目录 `Install-Character-Assets.cmd`。
+以后需要补装或重新校验素材时，双击根目录 `安装角色素材.cmd`。
 
 随后可以填写接入地址、模型名称和 API Key，也可以跳过 AI。跳过后，记录、夜序、投票、日志和归档仍可使用。
 
@@ -36,7 +36,7 @@ GitHub 的 **Code → Download ZIP** 是源码包，不是零安装便捷包。�
 
 ## 常见问题
 
-- **角色图标是文字占位**：首次启动时跳过了素材安装，或下载中断。联网后双击 `Install-Character-Assets.cmd`。
+- **角色图标是文字占位**：首次启动时跳过了素材安装，或下载中断。联网后双击 `安装角色素材.cmd`。
 - **提示缺少内置运行环境**：下载了源码 ZIP、旧版便捷包，或没有完整解压。重新下载上述 portable ZIP 并“全部解压”。
 - **Windows SmartScreen 提示**：脚本尚未进行商业代码签名。确认下载来源是本项目 GitHub Release 后，可选择“更多信息 → 仍要运行”。
 - **AI 不可用**：检查接入地址、模型名和 Key；AI 故障不会阻塞手动记录流程。

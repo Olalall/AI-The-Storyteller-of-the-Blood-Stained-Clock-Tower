@@ -34,11 +34,12 @@ Copy-Item scripts\portable\Start-Storyteller.ps1 (Join-Path $stage 'scripts\port
 Copy-Item scripts\portable\Start-Storyteller.cmd (Join-Path $stage 'scripts\portable\Start-Storyteller.cmd') -Force
 Copy-Item scripts\portable\Install-CharacterAssets.ps1 (Join-Path $stage 'scripts\portable\Install-CharacterAssets.ps1') -Force
 Copy-Item scripts\portable\Install-Character-Assets.cmd (Join-Path $stage 'scripts\portable\Install-Character-Assets.cmd') -Force
-Copy-Item Start-Storyteller.cmd (Join-Path $stage 'Start-Storyteller.cmd') -Force
-Copy-Item Install-Character-Assets.cmd (Join-Path $stage 'Install-Character-Assets.cmd') -Force
+Copy-Item '启动血染钟楼AI说书人工具.cmd' (Join-Path $stage '启动血染钟楼AI说书人工具.cmd') -Force
+Copy-Item '安装角色素材.cmd' (Join-Path $stage '安装角色素材.cmd') -Force
 Copy-Item README.md (Join-Path $stage 'README.md') -Force
+Copy-Item '安装教程.md' (Join-Path $stage '安装教程.md') -Force
 Copy-Item THIRD_PARTY_NOTICES.md (Join-Path $stage 'THIRD_PARTY_NOTICES.md') -Force
-Copy-Item docs\QUICK_START_WINDOWS.md (Join-Path $stage 'QUICK_START_WINDOWS.md') -Force
+Copy-Item docs\QUICK_START_WINDOWS.md (Join-Path $stage '完整安装说明.md') -Force
 Copy-Item .env.example (Join-Path $stage '.env.example') -Force
 New-Item -ItemType Directory -Force -Path (Join-Path $stage 'asset-packs\characters'), (Join-Path $stage 'asset-packs\community') | Out-Null
 Copy-Item public\assets\characters\source-manifest.json (Join-Path $stage 'asset-packs\characters\source-manifest.json') -Force

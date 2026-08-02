@@ -122,7 +122,7 @@ export function AssetPackSettingsSection({
           <ul className="asset-pack-guide__list">
             <li>便捷包首次启动会询问是否安装 718 个官方及第三方图标（约 102 MB）；拒绝后不会下载。</li>
             <li>不会把素材提交到公开仓库。</li>
-            <li>以后可双击根目录 Install-Character-Assets.cmd 重新安装。</li>
+            <li>以后可双击根目录“安装角色素材.cmd”重新安装。</li>
           </ul>
 
           <label className="asset-pack-guide__ack">
