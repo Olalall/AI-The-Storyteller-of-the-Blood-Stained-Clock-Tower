@@ -1,5 +1,7 @@
 ﻿param(
   [string]$OutputDir = 'release',
+  [string]$NodeVersion = '24.18.0',
+  [switch]$SkipNodeRuntime,
   [switch]$SkipChecks
 )
 
@@ -43,12 +45,47 @@ foreach ($optionalAssetDir in @('dist\assets\characters', 'dist\assets\community
   if (Test-Path -LiteralPath $assetPath) { Remove-Item -LiteralPath $assetPath -Recurse -Force }
 }
 
+if (-not $SkipNodeRuntime) {
+  $nodeArchiveName = "node-v$NodeVersion-win-x64.zip"
+  $nodeBaseUrl = "https://nodejs.org/dist/v$NodeVersion"
+  $cacheDir = Join-Path $root '.tmp-portable\cache'
+  $nodeArchive = Join-Path $cacheDir $nodeArchiveName
+  $nodeChecksums = Join-Path $cacheDir "SHASUMS256-v$NodeVersion.txt"
+  $nodeExpand = Join-Path $root ".tmp-portable\node-expand-v$NodeVersion"
+  $nodeSource = Join-Path $nodeExpand "node-v$NodeVersion-win-x64"
+  $nodeRuntime = Join-Path $stage 'runtime\node'
+
+  New-Item -ItemType Directory -Force -Path $cacheDir | Out-Null
+  if (-not (Test-Path -LiteralPath $nodeArchive)) {
+    Invoke-WebRequest -Uri "$nodeBaseUrl/$nodeArchiveName" -OutFile $nodeArchive
+  }
+  Invoke-WebRequest -Uri "$nodeBaseUrl/SHASUMS256.txt" -OutFile $nodeChecksums
+
+  $checksumLine = Get-Content -LiteralPath $nodeChecksums |
+    Where-Object { $_ -match "\s+$([regex]::Escape($nodeArchiveName))$" } |
+    Select-Object -First 1
+  if (-not $checksumLine) { throw "Node.js 官方校验文件中缺少 $nodeArchiveName。" }
+  $expectedHash = ($checksumLine -split '\s+')[0].ToUpperInvariant()
+  $actualHash = (Get-FileHash -LiteralPath $nodeArchive -Algorithm SHA256).Hash.ToUpperInvariant()
+  if ($actualHash -ne $expectedHash) {
+    Remove-Item -LiteralPath $nodeArchive -Force
+    throw "Node.js 运行时 SHA-256 校验失败。期望 $expectedHash，实际 $actualHash。"
+  }
+
+  if (Test-Path -LiteralPath $nodeExpand) { Remove-Item -LiteralPath $nodeExpand -Recurse -Force }
+  Expand-Archive -LiteralPath $nodeArchive -DestinationPath $nodeExpand -Force
+  New-Item -ItemType Directory -Force -Path $nodeRuntime | Out-Null
+  Copy-Item (Join-Path $nodeSource 'node.exe') (Join-Path $nodeRuntime 'node.exe') -Force
+  Copy-Item (Join-Path $nodeSource 'LICENSE') (Join-Path $nodeRuntime 'LICENSE') -Force
+}
+
 $manifest = [ordered]@{
   project = 'botc-storyteller-companion'
   product = '钟楼说书人副驾驶'
   packageType = 'windows-portable-launcher'
   createdAt = (Get-Date).ToString('o')
-  nodeRequirement = 'Node.js 20 LTS or newer'
+  bundledNodeVersion = if ($SkipNodeRuntime) { $null } else { $NodeVersion }
+  nodeRequirement = if ($SkipNodeRuntime) { 'Node.js 20 LTS or newer' } else { 'Bundled; no separate installation required' }
   defaultUrl = 'http://127.0.0.1:8787'
   ai = 'optional; configured locally by Start-Storyteller.ps1'
   secretsIncluded = $false
@@ -57,8 +94,7 @@ $manifest = [ordered]@{
 }
 $manifest | ConvertTo-Json -Depth 5 | Set-Content (Join-Path $stage 'PORTABLE_MANIFEST.json') -Encoding UTF8
 
-$version = (Get-Content package.json -Raw | ConvertFrom-Json).version
-$zip = Join-Path $output "botc-storyteller-companion-windows-$version.zip"
+$zip = Join-Path $output 'botc-storyteller-companion-windows-portable.zip'
 if (Test-Path $zip) { Remove-Item $zip -Force }
 Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip -Force
 $hash = (Get-FileHash $zip -Algorithm SHA256).Hash
