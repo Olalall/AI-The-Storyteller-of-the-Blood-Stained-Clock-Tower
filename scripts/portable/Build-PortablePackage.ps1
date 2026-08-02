@@ -30,6 +30,7 @@ Copy-Item dist-server (Join-Path $stage 'dist-server') -Recurse -Force
 New-Item -ItemType Directory -Force -Path (Join-Path $stage 'scripts\portable') | Out-Null
 Copy-Item scripts\portable\Start-Storyteller.ps1 (Join-Path $stage 'scripts\portable\Start-Storyteller.ps1') -Force
 Copy-Item scripts\portable\Start-Storyteller.cmd (Join-Path $stage 'scripts\portable\Start-Storyteller.cmd') -Force
+Copy-Item Start-Storyteller.cmd (Join-Path $stage 'Start-Storyteller.cmd') -Force
 Copy-Item README.md (Join-Path $stage 'README.md') -Force
 Copy-Item THIRD_PARTY_NOTICES.md (Join-Path $stage 'THIRD_PARTY_NOTICES.md') -Force
 Copy-Item docs\QUICK_START_WINDOWS.md (Join-Path $stage 'QUICK_START_WINDOWS.md') -Force

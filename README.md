@@ -314,4 +314,6 @@ This MIT License does not grant any rights to Blood on the Clocktower, official 
 
 便捷包说明：[`docs/QUICK_START_WINDOWS.md`](docs/QUICK_START_WINDOWS.md)。开发者仍可使用 `npm install`、`npm run dev` 和 `npm run dev:backend`。
 
+注意：GitHub 的“Code → Download ZIP”是源码包；普通使用者应下载 Release 页面中以 `botc-storyteller-companion-windows-` 开头的便捷包。
+
 中文说明：本仓库原创代码和原创项目文档按 MIT License 授权；但该授权不包含 Blood on the Clocktower 相关内容、官方/社区脚本、角色名、规则文本、视觉素材、商标或第三方提供方材料。
