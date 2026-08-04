@@ -228,10 +228,10 @@ export const miaoShanFengXianRoles = [
     name: "瘟疫医生",
     officialName: "plague_doctor",
     team: "outsider",
-    abilityText: "如果你死亡，说书人获得一个不在场的爪牙能力。",
+    abilityText: "当你死亡时，说书人会获得一个爪牙能力。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/1697467722_197011_3360.png",
     inputKinds: ["none"],
-    highRiskNotes: ["Plague Doctor death gives storyteller a not-in-play Minion ability; choice remains manual."],
+    highRiskNotes: ["Plague Doctor death gives storyteller a Minion ability (in-play or not-in-play, ST's choice); choice remains manual."],
   }),
   role({
     id: "scarletwoman",
