@@ -30,17 +30,51 @@ export function confirmPlayerStateChange(
 }
 
 
-function clonePlayerState(state: PlayerState): PlayerState {
-  return { ...state, markers: state.markers.map((marker) => ({ ...marker })) }
+/**
+ * 逐字段递归，而不是只拷 markers：座位状态将来会长出更多字段（标记归属、身份附加层等），
+ * 漏拷的字段会在 before/after 之间共享引用，让审计链上的「改动前」被后续改动就地篡改。
+ */
+function clonePlainData<T>(value: T): T {
+  if (Array.isArray(value)) return value.map((item) => clonePlainData(item)) as unknown as T
+  if (value && typeof value === 'object') {
+    const cloned: Record<string, unknown> = {}
+    for (const [key, item] of Object.entries(value)) cloned[key] = clonePlainData(item)
+    return cloned as T
+  }
+  return value
 }
 
+/**
+ * 同理必须逐字段比较：只比 life/poisoned/drunk 与 markers 的 id+label 时，
+ * 任何其他字段的单独变更都会被判为「没变化」而整条静默拒绝——在牌桌上表现为点了没反应。
+ * 缺失键与显式 undefined 视为相等，这样新增可选字段不会把旧存档判成「有变化」。
+ */
+function deepEqualPlainData(left: unknown, right: unknown): boolean {
+  if (left === right) return true
+  if (Array.isArray(left) || Array.isArray(right)) {
+    if (!Array.isArray(left) || !Array.isArray(right) || left.length !== right.length) return false
+    return left.every((item, index) => deepEqualPlainData(item, right[index]))
+  }
+  if (left && right && typeof left === 'object' && typeof right === 'object') {
+    const definedKeys = (value: object) => Object.keys(value)
+      .filter((key) => (value as Record<string, unknown>)[key] !== undefined)
+    const leftKeys = definedKeys(left)
+    const rightKeys = definedKeys(right)
+    if (leftKeys.length !== rightKeys.length) return false
+    return leftKeys.every((key) => deepEqualPlainData(
+      (left as Record<string, unknown>)[key],
+      (right as Record<string, unknown>)[key],
+    ))
+  }
+  return false
+}
+
+function clonePlayerState(state: PlayerState): PlayerState {
+  return clonePlainData(state)
+}
 
 function samePlayerState(left: PlayerState, right: PlayerState) {
-  return left.life === right.life &&
-    left.poisoned === right.poisoned &&
-    left.drunk === right.drunk &&
-    left.markers.length === right.markers.length &&
-    left.markers.every((marker, index) => marker.id === right.markers[index]?.id && marker.label === right.markers[index]?.label)
+  return deepEqualPlainData(left, right)
 }
 
 

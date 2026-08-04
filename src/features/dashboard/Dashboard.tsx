@@ -3,6 +3,7 @@ import type { Dispatch } from 'react'
 import { Button } from '../../components/ui/Button'
 import { StatusBadge } from '../../components/ui/StatusBadge'
 import { scriptDisplayName } from '../../domain/scripts'
+import { assertNever } from '../../shared/assertNever'
 import { OpeningScriptSheet } from '../host-tools/OpeningScriptSheet'
 import { AISettingsSheet } from '../ai-settings/AISettingsSheet'
 import { projectConfirmedSetup, projectOpenSegmentLabels, projectStorytellerSeatSummaries } from '../game-session/state/projectors'
@@ -26,7 +27,7 @@ interface DashboardProps {
   onOpenPlayerStatus: (seatId: number) => void
 }
 
-function entrySummary(entry: TimelineEntry) {
+function entrySummary(entry: TimelineEntry): string {
   switch (entry.kind) {
     case 'night_action': return entry.summary
     case 'day_action': return entry.summary
@@ -36,6 +37,10 @@ function entrySummary(entry: TimelineEntry) {
     case 'player_state_changed': return `${entry.seatId}号状态已更新`
     case 'setup_confirmed': return '配板已确认'
     case 'setup_changed': return `${entry.seatId}号角色已调整`
+    default:
+      // 未知 kind 渲染为空，与穷尽检查加入前（返回 undefined）在界面上等价。
+      assertNever(entry)
+      return ''
   }
 }
 

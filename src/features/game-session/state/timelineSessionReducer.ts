@@ -1,4 +1,5 @@
 import type { GameSessionState } from '../types'
+import { assertNever } from '../../../shared/assertNever'
 import { clearRecordedDayActionDraft } from './dayActionDraft'
 import { appendCorrection, appendPhaseEntry, entryCanUsePhase } from './timeline'
 import type { GameSessionAction } from './sessionActions'
@@ -12,9 +13,22 @@ export function reduceTimelineSession(state: GameSessionState, action: TimelineS
   switch (action.type) {
     case 'append-phase-entry': {
       if (!entryCanUsePhase(action.entry, action.phaseKind)) return state
-      // 日终结果必须走下面两个显式领域命令，不能由通用记录入口绕过。
-      if (action.entry.kind === 'execution' || action.entry.kind === 'no_execution' || action.entry.kind === 'player_state_changed') return state
-      const appended = appendPhaseEntry(state, action.phaseKind, action.entry, action.input)
+      const entry = action.entry
+      switch (entry.kind) {
+        // 日终结果与玩家状态必须走显式领域命令，不能由通用记录入口绕过。
+        case 'execution':
+        case 'no_execution':
+        case 'player_state_changed':
+          return state
+        case 'night_action':
+        case 'day_action':
+        case 'vote_round':
+          break
+        default:
+          // 未知 kind 仍按普通记录写入，与穷尽检查加入前一致。
+          assertNever(entry)
+      }
+      const appended = appendPhaseEntry(state, action.phaseKind, entry, action.input)
       if (appended.entry.kind === 'vote_round') {
         return {
           ...appended.state,

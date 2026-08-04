@@ -7,6 +7,7 @@ import {
 import { emptyWakeDraft } from '../../night-workbench/state/projectWakeDraft'
 import { createPrototypeGameSession, gameSessionStorageKey } from '../data/createPrototypeSession'
 import { loadGameSession } from './persistence'
+import { clearSessionRecovery, loadGameSessionOutcome, readSessionRecovery } from '../../../services/session'
 
 describe('loadGameSession', () => {
   beforeEach(() => window.localStorage.clear())
@@ -149,5 +150,69 @@ describe('loadGameSession', () => {
 
     expect(loaded.id).toBe('prototype-catfishing-12')
     expect(window.localStorage.getItem(legacyNightWorkbenchStorageKey)).not.toBeNull()
+  })
+
+  it('keeps a session written by a newer schema version readable', () => {
+    const session = { ...createPrototypeGameSession(), id: 'from-the-future', schemaVersion: 2 }
+    window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(session))
+
+    const outcome = loadGameSessionOutcome()
+
+    expect(outcome.kind).toBe('restored')
+    expect(outcome.session.id).toBe('from-the-future')
+    expect(readSessionRecovery()).toBeNull()
+  })
+
+  it('keeps a session carrying unknown optional fields readable', () => {
+    const session = { ...createPrototypeGameSession(), hostingMode: 'grimoire', someFutureField: { a: 1 } }
+    window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(session))
+
+    const outcome = loadGameSessionOutcome()
+
+    expect(outcome.kind).toBe('restored')
+    expect(readSessionRecovery()).toBeNull()
+  })
+
+  it('backs up an unparseable session instead of silently discarding it', () => {
+    window.localStorage.setItem(gameSessionStorageKey, '{"id":"half-written"')
+
+    const outcome = loadGameSessionOutcome()
+
+    expect(outcome.kind).toBe('unreadable')
+    const recovery = readSessionRecovery()
+    expect(recovery?.reason).toBe('parse-error')
+    expect(recovery?.raw).toBe('{"id":"half-written"')
+  })
+
+  it('backs up a structurally invalid session instead of silently discarding it', () => {
+    window.localStorage.setItem(gameSessionStorageKey, JSON.stringify({ schemaVersion: 1, id: 'no-timeline' }))
+
+    const outcome = loadGameSessionOutcome()
+
+    expect(outcome.kind).toBe('unreadable')
+    const recovery = readSessionRecovery()
+    expect(recovery?.reason).toBe('invalid')
+    expect(JSON.parse(recovery!.raw)).toMatchObject({ id: 'no-timeline' })
+  })
+
+  it('survives the overwrite that follows a failed load', () => {
+    const original = '{"id":"precious","timeline":[broken'
+    window.localStorage.setItem(gameSessionStorageKey, original)
+
+    const outcome = loadGameSessionOutcome()
+    // 复现真实时序：useGameSession 会立刻把回退用的新对局写回主键。
+    window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(outcome.session))
+
+    expect(readSessionRecovery()?.raw).toBe(original)
+  })
+
+  it('clears the recovery record on request', () => {
+    window.localStorage.setItem(gameSessionStorageKey, 'not json at all')
+    loadGameSessionOutcome()
+    expect(readSessionRecovery()).not.toBeNull()
+
+    clearSessionRecovery()
+
+    expect(readSessionRecovery()).toBeNull()
   })
 })

@@ -1,3 +1,4 @@
+// arch-allow: state-no-ai-import 遗留同步路径 use-ai-result 由 reducer 直接取建议，倒置依赖会改变可见行为，待主控决定去留
 import { createNightResultAdvice as createPrototypeNightResultAdvice } from '../../../services/ai'
 import type { AIResultAdvice, NightWorkbenchState, WakeDraft, WakeItem } from '../types'
 import { applyAIOutcome } from './projectWakeDraft'
