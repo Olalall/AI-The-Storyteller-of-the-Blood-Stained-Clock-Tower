@@ -63,7 +63,7 @@ export const huDuZhiZhengSetupRules: readonly SetupRule[] = [
   {
     id: "hu-du-zhi-zheng-lycanthrope-reminder",
     roleId: "lycanthrope",
-    summary: "Lycanthrope may kill a good target and suppress later night deaths; death-prevention chain remains manual.",
+    summary: "Lycanthrope may kill a good target and suppress the Demon kill tonight; one good player always registers as evil and cannot be killed this way; death-prevention chain remains manual.",
     knowledgeStatus: 'confirmed',
     sourceUrls: [sourceUrl],
     reviewedAt,
