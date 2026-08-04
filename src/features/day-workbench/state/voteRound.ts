@@ -16,6 +16,15 @@ function hasSeat(seatIds: readonly number[], seatId: number) {
   return seatIds.includes(seatId)
 }
 
+/**
+ * 处决门槛：票数达到或超过存活玩家人数的一半即成功（向上取整）。
+ * 依据钟楼百科《规则概要》：「他的票数等于或超过了存活玩家人数的一半」——
+ * 六名存活时三票即成功。门槛随白天中的死亡变化，说书人仍可手动改写。
+ */
+export function executionThresholdForAliveCount(aliveCount: number) {
+  return Math.max(1, Math.ceil(aliveCount / 2))
+}
+
 export function createVoteRoundDraft(segmentId: string, threshold: number): VoteRoundDraft {
   return {
     segmentId,

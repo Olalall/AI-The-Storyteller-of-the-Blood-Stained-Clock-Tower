@@ -7,7 +7,7 @@ import { projectCurrentPlayerStates } from '../game-session/state/projectors'
 import { dayActionDraftContentKinds } from '../game-session/state/dayActionDraft'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState } from '../game-session/types'
-import { completeVoteRound, createVoteRoundDraft, hasVoteRoundDraftContent, setVoteNominator, setVoteNominee, toggleGhostVote, toggleRaisedVote, type VoteRoundDraft } from './state/voteRound'
+import { completeVoteRound, createVoteRoundDraft, executionThresholdForAliveCount, hasVoteRoundDraftContent, setVoteNominator, setVoteNominee, toggleGhostVote, toggleRaisedVote, type VoteRoundDraft } from './state/voteRound'
 import { projectStandingExecution } from './state/voteStanding'
 import { DayTimer } from './components/DayTimer'
 import { DayRecordSheet } from './components/DayRecordSheet'
@@ -22,7 +22,7 @@ interface DayWorkbenchProps {
 
 type NominationTarget = 'nominator' | 'nominee'
 type PendingResolution =
-  | { kind: 'execution'; seatId: number; segmentId: string; sourceRoundId: string }
+  | { kind: 'execution'; seatId: number; segmentId: string; sourceRoundId: string; causesDeath: boolean }
   | { kind: 'no_execution'; segmentId: string }
 type PendingDayClose = 'empty' | 'draft'
 
@@ -30,7 +30,11 @@ function openDaySegmentId(session: GameSessionState) {
   return session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)?.id ?? 'day-pending'
 }
 
-function newDraft(session: GameSessionState, threshold = 6) {
+function aliveSeatCount(session: GameSessionState) {
+  return Object.values(projectCurrentPlayerStates(session)).filter((state) => state.life === 'alive').length
+}
+
+function newDraft(session: GameSessionState, threshold = executionThresholdForAliveCount(aliveSeatCount(session))) {
   return createVoteRoundDraft(openDaySegmentId(session), threshold)
 }
 
@@ -72,6 +76,8 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
   const draft = voteDraftForSession(session)
   const playerStates = projectCurrentPlayerStates(session)
+  const aliveCount = Object.values(playerStates).filter((state) => state.life === 'alive').length
+  const suggestedThreshold = executionThresholdForAliveCount(aliveCount)
   const openDay = session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)
   const dayEntries = useMemo(() => session.timeline.filter((entry) => entry.kind === 'vote_round'), [session.timeline])
   const standing = openDay ? projectStandingExecution(dayEntries, openDay.id) : { status: 'none' as const }
@@ -146,6 +152,7 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
         executionEntryId: `execution-${pendingResolution.seatId}-${entrySuffix}`,
         playerStateEntryId: `state-${pendingResolution.seatId}-${entrySuffix}`,
         confirmedAt: createdAt,
+        causesDeath: pendingResolution.causesDeath,
       })
     } else {
       dispatch({
@@ -222,7 +229,7 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
         </section>
 
         <section className="day-card day-card--vote" aria-labelledby="vote-title">
-          <div className="day-card__heading"><div><span>步骤 2</span><h2 id="vote-title">记录举手</h2></div><label className="day-threshold">处决门槛<input type="number" disabled={dayLocked} min="1" max={session.playerCount} value={draft.threshold} onChange={(event) => updateDraft((current) => ({ ...current, threshold: Number(event.target.value) || 0 }))} /></label></div>
+          <div className="day-card__heading"><div><span>步骤 2</span><h2 id="vote-title">记录举手</h2></div><label className="day-threshold" title={`存活 ${aliveCount} 人，建议门槛 ${suggestedThreshold}（存活人数的一半，向上取整）`}>处决门槛<input type="number" disabled={dayLocked} min="1" max={session.playerCount} value={draft.threshold} onChange={(event) => updateDraft((current) => ({ ...current, threshold: Number(event.target.value) || 0 }))} /><span className="day-threshold__hint">存活{aliveCount}人 · 建议{suggestedThreshold}</span></label></div>
           <p className={nominationReady ? 'day-vote-target' : 'day-vote-target is-pending'}>{nominationReady ? `${draft.nominatorSeatId}号提名 ${draft.nomineeSeatId}号` : '先选择提名双方'}</p>
           <div className="day-vote-grid" aria-label="本轮举手票">
             {Array.from({ length: session.playerCount }, (_value, index) => {
@@ -244,12 +251,13 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
           <p className="day-standing-copy">{standing.status === 'tied' ? <><strong>{standing.tiedSeatIds?.join('、')}号同票</strong><span>尚无暂列结果</span></> : standing.nomineeSeatId ? <><strong>{standing.nomineeSeatId}号暂列</strong><span>{standing.voteCount}票 · 门槛{standing.threshold}</span></> : <><strong>暂无暂列结果</strong><span>记录票型后更新</span></>}</p>
           {openDay && !dayResolution ? <div className="day-resolution-actions">
             <Button variant="secondary" disabled={Boolean(pendingResolution || hasUnrecordedVote)} onClick={() => setPendingResolution({ kind: 'no_execution', segmentId: openDay.id })}>记录无处决</Button>
-            {(standing.status === 'leading' || standing.status === 'replaced') ? <Button variant="danger" disabled={Boolean(pendingResolution || hasUnrecordedVote)} onClick={() => setPendingResolution({ kind: 'execution', seatId: standing.nomineeSeatId!, segmentId: openDay.id, sourceRoundId: standing.sourceRoundId! })}><Gavel aria-hidden="true" />记录处决{standing.nomineeSeatId}号</Button> : null}
+            {(standing.status === 'leading' || standing.status === 'replaced') ? <Button variant="danger" disabled={Boolean(pendingResolution || hasUnrecordedVote)} onClick={() => setPendingResolution({ kind: 'execution', seatId: standing.nomineeSeatId!, segmentId: openDay.id, sourceRoundId: standing.sourceRoundId!, causesDeath: playerStates[standing.nomineeSeatId!]?.life === 'alive' })}><Gavel aria-hidden="true" />记录处决{standing.nomineeSeatId}号</Button> : null}
           </div> : null}
         </section>
 
         {pendingResolution ? <section className="day-resolution-confirm" aria-live="polite">
-          <div>{pendingResolution.kind === 'execution' ? <Gavel aria-hidden="true" /> : <Check aria-hidden="true" />}<div><strong>{pendingResolution.kind === 'execution' ? `确认处决${pendingResolution.seatId}号？` : '确认无处决？'}</strong><span>{pendingResolution.kind === 'execution' ? '将追加死亡状态与日终记录；不会进入夜晚。' : '将追加无处决记录；不会改变玩家状态。'}</span></div></div>
+          <div>{pendingResolution.kind === 'execution' ? <Gavel aria-hidden="true" /> : <Check aria-hidden="true" />}<div><strong>{pendingResolution.kind === 'execution' ? `确认处决${pendingResolution.seatId}号？` : '确认无处决？'}</strong><span>{pendingResolution.kind === 'execution' ? (playerStates[pendingResolution.seatId]?.life === 'dead' ? '该玩家已死亡：只记录处决事实，占用今天的处决机会。' : pendingResolution.causesDeath ? '将追加死亡状态与日终记录；不会进入夜晚。' : '只记录处决事实，不改变存活状态（弄臣、魔鬼代言人等）。') : '将追加无处决记录；不会改变玩家状态。'}</span></div></div>
+          {pendingResolution.kind === 'execution' && playerStates[pendingResolution.seatId]?.life === 'alive' ? <label className="day-execution-death"><input type="checkbox" checked={pendingResolution.causesDeath} onChange={(event) => setPendingResolution({ ...pendingResolution, causesDeath: event.target.checked })} />本次处决造成死亡</label> : null}
           <div><Button variant="ghost" onClick={() => setPendingResolution(null)}><X aria-hidden="true" />取消</Button><Button variant={pendingResolution.kind === 'execution' ? 'danger' : 'primary'} onClick={confirmResolution}>确认记录</Button></div>
         </section> : null}
 

@@ -41,20 +41,28 @@ export function reduceDaySession(state: GameSessionState, action: DaySessionActi
       }
 
       const before = projectCurrentPlayerStates(state)[action.nomineeSeatId]
-      if (!before || before.life === 'dead') return state
-      const after = { ...before, life: 'dead' as const }
+      if (!before) return state
+      // 处决与死亡是两件事：说书人可裁定处决未造成死亡（弄臣、魔鬼代言人、精神病患者等），
+      // 已死亡玩家也可被处决——两种情况都只记录处决事实，不写入状态变更。
+      const causesDeath = (action.causesDeath ?? true) && before.life === 'alive'
+
+      const executionEntry = {
+        id: action.executionEntryId,
+        kind: 'execution' as const,
+        segmentId: openDay.id,
+        createdAt: action.confirmedAt,
+        confirmedBy: 'storyteller' as const,
+        executedSeatId: action.nomineeSeatId,
+        causedDeath: causesDeath,
+      }
+      if (!causesDeath) {
+        return { ...state, timeline: [...state.timeline, executionEntry] }
+      }
 
       return {
         ...state,
         timeline: [...state.timeline,
-          {
-            id: action.executionEntryId,
-            kind: 'execution',
-            segmentId: openDay.id,
-            createdAt: action.confirmedAt,
-            confirmedBy: 'storyteller',
-            executedSeatId: action.nomineeSeatId,
-          },
+          executionEntry,
           {
             id: action.playerStateEntryId,
             kind: 'player_state_changed',
@@ -63,7 +71,7 @@ export function reduceDaySession(state: GameSessionState, action: DaySessionActi
             confirmedBy: 'storyteller',
             seatId: action.nomineeSeatId,
             before,
-            after,
+            after: { ...before, life: 'dead' as const },
             reason: '说书人确认处决',
           },
         ],
