@@ -44,6 +44,11 @@ export type GameSessionAction =
     executionEntryId: string
     playerStateEntryId: string
     confirmedAt: string
+    /**
+     * 本次处决是否造成死亡，由说书人裁定。false 时只记录处决事实、不改存活状态
+     * （弄臣首次免死、魔鬼代言人保护、处决已死亡玩家等）。省略按 true 处理。
+     */
+    causesDeath?: boolean
   }
   | {
     /** 白天最终无处决同样必须显式确认，且只能写入当前开放的白天段。 */

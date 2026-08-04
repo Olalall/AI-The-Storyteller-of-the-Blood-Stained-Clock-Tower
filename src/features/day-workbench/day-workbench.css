@@ -46,6 +46,9 @@
 .day-selection-tabs + .day-seat-grid { margin-top: var(--space-12); }
 .day-threshold { display: grid; gap: 4px; color: var(--text-muted); font-size: var(--type-meta); font-weight: 800; letter-spacing: .04em; text-align: right; }
 .day-threshold input { width: 72px; min-height: var(--touch-min); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-soft); color: var(--text-strong); font-weight: 800; text-align: center; }
+.day-threshold__hint { color: var(--text-subtle); font-size: var(--type-meta); font-weight: 700; letter-spacing: 0; white-space: nowrap; }
+.day-execution-death { min-height: var(--touch-min); display: flex; align-items: center; gap: 8px; color: var(--text-strong); font-size: var(--type-body); font-weight: 700; cursor: pointer; }
+.day-execution-death input { width: 20px; height: 20px; accent-color: var(--danger-border); }
 .day-vote-target { min-height: 24px; margin: var(--space-12) 0; color: var(--info-text); font-size: var(--type-body); font-weight: 800; }
 .day-vote-target.is-pending { color: var(--text-muted); font-weight: 700; }
 .day-vote-seat { min-width: 0; display: grid; justify-items: center; gap: 4px; }
