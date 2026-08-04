@@ -1,4 +1,5 @@
 import type { GameSessionState, TimelineEntry } from '../../game-session/types'
+import { assertNever } from '../../../shared/assertNever'
 import { projectEffectiveTimelineEntries } from '../../game-session/state/projectTimelineHistory'
 
 export interface SeatActivity {
@@ -60,6 +61,10 @@ export function projectSeatActivity(session: GameSessionState, seatId: number): 
         break
       }
       case 'no_execution':
+        break
+      default:
+        // 未知 kind 不产出座位动态，与穷尽检查加入前一致。
+        assertNever(entry)
         break
     }
   }

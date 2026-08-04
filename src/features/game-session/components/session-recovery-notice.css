@@ -1,0 +1,20 @@
+.session-recovery {
+  display: flex;
+  gap: var(--space-12);
+  align-items: center;
+  padding: var(--space-12) var(--space-16);
+  border-bottom: 1px solid var(--danger-border);
+  background: var(--danger-soft);
+  color: var(--text-body);
+}
+
+.session-recovery > svg { flex: none; color: var(--danger-text); }
+.session-recovery__body { flex: 1 1 auto; min-width: 0; display: grid; gap: 2px; }
+.session-recovery__body strong { color: var(--text-strong); font-size: var(--type-body); font-weight: 800; }
+.session-recovery__body span { color: var(--text-muted); font-size: var(--type-meta); line-height: var(--line-body); }
+.session-recovery__actions { flex: none; display: flex; gap: var(--space-8); align-items: center; }
+
+@container app-frame (max-width: 560px) {
+  .session-recovery { flex-wrap: wrap; }
+  .session-recovery__actions { width: 100%; justify-content: flex-end; }
+}

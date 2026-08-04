@@ -155,7 +155,9 @@ test('a confirmed night result reaches the dashboard timeline without changing p
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await page.getByRole('button', { name: '选择3号玩家' }).click()
   await page.getByRole('button', { name: '调查员' }).click()
-  await page.getByRole('button', { name: '受到影响', exact: true }).click()
+  // 选完目标与角色后工具会自动预选「受到影响」；再点一次是取消选择，所以这里只在未选中时点。
+  const appliedOutcome = page.getByRole('button', { name: '受到影响', exact: true })
+  if ((await appliedOutcome.getAttribute('aria-pressed')) !== 'true') await appliedOutcome.click()
   await page.getByRole('button', { name: '确认本项' }).click()
   await expect.poll(async () => page.evaluate(() => {
     const state = JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}')
