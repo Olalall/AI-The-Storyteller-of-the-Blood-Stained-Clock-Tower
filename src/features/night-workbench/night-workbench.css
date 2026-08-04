@@ -186,11 +186,9 @@
 .carousel-current__change svg { width: 14px; height: 14px; }
 .concealed-copy { filter: blur(7px); user-select: none; }
 
-.night-content-grid { container: night-content / inline-size; width: min(1080px, calc(100% - clamp(var(--space-20), 4cqw, var(--space-40)))); margin: 0 auto var(--space-32); display: grid; gap: var(--space-20); }
+.night-content-grid { container: night-content / inline-size; padding-bottom: 96px; width: min(1080px, calc(100% - clamp(var(--space-20), 4cqw, var(--space-40)))); margin: 0 auto var(--space-32); display: grid; gap: var(--space-20); }
 .night-action-zone { scroll-margin-block: var(--space-16); }
 .night-action-zone > .sticky-action-bar {
-  position: static;
-  z-index: auto;
   min-height: 0;
   padding: var(--space-8) var(--space-14);
   display: grid;

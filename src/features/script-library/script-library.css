@@ -51,7 +51,7 @@
 .script-quality__metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-10); }
 .script-quality__metric { padding: var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-panel); }
 .script-quality__metric span { display: block; color: var(--text-subtle); font-size: var(--type-meta); font-weight: 800; letter-spacing: .08em; }
-.script-quality__metric strong { display: block; margin-top: 4px; font-family: var(--font-display); font-size: clamp(1.35rem, 4cqw, 2rem); line-height: 1; color: var(--text); }
+.script-quality__metric strong { display: block; margin-top: 4px; font-family: var(--font-display); font-size: clamp(1.35rem, 4cqw, 2rem); line-height: 1; color: var(--text-strong); }
 .script-quality__metric--success { border-color: var(--success-border); background: var(--success-soft); }
 .script-quality__metric--warning { border-color: var(--warning-border); background: var(--warning-soft); }
 .script-quality__metric--danger { border-color: var(--danger-border); background: var(--danger-soft); }
@@ -69,7 +69,7 @@
 .script-quality__facts { margin: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
 .script-quality__facts div { min-width: 0; padding: 8px 10px; border-radius: var(--radius-sm); background: var(--surface-soft); }
 .script-quality__facts dt { color: var(--text-subtle); font-size: var(--type-meta); font-weight: 800; }
-.script-quality__facts dd { margin: 3px 0 0; color: var(--text); font-size: var(--type-label); font-weight: 850; }
+.script-quality__facts dd { margin: 3px 0 0; color: var(--text-strong); font-size: var(--type-label); font-weight: 850; }
 .script-quality__review-reasons { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; }
 .script-quality__review-reasons-title { color: var(--text-subtle); font-size: var(--type-meta); font-weight: 800; }
 .script-quality__review-reason { padding: 5px 9px; border: 1px solid var(--warning-border); border-radius: 999px; color: var(--warning-text); background: var(--warning-soft); font-size: var(--type-meta); font-weight: 800; }

@@ -121,7 +121,7 @@
   grid-template-columns: auto minmax(0, 1fr);
   justify-content: initial;
   align-items: center;
-  gap: clamp(var(--space-18), 3cqw, var(--space-28));
+  gap: clamp(var(--space-18), 3cqw, var(--space-24));
 }
 .day-workbench__back { position: static; }
 .day-workbench__focus {
