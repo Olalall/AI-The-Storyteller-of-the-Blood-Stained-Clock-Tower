@@ -237,8 +237,8 @@ export const huDuZhiZhengRoles = [
     abilityText: "如果你死于处决，你的阵营落败。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/saint.png",
     inputKinds: ["none"],
-    possibleOutcomes: ["May create a good-loss candidate if executed."],
-    highRiskNotes: ["Saint execution may lose the game for good; only create a win/loss reminder."],
+    possibleOutcomes: ["May create a team-loss candidate if the Saint dies by execution."],
+    highRiskNotes: ["If the Saint dies by execution, the Saint's team loses (execution without death, e.g. Scapegoat substitution, does not trigger); only create a win/loss reminder."],
   }),
   role({
     id: "klutz",
@@ -293,7 +293,7 @@ export const huDuZhiZhengRoles = [
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202301/c_4078497694761_5c6ddcce.jpg",
     inputKinds: ["none"],
     stateChanges: ["Target may be poisoned and may register as evil/Minion."],
-    highRiskNotes: ["Gudiao poisoning, registration and role knowledge are custom reminders; state changes remain manual.", "First-night source reminder: 唤醒蛊雕，让其选择一个方向。将他的“中毒”标记移动至那个方向上的下一个存活玩家的角色标记旁。随后对他指向那名玩家，并展示“他是”提示标记和该玩家的角色标记。", "Other-night source reminder: 唤醒蛊雕，让其选择一个方向。将他的“中毒”标记移动至那个方向上的下一个存活玩家的角色标记旁。随后对他指向那名玩家，并展示“他是”提示标记和该玩家的角色标记。"],
+    highRiskNotes: ["Gudiao poisoning, registration and role knowledge are custom reminders; state changes remain manual.", "此包沿用旧版蛊雕文本（每晚自选左右方向、目标为下一名存活善良玩家、被当作邪恶阵营和爪牙角色）；百科现行版本为：每个夜晚得知顺时针方向上的下一名存活的镇民玩家的角色，他中毒且可能被当作邪恶的蛊雕，直到下个黄昏；每局游戏限一次，在夜晚时可以改变方向。同时判定角色和阵营时，该玩家只能被当作“邪恶的蛊雕”。", "First-night source reminder: 唤醒蛊雕，让其选择一个方向。将他的“中毒”标记移动至那个方向上的下一个存活玩家的角色标记旁。随后对他指向那名玩家，并展示“他是”提示标记和该玩家的角色标记。", "Other-night source reminder: 唤醒蛊雕，让其选择一个方向。将他的“中毒”标记移动至那个方向上的下一个存活玩家的角色标记旁。随后对他指向那名玩家，并展示“他是”提示标记和该玩家的角色标记。"],
   }),
   role({
     id: "witch",
@@ -344,7 +344,7 @@ export const huDuZhiZhengRoles = [
     name: "小怪宝",
     officialName: "lil_monsta",
     team: "demon",
-    abilityText: "每个夜晚，所有爪牙要秘密决定由哪名玩家来照看小怪宝并且“是恶魔”。每个夜晚*，会有一名玩家死亡。[+1爪牙]",
+    abilityText: "每个夜晚，所有爪牙要秘密决定由哪名玩家来照看小怪宝并且“是恶魔”。每个夜晚*，可能会有一名玩家死亡。[+1爪牙]",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/lil_monsta.png",
     inputKinds: ["none"],
     setupImpact: ["Lil Monsta uses no Demon player and adds one Minion; templates model this with a manual composition adjustment."],

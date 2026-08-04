@@ -128,7 +128,7 @@ export const wenWuShuangQuanRoles = [
     inputKinds: ["none"],
     setupImpact: ["Balloonist adds 0-1 Outsider depending on script/version; excluded from first templates here."],
     stateChanges: ["Tracks categories already shown to Balloonist."],
-    highRiskNotes: ["Balloonist setup and category-tracking information remain storyteller-confirmed.", "First-night source reminder: 选择一种角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。", "Other-night source reminder: 选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。"],
+    highRiskNotes: ["Balloonist setup and category-tracking information remain storyteller-confirmed.", "First-night source reminder: 选择一种角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。", "Other-night source reminder: 选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", "Legacy Balloonist text from the source script: forced +1 Outsider and no more wakes once every character type has been learned. Current official rule differs: +0~1 Outsider (Storyteller's choice) and the Balloonist wakes every night, learning a player of a character type different from the previous night."],
   }),
   role({
     id: "sailor",

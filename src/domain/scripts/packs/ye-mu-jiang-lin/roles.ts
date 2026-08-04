@@ -59,6 +59,7 @@ export const yeMuJiangLinRoles = [
     abilityText: "你拥有一个爪牙角色的能力。当你使用能力时，说书人可能会要求你更换选择。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/alchemist.png",
     inputKinds: ["none"],
+    setupImpact: ["If the gained Minion ability adds or removes characters during setup (e.g. Godfather), that effect also applies during setup."],
     highRiskNotes: ["First-night source reminder: 向炼金术士展示一个不在场爪牙的角色标记。"],
   }),
   role({

@@ -7,7 +7,7 @@ export const chouHaiNiXingSetupRules: readonly SetupRule[] = [
   {
     id: "chou-hai-ni-xing-balloonist-reminder",
     roleId: "balloonist",
-    summary: "Balloonist adds 1 Outsider; excluded from first verified templates to keep base composition simple.",
+    summary: "Balloonist may add +0 or +1 Outsider (storyteller decides at setup); excluded from first verified templates to keep base composition simple.",
     knowledgeStatus: 'confirmed',
     sourceUrls: [sourceUrl],
     reviewedAt,
