@@ -13,7 +13,7 @@ const vigormortisOutsiderAdjustment = {
   ruleId: 'vigormortis-outsider',
   choiceId: 'remove-one-outsider',
   compositionDelta: { townsfolk: 1, outsider: -1 },
-  note: '维格莫提斯：-1 外来者，通常增加 1 名镇民。',
+  note: '亡骨魔：-1 外来者，通常增加 1 名镇民。',
 } as const
 
 type TemplateInput = {
@@ -51,7 +51,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'beginner',
     roles: ['knight', 'shugenja', 'fortuneteller', 'preacher', 'mayor', 'poisoner', 'imp'],
     bluffs: ['pixie', 'general', 'oracle'],
-    note: '七人清晰局，骑士和修验者给方向，投毒者保留干扰。',
+    note: '七人清晰局，骑士和修行者给方向，投毒者保留干扰。',
   }),
   template({
     id: 'poppy-seven',
@@ -59,7 +59,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'balanced',
     roles: ['pixie', 'general', 'towncrier', 'oracle', 'poppygrower', 'harpy', 'nodashii'],
     bluffs: ['knight', 'shugenja', 'highpriestess'],
-    note: '罂粟种植者隐藏邪恶互认，诺达鲺中毒只做状态提醒。',
+    note: '罂粟种植者隐藏邪恶互认，诺-达鲺中毒只做状态提醒。',
   }),
   template({
     id: 'fanggu-seven',
@@ -76,7 +76,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'beginner',
     roles: ['knight', 'pixie', 'general', 'fortuneteller', 'ravenkeeper', 'puzzlemaster', 'poisoner', 'nodashii'],
     bluffs: ['shugenja', 'highpriestess', 'towncrier'],
-    note: '八人标准局，解谜大师醉酒和诺达鲺邻座毒分开记录。',
+    note: '八人标准局，解谜大师醉酒和诺-达鲺邻座毒分开记录。',
   }),
   template({
     id: 'vigor-eight',
@@ -84,7 +84,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'long-game',
     roles: ['shugenja', 'highpriestess', 'preacher', 'towncrier', 'oracle', 'amnesiac', 'harpy', 'vigormortis'],
     bluffs: ['knight', 'pixie', 'general'],
-    note: '维格莫提斯减少外来者，鹰身女妖疯狂只提示不自动惩罚。',
+    note: '亡骨魔减少外来者，鹰身女妖疯狂只提示不自动惩罚。',
     vigormortisRemovesOutsider: true,
   }),
   template({
@@ -118,7 +118,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'bluff-heavy',
     roles: ['preacher', 'towncrier', 'oracle', 'amnesiac', 'ravenkeeper', 'poppygrower', 'mayor', 'cerenovus', 'boomdandy', 'imp'],
     bluffs: ['knight', 'pixie', 'shugenja'],
-    note: '罂粟种植者加爆炸花花公子，邪恶互认和处决风险都只提醒。',
+    note: '罂粟种植者加炸弹人，邪恶互认和处决风险都只提醒。',
   }),
   template({
     id: 'fanggu-ten',
@@ -143,7 +143,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'long-game',
     roles: ['pixie', 'general', 'preacher', 'oracle', 'amnesiac', 'poppygrower', 'mayor', 'knight', 'harpy', 'boomdandy', 'vigormortis'],
     bluffs: ['shugenja', 'highpriestess', 'fortuneteller'],
-    note: '维格莫提斯无外来者长线局，爆炸花花公子只做处决提醒。',
+    note: '亡骨魔无外来者长线局，炸弹人只做处决提醒。',
     vigormortisRemovesOutsider: true,
   }),
   template({
@@ -177,7 +177,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'balanced',
     roles: ['knight', 'pixie', 'shugenja', 'highpriestess', 'general', 'preacher', 'fortuneteller', 'towncrier', 'oracle', 'poisoner', 'harpy', 'boomdandy', 'nodashii'],
     bluffs: ['amnesiac', 'ravenkeeper', 'poppygrower'],
-    note: '十三人无外来者，爆炸花花公子和诺达鲺制造白天/夜晚双压力。',
+    note: '十三人无外来者，炸弹人和诺-达鲺制造白天/夜晚双压力。',
   }),
   template({
     id: 'mayor-thirteen',
@@ -185,7 +185,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'long-game',
     roles: ['knight', 'general', 'preacher', 'oracle', 'amnesiac', 'ravenkeeper', 'poppygrower', 'mayor', 'shugenja', 'poisoner', 'cerenovus', 'boomdandy', 'imp'],
     bluffs: ['pixie', 'highpriestess', 'fortuneteller'],
-    note: '市长长局和罂粟种植者信息隐藏并存，适合熟手。',
+    note: '镇长长局和罂粟种植者信息隐藏并存，适合熟手。',
   }),
   template({
     id: 'standard-fourteen',
@@ -193,7 +193,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'balanced',
     roles: ['knight', 'pixie', 'shugenja', 'highpriestess', 'general', 'preacher', 'fortuneteller', 'towncrier', 'oracle', 'puzzlemaster', 'poisoner', 'harpy', 'cerenovus', 'nodashii'],
     bluffs: ['amnesiac', 'ravenkeeper', 'poppygrower'],
-    note: '十四人标准局，解谜大师醉酒、洗脑和诺达鲺中毒都分层记录。',
+    note: '十四人标准局，解谜大师醉酒、洗脑和诺-达鲺中毒都分层记录。',
   }),
   template({
     id: 'vigor-fourteen',
@@ -201,7 +201,7 @@ export const insanityAndIntuitionSetupTemplates: readonly SetupTemplate[] = [
     style: 'long-game',
     roles: ['knight', 'pixie', 'shugenja', 'highpriestess', 'general', 'preacher', 'fortuneteller', 'towncrier', 'oracle', 'amnesiac', 'poisoner', 'cerenovus', 'boomdandy', 'vigormortis'],
     bluffs: ['ravenkeeper', 'poppygrower', 'mayor'],
-    note: '十四人维格莫提斯无外来者局，爪牙死亡后的能力链只做提醒。',
+    note: '十四人亡骨魔无外来者局，爪牙死亡后的能力链只做提醒。',
     vigormortisRemovesOutsider: true,
   }),
   template({

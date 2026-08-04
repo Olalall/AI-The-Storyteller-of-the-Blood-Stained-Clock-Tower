@@ -90,7 +90,7 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
     prompt: 'X 按当前外来者数量核对；中毒范围只做提醒，不批量自动改状态。',
   },
   boffin: {
-    ability: '恶魔拥有一个不在场善良角色的能力；恶魔和博芬都知道该能力。',
+    ability: '恶魔拥有一个不在场善良角色的能力；恶魔和科学怪人都知道该能力。',
     prompt: '记录恶魔获得的能力；不自动执行该善良角色的结算逻辑。',
   },
   mastermind: { ability: '若恶魔因处决死亡且剩余至少 5 名玩家，游戏继续一天；若善良再次处决，邪恶胜利。' },
@@ -219,7 +219,7 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
   },
   mezepheles: {
     ability: '首夜得知一个暗号；首个说出暗号的善良玩家会在当晚变邪恶。',
-    prompt: '记录暗号和触发玩家；额外邪恶受象牙之灵限制，变阵营需说书人确认。',
+    prompt: '记录暗号和触发玩家；额外邪恶受圣洁之魂限制，变阵营需说书人确认。',
   },
   kazali: {
     ability: '首夜指定哪些玩家成为哪些爪牙，并可修正外来者；之后每晚选择一名玩家死亡。',

@@ -17,7 +17,7 @@ export const lunarEclipseSetupRules: readonly SetupRule[] = [
   {
     id: 'vigormortis-outsider',
     roleId: 'vigormortis',
-    summary: '维格莫提斯：-1 外来者；杀死爪牙后该爪牙保留能力并让相邻一名镇民中毒。',
+    summary: '亡骨魔：-1 外来者；杀死爪牙后该爪牙保留能力并让相邻一名镇民中毒。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -49,7 +49,7 @@ export const lunarEclipseSetupRules: readonly SetupRule[] = [
   {
     id: 'lycanthrope-demon-block',
     roleId: 'lycanthrope',
-    summary: '狼人：若夜晚选中善良玩家，目标死亡且恶魔今晚不杀人；一名善良玩家登记为邪恶。',
+    summary: '半兽人：若夜晚选中善良玩家，目标死亡且恶魔今晚不杀人；一名善良玩家登记为邪恶。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -65,7 +65,7 @@ export const lunarEclipseSetupRules: readonly SetupRule[] = [
   {
     id: 'spirit-of-ivory-extra-evil',
     roleId: 'spiritofivory',
-    summary: '象牙之灵：额外邪恶玩家不能超过 1 名；作为传奇规则约束，不进入座位身份。',
+    summary: '圣洁之魂：额外邪恶玩家不能超过 1 名；作为传奇规则约束，不进入座位身份。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,

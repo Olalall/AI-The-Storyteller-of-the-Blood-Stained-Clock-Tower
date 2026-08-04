@@ -19,11 +19,11 @@
 - 舞蛇人 / Snake Charmer / `snakecharmer`
 - 数学家 / Mathematician / `mathematician`
 - 筑梦师 / Dreamer / `dreamer`
-- 花艺师 / Flowergirl / `flowergirl`
-- 镇喊者 / Town Crier / `towncrier`
+- 卖花女孩 / Flowergirl / `flowergirl`
+- 城镇公告员 / Town Crier / `towncrier`
 - 神谕者 / Oracle / `oracle`
 - 博学者 / Savant / `savant`
-- 裁缝 / Seamstress / `seamstress`
+- 女裁缝 / Seamstress / `seamstress`
 - 哲学家 / Philosopher / `philosopher`
 - 艺术家 / Artist / `artist`
 - 杂耍艺人 / Juggler / `juggler`
@@ -31,8 +31,8 @@
 
 ### 外来者
 
-- 甜心 / Sweetheart / `sweetheart`
-- 冒失鬼 / Klutz / `klutz`
+- 心上人 / Sweetheart / `sweetheart`
+- 呆瓜 / Klutz / `klutz`
 - 理发师 / Barber / `barber`
 - 畸形秀演员 / Mutant / `mutant`
 
@@ -40,39 +40,39 @@
 
 - 女巫 / Witch / `witch`
 - 洗脑师 / Cerenovus / `cerenovus`
-- 皮特哈格 / Pit-Hag / `pithag`
-- 邪恶双子 / Evil Twin / `eviltwin`
+- 麻脸巫婆 / Pit-Hag / `pithag`
+- 镜像双子 / Evil Twin / `eviltwin`
 
 ### 恶魔
 
-- 诺达鲺 / No Dashii / `nodashii`
-- 维格莫提斯 / Vigormortis / `vigormortis`
-- 漩涡 / Vortox / `vortox`
+- 诺-达鲺 / No Dashii / `nodashii`
+- 亡骨魔 / Vigormortis / `vigormortis`
+- 涡流 / Vortox / `vortox`
 - 方古 / Fang Gu / `fanggu`
 
 ### 旅行者
 
 - 咖啡师 / Barista / `barista`
-- 风尘女子 / Harlot / `harlot`
+- 流莺 / Harlot / `harlot`
 - 屠夫 / Butcher / `butcher`
-- 骸骨收集者 / Bone Collector / `bonecollector`
-- 异端者 / Deviant / `deviant`
+- 集骨者 / Bone Collector / `bonecollector`
+- 怪咖 / Deviant / `deviant`
 
 ## 3. 夜间顺序
 
 首夜：
 
-咖啡师 -> 哲学家 -> 舞蛇人 -> 邪恶双子 -> 女巫 -> 洗脑师 -> 钟表匠 -> 筑梦师 -> 裁缝 -> 数学家
+咖啡师 -> 哲学家 -> 舞蛇人 -> 镜像双子 -> 女巫 -> 洗脑师 -> 钟表匠 -> 筑梦师 -> 女裁缝 -> 数学家
 
 其他夜：
 
-咖啡师 -> 风尘女子 -> 骸骨收集者 -> 哲学家 -> 舞蛇人 -> 女巫 -> 洗脑师 -> 皮特哈格 -> 方古 -> 诺达鲺 -> 漩涡 -> 维格莫提斯 -> 理发师 -> 甜心 -> 贤者 -> 筑梦师 -> 花艺师 -> 镇喊者 -> 神谕者 -> 裁缝 -> 杂耍艺人 -> 数学家
+咖啡师 -> 流莺 -> 集骨者 -> 哲学家 -> 舞蛇人 -> 女巫 -> 洗脑师 -> 麻脸巫婆 -> 方古 -> 诺-达鲺 -> 涡流 -> 亡骨魔 -> 理发师 -> 心上人 -> 贤者 -> 筑梦师 -> 卖花女孩 -> 城镇公告员 -> 神谕者 -> 女裁缝 -> 杂耍艺人 -> 数学家
 
 ## 4. Setup / 高风险规则
 
 - `fanggu-outsider` / 方古：方古：+1 外来者；首次被方古夜晚杀死的外来者会变成邪恶方古，原方古死亡。
-- `vigormortis-outsider` / 维格莫提斯：维格莫提斯：-1 外来者；被他杀死的爪牙保留能力并让相邻镇民中毒。
-- `evil-twin-pair` / 邪恶双子：邪恶双子：建立一对阵营相反的双子；善良双子被处决时邪恶获胜。
+- `vigormortis-outsider` / 亡骨魔：亡骨魔：-1 外来者；被他杀死的爪牙保留能力并让相邻镇民中毒。
+- `evil-twin-pair` / 镜像双子：镜像双子：建立一对阵营相反的双子；善良双子被处决时邪恶获胜。
 - `snakecharmer-swap` / 舞蛇人：舞蛇人：选择恶魔时交换角色和阵营；原恶魔成为中毒的舞蛇人。
 
 ## 5. 模板

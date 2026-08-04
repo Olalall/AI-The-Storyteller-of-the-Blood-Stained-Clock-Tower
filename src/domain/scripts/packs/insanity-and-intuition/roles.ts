@@ -80,7 +80,7 @@ const localRoleFacts = [
   },
   {
     id: 'boomdandy',
-    name: '爆炸花花公子',
+    name: '炸弹人',
     officialName: 'Boomdandy',
     team: 'minion',
     abilityText:
