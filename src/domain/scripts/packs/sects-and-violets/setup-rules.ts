@@ -15,7 +15,7 @@ export const sectsAndVioletsSetupRules: readonly SetupRule[] = [
   {
     id: "vigormortis-outsider",
     roleId: "vigormortis",
-    summary: "维格莫提斯：-1 外来者；被他杀死的爪牙保留能力并让相邻镇民中毒。",
+    summary: "亡骨魔：-1 外来者；被他杀死的爪牙保留能力并让相邻镇民中毒。",
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl],
     reviewedAt,
@@ -23,7 +23,7 @@ export const sectsAndVioletsSetupRules: readonly SetupRule[] = [
   {
     id: "evil-twin-pair",
     roleId: "eviltwin",
-    summary: "邪恶双子：建立一对阵营相反的双子；善良双子被处决时邪恶获胜。",
+    summary: "镜像双子：建立一对阵营相反的双子；善良双子被处决时邪恶获胜。",
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl],
     reviewedAt,

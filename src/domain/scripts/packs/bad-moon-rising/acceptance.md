@@ -21,7 +21,7 @@
 - 旅店老板 / Innkeeper / `innkeeper`
 - 赌徒 / Gambler / `gambler`
 - 驱魔人 / Exorcist / `exorcist`
-- 流言者 / Gossip / `gossip`
+- 造谣者 / Gossip / `gossip`
 - 侍臣 / Courtier / `courtier`
 - 教授 / Professor / `professor`
 - 吟游诗人 / Minstrel / `minstrel`
@@ -56,7 +56,7 @@
 - 法官 / Judge / `judge`
 - 学徒 / Apprentice / `apprentice`
 - 主教 / Bishop / `bishop`
-- 伏都教徒 / Voudon / `voudon`
+- 巫毒师 / Voudon / `voudon`
 
 ## 3. 夜间顺序
 
@@ -66,7 +66,7 @@
 
 其他夜：
 
-水手 -> 侍臣 -> 旅店老板 -> 赌徒 -> 魔鬼代言人 -> 疯子 -> 驱魔人 -> 僵怖 -> 普卡 -> 沙巴洛斯 -> 珀 -> 刺客 -> 教父 -> 流言者 -> 教授 -> 修补匠 -> 月之子 -> 祖母 -> 侍女
+水手 -> 侍臣 -> 旅店老板 -> 赌徒 -> 魔鬼代言人 -> 疯子 -> 驱魔人 -> 僵怖 -> 普卡 -> 沙巴洛斯 -> 珀 -> 刺客 -> 教父 -> 造谣者 -> 教授 -> 修补匠 -> 月之子 -> 祖母 -> 侍女
 
 ## 4. Setup / 高风险规则
 

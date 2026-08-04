@@ -16,7 +16,7 @@ export const quickMathsSetupRules: readonly SetupRule[] = [
   {
     id: 'xaan-outsider-night',
     roleId: 'xaan',
-    summary: '扎恩：外来者数量为 X；第 X 夜所有镇民中毒到黄昏。',
+    summary: '限：外来者数量为 X；第 X 夜所有镇民中毒到黄昏。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -32,7 +32,7 @@ export const quickMathsSetupRules: readonly SetupRule[] = [
   {
     id: 'boffin-demon-good-ability',
     roleId: 'boffin',
-    summary: '博芬：恶魔获得一个不在场善良角色能力；恶魔和博芬都知道该能力。',
+    summary: '科学怪人：恶魔获得一个不在场善良角色能力；恶魔和科学怪人都知道该能力。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -48,7 +48,7 @@ export const quickMathsSetupRules: readonly SetupRule[] = [
   {
     id: 'alsaahir-public-win',
     roleId: 'alsaahir',
-    summary: '阿尔萨希尔：每天若公开完整猜中哪些玩家是爪牙和恶魔，善良胜利；必须由说书人确认。',
+    summary: '戏法师：每天若公开完整猜中哪些玩家是爪牙和恶魔，善良胜利；必须由说书人确认。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,

@@ -40,7 +40,7 @@ export const uncertainDeathSetupRules: readonly SetupRule[] = [
   {
     id: 'nodashii-neighbor-poisoning',
     roleId: 'nodashii',
-    summary: '诺达鲺会让相邻镇民中毒；这是说书人状态核对项，不自动写入玩家状态。',
+    summary: '诺-达鲺会让相邻镇民中毒；这是说书人状态核对项，不自动写入玩家状态。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [officialRolesSourceUrl, scriptSourceUrl],
     reviewedAt,

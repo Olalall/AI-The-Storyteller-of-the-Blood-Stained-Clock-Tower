@@ -180,7 +180,7 @@ export const uncertainDeathSetupTemplates: readonly SetupTemplate[] = [
       'nodashii',
     ],
     bluffs: ['flowergirl', 'oracle', 'artist'],
-    note: '十一人均衡局，陌客和诺达鲺相邻中毒都只做提醒。',
+    note: '十一人均衡局，陌客和诺-达鲺相邻中毒都只做提醒。',
   }),
   template({
     id: 'godfather-minus-eleven',

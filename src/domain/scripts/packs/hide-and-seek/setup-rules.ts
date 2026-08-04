@@ -9,7 +9,7 @@ export const hideAndSeekSetupRules: readonly SetupRule[] = [
   {
     id: 'huntsman-adds-damsel',
     roleId: 'huntsman',
-    summary: '猎人：开局加入落难少女，通常以 1 名外来者替换 1 名镇民；选中落难少女时可让其变为不在场镇民。',
+    summary: '巡山人：开局加入落难少女，通常以 1 名外来者替换 1 名镇民；选中落难少女时可让其变为不在场镇民。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -25,7 +25,7 @@ export const hideAndSeekSetupRules: readonly SetupRule[] = [
   {
     id: 'vigormortis-outsider',
     roleId: 'vigormortis',
-    summary: '维格莫提斯：-1 外来者；杀死爪牙后该爪牙保留能力并让相邻一名镇民中毒。',
+    summary: '亡骨魔：-1 外来者；杀死爪牙后该爪牙保留能力并让相邻一名镇民中毒。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,

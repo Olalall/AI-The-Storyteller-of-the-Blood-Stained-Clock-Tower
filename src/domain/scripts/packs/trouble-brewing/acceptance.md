@@ -21,26 +21,26 @@
 - 图书管理员 / Librarian / `librarian`
 - 共情者 / Empath / `empath`
 - 占卜师 / Fortune Teller / `fortuneteller`
-- 掘墓人 / Undertaker / `undertaker`
+- 送葬者 / Undertaker / `undertaker`
 - 僧侣 / Monk / `monk`
 - 猎手 / Slayer / `slayer`
 - 士兵 / Soldier / `soldier`
 - 守鸦人 / Ravenkeeper / `ravenkeeper`
 - 镇长 / Mayor / `mayor`
-- 圣女 / Virgin / `virgin`
+- 贞洁者 / Virgin / `virgin`
 
 ### 外来者
 
 - 管家 / Butler / `butler`
 - 酒鬼 / Drunk / `drunk`
-- 隐士 / Recluse / `recluse`
+- 陌客 / Recluse / `recluse`
 - 圣徒 / Saint / `saint`
 
 ### 爪牙
 
 - 投毒者 / Poisoner / `poisoner`
 - 间谍 / Spy / `spy`
-- 猩红女郎 / Scarlet Woman / `scarletwoman`
+- 红唇女郎 / Scarlet Woman / `scarletwoman`
 - 男爵 / Baron / `baron`
 
 ### 恶魔
@@ -50,7 +50,7 @@
 ### 旅行者
 
 - 窃贼 / Thief / `thief`
-- 官僚 / Bureaucrat / `bureaucrat`
+- 官员 / Bureaucrat / `bureaucrat`
 - 枪手 / Gunslinger / `gunslinger`
 - 乞丐 / Beggar / `beggar`
 - 替罪羊 / Scapegoat / `scapegoat`
@@ -59,11 +59,11 @@
 
 首夜：
 
-官僚 -> 窃贼 -> 投毒者 -> 洗衣妇 -> 图书管理员 -> 调查员 -> 厨师 -> 共情者 -> 占卜师 -> 管家 -> 间谍
+官员 -> 窃贼 -> 投毒者 -> 洗衣妇 -> 图书管理员 -> 调查员 -> 厨师 -> 共情者 -> 占卜师 -> 管家 -> 间谍
 
 其他夜：
 
-官僚 -> 窃贼 -> 投毒者 -> 僧侣 -> 猩红女郎 -> 小恶魔 -> 守鸦人 -> 共情者 -> 占卜师 -> 掘墓人 -> 管家 -> 间谍
+官员 -> 窃贼 -> 投毒者 -> 僧侣 -> 红唇女郎 -> 小恶魔 -> 守鸦人 -> 共情者 -> 占卜师 -> 送葬者 -> 管家 -> 间谍
 
 ## 4. Setup / 高风险规则
 

@@ -47,7 +47,7 @@ export const everyoneCanPlaySetupRules: readonly SetupRule[] = [
   },
   {
     id: 'saint-moonchild-mayor-risk',
-    summary: '圣徒、月之子、市长都可能影响处决、死亡或胜负；AI 只做核对提醒。',
+    summary: '圣徒、月之子、镇长都可能影响处决、死亡或胜负；AI 只做核对提醒。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [officialRolesSourceUrl, scriptSourceUrl],
     reviewedAt,
