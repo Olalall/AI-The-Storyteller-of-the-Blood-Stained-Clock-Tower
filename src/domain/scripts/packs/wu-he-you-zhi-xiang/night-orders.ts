@@ -1,15 +1,15 @@
 import type { NightOrderEntry } from '../../types'
 
 export const wuHeYouZhiXiangFirstNightOrder: readonly NightOrderEntry[] = [
+  { roleId: "kazali", order: 200, note: "在首个夜晚，唤醒卡扎力。让他指向一名玩家，和角色列表上的一个爪牙角色。用这个爪牙的角色标记替换该玩家原本的角色标记，然后唤醒该玩家，对他展示“你是”信息标记和这个爪牙角色标记，然后展示向下的大拇指。重复这个流程，直到场上有与初始设置时同等数量的爪牙。让卡扎力重新入睡。", knowledgeStatus: 'confirmed' },
   { roleId: "philosopher", order: 300, note: "哲学家可以选择一个角色。如果选择的角色不在场，将哲学家的角色标题替换成对应角色，并标记“是哲学家”，否则标记该角色对应的玩家醉酒。从现在开始，你需要以哲学家获得能力的那种角色的行动方式来唤醒哲学家。", knowledgeStatus: 'confirmed' },
   { roleId: "poppygrower", order: 700, note: "不要让恶魔和爪牙相认。", knowledgeStatus: 'confirmed' },
-  { roleId: "kazali", order: 1000, note: "在首个夜晚，唤醒卡扎力。让他指向一名玩家，和角色列表上的一个爪牙角色。用这个爪牙的角色标记替换该玩家原本的角色标记，然后唤醒该玩家，对他展示“你是”信息标记和这个爪牙角色标记，然后展示向下的大拇指。重复这个流程，直到场上有与初始设置时同等数量的爪牙。让卡扎力重新入睡。", knowledgeStatus: 'confirmed' },
   { roleId: "poisoner", order: 4600, note: "让投毒者选择一名玩家。标记那名玩家中毒。", knowledgeStatus: 'confirmed' },
   { roleId: "harpy", order: 6000, note: "唤醒鹰身女妖并让他依次指向两名玩家。标记第一名玩家“疯狂”，标记第二名玩家“第二名”。", knowledgeStatus: 'confirmed' },
   { roleId: "mezepheles", order: 6100, note: "告诉灵言师他的秘密词语。", knowledgeStatus: 'confirmed' },
   { roleId: "pixie", order: 7300, note: "对小精灵展示一个在场的镇民角色。", knowledgeStatus: 'confirmed' },
   { roleId: "seamstress", order: 8600, note: "女裁缝可以选择除自己以外的两名玩家。如果她这么做了，对她点头或摇头示意这两名玩家是否为同一阵营，随后标记女裁缝失去能力。之后的夜晚无需再唤醒女裁缝。", knowledgeStatus: 'confirmed' },
-  { roleId: "villageidiot", order: 10100, note: "在为首个夜晚做准备时，（如果有超过一名村夫在场，）将村夫的“醉酒”提示标记放置到其中一个村夫角色标记旁。", knowledgeStatus: 'confirmed' },
+  { roleId: "villageidiot", order: 10100, note: "在为首个夜晚做准备时，（如果有超过一名村夫在场，）将村夫的“醉酒”提示标记放置到其中一个村夫角色标记旁。每个夜晚，唤醒任意一名村夫。让他指向一名玩家。对他给出拇指向上或向下的手势。让他重新入睡。重复这个操作，直到所有村夫玩家都进行了夜晚行动。", knowledgeStatus: 'confirmed' },
   { roleId: "spy", order: 11700, note: "将魔典展示给间谍，他想看多久就看多久。", knowledgeStatus: 'confirmed' },
   { roleId: "highpriestess", order: 11900, note: "唤醒女祭司，指向一名玩家。让女祭司重新入睡。", knowledgeStatus: 'confirmed' },
   { roleId: "shugenja", order: 12000, note: "在首个夜晚，唤醒修行者。用手指水平指向修行者的某一侧，告诉他与他距离最近的邪恶玩家位于这一侧。如果修行者两侧最近的邪恶玩家与他的距离相等，由你来决定告诉他什么样的信息，并用手指指向对应的一侧。让修行者重新入睡。", knowledgeStatus: 'confirmed' },
