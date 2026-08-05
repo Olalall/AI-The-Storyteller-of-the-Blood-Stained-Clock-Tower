@@ -527,7 +527,7 @@
   top: 50%;
   width: 7px;
   height: 7px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--accent);
   transform: translateY(-50%);
 }

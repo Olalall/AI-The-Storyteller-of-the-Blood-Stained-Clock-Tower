@@ -1,5 +1,6 @@
 import { ChevronDown } from 'lucide-react'
 import { useState } from 'react'
+import { EmptyState } from '../../../components/ui/EmptyState'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
 import type { GameRecordBadge, GameRecordEntry } from '../state/gameRecordProjection'
 
@@ -17,7 +18,13 @@ function timeLabel(value: string) {
 
 export function GameRecordList({ entries }: { entries: GameRecordEntry[] }) {
   const [expandedId, setExpandedId] = useState<string | null>(null)
-  if (entries.length === 0) return <div className="game-record-empty">暂无记录</div>
+  if (entries.length === 0) {
+    return <EmptyState
+      className="game-record-empty"
+      title="暂无记录"
+      description="确认第一条夜间或白天记录后，这里按夜/天分组显示。"
+    />
+  }
 
   const groups = entries.reduce<Array<{ key: string; label: string; entries: GameRecordEntry[] }>>((result, entry) => {
     const group = result.find((candidate) => candidate.key === entry.phaseKey)

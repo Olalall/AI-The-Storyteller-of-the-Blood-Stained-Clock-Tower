@@ -1,4 +1,5 @@
 import { Sparkles } from 'lucide-react'
+import { StatusBadge } from '../../../components/ui/StatusBadge'
 import type { AIResultAdvice, OutcomeResolutionHint } from '../types'
 
 interface MissingGuidance {
@@ -54,7 +55,7 @@ export function SettlementAssistPanel({
         ].filter(Boolean).join(' ')}>
           <div className="settlement-assist__line">
             <strong>{needsInput ? 'AI\u7f3a\u5c11' : modifiedFromAI ? '\u5df2\u6539\u4e3a\u624b\u52a8\u7ed3\u679c' : 'AI\u5efa\u8bae'}</strong>
-            {!needsInput && aiOutcomeLabel ? <span>{modifiedFromAI ? `\u539f\u5efa\u8bae\uff1a${aiOutcomeLabel}` : aiOutcomeLabel}</span> : null}
+            {!needsInput && aiOutcomeLabel ? <StatusBadge tone="info" size="sm">{modifiedFromAI ? `\u539f\u5efa\u8bae\uff1a${aiOutcomeLabel}` : aiOutcomeLabel}</StatusBadge> : null}
           </div>
           <p>{needsInput ? (aiAdvice.missing.join('\u3001') || '\u5148\u8865\u9f50\u672c\u9879\u9009\u62e9') : modifiedFromAI ? '\u4ee5\u5f53\u524d\u624b\u52a8\u7ed3\u679c\u4e3a\u51c6\u3002' : '\u5df2\u91c7\u7528\u5230\u8349\u7a3f\u3002'}</p>
           {needsInput && missingGuidance.length ? (

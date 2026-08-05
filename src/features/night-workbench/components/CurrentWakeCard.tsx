@@ -143,7 +143,7 @@ export function CurrentWakeCard({
                   key={seat}
                   seat={seat}
                   selected={draft.targets.includes(seat)}
-                  subdued={seat === item.seatId}
+                  self={seat === item.seatId}
                   onClick={() => onTarget(seat)}
                   aria-label={`选择${seat}号玩家`}
                 />
@@ -214,7 +214,9 @@ export function CurrentWakeCard({
                   aria-label={`${option.label}${aiRecommended ? '，AI建议' : resolutionRecommended ? '，核对建议' : ''}`}
                 >
                   <span>{option.label}</span>
-                  {aiRecommended ? <small>AI建议</small> : resolutionRecommended ? <small>核对建议</small> : null}
+                  {aiRecommended ? <StatusBadge tone="info" size="sm">AI建议</StatusBadge>
+                    : resolutionRecommended ? <StatusBadge tone="info" size="sm">核对建议</StatusBadge>
+                      : null}
                 </button>
               )
             })}

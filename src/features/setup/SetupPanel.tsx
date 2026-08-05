@@ -269,7 +269,9 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
                     .map((item) => item.id))
                   const availableOptions = demonBluffOptions.filter((role) => role.id === bluff.id || !selectedByOtherBluffs.has(role.id))
                   return <label key={`${bluff.id}-${index}`}>
-                    <span className="setup-panel__bluff-top"><b>伪装{index + 1}</b><em>{advice ? '建议' : '可选'}</em></span>
+                    <span className="setup-panel__bluff-top"><b>伪装{index + 1}</b>{advice
+                      ? <StatusBadge tone="current" size="sm">建议</StatusBadge>
+                      : <StatusBadge tone="neutral" size="sm">可选</StatusBadge>}</span>
                     <select value={bluff.id} onChange={(event) => updateDemonBluff(index, event.target.value)}>
                       {availableOptions.map((role) => <option value={role.id} key={role.id}>{role.name}</option>)}
                     </select>

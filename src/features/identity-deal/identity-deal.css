@@ -221,7 +221,7 @@
   display: grid;
   place-items: center;
   border: 1px solid rgb(224 177 93 / 36%);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background:
     radial-gradient(circle at 36% 24%, rgb(224 177 93 / 26%), transparent 32%),
     linear-gradient(145deg, rgb(36 27 18 / 96%), rgb(10 16 22 / 94%));
