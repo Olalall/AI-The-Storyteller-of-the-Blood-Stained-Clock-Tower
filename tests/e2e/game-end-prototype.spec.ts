@@ -1,7 +1,14 @@
-﻿import { expect, test } from '@playwright/test'
+﻿import { expect, test, type Page } from '@playwright/test'
 
 
 /** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
+
+/** 默认落地是空对局的入口界面；用例依赖的中局夹具需要显式载入。 */
+async function loadDemoSession(page: Page) {
+  const demo = page.getByRole('button', { name: /载入示例对局/ })
+  if (await demo.isVisible().catch(() => false)) await demo.click()
+}
+
 async function openArchive(page: import('@playwright/test').Page) {
   const back = page.getByRole('button', { name: '本局', exact: true })
   if (await back.isVisible().catch(() => false)) await back.click()
@@ -14,6 +21,7 @@ test('game end prototype saves an archive and opens AI historical review', async
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
 
   await openArchive(page)
   await page.locator('.dashboard__end-entry').click()
@@ -42,6 +50,7 @@ test('game end prototype saves an archive and opens AI historical review', async
   await page.screenshot({ path: 'artifacts/screenshots/game-end-2026-07-16/02-game-review-history.png', fullPage: false })
 
   await page.reload()
+  await loadDemoSession(page)
   await openArchive(page)
   await page.locator('.dashboard__review-entry').click()
   await expect(page.locator('.game-review__list button')).toHaveCount(1)

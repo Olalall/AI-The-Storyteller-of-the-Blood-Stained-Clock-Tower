@@ -148,7 +148,9 @@ describe('loadGameSession', () => {
 
     const loaded = loadGameSession()
 
-    expect(loaded.id).toBe('prototype-catfishing-12')
+    // 首次落地已改为空对局（入口界面），不再回退到开发夹具。
+    expect(loaded.playerCount).toBe(0)
+    expect(loaded.phaseSegments).toEqual([])
     expect(window.localStorage.getItem(legacyNightWorkbenchStorageKey)).not.toBeNull()
   })
 
@@ -214,5 +216,29 @@ describe('loadGameSession', () => {
     clearSessionRecovery()
 
     expect(readSessionRecovery()).toBeNull()
+  })
+})
+
+describe('首次落地', () => {
+  beforeEach(() => window.localStorage.clear())
+
+  it('starts from a blank session instead of the development fixture', () => {
+    // 开发夹具是 12 人瓦釜雷鸣、冻结在第3夜、预填记录；
+    // 把它当默认落地页会让新用户以为工具里已经有一局在进行。
+    const outcome = loadGameSessionOutcome()
+
+    expect(outcome.kind).toBe('fresh')
+    expect(outcome.session.playerCount).toBe(0)
+    expect(outcome.session.phaseSegments).toEqual([])
+    expect(outcome.session.timeline).toEqual([])
+  })
+
+  it('falls back to a blank session — not the fixture — when a stored game cannot be read', () => {
+    window.localStorage.setItem(gameSessionStorageKey, 'not json')
+
+    const outcome = loadGameSessionOutcome()
+
+    expect(outcome.kind).toBe('unreadable')
+    expect(outcome.session.playerCount).toBe(0)
   })
 })

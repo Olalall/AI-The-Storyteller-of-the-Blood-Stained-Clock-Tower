@@ -11,6 +11,8 @@ import { TimelineHistorySheet } from './features/history/TimelineHistorySheet'
 import { DayWorkbench } from './features/day-workbench/DayWorkbench'
 import { PublicChatTimerPage } from './features/day-workbench/PublicChatTimerPage'
 import { DuskHandoff } from './features/hosting-deck/handoff/DuskHandoff'
+import { SessionEntry } from './features/hosting-deck/SessionEntry'
+import { createPrototypeGameSession } from './features/game-session/data/createPrototypeSession'
 import { DawnHandoff } from './features/hosting-deck/handoff/DawnHandoff'
 import { deckNodeForSession, isFirstNight, latestNightSegmentId, nextDayLabel, nextNightLabel, type DeckNode } from './features/hosting-deck/deckNode'
 import { DiscussionTimerProvider } from './features/day-workbench/state/discussionTimer'
@@ -31,6 +33,8 @@ function App() {
   const [recordsOpen, setRecordsOpen] = useState(false)
   const { session, dispatch } = useGameSession()
   const [deckNode, setDeckNode] = useState<DeckNode>(() => deckNodeForSession(session))
+  // 还没配过板的空对局显示入口界面；配板确认后才谈得上黄昏。
+  const hasStarted = session.playerCount > 0
   const [setupOpen, setSetupOpen] = useState(false)
   const [identityDealOpen, setIdentityDealOpen] = useState(false)
   const [gameEndOpen, setGameEndOpen] = useState(false)
@@ -76,7 +80,7 @@ function App() {
         rail={view === 'deck' && (deckNode === 'night' || deckNode === 'day') ? <SessionRail session={session} onOpenPlayerStatus={setPlayerStatusSeatId} /> : undefined}
         phaseTrack={(
           <PhaseTrack
-            nodes={projectPhaseTrack(session, view === 'deck' ? deckNode : undefined)}
+            nodes={projectPhaseTrack(session, view === 'deck' && hasStarted ? deckNode : undefined)}
             actions={(
               <>
                 <Button variant="ghost" compact onClick={() => setRecordsOpen(true)}>
@@ -95,7 +99,18 @@ function App() {
             读屏与键盘也仍能走进去。deckNode 保存在 App 上，返回时回到原节点。 */}
         <div className="app-frame__deck" hidden={view === 'archive'}>
           {view === 'deck' ? <>
-        {deckNode === 'dusk' ? (
+        {deckNode === 'dusk' && !hasStarted ? (
+          <SessionEntry
+            onStartSetup={() => setSetupOpen(true)}
+            onOpenScriptLibrary={() => setScriptLibraryOpen(true)}
+            onLoadDemo={() => {
+              const demo = createPrototypeGameSession()
+              dispatch({ type: 'replace-session', session: demo })
+              setDeckNode(deckNodeForSession(demo))
+            }}
+          />
+        ) : null}
+        {deckNode === 'dusk' && hasStarted ? (
           <DuskHandoff
             session={session}
             nightLabel={nextNightLabel(session)}

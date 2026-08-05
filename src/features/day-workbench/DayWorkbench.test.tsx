@@ -2,7 +2,7 @@
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, beforeEach } from 'vitest'
 import { useGameSession } from '../game-session/state/useGameSession'
-import { gameSessionStorageKey } from '../game-session/data/createPrototypeSession'
+import { createPrototypeGameSession, gameSessionStorageKey } from '../game-session/data/createPrototypeSession'
 import type { GameSessionState } from '../game-session/types'
 import { DiscussionTimerProvider } from './state/discussionTimer'
 import { DayWorkbench } from './DayWorkbench'
@@ -16,8 +16,17 @@ function storedState() {
   return JSON.parse(window.localStorage.getItem(gameSessionStorageKey) ?? '{}') as GameSessionState
 }
 
+
+/**
+ * 默认落地已改为空对局（首次打开显示入口界面），而这些用例测的是工作台本身，
+ * 需要一局进行中的对局做夹具，所以显式播种。
+ */
+function seedPrototypeSession() {
+  window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(createPrototypeGameSession()))
+}
+
 describe('DayWorkbench records', () => {
-  beforeEach(() => window.localStorage.clear())
+  beforeEach(() => { window.localStorage.clear(); seedPrototypeSession() })
 
   it('records a structured day skill only after the storyteller confirms it', async () => {
     const user = userEvent.setup()

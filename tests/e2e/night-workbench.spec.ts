@@ -2,6 +2,13 @@ import { expect, test, type Page } from '@playwright/test'
 
 
 /** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
+
+/** 默认落地是空对局的入口界面；用例依赖的中局夹具需要显式载入。 */
+async function loadDemoSession(page: Page) {
+  const demo = page.getByRole('button', { name: /载入示例对局/ })
+  if (await demo.isVisible().catch(() => false)) await demo.click()
+}
+
 async function openArchive(page: Page) {
   const enter = page.getByRole('button', { name: '本局', exact: true })
   if (await enter.isVisible().catch(() => false)) await enter.click()
@@ -27,6 +34,7 @@ for (const viewport of viewports) {
     await page.goto('/')
     await page.evaluate(() => window.localStorage.clear())
     await page.reload()
+    await loadDemoSession(page)
     await enterNight(page)
 
     await expect(page.getByRole('region', { name: '\u591c\u95f4\u89d2\u8272\u9884\u89c8' })).toBeVisible()
@@ -41,6 +49,7 @@ test('selected outcome can be toggled off before confirmation', async ({ page })
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
   await enterNight(page)
 
   await page.getByRole('button', { name: '\u9009\u62e93\u53f7\u73a9\u5bb6' }).click()
@@ -58,6 +67,7 @@ test('AI result suggestion is available for a generic role', async ({ page }) =>
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
   await enterNight(page)
 
   await page.getByRole('button', { name: '\u9009\u62e93\u53f7\u73a9\u5bb6' }).click()
