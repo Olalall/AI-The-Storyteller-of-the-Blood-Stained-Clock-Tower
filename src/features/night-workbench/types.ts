@@ -14,9 +14,26 @@ export type LifeState = 'alive' | 'dead'
 
 export type ImpairmentState = 'poisoned' | 'drunk'
 
+/**
+ * 魔典上的一枚提示标记。它是贴纸，不是效果：放一张纸不改变任何其它字段。
+ * 裁决 9 只放宽这两个可选字段，definitionId / semantics / inverted / removalHintText 推后；
+ * 就地放宽而不是另立 ReminderToken，是为了让「标记」在全仓只有一个真身。
+ */
 export interface ManualStatusMarker {
   id: string
   label: string
+  /**
+   * 是谁的能力放的（角色 id）。黄昏到期候选要靠它筛：
+   * 只有 label 的话，判断「僧侣保护」该不该在黎明清掉就得去猜文案，改个措辞就失效。
+   */
+  sourceRoleId?: string
+  /**
+   * 放在哪个相位段。`null` = 放置时没有开放的段落（例如配板阶段就先贴了）。
+   * 只存引用不存标签：localSessionAdapter 的 normalizePhaseSegments 会在加载时重算
+   * segment.sequence，相位标签是可变派生值——冻结成字符串会在段落被规整后与实际相位对不上。
+   * 标签一律由 segmentId 在渲染时查表得出。
+   */
+  placedInSegmentId?: string | null
 }
 
 export interface PlayerStatusSnapshot {
