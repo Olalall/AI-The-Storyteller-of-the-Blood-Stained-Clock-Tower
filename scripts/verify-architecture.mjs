@@ -212,6 +212,20 @@ const rules = [
     fix: 'AI 结果只能由组件层取到后作为 action payload 传进 reducer（参考 nightWorkbenchReducer 的 apply-ai-advice），state 目录不得反向依赖 services/ai。',
   },
   {
+    id: 'hosting-mode-not-behavioural',
+    docSection: '「模式字段的归属（作者已拍板）」：记录它发生过，但永不让它成为分支条件',
+    applies: (file) => /^src\/features\/[^/]+\/state\/.*\.(ts|tsx)$/.test(file) && !/\.test\./.test(file),
+    detect: (line) => {
+      if (!/hostingMode/.test(line)) return null
+      // 唯一允许的写入点：set-hosting-mode 分支本身。
+      if (/set-hosting-mode/.test(line)) return null
+      if (/hostingMode\??:/.test(line)) return null
+      if (/hostingModeHistory/.test(line)) return null
+      return 'state 目录读取了 hostingMode——模式一旦成为行为分支，两套数据模型就会长出来'
+    },
+    fix: 'hostingMode 只是出处元数据。视图层可按它选渲染组件，归档/复盘与 AI 上下文可读它做展示，但 reducer 一律不得读；需要差异化行为时请把差异做成显式 action 或 props。',
+  },
+  {
     id: 'pack-no-session-state',
     docSection: '「为魔典模式新增的 9 条反规则引擎自动检查」P0-2：角色包必须是纯数据',
     applies: (file) => /^src\/domain\/(scripts\/packs|role-knowledge)\/.*\.(ts|tsx)$/.test(file),
