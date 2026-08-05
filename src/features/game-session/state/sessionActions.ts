@@ -63,6 +63,8 @@ export type GameSessionAction =
   }
   | {
     type: 'confirm-player-state-change'
+    /** 撤销时填被撤销条目的 id。见 PlayerStateChangedEntry.revertOf。 */
+    revertOf?: string
     seatId: number
     expectedBefore: PlayerState
     after: PlayerState

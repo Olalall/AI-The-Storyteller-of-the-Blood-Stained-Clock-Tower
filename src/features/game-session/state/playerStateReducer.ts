@@ -12,6 +12,7 @@ export function confirmPlayerStateChange(
 
   const before = projectCurrentPlayerStates(state)[action.seatId]
   if (!before || !samePlayerState(before, action.expectedBefore) || samePlayerState(before, action.after)) return state
+  if (action.revertOf !== undefined && !canRevert(state, action.revertOf)) return state
 
   return {
     ...state,
@@ -31,10 +32,25 @@ export function confirmPlayerStateChange(
       ...(action.origin ? { origin: action.origin } : {}),
       ...(action.batchId ? { batchId: action.batchId } : {}),
       ...(action.backfill ? { backfill: action.backfill } : {}),
+      ...(action.revertOf ? { revertOf: action.revertOf } : {}),
     }],
   }
 }
 
+
+/**
+ * 一条记录只能被撤销一次，且只能撤销真实存在的状态变更。
+ *
+ * 不挡第二次的话，两次撤销都会「成功」——第二条把状态又写回撤销前，
+ * 于是屏幕上的局面在说书人眼里毫无征兆地跳了回去，而两条记录看起来都合法。
+ * 撤销的撤销同样不放行：那不是撤销，是一次新的状态变更，该走正常路径留下正常理由。
+ */
+function canRevert(state: GameSessionState, revertOf: string): boolean {
+  const target = state.timeline.find((entry) => entry.id === revertOf)
+  if (!target || target.kind !== 'player_state_changed') return false
+  if (target.revertOf !== undefined) return false
+  return !state.timeline.some((entry) => entry.kind === 'player_state_changed' && entry.revertOf === revertOf)
+}
 
 /**
  * 逐字段递归，而不是只拷 markers：座位状态将来会长出更多字段（标记归属、身份附加层等），

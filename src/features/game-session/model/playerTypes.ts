@@ -61,5 +61,17 @@ export interface PlayerStateChangedEntry extends TimelineBase {
    * 不合并成一条多座位 entry：那会让 ops 变成复数，而复数 ops 正是级联写入最自然的伪装形态。
    */
   batchId?: string
+  /**
+   * 这条记录撤销的是哪一条。
+   *
+   * 刻意**不**复用 correctionOf：在本仓里 correctionOf 的含义是「取代」——
+   * projectEffectiveTimelineEntries 与 projectTimelineHistory 都会把被指向的原条目
+   * 从历史里滤掉。而撤销的要求恰好相反：「投影结果回到操作前，但历史里两条记录都在」。
+   * 用 correctionOf 表达撤销，会正好把撤销本该保住的那条记录藏起来。
+   *
+   * 当前局面投影不需要认识这个字段——它按时间顺序应用每一条 player_state_changed，
+   * 撤销条目把 after 写回原来的 before，自然就回到了操作前。
+   */
+  revertOf?: string
   backfill?: PlayerStateBackfill
 }
