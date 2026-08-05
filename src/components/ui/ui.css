@@ -267,3 +267,49 @@
   font-weight: 700;
 }
 @media (prefers-reduced-motion: reduce) { .ui-host-notice { transition: none; } }
+
+/* 常驻阶段轨道：全局唯一，48px 吸顶；状态用文字+形状+颜色三重表达。 */
+.ui-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.ui-phase-track {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  min-height: 48px;
+  padding: 0 var(--space-16);
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  border-bottom: 1px solid var(--border);
+  background: rgb(10 14 19 / 92%);
+  backdrop-filter: blur(6px);
+}
+.ui-phase-track__nodes { flex: 1 1 auto; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: var(--space-4); overflow-x: auto; scrollbar-width: none; }
+.ui-phase-track__nodes::-webkit-scrollbar { display: none; }
+.ui-phase-track__actions { flex: none; display: flex; align-items: center; gap: var(--space-8); }
+
+.ui-phase-node {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-10);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-sm);
+  color: var(--text-subtle);
+  font-size: var(--type-label);
+  font-weight: 800;
+  white-space: nowrap;
+}
+.ui-phase-node__dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; }
+.ui-phase-node__segment { color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; }
+
+.ui-phase-node--done { color: var(--text-muted); }
+.ui-phase-node--done .ui-phase-node__dot { background: currentColor; }
+.ui-phase-node--open { color: var(--accent-text); background: var(--accent-soft); }
+.ui-phase-node--open .ui-phase-node__dot { background: currentColor; box-shadow: 0 0 0 3px var(--accent-soft); }
+.ui-phase-node--suggest { color: var(--info-text); border: 1px dashed var(--info-border); }
+.ui-phase-node--idle { color: var(--text-subtle); opacity: .7; }
+
+@container app-frame (max-width: 560px) {
+  .ui-phase-node__label { font-size: var(--type-meta); }
+  .ui-phase-node { padding: 0 6px; }
+}
