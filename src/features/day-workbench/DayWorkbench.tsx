@@ -14,6 +14,8 @@ import { completeVoteRound, createVoteRoundDraft, executionThresholdForAliveCoun
 import { projectStandingExecution } from './state/voteStanding'
 import { DayTimer } from './components/DayTimer'
 import { DayRecordSheet } from './components/DayRecordSheet'
+import { DayStepRow } from './components/DayStepRow'
+import { StickyActionBar } from '../../components/ui/StickyActionBar'
 import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchNotice'
 import './day-workbench.css'
 
@@ -30,6 +32,8 @@ type PendingResolution =
   | { kind: 'execution'; seatId: number; segmentId: string; sourceRoundId: string; causesDeath: boolean }
   | { kind: 'no_execution'; segmentId: string }
 type PendingDayClose = 'empty' | 'draft'
+/** 白天是一个时序：讨论 → 提名 → 举手 → 暂列 → 处决。同一时刻只展开一步。 */
+type DayStep = 'discussion' | 'nomination' | 'vote' | 'standing'
 
 function openDaySegmentId(session: GameSessionState) {
   return session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)?.id ?? 'day-pending'
@@ -79,6 +83,8 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   const [pendingResolution, setPendingResolution] = useState<PendingResolution | null>(null)
   const [pendingDayClose, setPendingDayClose] = useState<PendingDayClose | null>(null)
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
+  // 只记录「说书人手动回退到哪一步」；为空时按进度推导。切换步骤不动任何已填内容。
+  const [stepOverride, setStepOverride] = useState<DayStep | null>(null)
   const draft = voteDraftForSession(session)
   const playerStates = projectCurrentPlayerStates(session)
   const aliveCount = Object.values(playerStates).filter((state) => state.life === 'alive').length
@@ -98,6 +104,20 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   const selectedVotes = new Set(draft.raisedSeatIds)
   const ghostVotes = new Set(draft.ghostVoteSeatIds)
   const nominationReady = draft.nominatorSeatId !== null && draft.nomineeSeatId !== null
+  const hasRecordedRound = dayEntries.some((entry) => entry.segmentId === openDay?.id)
+  const hasVoteMarks = draft.raisedSeatIds.length > 0 || draft.ghostVoteSeatIds.length > 0
+  /**
+   * 步骤不自动跨越：选完提名双方后停在提名步，由底栏的「下一步」显式推进。
+   * 自动前进会让卡片在手指底下收起来，说书人来不及确认自己刚点了谁。
+   */
+  const suggestedStep: DayStep = hasRecordedRound && !hasUnrecordedVote
+    ? 'standing'
+    : !nominationReady
+      ? 'nomination'
+      : hasVoteMarks
+        ? 'vote'
+        : 'nomination'
+  const activeStep: DayStep = stepOverride ?? suggestedStep
   const roundStatus = draft.nominatorSeatId === null
     ? '待选提名人'
     : draft.nomineeSeatId === null
@@ -132,6 +152,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
       input: { id: entry.id, createdAt: entry.createdAt },
     })
     setNominationTarget('nominator')
+    setStepOverride(null)
   }
 
   function confirmResolution() {
@@ -220,6 +241,16 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
           <DayRecordSheet session={session} dispatch={dispatch} />
         </section>
 
+        {activeStep !== 'nomination' ? (
+          <DayStepRow
+            index={1}
+            title="提名"
+            summary={nominationReady ? `${draft.nominatorSeatId}号提名 ${draft.nomineeSeatId}号` : '未选'}
+            done={nominationReady}
+            disabled={dayLocked}
+            onEdit={() => setStepOverride('nomination')}
+          />
+        ) : (
         <Card className="day-card--nomination" eyebrow="步骤 1" eyebrowTone="info" title="选择提名" titleId="nomination-title" aria-labelledby="nomination-title">
           <div className="day-selection-tabs" role="tablist" aria-label="选择提名对象">
             <button type="button" disabled={dayLocked} role="tab" aria-selected={nominationTarget === 'nominator'} className={nominationTarget === 'nominator' ? 'is-active' : ''} onClick={() => setNominationTarget('nominator')}>提名人 · {draft.nominatorSeatId ? `${draft.nominatorSeatId}号` : '未选'}</button>
@@ -232,7 +263,18 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
             })}
           </div>
         </Card>
+        )}
 
+        {activeStep !== 'vote' ? (
+          <DayStepRow
+            index={2}
+            title="举手"
+            summary={draft.raisedSeatIds.length ? `举手${draft.raisedSeatIds.length} · 门槛${draft.threshold}` : '未记录'}
+            done={hasRecordedRound && !hasUnrecordedVote}
+            disabled={dayLocked || !nominationReady}
+            onEdit={() => setStepOverride('vote')}
+          />
+        ) : (
         <Card
           className="day-card--vote"
           eyebrow="步骤 2"
@@ -261,9 +303,8 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
             })}
           </div>
           <div className="day-vote-summary" aria-label={`举手${draft.raisedSeatIds.length}票，死亡票${draft.ghostVoteSeatIds.length}张，处决门槛${draft.threshold || '未设置'}`}><span>举手<strong>{draft.raisedSeatIds.length}</strong></span><span>死亡票<strong>{draft.ghostVoteSeatIds.length}</strong></span><span>门槛<strong>{draft.threshold || '—'}</strong></span></div>
-          <Button variant="primary" onClick={completeRound} disabled={dayLocked || !nominationReady || draft.threshold < 1}><Hand aria-hidden="true" />记录本轮票型</Button>
-          {!nominationReady ? <p className="day-disabled-reason">先选择提名双方</p> : null}
         </Card>
+        )}
 
         <Card
           className="day-card--standing"
@@ -275,11 +316,41 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
           actions={<StatusBadge tone={standing.status === 'leading' || standing.status === 'replaced' ? 'warning' : 'neutral'}>{standing.status === 'leading' ? '暂列' : standing.status === 'replaced' ? '已更新' : standing.status === 'tied' ? '同票' : standing.status === 'below_threshold' ? '未达门槛' : '暂无'}</StatusBadge>}
         >
           <p className="day-standing-copy">{standing.status === 'tied' ? <><strong>{standing.tiedSeatIds?.join('、')}号同票</strong><span>尚无暂列结果</span></> : standing.nomineeSeatId ? <><strong>{standing.nomineeSeatId}号暂列</strong><span>{standing.voteCount}票 · 门槛{standing.threshold}</span></> : <><strong>暂无暂列结果</strong><span>记录票型后更新</span></>}</p>
-          {openDay && !dayResolution ? <div className="day-resolution-actions">
-            <Button variant="secondary" disabled={Boolean(pendingResolution || hasUnrecordedVote)} onClick={() => setPendingResolution({ kind: 'no_execution', segmentId: openDay.id })}>记录无处决</Button>
-            {(standing.status === 'leading' || standing.status === 'replaced') ? <Button variant="danger" disabled={Boolean(pendingResolution || hasUnrecordedVote)} onClick={() => setPendingResolution({ kind: 'execution', seatId: standing.nomineeSeatId!, segmentId: openDay.id, sourceRoundId: standing.sourceRoundId!, causesDeath: playerStates[standing.nomineeSeatId!]?.life === 'alive' })}><Gavel aria-hidden="true" />记录处决{standing.nomineeSeatId}号</Button> : null}
-          </div> : null}
         </Card>
+
+        {!pendingResolution && !pendingDayClose && !dayResolution ? (
+          <StickyActionBar>
+            <div className="day-action-bar">
+              <span className="day-action-bar__hint">
+                {activeStep === 'nomination'
+                  ? (nominationReady ? '提名双方已选' : '还差：选择提名双方')
+                  : activeStep === 'vote'
+                    ? (draft.threshold < 1 ? '还差：设置处决门槛' : `举手${draft.raisedSeatIds.length} · 门槛${draft.threshold}`)
+                    : standing.nomineeSeatId
+                      ? `${standing.nomineeSeatId}号暂列 · ${standing.voteCount}票`
+                      : '本日尚无暂列结果'}
+              </span>
+              {activeStep === 'nomination' ? (
+                <Button variant="primary" disabled={!nominationReady} onClick={() => setStepOverride('vote')}>
+                  下一步：记录举手
+                </Button>
+              ) : activeStep === 'vote' ? (
+                <Button variant="primary" onClick={completeRound} disabled={dayLocked || !nominationReady || draft.threshold < 1}>
+                  <Hand aria-hidden="true" />记录本轮票型
+                </Button>
+              ) : (
+                <div className="day-action-bar__pair">
+                  <Button variant="secondary" disabled={Boolean(hasUnrecordedVote) || !openDay} onClick={() => openDay && setPendingResolution({ kind: 'no_execution', segmentId: openDay.id })}>记录无处决</Button>
+                  {openDay && (standing.status === 'leading' || standing.status === 'replaced') ? (
+                    <Button variant="danger" disabled={Boolean(hasUnrecordedVote)} onClick={() => setPendingResolution({ kind: 'execution', seatId: standing.nomineeSeatId!, segmentId: openDay.id, sourceRoundId: standing.sourceRoundId!, causesDeath: playerStates[standing.nomineeSeatId!]?.life === 'alive' })}>
+                      <Gavel aria-hidden="true" />记录处决{standing.nomineeSeatId}号
+                    </Button>
+                  ) : null}
+                </div>
+              )}
+            </div>
+          </StickyActionBar>
+        ) : null}
 
         {pendingResolution ? <section className="day-resolution-confirm" aria-live="polite">
           <div>{pendingResolution.kind === 'execution' ? <Gavel aria-hidden="true" /> : <Check aria-hidden="true" />}<div><strong>{pendingResolution.kind === 'execution' ? `确认处决${pendingResolution.seatId}号？` : '确认无处决？'}</strong><span>{pendingResolution.kind === 'execution' ? (playerStates[pendingResolution.seatId]?.life === 'dead' ? '该玩家已死亡：只记录处决事实，占用今天的处决机会。' : pendingResolution.causesDeath ? '将追加死亡状态与日终记录；不会进入夜晚。' : '只记录处决事实，不改变存活状态（弄臣、魔鬼代言人等）。') : '将追加无处决记录；不会改变玩家状态。'}</span></div></div>
