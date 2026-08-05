@@ -2,12 +2,16 @@ import { AlertTriangle, BookOpenText, History, ShieldCheck, Sparkles } from 'luc
 import { Button } from '../../../components/ui/Button'
 import { SeatButton } from '../../../components/ui/SeatButton'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
+import { DayFactsBar } from './DayFactsBar'
+import { shouldShowDayFacts, type DayFacts } from '../../game-session/state/projectDayFacts'
 import { outcomeReady } from '../state/projectWakeDraft'
 import type { AIResultAdvice, OutcomeResolutionHint, PlayerStatusSnapshot, RoleChangeEvent, WakeDraft, WakeItem } from '../types'
 import { PlayerStatusBar } from './PlayerStatusBar'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
 
 interface CurrentWakeCardProps {
+  /** 当日客观事实；只对回溯型角色渲染，遮蔽态下由本组件跳过。 */
+  dayFacts?: DayFacts | null
   item: WakeItem
   playerStatus: PlayerStatusSnapshot
   draft: WakeDraft
@@ -36,6 +40,7 @@ interface CurrentWakeCardProps {
 }
 
 export function CurrentWakeCard({
+  dayFacts,
   item,
   playerStatus,
   draft,
@@ -108,6 +113,9 @@ export function CurrentWakeCard({
             <Button variant="secondary" compact onClick={() => onResolveApplicability('applicable')}>适用</Button>
             <Button variant="ghost" compact onClick={() => onResolveApplicability('not_applicable')}>不适用</Button>
           </div>
+        ) : null}
+        {shouldShowDayFacts(item.roleId, concealed, dayFacts) ? (
+          <DayFactsBar facts={dayFacts} />
         ) : null}
         {item.history ? (
           <details className="wake-history">

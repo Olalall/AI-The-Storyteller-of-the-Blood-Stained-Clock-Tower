@@ -13,6 +13,7 @@ import { PrivateRevealOverlay } from './components/PrivateRevealOverlay'
 import { RoleChangeSheet } from './components/RoleChangeSheet'
 import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchNotice'
 import { projectCurrentAssignments } from '../game-session/state/projectors'
+import { projectDayFacts } from '../game-session/state/projectDayFacts'
 import { projectGameRecordEntries } from './state/gameRecordProjection'
 import { hasWakeDraftContent } from './state/projectWakeDraft'
 import { projectWakePlayerStatus } from './state/projectWakePlayerStatus'
@@ -61,6 +62,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
   const resolutionHint = createResolutionHint(current, draft, activePlayerStatus, currentAssignments)
   const activeRole = currentRoleForItem(activeItem, state.roleChangeEvents)
   const recordEntries = projectGameRecordEntries(state)
+  const dayFacts = projectDayFacts(sessionBinding.session)
   const aiAvailable = current.outcomeOptions.length > 0
   const isAIAdviceLoading = loadingItemId === current.id
   const canUseAI = !isPreviewing && !isReadOnly && aiAvailable && !isAIAdviceLoading
@@ -200,6 +202,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
           </div>
         </div>
         <CurrentWakeCard
+          dayFacts={dayFacts}
           item={current}
           playerStatus={activePlayerStatus}
           draft={draft}
