@@ -1002,49 +1002,57 @@ ui-design-system.md:34 写着「角色 PNG 与圆形 Token 只保留给 RoleDisc
 
 ## 魔典四批
 
-## 实施状态（截至 2026-08-05）
+## 实施状态（截至 2026-08-06）
 
-分支 `fix/wiki-ground-truth-audit`。1084 单测 + 35 e2e 绿，`verify-architecture.mjs` exit 0。
+分支 `fix/wiki-ground-truth-audit`。1265 单测 + 35 e2e 绿（Node 24 与 26 各跑一遍），
+`verify-architecture.mjs` exit 0，`audit:public` 通过，oxlint 零警告。
 
-**G1 已完成**
+### 已完成
 
-| 项 | 落点 |
-| --- | --- |
-| 椭圆布局纯函数（四档尺寸、弧距判据、长短轴比上限、网格退化） | `features/grimoire/layout/ellipseRing.ts` |
-| 卫星标记计算附着（88° 弧、空间反转、+N 折叠） | `features/grimoire/layout/satelliteArc.ts` |
-| GrimoireSeat（容器化 RoleDisc，死亡帷幕，命中区外扩） | `features/grimoire/seat/` |
-| GrimoireCanvas（ResizeObserver 实测舞台，窄屏网格退化，**零 dispatch**） | `features/grimoire/GrimoireCanvas.tsx` |
-| GrimoireCore（Town Info，只显示不裁定，无数据源写「—」） | `features/grimoire/core/` |
-| 三档抽屉（peek/half/full，手势契约常驻，键盘可达每一档） | `features/grimoire/drawer/` |
-| 三级遮蔽（模型 + 运行时控制：长按 600ms、双指盲盖、90 秒落回、失焦落回） | `features/grimoire/shield/` |
-| hostingMode / hostingModeHistory + 架构守门 | `sessionTypes.ts`、`verify-architecture.mjs` |
-| 首次引导卡「你的魔典放在哪里」 | `features/grimoire/mode/HostingModeCard.tsx` |
-| 降级交接卡（含可抄清单与复制） | `features/grimoire/mode/DowngradeHandoffCard.tsx` |
-| 完整度提示条（含 seatsWithRole 为 0 的分支） | `features/grimoire/completeness/` |
-| 边界文档 | `dev-docs/GRIMOIRE_MODE_BOUNDARY.md` |
+**G1 只读魔典**：布局求解、GrimoireSeat、GrimoireCanvas、三级遮蔽（模型 + 运行时控制）、
+窄屏网格退化、hostingMode 出处元数据 + 架构守门、首次引导卡、降级交接卡与可抄清单、
+完整度双维度提示条、**core 五种相位内容 + 夜序双 Disc**、**抽屉宿主与页面注册表**。
 
-**G1 待办**
+**耐久性闸门（G2 准入）**：快照轮转、启动崩溃恢复询问、多标签页单实例锁、
+体积基线（300 次操作 20.6KB）、**导出本局 JSON 常驻可达**、**相位关闭本地快照**、
+**后端 recovery 命名空间（独立存储与路由，与归档隔离并有专门测试）**。
 
-- core 的五种相位内容与夜序双 Disc（当前只有 Town Info）
-- 三档抽屉接六个既有全屏页（外壳已就绪，尚未换容器）
-- 把画布接进 DeckBody 的魔典模式分支（组件齐备，尚未在主流程渲染）
+**G2 数据模型**：ReminderToken 就地放宽（sourceRoleId + placedInSegmentId）、
+GrimoireOp 十三变体、PlayerStateChangedEntry 四个可选字段并已真正落盘、
+**一次手势一条记录的不变量**（字段子集 + 值一致 + 非空改动三重校验）、
+**不变量测试 B**（除专用 action 外无人能改玩家状态）。
 
-**耐久性闸门（G2 准入）已完成**
+**守门与发布闸门**：9 条反规则引擎检查已实现 6 条（含裁决 10 的禁用标识符表），
+audit:public 三条新检查（data URI 超 2KB、清单字段完整性、botc.games 资源 URL），
+并修好了它在无 ripgrep 环境下直接抛堆栈的老问题。
 
-快照轮转（主副本 + 5 份，按时间节流，破坏性操作与相位关闭无条件存）、
-启动崩溃恢复询问（只在快照记录更多时提议，只在挂载时问一次，恢复前先存当前份）、
-多标签页单实例锁（心跳判活，后开者只读不抢锁）。
-体积基线实测记录在案：300 次操作后单份 20.6KB，含 5 份快照共 123KB。
+**文档**：PRODUCT_VISION 八节改写含新增「主视图模式合同」、
+ABILITY_SETTLEMENT_BOUNDARY 三节、AI_AUTHORITY_BOUNDARY 十节、
+architecture-guardrails 九条检查表、GRIMOIRE_MODE_BOUNDARY 七条边界。
 
-待办：导出 JSON 提到常驻可达、相位关闭时向后端 recovery 命名空间推送。
+### 未完成
 
-**过程中修掉的两处自己的错误**（都已写进 commit 说明）
+- **六个全屏页尚未真正进抽屉**。宿主与注册表就绪，但六页的根都是 Radix
+  `Dialog.Portal`，portal 出去后抽屉的高度与 inert 全部失效、overlay 铺满视口把环糊掉。
+  需要先给 Sheet 加内联呈现分支；SetupPanel 现 316/320 行，脱壳时要同批拆文件。
+- **画布尚未接进主流程**。GrimoireCanvas / GrimoireCore 全部就绪但无人渲染；
+  core 五个相位的数据源（night/timer/vote/dusk/dawn）也还没人喂。
+  模式切换入口按裁决 7 应落在 core 顶行的本局信息浮层，浮层本身未做。
+- **G2 写入层**：SeatActionBar、草稿/确认两段式、HostNotice 全局化与 3.5 秒撤销、
+  补录建议卡、删除标记二段摩擦。其中撤销有一处硬阻断需先解决：
+  `sessionReducerGuards.ts` 只允许 night_action / day_action 走更正链，
+  player_state_changed 的更正会被静默吞掉——撤销会「看起来成功」而实际什么都没发生。
+- **G3 全部**。另有一处需先裁决：44px 死亡票 chip 与 satelliteChipSize 28px 上限冲突，
+  硬塞会与相邻座位重叠、违反 G1 验收④。
+- **G4**：文档明确允许永不做。
 
-1. `hosting-mode-not-behavioural` 守门规则最初**从未生效**：放行条件 `hostingMode?:`
-   连参数类型标注一起放行了，而我当时的「负向验证」数的是规则名在输出里的出现次数，
-   那两次其实全是既存误报。规则已改为只查属性访问与解构，并逐一验证了四种读取形态。
-2. 前三批（入口界面、白天步骤序列化、首夜系统步骤）我只跑了测试与 lint、没跑架构守门，
-   连续把五个文件推过行数预算。已按职责拆分修回，不放宽任何预算。
+### 本轮发现的既存问题
+
+1. 本文件有 33 处正文被截断（见 GRIMOIRE_DESIGN_RECOVERED_PASSAGES.md）。
+2. 测试套件在 Node ≥ 26 上 55 条全红，原因是 Node 的实验性全局 localStorage
+   顶掉了 jsdom 那份。已在 src/test/setup.ts 修好。
+3. `audit:public` 在没有 ripgrep 的机器上直接抛 ENOENT 堆栈，既没扫描也没有可读的
+   失败信息——而调用者很容易把「崩了」当成「没扫出问题」。已加 Node 兜底。
 
 ---
 
