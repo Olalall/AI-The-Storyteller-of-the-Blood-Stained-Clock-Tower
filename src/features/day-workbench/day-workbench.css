@@ -235,3 +235,18 @@
   .public-timer-focus__actions { align-items: stretch; flex-direction: column; width: min(360px, 100%); }
   .public-timer-focus__actions .ui-button { width: 100%; }
 }
+
+/* 白天步骤序列：同一时刻只展开一步，其余折成可点摘要条。 */
+.day-step-row { width: 100%; min-height: var(--touch-min); padding: 0 var(--space-14); display: flex; align-items: center; gap: var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-soft); color: var(--text-muted); font: 700 var(--type-label) var(--font-body); text-align: left; cursor: pointer; }
+.day-step-row:hover:not(:disabled) { border-color: var(--accent-border); color: var(--text-body); }
+.day-step-row:disabled { opacity: .55; cursor: not-allowed; }
+.day-step-row__index { flex: none; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--border-strong); font-size: var(--type-meta); }
+.day-step-row.is-done .day-step-row__index { border-color: var(--success-border); color: var(--success-text); }
+.day-step-row.is-done .day-step-row__index svg { width: 13px; }
+.day-step-row__title { flex: none; color: var(--text-strong); font-weight: 800; }
+.day-step-row__summary { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.day-step-row__pencil { flex: none; width: 14px; color: var(--text-subtle); }
+
+.day-action-bar { width: min(1060px, 100%); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
+.day-action-bar__hint { min-width: 0; color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; }
+.day-action-bar__pair { display: flex; gap: var(--space-8); }
