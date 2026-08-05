@@ -36,7 +36,14 @@ const ORDER: readonly PhaseNodeId[] = ['dusk', 'night', 'dawn', 'day', 'vote', '
  * 刻意不做成单一线性指针：昼夜记录段合同允许一个白天段与一个夜晚段同时开放，
  * 好让说书人按现场情况自由补记；把它压成一个指针会逼着界面说谎。
  */
-export function projectPhaseTrack(session: GameSessionState): readonly PhaseTrackNode[] {
+export function projectPhaseTrack(
+  session: GameSessionState,
+  /**
+   * 主持台当前停在哪一节。黄昏与黎明没有对应的记录段，只看 session 无法区分
+   * 「刚关完夜、正站在黎明播报卡上」与「什么都没开、该进下一个黄昏」。
+   */
+  activeNode?: PhaseNodeId,
+): readonly PhaseTrackNode[] {
   const openNight = session.phaseSegments.find((segment) => segment.kind === 'night' && !segment.closedAt)
   const openDay = session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)
   const anyNight = session.phaseSegments.some((segment) => segment.kind === 'night')
@@ -71,6 +78,12 @@ export function projectPhaseTrack(session: GameSessionState): readonly PhaseTrac
   } else if (anyDay || anyNight) {
     // 没有开放段：下一步是进入下一个黄昏。
     status.dusk = 'suggest'
+  }
+
+  // 交接卡所在的那一节由主持台说了算：它是真的停在那里，不是推测。
+  if (activeNode === 'dusk' || activeNode === 'dawn') {
+    for (const id of ORDER) if (status[id] === 'suggest') status[id] = 'idle'
+    status[activeNode] = 'open'
   }
 
   return ORDER.map((id) => ({

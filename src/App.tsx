@@ -74,7 +74,7 @@ function App() {
         rail={view === 'deck' && (deckNode === 'night' || deckNode === 'day') ? <SessionRail session={session} onOpenPlayerStatus={setPlayerStatusSeatId} /> : undefined}
         phaseTrack={(
           <PhaseTrack
-            nodes={projectPhaseTrack(session)}
+            nodes={projectPhaseTrack(session, view === 'deck' ? deckNode : undefined)}
             actions={(
               <>
                 <Button variant="ghost" compact onClick={() => { setGameEndMode('review'); setGameEndOpen(true) }}>
