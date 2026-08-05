@@ -21,6 +21,14 @@ export interface RingSeat {
   /** token 左上角坐标；定位的是元素而不是圆心。 */
   x: number
   y: number
+  /**
+   * 这一座的卫星弧要不要翻到内侧。
+   *
+   * 逐座位判断而不是全局一刀切：环左右两端的座位朝外就会伸出舞台，
+   * 而十二点、六点方向的座位朝外完全够用。全局翻转会让本来好好的那些
+   * 也一起挤到内圈去，白白让出外面的空间。
+   */
+  satelliteInside: boolean
 }
 
 export interface RingLayout {
@@ -43,8 +51,23 @@ const PAD_Y = 12
 const MAX_AXIS_RATIO = 1.45
 /** 相邻 token 之间至少留出的空隙。 */
 const MIN_GAP = 28
-/** 卫星标记翻到内侧的阈值。 */
+/** 卫星标记因为「外圈挤」而翻到内侧的阈值。 */
 const SATELLITE_FLIP_GAP = 40
+/**
+ * 卫星弧上可能出现的最大一枚 chip 的直径。
+ *
+ * 平时是 22–28px 的状态点，但白天计票时死亡座位会长出一枚 44px 的「死亡票」
+ * 二次确认 chip——幽灵票一局只有一张、按下去不可逆，所以它要足够大到不会点错。
+ * 布局必须按这个上限预留，否则那一枚会在最需要它的时候伸出舞台被裁掉。
+ */
+export const SATELLITE_MAX_CHIP = 44
+/** chip 与 token 之间的呼吸量。与 satelliteArc 里的 CHIP_GAP 是同一个数。 */
+const SATELLITE_CHIP_GAP = 4
+
+/** 一枚 chip 从 token 边缘再向外伸多远。 */
+export function satelliteReach(chipSize = SATELLITE_MAX_CHIP): number {
+  return chipSize + SATELLITE_CHIP_GAP
+}
 
 const SIZE_TIERS = [96, 84, 72, 64] as const
 
@@ -91,13 +114,22 @@ export function solveRingLayout({
     const pitch = ellipseCircumference(radiusX, radiusY) / seatCount
     if (pitch - tokenSize < MIN_GAP) continue
 
+    const crowded = pitch - tokenSize < SATELLITE_FLIP_GAP
+    const reach = satelliteReach()
     const seats = Array.from({ length: seatCount }, (_value, seatIndex) => {
       // y 轴向下，所以 θ 递增即顺时针——与说书人站圈中央顺时针唱票一致。
       const theta = ((-90 + startOffset + (360 / seatCount) * seatIndex) * Math.PI) / 180
+      const tokenCenterX = centerX + radiusX * Math.cos(theta)
+      const tokenCenterY = centerY + radiusY * Math.sin(theta)
+      // 最大一枚 chip 朝外时的外沿；越界就把这一座翻进内侧。
+      const outwardX = tokenCenterX + Math.cos(theta) * (tokenSize / 2 + reach)
+      const outwardY = tokenCenterY + Math.sin(theta) * (tokenSize / 2 + reach)
+      const wouldClip = outwardX < 0 || outwardY < 0 || outwardX > stageWidth || outwardY > stageHeight
       return {
         seatIndex,
-        x: centerX + radiusX * Math.cos(theta) - tokenSize / 2,
-        y: centerY + radiusY * Math.sin(theta) - tokenSize / 2,
+        x: tokenCenterX - tokenSize / 2,
+        y: tokenCenterY - tokenSize / 2,
+        satelliteInside: crowded || wouldClip,
       }
     })
     return {
@@ -109,7 +141,7 @@ export function solveRingLayout({
       centerX,
       centerY,
       seats,
-      satelliteInside: pitch - tokenSize < SATELLITE_FLIP_GAP,
+      satelliteInside: crowded,
     }
   }
 

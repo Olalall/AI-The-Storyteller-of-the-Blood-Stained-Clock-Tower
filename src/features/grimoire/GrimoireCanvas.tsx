@@ -117,7 +117,7 @@ export function GrimoireCanvas({
                     centerY={place.y + layout.tokenSize / 2}
                     tokenSize={layout.tokenSize}
                     radialAngle={radialAngleFor(index, seats.length, startOffset)}
-                    satelliteInside={layout.satelliteInside}
+                    satelliteInside={place.satelliteInside}
                     selected={selected.has(seat.seatId)}
                     actionHint={actionHint}
                     onSelect={onSelectSeat}

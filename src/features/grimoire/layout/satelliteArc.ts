@@ -5,7 +5,7 @@
  * 若允许拖拽并持久化坐标，标记归属就有两个真值（按坐标就近算 vs 按 seatId 记），
  * 不一致时无法判定谁对——那正是实体魔典最容易出错、而工具最该消灭的一类歧义。
  */
-import { satelliteChipSize } from './ellipseRing'
+import { SATELLITE_MAX_CHIP, satelliteChipSize } from './ellipseRing'
 
 /** 卫星弧张角。再宽就会蹭到相邻座位。 */
 export const SATELLITE_ARC_DEGREES = 88
@@ -54,6 +54,24 @@ export function satellitePlacements({
     const theta = start + step * index
     return { dx: radius * Math.cos(theta), dy: radius * Math.sin(theta), size }
   })
+}
+
+/**
+ * 白天计票时死亡座位上的那一枚「死亡票」二次确认 chip。
+ *
+ * 它**独占**整条卫星弧而不是挤进 22–28px 的状态点序列：幽灵票一局只有一张、
+ * 按下去不可逆，此刻屏幕上不该再有别的东西跟它抢手指。
+ * 独占也正是它能做到 44px 的原因——不用和另外两枚分 88°，就只有径向那一个方向。
+ */
+export function confirmationChipPlacement(
+  tokenSize: number,
+  radialAngle: number,
+  inside: boolean,
+): SatellitePlacement {
+  const size = SATELLITE_MAX_CHIP
+  const radius = tokenSize / 2 + size / 2 + CHIP_GAP
+  const theta = inside ? radialAngle + Math.PI : radialAngle
+  return { dx: radius * Math.cos(theta), dy: radius * Math.sin(theta), size }
 }
 
 /** 超出 MAX_VISIBLE_SATELLITES 时最后一枚变成 +N；返回实际要画的 chip 数与折叠掉的枚数。 */

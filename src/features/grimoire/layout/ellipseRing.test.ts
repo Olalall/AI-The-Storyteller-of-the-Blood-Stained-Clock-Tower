@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import {
+  SATELLITE_MAX_CHIP,
   ellipseCircumference,
   satelliteChipSize,
   solveRingLayout,
   tokenSizeTierForSeatCount,
+  type RingSeat,
 } from './ellipseRing'
 
 /** 可用舞台（已扣掉 48px 轨道与抽屉 peek 档）。Mac 是宽而矮，iPad 竖屏是窄而高。 */
@@ -137,5 +139,83 @@ describe('辅助计算', () => {
   it('keeps satellite chips inside the 22–28px band', () => {
     expect(satelliteChipSize(64)).toBeGreaterThanOrEqual(22)
     expect(satelliteChipSize(96)).toBeLessThanOrEqual(28)
+  })
+})
+
+describe('卫星 chip 不出界、不压邻座', () => {
+  const STAGES = [
+    ['iPad竖', 820, 900], ['iPad横', 1180, 620],
+    ['MacAir', 1440, 700], ['Mac14', 1512, 780], ['Mac16', 1728, 900],
+  ] as const
+  const COUNTS = [7, 12, 15, 20]
+
+  /** 最大一枚 chip 的外沿相对 token 圆心的位置。 */
+  function chipEdge(layout: ReturnType<typeof solveRingLayout>, seat: RingSeat, chip: number) {
+    const cx = seat.x + layout.tokenSize / 2
+    const cy = seat.y + layout.tokenSize / 2
+    const theta = Math.atan2(cy - layout.centerY, cx - layout.centerX)
+    const dir = seat.satelliteInside ? theta + Math.PI : theta
+    const reach = layout.tokenSize / 2 + chip + 4
+    return { x: cx + Math.cos(dir) * reach, y: cy + Math.sin(dir) * reach, cx, cy }
+  }
+
+  it('keeps the largest chip inside the stage at every seat', () => {
+    // 这条以前不存在，所以 28px 的状态点其实一直在左右两端伸出舞台被裁掉——
+    // 旧测试只检查 token 在界内，chip 无人过问。
+    for (const [name, w, h] of STAGES) {
+      for (const seatCount of COUNTS) {
+        const layout = solveRingLayout({ seatCount, stageWidth: w, stageHeight: h })
+        if (layout.mode !== 'ring') continue
+        for (const seat of layout.seats) {
+          const edge = chipEdge(layout, seat, SATELLITE_MAX_CHIP)
+          const where = `${name} ${seatCount}人 第${seat.seatIndex}位`
+          expect(edge.x, where).toBeGreaterThanOrEqual(0)
+          expect(edge.y, where).toBeGreaterThanOrEqual(0)
+          expect(edge.x, where).toBeLessThanOrEqual(w)
+          expect(edge.y, where).toBeLessThanOrEqual(h)
+        }
+      }
+    }
+  })
+
+  it('never lets the largest chip reach into a neighbouring token', () => {
+    for (const [name, w, h] of STAGES) {
+      for (const seatCount of COUNTS) {
+        const layout = solveRingLayout({ seatCount, stageWidth: w, stageHeight: h })
+        if (layout.mode !== 'ring') continue
+        for (const seat of layout.seats) {
+          const edge = chipEdge(layout, seat, SATELLITE_MAX_CHIP)
+          for (const other of layout.seats) {
+            if (other.seatIndex === seat.seatIndex) continue
+            const ox = other.x + layout.tokenSize / 2
+            const oy = other.y + layout.tokenSize / 2
+            expect(
+              Math.hypot(edge.x - ox, edge.y - oy),
+              `${name} ${seatCount}人 第${seat.seatIndex}位的 chip 压到了第${other.seatIndex}位`,
+            ).toBeGreaterThan(layout.tokenSize / 2)
+          }
+        }
+      }
+    }
+  })
+
+  it('flips only the seats that would otherwise clip, not the whole ring', () => {
+    // 全局一刀切会让十二点、六点方向本来够用的座位也一起挤进内圈，白白让出外面的空间。
+    const layout = solveRingLayout({ seatCount: 12, stageWidth: 1180, stageHeight: 620 })
+    const flipped = layout.seats.filter((seat) => seat.satelliteInside).length
+
+    expect(flipped).toBeGreaterThan(0)
+    expect(flipped).toBeLessThan(layout.seats.length)
+  })
+
+  it('still fits the largest chip without dropping a token tier', () => {
+    // 代价检验：按面积一刀切预留 48px 会让 iPad 横屏 20 人直接退化成网格。
+    for (const [, w, h] of STAGES) {
+      for (const seatCount of COUNTS) {
+        const layout = solveRingLayout({ seatCount, stageWidth: w, stageHeight: h })
+        expect(layout.mode).toBe('ring')
+        expect(layout.tokenSize).toBe(tokenSizeTierForSeatCount(seatCount))
+      }
+    }
   })
 })
