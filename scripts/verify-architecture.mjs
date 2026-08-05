@@ -216,11 +216,15 @@ const rules = [
     docSection: '「模式字段的归属（作者已拍板）」：记录它发生过，但永不让它成为分支条件',
     applies: (file) => /^src\/features\/[^/]+\/state\/.*\.(ts|tsx)$/.test(file) && !/\.test\./.test(file),
     detect: (line) => {
-      if (!/hostingMode/.test(line)) return null
-      // 唯一允许的写入点：set-hosting-mode 分支本身。
-      if (/set-hosting-mode/.test(line)) return null
-      if (/hostingMode\??:/.test(line)) return null
-      if (/hostingModeHistory/.test(line)) return null
+      // 说明性文字必须能写出这个字段名——否则规则会逼着作者不去解释它为什么存在。
+      if (/^\s*(\/\/|\/\*|\*)/.test(line)) return null
+      // 查的是「读」，不是「字段名出现」：
+      //   写入 `hostingMode: action.mode` 是留痕，它就发生在唯一的写入点里；
+      //   读取 `state.hostingMode` 才是模式即将变成分支条件的那一步。
+      // History 单独放行：归档要按时间轴回放模式变更，那是展示不是分支。
+      const readsField = /[.?]\s*hostingMode\b(?!History)/.test(line)
+      const destructures = /\b(?:const|let|var)\s*\{[^}]*\bhostingMode\b(?!History)/.test(line)
+      if (!readsField && !destructures) return null
       return 'state 目录读取了 hostingMode——模式一旦成为行为分支，两套数据模型就会长出来'
     },
     fix: 'hostingMode 只是出处元数据。视图层可按它选渲染组件，归档/复盘与 AI 上下文可读它做展示，但 reducer 一律不得读；需要差异化行为时请把差异做成显式 action 或 props。',

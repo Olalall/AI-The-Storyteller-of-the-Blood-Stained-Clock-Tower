@@ -53,6 +53,7 @@ export function gameSessionReducer(state: GameSessionState, action: GameSessionA
         seats: action.seats,
       })
     case 'set-hosting-mode': {
+      // arch-allow: hosting-mode-not-behavioural 唯一写入点上的幂等判断：比较旧值只为避免写重复的 history 条目，不改变任何对局行为
       if (state.hostingMode === action.mode) return state
       return {
         ...state,

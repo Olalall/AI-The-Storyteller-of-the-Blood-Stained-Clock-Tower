@@ -1,0 +1,73 @@
+/* 核的定位由 solveRingLayout 的中心与半轴推出（见 coreBoxForRing），CSS 只负责内部排布。 */
+.grimoire-core {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-12);
+  overflow: hidden;
+  /* 与行内 pointer-events: none 同义，双写是为了让「不可点」在样式表里也读得出来。 */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 环退化为网格时核不再绝对定位，跟随正常流排在列表上方。 */
+.grimoire-core--flow {
+  position: static;
+  width: 100%;
+}
+
+.grimoire-core__stats {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: var(--space-8) var(--space-12);
+}
+
+.grimoire-core__stat {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.grimoire-core__stat-label {
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+  white-space: nowrap;
+}
+
+.grimoire-core__stat-value {
+  margin: 0;
+  color: var(--text-strong);
+  font: 800 var(--type-section) var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 无数据源时的「—」压到弱色：它是「没人录过」，不是数字 0。 */
+.grimoire-core__stat-value[data-empty='true'] {
+  color: var(--text-subtle);
+}
+
+/* 门槛是核里唯一需要一眼抓住的数字，用暖金焦点色。 */
+.grimoire-core__stat--threshold .grimoire-core__stat-value {
+  color: var(--accent-text);
+}
+
+.grimoire-core__note {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  color: var(--info-text);
+  font-size: var(--type-meta);
+  line-height: var(--line-body);
+}
+
+/* Mac 宽而矮：高度是瓶颈，先收内部间距，五个数字与说明行都不隐藏。 */
+@media (max-height: 900px) {
+  .grimoire-core {
+    gap: var(--space-8);
+  }
+}
