@@ -41,6 +41,7 @@ const localStorageKeyAllowlist = [
   { key: 'botc-copilot-session-snapshot-v1', owner: 'src/services/session/snapshotRotation.ts', why: '耐久性闸门：快照槽前缀，实际 key 追加槽号' },
   { key: 'botc-copilot-session-snapshot-v1-index', owner: 'src/services/session/snapshotRotation.ts', why: '耐久性闸门：快照索引。它不是第二份真值，主副本始终权威' },
   { key: 'botc-copilot-session-lock-v1', owner: 'src/services/session/instanceLock.ts', why: '耐久性闸门：单实例锁，防第二个标签页整份覆盖存档' },
+  { key: 'botc-copilot-hosting-preferences-v1', owner: 'src/services/settings/hostingPreferences.ts', why: '新局默认模式偏好。只是初值来源，运行时真值永远是 session.hostingMode' },
 ]
 const allowedStorageKeys = new Set(localStorageKeyAllowlist.map((entry) => entry.key))
 
@@ -213,6 +214,22 @@ const rules = [
       return null
     },
     fix: 'AI 结果只能由组件层取到后作为 action payload 传进 reducer（参考 nightWorkbenchReducer 的 apply-ai-advice），state 目录不得反向依赖 services/ai。',
+  },
+  {
+    id: 'hosting-preferences-not-runtime',
+    docSection: '「模式归属：每局冻结 + 全局默认」：运行时任何地方读模式都只读 session.hostingMode，不读偏好',
+    // 偏好文件自身、它的测试、以及 App 层建局处除外。
+    applies: (file) => /^src\/.*\.(ts|tsx)$/.test(file)
+      && !/^src\/services\/settings\/hostingPreferences\./.test(file)
+      && !/^src\/app\//.test(file),
+    detect: (line, { file }) => {
+      const specifier = importSpecifierOf(line)
+      if (!specifier) return null
+      const target = resolveSpecifier(file, specifier) ?? specifier
+      if (!/hostingPreferences/.test(target)) return null
+      return '这里 import 了 hostingPreferences——偏好只是新局初值来源，读它做运行时判断会让「这一局是什么模式」出现第二个真相源'
+    },
+    fix: '运行时读模式一律用 session.hostingMode。需要默认值时，让 App 层在建局那一次把它作为参数传下来。',
   },
   {
     id: 'hosting-mode-not-behavioural',

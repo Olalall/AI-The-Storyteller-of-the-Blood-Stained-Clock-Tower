@@ -1,15 +1,13 @@
-// arch-allow: state-no-ai-import 遗留同步路径 use-ai-result 由 reducer 直接取建议，倒置依赖会改变可见行为，待主控决定去留
-import { createNightResultAdvice as createPrototypeNightResultAdvice } from '../../../services/ai'
+/**
+ * AI 建议进入草稿前的校验。
+ *
+ * 这里刻意**不** import services/ai：建议由组件层取到后作为 action payload 传进来，
+ * reducer 只负责判断这条建议是否仍然适用于当前这一刻的草稿。
+ * 反过来（reducer 自己去取）会让「同一个 state 输入必然得到同一个输出」这条不再成立，
+ * 而那正是整个事件溯源模型的地基。
+ */
 import type { AIResultAdvice, NightWorkbenchState, WakeDraft, WakeItem } from '../types'
 import { applyAIOutcome } from './projectWakeDraft'
-
-export function createAIResultAdvice(
-  state: NightWorkbenchState,
-  item: WakeItem,
-  draft: WakeDraft,
-): AIResultAdvice | null {
-  return createPrototypeNightResultAdvice({ state, item, draft })
-}
 
 export function applyAIResultAdvice(
   state: NightWorkbenchState,

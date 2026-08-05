@@ -1,8 +1,14 @@
+/**
+ * 取 AI 夜间结果建议。
+ *
+ * 它住在 hooks/ 而不是 state/：state/ 下不许 import services/ai，
+ * 因为 reducer 一旦能自己去取建议，就不再是纯函数，归档也不再能忠实回放。
+ * 这里取到之后作为 action payload 交给 reducer，方向是单向的。
+ */
 import { useCallback, useState } from 'react'
-// arch-allow: state-no-ai-import 这是组件层 hook，误落在 state/ 目录；搬家会动 NightWorkbench 的 import，留给主控排期
 import { createNightResultAdviceAsync } from '../../../services/ai'
 import type { NightWorkbenchState, WakeDraft, WakeItem } from '../types'
-import type { NightWorkbenchAction } from './nightWorkbenchReducer'
+import type { NightWorkbenchAction } from '../state/nightWorkbenchReducer'
 
 export function useNightAIAdvice() {
   const [loadingItemId, setLoadingItemId] = useState<string | null>(null)

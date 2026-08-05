@@ -1,5 +1,5 @@
 import type { AIResultAdvice, NightWorkbenchState, RoleChangeReason, RoleSnapshot, WakeDraft, WakeItem } from '../types'
-import { applyAIResultAdvice, createAIResultAdvice } from './aiResultAdvice'
+import { applyAIResultAdvice } from './aiResultAdvice'
 import { applyDefaultOutcome, applyOutcome, emptyWakeDraft, invalidateOutcome } from './projectWakeDraft'
 import { advanceFrom, updatePreviewDraft } from './nightWorkbenchDrafts'
 import { appendRoleChange } from './roleChanges'
@@ -24,7 +24,6 @@ export type NightWorkbenchAction =
   | { type: 'toggle-privacy' }
   | { type: 'set-privacy'; shielded: boolean }
   | { type: 'toggle-dim' }
-  | { type: 'use-ai-result' }
   | { type: 'apply-ai-advice'; advice: AIResultAdvice | null }
   | { type: 'change-role'; role: RoleSnapshot; reason: RoleChangeReason }
   | { type: 'clear-draft' }
@@ -208,13 +207,6 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       return state.privacyShielded === action.shielded ? state : { ...state, privacyShielded: action.shielded }
     case 'toggle-dim':
       return { ...state, dimmed: !state.dimmed }
-    case 'use-ai-result': {
-      const item = state.queue.find((entry) => entry.id === state.previewEntryId)
-      if (!item || !canEditItem(state, item)) return state
-      const draft = state.drafts[item.id] ?? emptyWakeDraft()
-      const advice = createAIResultAdvice(state, item, draft)
-      return applyAIAdviceToState(state, item, draft, advice)
-    }
     case 'apply-ai-advice': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
       if (!item || !canEditItem(state, item)) return state
