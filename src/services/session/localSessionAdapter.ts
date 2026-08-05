@@ -1,5 +1,5 @@
 import {
-  createPrototypeGameSession,
+  createEmptyGameSession,
   createPrototypeGameSessionFromLegacyNight,
   gameSessionStorageKey,
 } from '../../features/game-session/data/createPrototypeSession'
@@ -159,7 +159,7 @@ export function loadGameSessionOutcome(): SessionLoadOutcome {
   try {
     stored = window.localStorage.getItem(gameSessionStorageKey)
   } catch {
-    return { kind: 'fresh', session: createPrototypeGameSession() }
+    return { kind: 'fresh', session: createEmptyGameSession() }
   }
 
   if (stored) {
@@ -168,13 +168,13 @@ export function loadGameSessionOutcome(): SessionLoadOutcome {
       if (isSession(parsed)) return { kind: 'restored', session: normalizeSession(parsed) }
       return {
         kind: 'unreadable',
-        session: createPrototypeGameSession(),
+        session: createEmptyGameSession(),
         recovery: backupUnreadableSession(stored, 'invalid'),
       }
     } catch {
       return {
         kind: 'unreadable',
-        session: createPrototypeGameSession(),
+        session: createEmptyGameSession(),
         recovery: backupUnreadableSession(stored, 'parse-error'),
       }
     }
@@ -195,7 +195,10 @@ export function loadGameSessionOutcome(): SessionLoadOutcome {
     // 旧夜间快照读不出不影响开新局；它不是权威存档，且既有约定是不删除无效旧快照。
   }
 
-  return { kind: 'fresh', session: createPrototypeGameSession() }
+  // 首次运行给一局空对局，让说书人从入口界面开始。
+  // createPrototypeGameSession 是开发夹具（12人瓦釜雷鸣，冻结在第3夜），
+  // 把它当默认落地页会让新用户以为工具里已经有一局在进行。
+  return { kind: 'fresh', session: createEmptyGameSession() }
 }
 
 export function loadGameSession(): GameSessionState {

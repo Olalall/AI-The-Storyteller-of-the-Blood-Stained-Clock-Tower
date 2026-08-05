@@ -17,6 +17,8 @@ interface TimelineEntryLike {
 
 
 /** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
+
+
 async function openArchive(page: Page) {
   const enter = page.getByRole('button', { name: '本局', exact: true })
   if (await enter.isVisible().catch(() => false)) await enter.click()

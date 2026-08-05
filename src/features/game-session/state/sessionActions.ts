@@ -1,3 +1,4 @@
+import type { GameSessionState } from '../types'
 import type {
   ScriptId,
 } from '../../../domain/scripts'
@@ -112,3 +113,5 @@ export type GameSessionAction =
     seats?: readonly { seatId: number; nickname?: string; experience?: PlayerExperience | null }[]
   }
   | { type: 'reset-session' }
+  /** 整局替换。只用于「载入示例对局」这类显式动作，不用于任何自动流程。 */
+  | { type: 'replace-session'; session: GameSessionState }

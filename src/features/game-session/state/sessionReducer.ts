@@ -54,5 +54,7 @@ export function gameSessionReducer(state: GameSessionState, action: GameSessionA
       })
     case 'reset-session':
       return createEmptyGameSession()
+    case 'replace-session':
+      return action.session
   }
 }

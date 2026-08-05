@@ -1,7 +1,14 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
 
 /** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
+
+/** 默认落地是空对局的入口界面；用例依赖的中局夹具需要显式载入。 */
+async function loadDemoSession(page: Page) {
+  const demo = page.getByRole('button', { name: /载入示例对局/ })
+  if (await demo.isVisible().catch(() => false)) await demo.click()
+}
+
 async function openArchive(page: import('@playwright/test').Page) {
   const back = page.getByRole('button', { name: '本局', exact: true })
   if (await back.isVisible().catch(() => false)) await back.click()
@@ -13,6 +20,7 @@ async function resetToDashboard(page: import('@playwright/test').Page) {
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
   await openArchive(page)
 }
 
@@ -72,6 +80,7 @@ test('dashboard keeps day and night as peer entries and only records day facts a
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.getByRole('button', { name: '暂停私聊倒计时' })).toBeVisible()
   await page.reload()
+  await loadDemoSession(page)
   await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.getByRole('button', { name: '暂停私聊倒计时' })).toBeVisible()
@@ -275,6 +284,7 @@ test('an unrecorded vote survives returning to the dashboard and must be explici
   await expect(page.getByText('本轮票型已暂存')).toBeVisible()
   await page.getByRole('button', { name: '返回本局', exact: true }).last().click()
   await page.reload()
+  await loadDemoSession(page)
   await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.getByRole('tab', { name: '提名人 · 1号' })).toBeVisible()
@@ -314,6 +324,7 @@ test('an unconfirmed day skill survives returning to the dashboard without creat
   await openArchive(page)
 
   await page.reload()
+  await loadDemoSession(page)
   await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await page.getByRole('button', { name: '记技能/事件' }).click()
@@ -329,6 +340,7 @@ test('day timer stays touchable in a narrow split view', async ({ page }) => {
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
   await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
 
@@ -431,6 +443,7 @@ test('journal filters stay touchable in a narrow split view', async ({ page }) =
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
   await openArchive(page)
   await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await expect(page.getByRole('dialog', { name: '日记' })).toBeVisible()
