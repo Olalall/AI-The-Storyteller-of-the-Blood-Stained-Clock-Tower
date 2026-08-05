@@ -125,5 +125,5 @@ test('game end prototype saves an archive and opens AI historical review', async
   const roleBySeat = new Map(setupEntry.setup.draft.assignments.map((assignment: { seatId: number; role: { id: string } }) => [assignment.seatId, assignment.role.id]))
   expect(run.phaseSegmentId).toBe(nightState.phaseSegments.find((segment: { kind: string }) => segment.kind === 'night').id)
   expect(run.queue.length).toBeGreaterThan(0)
-  expect(run.queue.every((item: { seatId: number; roleId: string }) => roleBySeat.get(item.seatId) === item.roleId)).toBe(true)
+  expect(run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep).every((item: { seatId: number; roleId: string }) => roleBySeat.get(item.seatId) === item.roleId)).toBe(true)
 })

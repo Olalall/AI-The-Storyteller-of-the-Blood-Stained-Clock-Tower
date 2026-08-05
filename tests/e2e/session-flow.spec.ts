@@ -289,8 +289,9 @@ test('an unrecorded vote survives returning to the dashboard and must be explici
   await loadDemoSession(page)
   await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
-  await expect(page.getByRole('tab', { name: '提名人 · 1号' })).toBeVisible()
-  await expect(page.getByRole('tab', { name: '被提名人 · 4号' })).toBeVisible()
+  // 提名已完成，该步折叠为摘要条；草稿仍在。
+  await expect(page.getByRole('button', { name: '回到步骤1：提名' })).toContainText('1号提名')
+  await expect(page.getByRole('button', { name: '回到步骤1：提名' })).toContainText('4号')
 
   await page.getByRole('button', { name: '结束今天' }).click()
   await expect(page.getByText('本轮票型已暂存')).toBeVisible()

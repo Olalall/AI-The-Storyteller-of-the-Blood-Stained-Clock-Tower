@@ -1,11 +1,20 @@
-import { AlertTriangle, BookOpenText, History, ShieldCheck, Sparkles } from 'lucide-react'
+import { AlertTriangle, BookOpenText, Check, History, ListChecks, ShieldCheck, Sparkles } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
 import { SeatButton } from '../../../components/ui/SeatButton'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { DayFactsBar } from './DayFactsBar'
 import { shouldShowDayFacts, type DayFacts } from '../../game-session/state/projectDayFacts'
 import { outcomeReady } from '../state/projectWakeDraft'
-import type { AIResultAdvice, OutcomeResolutionHint, PlayerStatusSnapshot, RoleChangeEvent, WakeDraft, WakeItem } from '../types'
+import { systemStepBluffs, systemStepChecks } from '../state/systemSteps'
+import type {
+  AIResultAdvice,
+  OutcomeResolutionHint,
+  PlayerStatusSnapshot,
+  RoleChangeEvent,
+  SystemStepSpec,
+  WakeDraft,
+  WakeItem,
+} from '../types'
 import { PlayerStatusBar } from './PlayerStatusBar'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
 
@@ -31,6 +40,8 @@ interface CurrentWakeCardProps {
   onUnshield: () => void
   onTarget: (seat: number) => void
   onRoleChoice: (roleId: string) => void
+  onSystemCheck: (checkId: string) => void
+  onSystemBluff: (roleId: string) => void
   onOutcome: (outcomeId: string) => void
   onUseAI: () => void
   onChangeRole: () => void
@@ -60,6 +71,8 @@ export function CurrentWakeCard({
   onUnshield,
   onTarget,
   onRoleChoice,
+  onSystemCheck,
+  onSystemBluff,
   onOutcome,
   onUseAI,
   onChangeRole,
@@ -94,16 +107,29 @@ export function CurrentWakeCard({
 
   return (
     <section className="wake-workspace">
-      <PlayerStatusBar
-        playerLabel={item.playerLabel}
-        status={playerStatus}
-        queuedRoleName={roleChange ? item.roleName : undefined}
-        canChangeRole={canChangeRole}
-        onChangeRole={onChangeRole}
-      />
+      {item.systemStep ? (
+        // 系统步骤没有单一玩家，套一条「某某状态」的状态栏会把第一名爪牙的生死当成整步的状态。
+        <SystemStepRoster step={item.systemStep} />
+      ) : (
+        <PlayerStatusBar
+          playerLabel={item.playerLabel}
+          status={playerStatus}
+          queuedRoleName={roleChange ? item.roleName : undefined}
+          canChangeRole={canChangeRole}
+          onChangeRole={onChangeRole}
+        />
+      )}
       <div className="wake-facts">
-        <div className="section-kicker"><BookOpenText aria-hidden="true" />{roleChange ? `角色能力 · ${item.roleName}` : '角色能力'}</div>
+        <div className="section-kicker">
+          <BookOpenText aria-hidden="true" />
+          {item.systemStep ? `步骤说明 · ${item.roleName}` : roleChange ? `角色能力 · ${item.roleName}` : '角色能力'}
+        </div>
         <p>{item.ability}</p>
+        {item.systemStep ? (
+          <p className="system-step-tokens">
+            出示信息标记：{item.systemStep.infoTokens.map((token) => `「${token}」`).join(' → ')}
+          </p>
+        ) : null}
         {item.applicability === 'needs_review' ? <StatusBadge tone="warning">需要核对</StatusBadge> : null}
         {item.reason ? (
           <div className="inline-warning"><AlertTriangle aria-hidden="true" />{item.reason}</div>
@@ -141,6 +167,16 @@ export function CurrentWakeCard({
             {canClearDraft ? <Button variant="ghost" compact onClick={onClearDraft}>清空重选</Button> : null}
           </div>
         </div>
+
+        {item.systemStep ? (
+          <SystemStepFields
+            step={item.systemStep}
+            draft={draft}
+            disabled={formDisabled}
+            onToggleCheck={onSystemCheck}
+            onToggleBluff={onSystemBluff}
+          />
+        ) : null}
 
         {item.targetCount > 0 ? (
           <fieldset disabled={formDisabled}>
@@ -253,6 +289,102 @@ export function CurrentWakeCard({
 
       </div>
     </section>
+  )
+}
+
+/** 首夜系统步骤的只读名单。名单不可点，多座位指认只在下方留勾选痕迹。 */
+function SystemStepRoster({ step }: { step: SystemStepSpec }) {
+  return (
+    <section className="system-step-roster" aria-label="本步骤名单">
+      <strong>名单</strong>
+      <dl>
+        <div>
+          <dt>爪牙</dt>
+          <dd>{step.minionLabels.join(' / ')}</dd>
+        </div>
+        <div>
+          <dt>恶魔</dt>
+          <dd>{step.demonLabel}</dd>
+        </div>
+      </dl>
+      <StatusBadge tone="neutral">只读 · 不自动结算</StatusBadge>
+    </section>
+  )
+}
+
+function SystemStepFields({
+  step,
+  draft,
+  disabled,
+  onToggleCheck,
+  onToggleBluff,
+}: {
+  step: SystemStepSpec
+  draft: WakeDraft
+  disabled: boolean
+  onToggleCheck: (checkId: string) => void
+  onToggleBluff: (roleId: string) => void
+}) {
+  const checked = systemStepChecks(draft)
+  const bluffs = systemStepBluffs(draft)
+
+  return (
+    <>
+      <fieldset disabled={disabled}>
+        <legend className="choice-legend">
+          <span>逐项确认</span>
+          <small>勾选后才能记录本步骤</small>
+        </legend>
+        <ul className="system-step-checks">
+          {step.checks.map((check) => (
+            <li key={check.id}>
+              <label className="system-step-check">
+                <input
+                  type="checkbox"
+                  checked={checked.includes(check.id)}
+                  onChange={() => onToggleCheck(check.id)}
+                />
+                <span>{check.label}</span>
+              </label>
+            </li>
+          ))}
+        </ul>
+      </fieldset>
+
+      {step.bluffChoices && step.bluffCount ? (
+        <fieldset disabled={disabled}>
+          <legend className="choice-legend">
+            <span>不在场善良角色</span>
+            <small>{bluffs.length}/{step.bluffCount} · 建议两镇民一外来者 · 仅记录不校验</small>
+          </legend>
+          <div className="choice-chips">
+            {step.bluffChoices.map((role) => {
+              const selected = bluffs.includes(role.id)
+              return (
+                <button
+                  key={role.id}
+                  type="button"
+                  className={selected ? 'choice-chip choice-chip--selected' : 'choice-chip'}
+                  onClick={() => onToggleBluff(role.id)}
+                  aria-pressed={selected}
+                  aria-label={`${role.label}（${role.teamLabel}${role.suggested ? ' · 配板预设' : ''}）${selected ? '，已选' : ''}`}
+                >
+                  {selected ? <Check aria-hidden="true" /> : null}
+                  <span>{role.label}</span>
+                  <small>{role.teamLabel}{role.suggested ? ' · 预设' : ''}</small>
+                </button>
+              )
+            })}
+          </div>
+          {bluffs.length === step.bluffCount ? (
+            <p className="system-step-bluff-summary">
+              <ListChecks aria-hidden="true" />
+              本夜给出：{bluffs.map((id) => step.bluffChoices?.find((role) => role.id === id)?.label ?? id).join('、')}
+            </p>
+          ) : null}
+        </fieldset>
+      ) : null}
+    </>
   )
 }
 

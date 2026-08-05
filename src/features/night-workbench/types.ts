@@ -107,6 +107,40 @@ export interface OutcomeResolutionHint {
   detail: string
 }
 
+/**
+ * 首夜开头的两个系统步骤：《规则概要》二.2(1)(2) 的「爪牙信息」与「恶魔信息」。
+ * 它们没有单一行动者，也没有可选目标——按评审裁决，多座位指认只做勾选清单，
+ * 名单一律是只读文案，不进 WakeDraft.targets，也不改 projectWakeDraft 的目标模型。
+ */
+export type SystemStepKind = 'minion_info' | 'demon_info'
+
+export interface SystemStepCheck {
+  id: string
+  label: string
+}
+
+export interface SystemStepBluffChoice extends WakeRoleChoice {
+  /** 「镇民」「外来者」；只用于展示，不参与校验。 */
+  teamLabel: string
+  /** 配板时预设过的三张伪装，只做提示。 */
+  suggested: boolean
+}
+
+export interface SystemStepSpec {
+  kind: SystemStepKind
+  /** 只读名单：本局全部爪牙座位。不建模为目标。 */
+  minionLabels: string[]
+  /** 只读：本局恶魔座位。 */
+  demonLabel: string
+  /** 要出示的信息标记文案，按出示顺序。 */
+  infoTokens: string[]
+  checks: SystemStepCheck[]
+  /** 仅恶魔信息：要展示的不在场善良角色张数。 */
+  bluffCount?: number
+  /** 仅恶魔信息：剧本角色减去在场角色后的善良角色。 */
+  bluffChoices?: SystemStepBluffChoice[]
+}
+
 export interface WakeItem {
   id: string
   orderIndex: number
@@ -130,6 +164,8 @@ export interface WakeItem {
   roleLabel?: string
   interactionVersion: string
   outcomeOptions: WakeOutcomeOption[]
+  /** 有值时本项是系统步骤卡，没有目标网格，也不参与换角与AI建议。 */
+  systemStep?: SystemStepSpec
 }
 
 export interface NightSeatSnapshot {
@@ -148,6 +184,10 @@ export interface WakeDraft {
   storytellerResult: string
   informationGiven: string
   outputSource?: DraftOutputSource
+  /** 系统步骤卡已勾选的确认项。旧记录没有这个字段，读取时一律按空数组处理。 */
+  systemChecks?: string[]
+  /** 恶魔信息卡本夜给出的不在场善良角色，按点击顺序。 */
+  bluffRoleIds?: string[]
   draftRevision: number
   updatedAt?: string
 }
@@ -189,6 +229,8 @@ export interface NightOrderListItem {
   progress?: WakeProgress
   applicability?: Applicability
   phaseMarker?: boolean
+  /** 系统步骤：没有单一座位，playerLabel 本身就是名单，遮蔽时必须整条替换。 */
+  systemStep?: boolean
 }
 
 export interface ConfirmedWakeRecord {

@@ -20,6 +20,9 @@ export function latestRoleChange(events: RoleChangeEvent[], seatId: number) {
 }
 
 export function currentRoleForItem(item: WakeItem, events: RoleChangeEvent[]) {
+  // 系统步骤卡挂在爪牙/恶魔座位上只是为了有个锚点；它不是那名玩家的角色，
+  // 换角事件不能把「爪牙信息」改名成新角色。
+  if (item.systemStep) return roleSnapshotFromWakeItem(item)
   return latestRoleChange(events, item.seatId)?.toRole ?? roleSnapshotFromWakeItem(item)
 }
 

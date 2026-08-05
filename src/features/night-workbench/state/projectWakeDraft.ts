@@ -1,4 +1,5 @@
 import type { AIAdviceReference, WakeDraft, WakeItem, WakeOutcomeOption } from '../types'
+import { bluffLabels, systemStepBluffs, systemStepChecks, systemStepMissingReason } from './systemSteps'
 
 const unresolvedToken = /\{[a-z]+\}/i
 
@@ -23,6 +24,16 @@ export function selectedRoleLabel(item: WakeItem, draft: WakeDraft) {
 }
 
 export function projectPlayerChoice(item: WakeItem, draft: WakeDraft) {
+  if (item.systemStep) {
+    const checked = systemStepChecks(draft)
+    const done = item.systemStep.checks.filter((check) => checked.includes(check.id)).map((check) => check.label)
+    const bluffs = bluffLabels(item.systemStep, draft)
+    return [
+      done.length ? `已确认：${done.join('、')}` : '',
+      bluffs ? `不在场善良角色：${bluffs}` : '',
+    ].filter(Boolean).join(' · ')
+  }
+
   const targets = targetText(draft.targets)
   const role = selectedRoleLabel(item, draft)
   const parts: string[] = []
@@ -37,13 +48,14 @@ function renderTemplate(template: string, item: WakeItem, draft: WakeDraft) {
   const targets = targetText(draft.targets)
   const role = selectedRoleLabel(item, draft)
   const values: Record<string, string> = {
-    actor: `${item.seatId}号${item.roleName}`,
+    actor: item.systemStep ? item.roleName : `${item.seatId}号${item.roleName}`,
     target: targets,
     targets,
     role,
+    bluffs: item.systemStep ? bluffLabels(item.systemStep, draft) : '',
   }
 
-  return template.replace(/\{(actor|target|targets|role)\}/g, (_, key: string) => values[key] ?? '')
+  return template.replace(/\{(actor|target|targets|role|bluffs)\}/g, (_, key: string) => values[key] ?? '')
 }
 
 /**
@@ -52,6 +64,9 @@ function renderTemplate(template: string, item: WakeItem, draft: WakeDraft) {
  * 一条没有对象的假记录，而它同样可确认、同样进本局记录。
  */
 export function wakeInputsSatisfied(item: WakeItem, draft: WakeDraft) {
+  // 系统步骤卡没有目标，但勾选清单和三张伪装同样是「这条记录成立的前提」：
+  // 少了它们写出来的就是一条没有内容的假记录。
+  if (item.systemStep && systemStepMissingReason(item, draft)) return false
   if (draft.targets.length < item.targetCount) return false
   return !item.roleChoices || Boolean(selectedRoleLabel(item, draft))
 }
@@ -67,6 +82,8 @@ export function outcomeReady(option: WakeOutcomeOption, item: WakeItem, draft: W
 /** 草稿是否已被动过。progress 上没有 'draft' 这个状态，判「有没有未确认的编辑」只能看内容。 */
 export function hasWakeDraftContent(draft: WakeDraft) {
   return draft.targets.length > 0 ||
+    systemStepChecks(draft).length > 0 ||
+    systemStepBluffs(draft).length > 0 ||
     Boolean(draft.roleChoice) ||
     Boolean(draft.outcomeId) ||
     Boolean(draft.storytellerResult.trim()) ||
