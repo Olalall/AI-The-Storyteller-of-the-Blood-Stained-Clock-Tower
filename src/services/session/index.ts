@@ -30,3 +30,4 @@ export {
   releaseLock,
 } from './instanceLock'
 export type { LockState } from './instanceLock'
+export { downloadTextFile, exportSessionJson, sessionExportFilename } from './exportSession'
