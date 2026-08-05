@@ -69,6 +69,53 @@
   text-align: center;
 }
 
+/*
+ * peek 档的占用者（确认条 / 倒计时横条）。
+ * 高度下限由 PEEK_SLOT_MIN_HEIGHT 行内写入——88px 是横条自己的高度，
+ * 与 peek 档的 96px 是两个不相干的量，不能在这里再写一遍把它们焊死。
+ */
+.work-drawer__peek-slot {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) max(var(--space-16), env(safe-area-inset-right)) var(--space-8) max(var(--space-16), env(safe-area-inset-left));
+  border-top: 1px solid var(--border);
+}
+
+/* 抽屉承接既有全屏页时的容器：补上 Sheet 头部原来给的页名与关闭键。 */
+.drawer-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  min-height: 0;
+}
+
+.drawer-page:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.drawer-page__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+  padding-top: var(--space-8);
+}
+
+.drawer-page__title {
+  margin: 0;
+  font-size: var(--type-section);
+  color: var(--text-strong);
+}
+
+.drawer-page__missing {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--type-body);
+}
+
 .work-drawer__body {
   flex: 1;
   min-height: 0;

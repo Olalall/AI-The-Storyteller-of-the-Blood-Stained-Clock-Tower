@@ -52,3 +52,31 @@ export function shiftDetent(detent: WorkDrawerDetent, step: number): WorkDrawerD
   const next = Math.min(WORK_DRAWER_DETENTS.length - 1, Math.max(0, index + step))
   return WORK_DRAWER_DETENTS[next]
 }
+
+/**
+ * peek 档只有两个既定占用者，且二者必须在类型上分开：
+ * - seat-state-confirm：座位草稿的单动作条「确认 5号 状态」，死亡时为 danger 色，
+ *   高度由内容撑开（设计里它是一条按钮条，没有规定高度）；
+ * - day-timer：白天计时的一条 88px 控制横条（开始/暂停/重置/时长/投屏）。
+ *
+ * 为什么不合成一个「peek 内容」：两者的生命周期、语义色与消失条件完全不同——
+ * 前者随草稿出现、按下即消失，后者随白天相位常驻。合成一个之后，
+ * 「按了确认之后倒计时条要不要回来」这种问题在类型上无法表达，只能靠调用点各自记着。
+ */
+export type WorkDrawerPeekSlotKind = 'seat-state-confirm' | 'day-timer'
+
+/**
+ * 白天计时控制横条的高度。
+ *
+ * 88 与 peek 档的 96 是两个不同的量，绝不能合成一个常量：
+ * 96 是「抽屉遮住环下半弧的上限」，88 是「一条控制横条自己有多高」。
+ * 合成之后，任何一次为了摆下第五枚按钮而抬高横条，都会同时抬高抽屉、
+ * 多吃掉环的下半弧——而那条硬约束的来源（Mac 宽而矮）与横条毫无关系。
+ */
+export const DAY_TIMER_BAR_HEIGHT = 88
+
+/** 0 表示不设下限、由内容撑开；这里只登记设计给过数的那一个。 */
+export const PEEK_SLOT_MIN_HEIGHT: Record<WorkDrawerPeekSlotKind, number> = {
+  'seat-state-confirm': 0,
+  'day-timer': DAY_TIMER_BAR_HEIGHT,
+}
