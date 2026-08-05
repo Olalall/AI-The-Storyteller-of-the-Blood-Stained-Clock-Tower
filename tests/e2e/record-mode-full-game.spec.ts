@@ -92,8 +92,26 @@ async function fillCurrentWakeInputs(page: Page) {
     }
   }
 
+  // 系统步骤卡（首夜爪牙/恶魔信息）要先勾满清单，结果按钮才会开放。
+  const checks = recorder.locator('.system-step-check input[type="checkbox"]')
+  for (let index = 0; index < await checks.count(); index += 1) {
+    const box = checks.nth(index)
+    if (!(await box.isChecked())) await box.check()
+  }
+
+  // 角色 chip：普通卡选一个即可；恶魔信息卡要选满 legend 上标的数量。
   const choiceChips = recorder.locator('.choice-chips button:not([disabled])')
-  if (await choiceChips.count()) await choiceChips.first().click()
+  if (await choiceChips.count()) {
+    const counter = recorder.locator('.choice-legend').first()
+    const text = (await counter.textContent()) ?? ''
+    const need = Number((text.match(/(\d+)\s*\/\s*(\d+)/) ?? [])[2] ?? 1)
+    for (let picked = await recorder.locator('.choice-chips button[aria-pressed="true"]').count(); picked < need; picked += 1) {
+      const free = recorder.locator('.choice-chips button:not([disabled])[aria-pressed="false"]')
+      if (!(await free.count())) break
+      await free.first().click()
+    }
+    if (!(await recorder.locator('.choice-chips button[aria-pressed="true"]').count())) await choiceChips.first().click()
+  }
 
   // 工具可能已自动预选默认结果；对同一个结果再点一次等于取消，所以先确认当前没有选中项。
   const outcomes = recorder.locator('.outcome-grid button:not([disabled])')

@@ -47,6 +47,7 @@ export function NightQueueSheet({
     history: item.history,
     progress: item.progress,
     applicability: item.applicability,
+    systemStep: Boolean(item.systemStep),
   }))
   const officialItems = getOfficialNightOrder(nightType)
   const nightTypeLabel = nightType === 'first' ? '首夜' : '其他夜'

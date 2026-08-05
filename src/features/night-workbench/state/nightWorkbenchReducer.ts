@@ -10,6 +10,8 @@ export type NightWorkbenchAction =
   | { type: 'return-current' }
   | { type: 'target'; seatId: number }
   | { type: 'role-choice'; roleId: string }
+  | { type: 'system-check'; checkId: string }
+  | { type: 'system-bluff'; roleId: string }
   | { type: 'outcome'; outcomeId: string }
   | { type: 'confirm'; advance: boolean }
   | { type: 'defer' }
@@ -75,6 +77,25 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       return updatePreviewDraft(state, (draft, item) => {
         const roleChoice = draft.roleChoice === action.roleId ? '' : action.roleId
         return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, roleChoice }))
+      })
+    case 'system-check':
+      return updatePreviewDraft(state, (draft, item) => {
+        if (!item.systemStep?.checks.some((check) => check.id === action.checkId)) return draft
+        const checked = draft.systemChecks ?? []
+        const systemChecks = checked.includes(action.checkId)
+          ? checked.filter((id) => id !== action.checkId)
+          : [...checked, action.checkId]
+        return invalidateOutcome(item, { ...draft, systemChecks })
+      })
+    case 'system-bluff':
+      return updatePreviewDraft(state, (draft, item) => {
+        const bluffCount = item.systemStep?.bluffCount ?? 0
+        if (!bluffCount || !item.systemStep?.bluffChoices?.some((choice) => choice.id === action.roleId)) return draft
+        const selected = draft.bluffRoleIds ?? []
+        const bluffRoleIds = selected.includes(action.roleId)
+          ? selected.filter((id) => id !== action.roleId)
+          : [...selected, action.roleId].slice(-bluffCount)
+        return invalidateOutcome(item, { ...draft, bluffRoleIds })
       })
     case 'outcome':
       return updatePreviewDraft(state, (draft, item) => {
@@ -204,6 +225,7 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       if (state.previewEntryId !== state.activeCursorId || state.correctionItemId) return state
       const item = state.queue.find((entry) => entry.id === state.activeCursorId)
       const draft = state.drafts[state.activeCursorId]
+      if (item?.systemStep) return { ...state, lastNotice: '系统步骤没有角色可换' }
       if (!item || (draft?.updatedAt && item.progress !== 'confirmed')) {
         return { ...state, lastNotice: '请先完成或清空当前草稿，再更换角色' }
       }

@@ -24,8 +24,8 @@ function NeighborDisc({ item, role, direction, concealed }: { item?: WakeItem; r
   return (
     <div className={`carousel-neighbor carousel-neighbor--${direction}`}>
       <RoleDisc initial={displayRole.initial} roleName={displayRole.name} imageSrc={displayRole.iconPath} size="small" concealed={concealed} changed={displayRole.id !== item.roleId} />
-      <span className="carousel-neighbor__label">{concealed ? `${item.seatId}号` : displayRole.name}</span>
-      <small>{item.seatId}号 · {progressMeta[item.progress].label}</small>
+      <span className="carousel-neighbor__label">{concealed && !item.systemStep ? `${item.seatId}号` : displayRole.name}</span>
+      <small>{item.systemStep ? '系统步骤' : `${item.seatId}号`} · {progressMeta[item.progress].label}</small>
     </div>
   )
 }
@@ -75,8 +75,9 @@ export function NightPlayerCarousel({
           />
         </div>
         <div className={`carousel-current__copy ${concealed ? 'concealed-copy' : ''}`}>
-          <strong>{concealed ? '角色信息已遮蔽' : currentRole.name}</strong>
-          <span>{current.playerLabel}</span>
+          <strong>{concealed && !current.systemStep ? '角色信息已遮蔽' : currentRole.name}</strong>
+          {/* 系统步骤的 playerLabel 就是爪牙/恶魔名单本身，遮蔽时不能照原样显示。 */}
+          <span>{concealed && current.systemStep ? '名单已遮蔽' : current.playerLabel}</span>
           {!concealed && currentRoleChange ? (
             <small className="carousel-current__change"><RefreshCw aria-hidden="true" />已变更 · 原{currentRoleChange.fromRole.name}</small>
           ) : null}

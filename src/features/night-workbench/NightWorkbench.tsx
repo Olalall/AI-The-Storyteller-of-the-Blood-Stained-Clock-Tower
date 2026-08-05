@@ -18,6 +18,7 @@ import { projectGameRecordEntries } from './state/gameRecordProjection'
 import { hasWakeDraftContent } from './state/projectWakeDraft'
 import { projectWakePlayerStatus } from './state/projectWakePlayerStatus'
 import { currentRoleForItem } from './state/roleChanges'
+import { systemStepMissingReason } from './state/systemSteps'
 import { useNightAIAdvice } from './state/useNightAIAdvice'
 import { useNightWorkbench } from './state/useNightWorkbench'
 import type { NightWorkbenchSessionBinding } from './state/useNightWorkbench'
@@ -63,7 +64,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
   const activeRole = currentRoleForItem(activeItem, state.roleChangeEvents)
   const recordEntries = projectGameRecordEntries(state)
   const dayFacts = projectDayFacts(sessionBinding.session)
-  const aiAvailable = current.outcomeOptions.length > 0
+  // 系统步骤是流程记录，不是可结算的技能：AI 结算链路对它没有任何依据可用。
+  const aiAvailable = current.outcomeOptions.length > 0 && !current.systemStep
   const isAIAdviceLoading = loadingItemId === current.id
   const canUseAI = !isPreviewing && !isReadOnly && aiAvailable && !isAIAdviceLoading
   const aiReference = draft.outputSource?.kind === 'ai'
@@ -81,9 +83,13 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
     )
     .at(-1)
   const aiAdvice = aiReference ? state.aiAdviceLog[aiReference.adviceId] : currentInputAdvice
-  const activeLabel = state.privacyShielded ? `${activeItem.seatId}号角色` : `${activeItem.seatId}号 ${activeRole.name}`
-  const previewLabel = state.privacyShielded ? `${current.seatId}号角色` : `${current.seatId}号 ${currentRole.name}`
-  const canChangeRole = !isPreviewing && !isCorrecting && !(draft.updatedAt && current.progress !== 'confirmed')
+  const activeLabel = activeItem.systemStep
+    ? activeItem.roleName
+    : state.privacyShielded ? `${activeItem.seatId}号角色` : `${activeItem.seatId}号 ${activeRole.name}`
+  const previewLabel = current.systemStep
+    ? current.roleName
+    : state.privacyShielded ? `${current.seatId}号角色` : `${current.seatId}号 ${currentRole.name}`
+  const canChangeRole = !isPreviewing && !isCorrecting && !current.systemStep && !(draft.updatedAt && current.progress !== 'confirmed')
   // progress 从不会是 'draft'（reducer 只写 drafts），所以必须按草稿内容判断，
   // 否则「草稿已保留」的离开守卫永远不会出现，误触返回时说书人会以为记录丢了。
   const hasInProgressDraft = Object.entries(state.drafts).some(([itemId, item]) =>
@@ -95,6 +101,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
   const isSettled = (current.progress === 'confirmed' && !isCorrecting)
     || current.progress === 'deferred'
     || current.progress === 'not_applicable'
+  const systemMissing = systemStepMissingReason(current, draft)
   const missingReason = current.applicability === 'needs_review'
       ? '确认是否适用'
       : current.progress === 'deferred'
@@ -103,6 +110,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
           ? '本夜不适用'
           : isReadOnly
             ? '已确认'
+            : systemMissing
+              ? systemMissing
             // 顺序必须是 目标 → 角色 → 结果：有些结果选项不要求输入（如「未受影响」），
             // 先判结果会在目标还没选时提示「选结果」，而此时唯一可点的正是那个空输入选项，
             // 一按就写下一条假记录。
@@ -222,6 +231,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
           onUnshield={() => dispatch({ type: 'set-privacy', shielded: false })}
           onTarget={(seatId) => dispatch({ type: 'target', seatId })}
           onRoleChoice={(roleId) => dispatch({ type: 'role-choice', roleId })}
+          onSystemCheck={(checkId) => dispatch({ type: 'system-check', checkId })}
+          onSystemBluff={(roleId) => dispatch({ type: 'system-bluff', roleId })}
           onOutcome={(outcomeId) => dispatch({ type: 'outcome', outcomeId })}
           onUseAI={() => requestAIAdvice(state, current, draft, dispatch)}
           onChangeRole={() => setOpenPanel('role-change')}
