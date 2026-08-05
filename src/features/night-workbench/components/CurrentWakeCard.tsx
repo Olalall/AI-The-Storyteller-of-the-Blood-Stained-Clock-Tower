@@ -1,21 +1,22 @@
-import { AlertTriangle, BookOpenText, Check, History, ListChecks, ShieldCheck, Sparkles } from 'lucide-react'
+import { AlertTriangle, BookOpenText, History, ShieldCheck, Sparkles } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
 import { SeatButton } from '../../../components/ui/SeatButton'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { DayFactsBar } from './DayFactsBar'
 import { shouldShowDayFacts, type DayFacts } from '../../game-session/state/projectDayFacts'
 import { outcomeReady } from '../state/projectWakeDraft'
-import { systemStepBluffs, systemStepChecks } from '../state/systemSteps'
 import type {
   AIResultAdvice,
   OutcomeResolutionHint,
   PlayerStatusSnapshot,
   RoleChangeEvent,
-  SystemStepSpec,
   WakeDraft,
   WakeItem,
 } from '../types'
+import { ConfirmDraftPreview } from './ConfirmDraftPreview'
 import { PlayerStatusBar } from './PlayerStatusBar'
+import { roleChoiceHint, roleChoiceTitle } from './roleChoiceLabels'
+import { SystemStepFields, SystemStepRoster } from './SystemStepPanel'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
 
 interface CurrentWakeCardProps {
@@ -290,142 +291,4 @@ export function CurrentWakeCard({
       </div>
     </section>
   )
-}
-
-/** 首夜系统步骤的只读名单。名单不可点，多座位指认只在下方留勾选痕迹。 */
-function SystemStepRoster({ step }: { step: SystemStepSpec }) {
-  return (
-    <section className="system-step-roster" aria-label="本步骤名单">
-      <strong>名单</strong>
-      <dl>
-        <div>
-          <dt>爪牙</dt>
-          <dd>{step.minionLabels.join(' / ')}</dd>
-        </div>
-        <div>
-          <dt>恶魔</dt>
-          <dd>{step.demonLabel}</dd>
-        </div>
-      </dl>
-      <StatusBadge tone="neutral">只读 · 不自动结算</StatusBadge>
-    </section>
-  )
-}
-
-function SystemStepFields({
-  step,
-  draft,
-  disabled,
-  onToggleCheck,
-  onToggleBluff,
-}: {
-  step: SystemStepSpec
-  draft: WakeDraft
-  disabled: boolean
-  onToggleCheck: (checkId: string) => void
-  onToggleBluff: (roleId: string) => void
-}) {
-  const checked = systemStepChecks(draft)
-  const bluffs = systemStepBluffs(draft)
-
-  return (
-    <>
-      <fieldset disabled={disabled}>
-        <legend className="choice-legend">
-          <span>逐项确认</span>
-          <small>勾选后才能记录本步骤</small>
-        </legend>
-        <ul className="system-step-checks">
-          {step.checks.map((check) => (
-            <li key={check.id}>
-              <label className="system-step-check">
-                <input
-                  type="checkbox"
-                  checked={checked.includes(check.id)}
-                  onChange={() => onToggleCheck(check.id)}
-                />
-                <span>{check.label}</span>
-              </label>
-            </li>
-          ))}
-        </ul>
-      </fieldset>
-
-      {step.bluffChoices && step.bluffCount ? (
-        <fieldset disabled={disabled}>
-          <legend className="choice-legend">
-            <span>不在场善良角色</span>
-            <small>{bluffs.length}/{step.bluffCount} · 建议两镇民一外来者 · 仅记录不校验</small>
-          </legend>
-          <div className="choice-chips">
-            {step.bluffChoices.map((role) => {
-              const selected = bluffs.includes(role.id)
-              return (
-                <button
-                  key={role.id}
-                  type="button"
-                  className={selected ? 'choice-chip choice-chip--selected' : 'choice-chip'}
-                  onClick={() => onToggleBluff(role.id)}
-                  aria-pressed={selected}
-                  aria-label={`${role.label}（${role.teamLabel}${role.suggested ? ' · 配板预设' : ''}）${selected ? '，已选' : ''}`}
-                >
-                  {selected ? <Check aria-hidden="true" /> : null}
-                  <span>{role.label}</span>
-                  <small>{role.teamLabel}{role.suggested ? ' · 预设' : ''}</small>
-                </button>
-              )
-            })}
-          </div>
-          {bluffs.length === step.bluffCount ? (
-            <p className="system-step-bluff-summary">
-              <ListChecks aria-hidden="true" />
-              本夜给出：{bluffs.map((id) => step.bluffChoices?.find((role) => role.id === id)?.label ?? id).join('、')}
-            </p>
-          ) : null}
-        </fieldset>
-      ) : null}
-    </>
-  )
-}
-
-function ConfirmDraftPreview({
-  draft,
-  isReadOnly,
-}: {
-  draft: WakeDraft
-  isReadOnly: boolean
-}) {
-  if (!draft.storytellerResult.trim()) return null
-  const sourceLabel = draft.outputSource?.kind === 'ai'
-    ? 'AI草稿'
-    : draft.outputSource?.kind === 'preset' && draft.outputSource.modifiedFromAI
-      ? '手动覆盖AI'
-      : '手动草稿'
-  return (
-    <section className="confirm-draft-preview" aria-label={isReadOnly ? '已确认记录' : '确认前预览'}>
-      <div className="confirm-draft-preview__head">
-        <strong>{isReadOnly ? '已写入' : '确认后写入'}</strong>
-        <StatusBadge tone={draft.outputSource?.kind === 'ai' ? 'info' : 'neutral'}>{sourceLabel}</StatusBadge>
-      </div>
-      <p>{draft.storytellerResult}</p>
-      {draft.informationGiven ? <small>告知：{draft.informationGiven}</small> : null}
-      {!isReadOnly ? <small>不自动改身份、阵营、死亡、毒醉。</small> : null}
-    </section>
-  )
-}
-
-function roleChoiceTitle(item: WakeItem) {
-  if (item.roleId === 'cerenovus') return '洗脑师要求声称'
-  if (item.roleId === 'gambler') return '赌徒猜测身份'
-  if (item.roleId === 'philosopher') return '哲学家获得能力'
-  if (item.roleId === 'pithag') return '麻脸巫婆变成'
-  return item.roleLabel ?? '角色'
-}
-
-function roleChoiceHint(item: WakeItem) {
-  if (item.roleId === 'cerenovus') return '仅本技能出现 · 可选善良角色'
-  if (item.roleId === 'gambler') return '仅本技能出现 · 猜错则死亡'
-  if (item.roleId === 'philosopher') return '仅本技能出现 · 获得对应能力'
-  if (item.roleId === 'pithag') return '仅本技能出现 · 改为目标角色'
-  return '本项专属选项'
 }

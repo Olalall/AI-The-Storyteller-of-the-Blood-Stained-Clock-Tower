@@ -17,12 +17,12 @@ import { projectDayFacts } from '../game-session/state/projectDayFacts'
 import { projectGameRecordEntries } from './state/gameRecordProjection'
 import { hasWakeDraftContent } from './state/projectWakeDraft'
 import { projectWakePlayerStatus } from './state/projectWakePlayerStatus'
+import { createResolutionHint } from './state/resolutionHint'
 import { currentRoleForItem } from './state/roleChanges'
 import { systemStepMissingReason } from './state/systemSteps'
 import { useNightAIAdvice } from './state/useNightAIAdvice'
 import { useNightWorkbench } from './state/useNightWorkbench'
 import type { NightWorkbenchSessionBinding } from './state/useNightWorkbench'
-import type { OutcomeResolutionHint, WakeDraft, WakeItem } from './types'
 import './night-workbench.css'
 interface NightWorkbenchProps {
   sessionBinding: NightWorkbenchSessionBinding
@@ -291,32 +291,4 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
       />
     </main>
   )
-}
-
-function createResolutionHint(
-  item: WakeItem,
-  draft: WakeDraft,
-  playerStatus: ReturnType<typeof projectWakePlayerStatus>,
-  assignments: ReturnType<typeof projectCurrentAssignments>,
-): OutcomeResolutionHint | undefined {
-  if (item.roleId !== 'gambler' || draft.targets.length !== 1 || !draft.roleChoice) return undefined
-
-  const selectedRole = item.roleChoices?.find((role) => role.id === draft.roleChoice)
-  const actualRole = assignments.find((assignment) => assignment.seatId === draft.targets[0])?.role
-  if (!selectedRole || !actualRole) return undefined
-
-  if (playerStatus.impairments.includes('poisoned') || playerStatus.impairments.includes('drunk')) {
-    return {
-      recommendedOutcomeId: 'no-effect',
-      title: '核对建议',
-      detail: '赌徒当前中毒或醉酒；建议先选“未受影响”。是否另记死亡仍由说书人确认。',
-    }
-  }
-
-  const correct = actualRole.id === draft.roleChoice
-  return {
-    recommendedOutcomeId: correct ? 'correct' : 'wrong',
-    title: '核对建议',
-    detail: `目标实际是${actualRole.name}，本次猜${selectedRole.label}；建议选“${correct ? '猜对 · 无事' : '猜错 · 待死亡'}”。不会自动改死亡状态。`,
-  }
 }
