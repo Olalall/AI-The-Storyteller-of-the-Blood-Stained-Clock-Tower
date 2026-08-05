@@ -266,6 +266,53 @@ const rules = [
     fix: '角色包与角色知识必须是纯数据/纯函数：需要局面信息时由调用方投影成入参传入，不得反向依赖 GameSessionState。',
   },
   {
+    id: 'reminder-no-effect-fields',
+    docSection: '「为魔典模式新增的 9 条反规则引擎自动检查」P1-4：标记不得携带效果',
+    // 只查类型定义处。业务代码里出现 onDeath 这类名字未必是标记字段，查了会淹没在误报里。
+    applies: (file) => /^src\/features\/(night-workbench|game-session|grimoire)\/(types|model\/.*)\.ts$/.test(file),
+    detect: (line, { file, lines, index }) => {
+      // 只在 ReminderToken / ManualStatusMarker / 标记相关 interface 体内检查。
+      const openedAt = lines.slice(0, index + 1).reverse()
+        .findIndex((candidate) => /\b(interface|type)\s+\w*(Reminder|Marker|Token)\w*\b/.test(candidate))
+      if (openedAt === -1) return null
+      const declarationLine = index - openedAt
+      const body = lines.slice(declarationLine, index + 1).join('\n')
+      // 简单的花括号配平：出了这个 interface 就不再算数。
+      const depth = (body.match(/\{/g) ?? []).length - (body.match(/\}/g) ?? []).length
+      if (depth <= 0) return null
+      const offender = /^\s*(effect|effects|appliesTo|modifies|onNight|onDeath|resolve|trigger)\s*\??\s*:/.exec(line)
+      if (!offender) return null
+      void file
+      return `标记类型上出现了效果字段 ${offender[1]}——标记只能是贴纸：一个 seatId + 一段文本 + 一个来源角色`
+    },
+    fix: '提示标记不承载任何效果。放置标记不得改变任何其它座位的字段；需要表达效果时，那是说书人的一次显式状态变更，走 confirm-player-state-change。',
+  },
+  {
+    id: 'grimoire-no-phase-dispatch',
+    docSection: '「守住的边界（二）」判据：魔典组件树中不得出现 dispatch 相位类 action',
+    applies: (file) => /^src\/features\/grimoire\/.*\.(ts|tsx)$/.test(file) && !/\.test\./.test(file),
+    detect: (line) => {
+      if (/^\s*(\/\/|\/\*|\*)/.test(line)) return null
+      const phaseAction = /'(open-phase-segment|close-open-segment|start-next-night-run|close-active-night-run|confirm-day-execution|confirm-day-no-execution)'/.exec(line)
+      if (!phaseAction) return null
+      return `魔典组件树里出现了相位类 action「${phaseAction[1]}」——相位推进的唯一门是黄昏/黎明/收尾交接卡`
+    },
+    fix: '魔典视图上的任何座位操作、标记操作、夜序操作都不推进相位。需要推进时，把动作交回交接卡。',
+  },
+  {
+    id: 'no-derived-values-in-actions',
+    docSection: '「魔典模式的越界判别」2：派生值入库',
+    applies: (file) => /^src\/features\/[^/]+\/state\/.*\.(ts|tsx)$/.test(file) && !/\.test\./.test(file),
+    detect: (line) => {
+      if (/^\s*(\/\/|\/\*|\*)/.test(line)) return null
+      // 只查 action 类型声明上的字段名：这些值渲染时随便算，一旦进 payload 就成了第二真值。
+      const offender = /^\s*(majority|aliveCount|isDemonDead|evilRemaining|isGameOver)\s*\??\s*:/.exec(line)
+      if (!offender) return null
+      return `action/state 上出现派生值 ${offender[1]}——它可以在 render 里算，但存进去就会与投影结果漂移`
+    },
+    fix: '存活数、票数多数、恶魔是否已死这类值只能在渲染时由投影算出来，不得作为 action payload 或持久化字段。',
+  },
+  {
     id: 'css-undefined-var',
     doc: redesignDoc,
     docSection: '「第 0 批（先于一切，纯清理）」CI 守门 1：引用未定义 var 报错',
@@ -371,7 +418,7 @@ function checkLineRules(file, lines, context = {}) {
   const usedExemptions = new Set()
   for (const rule of applicable) {
     lines.forEach((line, index) => {
-      const detail = rule.detect(line, { ...context, file, index })
+      const detail = rule.detect(line, { ...context, file, index, lines })
       if (!detail) return
       const exemption = readExemption(line) ?? readExemption(lines[index - 1])
       if (exemption && exemption.id === rule.id) {
