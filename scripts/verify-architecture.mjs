@@ -38,6 +38,9 @@ const localStorageKeyAllowlist = [
   { key: 'botc-copilot-day-timer-v1', owner: 'src/services/timer/localDiscussionTimerAdapter.ts', why: '历史遗留，只读迁移' },
   { key: 'botc-copilot-day-timer-v2', owner: 'src/services/timer/localDiscussionTimerAdapter.ts', why: '历史遗留，只读迁移' },
   { key: 'botc-copilot-night-prototype-v5', owner: 'src/features/night-workbench/data/initialNightWorkbenchState.ts', why: '历史遗留，加载时一次性迁移后删除' },
+  { key: 'botc-copilot-session-snapshot-v1', owner: 'src/services/session/snapshotRotation.ts', why: '耐久性闸门：快照槽前缀，实际 key 追加槽号' },
+  { key: 'botc-copilot-session-snapshot-v1-index', owner: 'src/services/session/snapshotRotation.ts', why: '耐久性闸门：快照索引。它不是第二份真值，主副本始终权威' },
+  { key: 'botc-copilot-session-lock-v1', owner: 'src/services/session/instanceLock.ts', why: '耐久性闸门：单实例锁，防第二个标签页整份覆盖存档' },
 ]
 const allowedStorageKeys = new Set(localStorageKeyAllowlist.map((entry) => entry.key))
 
