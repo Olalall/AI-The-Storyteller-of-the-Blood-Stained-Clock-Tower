@@ -6,10 +6,15 @@ import { createAIProxyHandlers, createAIProxyRoutes } from './ai'
 import { createArchiveHandlers } from './archive/handlers'
 import { createArchiveHttpRoutes } from './archive/httpArchiveRoutes'
 import { JsonArchiveRepository } from './archive/jsonArchiveRepository'
+import { createRecoveryHandlers } from './recovery/handlers'
+import { createRecoveryHttpRoutes, recoveryRoutePrefix } from './recovery/httpRecoveryRoutes'
+import { JsonRecoveryRepository } from './recovery/jsonRecoveryRepository'
 import { corsPreflightResponse, isCorsPreflight, withLocalCors } from './runtimeCors'
 
 interface ArchiveRuntimeOptions {
   dataFile?: string
+  /** 半局快照的落点。与 dataFile 分开，是为了让「半局不进战绩」在存储层面就无法违反。 */
+  recoveryDataFile?: string
   staticDir?: string
 }
 
@@ -55,6 +60,10 @@ async function writeFetchResponse(response: Response, output: ServerResponse) {
 
 function defaultDataFile() {
   return path.resolve(process.env.BOTC_ARCHIVE_DATA_FILE ?? 'data/archives/archives.json')
+}
+
+function defaultRecoveryDataFile() {
+  return path.resolve(process.env.BOTC_RECOVERY_DATA_FILE ?? 'data/recovery/recovery-snapshots.json')
 }
 
 function defaultStaticDir() {
@@ -110,6 +119,9 @@ async function serveStatic(request: Request, staticDir: string) {
 export function createArchiveRuntime(options: ArchiveRuntimeOptions = {}) {
   const repository = new JsonArchiveRepository(options.dataFile ?? defaultDataFile())
   const archiveRoute = createArchiveHttpRoutes(createArchiveHandlers(repository))
+  const recoveryRoute = createRecoveryHttpRoutes(createRecoveryHandlers(
+    new JsonRecoveryRepository(options.recoveryDataFile ?? defaultRecoveryDataFile()),
+  ))
   const aiRoute = createAIProxyRoutes(createAIProxyHandlers())
   const staticDir = options.staticDir ?? defaultStaticDir()
 
@@ -119,6 +131,10 @@ export function createArchiveRuntime(options: ArchiveRuntimeOptions = {}) {
       return json({ ok: true, service: 'botc-storyteller-backend' })
     }
     if (url.pathname.startsWith('/api/settings/ai') || url.pathname.startsWith('/api/ai/')) return aiRoute(request)
+    // 恢复命名空间必须排在下面那条 /api/ 兜底之前。兜底把一切 /api/ 交给归档路由，
+    // 排在它后面的路由一条请求都收不到——而且是静悄悄地收不到，
+    // 表现为「后端好像没这个接口」，最坏的情况是半局被归档路由收下、进了战绩。
+    if (url.pathname.startsWith(recoveryRoutePrefix)) return recoveryRoute(request)
     if (url.pathname.startsWith('/api/')) return archiveRoute(request)
     if (request.method === 'GET' || request.method === 'HEAD') {
       const staticResponse = await serveStatic(request, staticDir)
