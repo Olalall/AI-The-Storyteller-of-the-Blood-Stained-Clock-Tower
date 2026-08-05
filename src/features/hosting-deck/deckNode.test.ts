@@ -65,3 +65,20 @@ describe('相位标签', () => {
     expect(latestNightSegmentId(second)).toBe(latest?.id)
   })
 })
+
+describe('相位编号必须与 phaseSegments 的规则一致', () => {
+  it('predicts the day label that open-phase-segment will actually create', () => {
+    // 已在第3夜时首次记录白天应落在「第3天」；交接卡自己数一遍会说成「第1天」。
+    let session = blank()
+    for (const [i, at] of ['2026-08-04T20:00:00.000Z', '2026-08-05T20:00:00.000Z', '2026-08-06T20:00:00.000Z'].entries()) {
+      session = open(session, 'night', at)
+      session = closeOpenSegment(session, 'night', at.replace('20:00', '20:30'))
+      expect(nextNightLabel(session)).toBe(`第${i + 2}夜`)
+    }
+    const predicted = nextDayLabel(session)
+    const actual = open(session, 'day', '2026-08-07T09:00:00.000Z')
+      .phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)?.label
+    expect(predicted).toBe(actual)
+    expect(predicted).toBe('第3天')
+  })
+})

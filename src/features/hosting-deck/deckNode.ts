@@ -29,16 +29,27 @@ export function latestNightSegmentId(session: GameSessionState): string | null {
     .at(-1)?.id ?? null
 }
 
+/**
+ * 预告下一段的编号。必须与 phaseSegments 的编号规则一致——那里保证编号不倒退
+ * （已在第3夜时首次记录白天落在第3天，而不是第1天），交接卡若自己数一遍就会说谎。
+ */
+function nextSequence(session: GameSessionState, kind: 'night' | 'day'): number {
+  const highest = (target: 'night' | 'day') => Math.max(0, ...session.phaseSegments
+    .filter((segment) => segment.kind === target)
+    .map((segment) => segment.sequence))
+  return kind === 'day'
+    ? Math.max(highest('day') + 1, highest('night'))
+    : Math.max(highest('night') + 1, highest('day') + 1)
+}
+
 export function nextNightLabel(session: GameSessionState): string {
-  const nights = session.phaseSegments.filter((segment) => segment.kind === 'night')
-  const open = nights.find((segment) => !segment.closedAt)
-  return open?.label ?? `第${nights.length + 1}夜`
+  const open = session.phaseSegments.find((segment) => segment.kind === 'night' && !segment.closedAt)
+  return open?.label ?? `第${nextSequence(session, 'night')}夜`
 }
 
 export function nextDayLabel(session: GameSessionState): string {
-  const days = session.phaseSegments.filter((segment) => segment.kind === 'day')
-  const open = days.find((segment) => !segment.closedAt)
-  return open?.label ?? `第${days.length + 1}天`
+  const open = session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)
+  return open?.label ?? `第${nextSequence(session, 'day')}天`
 }
 
 export function isFirstNight(session: GameSessionState): boolean {
