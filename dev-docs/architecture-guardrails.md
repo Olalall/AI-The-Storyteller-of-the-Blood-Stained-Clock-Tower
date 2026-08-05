@@ -48,7 +48,9 @@ npm run verify:architecture
 
 依据：`dev-docs/DUAL_MODE_GRIMOIRE_DESIGN_2026-08-04.md`「架构守护：为魔典模式新增的 9 条反规则引擎自动检查」。实现落在 `scripts/verify-architecture.mjs`，本节记录的是意图与判据，不是实现。
 
-**第 1、2、4 条价值最高**——它们是纯依赖方向与纯类型形状检查，零语义判断、零误报，且各自单点挡住一整类漂移。落地排期上这三条优先，其余六条在它们之后。
+设计文档在第 5 条中途截断（原文只写到「禁止自动推进：src/features/grimoire」），第 5 至 9 条由上述设计原则回推补全，取的是文档其余章节已经点名要做静态检查的那几处：判别标准三（定时/副作用推进）、判别标准二加胜负判定符号表、双模式腐化的机械保护、以及 ABILITY_SETTLEMENT_BOUNDARY 那条「后端不得持有隐藏规则引擎状态」——它是现存边界里唯一还没有任何自动检查在守的一条。原文如果日后被补全，以原文为准。
+
+**第 1、2、4 条价值最高**——它们是纯依赖方向与纯类型形状检查，零语义判断、零误报，且各自单点挡住一整类漂移：AI 直写权威状态、能力可执行化、标记变成规则。任何时候要削减检查数量或为某条开豁免，这三条最后动。
 
 ### P0（最高价值，纯依赖方向检查，零误报）
 
@@ -74,15 +76,17 @@ npm run verify:architecture
 - 判据：范围限定在 `src/features/{night-workbench,game-session,grimoire}/` 下的 `types.ts` 与 `model/*.ts`；先向上回溯到最近的 `interface`/`type` 声明，名字含 `Reminder`/`Marker`/`Token` 且花括号未配平（即仍在该类型体内）时，字段声明位置出现 `effect` / `effects` / `appliesTo` / `modifies` / `onNight` / `onDeath` / `resolve` / `trigger` 即 fail。只查类型定义处：业务代码里的 `onDeath` 未必是标记字段，全域查会把真信号淹没在误报里。
 - 为什么：`ManualStatusMarker` 现在只有 `id` 和 `label`，它是说书人写给自己看的一张便签。补上任意一个上述字段，标记就从便签变成一条可执行规则；有了可执行规则，就一定会有人写一个遍历 `markers` 执行 `effect` 的循环。那个循环就是 `AbilityEngine`，只是名字不同——而 `legacy-engine-symbols` 只认名字。这条检查认的是形状，名字换成什么都绕不过去。
 
-**5. 禁止自动推进** — 未实现
+**5. 禁止自动推进** — 已实现，规则 id `grimoire-no-phase-dispatch`
 
-- 判据：`src/features/grimoire/**` 下，`useEffect` / `setTimeout` / `setInterval` / `requestAnimationFrame` 的回调体内禁止出现 `dispatch(`。相位推进、夜序光标移动、生死改写、投票状态写入只能出现在事件处理器（`onClick` / `onPointerUp` / `onKeyDown` 等）的调用链上。回调体内只操作组件局部 `useState`（如 `GrimoireCanvas` 用 `ResizeObserver` 量画布尺寸）不受限制。
-- 为什么：这是把「一次状态写入必须能追溯到一次说书人手势」翻译成语法位置。副作用推进是三类越界里最体贴、最难拒绝的一类——夜间最后一个角色确认完，一个 effect 顺手推进到黎明，用起来确实更顺。但它同时切断了手势与写入的对应关系：出错时说书人无法指认是自己的哪一次操作造成的，也无法撤销。白天计时器是唯一豁免的定时器，它不写日志、不改状态，且不在 `src/features/grimoire/` 下。
+- 判据：`src/features/grimoire/**`（`*.test.*` 与整行注释除外）禁止出现相位类 action 的字面量 `open-phase-segment` / `close-open-segment` / `start-next-night-run` / `close-active-night-run` / `confirm-day-execution` / `confirm-day-no-execution`。落地时选的是「魔典组件树里根本不出现这些 action 名」，而不是「effect 里不许 dispatch」——前者是纯字面量匹配，判定面比扫描回调体小得多，也不会因为 `dispatch` 被换个名字包一层就失效。
+- 为什么：这是把「一次状态写入必须能追溯到一次说书人手势」翻译成语法位置。副作用推进是最体贴、最难拒绝的一类越界——夜间最后一个角色确认完，一个 effect 顺手推进到黎明，用起来确实更顺。但它同时切断了手势与写入的对应关系：出错时说书人无法指认是自己的哪一次操作造成的，也无法撤销。相位推进的唯一门是黄昏/黎明/收尾交接卡，魔典视图上的座位操作、标记操作、夜序操作一律不推进相位。
+- 未覆盖的部分：这条只锁相位类 action。魔典 effect 里 dispatch **非**相位类 action（例如在 `useEffect` 里改生死或改标记）当前没有静态检查在拦，靠的是本节末尾那两条不变量测试。白天计时器是唯一豁免的定时器，它不写日志、不改状态，且不在 `src/features/grimoire/` 下。
 
-**6. 派生值不得进入 action payload** — 未实现
+**6. 派生值不得进入 action payload** — 部分实现，规则 id `no-derived-values-in-actions`
 
-- 判据两部分：其一，禁用标识符表在 `src/**` 与 `server/**` 追加 `computeWinner` / `checkVictory` / `evaluateWinCondition` / `isGameOver` / `recomputeOnTheBlock`；其二，`dispatch({...})` 的实参对象内禁止出现 `majority` / `aliveCount` / `voteThreshold` / `isDemonDead` / `onTheBlock` 这类计算值标识符。
-- 为什么：三个阈值算式（举手 N / 门槛 M / 差 X）已获准使用，但只准出现在渲染路径。算给说书人看是辅助，算完写回 session 是裁定——中间只隔一次 `dispatch`。「票数达标顺手把人暂列处决」正是从这一步开始的，而它在评审里几乎无法拒绝，因为算式本身是对的。把边界画在 payload 上，就把一个语义争论变成了一个可机械判定的位置问题。
+- 已实现的判据：`src/features/*/state/**`（`*.test.*` 与整行注释除外）的字段声明位置禁止出现 `majority` / `aliveCount` / `isDemonDead` / `evilRemaining` / `isGameOver`。查的是 action 与 state 的类型声明，不是表达式——这些值在 render 里随便算，进了类型就成了第二真值。
+- 为什么：三个阈值算式（举手 N / 门槛 M / 差 X）已获准使用，但只准出现在渲染路径。算给说书人看是辅助，算完写回 session 是裁定——中间只隔一次 `dispatch`。「票数达标顺手把人暂列处决」正是从这一步开始的，而它在评审里几乎无法拒绝，因为算式本身是对的。把边界画在类型字段上，就把一个语义争论变成了一个可机械判定的位置问题。
+- 缺口：`computeWinner` / `checkVictory` / `evaluateWinCondition` / `recomputeOnTheBlock` 这批胜负判定标识符尚未加进 `legacy-engine-symbols` 的符号表（`isGameOver` 已被上面那条以字段名形式拦住，但作为函数名同样没拦）。补上之前，「谁赢了」这个计算可以在 state 目录之外的任何地方以函数形式出现而不被发现。
 
 ### P1（补充依赖方向）
 
@@ -98,7 +102,7 @@ npm run verify:architecture
 
 - 判据：`src/features/*/state/**` 下的 `*Reducer.ts` 禁止出现 `Date.now()` / `new Date(` / `Math.random()` / `crypto.randomUUID()`。时间戳与 id 由调用方生成后随 action payload 传入。范围刻意只到 reducer 文件，不覆盖同目录的 hook——`discussionTimer.tsx` 与 `useSessionDurability.ts` 读时钟是它们的职责所在。
 - 为什么：reducer 读时钟或读随机数，同一串 action 重放两次就会得到两份不同的状态，归档回放与不变量测试同时失去意义——而不变量测试正是本节把语义类判据托付出去的地方（见下）。这条守的是那套测试的前提。
-- 落地前置：`src/features/night-workbench/state/nightWorkbenchReducer.ts:125` 的 `new Date().toISOString()` 是当前唯一违反项，把它改成 payload 传入后这条检查才能开。
+- 落地前置：`src/features/night-workbench/state/nightWorkbenchReducer.ts` 里写 `confirmedAt` 的那一处 `new Date().toISOString()` 是当前唯一违反项，把时间戳改成随 payload 传入后这条检查才能开。
 
 **9. 后端不得取用角色能力数据** — 未实现
 
@@ -112,16 +116,16 @@ npm run verify:architecture
 | 1 | AI 不得直连权威状态 | `src/features/*/state/**` 的 import 不得解析到 `src/services/ai/**` 或 `src/features/ai-*/**` | `state-no-ai-import` | P0，最高价值 |
 | 2 | 角色包必须是纯数据 | `src/domain/{scripts/packs,role-knowledge}/**` 不得 import `features/game-session/**`、不得出现返回 `GameSessionState` 的签名或该标识符 | `pack-no-session-state` | P0，最高价值 |
 | 3 | 单一持久化真值 | 三种语法位置取到的 localStorage key 字面量必须命中脚本内白名单 | `localstorage-key-allowlist` | P0 |
-| 4 | 标记不得携带效果 | 标记/token 类型定义中禁止字段名 `effect`/`effects`/`appliesTo`/`modifies`/`onNight`/`onDeath`/`resolve`/`trigger` | 未实现 | P1，最高价值 |
-| 5 | 禁止自动推进 | `src/features/grimoire/**` 的 `useEffect`/`setTimeout`/`setInterval`/`requestAnimationFrame` 回调体内禁止 `dispatch(` | 未实现 | P1 |
-| 6 | 派生值不得进入 action payload | 禁用符号表追加 `computeWinner`/`checkVictory`/`evaluateWinCondition`/`isGameOver`/`recomputeOnTheBlock`；`dispatch({...})` 内禁止 `majority`/`aliveCount`/`voteThreshold`/`isDemonDead`/`onTheBlock` | 未实现 | P1 |
+| 4 | 标记不得携带效果 | `features/{night-workbench,game-session,grimoire}` 的 `types.ts`/`model/*.ts` 中，名字含 `Reminder`/`Marker`/`Token` 的类型体内禁止字段名 `effect`/`effects`/`appliesTo`/`modifies`/`onNight`/`onDeath`/`resolve`/`trigger` | `reminder-no-effect-fields` | P1，最高价值 |
+| 5 | 禁止自动推进 | `src/features/grimoire/**` 禁止出现六个相位类 action 字面量（`open-phase-segment` 等） | `grimoire-no-phase-dispatch` | P1 |
+| 6 | 派生值不得进入 action payload | `src/features/*/state/**` 的字段声明位置禁止 `majority`/`aliveCount`/`isDemonDead`/`evilRemaining`/`isGameOver` | `no-derived-values-in-actions`（胜负判定符号表未补，见上） | P1 |
 | 7 | 纯记录模式不得依赖魔典 | `src/features/hosting-deck/**` 禁止 import `src/features/grimoire/**` | 未实现（且现有代码违反，见上） | P1 |
 | 8 | reducer 保持可重放的纯函数 | `src/features/*/state/**` 的 `*Reducer.ts` 禁止 `Date.now()`/`new Date(`/`Math.random()`/`crypto.randomUUID()` | 未实现（且现有代码违反，见上） | P1 |
 | 9 | 后端不得取用角色能力数据 | `server/**`（`*.test.ts` 除外）禁止 import `src/domain/role-knowledge/**` 与 `src/domain/scripts/packs/**` | 未实现 | P1 |
 
 ### 与这九条相邻、但不计入的检查
 
-`scripts/verify-architecture.mjs` 里另有几条同样在跑的规则，它们各有出处，不计入本节这九条：`legacy-engine-symbols`（旧引擎类名，范围已扩到 `src|server`）、`ui-night-coupling`（`src/components/ui` 零业务耦合，魔典座位因此必须放 `src/features/grimoire/` 而不是共享层，本规则一字不改）、`ai-script-hardcode`、`hosting-mode-not-behavioural`（state 目录不得读 `hostingMode`）、`file-budget`（`src/features/**.tsx` 封顶 320 行，魔典画布不因复杂而放宽）以及三条 CSS 纪律。`src/` 全域禁止 `WebSocket`/`EventSource`/`BroadcastChannel`/`socket.io`/`peerjs` 同样未实现，它守的是「不做联机」而非「不做规则引擎」。
+`scripts/verify-architecture.mjs` 里另有几条同样在跑的规则，它们各有出处，不计入本节这九条：`legacy-engine-symbols`（旧引擎类名，范围已扩到 `src|server`）、`ui-night-coupling`（`src/components/ui` 零业务耦合，魔典座位因此必须放 `src/features/grimoire/` 而不是共享层，本规则一字不改）、`ai-script-hardcode`、`hosting-mode-not-behavioural`（state 目录不得读 `hostingMode`）、`hosting-preferences-not-runtime`（除偏好文件自身与 `src/app/` 外禁止 import `hostingPreferences`，运行时读模式一律读 `session.hostingMode`）、`file-budget`（`src/features/**.tsx` 封顶 320 行，魔典画布不因复杂而放宽）以及三条 CSS 纪律。`src/` 全域禁止 `WebSocket`/`EventSource`/`BroadcastChannel`/`socket.io`/`peerjs` 同样未实现，它守的是「不做联机」而非「不做规则引擎」。
 
 ### 刻意不做成静态检查的两件事
 
