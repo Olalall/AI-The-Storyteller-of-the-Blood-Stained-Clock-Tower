@@ -9,6 +9,7 @@ import {
   legacyNightWorkbenchStorageKey,
 } from '../../features/night-workbench/data/initialNightWorkbenchState'
 import type { NightWorkbenchState } from '../../features/night-workbench/types'
+import { shouldSnapshot, writeSnapshot } from './snapshotRotation'
 
 export { gameSessionStorageKey } from '../../features/game-session/data/createPrototypeSession'
 export { legacyNightWorkbenchStorageKey } from '../../features/night-workbench/data/initialNightWorkbenchState'
@@ -234,6 +235,19 @@ export function clearSessionRecovery() {
 
 export function persistGameSession(state: GameSessionState) {
   window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(state))
+  // 快照按时间节流，不是每次写入都存；顺序上放在主副本之后，
+  // 因为主副本写失败时没必要再留一份。
+  const now = Date.now()
+  if (shouldSnapshot('interval', now)) writeSnapshot(state, 'interval', new Date(now).toISOString())
+}
+
+/** 破坏性操作前先留一份。这两处正是「回退到刚才」最常被需要的时刻。 */
+export function snapshotBeforeDestructiveChange(state: GameSessionState) {
+  writeSnapshot(state, 'destructive', new Date().toISOString())
+}
+
+export function snapshotOnPhaseClose(state: GameSessionState) {
+  writeSnapshot(state, 'phase-close', new Date().toISOString())
 }
 
 export function resetGameSession() {
