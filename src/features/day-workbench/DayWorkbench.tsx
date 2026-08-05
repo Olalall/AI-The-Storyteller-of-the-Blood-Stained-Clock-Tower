@@ -289,7 +289,7 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
             <div><Button variant="ghost" onClick={() => setPendingDayClose(null)}>继续处理</Button><Button variant="danger" onClick={closeDay}>清空并结束</Button></div>
           </> : <>
             <div><strong>确认结束今天？</strong><span>只关闭当前白天记录，不会进入夜晚。</span></div>
-            <div><Button variant="ghost" onClick={() => setPendingDayClose(null)}>取消</Button><Button variant="primary" onClick={closeDay}>确认结束</Button></div>
+            <div><Button variant="ghost" onClick={() => setPendingDayClose(null)}>取消</Button><Button variant="danger" onClick={closeDay}>确认结束</Button></div>
           </>}
         </section> : null}
 

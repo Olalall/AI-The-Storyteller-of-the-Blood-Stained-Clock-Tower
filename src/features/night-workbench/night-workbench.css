@@ -528,7 +528,7 @@
 .action-disabled-reason { max-width: 220px; color: var(--warning-text); font-size: .72rem; text-align: right; }
 .preview-action-bar { width: 100%; display: flex; justify-content: flex-end; gap: var(--space-8); }
 .preview-action-bar .ui-button { min-width: 144px; }
-.night-close-footer, .night-close-confirm { width: min(1080px, calc(100% - clamp(var(--space-20), 4cqw, var(--space-40)))); margin: 0 auto var(--space-20); padding: var(--space-14) var(--space-16); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
+.night-close-footer, .night-close-confirm { width: min(1080px, calc(100% - clamp(var(--space-20), 4cqw, var(--space-40)))); /* 与吸底主确认区拉开 ≥96px：一夜按十几次的「确认并下一位」和一夜只按一次的「关闭本夜」    此前只隔约 20px，滚动惯性就会点错，且点错的后果是退出工作台。 */ margin: 96px auto var(--space-20); padding: var(--space-14) var(--space-16); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
 .night-close-footer > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-8); }
 .night-close-footer span { color: var(--text-subtle); font-size: .7rem; font-weight: 800; letter-spacing: .08em; }
 .night-close-footer strong { color: var(--text-muted); font-size: .82rem; }
@@ -589,7 +589,6 @@
   .night-header__actions .ui-button { width: 100%; }
   .header-action-label--full { display: none; }
   .header-action-label--compact { display: inline; }
-  .night-notice { display: none; }
   .player-state-bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; padding-inline: var(--space-12); gap: var(--space-8); }
   .player-state-bar__action { margin: 0; padding-inline: var(--space-10); }
   .night-carousel { min-height: 178px; grid-template-columns: 48px minmax(160px, 1fr) 48px; }

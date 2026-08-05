@@ -46,11 +46,31 @@ function renderTemplate(template: string, item: WakeItem, draft: WakeDraft) {
   return template.replace(/\{(actor|target|targets|role)\}/g, (_, key: string) => values[key] ?? '')
 }
 
+/**
+ * 唤醒项本身要求的输入。有些结果选项声明 requiredInputs 为空（例如「未受影响」），
+ * 但只要这一项需要目标或角色，就不能在它们缺席时记录任何结果——否则会写下
+ * 一条没有对象的假记录，而它同样可确认、同样进本局记录。
+ */
+export function wakeInputsSatisfied(item: WakeItem, draft: WakeDraft) {
+  if (draft.targets.length < item.targetCount) return false
+  return !item.roleChoices || Boolean(selectedRoleLabel(item, draft))
+}
+
 export function outcomeReady(option: WakeOutcomeOption, item: WakeItem, draft: WakeDraft) {
+  if (!wakeInputsSatisfied(item, draft)) return false
   return option.requiredInputs.every((input) => {
     if (input === 'targets') return draft.targets.length === item.targetCount
     return Boolean(selectedRoleLabel(item, draft))
   })
+}
+
+/** 草稿是否已被动过。progress 上没有 'draft' 这个状态，判「有没有未确认的编辑」只能看内容。 */
+export function hasWakeDraftContent(draft: WakeDraft) {
+  return draft.targets.length > 0 ||
+    Boolean(draft.roleChoice) ||
+    Boolean(draft.outcomeId) ||
+    Boolean(draft.storytellerResult.trim()) ||
+    Boolean(draft.informationGiven.trim())
 }
 
 export function invalidateOutcome(item: WakeItem, draft: WakeDraft): WakeDraft {

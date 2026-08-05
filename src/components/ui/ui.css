@@ -243,3 +243,27 @@
 @media (prefers-reduced-motion: reduce) {
   .ui-button, .sheet-overlay, .sheet-content { animation: none; transition: none; }
 }
+
+/* 说书人操作回执：任何断点下都不得隐藏（见 HostNotice 组件注释）。 */
+.ui-host-notice {
+  width: min(1080px, calc(100% - var(--space-32)));
+  margin: 0 auto;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 180ms ease, margin 180ms ease;
+}
+.ui-host-notice.is-visible { max-height: 96px; margin-block: var(--space-8); }
+.ui-host-notice__text {
+  min-height: 38px;
+  padding: 7px var(--space-16);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  border: 1px solid var(--info-border);
+  border-radius: var(--radius-md);
+  background: var(--info-soft);
+  color: var(--info-text);
+  font-size: var(--type-label);
+  font-weight: 700;
+}
+@media (prefers-reduced-motion: reduce) { .ui-host-notice { transition: none; } }
