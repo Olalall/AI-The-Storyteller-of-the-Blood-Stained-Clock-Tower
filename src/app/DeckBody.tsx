@@ -52,6 +52,13 @@ export function DeckBody({
         <SessionEntry
           onStartSetup={onOpenSetup}
           onOpenScriptLibrary={onOpenScriptLibrary}
+          hostingMode={session.hostingMode}
+          onSelectHostingMode={(mode) => dispatch({
+            type: 'set-hosting-mode',
+            mode,
+            changedAt: new Date().toISOString(),
+            phaseLabel: '开局前',
+          })}
           onLoadDemo={() => {
             const demo = createPrototypeGameSession()
             dispatch({ type: 'replace-session', session: demo })
