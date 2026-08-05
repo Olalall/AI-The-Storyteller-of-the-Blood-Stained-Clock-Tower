@@ -22,7 +22,7 @@ export function NightCloseFooter({ session, dispatch, nightRunId, unresolvedCoun
     return (
       <section className="night-close-confirm" aria-live="polite">
         <div><AlertTriangle aria-hidden="true" /><div><strong>关闭{segment.label}？</strong><span>只关闭本夜记录，不会进入白天。</span>{unresolvedCount ? <small>还有{unresolvedCount}项未处理，可取消后继续。</small> : null}</div></div>
-        <div><Button variant="ghost" onClick={() => setConfirming(false)}><X aria-hidden="true" />取消</Button><Button variant="primary" onClick={() => { dispatch({ type: 'close-active-night-run', nightRunId, closedAt: new Date().toISOString() }); onExit() }}><Check aria-hidden="true" />确认关闭</Button></div>
+        <div><Button variant="ghost" onClick={() => setConfirming(false)}><X aria-hidden="true" />取消</Button><Button variant="danger" onClick={() => { dispatch({ type: 'close-active-night-run', nightRunId, closedAt: new Date().toISOString() }); onExit() }}><Check aria-hidden="true" />确认关闭</Button></div>
       </section>
     )
   }

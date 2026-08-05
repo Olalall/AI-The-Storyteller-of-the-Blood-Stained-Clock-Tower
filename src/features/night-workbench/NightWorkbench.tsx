@@ -1,6 +1,7 @@
 import { ArrowLeft, MoonStar } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
+import { HostNotice } from '../../components/ui/HostNotice'
 import { roleSnapshotsForScript, scriptDisplayName } from '../../domain/scripts'
 import { CurrentWakeCard } from './components/CurrentWakeCard'
 import { NightActionBar } from './components/NightActionBar'
@@ -13,7 +14,7 @@ import { RoleChangeSheet } from './components/RoleChangeSheet'
 import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchNotice'
 import { projectCurrentAssignments } from '../game-session/state/projectors'
 import { projectGameRecordEntries } from './state/gameRecordProjection'
-import { outcomeReady } from './state/projectWakeDraft'
+import { hasWakeDraftContent } from './state/projectWakeDraft'
 import { projectWakePlayerStatus } from './state/projectWakePlayerStatus'
 import { currentRoleForItem } from './state/roleChanges'
 import { useNightAIAdvice } from './state/useNightAIAdvice'
@@ -57,7 +58,6 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
   const resolutionHint = createResolutionHint(current, draft, activePlayerStatus, currentAssignments)
   const activeRole = currentRoleForItem(activeItem, state.roleChangeEvents)
   const recordEntries = projectGameRecordEntries(state)
-  const readyOutcomes = current.outcomeOptions.filter((option) => outcomeReady(option, current, draft))
   const aiAvailable = current.outcomeOptions.length > 0
   const isAIAdviceLoading = loadingItemId === current.id
   const canUseAI = !isPreviewing && !isReadOnly && aiAvailable && !isAIAdviceLoading
@@ -79,7 +79,12 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
   const activeLabel = state.privacyShielded ? `${activeItem.seatId}号角色` : `${activeItem.seatId}号 ${activeRole.name}`
   const previewLabel = state.privacyShielded ? `${current.seatId}号角色` : `${current.seatId}号 ${currentRole.name}`
   const canChangeRole = !isPreviewing && !isCorrecting && !(draft.updatedAt && current.progress !== 'confirmed')
-  const hasInProgressDraft = state.queue.some((item) => item.progress === 'draft') || Boolean(state.correctionItemId)
+  // progress 从不会是 'draft'（reducer 只写 drafts），所以必须按草稿内容判断，
+  // 否则「草稿已保留」的离开守卫永远不会出现，误触返回时说书人会以为记录丢了。
+  const hasInProgressDraft = Object.entries(state.drafts).some(([itemId, item]) =>
+    hasWakeDraftContent(item) &&
+    state.queue.find((entry) => entry.id === itemId)?.progress !== 'confirmed',
+  ) || Boolean(state.correctionItemId)
   const canRevealInformation = !state.privacyShielded && !isPreviewing && Boolean(draft.informationGiven.trim())
   const visibleNotice = state.lastNotice?.includes('夜序快照') ? '' : state.lastNotice
   const isSettled = (current.progress === 'confirmed' && !isCorrecting)
@@ -93,15 +98,16 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
           ? '本夜不适用'
           : isReadOnly
             ? '已确认'
-            : !draft.outcomeId && readyOutcomes.length > 0
-              ? '选结果'
-              : current.targetCount > draft.targets.length
-                ? `选${current.targetLabel ?? '目标'}`
-                : current.roleChoices && !draft.roleChoice
-                  ? `选${current.roleLabel ?? '角色'}`
-                  : !draft.outcomeId || !draft.storytellerResult.trim()
-                    ? '选结果'
-                    : ''
+            // 顺序必须是 目标 → 角色 → 结果：有些结果选项不要求输入（如「未受影响」），
+            // 先判结果会在目标还没选时提示「选结果」，而此时唯一可点的正是那个空输入选项，
+            // 一按就写下一条假记录。
+            : current.targetCount > draft.targets.length
+              ? `选${current.targetLabel ?? '目标'}`
+              : current.roleChoices && !draft.roleChoice
+                ? `选${current.roleLabel ?? '角色'}`
+                : !draft.outcomeId || !draft.storytellerResult.trim()
+                  ? '选结果'
+                  : ''
 
   function requestExit() {
     if (hasInProgressDraft) {
@@ -173,7 +179,7 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
         onStay={() => setLeavePromptOpen(false)}
         onLeave={exitAfterPrompt}
       /> : null}
-      {!leavePromptOpen && visibleNotice ? <div className="night-notice" role="status">{visibleNotice}</div> : null}
+      <HostNotice message={leavePromptOpen ? '' : visibleNotice} />
       <NightPlayerCarousel
         current={current}
         currentRole={currentRole}
