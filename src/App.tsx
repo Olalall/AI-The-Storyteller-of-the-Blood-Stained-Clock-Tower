@@ -7,6 +7,7 @@ import { projectEffectiveTimelineEntries } from './features/game-session/state/p
 import { Dashboard } from './features/dashboard/Dashboard'
 import { SessionRail } from './features/dashboard/components/SessionRail'
 import { PlayerStatusOverlay } from './features/dashboard/components/PlayerStatusOverlay'
+import { TimelineHistorySheet } from './features/history/TimelineHistorySheet'
 import { DayWorkbench } from './features/day-workbench/DayWorkbench'
 import { PublicChatTimerPage } from './features/day-workbench/PublicChatTimerPage'
 import { DuskHandoff } from './features/hosting-deck/handoff/DuskHandoff'
@@ -27,6 +28,7 @@ type View = 'deck' | 'archive'
 function App() {
   const [view, setView] = useState<View>('deck')
   const [timerOpen, setTimerOpen] = useState(false)
+  const [recordsOpen, setRecordsOpen] = useState(false)
   const { session, dispatch } = useGameSession()
   const [deckNode, setDeckNode] = useState<DeckNode>(() => deckNodeForSession(session))
   const [setupOpen, setSetupOpen] = useState(false)
@@ -77,7 +79,7 @@ function App() {
             nodes={projectPhaseTrack(session, view === 'deck' ? deckNode : undefined)}
             actions={(
               <>
-                <Button variant="ghost" compact onClick={() => { setGameEndMode('review'); setGameEndOpen(true) }}>
+                <Button variant="ghost" compact onClick={() => setRecordsOpen(true)}>
                   本局记录 {projectEffectiveTimelineEntries(session.timeline).length}
                 </Button>
                 <Button variant="ghost" compact onClick={() => setView(view === 'archive' ? 'deck' : 'archive')}>
@@ -126,6 +128,15 @@ function App() {
         <IdentityDealSheet open={identityDealOpen} onOpenChange={setIdentityDealOpen} session={session} />
         <GameEndSheet open={gameEndOpen} onOpenChange={setGameEndOpen} session={session} initialMode={gameEndMode} onResetGame={resetGame} />
         <ScriptLibrarySheet open={scriptLibraryOpen} onOpenChange={setScriptLibraryOpen} session={session} onSelectScript={(scriptId) => { setSetupScriptId(scriptId); setSetupOpen(true) }} />
+        <TimelineHistorySheet
+          session={session}
+          dispatch={dispatch}
+          open={recordsOpen}
+          onOpenChange={setRecordsOpen}
+          onOpenPlayerStatus={setPlayerStatusSeatId}
+          onOpenDayWorkbench={enterDay}
+          onOpenSetup={() => setSetupOpen(true)}
+        />
         <PlayerStatusOverlay seatId={playerStatusSeatId} session={session} dispatch={dispatch} onOpenChange={(open) => { if (!open) setPlayerStatusSeatId(null) }} />
       </AppFrame>
     </DiscussionTimerProvider>

@@ -375,7 +375,7 @@ test('journal filters a closed day and appends a structured correction without c
   await page.getByRole('button', { name: '结束今天' }).click()
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
 
-  await page.getByRole('button', { name: '日记' }).click()
+  await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await page.getByLabel('筛选昼夜').selectOption({ label: '第3天' })
   await page.getByLabel('筛选玩家').selectOption('6')
   const actionRecord = page.getByRole('button', { name: /更正第3天的白天技能记录：赌徒 · 6号（赌徒） → 5号（舞蛇人） · 无事发生/ })
@@ -414,7 +414,7 @@ test('journal keeps vote records read-only and directs the storyteller back to t
   }
   await page.getByRole('button', { name: '记录本轮票型' }).click()
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
-  await page.getByRole('button', { name: '日记' }).click()
+  await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await page.getByRole('button', { name: /查看投票记录：1号提名4号 · 6票/ }).click()
 
   await expect(page.getByText('票型影响暂列结果；从白天工作台重新记录。')).toBeVisible()
@@ -432,7 +432,7 @@ test('journal filters stay touchable in a narrow split view', async ({ page }) =
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
   await openArchive(page)
-  await page.getByRole('button', { name: '日记' }).click()
+  await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await expect(page.getByRole('dialog', { name: '日记' })).toBeVisible()
 
   for (const control of [

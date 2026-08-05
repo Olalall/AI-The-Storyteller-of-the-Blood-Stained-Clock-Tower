@@ -142,7 +142,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByRole('button', { name: '关闭4号玩家' }).click()
   expect((await timeline(page)).length).toBe(beforeOpenSeat)
 
-  await page.getByRole('button', { name: '日记' }).click()
+  await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await expect(page.getByRole('dialog', { name: '日记' })).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/11-journal-open.png', fullPage: false })
   await page.getByRole('button', { name: /查看投票记录/ }).first().click()

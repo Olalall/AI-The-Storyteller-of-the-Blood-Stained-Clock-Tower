@@ -13,7 +13,6 @@ import { projectEffectiveTimelineEntries } from '../game-session/state/projectTi
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState, TimelineEntry } from '../game-session/types'
 import { PlayerStatusBoard } from './components/PlayerStatusBoard'
-import { TimelineHistorySheet } from '../history/TimelineHistorySheet'
 import './dashboard.css'
 
 interface DashboardProps {
@@ -56,7 +55,7 @@ function continuationLabel(
   return segment ? `继续记录 · ${segment.label}` : '首次确认后建立记录'
 }
 
-export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus, onExitArchive}: DashboardProps) {
+export function Dashboard({ session, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus, onExitArchive}: DashboardProps) {
   const scriptName = scriptDisplayName(session.scriptId)
   const storytellerSeats = projectStorytellerSeatSummaries(session)
   const openSegments = projectOpenSegmentLabels(session)
@@ -119,13 +118,6 @@ export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenT
           title="最近记录"
           titleId="recent-title"
           aria-labelledby="recent-title"
-          actions={<TimelineHistorySheet
-            session={session}
-            dispatch={dispatch}
-            onOpenPlayerStatus={onOpenPlayerStatus}
-            onOpenDayWorkbench={onEnterDay}
-            onOpenSetup={onOpenSetup}
-          />}
         >
           {recentEntries.length ? (
             <ul className="dashboard__recent-list">

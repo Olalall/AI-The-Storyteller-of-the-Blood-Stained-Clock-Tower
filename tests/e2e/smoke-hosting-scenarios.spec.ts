@@ -147,7 +147,7 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
 
   await returnDashboard(page)
   await expect(page.getByRole('button', { name: /查看15号/ })).toBeVisible()
-  await page.getByRole('button', { name: '日记' }).click()
+  await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await expect(page.getByRole('dialog', { name: '日记' })).toBeVisible()
   await expect(page.getByRole('button', { name: /查看投票记录/ })).toHaveCount(2)
 })
