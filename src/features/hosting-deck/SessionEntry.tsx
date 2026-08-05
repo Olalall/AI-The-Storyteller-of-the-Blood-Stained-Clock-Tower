@@ -1,11 +1,17 @@
 import { BookOpenText, PlayCircle, Sparkles } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
+import { HostingModeCard } from '../grimoire/mode/HostingModeCard'
+import type { HostingMode } from '../game-session/types'
 import './session-entry.css'
 
 interface SessionEntryProps {
   onStartSetup: () => void
   onOpenScriptLibrary: () => void
   onLoadDemo: () => void
+  hostingMode?: HostingMode
+  onSelectHostingMode: (mode: HostingMode) => void
+  /** 逻辑宽度画不下座位环的设备，引导卡上补一句说明。 */
+  narrowScreen?: boolean
 }
 
 /**
@@ -14,7 +20,14 @@ interface SessionEntryProps {
  * 此前首次打开会直接落进一局开发夹具（12人瓦釜雷鸣、冻结在第3夜、预填记录），
  * 新用户会以为工具里已经有一局在进行。现在默认是空对局，由这里显式开始。
  */
-export function SessionEntry({ onStartSetup, onOpenScriptLibrary, onLoadDemo }: SessionEntryProps) {
+export function SessionEntry({
+  onStartSetup,
+  onOpenScriptLibrary,
+  onLoadDemo,
+  hostingMode,
+  onSelectHostingMode,
+  narrowScreen = false,
+}: SessionEntryProps) {
   return (
     <main className="session-entry" aria-label="开始新对局">
       <div className="session-entry__card">
@@ -29,6 +42,7 @@ export function SessionEntry({ onStartSetup, onOpenScriptLibrary, onLoadDemo }: 
           <Sparkles aria-hidden="true" />载入示例对局（12人瓦釜雷鸣，进行到第3夜）
         </button>
       </div>
+      <HostingModeCard value={hostingMode} onSelect={onSelectHostingMode} narrow={narrowScreen} />
     </main>
   )
 }
