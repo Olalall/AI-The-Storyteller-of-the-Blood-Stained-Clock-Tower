@@ -50,7 +50,7 @@ npm run verify:architecture
 
 **第 1、2、4 条价值最高**——它们是纯依赖方向与纯类型形状检查，零语义判断、零误报，且各自单点挡住一整类漂移。落地排期上这三条优先，其余六条在它们之后。
 
-### P0：依赖方向
+### P0（最高价值，纯依赖方向检查，零误报）
 
 **1. AI 不得直连权威状态** — 已实现，规则 id `state-no-ai-import`
 
@@ -67,12 +67,12 @@ npm run verify:architecture
 - 判据：扫描 `src/**` 与 `server/**`，从三种确定是存储 key 的语法位置取字面量——`localStorage.{get,set,remove}Item` 的直接实参、标识符名以 `StorageKey`/`StoragePrefix`/`MemoryKey` 结尾的常量声明、同名后缀函数的 `return` 字面量；模板插值归一为 `{}` 后必须命中白名单，否则 fail。新增 key 连同 owner 与用途登记进白名单才放行。
 - 为什么：魔典一屏能改的东西比纯记录多一个量级，「给魔典自己开一个 key」是最省事的写法。真值一分为二，崩溃恢复时两份必然对不上，而对不上的那一局正开在牌桌上。快照槽与单实例锁已经在白名单里显式登记并注明「不是第二份真值，主副本始终权威」——登记这个动作本身就是让作者在写下 key 之前先回答它跟主副本是什么关系。
 
-### P1：类型形状
+### P1（形状检查：类型形状与语法位置）
 
-**4. 标记不得携带效果** — 未实现
+**4. 标记不得携带效果** — 已实现，规则 id `reminder-no-effect-fields`
 
-- 判据：标记 / token 的类型定义文件中禁止出现字段名 `effect` / `effects` / `appliesTo` / `modifies` / `onNight` / `onDeath` / `resolve` / `trigger`。当前的类型定义面是 `src/features/night-workbench/types.ts` 的 `ManualStatusMarker` 与 `src/features/game-session/model/playerTypes.ts` 的 `PlayerState.markers`，魔典 token 类型落地后一并纳入。
-- 为什么：`ManualStatusMarker` 现在只有 `id` 和 `label`,它是说书人写给自己看的一张便签。补上任意一个上述字段，标记就从便签变成一条可执行规则；有了可执行规则，就一定会有人写一个遍历 `markers` 执行 `effect` 的循环。那个循环就是 `AbilityEngine`，只是名字不同——而第 `legacy-engine-symbols` 条只认名字。这条检查认的是形状，绕不过去。
+- 判据：范围限定在 `src/features/{night-workbench,game-session,grimoire}/` 下的 `types.ts` 与 `model/*.ts`；先向上回溯到最近的 `interface`/`type` 声明，名字含 `Reminder`/`Marker`/`Token` 且花括号未配平（即仍在该类型体内）时，字段声明位置出现 `effect` / `effects` / `appliesTo` / `modifies` / `onNight` / `onDeath` / `resolve` / `trigger` 即 fail。只查类型定义处：业务代码里的 `onDeath` 未必是标记字段，全域查会把真信号淹没在误报里。
+- 为什么：`ManualStatusMarker` 现在只有 `id` 和 `label`，它是说书人写给自己看的一张便签。补上任意一个上述字段，标记就从便签变成一条可执行规则；有了可执行规则，就一定会有人写一个遍历 `markers` 执行 `effect` 的循环。那个循环就是 `AbilityEngine`，只是名字不同——而 `legacy-engine-symbols` 只认名字。这条检查认的是形状，名字换成什么都绕不过去。
 
 **5. 禁止自动推进** — 未实现
 
@@ -84,7 +84,9 @@ npm run verify:architecture
 - 判据两部分：其一，禁用标识符表在 `src/**` 与 `server/**` 追加 `computeWinner` / `checkVictory` / `evaluateWinCondition` / `isGameOver` / `recomputeOnTheBlock`；其二，`dispatch({...})` 的实参对象内禁止出现 `majority` / `aliveCount` / `voteThreshold` / `isDemonDead` / `onTheBlock` 这类计算值标识符。
 - 为什么：三个阈值算式（举手 N / 门槛 M / 差 X）已获准使用，但只准出现在渲染路径。算给说书人看是辅助，算完写回 session 是裁定——中间只隔一次 `dispatch`。「票数达标顺手把人暂列处决」正是从这一步开始的，而它在评审里几乎无法拒绝，因为算式本身是对的。把边界画在 payload 上，就把一个语义争论变成了一个可机械判定的位置问题。
 
-### P1：其余依赖方向
+### P1（补充依赖方向）
+
+这三条守的不是「规则引擎」本身，而是它赖以长出来的三块地基：一个能被魔典绑架的保底通道、一个不可重放因而无法被不变量测试约束的 reducer、一个手里握着能力数据的后端。地基没了，引擎就没有生长的地方。
 
 **7. 纯记录模式不得依赖魔典** — 未实现
 
@@ -119,7 +121,7 @@ npm run verify:architecture
 
 ### 与这九条相邻、但不计入的检查
 
-`scripts/verify-architecture.mjs` 里另有几条同样在跑的规则，它们出自别的边界，不属于反规则引擎这一组：`legacy-engine-symbols`（旧引擎类名，范围已扩到 `src|server`）、`ui-night-coupling`（`src/components/ui` 零业务耦合，魔典座位因此必须放 `src/features/grimoire/` 而不是共享层，本规则一字不改）、`ai-script-hardcode`、`hosting-mode-not-behavioural`（state 目录不得读 `hostingMode`）、`file-budget`（`src/features/**.tsx` 封顶 320 行，魔典画布不因复杂而放宽）以及三条 CSS 纪律。`src/` 全域禁止 `WebSocket`/`EventSource`/`BroadcastChannel`/`socket.io`/`peerjs` 同样未实现，它守的是「不做联机」而非「不做规则引擎」。
+`scripts/verify-architecture.mjs` 里另有几条同样在跑的规则，它们各有出处，不计入本节这九条：`legacy-engine-symbols`（旧引擎类名，范围已扩到 `src|server`）、`ui-night-coupling`（`src/components/ui` 零业务耦合，魔典座位因此必须放 `src/features/grimoire/` 而不是共享层，本规则一字不改）、`ai-script-hardcode`、`hosting-mode-not-behavioural`（state 目录不得读 `hostingMode`）、`file-budget`（`src/features/**.tsx` 封顶 320 行，魔典画布不因复杂而放宽）以及三条 CSS 纪律。`src/` 全域禁止 `WebSocket`/`EventSource`/`BroadcastChannel`/`socket.io`/`peerjs` 同样未实现，它守的是「不做联机」而非「不做规则引擎」。
 
 ### 刻意不做成静态检查的两件事
 
