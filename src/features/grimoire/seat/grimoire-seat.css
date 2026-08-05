@@ -1,0 +1,141 @@
+/* 座位 token 的定位全部由 solveRingLayout 给的行内 left/top 决定，这里只管外观。 */
+.grimoire-seat {
+  /* 实际值由 GrimoireSeat 按 max(token, 56px) 行内覆盖；这里的默认值保证
+     即使调用方漏传，命中区也仍然是一个合法尺寸而不是塌成 0。 */
+  --seat-hit: var(--touch-min);
+
+  position: absolute;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  cursor: pointer;
+  /* 卫星 chip 与帷幕都相对 token 定位。 */
+  isolation: isolate;
+}
+
+/* 命中区外扩到 max(token, 56px)：token 降到 XS 档时手指仍够得着，
+   同时不把 token 本身画大——放大 token 会吃掉弧距、把环挤崩。 */
+.grimoire-seat::before {
+  content: '';
+  position: absolute;
+  inset: 50%;
+  width: var(--seat-hit);
+  height: var(--seat-hit);
+  translate: -50% -50%;
+  border-radius: 50%;
+}
+
+.grimoire-seat:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.grimoire-seat > .role-disc {
+  width: 100%;
+  height: 100%;
+}
+
+/* 选中态与 SeatButton 同一套：描边 + 暖金 + aria-pressed，不另起语义。 */
+.grimoire-seat--selected > .role-disc {
+  box-shadow: 0 0 0 3px var(--accent);
+}
+
+/* 中毒/醉酒把 token 边框改成语义色虚线，与卫星 chip 构成双重表达。 */
+.grimoire-seat--impaired > .role-disc {
+  outline: 2px dashed var(--warning-border);
+  outline-offset: 2px;
+}
+
+.grimoire-seat__number {
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  translate: -50% 0;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-pill);
+  background: var(--surface-raised);
+  border: 1px solid var(--border);
+  color: var(--text-body);
+  font-size: var(--type-meta);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.6;
+}
+
+/* 死亡：底部 30% 一条实底帷幕 + Skull + 「亡」+ 语义色描边。
+   图标、文字、颜色三重编码，昼夜同一套——只靠颜色会在暗光和色觉差异下失效。 */
+.grimoire-seat__shroud {
+  position: absolute;
+  inset: 70% 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-4);
+  border-radius: 0 0 999px 999px;
+  background: var(--danger-soft);
+  border-top: 1px solid var(--danger-border);
+  color: var(--danger-text);
+  font-size: var(--type-meta);
+}
+
+.grimoire-seat__shroud svg {
+  width: 12px;
+  height: 12px;
+}
+
+.grimoire-seat--dead > .role-disc {
+  outline: 2px solid var(--danger-border);
+  outline-offset: 2px;
+  opacity: 0.75;
+}
+
+/* 卫星 chip：位置由 satellitePlacements 算出来后行内给 left/top，这里只管样式。 */
+.grimoire-seat__chip {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-strong);
+  background: var(--surface-raised);
+  color: var(--text-body);
+  font-size: 10px;
+  line-height: 1;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.grimoire-seat__chip--poisoned {
+  background: var(--danger-soft);
+  border-color: var(--danger-border);
+  color: var(--danger-text);
+}
+
+.grimoire-seat__chip--drunk {
+  background: var(--warning-soft);
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+}
+
+.grimoire-seat__chip--marker {
+  background: var(--info-soft);
+  border-color: var(--info-border);
+  color: var(--info-text);
+}
+
+.grimoire-seat__chip--fold {
+  background: var(--surface-hover);
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .grimoire-seat > .role-disc {
+    transition: box-shadow 120ms ease-out;
+  }
+}
+
+/* 网格退化态：交给正常流，不再绝对定位。 */
+.grimoire-seat--flow {
+  position: relative;
+}
