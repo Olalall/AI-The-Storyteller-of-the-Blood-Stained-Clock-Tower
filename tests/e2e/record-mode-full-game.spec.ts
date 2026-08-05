@@ -15,6 +15,13 @@ interface TimelineEntryLike {
   after?: { life?: string }
 }
 
+
+/** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
+async function openArchive(page: Page) {
+  const enter = page.getByRole('button', { name: '本局', exact: true })
+  if (await enter.isVisible().catch(() => false)) await enter.click()
+}
+
 async function readSession(page: Page) {
   return page.evaluate((storageKey) => JSON.parse(window.localStorage.getItem(storageKey) ?? '{}'), sessionStorageKey)
 }
@@ -115,6 +122,7 @@ async function settleWholeNight(page: Page) {
 async function returnToDashboard(page: Page) {
   const back = page.getByRole('button', { name: '返回本局', exact: true })
   if (await back.isVisible().catch(() => false)) await back.click()
+  await openArchive(page)
   await expect(page.getByRole('main', { name: '本局' })).toBeVisible()
 }
 
@@ -124,6 +132,7 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   // 配板
   const setupHeading = page.getByRole('heading', { name: 'AI配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
+    await openArchive(page)
     await page.getByRole('button', { name: 'AI配板与调整' }).click()
   }
   await expect(setupHeading).toBeVisible()
@@ -141,6 +150,7 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   expect(afterSetup.timeline.filter((entry: TimelineEntryLike) => entry.kind === 'setup_confirmed')).toHaveLength(1)
 
   // 首夜
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.getByRole('heading', { name: '第1夜' })).toBeVisible()
 
@@ -149,13 +159,15 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
 
   await page.getByRole('button', { name: '检查并关闭' }).click()
   await page.getByRole('button', { name: '确认关闭' }).click()
-  await expect(page.getByRole('main', { name: '本局' })).toBeVisible()
+  // 关闭本夜后主持台落在黎明播报卡，而不是回首页——这是新导航的主路径。
+  await expect(page.getByRole('button', { name: /已宣布睁眼/ })).toBeVisible()
 
   const afterFirstNight = await readSession(page)
   expect(afterFirstNight.phaseSegments.find((segment: { id: string }) => segment.id === 'night-1').closedAt).toBeTruthy()
   expect(afterFirstNight.timeline.some((entry: TimelineEntryLike) => entry.kind === 'player_state_changed')).toBe(false)
 
   // 白天投票与处决
+  await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.getByRole('heading', { name: '第1天' })).toBeVisible()
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
@@ -187,16 +199,18 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   expect(afterDay.phaseSegments.find((segment: { id: string }) => segment.id === 'day-1').closedAt).toBeTruthy()
 
   // 次夜
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.getByRole('heading', { name: '第2夜' })).toBeVisible()
   const night2Confirmed = await settleWholeNight(page)
   await expect.poll(async () => countTimeline(page, (entry) => entry.kind === 'night_action' && entry.segmentId === 'night-2')).toBe(night2Confirmed)
   await page.getByRole('button', { name: '检查并关闭' }).click()
   await page.getByRole('button', { name: '确认关闭' }).click()
-  await expect(page.getByRole('main', { name: '本局' })).toBeVisible()
+  // 关闭本夜后主持台落在黎明播报卡，而不是回首页——这是新导航的主路径。
+  await expect(page.getByRole('button', { name: /已宣布睁眼/ })).toBeVisible()
 
-  // 归档
-  await page.getByRole('button', { name: '结束对局' }).click()
+  // 归档：收尾入口现在常驻在阶段轨道右端，不必先回首页。
+  await page.getByRole('button', { name: '收尾' }).click()
   await expect(page.getByRole('heading', { name: '结束对局' })).toBeVisible()
   await page.getByRole('radio', { name: '善良获胜' }).click()
   await page.getByRole('button', { name: '保存本局' }).click()

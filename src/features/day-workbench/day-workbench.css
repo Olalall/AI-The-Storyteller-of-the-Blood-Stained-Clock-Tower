@@ -1,12 +1,8 @@
 .day-workbench { min-height: calc(100dvh - 58px); background: radial-gradient(circle at 90% -12%, rgb(87 148 164 / 12%), transparent 35%), var(--surface-base); container-type: inline-size; }
-.day-workbench__header { min-height: 82px; padding: var(--space-16) max(var(--space-16), 4cqw); position: relative; display: flex; align-items: center; justify-content: center; gap: var(--space-16); border-bottom: 1px solid var(--border); background: rgb(10 14 19 / 84%); }
-.day-workbench__back { position: absolute; left: max(var(--space-16), 4cqw); white-space: nowrap; }
-.day-workbench__focus { min-width: 0; display: flex; align-items: center; justify-content: center; gap: clamp(var(--space-16), 3cqw, var(--space-24)); }
-.day-workbench__title { min-width: 0; text-align: center; }
-.day-workbench__title > span { display: flex; justify-content: center; gap: 7px; color: var(--info-text); font-size: var(--type-meta); font-weight: 800; letter-spacing: .1em; }
-.day-workbench__title > span svg { width: 16px; }
-.day-workbench__title > div { display: flex; align-items: center; justify-content: center; gap: var(--space-8); }
-.day-workbench__header h1 { margin: 4px 0 0; font: 900 clamp(1.8rem, 3cqw, 2.1rem)/1.08 var(--font-display); }
+/* 单行页头：只放不随相位变化的稳定信息，相位与下一步全部交给常驻阶段轨道。 */
+.day-workbench__header { min-height: 32px; padding: 0 max(var(--space-16), 3cqw); display: flex; align-items: center; gap: var(--space-12); border-bottom: 1px solid var(--border); background: rgb(10 14 19 / 84%); }
+.day-workbench__session { min-width: 0; flex: 1 1 auto; overflow: hidden; color: var(--text-muted); font-size: var(--type-label); font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.day-workbench__back { flex: 0 0 auto; white-space: nowrap; }
 .day-timer { min-width: min(480px, 100%); min-height: 58px; padding: 6px; display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-lg); background: linear-gradient(180deg, rgb(20 27 35 / 92%), rgb(13 19 25 / 94%)); box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%); }
 .day-timer__main { min-width: 0; padding-left: var(--space-8); display: grid; gap: 3px; }
 .day-timer__current { min-width: 0; display: flex; align-items: baseline; gap: 7px; }
@@ -30,6 +26,8 @@
 .day-timer-settings__error { margin: -8px 0 0; color: var(--danger-text); font-size: var(--type-label); font-weight: 700; }
 .day-timer-settings > .ui-button { width: 100%; }
 .day-workbench__content { width: min(1060px, calc(100% - 32px)); margin: 0 auto; padding: var(--space-24) 0 48px; display: grid; grid-template-columns: minmax(310px, .9fr) minmax(380px, 1.2fr); gap: var(--space-16); }
+/* 计时器随讨论节奏变化，是内容而不是页头信息。 */
+.day-workbench__content > .day-timer { grid-column: 1 / -1; width: 100%; min-width: 0; }
 .day-round-context { grid-column: 1 / -1; min-height: 52px; padding: 0 var(--space-16); border: 1px solid var(--info-border); border-radius: var(--radius-md); background: linear-gradient(90deg, var(--info-soft), transparent 72%); display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
 .day-round-context > div { min-width: 0; display: flex; align-items: baseline; gap: var(--space-12); }
 .day-round-context span { color: var(--info-text); font-size: var(--type-label); font-weight: 800; letter-spacing: .08em; }
@@ -108,39 +106,8 @@
 .day-close-confirm span { margin-top: 4px; color: var(--text-muted); font-size: var(--type-label); font-weight: 700; }
 .day-close-confirm > div:last-child { display: flex; gap: var(--space-8); }
 @container (max-width: 900px) { .day-workbench__content { grid-template-columns: 1fr; } }
-@container (max-width: 900px) { .day-workbench__header { display: grid; grid-template-columns: max-content 1fr; justify-content: initial; } .day-workbench__back { position: static; grid-column: 1; grid-row: 1; } .day-workbench__focus { grid-column: 1 / -1; grid-row: 2; } }
-@container (max-width: 720px) { .day-workbench__focus { flex-direction: column; gap: var(--space-12); } }
 @container (max-width: 560px) { .day-timer { width: min(100%, 420px); grid-template-columns: 1fr; gap: var(--space-8); } .day-timer__main { padding: 0 var(--space-8); } .day-timer__controls { justify-content: stretch; } .day-timer__settings { flex: 0 0 auto; } .day-timer__actions { flex: 1; justify-content: flex-end; } }
-@container (max-width: 500px) { .day-workbench__header { padding-inline: var(--space-12); gap: var(--space-12); } .day-workbench__back { width: var(--touch-min); padding: 0; font-size: 0; } .day-workbench__focus { width: 100%; } .day-timer__actions .ui-button:first-child, .day-timer__settings { width: var(--touch-min); padding: 0; font-size: 0; } .day-timer__actions .ui-button:first-child svg, .day-timer__settings svg { width: 18px; height: 18px; } .day-timer-settings { padding: var(--space-16); } .day-timer-settings__fields { grid-template-columns: 1fr; } .day-workbench__content { width: calc(100% - 20px); padding-top: var(--space-12); } .day-workbench .ui-card { padding: var(--space-16); } .day-round-context { min-height: 48px; padding-inline: var(--space-12); } .day-seat-grid, .day-vote-grid, .day-record-sheet__seats { grid-template-columns: repeat(4, minmax(44px, 1fr)); } .day-skill-fields__roles, .day-skill-fields__targets { grid-template-columns: 1fr; } .day-skill-fields__outcomes { grid-template-columns: 1fr; } .day-resolution-actions, .day-resolution-confirm, .day-close-confirm, .day-workbench__footer { align-items: stretch; flex-direction: column; } .day-resolution-actions .ui-button, .day-resolution-confirm > div:last-child .ui-button, .day-close-confirm > div:last-child .ui-button { width: 100%; } }
-
-
-/* V3 header alignment: keep day and night workbenches in the same scan pattern. */
-.day-workbench__header {
-  min-height: 96px;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  justify-content: initial;
-  align-items: center;
-  gap: clamp(var(--space-18), 3cqw, var(--space-24));
-}
-.day-workbench__back { position: static; }
-.day-workbench__focus {
-  width: 100%;
-  display: grid;
-  grid-template-columns: minmax(160px, .42fr) minmax(360px, .86fr);
-  justify-content: center;
-  align-items: center;
-}
-.day-workbench__title { text-align: left; }
-.day-workbench__title > span { justify-content: flex-start; }
-.day-workbench__title > div { justify-content: flex-start; }
-.day-timer { width: 100%; min-width: 0; }
-
-@container (max-width: 720px) {
-  .day-workbench__focus { grid-template-columns: 1fr; justify-items: stretch; }
-  .day-workbench__title { text-align: center; }
-  .day-workbench__title > span, .day-workbench__title > div { justify-content: center; }
-}
+@container (max-width: 500px) { .day-workbench__header { padding-inline: var(--space-12); gap: var(--space-8); } .day-workbench__back { width: var(--touch-min); padding: 0; font-size: 0; } .day-timer__actions .ui-button:first-child, .day-timer__settings { width: var(--touch-min); padding: 0; font-size: 0; } .day-timer__actions .ui-button:first-child svg, .day-timer__settings svg { width: 18px; height: 18px; } .day-timer-settings { padding: var(--space-16); } .day-timer-settings__fields { grid-template-columns: 1fr; } .day-workbench__content { width: calc(100% - 20px); padding-top: var(--space-12); } .day-workbench .ui-card { padding: var(--space-16); } .day-round-context { min-height: 48px; padding-inline: var(--space-12); } .day-seat-grid, .day-vote-grid, .day-record-sheet__seats { grid-template-columns: repeat(4, minmax(44px, 1fr)); } .day-skill-fields__roles, .day-skill-fields__targets { grid-template-columns: 1fr; } .day-skill-fields__outcomes { grid-template-columns: 1fr; } .day-resolution-actions, .day-resolution-confirm, .day-close-confirm, .day-workbench__footer { align-items: stretch; flex-direction: column; } .day-resolution-actions .ui-button, .day-resolution-confirm > div:last-child .ui-button, .day-close-confirm > div:last-child .ui-button { width: 100%; } }
 
 
 /* Focused public discussion timer page. */

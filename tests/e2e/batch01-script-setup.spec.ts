@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
 
 const firstBatchScriptIds = [
   'trouble-brewing',
@@ -12,6 +12,13 @@ const firstBatchScriptIds = [
   'quick-maths',
   'devout-theists',
 ] as const
+
+
+/** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
+async function openArchive(page: Page) {
+  const enter = page.getByRole('button', { name: '本局', exact: true })
+  if (await enter.isVisible().catch(() => false)) await enter.click()
+}
 
 async function openBlankSetup(page: import('@playwright/test').Page) {
   await page.goto('/')
@@ -35,6 +42,7 @@ async function openBlankSetup(page: import('@playwright/test').Page) {
     }))
   })
   await page.reload()
+  await openArchive(page)
   await page.getByRole('button', { name: 'AI配板与调整' }).click()
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
   await expect(page.getByText('选择人数')).toBeVisible()

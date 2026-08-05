@@ -1,4 +1,4 @@
-import { Archive, Bot, ChevronRight, Flag, IdCard, MoonStar, Repeat2, SunMedium, Timer } from 'lucide-react'
+import { ArrowLeft, Archive, Bot, ChevronRight, Flag, IdCard, MoonStar, Repeat2, SunMedium, Timer } from 'lucide-react'
 import type { Dispatch } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
@@ -8,10 +8,10 @@ import { scriptDisplayName } from '../../domain/scripts'
 import { assertNever } from '../../shared/assertNever'
 import { OpeningScriptSheet } from '../host-tools/OpeningScriptSheet'
 import { AISettingsSheet } from '../ai-settings/AISettingsSheet'
-import { projectConfirmedSetup, projectOpenSegmentLabels, projectStorytellerSeatSummaries } from '../game-session/state/projectors'
+import { projectOpenSegmentLabels, projectStorytellerSeatSummaries } from '../game-session/state/projectors'
 import { projectEffectiveTimelineEntries } from '../game-session/state/projectTimelineHistory'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
-import type { GameSessionState, PhaseKind, PhaseSegment, TimelineEntry } from '../game-session/types'
+import type { GameSessionState, TimelineEntry } from '../game-session/types'
 import { PlayerStatusBoard } from './components/PlayerStatusBoard'
 import { TimelineHistorySheet } from '../history/TimelineHistorySheet'
 import './dashboard.css'
@@ -27,6 +27,8 @@ interface DashboardProps {
   onOpenGameEnd: (mode?: 'end' | 'review') => void
   onOpenScriptLibrary: () => void
   onOpenPlayerStatus: (seatId: number) => void
+  /** 档案是覆盖层：关闭后回到主持台原节点。 */
+  onExitArchive?: () => void
 }
 
 function entrySummary(entry: TimelineEntry): string {
@@ -54,115 +56,23 @@ function continuationLabel(
   return segment ? `继续记录 · ${segment.label}` : '首次确认后建立记录'
 }
 
-type PhaseTimelineStep = {
-  key: string
-  label: string
-  meta: string
-  kind: PhaseKind | 'setup'
-  state: 'done' | 'current' | 'next' | 'open'
-}
-
-function nextPhaseStep(segment: PhaseSegment): PhaseTimelineStep {
-  const kind = segment.kind === 'night' ? 'day' : 'night'
-  const sequence = segment.kind === 'night' ? segment.sequence : segment.sequence + 1
-  return {
-    key: `next-${kind}-${sequence}`,
-    kind,
-    label: kind === 'night' ? `第${sequence}夜` : `第${sequence}天`,
-    meta: '下一步',
-    state: 'next',
-  }
-}
-
-function dashboardPhaseTimeline(session: GameSessionState) {
-  const ordered = [...session.phaseSegments].sort((left, right) => left.createdAt.localeCompare(right.createdAt) || left.id.localeCompare(right.id))
-  const open = ordered.filter((segment) => !segment.closedAt).at(-1)
-  const current = open ?? ordered.at(-1)
-  const hasConfirmedSetup = Boolean(projectConfirmedSetup(session))
-
-  if (!current) {
-    const steps: PhaseTimelineStep[] = hasConfirmedSetup
-      ? [
-        { key: 'setup', kind: 'setup', label: '配板', meta: '已确认', state: 'done' },
-        { key: 'next-night-1', kind: 'night', label: '第1夜', meta: '下一步', state: 'next' },
-        { key: 'after-day-1', kind: 'day', label: '第1天', meta: '之后', state: 'next' },
-      ]
-      : [
-        { key: 'setup', kind: 'setup', label: '待配板', meta: '未开始', state: 'current' },
-        { key: 'next-night-1', kind: 'night', label: '第1夜', meta: '下一步', state: 'next' },
-        { key: 'after-day-1', kind: 'day', label: '第1天', meta: '之后', state: 'next' },
-      ]
-    return { summary: hasConfirmedSetup ? '开局前，下一步第1夜' : '新局未开始，先配板和录入玩家', steps }
-  }
-
-  const previous = ordered.filter((segment) => segment.id !== current.id).at(-1)
-  const currentIsOpen = !current.closedAt
-  const next = nextPhaseStep(current)
-  const steps: PhaseTimelineStep[] = [
-    previous
-      ? {
-        key: previous.id,
-        kind: previous.kind,
-        label: previous.label,
-        meta: previous.closedAt ? '已结束' : '可补记',
-        state: previous.closedAt ? 'done' : 'open',
-      }
-      : { key: 'setup', kind: 'setup', label: '配板', meta: '已确认', state: 'done' },
-    {
-      key: current.id,
-      kind: current.kind,
-      label: current.label,
-      meta: currentIsOpen ? '记录中' : '已结束',
-      state: currentIsOpen ? 'current' : 'done',
-    },
-    next,
-  ]
-
-  return {
-    summary: currentIsOpen ? `${current.label}，记录中` : `${current.label}已结束，下一步${next.label}`,
-    steps,
-  }
-}
-
-export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus }: DashboardProps) {
+export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus, onExitArchive}: DashboardProps) {
   const scriptName = scriptDisplayName(session.scriptId)
   const storytellerSeats = projectStorytellerSeatSummaries(session)
   const openSegments = projectOpenSegmentLabels(session)
-  const phaseTimeline = dashboardPhaseTimeline(session)
   const recentEntries = [...projectEffectiveTimelineEntries(session.timeline)]
     .sort((left, right) => right.createdAt.localeCompare(left.createdAt) || right.id.localeCompare(left.id))
     .slice(0, 3)
-  const currentStage = phaseTimeline.steps.find((step) => step.state === 'current' || step.state === 'open')
-    ?? phaseTimeline.steps.find((step) => step.state === 'next')
-    ?? phaseTimeline.steps[1]
-    ?? phaseTimeline.steps[0]
-  const currentStageMode = currentStage.kind === 'night' ? '夜间处理' : currentStage.kind === 'day' ? '白天处理' : '开局准备'
 
   return (
     <main className="dashboard" aria-label="本局">
+      {/* 单行页头：当前阶段与下一步由常驻阶段轨道承载，这里只留本局的稳定身份。 */}
       <header className="dashboard__header">
-        <div>
-          <span className="dashboard__eyebrow">本局</span>
-          <h1>{scriptName}</h1>
-          <section className="dashboard__stage-overview" aria-label={`当前阶段：${phaseTimeline.summary}`}>
-            <div className={`dashboard__stage-current is-${currentStage.kind}`}>
-              <div className="dashboard__stage-current-main">
-                <span>当前阶段</span>
-                <strong>{currentStage.label}</strong>
-                <StatusBadge tone={currentStage.state === 'current' || currentStage.state === 'open' ? 'current' : 'neutral'}>{currentStage.meta}</StatusBadge>
-              </div>
-              <div className="dashboard__stage-current-info" aria-label="当前阶段信息">
-                <span>{scriptName}</span>
-                <span>{storytellerSeats.length} / {currentStageMode}</span>
-              </div>
-              <div className="dashboard__stage-current-decoration" aria-hidden="true">
-                <i />
-                <i />
-                <i />
-              </div>
-            </div>
-          </section>
-        </div>
+        {onExitArchive ? (
+          <Button variant="ghost" compact onClick={onExitArchive}><ArrowLeft aria-hidden="true" />回到主持台</Button>
+        ) : null}
+        <h1>{scriptName}</h1>
+        <span className="dashboard__session-meta">· {session.playerCount}人</span>
         <AISettingsSheet />
       </header>
 

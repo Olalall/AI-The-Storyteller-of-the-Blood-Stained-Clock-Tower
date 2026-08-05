@@ -6,6 +6,14 @@ const layouts = [
   { name: 'pc-1440', width: 1440, height: 900, rail: true },
 ]
 
+
+/** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
+async function openArchive(page: import('@playwright/test').Page) {
+  const back = page.getByRole('button', { name: '本局', exact: true })
+  if (await back.isVisible().catch(() => false)) await back.click()
+  await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+}
+
 async function reset(page: Page) {
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
@@ -21,10 +29,11 @@ test('three responsive shells keep the dashboard and workbenches inside the view
   for (const layout of layouts) {
     await page.setViewportSize({ width: layout.width, height: layout.height })
     await reset(page)
-    await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+    await openArchive(page)
     await expectNoOverflow(page)
     await page.screenshot({ path: `artifacts/screenshots/${layout.name}-dashboard-shell.png` })
 
+    await openArchive(page)
     await page.getByRole('button', { name: '进入夜晚' }).click()
     await expect(page.getByRole('heading', { name: /第3夜/ })).toBeVisible()
     if (layout.rail) await expect(page.getByLabel('本局速览')).toBeVisible()
@@ -37,6 +46,7 @@ test('three responsive shells keep the dashboard and workbenches inside the view
 test('Pad rail appears automatically without product navigation controls', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 768 })
   await reset(page)
+  await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.getByLabel('本局速览')).toBeVisible()
   await expect(page.getByLabel('原型页面')).toHaveCount(0)
@@ -48,6 +58,7 @@ test('Pad rail appears automatically without product navigation controls', async
 test('Pad rail opens the shared player status page without writing until confirmation', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 768 })
   await reset(page)
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   const before = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)
 
@@ -71,7 +82,9 @@ test('Pad rail opens the shared player status page without writing until confirm
 test('compact dashboard cards project role, nickname and status without changing the session', async ({ page }) => {
   await page.setViewportSize({ width: 498, height: 974 })
   await reset(page)
-  await expect(page.getByLabel('当前阶段：第3夜，记录中')).toBeVisible()
+  // 「当前阶段」卡已被常驻阶段轨道取代。
+  await expect(page.getByRole('navigation', { name: '主持阶段' }).locator('.ui-phase-node--open')).toContainText('第3夜')
+  await openArchive(page)
   await expect(page.getByText('12人 · 存活12 · 死亡0')).toBeVisible()
   await expect(page.getByRole('button', { name: /倒计时/ })).toBeVisible()
   await expect(page.getByText('私聊 15分 → 公聊 10分')).not.toBeVisible()
@@ -101,6 +114,7 @@ test('compact dashboard cards project role, nickname and status without changing
 test('setup distinguishes replacement, nickname editing, and seat swapping', async ({ page }) => {
   await page.setViewportSize({ width: 720, height: 900 })
   await reset(page)
+  await openArchive(page)
   await page.getByRole('button', { name: 'AI配板与调整' }).click()
   const setupPage = page.getByRole('dialog')
   await expect(setupPage).toHaveAttribute('data-presentation', 'page')

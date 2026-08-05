@@ -1,10 +1,11 @@
-import { ArrowLeft, Check, Gavel, Hand, SunMedium, X } from 'lucide-react'
+import { ArrowLeft, Check, Gavel, Hand, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
 import { Field } from '../../components/ui/Field'
 import { SeatButton } from '../../components/ui/SeatButton'
 import { StatusBadge } from '../../components/ui/StatusBadge'
+import { scriptDisplayName } from '../../domain/scripts'
 import { projectCurrentPlayerStates } from '../game-session/state/projectors'
 import { dayActionDraftContentKinds } from '../game-session/state/dayActionDraft'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
@@ -20,6 +21,8 @@ interface DayWorkbenchProps {
   session: GameSessionState
   dispatch: React.Dispatch<GameSessionAction>
   onExit: () => void
+  /** 打开投屏倒计时遮蔽层；它不再是顶层视图，收起后回到原位。 */
+  onOpenTimer?: () => void
 }
 
 type NominationTarget = 'nominator' | 'nominee'
@@ -71,7 +74,7 @@ function leaveNoticeCopy(hasVoteDraft: boolean, dayActionKinds: readonly ('skill
   }
 }
 
-export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
+export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWorkbenchProps) {
   const [nominationTarget, setNominationTarget] = useState<NominationTarget>('nominator')
   const [pendingResolution, setPendingResolution] = useState<PendingResolution | null>(null)
   const [pendingDayClose, setPendingDayClose] = useState<PendingDayClose | null>(null)
@@ -193,14 +196,13 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
   return (
     <main className="day-workbench">
       <header className="day-workbench__header">
+        {/*
+          「第N天」与「记录中」都由常驻阶段轨道承载，页头只留不随相位变化的稳定信息。
+          h1 视觉上收起但保留在无障碍树里：页面仍需要一个可被屏读定位的标题。
+        */}
+        <h1 className="ui-visually-hidden">{openDay?.label ?? '白天工作台'}</h1>
+        <span className="day-workbench__session">{scriptDisplayName(session.scriptId)} · {session.playerCount}人</span>
         <Button className="day-workbench__back" variant="ghost" compact onClick={requestExit}><ArrowLeft aria-hidden="true" /><span>返回本局</span></Button>
-        <div className="day-workbench__focus">
-          <div className="day-workbench__title">
-            <span><SunMedium aria-hidden="true" />白天工作台</span>
-            <div><h1>{openDay?.label ?? '白天工作台'}</h1>{openDay ? <StatusBadge tone="current">记录中</StatusBadge> : null}</div>
-          </div>
-          <DayTimer />
-        </div>
       </header>
 
       {leavePromptOpen ? <LeaveWorkbenchNotice
@@ -211,6 +213,8 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
       /> : null}
 
       <div className="day-workbench__content">
+        <DayTimer onProject={onOpenTimer} />
+
         <section className="day-round-context" aria-label={`第${roundNumber}轮状态`}>
           <div><span>第{roundNumber}轮</span><strong>{roundStatus}</strong></div>
           <DayRecordSheet session={session} dispatch={dispatch} />
