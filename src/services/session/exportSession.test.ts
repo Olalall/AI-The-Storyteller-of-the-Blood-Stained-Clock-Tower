@@ -10,8 +10,9 @@ describe('导出本局 JSON', () => {
   beforeEach(() => {
     clicked = null
     vi.stubGlobal('URL', { ...URL, createObjectURL: () => 'blob:stub', revokeObjectURL: () => undefined })
-    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(function (this: HTMLAnchorElement) {
-      clicked = this
+    // 记下被点的那个锚点：导出的正确性一半在文件名上，另一半在「用完就摘掉」。
+    vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => {
+      clicked = document.querySelector('a[download]')
     })
   })
   afterEach(() => { vi.unstubAllGlobals(); vi.restoreAllMocks() })
