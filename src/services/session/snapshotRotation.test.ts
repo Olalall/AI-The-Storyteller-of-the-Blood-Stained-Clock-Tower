@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { createPrototypeGameSession } from '../../features/game-session/data/createPrototypeSession'
+import { createPrototypeGameSession, gameSessionStorageKey } from '../../features/game-session/data/createPrototypeSession'
 import {
   SNAPSHOT_INTERVAL_MS,
   SNAPSHOT_SLOTS,
@@ -7,6 +7,7 @@ import {
   listSnapshots,
   readSnapshot,
   shouldSnapshot,
+  snapshotIndexKey,
   writeSnapshot,
 } from './snapshotRotation'
 
@@ -71,7 +72,7 @@ describe('快照轮转', () => {
   })
 
   it('survives a corrupted index without losing the game', () => {
-    window.localStorage.setItem('botc-copilot-session-snapshot-v1-index', 'not json')
+    window.localStorage.setItem(snapshotIndexKey, 'not json')
 
     expect(listSnapshots()).toEqual([])
     expect(() => writeSnapshot(createPrototypeGameSession(), 'interval', AT(0))).not.toThrow()
@@ -84,7 +85,7 @@ describe('快照轮转', () => {
     writeSnapshot({ ...session, id: 'two-minutes-ago' }, 'interval', AT(1))
     writeSnapshot({ ...session, id: 'one-minute-ago' }, 'interval', AT(2))
 
-    window.localStorage.removeItem('botc-copilot-session-v1')
+    window.localStorage.removeItem(gameSessionStorageKey)
 
     const recovered = listSnapshots().map((entry) => readSnapshot(entry.slot)!)
     expect(recovered.map((snapshot) => JSON.parse(snapshot.raw).id)).toEqual([
