@@ -14,6 +14,7 @@ function itemNeedingTarget(): WakeItem {
     roleInitial: '气',
     ability: '每夜得知一名与上一晚不同角色类型的玩家。',
     storytellerPrompt: '记录本夜给出的玩家。',
+    iconPath: '/assets/characters/balloonist.webp',
     progress: 'pending',
     applicability: 'applicable',
     status: { life: 'alive', impairments: [], markers: [] },

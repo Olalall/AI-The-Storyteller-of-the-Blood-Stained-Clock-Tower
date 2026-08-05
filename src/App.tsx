@@ -1,5 +1,9 @@
 import { useMemo, useState } from 'react'
 import { AppFrame } from './app/AppFrame'
+import { PhaseTrack } from './components/ui/PhaseTrack'
+import { Button } from './components/ui/Button'
+import { projectPhaseTrack } from './features/game-session/state/projectPhaseTrack'
+import { projectEffectiveTimelineEntries } from './features/game-session/state/projectTimelineHistory'
 import { Dashboard } from './features/dashboard/Dashboard'
 import { SessionRail } from './features/dashboard/components/SessionRail'
 import { PlayerStatusOverlay } from './features/dashboard/components/PlayerStatusOverlay'
@@ -57,7 +61,22 @@ function App() {
 
   return (
     <DiscussionTimerProvider key={session.id} sessionId={session.id}>
-      <AppFrame rail={view === 'night' || view === 'day' ? <SessionRail session={session} onOpenPlayerStatus={setPlayerStatusSeatId} /> : undefined}>
+      <AppFrame
+        rail={view === 'night' || view === 'day' ? <SessionRail session={session} onOpenPlayerStatus={setPlayerStatusSeatId} /> : undefined}
+        phaseTrack={(
+          <PhaseTrack
+            nodes={projectPhaseTrack(session)}
+            actions={(
+              <>
+                <Button variant="ghost" compact onClick={() => { setGameEndMode('review'); setGameEndOpen(true) }}>
+                  本局记录 {projectEffectiveTimelineEntries(session.timeline).length}
+                </Button>
+                <Button variant="ghost" compact onClick={() => { setGameEndMode('end'); setGameEndOpen(true) }}>收尾</Button>
+              </>
+            )}
+          />
+        )}
+      >
         {view === 'dashboard' ? <Dashboard session={session} dispatch={dispatch} onEnterNight={enterNight} onEnterDay={enterDay} onOpenTimer={() => setView('timer')} onOpenSetup={() => setSetupOpen(true)} onOpenIdentityDeal={() => setIdentityDealOpen(true)} onOpenGameEnd={(mode = 'end') => { setGameEndMode(mode); setGameEndOpen(true) }} onOpenScriptLibrary={() => setScriptLibraryOpen(true)} onOpenPlayerStatus={setPlayerStatusSeatId} /> : null}
         {view === 'night' ? <NightWorkbench sessionBinding={nightBinding} onExit={() => setView('dashboard')} /> : null}
         {view === 'day' ? <DayWorkbench session={session} dispatch={dispatch} onExit={() => setView('dashboard')} /> : null}
