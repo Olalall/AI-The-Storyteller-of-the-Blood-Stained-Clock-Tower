@@ -171,10 +171,12 @@ function declarationValues(source, property) {
 const rules = [
   {
     id: 'legacy-engine-symbols',
-    docSection: '「架构守护：verify-architecture.mjs 现状盘点」要求 2（范围扩到 src|server）',
+    docSection: '「架构守护」要求 2（范围扩到 src|server）；裁决 10 追加胜负判定类标识符',
     applies: (file) => /^(src|server)\/.*\.(ts|tsx)$/.test(file),
     detect: (line) => {
-      const matched = /PhaseCoordinator|RuleAutomation|AutonomousGameRunner|AbilityEngine/.exec(line)
+      // 后五个来自裁决 10：三条阈值算式采纳但只许出现在渲染路径。
+      // 这些名字一旦作为函数存在，就说明有人把「谁赢了」从说书人的裁定变成了工具的计算。
+      const matched = /PhaseCoordinator|RuleAutomation|AutonomousGameRunner|AbilityEngine|computeWinner|checkVictory|evaluateWinCondition|isGameOver|recomputeOnTheBlock/.exec(line)
       return matched ? `出现旧规则引擎符号 ${matched[0]}` : null
     },
     fix: '删除该符号；若只是说明性文字，改写措辞或在该行加 `// arch-allow: legacy-engine-symbols <原因>`。',
