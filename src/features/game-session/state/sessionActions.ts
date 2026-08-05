@@ -1,4 +1,4 @@
-import type { GameSessionState } from '../types'
+import type { GameSessionState, HostingMode } from '../types'
 import type {
   ScriptId,
 } from '../../../domain/scripts'
@@ -111,6 +111,16 @@ export type GameSessionAction =
     createdAt: string
     playerCount?: number
     seats?: readonly { seatId: number; nickname?: string; experience?: PlayerExperience | null }[]
+  }
+  | {
+    /**
+     * 记录本局用哪种模式主持。这是**唯一**写入 hostingMode 的入口。
+     * 它只留痕，不改变任何其他状态——模式不得成为行为分支。
+     */
+    type: 'set-hosting-mode'
+    mode: HostingMode
+    changedAt: string
+    phaseLabel: string
   }
   | { type: 'reset-session' }
   /** 整局替换。只用于「载入示例对局」这类显式动作，不用于任何自动流程。 */

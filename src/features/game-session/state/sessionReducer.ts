@@ -52,6 +52,17 @@ export function gameSessionReducer(state: GameSessionState, action: GameSessionA
         playerCount: action.playerCount,
         seats: action.seats,
       })
+    case 'set-hosting-mode': {
+      if (state.hostingMode === action.mode) return state
+      return {
+        ...state,
+        hostingMode: action.mode,
+        hostingModeHistory: [
+          ...(state.hostingModeHistory ?? []),
+          { mode: action.mode, changedAt: action.changedAt, phaseLabel: action.phaseLabel },
+        ],
+      }
+    }
     case 'reset-session':
       return createEmptyGameSession()
     case 'replace-session':
