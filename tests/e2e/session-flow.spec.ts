@@ -89,13 +89,14 @@ test('dashboard keeps day and night as peer entries and only records day facts a
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
   await page.getByRole('button', { name: '记录本轮票型' }).click()
 
   await expect(page.getByRole('heading', { name: '第3天' })).toBeVisible()
-  await expect(page.getByText('4号暂列')).toBeVisible()
+  await expect(page.locator('.day-card--standing').getByText('4号暂列')).toBeVisible()
   await expect(page.getByText('6票 · 门槛6')).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/split-720-day-vote.png', fullPage: true })
   const afterVote = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
@@ -278,6 +279,7 @@ test('an unrecorded vote survives returning to the dashboard and must be explici
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   await page.getByRole('button', { name: '记录1号举手' }).click()
 
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
@@ -421,6 +423,7 @@ test('journal keeps vote records read-only and directs the storyteller back to t
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
