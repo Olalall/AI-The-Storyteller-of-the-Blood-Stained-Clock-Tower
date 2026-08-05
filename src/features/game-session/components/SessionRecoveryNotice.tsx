@@ -2,18 +2,11 @@ import { AlertTriangle, Download, X } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../../../components/ui/Button'
 import { clearSessionRecovery, readSessionRecovery } from '../../../services/session'
+import { downloadTextFile } from '../../../services/session/exportSession'
 import './session-recovery-notice.css'
 
 function downloadRaw(raw: string, savedAt: string) {
-  const blob = new Blob([raw], { type: 'application/json' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = `botc-session-recovery-${savedAt.replace(/[:.]/g, '-')}.json`
-  document.body.appendChild(link)
-  link.click()
-  link.remove()
-  URL.revokeObjectURL(url)
+  downloadTextFile(`botc-session-recovery-${savedAt.replace(/[:.]/g, '-')}.json`, raw)
 }
 
 /**

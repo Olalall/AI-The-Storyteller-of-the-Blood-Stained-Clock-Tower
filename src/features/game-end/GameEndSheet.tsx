@@ -37,18 +37,6 @@ function createCommandId(prefix: string) {
   return `${prefix}-${Date.now()}`
 }
 
-function downloadTextFile(filename: string, content: string) {
-  const blob = new Blob([content], { type: 'application/json;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = filename
-  document.body.append(link)
-  link.click()
-  link.remove()
-  URL.revokeObjectURL(url)
-}
-
 export function GameEndSheet({ open, onOpenChange, session, initialMode = 'end', onResetGame }: GameEndSheetProps) {
   const [mode, setMode] = useState<GameEndMode>(initialMode)
   const [winner, setWinner] = useState<Winner>('undecided')
