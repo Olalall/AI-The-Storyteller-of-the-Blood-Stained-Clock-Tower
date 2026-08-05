@@ -5,10 +5,13 @@ import type {
 import type {
   DayActionDraft,
   DayVoteDraft,
+  GrimoireOp,
   NightRunState,
   PhaseKind,
   PlayerExperience,
   PlayerState,
+  PlayerStateBackfill,
+  PlayerStateChangeOrigin,
   SetupDraft,
 } from '../types'
 import type { ConfirmedWakeRecord, RoleChangeEvent, RoleSnapshot } from '../../night-workbench/types'
@@ -67,6 +70,15 @@ export type GameSessionAction =
     entryId: string
     confirmedAt: string
     reason: string
+    /**
+     * 本次改动的原子意图。魔典路径必须带且长度恒为 1；旧路径不带，行为不变。
+     * 带了就要接受 grimoireOpInvariant 的检查：差异字段集必须是 ops[0] 名字的字面子集。
+     */
+    ops?: GrimoireOp[]
+    origin?: PlayerStateChangeOrigin
+    /** 同一次手势波及多座位时，各座位一条 action，共用这个 id。 */
+    batchId?: string
+    backfill?: PlayerStateBackfill
   }
   | {
     /** 说书人本机辨认用昵称；不属于身份、状态或昼夜事实。 */

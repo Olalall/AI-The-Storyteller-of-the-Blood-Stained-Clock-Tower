@@ -1,6 +1,7 @@
 import type { GameSessionState } from '../types'
 import { createCatfishingSetupSession, createEmptyGameSession, createSmartScriptSetupSession, isSupportedScriptSetupPlayerCount, isSupportedSetupPlayerCount } from '../data/createPrototypeSession'
 import { reduceDaySession } from './daySessionReducer'
+import { assertGrimoireOpInvariant } from './grimoireOpInvariant'
 import { reduceNightSession } from './nightSessionReducer'
 import { reducePhaseSession } from './phaseSessionReducer'
 import { confirmPlayerStateChange } from './playerStateReducer'
@@ -27,8 +28,21 @@ export function gameSessionReducer(state: GameSessionState, action: GameSessionA
     case 'append-phase-entry':
     case 'append-correction':
       return reduceTimelineSession(state, action)
-    case 'confirm-player-state-change':
-      return confirmPlayerStateChange(state, action)
+    case 'confirm-player-state-change': {
+      const next = confirmPlayerStateChange(state, action)
+      // 只在写入真的落盘后校验。被守卫拒绝的 action 没有产生任何审计记录，
+      // 对它报越界只会把真实漂移淹没在噪音里。落盘时 expectedBefore 已被守卫确认
+      // 与投影出的 before 深等，所以它就是这条记录的「改动前」。
+      if (next !== state) {
+        assertGrimoireOpInvariant({
+          seatId: action.seatId,
+          before: action.expectedBefore,
+          after: action.after,
+          ops: action.ops,
+        })
+      }
+      return next
+    }
     case 'commit-night-workbench':
     case 'replace-night-run':
     case 'set-active-night-run':
