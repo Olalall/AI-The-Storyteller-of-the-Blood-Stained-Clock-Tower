@@ -25,6 +25,12 @@ export function confirmPlayerStateChange(
       before: clonePlayerState(before),
       after: clonePlayerState(action.after),
       reason: action.reason,
+      // 条件展开而不是直接赋值：旧路径不带这些字段，写成 `ops: undefined`
+      // 会让每一条历史记录都多出四个空键，归档体积和 diff 噪声都跟着涨。
+      ...(action.ops ? { ops: action.ops } : {}),
+      ...(action.origin ? { origin: action.origin } : {}),
+      ...(action.batchId ? { batchId: action.batchId } : {}),
+      ...(action.backfill ? { backfill: action.backfill } : {}),
     }],
   }
 }

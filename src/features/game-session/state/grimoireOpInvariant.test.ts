@@ -256,3 +256,81 @@ describe('confirm-player-state-change 上的运行时断言', () => {
     expect(next.timeline.some((entry) => entry.id === 'state-op-1')).toBe(true)
   })
 })
+
+/**
+ * 上面那张表里，七个在 G2 没有落点的 op（alignment_set / madness_issued 等）
+ * 的「合法」样本是 before === after。那条断言不具判别力：任何 op 配一对相同状态
+ * 都会通过，包括拼错名字的 op。真正要锁的是「它们只允许出现在不改状态的写入上」——
+ * 于是逐个字段试一遍，每改一个都必须判违规。
+ */
+describe('G2 没有落点的 op：改动任何一个字段都越界', () => {
+  const G4_ONLY: GrimoireOp[] = [
+    { op: 'alignment_set', seatId: SEAT, alignment: 'evil', inverted: false },
+    { op: 'perceived_role_set', seatId: SEAT, role: null },
+    { op: 'role_type_override_set', seatId: SEAT, roleType: null },
+    { op: 'madness_issued', seatId: SEAT, directiveId: 'd1' },
+    { op: 'madness_lifted', seatId: SEAT, directiveId: 'd1' },
+    { op: 'ghost_vote_set', seatId: SEAT, available: false },
+    { op: 'private_note_set', seatId: SEAT },
+  ]
+  const EVERY_SINGLE_CHANGE: [string, Partial<PlayerState>][] = [
+    ['life', { life: 'dead' }],
+    ['poisoned', { poisoned: true }],
+    ['drunk', { drunk: true }],
+    ['markers', { markers: [marker] }],
+  ]
+
+  for (const op of G4_ONLY) {
+    it(`${op.op} 不改状态时合法，改任何一个字段都不合法`, () => {
+      expect(check(state(), state(), [op])).toBeNull()
+      for (const [field, patch] of EVERY_SINGLE_CHANGE) {
+        expect(check(state(), state(patch), [op]), `${op.op} 改了 ${field}`).not.toBeNull()
+      }
+    })
+  }
+})
+
+describe('op 自称改成什么，after 里就得是什么', () => {
+  it('rejects a life_set that says dead while the seat ends up alive', () => {
+    // 字段对得上而值对不上是最坏的一种不一致：它看起来像一条正常记录，
+    // 只有把两边逐字比对才看得出来「我把他标死了」其实把人标活了。
+    const violation = check(state({ life: 'dead' }), state({ life: 'alive' }), [{ op: 'life_set', seatId: SEAT, life: 'dead' }])
+    expect(violation?.code).toBe('value_mismatch')
+  })
+
+  it('rejects an impairment_set whose value contradicts the result', () => {
+    const violation = check(state({ poisoned: true }), state({ poisoned: false }), [
+      { op: 'impairment_set', seatId: SEAT, impairment: 'poisoned', value: true },
+    ])
+    expect(violation?.code).toBe('value_mismatch')
+  })
+
+  it('rejects a token_added whose token is nowhere in the result', () => {
+    const violation = check(state(), state({ markers: [{ id: 'other', label: '别的' }] }), [
+      { op: 'token_added', seatId: SEAT, token: marker },
+    ])
+    expect(violation?.code).toBe('value_mismatch')
+  })
+
+  it('rejects a token_removed whose token is still there', () => {
+    const violation = check(state({ markers: [marker] }), state({ markers: [marker], drunk: true }), [
+      { op: 'token_removed', seatId: SEAT, tokenId: 'm1', tokenLabel: '僧侣保护' },
+    ])
+    expect(violation?.code).toBe('value_mismatch')
+  })
+
+  it('rejects an op that claims a change while nothing changed at all', () => {
+    // 声明了意图却什么都没改：要么手势没生效，要么记录是凭空写的。
+    const violation = check(state(), state(), [{ op: 'life_set', seatId: SEAT, life: 'alive' }])
+    expect(violation?.code).toBe('no_change')
+  })
+})
+
+describe('裁决 8：G1/G2 不给 PlayerState 加字段', () => {
+  it('locks the exact key set, so adding a field fails here first', () => {
+    // 此前这条只比对一份手抄的键名清单，给 PlayerState 加字段照样绿——
+    // 它守的是「表别乱写」，不是「PlayerState 别长胖」。
+    const keys = Object.keys(state()).sort()
+    expect(keys).toEqual(['drunk', 'life', 'markers', 'poisoned'])
+  })
+})
