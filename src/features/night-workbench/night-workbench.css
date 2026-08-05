@@ -11,38 +11,30 @@
 }
 .night-workbench--dimmed { filter: brightness(.72) saturate(.82); }
 
+/* 单行页头：只放不随相位变化的稳定信息，相位与下一步全部交给常驻阶段轨道。 */
 .night-header {
-  min-height: 112px;
-  padding: var(--space-20) clamp(var(--space-20), 3cqw, var(--space-32));
-  display: grid;
-  grid-template-columns: minmax(260px, 1fr) auto;
-  grid-template-areas:
-    "title actions"
-    "progress progress";
-  align-items: start;
-  gap: var(--space-16) var(--space-24);
+  min-height: 32px;
+  padding: 0 clamp(var(--space-16), 3cqw, var(--space-24));
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
   border-bottom: 1px solid var(--border);
-  background:
-    linear-gradient(180deg, rgb(12 17 23 / 90%), rgb(8 12 17 / 78%)),
-    rgb(10 14 19 / 76%);
-  backdrop-filter: blur(20px);
+  background: rgb(10 14 19 / 82%);
 }
-.night-header__title { grid-area: title; }
-.night-header__kicker { display: flex; align-items: center; gap: 7px; color: var(--accent-text); font-size: var(--type-meta); font-weight: 800; letter-spacing: .12em; }
-.night-header__kicker svg { width: 16px; }
-.night-header__title h1 { margin: 5px 0 0; font: 900 clamp(1.8rem, 3cqw, 2.25rem)/1.04 var(--font-display); }
-.night-header__title > span { display: block; margin-top: 7px; color: var(--text-muted); font-size: var(--type-label); }
-.night-header__actions { grid-area: actions; display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); flex-wrap: wrap; }
+.night-header__session { min-width: 0; flex: 1 1 auto; overflow: hidden; color: var(--text-muted); font-size: var(--type-label); font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.night-header__actions { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
 .night-header__actions .ui-button { white-space: nowrap; }
 
-.night-progress { grid-area: progress; width: min(720px, 100%); display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 5px var(--space-14); }
-.night-progress__numbers { grid-row: span 2; display: grid; gap: 2px; text-align: right; }
-.night-progress__numbers strong { display: block; color: var(--accent-text); font: 900 1.35rem/1 var(--font-display); }
-.night-progress__numbers small { color: var(--text-subtle); font-size: var(--type-label); }
-.night-progress__numbers span { color: var(--text-subtle); font-size: var(--type-meta); }
-.night-progress__track { height: 7px; border-radius: var(--radius-pill); overflow: hidden; background: rgb(255 255 255 / 6%); box-shadow: inset 0 1px 2px rgb(0 0 0 / 32%); }
-.night-progress__track i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #8a6631, var(--accent-strong)); box-shadow: 0 0 18px rgb(224 177 93 / 18%); }
-.night-progress__meta { display: flex; gap: var(--space-12); color: var(--text-muted); font-size: var(--type-meta); }
+/* 夜序进度随每一项变化，属于内容而非页头；放在工作台内容区顶部的一条 32px 单行。 */
+.night-progress { min-height: 32px; display: grid; grid-template-columns: auto minmax(48px, 1fr) auto; align-items: center; gap: var(--space-12); }
+.night-progress__numbers { margin: 0; display: flex; align-items: baseline; gap: 5px; white-space: nowrap; }
+.night-progress__numbers span { color: var(--text-subtle); font-size: var(--type-meta); font-weight: 800; letter-spacing: .08em; }
+.night-progress__numbers strong { color: var(--text-strong); font: 800 var(--type-body)/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.night-progress__numbers small { color: var(--text-subtle); font-size: var(--type-meta); }
+.night-progress__track { height: 6px; border-radius: var(--radius-pill); overflow: hidden; background: rgb(255 255 255 / 6%); box-shadow: inset 0 1px 2px rgb(0 0 0 / 32%); }
+/* 填充用冷灰：暖金只留给当前焦点（轨道当前节点与唯一主动作）。 */
+.night-progress__track i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #3c4a56, #74838f); }
+.night-progress__meta { display: flex; gap: var(--space-12); color: var(--text-muted); font-size: var(--type-meta); white-space: nowrap; }
 
 .night-notice {
   width: min(1080px, calc(100% - clamp(var(--space-20), 4cqw, var(--space-40))));
@@ -555,8 +547,7 @@
 }
 
 @container workbench (max-width: 860px) {
-  .night-header { grid-template-columns: minmax(0, 1fr) auto; padding: var(--space-16) var(--space-18); gap: var(--space-14); }
-  .night-progress { width: 100%; }
+  .night-header { padding-inline: var(--space-16); }
   .night-carousel { min-height: 226px; grid-template-columns: 76px minmax(188px, 1fr) 76px; padding: var(--space-18) var(--space-10) var(--space-18); gap: var(--space-8); }
   .carousel-hit > svg { display: none; }
   .carousel-neighbor__label, .carousel-neighbor > small { display: none; }
@@ -580,13 +571,8 @@
   .role-disc--large { --disc-size: 106px; }
   .carousel-current .role-disc--large { --disc-size: 104px; }
   .carousel-current__token-stage { width: 136px; }
-  .night-header { min-height: auto; grid-template-columns: 1fr; grid-template-areas: "title" "progress" "actions"; gap: var(--space-12); }
-  .night-header__title { display: grid; grid-template-columns: 1fr auto; align-items: center; }
-  .night-header__title .night-header__kicker { grid-column: 1 / -1; }
-  .night-header__title > span { display: none; }
-  .night-header__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: stretch; }
-  .night-header__actions > * { flex: 1; }
-  .night-header__actions .ui-button { width: 100%; }
+  .night-header { padding-inline: var(--space-12); gap: var(--space-8); }
+  .night-progress__meta { gap: var(--space-8); }
   .header-action-label--full { display: none; }
   .header-action-label--compact { display: inline; }
   .player-state-bar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; padding-inline: var(--space-12); gap: var(--space-8); }
@@ -622,15 +608,6 @@
 
 
 /* V3 live-hosting polish: page-head alignment, calmer token stage, and one clearer recording area. */
-.night-header {
-  min-height: 96px;
-  grid-template-columns: minmax(180px, .62fr) minmax(340px, 1fr) auto;
-  grid-template-areas: "title progress actions";
-  align-items: center;
-  gap: var(--space-14) var(--space-20);
-}
-.night-progress { width: 100%; max-width: 560px; justify-self: center; }
-.night-header__actions { align-self: center; }
 .night-carousel {
   min-height: 250px;
   background:
@@ -693,20 +670,12 @@
   opacity: .82;
 }
 
-@container workbench (max-width: 860px) {
-  .night-header {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: "title actions" "progress progress";
-  }
-  .night-progress { max-width: none; }
-}
 @container workbench (max-width: 640px) {
   .night-carousel::before { inset: 58px 16% 36px; }
   .carousel-current__token-stage { width: 144px; }
   .carousel-current .role-disc--large { --disc-size: 108px; }
 }
 @container workbench (max-width: 520px) {
-  .night-header { grid-template-areas: "title" "progress" "actions"; }
   .wake-recorder fieldset { padding: var(--space-12); }
   .choice-chips { grid-template-columns: repeat(2, minmax(0, 1fr)); max-height: 176px; }
 }
@@ -730,12 +699,11 @@
 
 @container workbench (max-width: 520px) {
   .night-header__actions {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-8);
+    gap: 5px;
   }
   .night-header__actions .ui-button {
     min-width: 0;
-    min-height: 44px;
+    min-height: var(--touch-min);
     padding-inline: var(--space-8);
   }
   .night-carousel {

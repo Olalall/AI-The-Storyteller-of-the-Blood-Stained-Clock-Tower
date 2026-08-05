@@ -2,6 +2,13 @@
 
 const sessionStorageKey = 'botc-copilot-session-v1'
 
+
+/** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
+async function openArchive(page: Page) {
+  const enter = page.getByRole('button', { name: '本局', exact: true })
+  if (await enter.isVisible().catch(() => false)) await enter.click()
+}
+
 async function openBlankSetup(page: Page, runId: string) {
   await page.goto('/')
   await page.evaluate(({ storageKey, id }) => {
@@ -25,8 +32,10 @@ async function openBlankSetup(page: Page, runId: string) {
     }))
   }, { storageKey: sessionStorageKey, id: `session-${runId}` })
   await page.reload()
+  await openArchive(page)
   const setupHeading = page.getByRole('heading', { name: 'AI配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
+    await openArchive(page)
     await page.getByRole('button', { name: 'AI配板与调整' }).click()
   }
   await expect(setupHeading).toBeVisible()
@@ -71,6 +80,7 @@ test('hosting scenario B: 7人开局后夜序只投影在场角色，状态由�
   await expect(page.locator('.identity-deal__seat-grid button')).toHaveCount(7)
   await page.locator('.sheet-content--identity-deal .sheet-close').click()
 
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
   await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
@@ -98,6 +108,7 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   await openBlankSetup(page, 'scenario-c-15')
   await createConfirmedSetup(page, { scriptId: 'quick-maths', playerCount: 15 })
 
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
   await expect(page.locator('.carousel-current')).toBeVisible()
@@ -108,6 +119,7 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   expect(run.queue.every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 15)).toBe(true)
 
   await returnDashboard(page)
+  await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.locator('.day-workbench')).toBeVisible()
   await expect(page.locator('.day-seat-grid button')).toHaveCount(15)
@@ -147,6 +159,7 @@ test('hosting scenario D: 缺少角色图标时仍可开局并进入夜序', asy
   await page.setViewportSize({ width: 900, height: 900 })
   await openBlankSetup(page, 'scenario-d-missing-assets')
   await createConfirmedSetup(page, { scriptId: 'catfishing', playerCount: 12 })
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
   await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()

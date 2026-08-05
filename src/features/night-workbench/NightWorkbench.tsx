@@ -1,4 +1,4 @@
-import { ArrowLeft, MoonStar } from 'lucide-react'
+import { ArrowLeft } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { HostNotice } from '../../components/ui/HostNotice'
@@ -24,9 +24,12 @@ import type { OutcomeResolutionHint, WakeDraft, WakeItem } from './types'
 import './night-workbench.css'
 interface NightWorkbenchProps {
   sessionBinding: NightWorkbenchSessionBinding
+  /** 「返回本局」：离开工作台去看档案，不改变任何相位。 */
   onExit: () => void
+  /** 「关闭本夜」：夜晚段已关闭，交给上层决定下一步（默认走黎明播报）。 */
+  onCloseNight?: () => void
 }
-export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) {
+export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWorkbenchProps) {
   const [openPanel, setOpenPanel] = useState<'night-order' | 'game-record' | 'role-change' | null>(null)
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
   const [privateInformation, setPrivateInformation] = useState<string | null>(null)
@@ -125,25 +128,12 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
   return (
     <main className={`night-workbench ${state.dimmed ? 'night-workbench--dimmed' : ''}`}>
       <header className="night-header">
-        <div className="night-header__title">
-          <div className="night-header__kicker"><MoonStar aria-hidden="true" /> 夜间工作台</div>
-          <h1>{state.nightLabel}</h1>
-          <span>{scriptDisplayName(state.scriptId)} · {state.playerCount}人</span>
-        </div>
-        <div className="night-progress" aria-label={`当前夜序第${activeIndex + 1}项，共${state.queue.length}项`}>
-          <div className="night-progress__numbers">
-            <span>夜序</span>
-            <strong>{activeIndex + 1}<small>/{state.queue.length}</small></strong>
-          </div>
-          <div className="night-progress__track" aria-hidden="true">
-            <i style={{ width: `${((activeIndex + 1) / state.queue.length) * 100}%` }} />
-          </div>
-          <div className="night-progress__meta">
-            <span>已确认 {completed}</span>
-            {deferred ? <span>暂缓 {deferred}</span> : null}
-            {needsReview ? <span>待核对 {needsReview}</span> : null}
-          </div>
-        </div>
+        {/*
+          「第N夜」与夜序进度都由常驻阶段轨道承载，页头只留不随相位变化的稳定信息。
+          h1 视觉上收起但保留在无障碍树里：页面仍需要一个可被屏读定位的标题。
+        */}
+        <h1 className="ui-visually-hidden">{state.nightLabel}</h1>
+        <span className="night-header__session">{scriptDisplayName(state.scriptId)} · {state.playerCount}人</span>
 
         <div className="night-header__actions">
           {!leavePromptOpen ? <Button variant="ghost" compact onClick={requestExit}>
@@ -194,6 +184,21 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
         onNext={() => next && dispatch({ type: 'preview', id: next.id })}
       />
       <div className="night-content-grid">
+        <div className="night-progress" aria-label={`当前夜序第${activeIndex + 1}项，共${state.queue.length}项`}>
+          <p className="night-progress__numbers">
+            <span>夜序</span>
+            <strong>{activeIndex + 1}</strong>
+            <small>/{state.queue.length}</small>
+          </p>
+          <div className="night-progress__track" aria-hidden="true">
+            <i style={{ width: `${((activeIndex + 1) / state.queue.length) * 100}%` }} />
+          </div>
+          <div className="night-progress__meta">
+            <span>已确认 {completed}</span>
+            {deferred ? <span>暂缓 {deferred}</span> : null}
+            {needsReview ? <span>待核对 {needsReview}</span> : null}
+          </div>
+        </div>
         <CurrentWakeCard
           item={current}
           playerStatus={activePlayerStatus}
@@ -253,7 +258,7 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
         dispatch={sessionBinding.dispatchSession}
         nightRunId={state.nightRunId}
         unresolvedCount={state.queue.filter((item) => !['confirmed', 'not_applicable'].includes(item.progress)).length}
-        onExit={onExit}
+        onExit={onCloseNight ?? onExit}
       />
       <RoleChangeSheet
         open={openPanel === 'role-change'}

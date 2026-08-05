@@ -1,11 +1,19 @@
 import { expect, test } from '@playwright/test'
 
+
+/** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
+async function openArchive(page: import('@playwright/test').Page) {
+  const back = page.getByRole('button', { name: '本局', exact: true })
+  if (await back.isVisible().catch(() => false)) await back.click()
+  await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+}
+
 async function reset(page: import('@playwright/test').Page) {
   await page.setViewportSize({ width: 720, height: 900 })
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
-  await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+  await openArchive(page)
 }
 
 async function timeline(page: import('@playwright/test').Page) {
@@ -60,6 +68,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   expect((await timeline(page)).length).toBe(beforeOpening)
 
   const beforeSetup = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'setup_changed').length
+  await openArchive(page)
   await page.getByRole('button', { name: 'AI配板与调整' }).click()
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
   await page.locator('.setup-panel__advice-entry').click()
@@ -75,6 +84,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await expect(page.getByRole('button', { name: '进入夜晚' })).toBeVisible()
 
   const beforeNight = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'night_action').length
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.getByRole('heading', { name: /第3夜/ })).toBeVisible()
   await page.getByRole('button', { name: '选择3号玩家' }).click()
@@ -88,6 +98,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await expect(page.getByText('10号洗脑师选择3号成为调查员，目标受到影响。')).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/06-dashboard-after-night.png', fullPage: false })
 
+  await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.getByRole('heading', { name: '第3天' })).toBeVisible()
   await page.getByRole('button', { name: '开始私聊倒计时' }).click()

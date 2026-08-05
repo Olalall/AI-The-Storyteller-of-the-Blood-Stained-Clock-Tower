@@ -1,6 +1,14 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+
+
+/** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
+async function openArchive(page: Page) {
+  const enter = page.getByRole('button', { name: '本局', exact: true })
+  if (await enter.isVisible().catch(() => false)) await enter.click()
+}
 
 async function enterNight(page: import('@playwright/test').Page) {
+  await openArchive(page)
   await page.getByRole('button', { name: /\u8fdb\u5165\u591c\u665a/ }).click()
   await expect(page.getByRole('heading', { name: /\u7b2c\d+\u591c/ })).toBeVisible()
 }
