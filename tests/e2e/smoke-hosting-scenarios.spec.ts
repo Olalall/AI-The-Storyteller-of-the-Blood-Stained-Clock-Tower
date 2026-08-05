@@ -129,15 +129,17 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: /被提名人/ }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6, 7, 8]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
   await page.getByRole('button', { name: '记录本轮票型' }).click()
-  await expect(page.getByText('4号暂列')).toBeVisible()
+  await expect(page.locator('.day-card--standing').getByText('4号暂列')).toBeVisible()
 
   await page.getByRole('button', { name: '选择2号为提名人' }).click()
   await page.getByRole('tab', { name: /被提名人/ }).click()
   await page.getByRole('button', { name: '选择5号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   for (const seatId of [1, 2, 3, 4]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }

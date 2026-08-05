@@ -128,13 +128,14 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/08-day-vote-before-record.png', fullPage: false })
   await page.getByRole('button', { name: '记录本轮票型' }).click()
   await expect.poll(async () => (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'vote_round').length).toBe(beforeVote + 1)
-  await expect(page.getByText('4号暂列')).toBeVisible()
+  await expect(page.locator('.day-card--standing').getByText('4号暂列')).toBeVisible()
 
   const beforeStateChange = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'player_state_changed').length
   await page.getByRole('button', { name: '记录处决4号' }).click()
