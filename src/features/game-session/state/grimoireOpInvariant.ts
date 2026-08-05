@@ -23,7 +23,12 @@ export interface GrimoireOpInvariantInput {
   ops?: GrimoireOp[]
 }
 
-export type GrimoireOpViolationCode = 'ops_not_single' | 'seat_mismatch' | 'field_out_of_scope'
+export type GrimoireOpViolationCode =
+  | 'ops_not_single'
+  | 'seat_mismatch'
+  | 'field_out_of_scope'
+  | 'value_mismatch'
+  | 'no_change'
 
 export interface GrimoireOpViolation {
   code: GrimoireOpViolationCode
@@ -51,7 +56,25 @@ export function checkGrimoireOpInvariant(input: GrimoireOpInvariantInput): Grimo
   }
 
   const allowed = grimoireOpMutableFields(op) as readonly string[]
-  const outOfScope = changedPlayerStateFields(input.before, input.after).filter((field) => !allowed.includes(field))
+  const changed = changedPlayerStateFields(input.before, input.after)
+
+  // 只校验「改了哪几个字段」是不够的：life_set{life:'dead'} 配 after.life='alive'
+  // 会顺利通过——记录写着「我把他标死了」，实际把人标活了。
+  // 审计链的价值全在于记录与事实一致，字段对得上而值对不上是最坏的一种不一致：
+  // 它看起来像一条正常记录，只有把两边逐字比对才看得出来。
+  const valueMismatch = describeValueMismatch(op, input.after)
+  if (valueMismatch) {
+    return { code: 'value_mismatch', message: valueMismatch }
+  }
+
+  // 声明了意图却什么都没改：要么手势没生效，要么记录是凭空写的。
+  // 两种都该在合入前被看见。token_moved 例外——它拆成两条 entry，
+  // 移出的那一端 markers 变、移入的那一端也变，但用同一个 op 描述。
+  if (changed.length === 0 && allowed.length > 0) {
+    return { code: 'no_change', message: `op「${op.op}」声明改了 ${allowed.join('、')}，但 before 与 after 完全相同——记录与事实对不上账` }
+  }
+
+  const outOfScope = changed.filter((field) => !allowed.includes(field))
   if (outOfScope.length > 0) {
     const allowedText = allowed.length > 0 ? allowed.join('、') : '（无）'
     return {
@@ -64,7 +87,11 @@ export function checkGrimoireOpInvariant(input: GrimoireOpInvariantInput): Grimo
 }
 
 /**
- * 唯一写入路径上的运行时断言。
+ * confirm-player-state-change 路径上的运行时断言。
+ *
+ * 注意它**不是**唯一写入路径：daySessionReducer 的 confirm-day-execution 也构造
+ * player_state_changed（确认处决时直接写死亡），那条路径不带 ops、也不经过这里。
+ * 文档第 1074 行称「唯一的写入路径」，与实现不符——那是既存偏差，记在这里以免被复制传播。
  *
  * 选 console.error 而不是抛错，理由是这条不变量保护的是审计链的诚实性，不是数据的可用性：
  * 在牌桌上抛错会让说书人这一次改动整个丢失，而「记录完整性是产品本体」——
@@ -73,6 +100,9 @@ export function checkGrimoireOpInvariant(input: GrimoireOpInvariantInput): Grimo
  * 与 Card.tsx 的过深嵌套护栏用的是同一套办法。
  */
 export function assertGrimoireOpInvariant(input: GrimoireOpInvariantInput): void {
+  // console.error 是一次副作用，严格说它让 reducer 不再是纯函数。
+  // 接受这个代价的理由：它只在开发态发生、不改变任何返回值、不影响回放，
+  // 而它换来的是漂移在合入前就被看见。生产态整段跳过，纯度完全恢复。
   if (!import.meta.env.DEV) return
   const violation = checkGrimoireOpInvariant(input)
   if (!violation) return
@@ -81,6 +111,29 @@ export function assertGrimoireOpInvariant(input: GrimoireOpInvariantInput): void
     + '一次手势 = 恰好一条 player_state_changed，ops 长度恒为 1，系统不得因一条 op 派生第二条 op。\n'
     + '需要同时改另一个字段时，那是说书人的第二次显式操作，另发一条 confirm-player-state-change。',
   )
+}
+
+/**
+ * op 自称改成了什么值，after 里就必须是那个值。
+ * 只对「op 里带了目标值」的那几种成立；带 tokenId 之类引用的另说。
+ */
+function describeValueMismatch(op: GrimoireOp, after: PlayerState): string | null {
+  if (op.op === 'life_set' && after.life !== op.life) {
+    return `op「life_set」写的是 ${op.life}，after 里却是 ${after.life}`
+  }
+  if (op.op === 'impairment_set') {
+    const actual = op.impairment === 'poisoned' ? after.poisoned : after.drunk
+    if (actual !== op.value) {
+      return `op「impairment_set」写的是 ${op.impairment}=${op.value}，after 里却是 ${actual}`
+    }
+  }
+  if (op.op === 'token_added' && !after.markers.some((marker) => marker.id === op.token.id)) {
+    return `op「token_added」写的是标记 ${op.token.id}，但 after 的标记里没有它`
+  }
+  if (op.op === 'token_removed' && after.markers.some((marker) => marker.id === op.tokenId)) {
+    return `op「token_removed」写的是移除标记 ${op.tokenId}，但它还在 after 里`
+  }
+  return null
 }
 
 /** token_moved 天然横跨两个座位；按裁决 4 它拆成两条 entry，每条的座位必须是这两端之一。 */
