@@ -13,6 +13,7 @@ import { useCallback, useEffect, useRef, useState, type PointerEvent as ReactPoi
 import { Button } from '../../../components/ui/Button'
 import {
   DETENT_LABEL,
+  PEEK_SLOT_MIN_HEIGHT,
   WORK_DRAWER_DETENTS,
   WORK_DRAWER_PEEK_HEIGHT,
   heightCssFor,
@@ -20,8 +21,17 @@ import {
   shiftDetent,
   workDrawerHeightPx,
   type WorkDrawerDetent,
+  type WorkDrawerPeekSlotKind,
 } from './detents'
 import './work-drawer.css'
+
+/** peek 档的占用者。它在 body 之外，因为 peek 档下 body 是 inert 的，而这两位正是那一档唯一能按的东西。 */
+export interface WorkDrawerPeekSlot {
+  kind: WorkDrawerPeekSlotKind
+  /** 读屏播报名，例如「确认 5号 状态」。 */
+  label: string
+  content: ReactNode
+}
 
 export interface WorkDrawerProps {
   /**
@@ -35,6 +45,8 @@ export interface WorkDrawerProps {
   onDetentChange?: (detent: WorkDrawerDetent) => void
   /** 抽屉自身的可访问名，例如「夜间步骤台」。 */
   label?: string
+  /** peek 档的占用者；不传时这一档只有把手与手势契约。 */
+  peekSlot?: WorkDrawerPeekSlot
   className?: string
   children?: ReactNode
 }
@@ -45,6 +57,7 @@ export function WorkDrawer({
   defaultDetent = 'peek',
   onDetentChange,
   label = '工作抽屉',
+  peekSlot,
   className = '',
   children,
 }: WorkDrawerProps) {
@@ -152,6 +165,18 @@ export function WorkDrawer({
         {/* 手势契约常驻：档位再矮也不能把这一行推出视野。 */}
         <p className="work-drawer__contract" role="status">{gestureContract}</p>
       </div>
+      {peekSlot ? (
+        // 刻意在 body 之外：peek 档下 body 是 inert 的，而这条横条正是那一档唯一要按的东西。
+        <div
+          className="work-drawer__peek-slot"
+          data-slot={peekSlot.kind}
+          role="group"
+          aria-label={peekSlot.label}
+          style={{ minHeight: PEEK_SLOT_MIN_HEIGHT[peekSlot.kind] || undefined }}
+        >
+          {peekSlot.content}
+        </div>
+      ) : null}
       <div className="work-drawer__body" inert={detent === 'peek' || undefined}>
         {children}
       </div>
