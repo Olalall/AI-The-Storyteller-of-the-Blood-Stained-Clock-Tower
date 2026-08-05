@@ -1,6 +1,7 @@
 import { ArrowLeft, Bot, ChevronRight, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
+import { EmptyState } from '../../components/ui/EmptyState'
 import { StatusBadge, type BadgeTone } from '../../components/ui/StatusBadge'
 import { createSetupAdviceDraftAsync, type AIContextSeat, type SetupAdviceRuntimeDraft, type SetupBalanceMicroAdjustment, type SetupQualityTag } from '../../services/ai'
 import { detailForCandidate, type CandidateDetailContent } from './setupCandidateDetailContent'
@@ -227,10 +228,11 @@ export function SetupCandidateBrowser({
         <MicroAdjustmentList advice={advice} onPreview={onPreviewMicroAdjustment} />
         {advice.storytellerNotes[0] ? <p className="setup-candidate__ai-note">{advice.storytellerNotes[0]}</p> : null}
       </div> : null}
-      {!candidates.length ? <div className="setup-candidate-empty">
-        <strong>{playerCount}人暂无已核对模板</strong>
-        <span>先选 7 / 12 / 15 人，或后续补模板后再开。</span>
-      </div> : null}
+      {!candidates.length ? <EmptyState
+        className="setup-candidate-empty"
+        title={`${playerCount}人暂无已核对模板`}
+        description="先选 7 / 12 / 15 人，或后续补模板后再开。"
+      /> : null}
       {visibleCandidates.map((candidate) => (
         <article className="setup-candidate" key={candidate.id}>
           <div><h4>{candidate.title}</h4><div className="setup-candidate__badges">

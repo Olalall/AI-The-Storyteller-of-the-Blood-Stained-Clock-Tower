@@ -34,27 +34,27 @@
 .day-round-context > div { min-width: 0; display: flex; align-items: baseline; gap: var(--space-12); }
 .day-round-context span { color: var(--info-text); font-size: var(--type-label); font-weight: 800; letter-spacing: .08em; }
 .day-round-context strong { color: var(--text-strong); font: 800 1rem var(--font-display); }
-.day-card { padding: var(--space-20); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface-panel); }
+/* 卡片外形与标题区来自共享的 .ui-card；这里只留白天工作台自己的栅格位置。 */
 .day-card--standing, .day-resolution-confirm, .day-workbench__footer { grid-column: 1 / -1; }
-.day-card__heading { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--space-12); }
-.day-card__heading span { color: var(--info-text); font-size: var(--type-meta); font-weight: 800; letter-spacing: .1em; }
-.day-card__heading h2 { margin: 3px 0 0; font: 800 var(--type-section) var(--font-display); }
+/* 三张日间卡的首个内容块自带上间距，避免与 Card 头部的下间距叠加。 */
+.day-workbench .ui-card__header { margin-bottom: 0; }
 .day-selection-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: var(--space-16); padding: 4px; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-soft); }
 .day-selection-tabs button { min-height: var(--touch-min); padding: 0 var(--space-10); border: 1px solid transparent; border-radius: calc(var(--radius-md) - 4px); background: transparent; color: var(--text-muted); font: 700 var(--type-label) var(--font-body); cursor: pointer; }
 .day-selection-tabs button.is-active { border-color: var(--info-border); background: var(--info-soft); color: var(--info-text); }
 .day-seat-grid, .day-vote-grid { display: grid; grid-template-columns: repeat(6, minmax(44px, 1fr)); gap: var(--space-10); }
 .day-selection-tabs + .day-seat-grid { margin-top: var(--space-12); }
-.day-threshold { display: grid; gap: 4px; color: var(--text-muted); font-size: var(--type-meta); font-weight: 800; letter-spacing: .04em; text-align: right; }
+/* 处决门槛是共享 Field（label + 控件 + 说明），这里只调右对齐与紧凑间距。 */
+.ui-field.day-threshold { gap: 4px; justify-items: end; text-align: right; }
+.ui-field.day-threshold .ui-field__label { font-size: var(--type-meta); letter-spacing: .04em; }
+.ui-field.day-threshold .ui-field__hint { white-space: nowrap; }
 .day-threshold input { width: 72px; min-height: var(--touch-min); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-soft); color: var(--text-strong); font-weight: 800; text-align: center; }
-.day-threshold__hint { color: var(--text-subtle); font-size: var(--type-meta); font-weight: 700; letter-spacing: 0; white-space: nowrap; }
 .day-execution-death { min-height: var(--touch-min); display: flex; align-items: center; gap: 8px; color: var(--text-strong); font-size: var(--type-body); font-weight: 700; cursor: pointer; }
 .day-execution-death input { width: 20px; height: 20px; accent-color: var(--danger-border); }
 .day-vote-target { min-height: 24px; margin: var(--space-12) 0; color: var(--info-text); font-size: var(--type-body); font-weight: 800; }
 .day-vote-target.is-pending { color: var(--text-muted); font-weight: 700; }
 .day-vote-seat { min-width: 0; display: grid; justify-items: center; gap: 4px; }
 .day-vote-seat .seat-button { width: 100%; }
-.day-vote-seat.is-dead .seat-button { border-style: dashed; }
-.day-ghost-vote { min-height: 26px; border: 1px solid var(--border); border-radius: 999px; padding: 0 6px; background: var(--surface-soft); color: var(--text-subtle); font-size: var(--type-meta); cursor: pointer; }
+.day-ghost-vote { min-height: 26px; border: 1px solid var(--border); border-radius: var(--radius-pill); padding: 0 6px; background: var(--surface-soft); color: var(--text-subtle); font-size: var(--type-meta); cursor: pointer; }
 .day-ghost-vote.is-active { border-color: var(--warning-border); background: var(--warning-soft); color: var(--warning-text); }
 .day-vote-summary { margin: var(--space-16) 0 var(--space-12); display: grid; grid-template-columns: repeat(3, 1fr); overflow: hidden; border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-soft); }
 .day-vote-summary span { min-height: 54px; padding: 8px; display: grid; align-content: center; gap: 2px; border-right: 1px solid var(--border); color: var(--text-muted); font-size: var(--type-meta); font-weight: 800; text-align: center; }
@@ -111,7 +111,7 @@
 @container (max-width: 900px) { .day-workbench__header { display: grid; grid-template-columns: max-content 1fr; justify-content: initial; } .day-workbench__back { position: static; grid-column: 1; grid-row: 1; } .day-workbench__focus { grid-column: 1 / -1; grid-row: 2; } }
 @container (max-width: 720px) { .day-workbench__focus { flex-direction: column; gap: var(--space-12); } }
 @container (max-width: 560px) { .day-timer { width: min(100%, 420px); grid-template-columns: 1fr; gap: var(--space-8); } .day-timer__main { padding: 0 var(--space-8); } .day-timer__controls { justify-content: stretch; } .day-timer__settings { flex: 0 0 auto; } .day-timer__actions { flex: 1; justify-content: flex-end; } }
-@container (max-width: 500px) { .day-workbench__header { padding-inline: var(--space-12); gap: var(--space-12); } .day-workbench__back { width: var(--touch-min); padding: 0; font-size: 0; } .day-workbench__focus { width: 100%; } .day-timer__actions .ui-button:first-child, .day-timer__settings { width: var(--touch-min); padding: 0; font-size: 0; } .day-timer__actions .ui-button:first-child svg, .day-timer__settings svg { width: 18px; height: 18px; } .day-timer-settings { padding: var(--space-16); } .day-timer-settings__fields { grid-template-columns: 1fr; } .day-workbench__content { width: calc(100% - 20px); padding-top: var(--space-12); } .day-card { padding: var(--space-16); } .day-round-context { min-height: 48px; padding-inline: var(--space-12); } .day-seat-grid, .day-vote-grid, .day-record-sheet__seats { grid-template-columns: repeat(4, minmax(44px, 1fr)); } .day-skill-fields__roles, .day-skill-fields__targets { grid-template-columns: 1fr; } .day-skill-fields__outcomes { grid-template-columns: 1fr; } .day-resolution-actions, .day-resolution-confirm, .day-close-confirm, .day-workbench__footer { align-items: stretch; flex-direction: column; } .day-resolution-actions .ui-button, .day-resolution-confirm > div:last-child .ui-button, .day-close-confirm > div:last-child .ui-button { width: 100%; } }
+@container (max-width: 500px) { .day-workbench__header { padding-inline: var(--space-12); gap: var(--space-12); } .day-workbench__back { width: var(--touch-min); padding: 0; font-size: 0; } .day-workbench__focus { width: 100%; } .day-timer__actions .ui-button:first-child, .day-timer__settings { width: var(--touch-min); padding: 0; font-size: 0; } .day-timer__actions .ui-button:first-child svg, .day-timer__settings svg { width: 18px; height: 18px; } .day-timer-settings { padding: var(--space-16); } .day-timer-settings__fields { grid-template-columns: 1fr; } .day-workbench__content { width: calc(100% - 20px); padding-top: var(--space-12); } .day-workbench .ui-card { padding: var(--space-16); } .day-round-context { min-height: 48px; padding-inline: var(--space-12); } .day-seat-grid, .day-vote-grid, .day-record-sheet__seats { grid-template-columns: repeat(4, minmax(44px, 1fr)); } .day-skill-fields__roles, .day-skill-fields__targets { grid-template-columns: 1fr; } .day-skill-fields__outcomes { grid-template-columns: 1fr; } .day-resolution-actions, .day-resolution-confirm, .day-close-confirm, .day-workbench__footer { align-items: stretch; flex-direction: column; } .day-resolution-actions .ui-button, .day-resolution-confirm > div:last-child .ui-button, .day-close-confirm > div:last-child .ui-button { width: 100%; } }
 
 
 /* V3 header alignment: keep day and night workbenches in the same scan pattern. */
@@ -212,7 +212,7 @@
   gap: var(--space-8);
   padding: 7px 12px;
   border: 1px solid var(--accent-border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgb(20 27 35 / 78%);
   color: var(--accent-text);
   font-size: var(--type-label);

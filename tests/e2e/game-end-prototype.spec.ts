@@ -57,7 +57,7 @@ test('game end prototype saves an archive and opens AI historical review', async
   expect(resetState.dayActionDraft).toBeNull()
 
   await page.getByRole('button', { name: '关闭AI配板与调整' }).click()
-  await expect(page.locator('.dashboard__player-empty')).toContainText('暂无玩家')
+  await expect(page.getByRole('status').filter({ hasText: '暂无玩家' })).toBeVisible()
   await expect(page.locator('.dashboard__stage-overview')).toContainText('待配板')
   await page.locator('.dashboard__script-switch').click()
   await expect(page.locator('.script-library')).toBeVisible()

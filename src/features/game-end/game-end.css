@@ -226,23 +226,6 @@
   gap: var(--space-10);
 }
 
-.game-end__signal-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-8);
-}
-
-.game-end__signal-list span {
-  min-height: 30px;
-  padding: 5px 10px;
-  border: 1px solid var(--info-border);
-  border-radius: 999px;
-  background: var(--info-soft);
-  color: var(--info-text);
-  font-size: var(--type-meta);
-  font-weight: 850;
-}
-
 .game-end__reset {
   border-color: rgb(180 77 72 / 24%);
 }
@@ -478,7 +461,7 @@
   display: grid;
   place-items: center;
   border: 1px solid var(--accent-border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--accent-soft);
   color: var(--accent-text);
   font: 900 1rem var(--font-display);
@@ -568,8 +551,14 @@
   gap: var(--space-10);
 }
 .game-review__list button,
-.game-review__detail,
-.game-review__empty {
+.game-review__detail {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: rgb(14 20 27 / 88%);
+}
+/* 历史复盘的空态是整块右侧面板，不是列表内联空态：
+   结构复用共享 .ui-empty，外形保留原有的实线面板皮肤。 */
+.ui-empty.game-review__empty {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   background: rgb(14 20 27 / 88%);
@@ -600,11 +589,16 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.game-review__detail,
-.game-review__empty {
+.game-review__detail {
   min-height: 520px;
   padding: clamp(var(--space-20), 3cqw, var(--space-32));
   display: grid;
+  gap: var(--space-16);
+  align-content: start;
+}
+.ui-empty.game-review__empty {
+  min-height: 520px;
+  padding: clamp(var(--space-20), 3cqw, var(--space-32));
   gap: var(--space-16);
   align-content: start;
 }
@@ -684,23 +678,20 @@
   color: var(--text-strong);
   font-weight: 750;
 }
-.game-review__empty {
+.ui-empty.game-review__empty {
   grid-column: 1 / -1;
-  place-items: center;
-  text-align: center;
 }
-.game-review__empty svg {
+.ui-empty.game-review__empty > svg {
   width: 42px;
   height: 42px;
   color: var(--accent-text);
 }
-.game-review__empty strong {
+.game-review__empty .ui-empty__title {
   font: 850 var(--type-section) var(--font-display);
 }
-.game-review__empty p {
-  max-width: 420px;
-  margin: 0;
-  color: var(--text-muted);
+.game-review__empty .ui-empty__description {
+  font-size: var(--type-body);
+  font-weight: 400;
   line-height: 1.7;
 }
 
@@ -759,8 +750,10 @@
 }
 .game-end__hero,
 .game-end__step,
-.game-review__detail,
-.game-review__empty {
+.game-review__detail {
+  padding: var(--game-end-card-pad);
+}
+.ui-empty.game-review__empty {
   padding: var(--game-end-card-pad);
 }
 .game-end__hero {
@@ -955,7 +948,7 @@
   display: grid;
   place-items: center;
   border: 1px solid var(--accent-border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--accent-soft);
   color: var(--accent-text);
   font: 900 1.05rem var(--font-display);

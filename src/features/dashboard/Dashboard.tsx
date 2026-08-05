@@ -1,6 +1,8 @@
 import { Archive, Bot, ChevronRight, Flag, IdCard, MoonStar, Repeat2, SunMedium, Timer } from 'lucide-react'
 import type { Dispatch } from 'react'
 import { Button } from '../../components/ui/Button'
+import { Card } from '../../components/ui/Card'
+import { EmptyState } from '../../components/ui/EmptyState'
 import { StatusBadge } from '../../components/ui/StatusBadge'
 import { scriptDisplayName } from '../../domain/scripts'
 import { assertNever } from '../../shared/assertNever'
@@ -147,7 +149,7 @@ export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenT
               <div className="dashboard__stage-current-main">
                 <span>当前阶段</span>
                 <strong>{currentStage.label}</strong>
-                <em>{currentStage.meta}</em>
+                <StatusBadge tone={currentStage.state === 'current' || currentStage.state === 'open' ? 'current' : 'neutral'}>{currentStage.meta}</StatusBadge>
               </div>
               <div className="dashboard__stage-current-info" aria-label="当前阶段信息">
                 <span>{scriptName}</span>
@@ -200,17 +202,21 @@ export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenT
       <PlayerStatusBoard seats={storytellerSeats} onSelectSeat={onOpenPlayerStatus} />
 
       <div className="dashboard__grid">
-        <section className="dashboard-card dashboard-card--recent" aria-labelledby="recent-title">
-          <div className="dashboard-card__header">
-            <div><span>记录</span><h2 id="recent-title">最近记录</h2></div>
-            <TimelineHistorySheet
-              session={session}
-              dispatch={dispatch}
-              onOpenPlayerStatus={onOpenPlayerStatus}
-              onOpenDayWorkbench={onEnterDay}
-              onOpenSetup={onOpenSetup}
-            />
-          </div>
+        <Card
+          surface="soft"
+          className="dashboard-card dashboard-card--recent"
+          eyebrow="记录"
+          title="最近记录"
+          titleId="recent-title"
+          aria-labelledby="recent-title"
+          actions={<TimelineHistorySheet
+            session={session}
+            dispatch={dispatch}
+            onOpenPlayerStatus={onOpenPlayerStatus}
+            onOpenDayWorkbench={onEnterDay}
+            onOpenSetup={onOpenSetup}
+          />}
+        >
           {recentEntries.length ? (
             <ul className="dashboard__recent-list">
               {recentEntries.map((entry) => {
@@ -218,14 +224,18 @@ export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenT
                 return <li key={entry.id}><span>{segment?.label ?? (entry.kind.startsWith('setup_') ? '配板' : '本局')}</span><strong>{entrySummary(entry)}</strong></li>
               })}
             </ul>
-          ) : <p>尚无确认记录。</p>}
-        </section>
+          ) : <EmptyState compact title="尚无确认记录" description="夜间或白天确认第一条记录后，这里显示最近三条。" />}
+        </Card>
 
-        <section className="dashboard-card dashboard-card--end" aria-labelledby="game-end-title">
-          <div className="dashboard-card__header">
-            <div><span>收尾</span><h2 id="game-end-title">结束对局</h2></div>
-            <StatusBadge tone="warning">危险动作</StatusBadge>
-          </div>
+        <Card
+          surface="soft"
+          className="dashboard-card dashboard-card--end"
+          eyebrow="收尾"
+          title="结束对局"
+          titleId="game-end-title"
+          aria-labelledby="game-end-title"
+          actions={<StatusBadge tone="warning">危险动作</StatusBadge>}
+        >
           <p>保存本局后才能重置游戏；历史复盘会保留归档。</p>
           <div className="dashboard__end-actions">
             <Button variant="secondary" className="dashboard__end-entry" onClick={() => onOpenGameEnd('end')}>
@@ -237,7 +247,7 @@ export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenT
               <span>历史复盘</span>
             </Button>
           </div>
-        </section>
+        </Card>
       </div>
     </main>
   )

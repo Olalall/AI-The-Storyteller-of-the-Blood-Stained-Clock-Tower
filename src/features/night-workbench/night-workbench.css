@@ -40,7 +40,7 @@
 .night-progress__numbers strong { display: block; color: var(--accent-text); font: 900 1.35rem/1 var(--font-display); }
 .night-progress__numbers small { color: var(--text-subtle); font-size: var(--type-label); }
 .night-progress__numbers span { color: var(--text-subtle); font-size: var(--type-meta); }
-.night-progress__track { height: 7px; border-radius: 999px; overflow: hidden; background: rgb(255 255 255 / 6%); box-shadow: inset 0 1px 2px rgb(0 0 0 / 32%); }
+.night-progress__track { height: 7px; border-radius: var(--radius-pill); overflow: hidden; background: rgb(255 255 255 / 6%); box-shadow: inset 0 1px 2px rgb(0 0 0 / 32%); }
 .night-progress__track i { display: block; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #8a6631, var(--accent-strong)); box-shadow: 0 0 18px rgb(224 177 93 / 18%); }
 .night-progress__meta { display: flex; gap: var(--space-12); color: var(--text-muted); font-size: var(--type-meta); }
 
@@ -253,7 +253,7 @@
 .seat-grid { display: grid; grid-template-columns: repeat(6, minmax(52px, 1fr)); gap: var(--space-10); }
 .wake-recorder .seat-button { min-height: 54px; border-radius: var(--radius-lg); background: linear-gradient(180deg, rgb(24 32 41 / 82%), rgb(13 19 25 / 92%)); }
 .choice-chips { display: flex; flex-wrap: wrap; gap: var(--space-10); }
-.choice-chip { min-height: var(--touch-min); padding: 0 var(--space-14); border: 1px solid var(--border); border-radius: 999px; background: rgb(20 27 35 / 76%); color: var(--text-muted); font: inherit; font-size: var(--type-label); cursor: pointer; }
+.choice-chip { min-height: var(--touch-min); padding: 0 var(--space-14); border: 1px solid var(--border); border-radius: var(--radius-pill); background: rgb(20 27 35 / 76%); color: var(--text-muted); font: inherit; font-size: var(--type-label); cursor: pointer; }
 .choice-chip:hover { color: var(--text-strong); border-color: var(--border-strong); }
 .choice-chip--selected { background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent-text); }
 .outcome-grid { margin-top: 2px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-10); }
@@ -264,7 +264,7 @@
 .outcome-button--selected { border-color: var(--accent-border); background: var(--accent-soft); color: var(--accent-text); }
 .outcome-button--exception:not(.outcome-button--selected) { border-color: rgb(224 177 93 / 20%); color: var(--text-muted); background: rgb(20 18 14 / 54%); }
 .outcome-button--exception.outcome-button--selected { border-color: var(--warning-border); background: var(--warning-soft); color: var(--warning-text); }
-.outcome-button small { padding: 2px 6px; border-radius: 999px; background: var(--info-soft); color: var(--info-text); font-size: .66rem; font-weight: 800; }
+/* 「AI建议 / 核对建议」是状态徽标，外形来自共享 StatusBadge。 */
 .ai-result-action { justify-self: start; color: var(--info-text); }
 .ai-inline-note { min-height: var(--touch-min); padding: var(--space-8) var(--space-12); border-left: 2px solid var(--info-border); display: flex; align-items: center; gap: var(--space-10); color: var(--text-muted); font-size: var(--type-label); line-height: 1.45; }
 .ai-inline-note strong { flex: 0 0 auto; color: var(--info-text); }
@@ -322,14 +322,7 @@
   color: var(--text-strong);
   font-size: var(--type-label);
 }
-.settlement-assist__line span {
-  padding: 2px 7px;
-  border: 1px solid rgb(95 168 178 / 32%);
-  border-radius: 999px;
-  color: var(--info-text);
-  font-size: var(--type-meta);
-  font-weight: 850;
-}
+/* AI 建议结果标签是状态徽标，外形来自共享 StatusBadge。 */
 .settlement-assist p,
 .settlement-assist small {
   margin: 0;
@@ -488,9 +481,11 @@
 .night-queue-item__icon { color: var(--text-subtle); }
 .night-queue-item__icon svg { width: 17px; }
 
-.record-count { min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; display: inline-grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); font-size: .7rem; }
+.record-count { min-width: 22px; height: 22px; padding: 0 6px; border-radius: var(--radius-pill); display: inline-grid; place-items: center; background: var(--accent-soft); color: var(--accent-text); font-size: .7rem; }
 .header-action-label--compact { display: none; }
-.game-record-empty, .game-record-privacy { min-height: 240px; display: grid; place-items: center; color: var(--text-muted); }
+.game-record-privacy { min-height: 240px; display: grid; place-items: center; color: var(--text-muted); }
+/* 空态外形来自共享 .ui-empty；这里只把它撑到记录列表原有的高度。 */
+.ui-empty.game-record-empty { min-height: 240px; margin: var(--space-12); }
 .game-record-groups { padding-bottom: var(--space-20); }
 .game-record-group > h3 { position: sticky; top: 0; z-index: 2; margin: 0; padding: var(--space-12) var(--space-20); border-bottom: 1px solid var(--border); background: rgb(17 23 30 / 96%); color: var(--accent-text); font: 800 .9rem var(--font-display); }
 .game-record-group ol { list-style: none; margin: 0; padding: var(--space-8) var(--space-12); display: grid; gap: 6px; }
@@ -565,7 +560,7 @@
   .night-carousel { min-height: 226px; grid-template-columns: 76px minmax(188px, 1fr) 76px; padding: var(--space-18) var(--space-10) var(--space-18); gap: var(--space-8); }
   .carousel-hit > svg { display: none; }
   .carousel-neighbor__label, .carousel-neighbor > small { display: none; }
-  .carousel-neighbor { width: 76px; min-height: 102px; padding: 6px; border-radius: 999px; }
+  .carousel-neighbor { width: 76px; min-height: 102px; padding: 6px; border-radius: var(--radius-pill); }
   .carousel-neighbor .role-disc--small { --disc-size: 62px; }
   .player-state-bar { order: 0; padding-inline: var(--space-18); }
 }
@@ -646,7 +641,7 @@
 }
 .night-carousel::before {
   inset: 72px 13% 48px;
-  border-radius: 999px / 58%;
+  border-radius: var(--radius-pill) / 58%;
   background:
     repeating-radial-gradient(ellipse at 50% 50%, rgb(255 255 255 / 5%) 0 1px, transparent 1px 7px),
     radial-gradient(ellipse at 50% 52%, rgb(224 177 93 / 14%), rgb(77 116 118 / 8%) 44%, transparent 70%);
@@ -657,7 +652,7 @@
   min-height: 30px;
   padding: 0 var(--space-10);
   border: 1px solid rgb(229 235 240 / 10%);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: rgb(9 14 20 / 52%);
 }
 .carousel-current__eyebrow .status-badge { min-height: 22px; padding-inline: 8px; }
@@ -757,7 +752,7 @@
     z-index: 2;
     top: 50%;
     padding: 0;
-    border-radius: 999px;
+    border-radius: var(--radius-pill);
     background: rgb(15 24 34 / 46%);
     transform: translateY(-50%);
   }

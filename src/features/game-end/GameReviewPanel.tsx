@@ -1,6 +1,7 @@
 import { Archive, Download } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
+import { EmptyState } from '../../components/ui/EmptyState'
 import type { GameArchiveRecord } from '../../services/archive'
 import { GameAIReviewPanel } from './GameAIReviewPanel'
 
@@ -54,12 +55,14 @@ export function GameReviewPanel({
 
   if (!archives.length) {
     return <section className="game-review" aria-label="历史复盘">
-      <div className="game-review__empty">
-        <Archive aria-hidden="true" />
-        <strong>暂无历史归档</strong>
-        <p>先在“结束归档”中生成归档，之后这里可以查看任意历史对局。</p>
+      <EmptyState
+        className="game-review__empty"
+        icon={<Archive aria-hidden="true" />}
+        title="暂无历史归档"
+        description="先在“结束归档”中生成归档，之后这里可以查看任意历史对局。"
+      >
         <Button variant="primary" onClick={onStartArchive}>去归档本局</Button>
-      </div>
+      </EmptyState>
     </section>
   }
 

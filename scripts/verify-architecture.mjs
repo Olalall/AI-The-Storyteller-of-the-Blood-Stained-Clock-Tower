@@ -4,7 +4,12 @@ import process from 'node:process'
 
 const root = process.cwd()
 const failures = []
+// 报警项不影响退出码：第 0 批只冻结增量，存量另行清理。
+const warnings = []
+const verbose = process.argv.includes('--verbose')
 const designDoc = 'dev-docs/DUAL_MODE_GRIMOIRE_DESIGN_2026-08-04.md'
+const redesignDoc = 'dev-docs/UI_REDESIGN_PLAN_2026-08-04.md'
+const designSystemDoc = 'dev-docs/ui-design-system.md'
 const budgets = [
   { pattern: /src[\\/](main|App)\.tsx$/, max: 120, label: '入口文件' },
   { pattern: /src[\\/]components[\\/]ui[\\/].*\.tsx$/, max: 220, label: '共享UI组件' },
@@ -13,6 +18,9 @@ const budgets = [
 ]
 
 const sourceFile = /\.(ts|tsx|js|jsx|mjs|cjs)$/
+const styleFile = /^src\/.*\.css$/
+// 类名引用面：tsx/ts 拼 className，index.html 里也直接写死了几个骨架类。
+const classReferenceFile = /\.(tsx|ts|html)$/
 
 // localStorage key 的唯一登记处。放在守门脚本内而不是 src 下的常量文件，理由有三：
 // 白名单要同时覆盖 server/（src 常量文件对它是错误的家）；它是 CI 策略而非运行时数据，
@@ -62,6 +70,98 @@ function readExemption(line) {
   const matched = exemptionPattern.exec(line)
   if (!matched) return null
   return { id: matched[1], reason: matched[2].replace(/\*\/\s*$/, '').trim() }
+}
+
+// 注释整体替换成等长空白：检测不再命中注释里的示例代码，行号与 arch-allow 的对齐关系也原样保留。
+function blankCssComments(text) {
+  return text.replaceAll(/\/\*[\s\S]*?\*\//g, (block) => block.replaceAll(/[^\n]/g, ' '))
+}
+
+const cssVarDefinitionPattern = /(?:^|[\s;{])(--[A-Za-z0-9_-]+)\s*:/g
+
+function collectCssVarDefinitions(text) {
+  return new Set([...text.matchAll(cssVarDefinitionPattern)].map((matched) => matched[1]))
+}
+
+// 按花括号深度切选择器，而不是按行正则：本仓 CSS 大量写成单行规则，也有 @media/@container 嵌套。
+function collectCssSelectors(text) {
+  const selectors = []
+  let buffer = ''
+  let line = 1
+  let startLine = 1
+  for (const character of text) {
+    if (character === '{') {
+      const selector = buffer.trim()
+      if (selector && !selector.startsWith('@')) selectors.push({ selector, line: startLine })
+      buffer = ''
+    } else if (character === '}') {
+      buffer = ''
+    } else if (buffer !== '' || !/\s/.test(character)) {
+      buffer += character
+    }
+    if (character === '\n') line += 1
+    if (buffer === '') startLine = line
+  }
+  return selectors
+}
+
+const classInSelectorPattern = /\.(-?[A-Za-z_][\w-]*)/g
+
+// 类名引用判定刻意保守：宁可漏报也不要误报，否则报警清单会被动态拼接的类淹没。
+// 1) 整词出现即算引用（词边界按 [A-Za-z0-9_-] 切，故 game-end__reset 不会被 game-end__reset-body 顶掉）；
+// 2) BEM 修饰符只要 tsx 里出现过 `<基类>--` 这个前缀，就当成模板字符串拼接过；
+// 3) is-/has- 状态类整类跳过——SetupPanel 的 `is-${check.status}` 这类写法无法静态还原。
+const dynamicStateClass = /^(?:is|has)-/
+
+function isClassReferenced(name, index) {
+  if (dynamicStateClass.test(name)) return true
+  if (index.words.has(name)) return true
+  const modifier = name.lastIndexOf('--')
+  return modifier > 0 && index.text.includes(`${name.slice(0, modifier)}--`)
+}
+
+function buildClassReferenceIndex(files) {
+  const text = files
+    .filter((file) => classReferenceFile.test(file) && !file.endsWith('.d.ts'))
+    .map((file) => fs.readFileSync(path.join(root, file), 'utf8'))
+    .join('\n')
+  return { text, words: new Set([...text.matchAll(/[A-Za-z0-9_-]+/g)].map((matched) => matched[0])) }
+}
+
+function buildCssContext(text, classIndex, tokenVars) {
+  const source = blankCssComments(text)
+  const stripped = source.split(/\r?\n/)
+  const localVars = collectCssVarDefinitions(source)
+  const orphanByLine = new Map()
+  const seen = new Set()
+  for (const { selector, line } of collectCssSelectors(source)) {
+    for (const matched of selector.matchAll(classInSelectorPattern)) {
+      const name = matched[1]
+      if (seen.has(name)) continue
+      seen.add(name)
+      if (isClassReferenced(name, classIndex)) continue
+      if (!orphanByLine.has(line)) orphanByLine.set(line, [])
+      orphanByLine.get(line).push(name)
+    }
+  }
+  return { stripped, localVars, tokenVars, orphanByLine }
+}
+
+// 8/14/22 来自 ui-design-system.md:13，999 是药丸（tokens.css 里唯一获批的例外），0 是「取消圆角」。
+const allowedRadiusPx = new Set([0, 8, 14, 22, 999])
+const cssLengthPattern = /(-?\d*\.?\d+)(px|rem|em)\b/g
+
+function offscaleRadiusValues(value) {
+  return [...value.matchAll(cssLengthPattern)]
+    .filter((matched) => !allowedRadiusPx.has(matched[2] === 'px' ? Number(matched[1]) : Number(matched[1]) * 16))
+    .map((matched) => matched[0])
+}
+
+const keywordFontSize = /^(?:inherit|unset|initial|revert|0)$/
+
+function declarationValues(source, property) {
+  const pattern = new RegExp(String.raw`(?:^|[;{\s])${property}\s*:\s*([^;}]+)`, 'g')
+  return [...source.matchAll(pattern)].map((matched) => matched[1].trim().replace(/\s*!important$/, ''))
 }
 
 const rules = [
@@ -127,41 +227,130 @@ const rules = [
     },
     fix: '角色包与角色知识必须是纯数据/纯函数：需要局面信息时由调用方投影成入参传入，不得反向依赖 GameSessionState。',
   },
+  {
+    id: 'css-undefined-var',
+    doc: redesignDoc,
+    docSection: '「第 0 批（先于一切，纯清理）」CI 守门 1：引用未定义 var 报错',
+    applies: (file) => styleFile.test(file),
+    detect: (line, { css, index }) => {
+      const missing = [...(css.stripped[index] ?? '').matchAll(/var\(\s*(--[A-Za-z0-9_-]+)/g)]
+        .map((matched) => matched[1])
+        .filter((name) => !css.tokenVars.has(name) && !css.localVars.has(name))
+      return missing.length ? `引用了未定义的 CSS 变量 ${[...new Set(missing)].join(' / ')}` : null
+    },
+    fix: '含未定义变量的声明是 invalid at computed-value time，会静默塌回初始值。把它就近归并到 src/styles/tokens.css 的现有档位，或（组件作用域变量如 --disc-size）在同一个 CSS 文件里定义默认值；不要新增全局档位。',
+  },
+  {
+    id: 'css-offscale-values',
+    severity: 'warn',
+    doc: designSystemDoc,
+    docSection: '「Token」字号五档（:12）与圆角 8/14/22（:13）；守门条目见 UI_REDESIGN_PLAN_2026-08-04.md 第 0 批 CI 守门 2',
+    applies: (file) => styleFile.test(file),
+    detect: (line, { css, index }) => {
+      const source = css.stripped[index] ?? ''
+      const found = []
+      for (const value of declarationValues(source, 'font-size')) {
+        if (/var\(\s*--type-/.test(value) || keywordFontSize.test(value)) continue
+        found.push(`硬编码字号 font-size: ${value}`)
+      }
+      for (const value of declarationValues(source, 'font')) {
+        if (/var\(\s*--type-/.test(value) || keywordFontSize.test(value)) continue
+        found.push(`font 简写绕过字号档位 font: ${value}`)
+      }
+      for (const value of declarationValues(source, String.raw`border(?:-[a-z]+)*-radius`)) {
+        const offscale = offscaleRadiusValues(value)
+        if (offscale.length) found.push(`圆角越档 ${offscale.join(' / ')}（${value}）`)
+      }
+      return found.length ? found.join('；') : null
+    },
+    fix: '字号改用 --type-meta/label/body/section/page-title 五档；圆角改用 --radius-sm(8) / --radius-xl(22) / --radius-pill(999)。确需一次性数值时在该行加 `/* arch-allow: css-offscale-values <原因> */`。',
+  },
+  {
+    id: 'css-orphan-class',
+    severity: 'warn',
+    doc: redesignDoc,
+    docSection: '「第 0 批（先于一切，纯清理）」CI 守门 3：无 tsx 引用的 CSS 类报警',
+    applies: (file) => styleFile.test(file),
+    detect: (line, { css, index }) => {
+      const orphans = css.orphanByLine.get(index + 1)
+      return orphans ? `CSS 类在 tsx/ts/html 中零引用: ${orphans.map((name) => `.${name}`).join(' ')}` : null
+    },
+    fix: '删掉这段样式连同它的响应式覆盖。若类名由 tsx 动态拼接而静态扫不到，在该行加 `/* arch-allow: css-orphan-class <拼接位置> */`。',
+  },
 ]
 
 const ruleIds = new Set(rules.map((rule) => rule.id))
+const ruleById = new Map(rules.map((rule) => [rule.id, rule]))
 
-function reportFailure(rule, file, lineNumber, detail) {
-  failures.push([
-    `[${rule.id}] ${file}:${lineNumber} ${detail}`,
-    `  依据: ${designDoc} ${rule.docSection}`,
-    `  修复: ${rule.fix}`,
-  ].join('\n'))
+// 报警项与错误项走同一套三行格式，只是落进不同的桶：报警不改退出码。
+function bucketOf(rule) {
+  return rule?.severity === 'warn' ? warnings : failures
 }
 
-function checkLineRules(file, lines) {
+function finding({ ruleId, file, lineNumber, detail, doc, docSection, fix }) {
+  return {
+    ruleId,
+    where: `${file}:${lineNumber}`,
+    detail,
+    doc,
+    docSection,
+    fix,
+    lines: [`[${ruleId}] ${file}:${lineNumber} ${detail}`, `  依据: ${doc} ${docSection}`, `  修复: ${fix}`].join('\n'),
+  }
+}
+
+function reportFinding(rule, file, lineNumber, detail) {
+  bucketOf(rule).push(finding({
+    ruleId: rule.id,
+    file,
+    lineNumber,
+    detail,
+    doc: rule.doc ?? designDoc,
+    docSection: rule.docSection,
+    fix: rule.fix,
+  }))
+}
+
+const exemptionDocSection = '「架构守护：verify-architecture.mjs 现状盘点」要求 1'
+
+// arch-allow 注释本身的卫生问题跟着被豁免规则的 severity 走：报警规则的失效豁免不该把 CI 变红。
+function reportExemptionProblem(rule, file, lineNumber, detail, fix) {
+  bucketOf(rule).push(finding({
+    ruleId: 'arch-allow',
+    file,
+    lineNumber,
+    detail,
+    doc: designDoc,
+    docSection: exemptionDocSection,
+    fix,
+  }))
+}
+
+function checkLineRules(file, lines, context = {}) {
   const applicable = rules.filter((rule) => rule.applies(file))
   // 豁免注释的卫生检查只在规则真正生效的文件里跑，否则本脚本自身的错误提示文案会自我命中。
   if (!applicable.length) return
   const usedExemptions = new Set()
   for (const rule of applicable) {
     lines.forEach((line, index) => {
-      const detail = rule.detect(line, { file })
+      const detail = rule.detect(line, { ...context, file, index })
       if (!detail) return
       const exemption = readExemption(line) ?? readExemption(lines[index - 1])
       if (exemption && exemption.id === rule.id) {
         const exemptionLine = readExemption(line) ? index : index - 1
         usedExemptions.add(exemptionLine)
         if (!exemption.reason) {
-          failures.push([
-            `[arch-allow] ${file}:${exemptionLine + 1} 豁免注释缺少原因`,
-            `  依据: ${designDoc} 「架构守护：verify-architecture.mjs 现状盘点」要求 1`,
-            '  修复: 写成 `// arch-allow: <规则名> <为什么这里必须违反>`。',
-          ].join('\n'))
+          reportExemptionProblem(
+            rule,
+            file,
+            exemptionLine + 1,
+            '豁免注释缺少原因',
+            '写成 `// arch-allow: <规则名> <为什么这里必须违反>`（CSS 里写成 `/* arch-allow: ... */`）。',
+          )
         }
         return
       }
-      reportFailure(rule, file, index + 1, detail)
+      reportFinding(rule, file, index + 1, detail)
     })
   }
 
@@ -169,19 +358,25 @@ function checkLineRules(file, lines) {
     const exemption = readExemption(line)
     if (!exemption) return
     if (!ruleIds.has(exemption.id)) {
-      failures.push([
-        `[arch-allow] ${file}:${index + 1} 未知的规则名 ${exemption.id}`,
-        `  依据: ${designDoc} 「架构守护：verify-architecture.mjs 现状盘点」要求 1`,
-        `  修复: 规则名只能取 ${[...ruleIds].join(' / ')}。`,
-      ].join('\n'))
+      failures.push(finding({
+        ruleId: 'arch-allow',
+        file,
+        lineNumber: index + 1,
+        detail: `未知的规则名 ${exemption.id}`,
+        doc: designDoc,
+        docSection: exemptionDocSection,
+        fix: `规则名只能取 ${[...ruleIds].join(' / ')}。`,
+      }))
       return
     }
     if (usedExemptions.has(index)) return
-    failures.push([
-      `[arch-allow] ${file}:${index + 1} 豁免已失效（该规则在此处没有命中）`,
-      `  依据: ${designDoc} 「架构守护：verify-architecture.mjs 现状盘点」要求 1`,
-      '  修复: 删掉这条 arch-allow，豁免不留库存。',
-    ].join('\n'))
+    reportExemptionProblem(
+      ruleById.get(exemption.id),
+      file,
+      index + 1,
+      '豁免已失效（该规则在此处没有命中）',
+      '删掉这条 arch-allow，豁免不留库存。',
+    )
   })
 }
 
@@ -225,11 +420,15 @@ function collectStorageKeys(lines) {
 function checkStorageKeys(file, lines) {
   for (const [key, lineNumber] of collectStorageKeys(lines)) {
     if (allowedStorageKeys.has(key)) continue
-    failures.push([
-      `[localstorage-key-allowlist] ${file}:${lineNumber} 未登记的 localStorage key「${key}」`,
-      `  依据: ${designDoc} 「为魔典模式新增的 9 条反规则引擎自动检查」P0-3：单一持久化真值`,
-      '  修复: 若确实需要新 key，把它连同 owner 与用途加进 scripts/verify-architecture.mjs 的 localStorageKeyAllowlist；否则复用既有 key。',
-    ].join('\n'))
+    failures.push(finding({
+      ruleId: 'localstorage-key-allowlist',
+      file,
+      lineNumber,
+      detail: `未登记的 localStorage key「${key}」`,
+      doc: designDoc,
+      docSection: '「为魔典模式新增的 9 条反规则引擎自动检查」P0-3：单一持久化真值',
+      fix: '若确实需要新 key，把它连同 owner 与用途加进 scripts/verify-architecture.mjs 的 localStorageKeyAllowlist；否则复用既有 key。',
+    }))
   }
 }
 
@@ -244,24 +443,69 @@ function walk(directory) {
   })
 }
 
-for (const file of walk(root)) {
-  const relative = path.relative(root, file)
-  const normalized = toPosix(relative)
-  const budget = budgets.find((candidate) => candidate.pattern.test(relative))
-  const text = fs.readFileSync(file, 'utf8')
+const allFiles = walk(root).map((file) => toPosix(path.relative(root, file)))
+// 三条 CSS 纪律都是跨文件判定：token 定义面来自 tokens.css，类名引用面来自全部 tsx/ts/html，先建索引再逐文件扫。
+const tokenVars = collectCssVarDefinitions(fs.readFileSync(path.join(root, 'src/styles/tokens.css'), 'utf8'))
+const classIndex = buildClassReferenceIndex(allFiles)
+
+for (const normalized of allFiles) {
+  const budget = budgets.find((candidate) => candidate.pattern.test(normalized))
+  const isStyle = styleFile.test(normalized)
+  if (!budget && !isStyle && !sourceFile.test(normalized)) continue
+  const text = fs.readFileSync(path.join(root, normalized), 'utf8')
   if (budget) {
-    const lines = text.split(/\r?\n/).length
-    if (lines > budget.max) failures.push(`${budget.label}超预算: ${normalized} ${lines}/${budget.max}`)
+    const lineCount = text.split(/\r?\n/).length
+    if (lineCount > budget.max) {
+      failures.push({
+        ruleId: 'file-budget',
+        where: normalized,
+        detail: `${budget.label}超预算 ${lineCount}/${budget.max}`,
+        lines: `${budget.label}超预算: ${normalized} ${lineCount}/${budget.max}`,
+      })
+    }
+  }
+  const lines = text.split(/\r?\n/)
+  if (isStyle) {
+    checkLineRules(normalized, lines, { css: buildCssContext(text, classIndex, tokenVars) })
+    continue
   }
   if (!sourceFile.test(normalized)) continue
-  const lines = text.split(/\r?\n/)
   checkLineRules(normalized, lines)
   if (/^(src|server)\//.test(normalized)) checkStorageKeys(normalized, lines)
 }
 
+const warningSampleLimit = 10
+
+function printWarnings() {
+  if (!warnings.length) return
+  const byRule = new Map()
+  for (const warning of warnings) {
+    if (!byRule.has(warning.ruleId)) byRule.set(warning.ruleId, [])
+    byRule.get(warning.ruleId).push(warning)
+  }
+  console.warn('')
+  console.warn('--- CSS 纪律报警（不影响退出码：本批只冻结增量，存量按 UI_REDESIGN_PLAN 后续批次清理）---')
+  for (const [ruleId, entries] of byRule) {
+    console.warn(`[${ruleId}] ${entries.length} 行命中`)
+    if (verbose) {
+      for (const entry of entries) console.warn(entry.lines)
+      continue
+    }
+    // 非 verbose 时把三行格式里两行不变的部分提到分组头，样例只留一行，避免报警淹没错误。
+    console.warn(`  依据: ${entries[0].doc} ${entries[0].docSection}`)
+    console.warn(`  修复: ${entries[0].fix}`)
+    for (const entry of entries.slice(0, warningSampleLimit)) console.warn(`  ${entry.where} ${entry.detail}`)
+    if (entries.length > warningSampleLimit) {
+      console.warn(`  ……另有 ${entries.length - warningSampleLimit} 行；用 --verbose 看全部`)
+    }
+  }
+}
+
 if (failures.length) {
-  console.error(failures.join('\n'))
+  console.error(failures.map((failure) => failure.lines).join('\n'))
+  printWarnings()
   process.exit(1)
 }
 
-console.log('Architecture verification passed: entry/component budgets, anti-engine boundaries, state/pack dependency direction and the localStorage key allowlist are clean.')
+console.log('Architecture verification passed: entry/component budgets, anti-engine boundaries, state/pack dependency direction, the localStorage key allowlist and CSS variable definitions are clean.')
+printWarnings()

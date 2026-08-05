@@ -32,21 +32,77 @@
 .status-badge {
   min-height: 26px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 2px 9px;
   display: inline-flex;
   align-items: center;
+  gap: 4px;
   white-space: nowrap;
   font-size: var(--type-meta);
   font-weight: 700;
   line-height: 1.2;
 }
+/* 只允许缩到 22px 高；再小就不是徽标，应该改用普通文本。字号仍保持 --type-meta。 */
+.status-badge--sm { min-height: 22px; padding: 1px 7px; }
+.status-badge svg { width: 12px; height: 12px; flex: 0 0 auto; }
 .status-badge--neutral { background: var(--surface-soft); color: var(--text-muted); }
 .status-badge--current { background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent-text); }
 .status-badge--success { background: var(--success-soft); border-color: var(--success-border); color: var(--success-text); }
 .status-badge--warning { background: var(--warning-soft); border-color: var(--warning-border); color: var(--warning-text); }
 .status-badge--danger { background: var(--danger-soft); border-color: var(--danger-border); color: var(--danger-text); }
 .status-badge--info { background: var(--info-soft); border-color: var(--info-border); color: var(--info-text); }
+
+/* 卡片：各 feature 手写的「1px 描边 + radius-lg + 面板底 + eyebrow/标题/操作」收敛到这里。 */
+.ui-card {
+  min-width: 0;
+  padding: var(--space-20);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-panel);
+}
+.ui-card--soft { background: var(--surface-soft); }
+.ui-card__header {
+  margin-bottom: var(--space-12);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+.ui-card__titles { min-width: 0; }
+.ui-card__eyebrow { display: block; color: var(--accent-text); font-size: var(--type-meta); font-weight: 800; letter-spacing: .12em; }
+.ui-card__eyebrow--info { color: var(--info-text); letter-spacing: .1em; }
+.ui-card__title { margin: 3px 0 0; font: 800 var(--type-section) var(--font-display); }
+/* 开发态护栏：超过两层的卡片直接标红，配合 console.error 定位。生产态不加这个类，渲染不变。 */
+.ui-card--over-nested { outline: 2px solid #ff4d4f; outline-offset: 2px; }
+
+/* 表单三件套：label + 控件 + 说明/错误。 */
+.ui-field { min-width: 0; display: grid; gap: var(--space-6); }
+.ui-field__label { color: var(--text-muted); font-size: var(--type-label); font-weight: 800; }
+.ui-field__hint { color: var(--text-subtle); font-size: var(--type-meta); line-height: 1.5; }
+.ui-field__error { color: var(--danger-text); font-size: var(--type-meta); font-weight: 700; }
+.ui-field--invalid input,
+.ui-field--invalid select,
+.ui-field--invalid textarea { border-color: var(--danger-border); }
+
+/* 空态：虚线框 + 一句主文案 + 可选说明，全产品共用一套。 */
+.ui-empty {
+  min-height: 132px;
+  padding: var(--space-20);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-8);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+  color: var(--text-muted);
+  text-align: center;
+}
+.ui-empty--compact { min-height: 72px; padding: var(--space-12); }
+.ui-empty > svg { width: 26px; height: 26px; color: var(--text-subtle); }
+.ui-empty__title { color: var(--text-strong); font: 800 1.1rem var(--font-display); }
+.ui-empty__description { max-width: 420px; font-size: var(--type-label); font-weight: 700; line-height: 1.6; }
+.ui-empty__action { margin-top: var(--space-4); }
 
 .seat-button {
   min-width: 52px;
@@ -66,10 +122,19 @@
 .seat-button__number { position: relative; z-index: 1; font-family: var(--font-display); font-size: 1.06rem; font-weight: 700; }
 .seat-button__check { width: 18px; height: 18px; position: absolute; top: 5px; right: 5px; z-index: 1; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #17130d; }
 .seat-button__check svg { width: 11px; height: 11px; stroke-width: 3; }
+.seat-button__dead { position: absolute; right: 4px; bottom: 4px; z-index: 1; display: grid; place-items: center; color: var(--danger-text); }
+.seat-button__dead svg { width: 13px; height: 13px; stroke-width: 2.2; }
+.seat-button__self { position: absolute; top: 3px; left: 3px; z-index: 1; padding: 0 4px; border-radius: var(--radius-pill); background: var(--info-soft); color: var(--info-text); font-size: var(--type-meta); font-weight: 800; line-height: 1.35; letter-spacing: 0; }
 .seat-button:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-hover); }
 .seat-button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .seat-button--selected { border: 2px solid var(--accent-strong); background: var(--accent-soft); color: var(--accent-text); }
-.seat-button--subdued { border-style: dashed; color: var(--text-subtle); opacity: .62; }
+/* 死亡是语义状态：虚线描边 + Skull 图标 + 语义色三重编码，昼夜共用同一套表达。 */
+.seat-button--dead { border-style: dashed; border-color: var(--danger-border); color: var(--danger-text); }
+.seat-button--dead .seat-button__number { opacity: .82; }
+.seat-button--selected.seat-button--dead { border-style: dashed; border-color: var(--accent-strong); color: var(--accent-text); }
+.seat-button--selected.seat-button--dead .seat-button__number { opacity: 1; }
+/* subdued 只表示低强调，不承载任何规则或状态含义。 */
+.seat-button--subdued { color: var(--text-subtle); opacity: .62; }
 .seat-button--selected.seat-button--subdued { opacity: 1; }
 .seat-button:disabled { cursor: not-allowed; opacity: .42; }
 
