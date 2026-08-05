@@ -730,3 +730,12 @@
   .choice-chips { grid-template-columns: repeat(3, minmax(0, 1fr)); max-height: 148px; }
   .choice-chip { padding-inline: 6px; font-size: .76rem; }
 }
+
+/* 当日事实条：冷青单层，只陈述事实，位于技能说明与目标区之间。 */
+.wake-day-facts { margin-top: var(--space-12); padding: var(--space-10) var(--space-12); border: 1px solid var(--info-border); border-radius: var(--radius-md); background: var(--info-soft); }
+.wake-day-facts__title { display: flex; align-items: center; gap: 6px; color: var(--info-text); font-size: var(--type-meta); font-weight: 800; letter-spacing: .06em; }
+.wake-day-facts__title svg { width: 14px; }
+.wake-day-facts dl { margin: 6px 0 0; display: grid; gap: 4px; }
+.wake-day-facts div { display: flex; gap: var(--space-8); }
+.wake-day-facts dt { flex: none; min-width: 4em; color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; }
+.wake-day-facts dd { margin: 0; color: var(--text-body); font-size: var(--type-label); font-weight: 700; }
