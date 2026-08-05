@@ -17,6 +17,8 @@ export {
   clearSnapshots,
   listSnapshots,
   readSnapshot,
+  snapshotIndexKey,
+  snapshotSlotKey,
   snapshotStorageKeyPrefix,
 } from './snapshotRotation'
 export type { SnapshotRecord } from './snapshotRotation'

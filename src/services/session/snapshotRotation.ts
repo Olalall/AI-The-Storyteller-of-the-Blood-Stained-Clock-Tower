@@ -32,8 +32,12 @@ interface StoredIndexEntry {
   byteLength: number
 }
 
-const indexKey = `${snapshotStorageKeyPrefix}-index`
-const slotKey = (slot: number) => `${snapshotStorageKeyPrefix}-${slot}`
+/** key 的构造只在这里一处；调用方（含测试）一律用它，不自己拼字符串。 */
+export const snapshotIndexKey = `${snapshotStorageKeyPrefix}-index`
+export const snapshotSlotKey = (slot: number) => `${snapshotStorageKeyPrefix}-${slot}`
+
+const indexKey = snapshotIndexKey
+const slotKey = snapshotSlotKey
 
 function readIndex(): StoredIndexEntry[] {
   try {

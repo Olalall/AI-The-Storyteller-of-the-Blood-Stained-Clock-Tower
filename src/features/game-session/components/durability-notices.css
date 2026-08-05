@@ -1,0 +1,40 @@
+.durability-notices {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-16) 0;
+}
+
+.durability-notice {
+  display: flex;
+  align-items: center;
+  gap: var(--space-10);
+  margin: 0;
+  padding: var(--space-10) var(--space-14);
+  border-radius: var(--radius-sm);
+  font-size: var(--type-meta);
+}
+
+.durability-notice svg {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.durability-notice span {
+  flex: 1;
+  min-width: 0;
+}
+
+.durability-notice--lock {
+  background: var(--warning-soft);
+  border: 1px solid var(--warning-border);
+  color: var(--warning-text);
+}
+
+.durability-notice--recovery {
+  background: var(--info-soft);
+  border: 1px solid var(--info-border);
+  color: var(--info-text);
+  flex-wrap: wrap;
+}
