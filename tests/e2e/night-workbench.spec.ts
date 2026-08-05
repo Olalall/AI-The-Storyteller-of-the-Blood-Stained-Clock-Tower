@@ -26,6 +26,9 @@ const viewports = [
   { name: 'split-720', width: 720, height: 900 },
   { name: 'split-828', width: 828, height: 900 },
   { name: 'pad-1280', width: 1280, height: 800 },
+  // Mac 是宽而矮：高度才是瓶颈，确认区最容易被顶出视口。
+  { name: 'mac-air-1440', width: 1440, height: 900 },
+  { name: 'mac-16-1728', width: 1728, height: 1117 },
 ]
 
 for (const viewport of viewports) {

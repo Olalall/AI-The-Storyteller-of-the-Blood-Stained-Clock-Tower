@@ -179,7 +179,14 @@
 .concealed-copy { filter: blur(7px); user-select: none; }
 
 .night-content-grid { container: night-content / inline-size; padding-bottom: 96px; width: min(1080px, calc(100% - clamp(var(--space-20), 4cqw, var(--space-40)))); margin: 0 auto var(--space-32); display: grid; gap: var(--space-20); }
-.night-action-zone { scroll-margin-block: var(--space-16); }
+.night-action-zone {
+  /* sticky 必须挂在这一层：它的子元素若自己 sticky，包裹块只有按钮那么高，
+     等于没有可粘的空间——确认按钮会一直沉在长卡片之后，Mac 短屏上尤其够不到。 */
+  position: sticky;
+  bottom: 0;
+  z-index: 12;
+  scroll-margin-block: var(--space-16);
+}
 .night-action-zone > .sticky-action-bar {
   min-height: 0;
   padding: var(--space-8) var(--space-14);
@@ -761,3 +768,13 @@
 .wake-day-facts div { display: flex; gap: var(--space-8); }
 .wake-day-facts dt { flex: none; min-width: 4em; color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; }
 .wake-day-facts dd { margin: 0; color: var(--text-body); font-size: var(--type-label); font-weight: 700; }
+
+/* 短屏优化：Mac 是宽而矮，250px 的角色转盘会把目标区和确认区顶出视口。 */
+@media (max-height: 900px) {
+  .night-carousel { min-height: 168px; }
+  .carousel-current .role-disc--large { --disc-size: 84px; }
+}
+@media (max-height: 760px) {
+  .night-carousel { min-height: 132px; }
+  .carousel-current .role-disc--large { --disc-size: 68px; }
+}
