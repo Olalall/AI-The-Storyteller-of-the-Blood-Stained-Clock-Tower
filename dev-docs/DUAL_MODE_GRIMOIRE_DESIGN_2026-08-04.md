@@ -984,6 +984,52 @@ ui-design-system.md:34 写着「角色 PNG 与圆形 Token 只保留给 RoleDisc
 
 ## 魔典四批
 
+## 实施状态（截至 2026-08-05）
+
+分支 `fix/wiki-ground-truth-audit`。1084 单测 + 35 e2e 绿，`verify-architecture.mjs` exit 0。
+
+**G1 已完成**
+
+| 项 | 落点 |
+| --- | --- |
+| 椭圆布局纯函数（四档尺寸、弧距判据、长短轴比上限、网格退化） | `features/grimoire/layout/ellipseRing.ts` |
+| 卫星标记计算附着（88° 弧、空间反转、+N 折叠） | `features/grimoire/layout/satelliteArc.ts` |
+| GrimoireSeat（容器化 RoleDisc，死亡帷幕，命中区外扩） | `features/grimoire/seat/` |
+| GrimoireCanvas（ResizeObserver 实测舞台，窄屏网格退化，**零 dispatch**） | `features/grimoire/GrimoireCanvas.tsx` |
+| GrimoireCore（Town Info，只显示不裁定，无数据源写「—」） | `features/grimoire/core/` |
+| 三档抽屉（peek/half/full，手势契约常驻，键盘可达每一档） | `features/grimoire/drawer/` |
+| 三级遮蔽（模型 + 运行时控制：长按 600ms、双指盲盖、90 秒落回、失焦落回） | `features/grimoire/shield/` |
+| hostingMode / hostingModeHistory + 架构守门 | `sessionTypes.ts`、`verify-architecture.mjs` |
+| 首次引导卡「你的魔典放在哪里」 | `features/grimoire/mode/HostingModeCard.tsx` |
+| 降级交接卡（含可抄清单与复制） | `features/grimoire/mode/DowngradeHandoffCard.tsx` |
+| 完整度提示条（含 seatsWithRole 为 0 的分支） | `features/grimoire/completeness/` |
+| 边界文档 | `dev-docs/GRIMOIRE_MODE_BOUNDARY.md` |
+
+**G1 待办**
+
+- core 的五种相位内容与夜序双 Disc（当前只有 Town Info）
+- 三档抽屉接六个既有全屏页（外壳已就绪，尚未换容器）
+- 把画布接进 DeckBody 的魔典模式分支（组件齐备，尚未在主流程渲染）
+
+**耐久性闸门（G2 准入）已完成**
+
+快照轮转（主副本 + 5 份，按时间节流，破坏性操作与相位关闭无条件存）、
+启动崩溃恢复询问（只在快照记录更多时提议，只在挂载时问一次，恢复前先存当前份）、
+多标签页单实例锁（心跳判活，后开者只读不抢锁）。
+体积基线实测记录在案：300 次操作后单份 20.6KB，含 5 份快照共 123KB。
+
+待办：导出 JSON 提到常驻可达、相位关闭时向后端 recovery 命名空间推送。
+
+**过程中修掉的两处自己的错误**（都已写进 commit 说明）
+
+1. `hosting-mode-not-behavioural` 守门规则最初**从未生效**：放行条件 `hostingMode?:`
+   连参数类型标注一起放行了，而我当时的「负向验证」数的是规则名在输出里的出现次数，
+   那两次其实全是既存误报。规则已改为只查属性访问与解构，并逐一验证了四种读取形态。
+2. 前三批（入口界面、白天步骤序列化、首夜系统步骤）我只跑了测试与 lint、没跑架构守门，
+   连续把五个文件推过行数预算。已按职责拆分修回，不放宽任何预算。
+
+---
+
 ### G1 只读魔典（约 2–3 周）——环作为观察面，零写入
 内容：features/grimoire 目录 + GrimoireSeat（包 RoleDisc）+ 椭圆布局纯函数（含 pitch 判据与四档尺寸）+ core（五种相位内容、Town Info、夜序双 Disc）+ 三档抽屉（六个全屏页原样换容器）+ 三级遮蔽 + 窄屏网格退化 + hostingMode/hostingModeHistory + 首次引导卡「你的魔典放在哪里」+ 降级交接卡 + 完整度提示条（含 seatsWithRole 为 0 的分支）。
 关键约束：本批画布内不得出现任何 dispatch，全部状态编辑仍走既有 PlayerStatusSheet。
