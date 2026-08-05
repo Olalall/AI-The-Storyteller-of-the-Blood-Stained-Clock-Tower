@@ -18,6 +18,7 @@ import { DayStepRow } from './components/DayStepRow'
 import { NominationStep, type NominationTarget } from './components/NominationStep'
 import { leaveNoticeCopy, voteDraftForSession } from './state/dayDraft'
 import { roundStatusLabel, suggestDayStep, type DayStep } from './state/dayStep'
+import { savePhaseCloseSnapshot } from '../../services/session'
 import { StickyActionBar } from '../../components/ui/StickyActionBar'
 import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchNotice'
 import './day-workbench.css'
@@ -143,6 +144,9 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   }
 
   function closeDay() {
+    // 相位关闭不可逆，且它同时清掉当天的草稿。先把关闭前的这一份留下来：
+    // 本地快照必落，后端救生圈尽力推一份（推不出去不影响这里往下走）。
+    savePhaseCloseSnapshot(session)
     dispatch({ type: 'clear-day-vote-draft' })
     dispatch({ type: 'close-open-segment', phaseKind: 'day', closedAt: new Date().toISOString() })
     setPendingDayClose(null)
