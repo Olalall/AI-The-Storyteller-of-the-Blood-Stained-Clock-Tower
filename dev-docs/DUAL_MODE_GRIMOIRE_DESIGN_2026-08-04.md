@@ -8,6 +8,24 @@
 
 ---
 
+
+> ### ⚠ 本文件有 33 处正文被截断
+>
+> 本文件是由 `data/wiki-ground-truth/compare/dualmode-design.json` 汇编而成的，
+> 汇编时对长字段做了硬截断：**表格单元格约 190 字符、类型定义约 1100 字符即断**，
+> 且第三节落点表的 `why` 与 `conflictRisk` 两列整列丢失。
+>
+> 断点全部落在句子中间，读起来只像是话没说完——已经造成的实际后果包括：
+> `GrimoireOp` 在本文件里少了 4 个变体、夜态 core 的方案只剩「留在抽屉 hal」。
+>
+> **动手前先读这两份恢复文件，它们与本文件冲突时以它们为准：**
+> - [GRIMOIRE_DESIGN_RECOVERED_PASSAGES.md](GRIMOIRE_DESIGN_RECOVERED_PASSAGES.md) —— 全部 33 处逐字恢复
+> - [GRIMOIRE_FOLDED_FEATURES_FULL.md](GRIMOIRE_FOLDED_FEATURES_FULL.md) —— 第三节落点表 14 条完整版（含丢失的两列）
+>
+> 另：**第八节「评审裁决的 12 处冲突」凌驾于前七节**。前文被裁决否掉的内容（如 `AIGrimoireProposal`、
+> `GrimoireSettings`、`SessionSurfaceMode`）正文仍在，但一律不实现。
+
+
 ## 〇、两条最重要的裁决
 
 ### 裁决 1：电子魔典不是规则引擎（这是整个设计的护身符）
