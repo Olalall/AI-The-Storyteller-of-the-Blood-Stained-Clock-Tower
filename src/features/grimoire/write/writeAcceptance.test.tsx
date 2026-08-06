@@ -1,5 +1,5 @@
 import { act, renderHook } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { createPrototypeGameSession } from '../../game-session/data/createPrototypeSession'
 import { projectCurrentPlayerStates } from '../../game-session/state/projectors'
 import { gameSessionReducer } from '../../game-session/state/sessionReducer'
