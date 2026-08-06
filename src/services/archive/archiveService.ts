@@ -3,7 +3,9 @@ import { projectEffectiveTimelineEntries } from '../../features/game-session/sta
 import type { GameSessionState, TimelineEntry } from '../../features/game-session/types'
 import { assertNever } from '../../shared/assertNever'
 import { localArchiveAdapter } from './localArchiveAdapter'
+import { LEGACY_HOSTING_MODE, projectArchiveCompleteness } from './archiveMigration'
 import {
+  CURRENT_ARCHIVE_SCHEMA_VERSION,
   winnerLabels,
   type ArchiveGameCommand,
   type ArchiveGameResult,
@@ -104,7 +106,7 @@ export function createGameArchiveRecord({
   const projection = projectGameArchiveSession(session)
 
   return {
-    schemaVersion: 1,
+    schemaVersion: CURRENT_ARCHIVE_SCHEMA_VERSION,
     id: archiveId ?? `archive-${session.id}-${Date.now()}`,
     sessionId: session.id,
     archivedAt,
@@ -134,6 +136,12 @@ export function createGameArchiveRecord({
       }
     }),
     session,
+    // 归档时把模式与完整度**固化**下来。内嵌 session 里其实也有前两个，但复盘读的是这里：
+    // 一份归档的自我描述不该依赖读取方去内嵌 session 里翻，翻的路径每多一条，
+    // 就多一处可能写成 `?? 'grimoire'` 的回落。
+    hostingMode: session.hostingMode ?? LEGACY_HOSTING_MODE,
+    hostingModeHistory: session.hostingModeHistory ?? [],
+    grimoireCompleteness: projectArchiveCompleteness(session),
   }
 }
 

@@ -74,6 +74,12 @@ export interface GrimoireSeatProps {
   onChipGesture?: (seatId: number, event: SeatChipGestureEvent) => void
   /** 锚在这个座位下方的浮层（SeatActionBar）。只有可写形态才有地方挂它。 */
   anchored?: ReactNode
+  /**
+   * 座位上的角标层（夜序 ①②✓「缓」、草稿目标描边）。
+   * 与 anchored 分开：那个是锚在座位下方的浮层，会撑开命中区；
+   * 这个贴在 token 上、纯展示、绝不吃指针事件，否则会把座位本身点不动。
+   */
+  overlay?: ReactNode
 }
 
 function accessibleName(
@@ -118,6 +124,7 @@ export function GrimoireSeat({
   onHold,
   onChipGesture,
   anchored,
+  overlay,
 }: GrimoireSeatProps) {
   const visibility = shieldVisibility(shield)
   const hold = useHoldGesture(SEAT_ACTION_HOLD_MS, onHold ? () => onHold(seatId) : undefined)
@@ -215,6 +222,7 @@ export function GrimoireSeat({
       <button {...tokenProps} className={classes} style={style}>
         {tokenBody}
         {chipLayer}
+        {overlay}
       </button>
     )
   }
@@ -223,6 +231,7 @@ export function GrimoireSeat({
     <div className={classes} style={style} data-seat-container={seatId}>
       <button {...tokenProps} className="grimoire-seat__token">{tokenBody}</button>
       {chipLayer}
+      {overlay}
       {anchored}
     </div>
   )

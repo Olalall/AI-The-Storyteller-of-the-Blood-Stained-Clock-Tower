@@ -15,7 +15,7 @@ import { SessionEntry } from '../features/hosting-deck/SessionEntry'
 import { deckNodeForSession, isFirstNight, latestNightSegmentId, nextDayLabel, nextNightLabel, type DeckNode } from '../features/hosting-deck/deckNode'
 import { DayWorkbench } from '../features/day-workbench/DayWorkbench'
 import { NightWorkbench } from '../features/night-workbench/NightWorkbench'
-import { GrimoireStage } from '../features/grimoire/GrimoireStage'
+import { GrimoireStage } from '../features/grimoire/GrimoireStageHost'
 import type { GameSessionState } from '../features/game-session/types'
 import type { GameSessionAction } from '../features/game-session/state/sessionActions'
 
@@ -48,6 +48,7 @@ export function DeckBody(props: DeckBodyProps) {
   return (
     <GrimoireStage
       session={session}
+      nightBinding={props.nightBinding}
       dispatch={props.dispatch}
       deckNode={deckNode}
       onOpenSetup={onOpenSetup}

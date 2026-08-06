@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { GrimoireStage } from './GrimoireStage'
+import { GrimoireStage } from './GrimoireStageHost'
 import { DiscussionTimerProvider } from '../day-workbench/state/discussionTimer'
 import { createPrototypeGameSession } from '../game-session/data/createPrototypeSession'
 import type { GameSessionState, TimelineEntry } from '../game-session/types'

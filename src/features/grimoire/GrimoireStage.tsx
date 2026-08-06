@@ -14,6 +14,9 @@
  */
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { GrimoireCanvas, type GrimoireCanvasSeat } from './GrimoireCanvas'
+import { useRingBindings } from './stage/useRingBindings'
+import { renderSeatAnchorWith } from './stage/seatAnchor'
+import { ReplayHonestyBar } from './replay/ReplayHonestyBar'
 import { CompletenessBar } from './completeness/CompletenessBar'
 import {
   isCompletenessVisible,
@@ -30,7 +33,6 @@ import { useGrimoireShield } from './shield/useGrimoireShield'
 import { GrimoireShieldBar } from './stage/GrimoireShieldBar'
 import { SessionInfoOverlay } from './stage/SessionInfoOverlay'
 import { GrimoireReceiptBar } from './write/GrimoireReceiptBar'
-import { SeatActionBar } from './write/SeatActionBar'
 import { SeatActionDrawerPath } from './write/SeatActionDrawerPath'
 import { SeatConfirmBar } from './write/SeatConfirmBar'
 import { useGrimoireWriteLayer } from './write/useGrimoireWriteLayer'
@@ -54,7 +56,7 @@ import type { GameSessionAction } from '../game-session/state/sessionActions'
 import type { GameSessionState } from '../game-session/types'
 import './stage/grimoire-stage.css'
 
-interface GrimoireStageProps {
+export interface GrimoireStageProps {
   session: GameSessionState
   dispatch: (action: GameSessionAction) => void
   deckNode: DeckNode
@@ -68,6 +70,8 @@ interface GrimoireStageProps {
    * 一跳可达。这是过渡桥，真正的目标是 App 层直接把 RoleChangeSheet 挂上来。
    */
   onOpenRoleChange?: (seatId: number) => void
+  /** 夜间工作台的会话绑定。环上点座位选目标要走它，才能与抽屉共用同一个 reducer。 */
+  nightBinding: { session: GameSessionState; dispatchSession: (action: GameSessionAction) => void }
   /** 当前节点的工作台或交接卡，原样落进抽屉。 */
   children: ReactNode
 }
@@ -95,6 +99,14 @@ const DRAWER_LABEL: Record<DeckNode, string> = {
  * 抽屉只放当前这一步。档位是**相位的属性**而不是抽屉的遗留状态——
  * 散着不管的话，说书人上一段把抽屉拖回 peek，下一段的交接卡就只露出一条 96px 的缝。
  */
+/**
+ * 每个节点进来时抽屉停在哪一档。
+ *
+ * 夜与昼停在 half：环是主视图，但抽屉里那张工作台的主动作（「检查并关闭」
+ * 「结束今天」）也必须够得到，peek 的 96px 装不下它们。
+ * half 的高度本身被收窄过——见 detents 里的说明，46dvh 会把环挤成网格。
+ * 黄昏与黎明是交接卡，那两步本来就该占满整屏，环让位。
+ */
 const DRAWER_DETENT: Record<DeckNode, 'peek' | 'half' | 'full'> = {
   dusk: 'full',
   night: 'half',
@@ -102,10 +114,11 @@ const DRAWER_DETENT: Record<DeckNode, 'peek' | 'half' | 'full'> = {
   day: 'half',
 }
 
-export function GrimoireStage({
+export function GrimoireStageBody({
   session,
   dispatch,
   deckNode,
+  nightBinding,
   onOpenSetup,
   onOpenScriptLibrary,
   onOpenRecords,
@@ -177,6 +190,17 @@ export function GrimoireStage({
   // L0 是「立刻盖住一切」的手势，必须绝对：抽屉里托管的是既有全屏页
   // （夜间工作台会显示角色名、黄昏交接会显示恶魔的三张伪装），
   // 而画布的遮蔽管不到抽屉。所以 L0 下抽屉内容**整段不进 DOM**，不是视觉遮住。
+  const ring = useRingBindings({
+    session,
+    dispatch,
+    deckNode,
+    seatIds: seats.map((seat) => seat.seatId),
+    shield: shield.level,
+    nightBinding,
+    notify: write.notify,
+    openActionBar: bindings.openActionBar,
+  })
+
   const drawerVisible = shieldVisibility(shield.level).seatIdentity
 
   return (
@@ -209,29 +233,23 @@ export function GrimoireStage({
         />
       ) : null}
 
+      <ReplayHonestyBar context={{ archive: null, viewMode: 'grimoire' }} />
       <GrimoireShieldBar shield={shield} />
 
       <GrimoireCanvas
         seats={seats}
         shield={shield.level}
-        actionHint="座位操作"
-        onSelectSeat={bindings.openActionBar}
+        actionHint={ring.actionHint}
+        onSelectSeat={ring.onSelectSeat}
+        seatOverlays={ring.seatOverlays}
+        selectedSeatIds={ring.day.selectedSeatIds}
+        renderRingOverlay={ring.renderRingOverlay}
         onSeatHold={bindings.openActionBar}
         onChipGesture={bindings.handleChipGesture}
         ghostsBySeat={write.ghostsBySeat}
         ghostLifeBySeat={write.ghostLifeBySeat}
         anchoredSeatId={bindings.actionBarSeatId}
-        renderSeatAnchor={(seatId) => playerStates[seatId] ? (
-          <SeatActionBar
-            seatId={seatId}
-            state={playerStates[seatId]}
-            onDraft={(cell) => bindings.draftFromCell(seatId, cell)}
-            onAddMarker={(label) => bindings.addMarker(seatId, label)}
-            onOpenRoleChange={() => { bindings.closeActionBar(); openRoleChange(seatId) }}
-            onOpenSeatCard={() => { bindings.closeActionBar(); onOpenPlayerStatus(seatId) }}
-            onClose={bindings.closeActionBar}
-          />
-        ) : null}
+        renderSeatAnchor={renderSeatAnchorWith({ playerStates, bindings, onOpenRoleChange: openRoleChange, onOpenSeatCard: onOpenPlayerStatus })}
         onBlindCover={shield.coverNow}
         scriptName={scriptDisplayName(session.scriptId)}
         onOpenSessionInfo={() => setInfoOpen(true)}
@@ -250,7 +268,7 @@ export function GrimoireStage({
       <WorkDrawer
         key={deckNode}
         onDetentChange={setDrawerDetent}
-        gestureContract={GESTURE_CONTRACT[deckNode]}
+        gestureContract={ring.gestureContract ?? GESTURE_CONTRACT[deckNode]}
         label={DRAWER_LABEL[deckNode]}
         defaultDetent={DRAWER_DETENT[deckNode]}
         peekSlot={write.projected && drawerVisible ? {
@@ -297,3 +315,5 @@ export function GrimoireStage({
     </div>
   )
 }
+
+

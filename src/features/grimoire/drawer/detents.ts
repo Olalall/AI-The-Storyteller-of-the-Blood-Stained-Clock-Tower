@@ -14,7 +14,16 @@ export const WORK_DRAWER_DETENTS: readonly WorkDrawerDetent[] = ['peek', 'half',
 export const WORK_DRAWER_PEEK_HEIGHT = 96
 /** full 档给顶部阶段轨道留出的高度。 */
 export const WORK_DRAWER_TRACK_RESERVE = 48
-const HALF_VIEWPORT_PERCENT = 46
+/**
+ * half 档占视口的比例。
+ *
+ * 46 曾经是这个数，实测下来它正好卡在环的生死线上：1180×900 上 46dvh 只给画布
+ * 剩 366px，12 人就排不成环、退化成网格——而网格态下提名弧、夜序焦点环、
+ * 举手打卡全都无处可画，等于魔典的环在默认档从未真正出现过。
+ * 38 给画布留到 438px，12 人与 15 人都还能成环。18 人以上在 half 仍会退化，
+ * 那时把抽屉拉回 peek 即可——环是主视图，抽屉是配件。
+ */
+export const HALF_VIEWPORT_PERCENT = 38
 const HALF_MIN_HEIGHT = 240
 
 export const DETENT_LABEL: Record<WorkDrawerDetent, string> = {

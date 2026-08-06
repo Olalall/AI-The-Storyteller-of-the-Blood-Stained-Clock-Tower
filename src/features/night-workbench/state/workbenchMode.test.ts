@@ -117,6 +117,104 @@ describe('工作台状态枚举', () => {
   })
 })
 
+/**
+ * 组合表里标着「UI 不可达」的三行 (a)(b)，靠的是两段推理。推理会过期——
+ * 谁在 begin-correction 或 defer 上放宽一次守卫，那两行就悄悄变成可达，
+ * 而收敛后的 mode 会按注释里那句「保守解析」把它们折进 settled / preview-*，
+ * 没有任何东西会红。
+ *
+ * 所以这里不重复那两段推理，改成穷举：从空局出发把全部 21 种意图铺开三层，
+ * 对每一个到达过的状态算一遍旧三布尔，断言只落在那五个组合上。
+ */
+function reachableBooleanCombos(): Set<string> {
+  const intents: NightWorkbenchIntent[] = [
+    { type: 'preview', id: CONFIRMED_ID },
+    { type: 'preview', id: PENDING_ELSEWHERE_ID },
+    { type: 'return-current' },
+    { type: 'target', seatId: 3 },
+    { type: 'role-choice', roleId: 'investigator' },
+    { type: 'system-check', checkId: 'pointed-demon' },
+    { type: 'system-bluff', roleId: 'chef' },
+    { type: 'outcome', outcomeId: 'no-effect' },
+    { type: 'confirm', advance: false },
+    { type: 'confirm', advance: true },
+    { type: 'defer' },
+    { type: 'advance' },
+    { type: 'activate-preview' },
+    { type: 'resume' },
+    { type: 'begin-correction' },
+    { type: 'cancel-correction' },
+    { type: 'resolve-applicability', value: 'applicable' },
+    { type: 'resolve-applicability', value: 'not_applicable' },
+    { type: 'apply-ai-advice', advice: null },
+    { type: 'change-role', role: { id: 'chef', name: '厨师', initial: '厨', iconPath: '' }, reason: 'gameplay' },
+    { type: 'clear-draft' },
+  ]
+
+  const combos = new Set<string>()
+  const seen = new Set<string>()
+  let frontier = [freshState()]
+
+  const signature = (state: NightWorkbenchState) => [
+    state.previewEntryId,
+    state.activeCursorId,
+    state.correctionItemId ?? '-',
+    state.queue.map((item) => `${item.progress}/${item.applicability}`).join(','),
+  ].join('|')
+
+  const record = (state: NightWorkbenchState) => {
+    const item = state.queue.find((entry) => entry.id === state.previewEntryId)
+    if (!item) return
+    const legacy = legacyBooleans(state, item)
+    combos.add(`${Number(legacy.isPreviewing)}${Number(legacy.isReadOnly)}${Number(legacy.isCorrecting)}`)
+  }
+
+  seen.add(signature(frontier[0]))
+  record(frontier[0])
+
+  for (let depth = 0; depth < 3; depth += 1) {
+    const next: NightWorkbenchState[] = []
+    for (const state of frontier) {
+      for (const intent of intents) {
+        const candidate = reduce(state, intent)
+        const key = signature(candidate)
+        if (seen.has(key)) continue
+        seen.add(key)
+        record(candidate)
+        next.push(candidate)
+      }
+    }
+    frontier = next
+  }
+  // 前置：真的走出去了。若守卫把一切都挡回原地，下面的断言会变成空转。
+  expect(seen.size).toBeGreaterThan(20)
+  return combos
+}
+
+describe('组合表里「不可达」那三行确实到不了', () => {
+  it('三层穷举下只出现表里标为可达的五个组合', () => {
+    const combos = reachableBooleanCombos()
+
+    // 表里五行「是」，按 P R C 排列。
+    expect([...combos].sort()).toEqual(['000', '001', '010', '100', '110'])
+    // 逐条点名，失败时一眼看出是哪一行破了。
+    expect(combos.has('011'), '(a) C ⟹ ¬R：更正中的项不可能同时算已落定').toBe(false)
+    expect(combos.has('101'), '(b) C ⟹ ¬P：更正只在光标项上开始').toBe(false)
+    expect(combos.has('111'), '(b) 的另一半').toBe(false)
+  })
+
+  it('五个可达组合各自都真的被 reachableScenarios 覆盖到了', () => {
+    // 穷举出来的组合集合与手写的五个场景必须相等：
+    // 少了说明手写场景漏了一种，多了说明表过时了。
+    const fromScenarios = new Set(reachableScenarios().map((scenario) => {
+      const legacy = legacyBooleans(scenario.state, currentItem(scenario.state))
+      return `${Number(legacy.isPreviewing)}${Number(legacy.isReadOnly)}${Number(legacy.isCorrecting)}`
+    }))
+
+    expect([...fromScenarios].sort()).toEqual([...reachableBooleanCombos()].sort())
+  })
+})
+
 describe('只读由 surface 自上而下强制', () => {
   it('replay 与 deal 压过任何局面状态，包括本来可写的 editing', () => {
     const fresh = freshState()

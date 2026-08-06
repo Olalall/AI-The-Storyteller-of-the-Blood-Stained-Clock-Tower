@@ -7,9 +7,12 @@
 import { Card } from '../../../components/ui/Card'
 import { SeatButton } from '../../../components/ui/SeatButton'
 import { DayStepRow } from './DayStepRow'
+import type { NominationTarget } from '../state/dayRingFocus'
 import type { DayVoteDraft, PlayerState } from '../../game-session/types'
 
-export type NominationTarget = 'nominator' | 'nominee'
+// 类型的家在 dayRingFocus——环与抽屉共用同一个「当前指向哪个槽」，
+// 它不再是这张卡片私有的概念。这里只做转出口，免得既有调用方全部改 import。
+export type { NominationTarget }
 
 interface NominationStepProps {
   collapsed: boolean

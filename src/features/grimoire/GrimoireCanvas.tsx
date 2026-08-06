@@ -73,6 +73,19 @@ export interface GrimoireCanvasProps {
    * 手不必先找按钮——按钮在哪一档、在不在视野里，那一秒都来不及想。
    */
   onBlindCover?: () => void
+  /**
+   * 座位角标层，按座位号取。画布不认识夜序或票型语义，只负责把它摆到对的位置——
+   * 让画布认识它们，等于把「此刻是夜还是昼」这个判断复制到第二处。
+   */
+  seatOverlays?: Readonly<Record<number, ReactNode>>
+  /**
+   * 环层叠加（提名弧、举手角标、处决帷幕）。
+   *
+   * 做成 render prop 而不是具体 props：舞台尺寸只有画布量得到，layout 也只有它解得出，
+   * 但画弧的人需要这份几何。把 layout 交出去，比让画布自己长出一堆白天专用参数干净。
+   * 网格降级态不调用它——那一档没有环，弧线无处可画。
+   */
+  renderRingOverlay?: (layout: RingLayout) => ReactNode
 }
 
 /** 座位角度：与 solveRingLayout 同一个公式，这里只用来给卫星弧定方向。 */
@@ -105,6 +118,8 @@ export function GrimoireCanvas({
   scriptName = null,
   onOpenSessionInfo,
   onBlindCover,
+  seatOverlays,
+  renderRingOverlay,
 }: GrimoireCanvasProps) {
   const stageRef = useRef<HTMLDivElement>(null)
   const [stage, setStage] = useState({ width: 0, height: 0 })
@@ -144,6 +159,7 @@ export function GrimoireCanvas({
     ghosts: ghostsBySeat?.[seatId],
     ghostLife: ghostLifeBySeat?.[seatId],
     anchored: anchoredSeatId === seatId ? renderSeatAnchor?.(seatId) : undefined,
+    overlay: seatOverlays?.[seatId],
   })
 
   return (
@@ -228,6 +244,7 @@ export function GrimoireCanvas({
                 ))}
               </div>
             )}
+            {layout.mode === 'ring' ? renderRingOverlay?.(layout) : null}
           </>
         )}
       </div>

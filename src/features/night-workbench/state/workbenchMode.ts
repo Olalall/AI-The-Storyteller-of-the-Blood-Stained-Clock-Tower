@@ -12,7 +12,25 @@
  * 组件一律接 readOnly prop。归档回看（replay）与发身份（deal）的写入禁用走的是同一条路：
  * 它们由 surface 参数自上而下压下来，压过一切局面状态。
  */
-import type { NightWorkbenchState, WakeItem } from '../types'
+import type { WakeItem } from '../types'
+
+/**
+ * 判定 mode 只需要游标的这三个字段。
+ *
+ * 刻意收窄到结构类型而不是收 `NightWorkbenchState`：魔典的环要和抽屉里那张卡
+ * 处在同一个 mode 下（同一个只读闸门、同一枚焦点），而环拿到的是
+ * `session.nightRuns[id]`（NightRunState），不是工作台组件内部那份投影。
+ * 收宽入参之后两边共用同一个判据；否则环那侧只能再写一份 `previewEntryId !== activeCursorId`，
+ * 而这次收敛要消灭的正是「同一个谓词的第二份拷贝」。
+ */
+export interface WorkbenchCursorState {
+  previewEntryId: string
+  activeCursorId: string
+  correctionItemId: string | null
+}
+
+/** 当前这一项：只看得见 id 与 progress，看不见生死毒醉——那些不该参与 mode 判定。 */
+export type WorkbenchCursorItem = Pick<WakeItem, 'id' | 'progress'>
 
 /**
  * 自上而下压下来的「这一屏在干什么」。live 之外的两档现在没有任何代码会传，
@@ -105,8 +123,8 @@ const MODE_FACTS: Record<WorkbenchMode, WorkbenchModeFacts> = {
  *     且偏向「允许换角」而不是「允许写记录」，不扩大任何写入面。
  */
 export function deriveWorkbenchMode(
-  state: NightWorkbenchState,
-  current: WakeItem,
+  state: WorkbenchCursorState,
+  current: WorkbenchCursorItem,
   surface: WorkbenchSurface = 'live',
 ): WorkbenchMode {
   // 自上而下压下来的面先于一切局面状态：归档回看里哪怕这一项还没确认，也不许写。

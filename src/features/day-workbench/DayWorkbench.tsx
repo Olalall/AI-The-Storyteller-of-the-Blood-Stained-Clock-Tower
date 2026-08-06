@@ -1,5 +1,5 @@
 import { ArrowLeft, Check, Gavel, Hand, X } from 'lucide-react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
 import { Field } from '../../components/ui/Field'
@@ -10,14 +10,15 @@ import { projectCurrentPlayerStates } from '../game-session/state/projectors'
 import { dayActionDraftContentKinds } from '../game-session/state/dayActionDraft'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState } from '../game-session/types'
-import { completeVoteRound, executionThresholdForAliveCount, hasVoteRoundDraftContent, setVoteNominator, setVoteNominee, toggleGhostVote, toggleRaisedVote, type VoteRoundDraft } from './state/voteRound'
+import { completeVoteRound, executionThresholdForAliveCount, setVoteNominator, setVoteNominee, toggleGhostVote, toggleRaisedVote, type VoteRoundDraft } from './state/voteRound'
 import { projectStandingExecution } from './state/voteStanding'
 import { DayTimer } from './components/DayTimer'
 import { DayRecordSheet } from './components/DayRecordSheet'
 import { DayStepRow } from './components/DayStepRow'
-import { NominationStep, type NominationTarget } from './components/NominationStep'
-import { leaveNoticeCopy, voteDraftForSession } from './state/dayDraft'
-import { roundStatusLabel, suggestDayStep, type DayStep } from './state/dayStep'
+import { NominationStep } from './components/NominationStep'
+import { leaveNoticeCopy } from './state/dayDraft'
+import { useDayRingFocus } from './state/dayRingFocus'
+import { projectDayStepContext, roundStatusLabel, type DayStep } from './state/dayStep'
 import { savePhaseCloseSnapshot } from '../../services/session'
 import { StickyActionBar } from '../../components/ui/StickyActionBar'
 import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchNotice'
@@ -37,42 +38,37 @@ type PendingResolution =
 type PendingDayClose = 'empty' | 'draft'
 
 export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWorkbenchProps) {
-  const [nominationTarget, setNominationTarget] = useState<NominationTarget>('nominator')
   const [pendingResolution, setPendingResolution] = useState<PendingResolution | null>(null)
   const [pendingDayClose, setPendingDayClose] = useState<PendingDayClose | null>(null)
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
-  // 只记录「说书人手动回退到哪一步」；为空时按进度推导。切换步骤不动任何已填内容。
-  const [stepOverride, setStepOverride] = useState<DayStep | null>(null)
-  const draft = voteDraftForSession(session)
+  // 「指着哪个槽」与「手动回退到哪一步」两样都由 dayRingFocus 托管：
+  // 魔典模式下环与这张抽屉是两块屏，必须共用同一个当前指向（没有 Provider 时退回本地 state）。
+  const { nominationTarget, setNominationTarget, stepOverride, setStepOverride, setWriteLocked } = useDayRingFocus()
+  const { draft, openDaySegmentId, hasResolution, hasUnrecordedVote, nominationReady, suggested } =
+    projectDayStepContext(session)
   const playerStates = projectCurrentPlayerStates(session)
   const aliveCount = Object.values(playerStates).filter((state) => state.life === 'alive').length
   const suggestedThreshold = executionThresholdForAliveCount(aliveCount)
   const openDay = session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)
   const dayEntries = useMemo(() => session.timeline.filter((entry) => entry.kind === 'vote_round'), [session.timeline])
   const standing = openDay ? projectStandingExecution(dayEntries, openDay.id) : { status: 'none' as const }
-  const roundNumber = dayEntries.filter((entry) => entry.segmentId === openDay?.id).length + 1
-  const dayResolution = openDay
-    ? [...session.timeline].filter((entry) => entry.segmentId === openDay.id && (entry.kind === 'execution' || entry.kind === 'no_execution')).at(-1)
-    : undefined
+  const roundNumber = dayEntries.filter((entry) => entry.segmentId === openDaySegmentId).length + 1
   // 白天这一屏唯一的写入闸门。硬规则同夜间工作台：只读在上层算一次、作为 readOnly prop 往下压，
   // 组件不得自己判断能不能写——将来归档回看接进来也走这同一个入口。
-  const dayReadOnly = Boolean(pendingResolution || pendingDayClose || dayResolution)
-  const hasUnrecordedVote = hasVoteRoundDraftContent(draft)
+  const dayReadOnly = Boolean(pendingResolution || pendingDayClose || hasResolution)
   const dayActionKinds = dayActionDraftContentKinds(session.dayActionDraft)
   const hasUnrecordedDayAction = dayActionKinds.length > 0
   const leaveNotice = leaveNoticeCopy(hasUnrecordedVote, dayActionKinds)
   const selectedVotes = new Set(draft.raisedSeatIds)
   const ghostVotes = new Set(draft.ghostVoteSeatIds)
-  const nominationReady = draft.nominatorSeatId !== null && draft.nomineeSeatId !== null
-  const hasRecordedRound = dayEntries.some((entry) => entry.segmentId === openDay?.id)
-  const hasVoteMarks = draft.raisedSeatIds.length > 0 || draft.ghostVoteSeatIds.length > 0
-  const activeStep: DayStep = stepOverride ?? suggestDayStep({
-    hasRecordedRound,
-    hasUnrecordedVote,
-    nominationReady,
-    hasVoteMarks,
-  })
+  const hasRecordedRound = dayEntries.some((entry) => entry.segmentId === openDaySegmentId)
+  const activeStep: DayStep = stepOverride ?? suggested
   const roundStatus = roundStatusLabel(draft)
+
+  // 把同一个闸门广播给环。离开这张台时解锁——否则说书人从白天退出去，
+  // 环会带着一把没人再解得开的锁停在那儿。
+  useEffect(() => setWriteLocked(dayReadOnly), [dayReadOnly, setWriteLocked])
+  useEffect(() => () => setWriteLocked(false), [setWriteLocked])
 
   function selectNominationSeat(seatId: number) {
     if (dayReadOnly) return
@@ -108,7 +104,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   function confirmResolution() {
     if (!pendingResolution) return
     const currentDay = session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)
-    if (!currentDay || currentDay.id !== pendingResolution.segmentId || dayResolution) {
+    if (!currentDay || currentDay.id !== pendingResolution.segmentId || hasResolution) {
       setPendingResolution(null)
       return
     }
@@ -259,7 +255,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
           <p className="day-standing-copy">{standing.status === 'tied' ? <><strong>{standing.tiedSeatIds?.join('、')}号同票</strong><span>尚无暂列结果</span></> : standing.nomineeSeatId ? <><strong>{standing.nomineeSeatId}号暂列</strong><span>{standing.voteCount}票 · 门槛{standing.threshold}</span></> : <><strong>暂无暂列结果</strong><span>记录票型后更新</span></>}</p>
         </Card>
 
-        {!pendingResolution && !pendingDayClose && !dayResolution ? (
+        {!pendingResolution && !pendingDayClose && !hasResolution ? (
           <StickyActionBar>
             <div className="day-action-bar">
               <span className="day-action-bar__hint">

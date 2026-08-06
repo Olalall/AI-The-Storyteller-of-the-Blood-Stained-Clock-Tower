@@ -23,6 +23,15 @@ interface SettlementAssistPanelProps {
   /** 缺省 = 不提供落盘入口，建议只作为文字显示。 */
   adoption?: StateChangeAdoptionContext
   onAdoptStateChange?: (action: GameSessionAction) => void
+  /**
+   * 唯一的写入闸门，自上而下压下来。
+   *
+   * 这块面板是本卡片上**唯一一个不在 fieldset 里的写入口**——「确认落盘」直接构造
+   * confirm-player-state-change 交给 session。当前还没有调用方接 onAdoptStateChange，
+   * 所以它今天不可达；但闸门必须先于接线存在，否则接线的那个人得先想起来有这回事。
+   * 归档回看（replay）与预览别人那一项时，这颗键必须和目标网格一起哑掉。
+   */
+  readOnly?: boolean
 }
 
 export function SettlementAssistPanel({
@@ -33,6 +42,7 @@ export function SettlementAssistPanel({
   modifiedFromAI,
   adoption,
   onAdoptStateChange,
+  readOnly = false,
 }: SettlementAssistPanelProps) {
   if (!aiAdvice && !resolutionHint) return null
   const needsInput = aiAdvice?.status === 'needs_input'
@@ -90,6 +100,7 @@ export function SettlementAssistPanel({
                 drafts={stateConfirmations}
                 adoption={adoption}
                 onAdopt={onAdoptStateChange}
+                readOnly={readOnly}
               />
               <DraftPreview title={'风险提醒'} items={riskWarnings} tone="danger" />
             </div>
@@ -115,11 +126,13 @@ function StateChangeDrafts({
   drafts,
   adoption,
   onAdopt,
+  readOnly,
 }: {
   advice: AIResultAdvice
   drafts: readonly AIStateChangeDraft[]
   adoption?: StateChangeAdoptionContext
   onAdopt?: (action: GameSessionAction) => void
+  readOnly: boolean
 }) {
   // 收进 const 才能让下面闭包里的窄化成立：参数是可变绑定，TS 不会把它的窄化带进回调。
   const context = adoption
@@ -133,7 +146,7 @@ function StateChangeDrafts({
           <div key={`${draft.seatId ?? 'text'}-${draft.text}`}>
             <p>{draft.text}</p>
             {context && onAdopt && projected ? (
-              <Button variant="secondary" compact onClick={() => {
+              <Button variant="secondary" compact disabled={readOnly} onClick={() => {
                 const action = buildStateChangeAdoption(advice, draft, context, new Date().toISOString())
                 if (action) onAdopt(action)
               }}>{`确认落盘 · ${projected.label}`}</Button>
