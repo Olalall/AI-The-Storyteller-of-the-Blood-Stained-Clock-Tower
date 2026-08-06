@@ -42,6 +42,12 @@ export interface GrimoireCanvasProps {
   selectedSeatIds?: readonly number[]
   /** 抽屉当前步骤决定点座位干什么，透传给每个 token 进可访问名。 */
   actionHint?: string
+  /**
+   * 逐座位版本，优先于 actionHint。
+   * 夜间目标满员时，已选中那一座按下去是**取消**——与其它座位念同一句话，
+   * 读屏用户会以为自己重选了一次，于是再按一次又选回来。
+   */
+  actionHintFor?: (seatId: number) => string
   onSelectSeat?: (seatId: number) => void
   /**
    * G2 写入层。画布本身仍然零 dispatch——这三个回调全都只往上报手势，
@@ -99,6 +105,7 @@ export function GrimoireCanvas({
   startOffset = 0,
   selectedSeatIds = [],
   actionHint,
+  actionHintFor,
   onSelectSeat,
   onSeatHold,
   onChipGesture,
@@ -213,7 +220,7 @@ export function GrimoireCanvas({
                     radialAngle={radialAngleFor(index, seats.length, startOffset)}
                     satelliteInside={place.satelliteInside}
                     selected={selected.has(seat.seatId)}
-                    actionHint={actionHint}
+                    actionHint={actionHintFor?.(seat.seatId) ?? actionHint}
                     onSelect={onSelectSeat}
                     {...writeProps(seat.seatId)}
                   />
@@ -237,7 +244,7 @@ export function GrimoireCanvas({
                     satelliteInside={false}
                     flow
                     selected={selected.has(seat.seatId)}
-                    actionHint={actionHint}
+                    actionHint={actionHintFor?.(seat.seatId) ?? actionHint}
                     onSelect={onSelectSeat}
                     {...writeProps(seat.seatId)}
                   />
