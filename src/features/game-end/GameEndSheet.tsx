@@ -20,6 +20,7 @@ import {
   type GameWinner,
 } from '../../services/archive'
 import { GameReviewPanel } from './GameReviewPanel'
+import { GrimoireReplaySheet } from './GrimoireReplaySheet'
 import './game-end.css'
 
 interface GameEndSheetProps {
@@ -47,6 +48,7 @@ export function GameEndSheet({ open, onOpenChange, session, initialMode = 'end',
   const [archives, setArchives] = useState<GameArchiveRecord[]>([])
   const [selectedArchiveId, setSelectedArchiveId] = useState<string | null>(null)
   const [resetAcknowledged, setResetAcknowledged] = useState(false)
+  const [replayArchive, setReplayArchive] = useState<GameArchiveRecord | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
 
@@ -286,8 +288,11 @@ export function GameEndSheet({ open, onOpenChange, session, initialMode = 'end',
           onSelectArchive={setSelectedArchiveId}
           onExportArchive={exportArchive}
           onStartArchive={() => setMode('end')}
+          onReplayInGrimoire={setReplayArchive}
         />}
       </div>
+      {/* 回看那张画布挂在收尾表单**之外**：它是整屏的，套在里面会出现两层可滚动的页。 */}
+      <GrimoireReplaySheet archive={replayArchive} onOpenChange={() => setReplayArchive(null)} />
     </Sheet>
   )
 }

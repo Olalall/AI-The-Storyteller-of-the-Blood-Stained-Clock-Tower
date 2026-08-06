@@ -20,6 +20,16 @@
 
 /* 命中区外扩到 max(token, 56px)：token 降到 XS 档时手指仍够得着，
    同时不把 token 本身画大——放大 token 会吃掉弧距、把环挤崩。 */
+/*
+ * 挂着座位浮层的那一座要整体抬高。
+ *
+ * 浮层自己的 z-index 只在本座位这一层里竞争，而环上的座位都是绝对定位、
+ * 按 DOM 顺序作画——排在后面的邻座会盖住浮层。实测「标记死亡」那一格被
+ * 6 号的 token 拦掉了指针事件：按钮看得见、点不动。
+ * 更坏的是它跟座位号有关，只有被后面座位压住的那几个会犯，抽查很容易漏过。
+ */
+.grimoire-seat:has(.seat-action-bar) { z-index: 20; }
+
 .grimoire-seat::before {
   content: '';
   position: absolute;

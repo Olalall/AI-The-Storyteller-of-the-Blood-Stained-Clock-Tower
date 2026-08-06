@@ -15,8 +15,9 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { GrimoireCanvas, type GrimoireCanvasSeat } from './GrimoireCanvas'
 import { useRingBindings } from './stage/useRingBindings'
+import { DRAWER_DETENT, DRAWER_LABEL, GESTURE_CONTRACT } from './stage/drawerNodes'
+import { LIVE_WRITE_ACCESS, sealGrimoireWrite, type WriteAccess } from './replay'
 import { renderSeatAnchorWith } from './stage/seatAnchor'
-import { ReplayHonestyBar } from './replay/ReplayHonestyBar'
 import { CompletenessBar } from './completeness/CompletenessBar'
 import {
   isCompletenessVisible,
@@ -70,26 +71,21 @@ export interface GrimoireStageProps {
    * 一跳可达。这是过渡桥，真正的目标是 App 层直接把 RoleChangeSheet 挂上来。
    */
   onOpenRoleChange?: (seatId: number) => void
+  /**
+   * 写入闸门，由**上面**决定后压下来。缺省是进行中的对局，畅通。
+   * 收的是算好的结果而不是 ReplayContext：画布一旦能自己判断「是不是在回看」，
+   * 只读就有了第二处判据。readOnlyContract 那组测试会扫这个目录并禁止它。
+   */
+  writeAccess?: WriteAccess
+  /** 回看诚实条，同样由上面造好传进来；进行中的对局传 null。 */
+  honestyBar?: ReactNode
   /** 夜间工作台的会话绑定。环上点座位选目标要走它，才能与抽屉共用同一个 reducer。 */
   nightBinding: { session: GameSessionState; dispatchSession: (action: GameSessionAction) => void }
   /** 当前节点的工作台或交接卡，原样落进抽屉。 */
   children: ReactNode
 }
 
-/** 抽屉顶部常驻的手势契约。暗光下说书人只有余裕记「点下去 = 做当前这一步」。 */
-const GESTURE_CONTRACT: Record<DeckNode, string> = {
-  dusk: '点座位 = 座位操作；点完只是草稿，抽屉里确认才落账',
-  night: '点座位 = 座位操作；夜间记录仍在抽屉里确认',
-  dawn: '点座位 = 座位操作；生死由你更新，工具不反推',
-  day: '点座位 = 座位操作；提名与票型在抽屉里记',
-}
 
-const DRAWER_LABEL: Record<DeckNode, string> = {
-  dusk: '黄昏交接',
-  night: '夜间步骤台',
-  dawn: '黎明播报',
-  day: '白天步骤台',
-}
 
 /**
  * 每个相位进来时抽屉停在哪一档。
@@ -99,25 +95,13 @@ const DRAWER_LABEL: Record<DeckNode, string> = {
  * 抽屉只放当前这一步。档位是**相位的属性**而不是抽屉的遗留状态——
  * 散着不管的话，说书人上一段把抽屉拖回 peek，下一段的交接卡就只露出一条 96px 的缝。
  */
-/**
- * 每个节点进来时抽屉停在哪一档。
- *
- * 夜与昼停在 half：环是主视图，但抽屉里那张工作台的主动作（「检查并关闭」
- * 「结束今天」）也必须够得到，peek 的 96px 装不下它们。
- * half 的高度本身被收窄过——见 detents 里的说明，46dvh 会把环挤成网格。
- * 黄昏与黎明是交接卡，那两步本来就该占满整屏，环让位。
- */
-const DRAWER_DETENT: Record<DeckNode, 'peek' | 'half' | 'full'> = {
-  dusk: 'full',
-  night: 'half',
-  dawn: 'full',
-  day: 'half',
-}
 
 export function GrimoireStageBody({
   session,
   dispatch,
   deckNode,
+  writeAccess = LIVE_WRITE_ACCESS,
+  honestyBar = null,
   nightBinding,
   onOpenSetup,
   onOpenScriptLibrary,
@@ -143,8 +127,13 @@ export function GrimoireStageBody({
   const [reviewOpen, setReviewOpen] = useState(false)
   const [skipped, setSkipped] = useState<ReadonlySet<string>>(new Set())
 
-  const write = useGrimoireWriteLayer(session, dispatch)
-  const bindings = useSeatWriteBindings(write, deckNode)
+  const writeLayer = useGrimoireWriteLayer(session, dispatch)
+  // 只读时 layer 与 bindings 必须一起换成拒绝版：漏封任何一半，
+  // 就会出现「浮层能开、按下去没反应」——比不给这个入口更坏。
+  const { layer: write, bindings } = sealGrimoireWrite(
+    { layer: writeLayer, bindings: useSeatWriteBindings(writeLayer, deckNode) },
+    writeAccess,
+  )
 
   const seats: GrimoireCanvasSeat[] = useMemo(
     () => projectStorytellerSeatSummaries(session).map((seat) => ({
@@ -233,7 +222,7 @@ export function GrimoireStageBody({
         />
       ) : null}
 
-      <ReplayHonestyBar context={{ archive: null, viewMode: 'grimoire' }} />
+      {honestyBar}
       <GrimoireShieldBar shield={shield} />
 
       <GrimoireCanvas

@@ -14,6 +14,7 @@ export {
   type GrimoireWriteSurface,
   type WriteMemberKind,
 } from './sealWriteSurface'
+export { LIVE_REPLAY } from './writeAccess'
 export {
   resolveWriteAccess,
   ARCHIVE_READ_ONLY_REASON,

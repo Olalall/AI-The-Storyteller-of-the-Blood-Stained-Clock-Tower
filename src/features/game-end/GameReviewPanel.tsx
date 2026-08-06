@@ -1,4 +1,4 @@
-import { Archive, Download } from 'lucide-react'
+import { Archive, BookOpen, Download } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { EmptyState } from '../../components/ui/EmptyState'
@@ -10,6 +10,8 @@ interface GameReviewPanelProps {
   selectedArchive: GameArchiveRecord | null
   onSelectArchive: (archiveId: string) => void
   onExportArchive: (archive: GameArchiveRecord) => void
+  /** 在魔典里回看这一局。缺省不提供——纯记录模式下这条入口没有意义。 */
+  onReplayInGrimoire?: (archive: GameArchiveRecord) => void
   onStartArchive: () => void
 }
 
@@ -71,6 +73,7 @@ export function GameReviewPanel({
   selectedArchive,
   onSelectArchive,
   onExportArchive,
+  onReplayInGrimoire,
   onStartArchive,
 }: GameReviewPanelProps) {
   const [dateFilter, setDateFilter] = useState('all')
@@ -153,6 +156,11 @@ export function GameReviewPanel({
         <GameAIReviewPanel archive={selectedArchive} />
         <div className="game-end__actions">
           <Button variant="secondary" onClick={() => onExportArchive(selectedArchive)}><Download aria-hidden="true" />导出这局</Button>
+          {onReplayInGrimoire ? (
+            <Button variant="ghost" onClick={() => onReplayInGrimoire(selectedArchive)}>
+              <BookOpen aria-hidden="true" />在魔典里回看
+            </Button>
+          ) : null}
         </div>
       </> : null}
     </article>

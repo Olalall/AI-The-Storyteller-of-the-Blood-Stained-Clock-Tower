@@ -44,6 +44,9 @@ export const ARCHIVE_READ_ONLY_REASON = '归档只读 —— 这局已经归档�
 /** 进行中的对局。写成常量而不是每次现造，好让「没有门」这件事在代码里也只有一处。 */
 export const LIVE_WRITE_ACCESS: WriteAccess = { readOnly: false, reason: null }
 
+/** 进行中的对局。做成常量，好让「不是回看」这件事在调用方也只写一次。 */
+export const LIVE_REPLAY: ReplayContext = { archive: null, viewMode: 'grimoire' }
+
 /** 决定只读与否的**唯一**一处。别处若再出现一个同样的判断，就是这条契约被绕开了。 */
 export function resolveWriteAccess(context: ReplayContext): WriteAccess {
   if (!context.archive) return LIVE_WRITE_ACCESS
