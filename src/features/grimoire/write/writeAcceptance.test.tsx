@@ -27,13 +27,13 @@ describe('G2 验收③：魔典上无回执的静默写入数为 0', () => {
     // 而不是抽查某一条路径——抽查会漏掉下一个人新加的写入口。
     const { dispatched, hook } = harness()
 
-    act(() => hook.result.current.setDraft({ seatId: SEAT, kind: 'life', to: 'dead' }))
+    act(() => hook.result.current.setDraft({ seatId: SEAT, kind: 'life' as const, source: 'storyteller' as const }))
     expect(dispatched, '草稿阶段一次 dispatch 都不该有').toHaveLength(0)
 
     act(() => hook.result.current.confirmDraft())
     expect(dispatched).toHaveLength(1)
     expect(hook.result.current.receipt, '落账后必须有回执').not.toBeNull()
-    expect(hook.result.current.receipt?.undoEntryId, '回执要指得出撤销哪一条').toBe(dispatched[0].entryId)
+    expect(hook.result.current.receipt?.undoEntryId, '回执要指得出撤销哪一条').toBe((dispatched[0] as { entryId: string }).entryId)
 
     const afterWrite = hook.result.current.receipt
     act(() => hook.result.current.undo())
@@ -64,15 +64,15 @@ describe('G2 验收④：补录的时间是真实补录时刻，归属靠 backfi
 
     act(() => hook.result.current.commitBackfill({
       seatId: SEAT,
-      draft: { seatId: SEAT, kind: 'life', to: 'dead' },
+      draft: { seatId: SEAT, kind: 'life' as const, source: 'storyteller' as const },
       backfill: { attributedPhaseSegmentId: 'night-2' },
       reason: '补录第2夜的死亡',
     }))
 
     const action = dispatched.at(-1)
     expect(action?.type).toBe('confirm-player-state-change')
-    expect(action?.backfill).toEqual({ attributedPhaseSegmentId: 'night-2' })
-    expect(action?.confirmedAt >= beforeAt, 'createdAt 必须是此刻，不是被归属的那一夜').toBe(true)
+    expect((action as { backfill?: unknown })?.backfill).toEqual({ attributedPhaseSegmentId: 'night-2' })
+    expect((action as { confirmedAt: string })?.confirmedAt >= beforeAt, 'createdAt 必须是此刻，不是被归属的那一夜').toBe(true)
     expect(hook.result.current.receipt, '补录同样强制回执').not.toBeNull()
   })
 })

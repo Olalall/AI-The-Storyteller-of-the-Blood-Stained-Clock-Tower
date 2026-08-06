@@ -166,7 +166,7 @@ describe('projectGrimoireCompleteness', () => {
 })
 
 describe('grimoireCoverage', () => {
-  const base = { stateChangeCount: 0, markerCount: 0, pendingStateHints: 0, pendingSince: null }
+  const base = { stateChangeCount: 0, markerCount: 0, pendingStateHints: 0, pendingSince: null, pendingStateHintList: [] }
 
   it('stays none when the tool knows no roles, however many markers exist', () => {
     // 标记记得再多也补不上「不知道谁是什么」——AI 的上下文级别必须用同一套判据，
@@ -189,6 +189,7 @@ describe('completenessNotice', () => {
     markerCount: 0,
     pendingStateHints: 0,
     pendingSince: null,
+    pendingStateHintList: [],
   }
 
   it('never claims the identities are complete when the board was dealt on the table', () => {
@@ -247,6 +248,7 @@ describe('isCompletenessVisible', () => {
     markerCount: 0,
     pendingStateHints: 3,
     pendingSince: '第1夜',
+    pendingStateHintList: [],
   }
 
   it('shows the bar while there is a debt nobody has answered', () => {

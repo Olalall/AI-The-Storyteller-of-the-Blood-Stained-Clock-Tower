@@ -145,7 +145,7 @@ function lastClosedDayOutcome(session: GameSessionState): string | null {
     .sort((left, right) => left.createdAt.localeCompare(right.createdAt) || left.id.localeCompare(right.id))
     .at(-1)
   if (!outcome) return null
-  if (outcome.kind === 'no_execution') return `${day.label} · 无处决`
+  if (outcome.kind !== 'execution') return `${day.label} · 无处决`
   if (outcome.executedSeatId === undefined) return `${day.label} · 处决结论缺席位`
   // 只写座位号，不写角色名也不写昵称：核是全屏最容易被玩家瞄到的一块。
   return `${day.label} · 处决 ${outcome.executedSeatId}号${outcome.causedDeath === false ? '（未死亡）' : ''}`

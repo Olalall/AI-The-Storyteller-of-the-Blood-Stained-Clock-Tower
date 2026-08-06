@@ -16,7 +16,7 @@ import type { SeatChipGestureEvent } from './seat/SeatChipLayer'
 import type { SeatGhostChip } from './seat/seatChips'
 import { solveRingLayout } from './layout/ellipseRing'
 import { shieldVisibility, type ShieldLevel } from './shield/shieldLevel'
-import type { RingStartOffset } from './layout/ellipseRing'
+import type { RingLayout, RingStartOffset } from './layout/ellipseRing'
 import type { PlayerState } from '../game-session/model/playerTypes'
 import type {
   GrimoireCorePhase,

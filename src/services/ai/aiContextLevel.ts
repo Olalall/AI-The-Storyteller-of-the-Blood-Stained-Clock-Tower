@@ -59,5 +59,6 @@ export function nightContextLevel(state: SeatSource): AIContextLevel {
     markerCount: 0,
     pendingStateHints: 0,
     pendingSince: null,
+    pendingStateHintList: [],
   }))
 }

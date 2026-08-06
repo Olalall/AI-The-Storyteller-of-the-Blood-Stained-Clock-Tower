@@ -76,6 +76,8 @@ function hintCards(
   // 没有相位段就没有归属可写。backfill.attributedPhaseSegmentId 是必填的，
   // 编一个段号进去等于给复盘埋一条指向不存在段落的引用——那比不出这张卡更坏。
   if (!hint.segmentId || !phaseLabel) return []
+  // 收窄成常量：flatMap 的回调是另一个作用域，上面那次判空在里面已经失效。
+  const attributedPhaseSegmentId = hint.segmentId
 
   return hint.seatIds.flatMap((seatId) => {
     const state = playerStates[seatId]
@@ -87,7 +89,7 @@ function hintCards(
       danger: change.danger,
       draft: { seatId, kind: change.kind, source: 'storyteller' } satisfies SeatStateDraft,
       reason: `魔典补录 · 依据 ${phaseLabel} 记录 ${hint.entryId}`,
-      backfill: { attributedPhaseSegmentId: hint.segmentId, sourceEntryId: hint.entryId },
+      backfill: { attributedPhaseSegmentId, sourceEntryId: hint.entryId },
     }]
   })
 }

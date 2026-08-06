@@ -149,8 +149,8 @@ function opCoversSeat(op: GrimoireOp, seatId: number): boolean {
 function changedPlayerStateFields(before: PlayerState, after: PlayerState): string[] {
   const keys = new Set([...Object.keys(before ?? {}), ...Object.keys(after ?? {})])
   return [...keys].filter((key) => !deepEqual(
-    (before as Record<string, unknown>)?.[key],
-    (after as Record<string, unknown>)?.[key],
+    (before as unknown as Record<string, unknown>)?.[key],
+    (after as unknown as Record<string, unknown>)?.[key],
   ))
 }
 

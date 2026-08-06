@@ -11,7 +11,9 @@ import type { DeckNode } from '../hosting-deck/deckNode'
 function stubResizeObserver(width: number, height: number) {
   const original = globalThis.ResizeObserver
   class Stub {
-    constructor(private readonly callback: ResizeObserverCallback) {}
+    // 不用参数属性：tsconfig 开了 erasableSyntaxOnly，那个语法要生成运行时代码。
+    private readonly callback: ResizeObserverCallback
+    constructor(callback: ResizeObserverCallback) { this.callback = callback }
     observe(target: Element) {
       this.callback(
         [{ target, contentRect: { width, height } } as unknown as ResizeObserverEntry],
@@ -32,6 +34,7 @@ function renderStage(session: GameSessionState, node: DeckNode = 'dusk') {
     onOpenScriptLibrary: vi.fn(),
     onOpenRecords: vi.fn(),
     onOpenPlayerStatus: vi.fn(),
+  nightBinding: { session, dispatchSession: vi.fn() },
   }
   render(
     <DiscussionTimerProvider sessionId={session.id}>
@@ -204,6 +207,7 @@ describe('GrimoireStage', () => {
       <DiscussionTimerProvider sessionId={session.id}>
         <GrimoireStage
           session={session}
+          nightBinding={{ session, dispatchSession: vi.fn() }}
           dispatch={vi.fn()}
           deckNode="dusk"
           onOpenSetup={vi.fn()}

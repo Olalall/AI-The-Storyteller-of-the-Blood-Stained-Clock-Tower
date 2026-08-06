@@ -11,6 +11,7 @@ const BASE: GrimoireCompleteness = {
   markerCount: 0,
   pendingStateHints: 0,
   pendingSince: null,
+    pendingStateHintList: [],
 }
 
 const FULL: GrimoireCompleteness = { ...BASE, stateChangeCount: 4, markerCount: 1 }
