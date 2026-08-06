@@ -4,6 +4,10 @@
      即使调用方漏传，命中区也仍然是一个合法尺寸而不是塌成 0。 */
   --seat-hit: var(--touch-min);
 
+  /* 长按进度默认 0。写死默认值而不是只靠 var() 兜底：含未定义变量的声明是
+     invalid at computed-value time，会静默塌回初始值——那时环上会有一圈没人按的进度。 */
+  --hold-progress: 0;
+
   position: absolute;
   padding: 0;
   border: 0;
@@ -26,23 +30,59 @@
   border-radius: 50%;
 }
 
-.grimoire-seat:focus-visible {
+.grimoire-seat:focus-visible,
+.grimoire-seat__token:focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 3px;
 }
 
-.grimoire-seat > .role-disc {
+/* 可写形态：根退成定位容器，token 变成容器里的第一颗键（chip 各自也是键，按钮不能套按钮）。
+   命中区与外观完全沿用只读形态那一份，区别只有标签名。 */
+.grimoire-seat__token {
+  position: absolute;
+  inset: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.grimoire-seat__token::before {
+  content: '';
+  position: absolute;
+  inset: 50%;
+  width: var(--seat-hit);
+  height: var(--seat-hit);
+  translate: -50% -50%;
+  border-radius: 50%;
+}
+
+/* 长按进度：按住期间沿 token 边缘走一圈冷青。没有进度反馈的长按，
+   在「已经按住了吗」和「按坏了吗」之间没有区别，人会松手重来。 */
+.grimoire-seat__token::after,
+.grimoire-seat__chip::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(var(--focus) calc(var(--hold-progress, 0) * 360deg), transparent 0);
+  opacity: calc(var(--hold-progress, 0) * 0.85);
+}
+
+.grimoire-seat .role-disc {
   width: 100%;
   height: 100%;
 }
 
 /* 选中态与 SeatButton 同一套：描边 + 暖金 + aria-pressed，不另起语义。 */
-.grimoire-seat--selected > .role-disc {
+.grimoire-seat--selected .role-disc {
   box-shadow: 0 0 0 3px var(--accent);
 }
 
 /* 中毒/醉酒把 token 边框改成语义色虚线，与卫星 chip 构成双重表达。 */
-.grimoire-seat--impaired > .role-disc {
+.grimoire-seat--impaired .role-disc {
   outline: 2px dashed var(--warning-border);
   outline-offset: 2px;
 }
@@ -83,7 +123,7 @@
   height: 12px;
 }
 
-.grimoire-seat--dead > .role-disc {
+.grimoire-seat--dead .role-disc {
   outline: 2px solid var(--danger-border);
   outline-offset: 2px;
   opacity: 0.75;
@@ -129,8 +169,44 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* 草稿幽灵：虚线 + 40% 不透明，第三重区分（「待确认」文字）由 aria-label 与确认条承担——
+   22px 的圆点上塞不下那三个字，所以文字挂在读屏与抽屉那一侧，视觉上靠虚线加透明度。 */
+.grimoire-seat__chip--draft {
+  border-style: dashed;
+  border-width: 1.5px;
+  opacity: 0.4;
+  z-index: 1;
+}
+
+/* AI 来源的幽灵多一枚 ✨ 角标；说书人自己的草稿没有。落账后两者写的是同一条记录，
+   所以区别只在「谁提的」这一枚角标上，不在 chip 本身的形状或颜色上。 */
+.grimoire-seat__chip-ai {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  color: var(--accent-text);
+}
+
+/* 幽灵帷幕：生死草稿盖在 token 上。虚线 + 「待确认」文字，与实体帷幕（实底 + 骷髅）
+   一眼分得开——幽灵做得像实体，就变成了「工具已经替我改了状态」。 */
+.grimoire-seat__ghost-shroud {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px dashed var(--accent-border);
+  background: rgb(9 13 18 / 55%);
+  color: var(--accent-text);
+  font-size: var(--type-meta);
+  font-weight: 700;
+}
+
 @media (prefers-reduced-motion: no-preference) {
-  .grimoire-seat > .role-disc {
+  .grimoire-seat .role-disc {
     transition: box-shadow 120ms ease-out;
   }
 }

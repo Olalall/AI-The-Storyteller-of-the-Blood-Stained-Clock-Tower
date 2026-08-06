@@ -8,10 +8,12 @@
  * 舞台尺寸用 ResizeObserver 实测，不用断点猜：同一台 iPad 横竖屏、Mac 三档尺寸、
  * 抽屉三档高度都会改变可用矩形，猜出来的值必然在某一组合下出错。
  */
-import { useEffect, useRef, useState, type TouchEvent } from 'react'
+import { useEffect, useRef, useState, type ReactNode, type TouchEvent } from 'react'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { GrimoireCore } from './core/GrimoireCore'
 import { GrimoireSeat, type GrimoireSeatRole } from './seat/GrimoireSeat'
+import type { SeatChipGestureEvent } from './seat/SeatChipLayer'
+import type { SeatGhostChip } from './seat/seatChips'
 import { solveRingLayout } from './layout/ellipseRing'
 import { shieldVisibility, type ShieldLevel } from './shield/shieldLevel'
 import type { RingStartOffset } from './layout/ellipseRing'
@@ -41,6 +43,17 @@ export interface GrimoireCanvasProps {
   /** 抽屉当前步骤决定点座位干什么，透传给每个 token 进可访问名。 */
   actionHint?: string
   onSelectSeat?: (seatId: number) => void
+  /**
+   * G2 写入层。画布本身仍然零 dispatch——这三个回调全都只往上报手势，
+   * 「点了什么就写什么」这条路在这一层依然不存在。
+   */
+  onSeatHold?: (seatId: number) => void
+  onChipGesture?: (seatId: number, event: SeatChipGestureEvent) => void
+  ghostsBySeat?: Readonly<Record<number, readonly SeatGhostChip[]>>
+  ghostLifeBySeat?: Readonly<Record<number, 'dead' | 'alive'>>
+  /** 锚在某个座位下方的浮层（SeatActionBar）。只有这一座会拿到它。 */
+  anchoredSeatId?: number | null
+  renderSeatAnchor?: (seatId: number) => ReactNode
   ghostVotesRemaining?: number | null
   pendingCount?: number | null
   pendingLabel?: string
@@ -74,6 +87,12 @@ export function GrimoireCanvas({
   selectedSeatIds = [],
   actionHint,
   onSelectSeat,
+  onSeatHold,
+  onChipGesture,
+  ghostsBySeat,
+  ghostLifeBySeat,
+  anchoredSeatId = null,
+  renderSeatAnchor,
   ghostVotesRemaining = null,
   pendingCount = null,
   pendingLabel,
@@ -116,6 +135,16 @@ export function GrimoireCanvas({
   const handleTouchStart = onBlindCover
     ? (event: TouchEvent<HTMLDivElement>) => { if (event.touches.length >= 2) onBlindCover() }
     : undefined
+
+  // 环与网格两条渲染路径共用同一份写入 props。抄两遍的话，下一次加一个手势
+  // 只会被加进其中一条，而窄屏那条正是最难被人工验到的那一条。
+  const writeProps = (seatId: number) => ({
+    onHold: onSeatHold,
+    onChipGesture,
+    ghosts: ghostsBySeat?.[seatId],
+    ghostLife: ghostLifeBySeat?.[seatId],
+    anchored: anchoredSeatId === seatId ? renderSeatAnchor?.(seatId) : undefined,
+  })
 
   return (
     <div className="grimoire-canvas" data-mode={layout.mode} data-shield={shield}>
@@ -170,6 +199,7 @@ export function GrimoireCanvas({
                     selected={selected.has(seat.seatId)}
                     actionHint={actionHint}
                     onSelect={onSelectSeat}
+                    {...writeProps(seat.seatId)}
                   />
                 )
               })
@@ -193,6 +223,7 @@ export function GrimoireCanvas({
                     selected={selected.has(seat.seatId)}
                     actionHint={actionHint}
                     onSelect={onSelectSeat}
+                    {...writeProps(seat.seatId)}
                   />
                 ))}
               </div>

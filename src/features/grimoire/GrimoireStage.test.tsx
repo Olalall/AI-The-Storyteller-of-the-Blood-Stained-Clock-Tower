@@ -85,11 +85,24 @@ describe('GrimoireStage', () => {
     expect(screen.getByRole('complementary', { name: '黄昏交接' })).toBeInTheDocument()
   })
 
-  it('routes a tap on a seat to the existing seat sheet and never dispatches', async () => {
-    // G1 的硬约束：环是观察面。环若能直接写状态，「点一下改了什么」就没有确认步骤。
+  it('opens the seat action bar on an idle tap and still dispatches nothing', async () => {
+    // G2 把环变成可写面，但「点一下就改」那条路仍然不存在：
+    // 单击只打开六格浮层，六格里没有一格会 dispatch。
     const spies = renderStage(createPrototypeGameSession())
 
     await userEvent.click(screen.getByRole('button', { name: /^7号/ }))
+
+    expect(screen.getByRole('group', { name: '7号 座位操作' })).toBeVisible()
+    expect(spies.dispatch).not.toHaveBeenCalled()
+  })
+
+  it('keeps the existing seat sheet reachable as the sixth cell', async () => {
+    // 六格里的「座位卡」是完整 PlayerStatusSheet 的入口。魔典没有把它替换掉，
+    // 只是把它从「点座位的唯一后果」降级成六选一。
+    const spies = renderStage(createPrototypeGameSession())
+
+    await userEvent.click(screen.getByRole('button', { name: /^7号/ }))
+    await userEvent.click(screen.getByRole('button', { name: '座位卡' }))
 
     expect(spies.onOpenPlayerStatus).toHaveBeenCalledWith(7)
     expect(spies.dispatch).not.toHaveBeenCalled()
@@ -110,12 +123,15 @@ describe('GrimoireStage', () => {
     expect(screen.getByText(/从第1夜到现在有 2 条记录可能涉及状态变化/)).toBeVisible()
   })
 
-  it('sends 逐条核对 to the session records rather than opening setup', async () => {
+  it('sends 逐条核对 to the backfill cards rather than dumping the raw record list', async () => {
+    // 旧落点是本局记录——那是让说书人自己对着整条时间线找哪几笔没记，
+    // 「约 1 分钟」根本不够，实际结果是他看两眼就退出去了。
     const spies = renderStage(switchedMidGame())
 
     await userEvent.click(screen.getByRole('button', { name: '逐条核对（约 1 分钟）' }))
 
-    expect(spies.onOpenRecords).toHaveBeenCalledOnce()
+    expect(screen.getByRole('region', { name: '逐条核对' })).toBeVisible()
+    expect(spies.onOpenRecords).not.toHaveBeenCalled()
     expect(spies.onOpenSetup).not.toHaveBeenCalled()
   })
 

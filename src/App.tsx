@@ -29,7 +29,13 @@ function App() {
   return (
     <DiscussionTimerProvider key={session.id} sessionId={session.id}>
       <AppFrame
-        rail={view === 'deck' && (deckNode === 'night' || deckNode === 'day')
+        /*
+         * 魔典模式不挂侧轨。两个理由：它的「玩家状态」十二格与环显示的是同一件事，
+         * 而重复的局面板会让说书人不知道该信哪一个；更要紧的是侧轨在舞台之外，
+         * 遮蔽管不到它——实测按下「全遮蔽」后环清空了，侧轨仍在显示
+         * 「5号舞蛇人选择2号」。一个盖不住全部的全遮蔽比没有更危险。
+         */
+        rail={view === 'deck' && session.hostingMode !== 'grimoire' && (deckNode === 'night' || deckNode === 'day')
           ? <SessionRail session={session} onOpenPlayerStatus={overlays.setPlayerStatusSeatId} />
           : undefined}
         phaseTrack={(

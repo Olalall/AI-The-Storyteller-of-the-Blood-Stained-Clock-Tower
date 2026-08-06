@@ -1,0 +1,104 @@
+/* SeatActionBar 锚定浮层：挂在座位容器里，随 token 一起定位。
+   不做 rAF 跟随——浮层是 token 的子节点，本来就不会跑。 */
+.seat-action-bar {
+  position: absolute;
+  top: calc(100% + var(--space-10));
+  left: 50%;
+  translate: -50% 0;
+  z-index: 5;
+  width: 232px;
+  padding: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-panel);
+  box-shadow: var(--shadow-panel);
+}
+
+.seat-action-bar:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.seat-action-bar__contract {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+  text-align: center;
+}
+
+.seat-action-bar__marker { display: flex; flex-direction: column; gap: var(--space-6); }
+.seat-action-bar__marker-label { color: var(--text-muted); font-size: var(--type-meta); }
+.seat-action-bar__marker-input,
+.seat-action-path__marker-input {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-10);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--text-strong);
+  font-size: var(--type-body);
+}
+
+/* 3×2：顺序逐字定死（存活/死亡、中毒、醉酒、加标记、更换角色、座位卡）。
+   暗光下说书人靠位置记键，任何一次「把常用的挪到前面」都会让人点错第一格——而第一格是死亡。 */
+.seat-action-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-6);
+}
+
+.seat-action-grid__cell {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-4);
+  font-size: var(--type-meta);
+  white-space: nowrap;
+}
+
+/* 死亡与其余五格隔开：它是唯一会改变整局走向的一下。 */
+.seat-action-grid__cell--life { grid-column: 1; }
+
+/* 抽屉里的确认横条：草稿与落账之间那一步，也是魔典写入的唯一出口。 */
+.seat-confirm-bar {
+  width: 100%;
+  padding: var(--space-8) var(--space-12);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  border-top: 1px solid var(--accent-border);
+  background: var(--accent-soft);
+}
+
+.seat-confirm-bar[data-danger='true'] {
+  border-top-color: var(--danger-border);
+  background: var(--danger-soft);
+}
+
+.seat-confirm-bar__what { flex: 1 1 auto; margin: 0; color: var(--text-strong); font-size: var(--type-label); font-weight: 700; }
+.seat-confirm-bar__segment { display: flex; align-items: center; gap: var(--space-6); }
+.seat-confirm-bar__segment-label { color: var(--text-muted); font-size: var(--type-meta); }
+.seat-confirm-bar__segment-select {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-8);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-sm);
+  background: var(--input-bg);
+  color: var(--text-body);
+  font-size: var(--type-meta);
+}
+
+/* 抽屉里的等价路径：键盘与读屏用户到不了环上的长按，这一块是他们唯一的入口。 */
+.seat-action-path {
+  padding: var(--space-8) var(--space-12);
+  border-bottom: 1px solid var(--border);
+}
+
+.seat-action-path__body { margin-top: var(--space-8); display: flex; flex-direction: column; gap: var(--space-8); }
+.seat-action-path__seats { display: flex; flex-wrap: wrap; gap: var(--space-6); }
+.seat-action-path__marker { display: flex; align-items: center; gap: var(--space-6); }
+.seat-action-path__marker-label { color: var(--text-muted); font-size: var(--type-meta); }
+.seat-action-path__marker-input { flex: 1 1 auto; min-width: 0; }
+.seat-action-path__markers { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: var(--space-6); }
+.seat-action-path__markers li { display: flex; align-items: center; gap: var(--space-8); }
+.seat-action-path__marker-name { flex: 1 1 auto; color: var(--text-body); font-size: var(--type-label); }
+.seat-action-path__concealed { margin: 0; color: var(--text-muted); font-size: var(--type-meta); }

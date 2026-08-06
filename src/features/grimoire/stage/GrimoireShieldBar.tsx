@@ -25,7 +25,7 @@ const LEVEL_TEXT = {
 } as const
 
 export function GrimoireShieldBar({ shield }: GrimoireShieldBarProps) {
-  const { level, coverNow, uncover, beginReveal, cancelReveal, revealProgress, conceal } = shield
+  const { level, coverNow, uncover, beginReveal, cancelReveal, revealProgress, conceal, holding } = shield
 
   return (
     <div className="grimoire-shield-bar" data-level={level} role="group" aria-label="遮蔽">
@@ -34,7 +34,7 @@ export function GrimoireShieldBar({ shield }: GrimoireShieldBarProps) {
         <Button variant="primary" onClick={uncover}>
           <Eye aria-hidden="true" />恢复魔典
         </Button>
-      ) : level === 'L2' ? (
+      ) : level === 'L2' && !holding ? (
         <>
           {/* 90 秒自动落回仍然生效；这颗键是「现在就盖」，不是唯一的收口。 */}
           <Button variant="secondary" compact onClick={conceal}><EyeOff aria-hidden="true" />收起角色</Button>

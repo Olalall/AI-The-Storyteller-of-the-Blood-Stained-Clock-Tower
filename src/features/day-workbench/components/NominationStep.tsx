@@ -14,7 +14,11 @@ export type NominationTarget = 'nominator' | 'nominee'
 interface NominationStepProps {
   collapsed: boolean
   draft: DayVoteDraft
-  locked: boolean
+  /**
+   * 唯一的写入闸门，由 DayWorkbench 算好后自上而下传。本组件不得自己推导它——
+   * 与夜间工作台同一条硬规则：任何只读态都靠一个 readOnly prop 强制，不靠自觉。
+   */
+  readOnly: boolean
   playerCount: number
   playerStates: Record<number, PlayerState>
   target: NominationTarget
@@ -26,7 +30,7 @@ interface NominationStepProps {
 export function NominationStep({
   collapsed,
   draft,
-  locked,
+  readOnly,
   playerCount,
   playerStates,
   target,
@@ -43,7 +47,7 @@ export function NominationStep({
         title="提名"
         summary={nominationReady ? `${draft.nominatorSeatId}号提名 ${draft.nomineeSeatId}号` : '未选'}
         done={nominationReady}
-        disabled={locked}
+        disabled={readOnly}
         onEdit={onExpand}
       />
     )
@@ -55,13 +59,13 @@ export function NominationStep({
   return (
     <Card className="day-card--nomination" eyebrow="步骤 1" eyebrowTone="info" title="选择提名" titleId="nomination-title" aria-labelledby="nomination-title">
       <div className="day-selection-tabs" role="tablist" aria-label="选择提名对象">
-        <button type="button" disabled={locked} role="tab" aria-selected={target === 'nominator'} className={target === 'nominator' ? 'is-active' : ''} onClick={() => onChangeTarget('nominator')}>提名人 · {draft.nominatorSeatId ? `${draft.nominatorSeatId}号` : '未选'}</button>
-        <button type="button" disabled={locked} role="tab" aria-selected={target === 'nominee'} className={target === 'nominee' ? 'is-active' : ''} onClick={() => onChangeTarget('nominee')}>被提名人 · {draft.nomineeSeatId ? `${draft.nomineeSeatId}号` : '未选'}</button>
+        <button type="button" disabled={readOnly} role="tab" aria-selected={target === 'nominator'} className={target === 'nominator' ? 'is-active' : ''} onClick={() => onChangeTarget('nominator')}>提名人 · {draft.nominatorSeatId ? `${draft.nominatorSeatId}号` : '未选'}</button>
+        <button type="button" disabled={readOnly} role="tab" aria-selected={target === 'nominee'} className={target === 'nominee' ? 'is-active' : ''} onClick={() => onChangeTarget('nominee')}>被提名人 · {draft.nomineeSeatId ? `${draft.nomineeSeatId}号` : '未选'}</button>
       </div>
       <div className="day-seat-grid" aria-label="提名座位">
         {Array.from({ length: playerCount }, (_value, index) => {
           const seatId = index + 1
-          return <SeatButton key={seatId} seat={seatId} disabled={locked} selected={seatId === selectedSeatId} dead={playerStates[seatId]?.life === 'dead'} onClick={() => onSelectSeat(seatId)} aria-label={`选择${seatId}号为${targetLabel}`} />
+          return <SeatButton key={seatId} seat={seatId} disabled={readOnly} selected={seatId === selectedSeatId} dead={playerStates[seatId]?.life === 'dead'} onClick={() => onSelectSeat(seatId)} aria-label={`选择${seatId}号为${targetLabel}`} />
         })}
       </div>
     </Card>

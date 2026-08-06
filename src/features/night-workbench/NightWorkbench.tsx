@@ -21,8 +21,9 @@ import { createResolutionHint } from './state/resolutionHint'
 import { currentRoleForItem } from './state/roleChanges'
 import { systemStepMissingReason } from './state/systemSteps'
 import { useNightAIAdvice } from './hooks/useNightAIAdvice'
-import { useNightWorkbench } from './state/useNightWorkbench'
-import type { NightWorkbenchSessionBinding } from './state/useNightWorkbench'
+import { useNightWorkbench } from './hooks/useNightWorkbench'
+import { isCorrectionMode, isLiveFocusMode, isSettledMode } from './state/workbenchMode'
+import type { NightWorkbenchSessionBinding } from './hooks/useNightWorkbench'
 import './night-workbench.css'
 interface NightWorkbenchProps {
   sessionBinding: NightWorkbenchSessionBinding
@@ -30,8 +31,16 @@ interface NightWorkbenchProps {
   onExit: () => void
   /** 「关闭本夜」：夜晚段已关闭，交给上层决定下一步（默认走黎明播报）。 */
   onCloseNight?: () => void
+  /**
+   * 转盘已由外层承担（魔典模式下它降级进了 core），这里不要再画一份。
+   *
+   * 两份的代价不只是重复：转盘一次显示三个角色名，而环此刻是遮蔽态，
+   * 于是「环上一个名字都没有、抽屉里八个名字」——遮蔽看起来生效了，实际没有。
+   * 文档第 152 行的原话就是「转盘不再占一屏」，一屏两份是它要消除的东西。
+   */
+  carouselElsewhere?: boolean
 }
-export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWorkbenchProps) {
+export function NightWorkbench({ sessionBinding, onExit, onCloseNight, carouselElsewhere = false }: NightWorkbenchProps) {
   const [openPanel, setOpenPanel] = useState<'night-order' | 'game-record' | 'role-change' | null>(null)
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
   const [privateInformation, setPrivateInformation] = useState<string | null>(null)
@@ -48,9 +57,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
     completed,
     deferred,
     needsReview,
-    isPreviewing,
-    isReadOnly,
-    isCorrecting,
+    mode,
+    readOnly,
     canConfirm,
     currentRole,
     currentRoleChange,
@@ -67,7 +75,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
   // 系统步骤是流程记录，不是可结算的技能：AI 结算链路对它没有任何依据可用。
   const aiAvailable = current.outcomeOptions.length > 0 && !current.systemStep
   const isAIAdviceLoading = loadingItemId === current.id
-  const canUseAI = !isPreviewing && !isReadOnly && aiAvailable && !isAIAdviceLoading
+  // 原式 `!isPreviewing && !isReadOnly`：两者的并集就是「这一屏不可写」，即 readOnly。
+  const canUseAI = !readOnly && aiAvailable && !isAIAdviceLoading
   const aiReference = draft.outputSource?.kind === 'ai'
     ? draft.outputSource
     : draft.outputSource?.kind === 'preset'
@@ -89,18 +98,18 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
   const previewLabel = current.systemStep
     ? current.roleName
     : state.privacyShielded ? `${current.seatId}号角色` : `${current.seatId}号 ${currentRole.name}`
-  const canChangeRole = !isPreviewing && !isCorrecting && !current.systemStep && !(draft.updatedAt && current.progress !== 'confirmed')
+  // 原式 `!isPreviewing && !isCorrecting`：焦点要落在正在处理的那一项上，且不在更正过程中。
+  // 注意它不等于「可写」——已确认（settled）的项仍然允许换角，所以不能写成 !readOnly。
+  const canChangeRole = isLiveFocusMode(mode) && !isCorrectionMode(mode) && !current.systemStep && !(draft.updatedAt && current.progress !== 'confirmed')
   // progress 从不会是 'draft'（reducer 只写 drafts），所以必须按草稿内容判断，
   // 否则「草稿已保留」的离开守卫永远不会出现，误触返回时说书人会以为记录丢了。
   const hasInProgressDraft = Object.entries(state.drafts).some(([itemId, item]) =>
     hasWakeDraftContent(item) &&
     state.queue.find((entry) => entry.id === itemId)?.progress !== 'confirmed',
   ) || Boolean(state.correctionItemId)
-  const canRevealInformation = !state.privacyShielded && !isPreviewing && Boolean(draft.informationGiven.trim())
+  // 原式 `!isPreviewing`：展示信息是读动作，已确认的项照样能再展示一次给玩家看。
+  const canRevealInformation = !state.privacyShielded && isLiveFocusMode(mode) && Boolean(draft.informationGiven.trim())
   const visibleNotice = state.lastNotice?.includes('夜序快照') ? '' : state.lastNotice
-  const isSettled = (current.progress === 'confirmed' && !isCorrecting)
-    || current.progress === 'deferred'
-    || current.progress === 'not_applicable'
   const systemMissing = systemStepMissingReason(current, draft)
   const missingReason = current.applicability === 'needs_review'
       ? '确认是否适用'
@@ -108,7 +117,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
         ? '已暂缓'
         : current.progress === 'not_applicable'
           ? '本夜不适用'
-          : isReadOnly
+          // 原式 isReadOnly：走到这里 deferred / not_applicable 已被上面两支接掉，剩下的只可能是「已确认」。
+          : isSettledMode(mode)
             ? '已确认'
             : systemMissing
               ? systemMissing
@@ -181,7 +191,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
         onLeave={exitAfterPrompt}
       /> : null}
       <HostNotice message={leavePromptOpen ? '' : visibleNotice} />
-      <NightPlayerCarousel
+      {carouselElsewhere ? null : <NightPlayerCarousel
         current={current}
         currentRole={currentRole}
         currentRoleChange={currentRoleChange}
@@ -190,10 +200,10 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
         next={next}
         nextRole={nextRole}
         concealed={state.privacyShielded}
-        isPreviewing={isPreviewing}
+        mode={mode}
         onPrevious={() => previous && dispatch({ type: 'preview', id: previous.id })}
         onNext={() => next && dispatch({ type: 'preview', id: next.id })}
-      />
+      />}
       <div className="night-content-grid">
         <div className="night-progress" aria-label={`当前夜序第${activeIndex + 1}项，共${state.queue.length}项`}>
           <p className="night-progress__numbers">
@@ -216,8 +226,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
           playerStatus={activePlayerStatus}
           draft={draft}
           concealed={state.privacyShielded}
-          isPreviewing={isPreviewing}
-          isReadOnly={isReadOnly}
+          mode={mode}
+          readOnly={readOnly}
           playerCount={state.playerCount}
           aiAdvice={aiAdvice}
           resolutionHint={resolutionHint}
@@ -226,7 +236,9 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
           isAIAdviceLoading={isAIAdviceLoading}
           roleChange={currentRoleChange}
           canChangeRole={canChangeRole}
-          canClearDraft={!isPreviewing && !isReadOnly && !isCorrecting && Boolean(draft.updatedAt)}
+          // 原式 `!isPreviewing && !isReadOnly && !isCorrecting`：前两项合起来是 readOnly，
+          // 再排掉更正态——更正中的草稿是原确认快照的副本，「清空重选」清掉它等于凭空丢掉已写入的记录。
+          canClearDraft={!readOnly && !isCorrectionMode(mode) && Boolean(draft.updatedAt)}
           canRevealInformation={canRevealInformation}
           onUnshield={() => dispatch({ type: 'set-privacy', shielded: false })}
           onTarget={(seatId) => dispatch({ type: 'target', seatId })}
@@ -247,10 +259,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight }: NightWo
           <NightActionBar
             activeItem={activeItem}
             current={current}
-            isPreviewing={isPreviewing}
-            isReadOnly={isReadOnly}
-            isCorrecting={isCorrecting}
-            isSettled={isSettled}
+            mode={mode}
+            readOnly={readOnly}
             missingReason={missingReason}
             canConfirm={canConfirm}
             activeLabel={activeLabel}

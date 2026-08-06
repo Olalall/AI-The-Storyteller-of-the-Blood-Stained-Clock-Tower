@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react'
 import { RoleDisc } from '../../../components/ui/RoleDisc'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
+import { isPreviewMode, type WorkbenchMode } from '../state/workbenchMode'
 import type { RoleChangeEvent, RoleSnapshot, WakeItem } from '../types'
 import { progressMeta } from './statusMeta'
 
@@ -13,7 +14,7 @@ interface NightPlayerCarouselProps {
   next?: WakeItem
   nextRole?: RoleSnapshot
   concealed: boolean
-  isPreviewing: boolean
+  mode: WorkbenchMode
   onPrevious: () => void
   onNext: () => void
 }
@@ -39,10 +40,11 @@ export function NightPlayerCarousel({
   next,
   nextRole,
   concealed,
-  isPreviewing,
+  mode,
   onPrevious,
   onNext,
 }: NightPlayerCarouselProps) {
+  const previewing = isPreviewMode(mode)
   return (
     <section className="night-carousel" role="region" aria-label="夜间角色预览">
       <button
@@ -58,8 +60,8 @@ export function NightPlayerCarousel({
 
       <div className="carousel-current">
         <div className="carousel-current__eyebrow">
-          <StatusBadge tone={isPreviewing ? 'warning' : 'current'}>
-            {isPreviewing ? '正在预览' : '正在处理'}
+          <StatusBadge tone={previewing ? 'warning' : 'current'}>
+            {previewing ? '正在预览' : '正在处理'}
           </StatusBadge>
           <span>夜序 {current.orderIndex}</span>
         </div>
@@ -69,7 +71,7 @@ export function NightPlayerCarousel({
             roleName={currentRole.name}
             imageSrc={currentRole.iconPath}
             size="large"
-            active={!isPreviewing}
+            active={!previewing}
             concealed={concealed}
             changed={Boolean(currentRoleChange)}
           />

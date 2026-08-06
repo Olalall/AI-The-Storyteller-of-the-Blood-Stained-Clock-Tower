@@ -54,7 +54,9 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   const dayResolution = openDay
     ? [...session.timeline].filter((entry) => entry.segmentId === openDay.id && (entry.kind === 'execution' || entry.kind === 'no_execution')).at(-1)
     : undefined
-  const dayLocked = Boolean(pendingResolution || pendingDayClose || dayResolution)
+  // 白天这一屏唯一的写入闸门。硬规则同夜间工作台：只读在上层算一次、作为 readOnly prop 往下压，
+  // 组件不得自己判断能不能写——将来归档回看接进来也走这同一个入口。
+  const dayReadOnly = Boolean(pendingResolution || pendingDayClose || dayResolution)
   const hasUnrecordedVote = hasVoteRoundDraftContent(draft)
   const dayActionKinds = dayActionDraftContentKinds(session.dayActionDraft)
   const hasUnrecordedDayAction = dayActionKinds.length > 0
@@ -73,7 +75,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   const roundStatus = roundStatusLabel(draft)
 
   function selectNominationSeat(seatId: number) {
-    if (dayLocked) return
+    if (dayReadOnly) return
     updateDraft((current) => nominationTarget === 'nominator'
       ? setVoteNominator(current, seatId)
       : setVoteNominee(current, seatId))
@@ -85,7 +87,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   }
 
   function completeRound() {
-    if (dayLocked) return
+    if (dayReadOnly) return
     const entry = completeVoteRound(draft, {
       id: `vote-round-${Date.now()}`,
       roundId: `round-${roundNumber}`,
@@ -195,7 +197,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
         <NominationStep
           collapsed={activeStep !== 'nomination'}
           draft={draft}
-          locked={dayLocked}
+          readOnly={dayReadOnly}
           playerCount={session.playerCount}
           playerStates={playerStates}
           target={nominationTarget}
@@ -210,7 +212,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
             title="举手"
             summary={draft.raisedSeatIds.length ? `举手${draft.raisedSeatIds.length} · 门槛${draft.threshold}` : '未记录'}
             done={hasRecordedRound && !hasUnrecordedVote}
-            disabled={dayLocked || !nominationReady}
+            disabled={dayReadOnly || !nominationReady}
             onEdit={() => setStepOverride('vote')}
           />
         ) : (
@@ -227,7 +229,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
             hint={`存活${aliveCount}人 · 建议${suggestedThreshold}`}
             title={`存活 ${aliveCount} 人，建议门槛 ${suggestedThreshold}（存活人数的一半，向上取整）`}
           >
-            <input type="number" disabled={dayLocked} min="1" max={session.playerCount} value={draft.threshold} onChange={(event) => updateDraft((current) => ({ ...current, threshold: Number(event.target.value) || 0 }))} />
+            <input type="number" disabled={dayReadOnly} min="1" max={session.playerCount} value={draft.threshold} onChange={(event) => updateDraft((current) => ({ ...current, threshold: Number(event.target.value) || 0 }))} />
           </Field>}
         >
           <p className={nominationReady ? 'day-vote-target' : 'day-vote-target is-pending'}>{nominationReady ? `${draft.nominatorSeatId}号提名 ${draft.nomineeSeatId}号` : '先选择提名双方'}</p>
@@ -236,8 +238,8 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
               const seatId = index + 1
               const dead = playerStates[seatId]?.life === 'dead'
               return <div className="day-vote-seat" key={seatId}>
-                <SeatButton seat={seatId} disabled={dayLocked} selected={selectedVotes.has(seatId)} dead={dead} onClick={() => updateDraft((current) => toggleRaisedVote(current, seatId))} aria-label={`${selectedVotes.has(seatId) ? '取消' : '记录'}${seatId}号举手`} />
-                {dead && selectedVotes.has(seatId) ? <button type="button" disabled={dayLocked} className={ghostVotes.has(seatId) ? 'day-ghost-vote is-active' : 'day-ghost-vote'} onClick={() => updateDraft((current) => toggleGhostVote(current, seatId))}>{ghostVotes.has(seatId) ? '死亡票' : '标死亡票'}</button> : null}
+                <SeatButton seat={seatId} disabled={dayReadOnly} selected={selectedVotes.has(seatId)} dead={dead} onClick={() => updateDraft((current) => toggleRaisedVote(current, seatId))} aria-label={`${selectedVotes.has(seatId) ? '取消' : '记录'}${seatId}号举手`} />
+                {dead && selectedVotes.has(seatId) ? <button type="button" disabled={dayReadOnly} className={ghostVotes.has(seatId) ? 'day-ghost-vote is-active' : 'day-ghost-vote'} onClick={() => updateDraft((current) => toggleGhostVote(current, seatId))}>{ghostVotes.has(seatId) ? '死亡票' : '标死亡票'}</button> : null}
               </div>
             })}
           </div>
@@ -274,7 +276,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
                   下一步：记录举手
                 </Button>
               ) : activeStep === 'vote' ? (
-                <Button variant="primary" onClick={completeRound} disabled={dayLocked || !nominationReady || draft.threshold < 1}>
+                <Button variant="primary" onClick={completeRound} disabled={dayReadOnly || !nominationReady || draft.threshold < 1}>
                   <Hand aria-hidden="true" />记录本轮票型
                 </Button>
               ) : (

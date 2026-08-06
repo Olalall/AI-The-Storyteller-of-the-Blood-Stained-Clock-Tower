@@ -5,8 +5,18 @@ import { createNextNightRun } from '../game-session/state/createNextNightRun'
 import { createSmartScriptSetupCandidates } from '../setup/smartScriptSetupCandidates'
 import type { SetupSeatProfile } from '../setup/types'
 import type { GameSessionState } from '../game-session/types'
-import { nightWorkbenchReducer } from './state/nightWorkbenchReducer'
+import { nightWorkbenchReducer, type NightWorkbenchIntent } from './state/nightWorkbenchReducer'
 import type { NightWorkbenchState, WakeItem } from './types'
+
+/**
+ * reducer 现在要求调用方给时间戳。这里固定成一个常量正是想要的效果：
+ * 同一组 (state, action) 必须每次跑出同一个 state，写死时间才测得出这一点。
+ */
+const AT = '2026-08-04T02:00:00.000Z'
+
+function reduce(state: NightWorkbenchState, intent: NightWorkbenchIntent): NightWorkbenchState {
+  return nightWorkbenchReducer(state, { ...intent, at: AT })
+}
 
 function makeProfiles(playerCount: number): SetupSeatProfile[] {
   return Array.from({ length: playerCount }, (_value, index) => ({
@@ -189,17 +199,17 @@ describe('系统步骤卡的记录', () => {
     let state = workbenchState(run.queue)
     state = { ...state, activeCursorId: demonInfo.id, previewEntryId: demonInfo.id }
 
-    state = nightWorkbenchReducer(state, { type: 'outcome', outcomeId: 'given' })
+    state = reduce(state, { type: 'outcome', outcomeId: 'given' })
     expect(state.drafts[demonInfo.id]?.outcomeId ?? '').toBe('')
 
-    state = nightWorkbenchReducer(state, { type: 'system-check', checkId: 'pointed-minions' })
-    state = nightWorkbenchReducer(state, { type: 'system-bluff', roleId: choices[0].id })
-    state = nightWorkbenchReducer(state, { type: 'system-bluff', roleId: choices[1].id })
-    state = nightWorkbenchReducer(state, { type: 'outcome', outcomeId: 'given' })
+    state = reduce(state, { type: 'system-check', checkId: 'pointed-minions' })
+    state = reduce(state, { type: 'system-bluff', roleId: choices[0].id })
+    state = reduce(state, { type: 'system-bluff', roleId: choices[1].id })
+    state = reduce(state, { type: 'outcome', outcomeId: 'given' })
     expect(state.drafts[demonInfo.id]?.outcomeId ?? '').toBe('')
 
-    state = nightWorkbenchReducer(state, { type: 'system-bluff', roleId: choices[2].id })
-    state = nightWorkbenchReducer(state, { type: 'outcome', outcomeId: 'given' })
+    state = reduce(state, { type: 'system-bluff', roleId: choices[2].id })
+    state = reduce(state, { type: 'outcome', outcomeId: 'given' })
     expect(state.drafts[demonInfo.id]?.outcomeId).toBe('given')
   })
 
@@ -210,12 +220,12 @@ describe('系统步骤卡的记录', () => {
     let state = workbenchState(run.queue)
     state = { ...state, activeCursorId: demonInfo.id, previewEntryId: demonInfo.id }
 
-    state = nightWorkbenchReducer(state, { type: 'system-check', checkId: 'pointed-minions' })
+    state = reduce(state, { type: 'system-check', checkId: 'pointed-minions' })
     for (const choice of choices.slice(0, 3)) {
-      state = nightWorkbenchReducer(state, { type: 'system-bluff', roleId: choice.id })
+      state = reduce(state, { type: 'system-bluff', roleId: choice.id })
     }
-    state = nightWorkbenchReducer(state, { type: 'outcome', outcomeId: 'given' })
-    state = nightWorkbenchReducer(state, { type: 'confirm', advance: false })
+    state = reduce(state, { type: 'outcome', outcomeId: 'given' })
+    state = reduce(state, { type: 'confirm', advance: false })
 
     const record = state.confirmedRecords[demonInfo.id]?.at(-1)
     expect(record).toBeDefined()
@@ -232,13 +242,13 @@ describe('系统步骤卡的记录', () => {
     const minionInfo = run.queue[0]
     let state = workbenchState(run.queue)
 
-    state = nightWorkbenchReducer(state, { type: 'system-check', checkId: 'pointed-demon' })
-    state = nightWorkbenchReducer(state, { type: 'outcome', outcomeId: 'given' })
+    state = reduce(state, { type: 'system-check', checkId: 'pointed-demon' })
+    state = reduce(state, { type: 'outcome', outcomeId: 'given' })
     expect(state.drafts[minionInfo.id]?.storytellerResult).toContain('爪牙信息')
 
-    state = nightWorkbenchReducer(state, { type: 'system-check', checkId: 'pointed-demon' })
+    state = reduce(state, { type: 'system-check', checkId: 'pointed-demon' })
     expect(state.drafts[minionInfo.id]?.outcomeId).toBe('')
-    state = nightWorkbenchReducer(state, { type: 'confirm', advance: false })
+    state = reduce(state, { type: 'confirm', advance: false })
     expect(state.confirmedRecords[minionInfo.id]).toBeUndefined()
   })
 
@@ -246,7 +256,7 @@ describe('系统步骤卡的记录', () => {
     const run = firstNightQueue()
     let state = workbenchState(run.queue)
 
-    state = nightWorkbenchReducer(state, {
+    state = reduce(state, {
       type: 'change-role',
       role: { id: 'chef', name: '厨师', initial: '厨', iconPath: '' },
       reason: 'gameplay',

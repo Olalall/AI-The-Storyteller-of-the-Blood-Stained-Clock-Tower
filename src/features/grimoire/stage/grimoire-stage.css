@@ -1,8 +1,9 @@
 /*
  * 魔典舞台的排布。
  *
- * 抽屉是 position: fixed 的，所以它不参与这里的 flex 流；舞台底部要给它留出
- * peek 档那 96px，否则环的下半弧会被抽屉压住——而下半弧上坐着一半的人。
+ * 抽屉是 position: fixed 的，不参与这里的 flex 流，所以舞台必须自己按抽屉的
+ * **当前**高度留白——写死 peek 的 96px 曾让 half 档盖住 12 个座位里的 8 个，
+ * 而下半弧上坐着一半的人。full 档不留：那一档本来就是页面接管整屏。
  */
 .grimoire-stage {
   display: flex;
@@ -10,8 +11,13 @@
   min-height: 0;
   flex-direction: column;
   gap: var(--space-8);
-  padding: var(--space-12) var(--space-12) 96px;
+  padding: var(--space-12) var(--space-12) var(--drawer-reserve, 96px);
 }
+
+/* 三档留白与 detents.ts 的 heightCssFor 一一对应。full 不留白：那一档本来就是页面接管整屏。 */
+.grimoire-stage[data-drawer='peek'] { --drawer-reserve: 96px; }
+.grimoire-stage[data-drawer='half'] { --drawer-reserve: clamp(240px, 46dvh, calc(100dvh - 48px)); }
+.grimoire-stage[data-drawer='full'] { --drawer-reserve: 0px; }
 
 .grimoire-shield-bar {
   display: flex;
@@ -19,6 +25,16 @@
   align-items: center;
   justify-content: flex-end;
   gap: var(--space-8);
+}
+
+/* L0 下抽屉里托管的整页（角色名、恶魔的三张伪装）**不进 DOM**，
+   这一行是它留下的唯一痕迹。视觉遮住挡不住截屏、屏读器和 devtools。 */
+.grimoire-stage__drawer-blackout {
+  margin: 0;
+  padding: var(--space-24) var(--space-16);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--type-label);
 }
 
 /* 揭示进度：按住时从左往右填，松手即归零。它是「还要按多久」的唯一反馈。

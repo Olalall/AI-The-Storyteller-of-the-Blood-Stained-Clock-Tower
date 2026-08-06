@@ -282,10 +282,16 @@
   margin: 0 auto;
   max-height: 0;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
   transition: max-height 180ms ease, margin 180ms ease;
 }
 .ui-host-notice.is-visible { max-height: 96px; margin-block: var(--space-8); }
+/* 动作被撤下时焦点会被送到这层容器上（见 HostNotice），所以它得有可见的落点。 */
+.ui-host-notice:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .ui-host-notice__text {
+  flex: 1 1 auto;
   min-height: 38px;
   padding: 7px var(--space-16);
   display: flex;
@@ -298,6 +304,8 @@
   font-size: var(--type-label);
   font-weight: 700;
 }
+/* 即时动作（3.5 秒撤销）在 live region 之外，不参与播报，也不随文本一起被重读。 */
+.ui-host-notice__action { flex: none; display: flex; align-items: center; }
 @media (prefers-reduced-motion: reduce) { .ui-host-notice { transition: none; } }
 
 /* 常驻阶段轨道：全局唯一，48px 吸顶；状态用文字+形状+颜色三重表达。 */
