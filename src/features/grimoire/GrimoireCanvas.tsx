@@ -8,7 +8,7 @@
  * 舞台尺寸用 ResizeObserver 实测，不用断点猜：同一台 iPad 横竖屏、Mac 三档尺寸、
  * 抽屉三档高度都会改变可用矩形，猜出来的值必然在某一组合下出错。
  */
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type TouchEvent } from 'react'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { GrimoireCore } from './core/GrimoireCore'
 import { GrimoireSeat, type GrimoireSeatRole } from './seat/GrimoireSeat'
@@ -16,6 +16,14 @@ import { solveRingLayout } from './layout/ellipseRing'
 import { shieldVisibility, type ShieldLevel } from './shield/shieldLevel'
 import type { RingStartOffset } from './layout/ellipseRing'
 import type { PlayerState } from '../game-session/model/playerTypes'
+import type {
+  GrimoireCorePhase,
+  GrimoireDawnRoll,
+  GrimoireDayTimer,
+  GrimoireDuskBrief,
+  GrimoireNightCursor,
+  GrimoireVoteTally,
+} from './core/corePhase'
 import './grimoire-canvas.css'
 
 export interface GrimoireCanvasSeat {
@@ -36,6 +44,22 @@ export interface GrimoireCanvasProps {
   ghostVotesRemaining?: number | null
   pendingCount?: number | null
   pendingLabel?: string
+  /** 核里多出哪一块相位内容；下面五个槽各自只在对应相位被读。 */
+  phase?: GrimoireCorePhase
+  night?: GrimoireNightCursor
+  timer?: GrimoireDayTimer
+  vote?: GrimoireVoteTally
+  dusk?: GrimoireDuskBrief
+  dawn?: GrimoireDawnRoll
+  /** 核顶行「乌鸦渡口 · 12人」标识里的剧本名。 */
+  scriptName?: string | null
+  /** 顶行标识的点击目标：本局信息浮层（裁决 7 定下的模式切换入口就在里面）。 */
+  onOpenSessionInfo?: () => void
+  /**
+   * 双指点画布 = 立刻全遮蔽。这是盲操作路径：说书人抬头发现有人凑过来时，
+   * 手不必先找按钮——按钮在哪一档、在不在视野里，那一秒都来不及想。
+   */
+  onBlindCover?: () => void
 }
 
 /** 座位角度：与 solveRingLayout 同一个公式，这里只用来给卫星弧定方向。 */
@@ -53,6 +77,15 @@ export function GrimoireCanvas({
   ghostVotesRemaining = null,
   pendingCount = null,
   pendingLabel,
+  phase = 'idle',
+  night,
+  timer,
+  vote,
+  dusk,
+  dawn,
+  scriptName = null,
+  onOpenSessionInfo,
+  onBlindCover,
 }: GrimoireCanvasProps) {
   const stageRef = useRef<HTMLDivElement>(null)
   const [stage, setStage] = useState({ width: 0, height: 0 })
@@ -77,9 +110,16 @@ export function GrimoireCanvas({
   const visibility = shieldVisibility(shield)
   const selected = new Set(selectedSeatIds)
 
+  // 只认「同时落下两指」这一下。用 touchstart 而不是 pointerdown：多指要靠 touches 计数，
+  // pointer 事件一指一条，攒两条就得自己维护一张按下中的指针表，那张表迟早在
+  // 触控笔/鼠标混用时漏删一条，然后画布会莫名其妙自己盖上。
+  const handleTouchStart = onBlindCover
+    ? (event: TouchEvent<HTMLDivElement>) => { if (event.touches.length >= 2) onBlindCover() }
+    : undefined
+
   return (
     <div className="grimoire-canvas" data-mode={layout.mode} data-shield={shield}>
-      <div className="grimoire-canvas__stage" ref={stageRef}>
+      <div className="grimoire-canvas__stage" ref={stageRef} onTouchStart={handleTouchStart}>
         {!visibility.seatIdentity ? (
           // L0：秘密整段不进 DOM，只留一句话和恢复入口（恢复键在调用方的遮蔽栏上）。
           <p className="grimoire-canvas__blackout" role="status">魔典已盖上</p>
@@ -101,6 +141,15 @@ export function GrimoireCanvas({
               ghostVotesRemaining={ghostVotesRemaining}
               pendingCount={pendingCount}
               pendingLabel={pendingLabel}
+              phase={phase}
+              night={night}
+              timer={timer}
+              vote={vote}
+              dusk={dusk}
+              dawn={dawn}
+              scriptName={scriptName}
+              onOpenSessionInfo={onOpenSessionInfo}
+              shield={shield}
             />
             {layout.mode === 'ring' ? (
               seats.map((seat, index) => {
