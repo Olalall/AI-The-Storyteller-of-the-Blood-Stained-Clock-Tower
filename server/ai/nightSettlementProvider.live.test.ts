@@ -239,7 +239,7 @@ function visibleText(draft: NightSettlementAdviceDraft) {
     ...draft.warnings,
     ...draft.journalDrafts,
     ...draft.playerMessageDrafts,
-    ...draft.stateChangeDrafts,
+    ...draft.stateChangeDrafts.map((entry) => entry.text),
     ...draft.authorityWarnings,
     draft.disclaimer,
   ].join('\n')

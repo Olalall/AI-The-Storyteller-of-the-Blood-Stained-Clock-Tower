@@ -57,6 +57,20 @@ function validRolePool(value: unknown) {
   ))
 }
 
+/**
+ * contextLevel 缺省合法：旧客户端不发这个字段，拒收会让它们整个 AI 功能一起挂掉，
+ * 而这个字段的缺失本来就有明确语义（「客户端没说」，见 nightUnknownSeats）。
+ * 但值一旦出现就必须是两档之一——收下一个 'partial' 会让 provider 的
+ * `contextLevel !== 'minimal'` 判成「知情完整」，静默走回加这个字段之前的行为。
+ */
+function validContextLevel(value: unknown) {
+  return value === undefined || value === 'minimal' || value === 'standard'
+}
+
+function validUnknownSeatIds(value: unknown) {
+  return value === undefined || (Array.isArray(value) && value.every((seatId) => Number.isInteger(seatId)))
+}
+
 function validSelectedTargets(value: unknown) {
   if (value === undefined) return true
   return Array.isArray(value) && value.every((target) => (
@@ -96,6 +110,7 @@ export function isNightSettlementRequest(value: unknown): value is NightSettleme
   if (typeof value.nightRunId !== 'string' || typeof value.phaseLabel !== 'string') return false
   if (!validPlayerCount(value.playerCount) || !isRecord(value.wakeItem) || !isRecord(value.draft)) return false
   if (!Array.isArray(value.availableOutcomes) || !value.availableOutcomes.length) return false
+  if (!validContextLevel(value.contextLevel) || !validUnknownSeatIds(value.unknownSeatIds)) return false
   return typeof value.wakeItem.id === 'string'
     && typeof value.wakeItem.roleId === 'string'
     && typeof value.wakeItem.roleName === 'string'

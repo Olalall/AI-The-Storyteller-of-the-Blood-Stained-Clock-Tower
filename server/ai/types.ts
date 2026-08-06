@@ -195,12 +195,28 @@ export interface RoleResearchProviderBrief {
   reviewedAt?: string
 }
 
+/**
+ * 工具对本局局面的知情程度。
+ *
+ * 它是**前端算好后下发的结论**，不是后端能自己推的：后端只看得见本步唤醒项和已选目标，
+ * 看不见「这局一共 12 个座位、工具只知道其中 8 个的身份」。缺省（旧客户端不发这个字段）
+ * 一律按「没说」处理，行为与加这个字段之前完全一致——把没说当成 minimal 会让所有历史
+ * 客户端突然收到一堆 needs_input，而后端连该点名哪个座位都说不出来。
+ */
+export type NightSettlementContextLevel = 'minimal' | 'standard'
+
 export interface NightSettlementProviderRequest {
   scriptId: string
   knowledgeVersion: string
   nightRunId: string
   phaseLabel: string
   playerCount: number
+  contextLevel?: NightSettlementContextLevel
+  /**
+   * 工具里还不知道身份的座位号。它是 contextLevel 的证据：光说「我知道得不全」，
+   * 模型只能泛泛地推辞；点得出座位号，它才能提出一个说书人真能回答的问题。
+   */
+  unknownSeatIds?: readonly number[]
   wakeItem: {
     id: string
     orderIndex: number
@@ -240,6 +256,34 @@ export interface NightSettlementProviderRequest {
   roleResearch?: RoleResearchProviderBrief
 }
 
+/**
+ * 一条状态建议能指向的字段。`marker` 指 markers 数组里的一枚贴纸，不是整个数组赋值。
+ * 与前端 AIStateChangeField 逐字一致但独立声明：这里是 HTTP 契约的一端，
+ * 让它 import src/ 会把「网线上传的是什么」和「浏览器里的类型长什么样」绑成一件事。
+ */
+export type NightSettlementStateChangeField = 'life' | 'poisoned' | 'drunk' | 'marker'
+
+export interface NightSettlementStateChangeProposal {
+  field: NightSettlementStateChangeField
+  /** life: alive|dead；poisoned/drunk: true|false；marker: add|remove。白名单之外一律判解析失败。 */
+  to: string
+  /** field 为 marker 时必填；出现在其它 field 上说明模型串了字段，整个 change 作废。 */
+  markerLabel?: string
+}
+
+/**
+ * 一条状态改动建议。text 必填、其余可选，解析失败降级成纯 text。
+ *
+ * 这里刻意**不是** op 数组：让模型输出内部写入语言，下一步就会有人写一行 forEach
+ * 把它直接派发。一条建议最多对应一个座位的一个字段——多字段建议一旦出现，
+ * 说书人点确认时就没有任何办法表达他只认可其中一半。
+ */
+export interface NightSettlementStateChangeDraft {
+  text: string
+  seatId?: number
+  change?: NightSettlementStateChangeProposal
+}
+
 export interface NightSettlementAdviceDraft {
   provider: AIProviderKind
   confidence: AIAdviceConfidence
@@ -252,7 +296,7 @@ export interface NightSettlementAdviceDraft {
   warnings: string[]
   journalDrafts: string[]
   playerMessageDrafts: string[]
-  stateChangeDrafts: string[]
+  stateChangeDrafts: NightSettlementStateChangeDraft[]
   authorityWarnings: string[]
   disclaimer: string
 }

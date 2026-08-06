@@ -1,4 +1,27 @@
+import { unknownSeatGap, unknownSeatQuestion } from './nightUnknownSeats'
 import type { AIProviderChatMessage, NightSettlementProviderRequest } from './types'
+
+/**
+ * 「未列出等于未知，不是正常」分支。
+ *
+ * 不加这一段时，模型看到的是一份没有缺口标记的输入，默认读法是「没提到的座位都正常」——
+ * 那正好是最危险的一种默认：一个中毒了但工具没记的座位，会被当成健康座位参与推理，
+ * 而结论看起来和信息齐全时一模一样。
+ */
+function contextGapConstraints(input: NightSettlementProviderRequest): string[] {
+  const gap = unknownSeatGap(input)
+  if (!gap.length) {
+    return input.contextLevel === 'standard'
+      ? ['input.contextLevel = standard：工具里全部座位的身份都已录入，本次输入的座位状态可以当作完整局面使用']
+      : []
+  }
+  return [
+    `input.contextLevel = minimal：工具只知道部分座位的身份，${gap.join('、')} 号座位的身份工具里没有`,
+    '未在输入中列出的座位状态一律视为**未知**，不得视为正常、健康、存活或未中毒',
+    `本次必须返回 needs_input，并在 missing 里点名这些座位：${unknownSeatQuestion(gap)}`,
+    '不要因为缺信息就给一个「保守的」结果草稿——保守的错误结论和自信的错误结论一样会被采用',
+  ]
+}
 
 export function buildNightSettlementProviderMessages(input: NightSettlementProviderRequest): AIProviderChatMessage[] {
   return [
@@ -30,7 +53,15 @@ export function buildNightSettlementProviderMessages(input: NightSettlementProvi
           warnings: ['string'],
           journalDrafts: ['string'],
           playerMessageDrafts: ['string'],
-          stateChangeDrafts: ['string'],
+          stateChangeDrafts: [{
+            text: 'string，必填，给说书人看的一句人话',
+            seatId: 'number，可选，必须是本次输入里出现过的座位号',
+            change: {
+              field: 'life | poisoned | drunk | marker',
+              to: 'life 用 alive|dead；poisoned/drunk 用 true|false；marker 用 add|remove',
+              markerLabel: 'string，field 为 marker 时必填，其它 field 一律不要带',
+            },
+          }],
           authorityWarnings: ['string'],
           disclaimer: 'string',
         },
@@ -48,6 +79,10 @@ export function buildNightSettlementProviderMessages(input: NightSettlementProvi
           '如果 input.roleResearch.knowledgeStatus 不是 confirmed，降低置信度并写入 warnings',
           '如果技能可能导致身份、阵营、死亡、毒醉、疯狂或延迟结算，只能写入 stateChangeDrafts 或 authorityWarnings，等待说书人单独确认',
           'journalDrafts 只写“本项如何记录”；playerMessageDrafts 只写“可以给玩家看的私密信息”；stateChangeDrafts 只写“需要另行确认的状态/身份/阵营/死亡变化”；authorityWarnings 只写“为什么不能直接当权威结果”',
+          'stateChangeDrafts 的每一条最多对应一个座位的一个字段；需要改两个字段就写两条，不要在一条里塞多个改动',
+          'stateChangeDrafts 里不确定座位或不确定字段时，只写 text，不要写 seatId 和 change；写错一个座位号比不写代价大得多',
+          'stateChangeDrafts 只是给说书人看的建议，说书人不点确认就什么都不会发生；不要写成“已改为”“已标记”',
+          ...contextGapConstraints(input),
           '不要猜测未提供的隐藏身份、阵营或历史；缺信息时优先返回 needs_input',
           'journalDrafts 和 playerMessageDrafts 必须与 recommendedOutcomeId 的语义一致，不得扩写成权威结果',
           '优先指出缺失信息，其次给出可采用的结果草稿',
