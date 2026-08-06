@@ -141,4 +141,30 @@ describe('SettlementAssistPanel', () => {
     expect(action.ops).toEqual([{ op: 'impairment_set', seatId: 3, impairment: 'poisoned', value: true }])
     expect(action.reason).toContain('advice-1')
   })
+
+  /*
+   * 「确认落盘」是本卡上唯一不在 fieldset 里的写入口，所以只读得单独压给它一次。
+   * 归档回看与预览别人那一项时，它必须和目标网格一起哑掉——不然「readOnly 自上而下强制」
+   * 这条就有一个洞，而这个洞恰好开在唯一一个直接改玩家状态的按钮上。
+   */
+  it('obeys the top-down readOnly gate instead of judging for itself', async () => {
+    const onAdopt = vi.fn()
+    const props = {
+      aiAdvice: answerAdvice([{ text: '给3号加中毒', seatId: 3, change: { field: 'poisoned' as const, to: 'true' } }]),
+      aiOutcomeLabel: '受到影响',
+      adoption: adoptionContext({ 3: alive() }),
+      onAdoptStateChange: onAdopt,
+    }
+    // 前置：不传 readOnly 时它是可点的，否则下面只是在证明这颗按钮从来都点不动。
+    const open = render(<SettlementAssistPanel {...props} />)
+    expect(within(open.container).getByRole('button', { name: /确认落盘/ })).toBeEnabled()
+    open.unmount()
+
+    render(<SettlementAssistPanel {...props} readOnly />)
+    const button = screen.getByRole('button', { name: /确认落盘/ })
+    expect(button).toBeDisabled()
+
+    await userEvent.click(button)
+    expect(onAdopt).not.toHaveBeenCalled()
+  })
 })

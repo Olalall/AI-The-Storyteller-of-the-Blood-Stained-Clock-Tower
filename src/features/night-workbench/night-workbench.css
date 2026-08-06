@@ -778,3 +778,18 @@
   .night-carousel { min-height: 132px; }
   .carousel-current .role-disc--large { --disc-size: 68px; }
 }
+
+/* 魔典模式的目标区：环是主选择面，这里只剩一行回显 + 一个折叠的号码网格。
+   两行以内是硬要求——抽屉在 half 档只有半屏，能力说明与事实条要占掉大半。 */
+.night-target-echo__empty { margin: 0; color: var(--text-muted); font-size: var(--type-label); }
+.night-target-echo__chips { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.night-target-echo__chips li { display: inline-flex; align-items: center; gap: var(--space-6); padding: 0 var(--space-6) 0 var(--space-12); border: 1px solid var(--accent-border); border-radius: var(--radius-pill); background: var(--accent-soft); color: var(--accent-text); font-size: var(--type-label); font-weight: 700; }
+/* ✕ 自己就是 44px 命中区：这是「点错了人」在抽屉里唯一的撤销口，不能做成小叉。 */
+.night-target-echo__chips button { min-width: var(--touch-min); min-height: var(--touch-min); display: inline-flex; align-items: center; justify-content: center; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
+.night-target-echo__chips button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-pill); }
+.night-target-echo__chips svg { width: 16px; height: 16px; }
+/* 折叠但恒在的无障碍通道。summary 本身也要够 44px——够不到上半弧的那只手同样要按它。 */
+.night-target-echo__fallback summary { min-height: var(--touch-min); display: flex; align-items: center; color: var(--text-subtle); font-size: var(--type-meta); font-weight: 700; cursor: pointer; }
+.night-target-echo__fallback summary:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: var(--radius-sm); }
+.night-target-echo__fallback[open] summary { color: var(--text-muted); }
+.night-target-echo__fallback .seat-grid { margin-top: var(--space-8); }

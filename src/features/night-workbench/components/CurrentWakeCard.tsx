@@ -1,6 +1,5 @@
 import { AlertTriangle, BookOpenText, History, ShieldCheck, Sparkles } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
-import { SeatButton } from '../../../components/ui/SeatButton'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { DayFactsBar } from './DayFactsBar'
 import { shouldShowDayFacts, type DayFacts } from '../../game-session/state/projectDayFacts'
@@ -19,6 +18,7 @@ import { PlayerStatusBar } from './PlayerStatusBar'
 import { roleChoiceHint, roleChoiceTitle } from './roleChoiceLabels'
 import { SystemStepFields, SystemStepRoster } from './SystemStepPanel'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
+import { WakeTargetPicker, type WakeTargetPickerKind } from './WakeTargetPicker'
 
 interface CurrentWakeCardProps {
   /** 当日客观事实；只对回溯型角色渲染，遮蔽态下由本组件跳过。 */
@@ -33,6 +33,14 @@ interface CurrentWakeCardProps {
    * `isPreviewing || isReadOnly`——那正是旧写法，每加一个只读来源都得回来补一次或。
    */
   readOnly: boolean
+  /**
+   * 目标怎么选。`grid` 是纯记录模式的 6 列号码网格；`ring` 是魔典模式——
+   * 主选择面搬到环上，这里只留一行「已选：5号 ✕」回显加一个折叠的号码网格作无障碍通道。
+   *
+   * 做成 prop 而不是在组件里读 hostingMode：state 之外的地方读模式虽不违规，
+   * 但每多一处读它，「模式不是行为开关」这条就松一分。调用方已经知道答案，传下来即可。
+   */
+  targetPicker?: WakeTargetPickerKind
   playerCount: number
   aiAdvice?: AIResultAdvice
   resolutionHint?: OutcomeResolutionHint
@@ -64,6 +72,7 @@ export function CurrentWakeCard({
   concealed,
   mode,
   readOnly,
+  targetPicker = 'grid',
   playerCount,
   aiAdvice,
   resolutionHint,
@@ -188,21 +197,16 @@ export function CurrentWakeCard({
         ) : null}
 
         {item.targetCount > 0 ? (
-          <fieldset disabled={readOnly}>
-            <legend>{item.targetLabel ?? '目标'} <span>{draft.targets.length}/{item.targetCount}</span></legend>
-            <div className="seat-grid">
-              {Array.from({ length: playerCount }, (_, index) => index + 1).map((seat) => (
-                <SeatButton
-                  key={seat}
-                  seat={seat}
-                  selected={draft.targets.includes(seat)}
-                  self={seat === item.seatId}
-                  onClick={() => onTarget(seat)}
-                  aria-label={`选择${seat}号玩家`}
-                />
-              ))}
-            </div>
-          </fieldset>
+          <WakeTargetPicker
+            picker={targetPicker}
+            playerCount={playerCount}
+            selfSeatId={item.seatId}
+            targetLabel={item.targetLabel ?? '目标'}
+            targetCount={item.targetCount}
+            targets={draft.targets}
+            disabled={readOnly}
+            onTarget={onTarget}
+          />
         ) : null}
 
         {item.roleChoices ? (
@@ -284,6 +288,9 @@ export function CurrentWakeCard({
           resolutionHint={resolutionHint}
           resolutionOutcomeLabel={resolutionOutcomeLabel}
           modifiedFromAI={Boolean(modifiedFromAI)}
+          // 这块面板不在任何 fieldset 里，「确认落盘」是本卡上唯一自带 dispatch 的键，
+          // 所以只读必须显式压给它一次；靠 fieldset 兜住的那几块不需要这一行。
+          readOnly={readOnly}
         />
 
         {draft.informationGiven ? (

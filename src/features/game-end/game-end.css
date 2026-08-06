@@ -625,6 +625,37 @@
   color: var(--text-strong);
   font: 900 clamp(1.35rem, 3cqw, 2rem) var(--font-display);
 }
+/* 主持模式与摘要数字挨着放：那几个数字成立的前提就是这一行。 */
+.game-review__hosting {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  font-size: var(--type-meta);
+}
+.game-review__hosting span {
+  color: var(--text-muted);
+}
+.game-review__hosting strong {
+  color: var(--text-strong);
+}
+.game-review__hosting small {
+  color: var(--text-muted);
+}
+/* 冷色而非告警色：纯记录模式是保底通道，没有人做错任何事。 */
+.game-review__unrecorded {
+  margin: 0;
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--info-border);
+  border-radius: var(--radius-sm);
+  background: var(--info-soft);
+  color: var(--info-text);
+  font-size: var(--type-meta);
+}
 .game-review__metrics {
   margin: 0;
   display: grid;

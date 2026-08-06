@@ -2,6 +2,7 @@ import { Archive, Download, RotateCcw, ShieldAlert, Trophy } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
+import { downloadTextFile } from '../../services/session/exportSession'
 import type { GameSessionState } from '../game-session/types'
 import {
   applyArchiveRuntimeSettings,

@@ -39,8 +39,20 @@ interface NightWorkbenchProps {
    * 文档第 152 行的原话就是「转盘不再占一屏」，一屏两份是它要消除的东西。
    */
   carouselElsewhere?: boolean
+  /**
+   * 目标选择已经搬到环上（魔典模式）。与 carouselElsewhere 同形状同理由：外层画过的这里不再画。
+   * 两份目标网格比两份转盘更贵——它们都可写，说书人会在两处之间来回点，
+   * 而只有其中一处跟着环上的虚线描边更新。
+   */
+  targetsOnRing?: boolean
 }
-export function NightWorkbench({ sessionBinding, onExit, onCloseNight, carouselElsewhere = false }: NightWorkbenchProps) {
+export function NightWorkbench({
+  sessionBinding,
+  onExit,
+  onCloseNight,
+  carouselElsewhere = false,
+  targetsOnRing = false,
+}: NightWorkbenchProps) {
   const [openPanel, setOpenPanel] = useState<'night-order' | 'game-record' | 'role-change' | null>(null)
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
   const [privateInformation, setPrivateInformation] = useState<string | null>(null)
@@ -228,6 +240,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight, carouselE
           concealed={state.privacyShielded}
           mode={mode}
           readOnly={readOnly}
+          targetPicker={targetsOnRing ? 'ring' : 'grid'}
           playerCount={state.playerCount}
           aiAdvice={aiAdvice}
           resolutionHint={resolutionHint}

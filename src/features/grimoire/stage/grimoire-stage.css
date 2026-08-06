@@ -16,7 +16,7 @@
 
 /* 三档留白与 detents.ts 的 heightCssFor 一一对应。full 不留白：那一档本来就是页面接管整屏。 */
 .grimoire-stage[data-drawer='peek'] { --drawer-reserve: 96px; }
-.grimoire-stage[data-drawer='half'] { --drawer-reserve: clamp(240px, 46dvh, calc(100dvh - 48px)); }
+.grimoire-stage[data-drawer='half'] { --drawer-reserve: clamp(240px, 38dvh, calc(100dvh - 48px)); }
 .grimoire-stage[data-drawer='full'] { --drawer-reserve: 0px; }
 
 .grimoire-shield-bar {
