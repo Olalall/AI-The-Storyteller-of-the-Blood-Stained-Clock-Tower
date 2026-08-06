@@ -101,6 +101,42 @@ export type DraftOutputSource = {
   specVersion: string
 } & AIAdviceReference)
 
+/**
+ * 一条状态建议能指向的字段。刻意与 PlayerState 的字段名对齐但**不是** keyof PlayerState：
+ * `marker` 对应的是 markers 数组里的一枚贴纸，不是整个数组赋值。
+ */
+export type AIStateChangeField = 'life' | 'poisoned' | 'drunk' | 'marker'
+
+/**
+ * 建议要改成什么。`to` 是字符串而不是各字段的原生类型，因为它来自模型的 JSON：
+ * 收窄成联合类型会让「模型多写一个字」变成解析崩溃，而裁决要求解析失败降级纯文本、不是丢弃结构。
+ * 合法取值由 normalizeStateChangeDrafts 白名单校验（life: alive|dead，毒醉: true|false，marker: add|remove）。
+ */
+export interface AIStateChangeProposal {
+  field: AIStateChangeField
+  to: string
+  /** field 为 marker 时必填：这枚贴纸的文字。其它 field 上出现一律视为解析失败。 */
+  markerLabel?: string
+}
+
+/**
+ * AI 给出的一条状态改动建议。
+ *
+ * text 必填、seatId 与 change 可选，是这条建议「最强也只是一句话」的类型级保证：
+ * 结构解析不出来就退回一句人话，说书人照样看得见；解析出来了也只是多一个采纳按钮，
+ * 落盘仍要说书人自己点。一条建议最多对应一个座位的一个字段——多字段建议是级联写入
+ * 最自然的伪装形态，说书人点确认时没有任何办法表达他只认可其中一半。
+ *
+ * 溯源不在这里：复用 AIResultAdvice 上已有的 adviceId / contextRevision / knowledgeVersion，
+ * 不给每条建议再发一个 id，否则同一件事会有两条互相追不上的来源链。
+ */
+export interface AIStateChangeDraft {
+  text: string
+  /** 必须是本次请求 input 里出现过的座位号；不是就整条丢弃，见 normalizeStateChangeDrafts。 */
+  seatId?: number
+  change?: AIStateChangeProposal
+}
+
 export interface AIResultAdvice extends AIAdviceReference {
   id: string
   kind: 'result'
@@ -113,7 +149,7 @@ export interface AIResultAdvice extends AIAdviceReference {
   missing: string[]
   journalDrafts: string[]
   playerMessageDrafts: string[]
-  stateChangeDrafts: string[]
+  stateChangeDrafts: AIStateChangeDraft[]
   authorityWarnings: string[]
   confidence: 'low' | 'medium' | 'high'
 }

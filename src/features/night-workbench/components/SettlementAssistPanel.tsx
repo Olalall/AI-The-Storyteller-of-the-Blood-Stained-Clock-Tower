@@ -1,6 +1,13 @@
 import { Sparkles } from 'lucide-react'
+import { Button } from '../../../components/ui/Button'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
-import type { AIResultAdvice, OutcomeResolutionHint } from '../types'
+import type { GameSessionAction } from '../../game-session/state/sessionActions'
+import {
+  buildStateChangeAdoption,
+  projectStateChangeAdoption,
+  type StateChangeAdoptionContext,
+} from '../../../services/ai/stateChangeAdoption'
+import type { AIResultAdvice, AIStateChangeDraft, OutcomeResolutionHint } from '../types'
 
 interface MissingGuidance {
   label: string
@@ -13,6 +20,9 @@ interface SettlementAssistPanelProps {
   resolutionHint?: OutcomeResolutionHint
   resolutionOutcomeLabel?: string
   modifiedFromAI?: boolean
+  /** 缺省 = 不提供落盘入口，建议只作为文字显示。 */
+  adoption?: StateChangeAdoptionContext
+  onAdoptStateChange?: (action: GameSessionAction) => void
 }
 
 export function SettlementAssistPanel({
@@ -21,6 +31,8 @@ export function SettlementAssistPanel({
   resolutionHint,
   resolutionOutcomeLabel,
   modifiedFromAI,
+  adoption,
+  onAdoptStateChange,
 }: SettlementAssistPanelProps) {
   if (!aiAdvice && !resolutionHint) return null
   const needsInput = aiAdvice?.status === 'needs_input'
@@ -36,14 +48,14 @@ export function SettlementAssistPanel({
   )
 
   return (
-    <section className="settlement-assist" aria-label={'\u672c\u9879\u8f85\u52a9'}>
+    <section className="settlement-assist" aria-label={'本项辅助'}>
       <div className="settlement-assist__header">
-        <span><Sparkles aria-hidden="true" />{'\u8f85\u52a9\u5224\u65ad'}</span>
-        <small>{'\u786e\u8ba4\u540e\u5199\u5165'}</small>
+        <span><Sparkles aria-hidden="true" />{'辅助判断'}</span>
+        <small>{'确认后写入'}</small>
       </div>
       {resolutionHint ? (
         <article>
-          <strong>{'\u672c\u5730\u6838\u5bf9'}{resolutionOutcomeLabel ? ` \u00b7 ${resolutionOutcomeLabel}` : ''}</strong>
+          <strong>{'本地核对'}{resolutionOutcomeLabel ? ` · ${resolutionOutcomeLabel}` : ''}</strong>
           <p>{resolutionHint.detail}</p>
         </article>
       ) : null}
@@ -54,10 +66,10 @@ export function SettlementAssistPanel({
           needsInput ? 'settlement-assist__ai--missing' : '',
         ].filter(Boolean).join(' ')}>
           <div className="settlement-assist__line">
-            <strong>{needsInput ? 'AI\u7f3a\u5c11' : modifiedFromAI ? '\u5df2\u6539\u4e3a\u624b\u52a8\u7ed3\u679c' : 'AI\u5efa\u8bae'}</strong>
-            {!needsInput && aiOutcomeLabel ? <StatusBadge tone="info" size="sm">{modifiedFromAI ? `\u539f\u5efa\u8bae\uff1a${aiOutcomeLabel}` : aiOutcomeLabel}</StatusBadge> : null}
+            <strong>{needsInput ? 'AI缺少' : modifiedFromAI ? '已改为手动结果' : 'AI建议'}</strong>
+            {!needsInput && aiOutcomeLabel ? <StatusBadge tone="info" size="sm">{modifiedFromAI ? `原建议：${aiOutcomeLabel}` : aiOutcomeLabel}</StatusBadge> : null}
           </div>
-          <p>{needsInput ? (aiAdvice.missing.join('\u3001') || '\u5148\u8865\u9f50\u672c\u9879\u9009\u62e9') : modifiedFromAI ? '\u4ee5\u5f53\u524d\u624b\u52a8\u7ed3\u679c\u4e3a\u51c6\u3002' : '\u5df2\u91c7\u7528\u5230\u8349\u7a3f\u3002'}</p>
+          <p>{needsInput ? (aiAdvice.missing.join('、') || '先补齐本项选择') : modifiedFromAI ? '以当前手动结果为准。' : '已采用到草稿。'}</p>
           {needsInput && missingGuidance.length ? (
             <dl className="settlement-assist__missing-list">
               {missingGuidance.map((item) => (
@@ -71,16 +83,65 @@ export function SettlementAssistPanel({
           {hasDraftPreview ? (
             <div className="settlement-assist__draft-grid">
               {aiOutcomeLabel ? <DraftPreview title={'建议结果'} items={[aiOutcomeLabel]} tone="result" /> : null}
-              <DraftPreview title={'\u5efa\u8bae\u8bb0\u5f55'} items={aiAdvice.journalDrafts} />
+              <DraftPreview title={'建议记录'} items={aiAdvice.journalDrafts} />
               <DraftPreview title={'告知玩家'} items={aiAdvice.playerMessageDrafts} />
-              <DraftPreview title={'状态确认'} items={stateConfirmations} tone="warning" />
+              <StateChangeDrafts
+                advice={aiAdvice}
+                drafts={stateConfirmations}
+                adoption={adoption}
+                onAdopt={onAdoptStateChange}
+              />
               <DraftPreview title={'风险提醒'} items={riskWarnings} tone="danger" />
             </div>
           ) : null}
-          <small>{needsInput ? '\u8865\u9f50\u540e\u53ef\u91cd\u65b0\u63a8\u8350' : `${aiAdvice.facts.join(' \u00b7 ')} \u00b7 ${confidenceLabel(aiAdvice.confidence)}`}</small>
+          <small>{needsInput ? '补齐后可重新推荐' : `${aiAdvice.facts.join(' · ')} · ${confidenceLabel(aiAdvice.confidence)}`}</small>
         </article>
       ) : null}
     </section>
+  )
+}
+
+/**
+ * 状态建议卡。纯文本建议只显示文字；带 seatId + change 且当前局面确实会被改变的那些，
+ * 额外给一枚落盘键。
+ *
+ * 按钮文案取三段式的第三段「确认落盘」（ABILITY_SETTLEMENT_BOUNDARY:135-137 与
+ * AI_AUTHORITY_BOUNDARY:76 已声明它与夜间表单的「确认本项」是同一段动作的两种措辞）。
+ * 这里不能沿用「确认本项」：那四个字在同一张卡上已经指「确认这条唤醒项」，
+ * 拿它命名一次玩家状态写入，屏幕上就会有两个同名按钮做两件事——那才是第三种叫法。
+ */
+function StateChangeDrafts({
+  advice,
+  drafts,
+  adoption,
+  onAdopt,
+}: {
+  advice: AIResultAdvice
+  drafts: readonly AIStateChangeDraft[]
+  adoption?: StateChangeAdoptionContext
+  onAdopt?: (action: GameSessionAction) => void
+}) {
+  // 收进 const 才能让下面闭包里的窄化成立：参数是可变绑定，TS 不会把它的窄化带进回调。
+  const context = adoption
+  if (!drafts.length) return null
+  return (
+    <div className="settlement-assist__draft-card settlement-assist__draft-card--warning">
+      <span>状态确认</span>
+      {drafts.slice(0, 3).map((draft) => {
+        const projected = context ? projectStateChangeAdoption(draft, context.playerStates) : null
+        return (
+          <div key={`${draft.seatId ?? 'text'}-${draft.text}`}>
+            <p>{draft.text}</p>
+            {context && onAdopt && projected ? (
+              <Button variant="secondary" compact onClick={() => {
+                const action = buildStateChangeAdoption(advice, draft, context, new Date().toISOString())
+                if (action) onAdopt(action)
+              }}>{`确认落盘 · ${projected.label}`}</Button>
+            ) : null}
+          </div>
+        )
+      })}
+    </div>
   )
 }
 

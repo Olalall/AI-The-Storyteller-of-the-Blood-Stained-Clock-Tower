@@ -5,6 +5,7 @@ import { getPrototypeAIResultTemplate } from './prototypeNightAdvice'
 import { getComplexRoleKnowledge, type ComplexRoleKnowledge, type RoleKnowledgeRiskTag } from '../../domain/role-knowledge'
 import { roleResearchForAI, roleTeamByIdForScript, type AIRoleResearchBrief } from '../../domain/scripts'
 import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
+import { textStateChangeDrafts } from './aiStateChangeDraft'
 import { createLocalGameReviewDraft } from './gameReviewProjection'
 
 function projectedAdviceDrafts({ item, draft, outcomeId, roleKnowledge, roleResearch }: {
@@ -17,10 +18,21 @@ function projectedAdviceDrafts({ item, draft, outcomeId, roleKnowledge, roleRese
   const projected = outcomeId ? applyOutcome(item, draft, outcomeId) : draft
   const journalDrafts = projected.storytellerResult ? [projected.storytellerResult] : []
   const playerMessageDrafts = projected.informationGiven ? [projected.informationGiven] : []
-  const stateChangeDrafts = [
+  /*
+   * 本地降级路径一律只产纯文本，永远不填 seatId / change，因此魔典上的采纳按钮离线时不出现。
+   *
+   * 这是选择不是遗漏：这几句提示来自角色的静态 riskTags，它只说明「这个角色可能涉及中毒」，
+   * 不说明今晚谁中了毒。从风险标签推出「给 3 号加中毒」正是最高风险表第一行点名的漂移路径
+   * ——一连串体贴的小优化，每条单看都合理。离线时说书人照样走 PlayerStatusSheet 手动改，
+   * 边界要求的「关掉 AI 后全部操作仍可手动完成」不受影响。
+   *
+   * 与后端共用 AIStateChangeDraft 一种形状则是必须的：两套形状并存时，渲染层要么崩，
+   * 要么得写两条分支，而那两条分支只有一条会被日常跑到。
+   */
+  const stateChangeDrafts = textStateChangeDrafts([
     ...(roleKnowledge ? stateChangeDraftsFor(roleKnowledge) : []),
     ...(roleResearch ? researchStateChangeDraftsFor(roleResearch) : []),
-  ].slice(0, 5)
+  ])
   const authorityWarnings = [
     '采用建议只会填入本项草稿；确认本项前不写日志、不改状态。',
     ...(roleKnowledge?.aiCannot.slice(0, 3).map((item) => `AI不能${item}`) ?? []),

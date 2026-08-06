@@ -1,5 +1,7 @@
 import { AIProviderError, callOpenAICompatibleJSON, type FetchLike } from './aiProviderClient'
 import { buildNightSettlementProviderMessages } from './nightSettlementPromptBuilder'
+import { normalizeStateChangeDrafts, seatIdsInRequest } from './nightStateChangeDraft'
+import { unknownSeatGap, unknownSeatQuestion } from './nightUnknownSeats'
 import type { AIAdviceConfidence, NightSettlementAdviceDraft, NightSettlementProviderRequest } from './types'
 
 interface ProviderNightSettlementPayload {
@@ -76,7 +78,14 @@ function normalizeDraft(
   payload: ProviderNightSettlementPayload,
   input: NightSettlementProviderRequest,
 ): NightSettlementAdviceDraft {
-  const missing = stringArray(payload.missing, 6)
+  // 知情缺口排在模型自己报的 missing 前面，并且直接参与 status 判定：
+  // 只写进 warnings 的话，模型仍会返回 answer，说书人拿到的是一个「基于半张棋盘」
+  // 却看起来完整的结论——那比不回答危险得多。
+  const gap = unknownSeatGap(input)
+  const missing = [
+    ...(gap.length ? [unknownSeatQuestion(gap)] : []),
+    ...stringArray(payload.missing, 6),
+  ].slice(0, 6)
   const outcomeId = recommendedOutcomeId(payload.recommendedOutcomeId, input)
   const status = payload.status === 'answer' && outcomeId && !missing.length ? 'answer' : 'needs_input'
   const roleFacts = stringArray(payload.ruleFacts, 6)
@@ -109,7 +118,7 @@ function normalizeDraft(
     warnings: [...statusWarnings, ...providerWarnings, ...researchWarnings].slice(0, 6),
     journalDrafts: stringArray(payload.journalDrafts, 4),
     playerMessageDrafts: stringArray(payload.playerMessageDrafts, 4),
-    stateChangeDrafts: stringArray(payload.stateChangeDrafts, 5),
+    stateChangeDrafts: normalizeStateChangeDrafts(payload.stateChangeDrafts, seatIdsInRequest(input)),
     authorityWarnings: authorityWarnings.length ? authorityWarnings : ['确认本项前不写日志、不改状态。'],
     disclaimer: text(payload.disclaimer, 'AI 夜间建议只是草稿，确认本项前不生效。'),
   }
