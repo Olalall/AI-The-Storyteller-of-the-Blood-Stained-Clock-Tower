@@ -152,7 +152,7 @@ export function useGrimoireWriteLayer(
         confirmedAt: new Date().toISOString(),
       })
       : null
-    if (!action) {
+    if (!action || !entry) {
       setReceipt({ id: Date.now(), message: '这条已经撤不回来了，请到本局记录里更正', undoEntryId: null })
       return
     }

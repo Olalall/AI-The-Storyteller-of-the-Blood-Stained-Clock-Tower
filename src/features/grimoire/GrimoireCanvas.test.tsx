@@ -10,7 +10,9 @@ const ALIVE: PlayerState = { life: 'alive', poisoned: false, drunk: false, marke
 function stubResizeObserver(width: number, height: number) {
   const original = globalThis.ResizeObserver
   class Stub {
-    constructor(private readonly callback: ResizeObserverCallback) {}
+    // 不用参数属性：tsconfig 开了 erasableSyntaxOnly，那个语法要生成运行时代码。
+    private readonly callback: ResizeObserverCallback
+    constructor(callback: ResizeObserverCallback) { this.callback = callback }
     observe(target: Element) {
       this.callback(
         [{ target, contentRect: { width, height } } as unknown as ResizeObserverEntry],

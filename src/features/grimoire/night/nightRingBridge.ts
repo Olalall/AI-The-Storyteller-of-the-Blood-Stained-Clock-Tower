@@ -24,9 +24,11 @@ import { nightWorkbenchReducer } from '../../night-workbench/state/nightWorkbenc
 export function commitNightRingTarget(
   binding: NightWorkbenchSessionBinding,
   seatId: number,
+  /** 时钟停在调用方：reducer 必须可重放，自己取 now 会让同一组输入产生不同结果。 */
+  at = new Date().toISOString(),
 ): boolean {
   const state = sessionInitialNightState(binding)
-  const next = nightWorkbenchReducer(state, { type: 'target', seatId })
+  const next = nightWorkbenchReducer(state, { type: 'target', seatId, at })
   // reducer 用「同一引用即无变化」表达拒绝，守卫挡下的点击在这里原样返回 false。
   if (next === state) return false
   binding.dispatchSession(createNightWorkbenchCommit(next, binding))

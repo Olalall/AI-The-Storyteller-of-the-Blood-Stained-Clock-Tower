@@ -14,7 +14,7 @@ function shieldAt(level: ShieldLevel): GrimoireShield & { spies: Record<string, 
     conceal: vi.fn(),
     noteActivity: vi.fn(),
   }
-  return { level, revealProgress: 0, ...spies, spies }
+  return { level, revealProgress: 0, holding: false, ...spies, spies }
 }
 
 describe('GrimoireShieldBar', () => {
