@@ -1,17 +1,17 @@
 /**
- * 这一组测试记录的是「原样换容器」这句话在当前代码里能兑现到什么程度。
+ * 「原样换容器」这句话现在真的成立了，这一组测试守的就是它。
  *
- * 设计文档第 85 行说六个全屏页「几乎零改动搬进抽屉，只换容器」。实测下来这句话不成立：
- * 六个页组件的根都是 `<Sheet presentation="page">`，而 Sheet 内部是 Radix 的
- * `Dialog.Portal`——它把内容挂到 document.body，不在调用点的 DOM 位置里。
- * 也就是说把 SetupPanel 直接塞进抽屉，抽屉里是空的，页照旧全屏盖在抽屉上面。
+ * 一度不成立：六个页组件的根都是 `<Sheet presentation="page">`，而 Sheet 内部是
+ * Radix 的 `Dialog.Portal`，无条件把内容挂到 document.body。把 SetupPanel 塞进抽屉，
+ * 抽屉里是空的，页照旧全屏盖在抽屉上面——**看起来成功**（页显示出来了），
+ * 实际环被整块糊掉。这是最容易被误判为完成的失败形态。
  *
- * 这不是可以绕过去的细节：抽屉的三档高度、inert、peek 占用者全部依赖「页在抽屉的 DOM 里」。
- * 所以宿主的契约只能是「渲染函数交出脱壳后的内容」，而脱壳必须由页组件那一侧完成
- * （给 Sheet 加 container，或把 Sheet 外壳提到调用点）——那些文件不在本批的改动范围内。
+ * 解法是给 Sheet 加内联呈现分支：宿主在外面提供一个 context，Sheet 检测到就地渲染
+ * 而不 portal。六个页组件因此一行代码都不用改——这正是「原样」二字的兑现方式。
  *
- * 这两条断言就是那份契约的可执行版本。第一条哪天红了不是坏事：
- * 它意味着 Sheet 不再无条件 portal 出去，此时应回头把五个页真正接进注册表，并改写这条测试。
+ * 下面第一条断言以前是反过来写的（断言「进不去」），它变红那天就是这个缺陷被修好那天。
+ * 现在它正着写：页必须落在抽屉的 DOM 里，否则抽屉的三档高度、inert、peek 占用者
+ * 对它一概无效。
  */
 import { render, screen } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
@@ -19,7 +19,7 @@ import { Sheet } from '../../../components/ui/Sheet'
 import { DrawerPageHost } from './DrawerPageHost'
 
 describe('抽屉承接既有全屏页的边界', () => {
-  it('cannot hold a Sheet-rooted page: Radix portals it to body, leaving the drawer empty', () => {
+  it('holds a Sheet-rooted page inside the drawer instead of portaling it to body', () => {
     const { container } = render(
       <DrawerPageHost
         pageId="setup"
@@ -37,11 +37,13 @@ describe('抽屉承接既有全屏页的边界', () => {
 
     const drawer = container.querySelector('.work-drawer')
     const sheet = document.querySelector('.sheet-content')
-    expect(sheet, 'Sheet 本身照常渲染，问题不在它没渲染').not.toBeNull()
-    // 页跑到了 body 下面：抽屉的高度、inert、peek 占用者对它一概无效。
-    expect(sheet?.parentElement?.tagName).toBe('BODY')
-    expect(drawer?.contains(sheet)).toBe(false)
-    expect(container.querySelector('.work-drawer__body')?.textContent).not.toContain('确认配板')
+    expect(sheet, 'Sheet 本身照常渲染').not.toBeNull()
+    // 关键三条：不在 body 下、在抽屉里、内容真的可见。
+    expect(sheet?.parentElement?.tagName).not.toBe('BODY')
+    expect(drawer?.contains(sheet), '页必须落在抽屉的 DOM 里，否则三档高度与 inert 对它无效').toBe(true)
+    expect(container.querySelector('.work-drawer__body')?.textContent).toContain('确认配板')
+    // 铺满视口的遮罩会把环整块糊掉，内联态一定不能有。
+    expect(document.querySelector('.sheet-overlay')).toBeNull()
   })
 
   it('holds a page whose renderer hands over de-shelled content', () => {

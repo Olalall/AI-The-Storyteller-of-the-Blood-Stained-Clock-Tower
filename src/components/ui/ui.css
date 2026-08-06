@@ -217,6 +217,38 @@
 .sheet-content--record, .sheet-content--role-change { width: min(440px, calc(100vw - 32px)); }
 .sheet-content--page.sheet-content--record, .sheet-content--page.sheet-content--role-change, .sheet-content--page.sheet-content--player-status, .sheet-content--page.sheet-content--timeline-history { width: 100vw; }
 
+/*
+ * 内联呈现：同一张页就地长在宿主（魔典工作抽屉）的 DOM 里。
+ * 这里只解除「浮在视口上」那一层——定位、层级、宽度、投影、入场动画；
+ * 页内部的排版仍然走 .sheet-content--page 那套规则，因为抽屉 full 档的尺寸
+ * 本来就定义为「等于 presentation=page」，这正是「只换容器」的字面意思。
+ *
+ * 选择器写成两个类（0,2,0）不是笔误：features 侧存在
+ * .sheet-content--setup:not(.sheet-content--page) 这类同为 0,1,0 的宽度规则，
+ * @media(max-width:560px) 里也有一条 .sheet-content { position 相关 }。
+ * 单类选择器与它们同分，谁赢取决于 CSS 文件的打包顺序——那不是可以依赖的东西。
+ */
+.sheet-content.sheet-content--inline {
+  position: static;
+  inset: auto;
+  z-index: auto;
+  width: auto;
+  max-width: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  animation: none;
+  overflow: visible;
+}
+
+/*
+ * 滚动交还给宿主。页自己再当滚动容器的话，抽屉里会出现两条滚动条，
+ * 而页内那些 position: sticky 的底栏会粘在一个永远滚不动的盒子上（等于不粘）。
+ */
+.sheet-content.sheet-content--inline > .sheet-body {
+  overflow: visible;
+}
+
 .sticky-action-bar {
   position: sticky;
   bottom: 0;

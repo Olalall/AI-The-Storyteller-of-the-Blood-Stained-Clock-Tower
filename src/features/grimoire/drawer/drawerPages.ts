@@ -15,7 +15,11 @@ import type { WorkDrawerDetent } from './detents'
  * 这一页落在哪个面上。
  *
  * drawer：抽屉承接。full 档尺寸恰好等于既有 `presentation="page"`（铺满宽度、只留 48px 阶段轨道），
- *   所以是纯容器替换，页组件本身一行不改。
+ *   所以是纯容器替换，页组件本身一行不改。落地方式是 Sheet 的内联呈现分支：
+ *   宿主套一层 SheetInlineSurfaceProvider，页根上那句 `<Sheet presentation="page">`
+ *   自己改成就地渲染，页头（页名 + 副标题 + 关闭键）随页一起进来。
+ *   因此这一列写 drawer 的前提是**这一页的根确实是 Sheet**；
+ *   若将来加一页不是，它在抽屉里会退回宿主兜底的页头，副标题那行内容会丢。
  * canvas-overlay：必须是覆盖整屏的不透明面，抽屉不得承接。抽屉只盖住下半屏，
  *   上半屏的座位环仍在——把一次只该露一个人的面放进抽屉，等于把整圈身份摆在它旁边。
  */
