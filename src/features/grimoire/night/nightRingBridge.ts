@@ -27,6 +27,11 @@ export function commitNightRingTarget(
   /** 时钟停在调用方：reducer 必须可重放，自己取 now 会让同一组输入产生不同结果。 */
   at = new Date().toISOString(),
 ): boolean {
+  // 座位得真的存在。reducer 的 target 分支不校验这个——它假设调用方给的是
+  // 队列里点出来的号码。环确实只给得出真座位，但这个函数是公开的，
+  // 一个越界号码会静默落进草稿，然后在确认时变成一条指向无人座位的记录。
+  if (!binding.session.seats[seatId]) return false
+
   const state = sessionInitialNightState(binding)
   const next = nightWorkbenchReducer(state, { type: 'target', seatId, at })
   // reducer 用「同一引用即无变化」表达拒绝，守卫挡下的点击在这里原样返回 false。

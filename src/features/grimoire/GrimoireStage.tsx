@@ -229,9 +229,11 @@ export function GrimoireStageBody({
         seats={seats}
         shield={shield.level}
         actionHint={ring.actionHint}
+        actionHintFor={ring.actionHintFor}
         onSelectSeat={ring.onSelectSeat}
         seatOverlays={ring.seatOverlays}
-        selectedSeatIds={ring.day.selectedSeatIds}
+        /* 夜间被选为目标的座位也要 aria-pressed，否则读屏听不出选了谁。 */
+        selectedSeatIds={[...ring.day.selectedSeatIds, ...ring.nightTargetSeatIds]}
         renderRingOverlay={ring.renderRingOverlay}
         onSeatHold={bindings.openActionBar}
         onChipGesture={bindings.handleChipGesture}

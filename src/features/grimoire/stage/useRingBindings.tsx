@@ -25,6 +25,10 @@ export interface RingBindings {
   seatOverlays: Readonly<Record<number, ReactNode>> | undefined
   /** 点座位等于什么，进 token 的可访问名。 */
   actionHint: string
+  /** 逐座位的提示语。已选中的那一座按下去是取消，不能与其它座位念同一句。 */
+  actionHintFor?: (seatId: number) => string
+  /** 夜间已被选为目标的座位。它们要拿到 aria-pressed，否则读屏听不出选了谁。 */
+  nightTargetSeatIds: readonly number[]
   onSelectSeat: (seatId: number) => void
   day: DayRingBinding
   /** 环层叠加（提名弧、举手角标、处决帷幕）。拿到已解出的几何再画。 */
@@ -89,10 +93,30 @@ export function useRingBindings({
    * 夜间选目标 > 白天记票型 > 座位操作——前两者是「这一步正在做的事」，
    * 座位操作是任何时候都在的兜底，所以它排最后。
    */
+  /**
+   * 夜环必须**先看闸门再动手**。
+   *
+   * 之前是先 commit 再判断，而 commitNightRingTarget 与 reducer 都不看 readOnly——
+   * 于是已确认项、已暂缓项、以及「正在预览别的项」时，抽屉里那张卡是 fieldset disabled、
+   * 环上却点得动，两块屏显示的是同一项。说书人回头看一条已确认的记录，
+   * 目标已经被自己不小心改掉了，而读屏此刻正念着「本项此刻只读，点座位不写任何东西」。
+   */
+  const nightWritable = Boolean(nightRing) && nightRing!.target.targetCount > 0 && !nightRing!.target.readOnly
+
   const seatTap = nightRing && nightRing.target.targetCount > 0
     ? {
-      hint: nightSeatTapHint(nightRing.target, 0),
+      /**
+       * 提示语必须逐座位算，不能拿座位号 0 算一次贴给所有人。
+       * 目标满员时，已选中的那一座按下去其实是**取消**，而全局那句话说的是
+       * 「选为目标，替换X号」——读屏用户会以为自己重选了一次，于是再按一次
+       * 把它又选回来，在同一枚目标上无限来回。
+       */
+      hintFor: (seatId: number) => nightSeatTapHint(nightRing.target, seatId),
+      hint: nightRing.target.readOnly
+        ? nightSeatTapHint(nightRing.target, 0)
+        : `选${nightRing.target.targetLabel ?? '目标'}`,
       onSelect: (seatId: number) => {
+        if (!nightWritable) return notify(nightSeatTapHint(nightRing.target, seatId))
         if (!commitNightRingTarget(nightBinding, seatId)) {
           notify(nightSeatTapHint(nightRing.target, seatId))
         }
@@ -126,6 +150,8 @@ export function useRingBindings({
   return {
     seatOverlays,
     actionHint: seatTap.hint,
+    actionHintFor: 'hintFor' in seatTap ? seatTap.hintFor : undefined,
+    nightTargetSeatIds: nightRing?.target.targets ?? [],
     onSelectSeat: seatTap.onSelect,
     day,
     renderRingOverlay,
