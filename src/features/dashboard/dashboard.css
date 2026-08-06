@@ -175,6 +175,9 @@
 .player-status-sheet__activity li strong { color: var(--text-muted); font-size: var(--type-label); font-weight: 700; }
 .player-status-sheet__activity > p { margin: 0; color: var(--text-muted); font-size: var(--type-label); }
 .sheet-content--player-status, .sheet-content--timer-settings { width: min(440px, calc(100vw - 32px)); }
+/* 主持设置：模式切换的第二条路径。放在记录与收尾之上，因为它决定的是「屏幕长什么样」，
+   而不是这一局的哪一条记录。 */
+.dashboard__hosting-mode { margin-top: var(--space-20); }
 .dashboard__grid { margin-top: var(--space-20); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-16); }
 .dashboard-card { min-height: 174px; padding: var(--space-20); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface-soft); }
 .dashboard-card--setup, .dashboard-card--recent { grid-column: 1 / -1; min-height: auto; }

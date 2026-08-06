@@ -10,6 +10,7 @@ import { OpeningScriptSheet } from '../host-tools/OpeningScriptSheet'
 import { AISettingsSheet } from '../ai-settings/AISettingsSheet'
 import { projectOpenSegmentLabels, projectStorytellerSeatSummaries } from '../game-session/state/projectors'
 import { projectEffectiveTimelineEntries } from '../game-session/state/projectTimelineHistory'
+import { HostingModeSection } from '../grimoire/stage/HostingModeSection'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState, TimelineEntry } from '../game-session/types'
 import { PlayerStatusBoard } from './components/PlayerStatusBoard'
@@ -55,7 +56,7 @@ function continuationLabel(
   return segment ? `继续记录 · ${segment.label}` : '首次确认后建立记录'
 }
 
-export function Dashboard({ session, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus, onExitArchive}: DashboardProps) {
+export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus, onExitArchive}: DashboardProps) {
   const scriptName = scriptDisplayName(session.scriptId)
   const storytellerSeats = projectStorytellerSeatSummaries(session)
   const openSegments = projectOpenSegmentLabels(session)
@@ -109,6 +110,15 @@ export function Dashboard({ session, onEnterNight, onEnterDay, onOpenTimer, onOp
       </section>
 
       <PlayerStatusBoard seats={storytellerSeats} onSelectSeat={onOpenPlayerStatus} />
+
+      {/*
+        模式切换的第二条路径（裁决 7）。第一条在 core 顶行的本局信息浮层里，
+        而那一条只在魔典模式下存在——切回纯记录之后必须还有路回去，
+        否则「切回去」就成了单向门，说书人只能靠重开一局才能再看见环。
+      */}
+      <section className="dashboard__hosting-mode" aria-label="主持设置">
+        <HostingModeSection session={session} dispatch={dispatch} />
+      </section>
 
       <div className="dashboard__grid">
         <Card

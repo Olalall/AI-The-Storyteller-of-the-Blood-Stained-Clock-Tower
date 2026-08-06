@@ -61,6 +61,7 @@ function App() {
               onOpenSetup={() => overlays.setSetupOpen(true)}
               onOpenScriptLibrary={() => overlays.setScriptLibraryOpen(true)}
               onOpenTimer={() => overlays.setTimerOpen(true)}
+              onOpenRecords={() => overlays.setRecordsOpen(true)}
               onOpenPlayerStatus={overlays.setPlayerStatusSeatId}
             />
           ) : null}

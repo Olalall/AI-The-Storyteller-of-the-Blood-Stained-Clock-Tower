@@ -3,6 +3,10 @@
  *
  * 节点由 deckNodeForSession 从对局本身推出来，这里只负责挑一个渲染，
  * 不做任何相位推进——推进一律经由交接卡上的显式动作。
+ *
+ * 魔典模式只换**外壳**：同一个节点内容原样交给 GrimoireStage 放进抽屉，
+ * 节点判定、props、组件本身一个字都不变。这是「两种模式是同一条数据路径」
+ * 在视图层的执行点——一旦这里按模式分出两套节点判定，两套数据模型就开始长了。
  */
 import { createPrototypeGameSession } from '../features/game-session/data/createPrototypeSession'
 import { DawnHandoff } from '../features/hosting-deck/handoff/DawnHandoff'
@@ -11,6 +15,7 @@ import { SessionEntry } from '../features/hosting-deck/SessionEntry'
 import { deckNodeForSession, isFirstNight, latestNightSegmentId, nextDayLabel, nextNightLabel, type DeckNode } from '../features/hosting-deck/deckNode'
 import { DayWorkbench } from '../features/day-workbench/DayWorkbench'
 import { NightWorkbench } from '../features/night-workbench/NightWorkbench'
+import { GrimoireStage } from '../features/grimoire/GrimoireStage'
 import type { GameSessionState } from '../features/game-session/types'
 import type { GameSessionAction } from '../features/game-session/state/sessionActions'
 
@@ -28,10 +33,34 @@ interface DeckBodyProps {
   onOpenSetup: () => void
   onOpenScriptLibrary: () => void
   onOpenTimer: () => void
+  onOpenRecords: () => void
   onOpenPlayerStatus: (seatId: number) => void
 }
 
-export function DeckBody({
+export function DeckBody(props: DeckBodyProps) {
+  const { session, deckNode, hasStarted, onOpenSetup, onOpenScriptLibrary, onOpenRecords, onOpenPlayerStatus } = props
+  const body = <DeckNodeBody {...props} />
+
+  // 还没配过板时不上环：环上一个座位都没有，而此刻唯一该做的事是配板。
+  // hostingMode 在这里只决定渲染哪个宿主，不改变 body 里的任何一行。
+  if (session.hostingMode !== 'grimoire' || !hasStarted) return body
+
+  return (
+    <GrimoireStage
+      session={session}
+      dispatch={props.dispatch}
+      deckNode={deckNode}
+      onOpenSetup={onOpenSetup}
+      onOpenScriptLibrary={onOpenScriptLibrary}
+      onOpenRecords={onOpenRecords}
+      onOpenPlayerStatus={onOpenPlayerStatus}
+    >
+      {body}
+    </GrimoireStage>
+  )
+}
+
+function DeckNodeBody({
   session,
   dispatch,
   deckNode,
