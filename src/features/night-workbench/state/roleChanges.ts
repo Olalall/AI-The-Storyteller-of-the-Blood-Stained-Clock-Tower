@@ -26,11 +26,16 @@ export function currentRoleForItem(item: WakeItem, events: RoleChangeEvent[]) {
   return latestRoleChange(events, item.seatId)?.toRole ?? roleSnapshotFromWakeItem(item)
 }
 
+/**
+ * @param at 换角发生的时刻，由调用方（dispatch 入口）生成后随 action 传进来。
+ *   同 updatePreviewDraft：reducer 路径上不许有时钟，否则归档回放不出同一条事件。
+ */
 export function appendRoleChange(
   state: NightWorkbenchState,
   item: WakeItem,
   toRole: RoleSnapshot,
   reason: RoleChangeReason,
+  at: string,
 ): NightWorkbenchState {
   const fromRole = currentRoleForItem(item, state.roleChangeEvents)
   if (fromRole.id === toRole.id) return { ...state, lastNotice: '新角色与当前角色相同，未做更改' }
@@ -40,7 +45,7 @@ export function appendRoleChange(
     id: `${state.nightRunId}-seat-${item.seatId}-role-${revision}`,
     seatId: item.seatId,
     revision,
-    changedAt: new Date().toISOString(),
+    changedAt: at,
     nightRunId: state.nightRunId,
     originNightRunId: state.nightRunId,
     phaseLabel: state.nightLabel,

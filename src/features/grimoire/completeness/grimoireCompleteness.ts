@@ -34,6 +34,28 @@ export interface GrimoireCompleteness {
   pendingStateHints: number
   /** 最早那条待核对记录所在的相位段标签，用来说「从第 1 夜到现在」。没有时为 null。 */
   pendingSince: string | null
+  /**
+   * 上面那个数字逐条摊开的样子，补录建议卡直接读它。
+   *
+   * 刻意与 pendingStateHints 出自**同一次**计算而不是另写一个投影：
+   * 提示条说「有 9 条」而逐条核对只列出 7 张卡，说书人没有任何办法知道
+   * 是另外两条不用管、还是补录漏了它们——而这正是他点进来要确认的事。
+   */
+  pendingStateHintList: readonly PendingStateHint[]
+}
+
+/** 一条「记录宣称过状态变化、却找不到对应状态更新」的欠账。 */
+export interface PendingStateHint {
+  /** 依据条目的 id，补录时进 backfill.sourceEntryId，让复盘能点回去看来源。 */
+  entryId: string
+  createdAt: string
+  segmentId: string | null
+  /** 这条记录点到的座位。空数组 = 记录里没有座位可对，只能算「可能」。 */
+  seatIds: readonly number[]
+  /** 命中的那个状态词，建议卡据此说「建议标记为死亡」还是「建议加中毒」。 */
+  word: StateWord
+  /** 记录自己的那句话，卡片上原样引用——建议的来源必须显式可见。 */
+  summary: string
 }
 
 /**
@@ -43,31 +65,53 @@ export interface GrimoireCompleteness {
  * 是产品明确排除的）。它只把「这里可能有一笔没记」摆到说书人眼前，由他自己去看。
  * 同源思路见 projectDawnReport 的 unappliedDeathHints，只是这里跨整局而不是单夜。
  */
-const STATE_WORDS = ['死亡', '死去', '处决', '中毒', '下毒', '醉酒', '复活']
+const STATE_WORDS = ['死亡', '死去', '处决', '中毒', '下毒', '醉酒', '复活'] as const
 
-interface StateHintCandidate {
-  createdAt: string
-  segmentId: string | null
-  /** 这条记录点到的座位。空数组 = 记录里没有座位可对，只能算「可能」。 */
-  seatIds: readonly number[]
+export type StateWord = (typeof STATE_WORDS)[number]
+
+function firstStateWord(text: string): StateWord | null {
+  return STATE_WORDS.find((word) => text.includes(word)) ?? null
 }
 
-function hintCandidateOf(entry: TimelineEntry): StateHintCandidate | null {
+function hintCandidateOf(entry: TimelineEntry): PendingStateHint | null {
   if (entry.kind === 'night_action') {
     const text = `${entry.summary} ${entry.record.snapshot.storytellerResult}`
-    if (!STATE_WORDS.some((word) => text.includes(word))) return null
-    return { createdAt: entry.createdAt, segmentId: entry.segmentId, seatIds: entry.record.snapshot.targets }
+    const word = firstStateWord(text)
+    if (!word) return null
+    return {
+      entryId: entry.id,
+      createdAt: entry.createdAt,
+      segmentId: entry.segmentId,
+      seatIds: entry.record.snapshot.targets,
+      word,
+      summary: entry.summary,
+    }
   }
   if (entry.kind === 'day_action') {
     const text = `${entry.summary} ${entry.details.join(' ')}`
-    if (!STATE_WORDS.some((word) => text.includes(word))) return null
-    return { createdAt: entry.createdAt, segmentId: entry.segmentId, seatIds: entry.targetSeatIds }
+    const word = firstStateWord(text)
+    if (!word) return null
+    return {
+      entryId: entry.id,
+      createdAt: entry.createdAt,
+      segmentId: entry.segmentId,
+      seatIds: entry.targetSeatIds,
+      word,
+      summary: entry.summary,
+    }
   }
   if (entry.kind === 'execution' && entry.executedSeatId !== undefined) {
     // 处决本身就是死亡宣告，不必再从文本里找词；causedDeath === false 是弄臣一类的
     // 「处决了但没死」，那种情况本来就不该产生状态更新，不算欠账。
     if (entry.causedDeath === false) return null
-    return { createdAt: entry.createdAt, segmentId: entry.segmentId, seatIds: [entry.executedSeatId] }
+    return {
+      entryId: entry.id,
+      createdAt: entry.createdAt,
+      segmentId: entry.segmentId,
+      seatIds: [entry.executedSeatId],
+      word: '处决',
+      summary: `处决了 ${entry.executedSeatId}号`,
+    }
   }
   return null
 }
@@ -88,7 +132,7 @@ export function projectGrimoireCompleteness(session: GameSessionState): Grimoire
 
   const pending = effective
     .map(hintCandidateOf)
-    .filter((candidate): candidate is StateHintCandidate => candidate !== null)
+    .filter((candidate): candidate is PendingStateHint => candidate !== null)
     // 「有没有人管过」的判据是时序而不是段落：说书人常常在下一段才想起来补，
     // 只要那次补录发生在这条记录之后并落在同一个座位上，这笔账就算平了。
     .filter((candidate) => !stateChanges.some((change) => (
@@ -108,6 +152,7 @@ export function projectGrimoireCompleteness(session: GameSessionState): Grimoire
     pendingSince: firstSegmentId
       ? session.phaseSegments.find((segment) => segment.id === firstSegmentId)?.label ?? null
       : null,
+    pendingStateHintList: pending,
   }
 }
 

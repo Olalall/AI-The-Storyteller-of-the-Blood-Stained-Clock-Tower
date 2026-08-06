@@ -8,7 +8,7 @@
 import { useCallback, useState } from 'react'
 import { createNightResultAdviceAsync } from '../../../services/ai'
 import type { NightWorkbenchState, WakeDraft, WakeItem } from '../types'
-import type { NightWorkbenchAction } from '../state/nightWorkbenchReducer'
+import type { NightWorkbenchIntent } from '../state/nightWorkbenchReducer'
 
 export function useNightAIAdvice() {
   const [loadingItemId, setLoadingItemId] = useState<string | null>(null)
@@ -17,7 +17,8 @@ export function useNightAIAdvice() {
     state: NightWorkbenchState,
     item: WakeItem,
     draft: WakeDraft,
-    dispatch: (action: NightWorkbenchAction) => void,
+    // 只接意图：时间戳由 dispatch 入口统一盖，异步取建议这条路径也不例外。
+    dispatch: (intent: NightWorkbenchIntent) => void,
   ) => {
     if (loadingItemId) return
     setLoadingItemId(item.id)

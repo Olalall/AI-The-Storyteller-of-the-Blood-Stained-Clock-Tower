@@ -5,6 +5,7 @@ import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { DayFactsBar } from './DayFactsBar'
 import { shouldShowDayFacts, type DayFacts } from '../../game-session/state/projectDayFacts'
 import { outcomeReady } from '../state/projectWakeDraft'
+import { isPreviewMode, isSettledMode, type WorkbenchMode } from '../state/workbenchMode'
 import type {
   AIResultAdvice,
   OutcomeResolutionHint,
@@ -26,8 +27,12 @@ interface CurrentWakeCardProps {
   playerStatus: PlayerStatusSnapshot
   draft: WakeDraft
   concealed: boolean
-  isPreviewing: boolean
-  isReadOnly: boolean
+  mode: WorkbenchMode
+  /**
+   * 唯一的写入闸门，由 useNightWorkbench 算好后自上而下传。本组件不得自己拼
+   * `isPreviewing || isReadOnly`——那正是旧写法，每加一个只读来源都得回来补一次或。
+   */
+  readOnly: boolean
   playerCount: number
   aiAdvice?: AIResultAdvice
   resolutionHint?: OutcomeResolutionHint
@@ -57,8 +62,8 @@ export function CurrentWakeCard({
   playerStatus,
   draft,
   concealed,
-  isPreviewing,
-  isReadOnly,
+  mode,
+  readOnly,
   playerCount,
   aiAdvice,
   resolutionHint,
@@ -94,7 +99,10 @@ export function CurrentWakeCard({
     )
   }
 
-  const formDisabled = isPreviewing || isReadOnly
+  // 旧代码在这里现算 `isPreviewing || isReadOnly` 当作表单禁用条件；
+  // 现在直接用自上而下的 readOnly，本组件不再持有第二份「能不能写」的判断。
+  // 「已落定」另算：它只决定文案（已写入 / 确认后写入、已确认徽标），不决定能不能写。
+  const settled = isSettledMode(mode)
   const modifiedFromAI = draft.outputSource?.kind === 'preset'
     ? draft.outputSource.modifiedFromAI
     : undefined
@@ -152,15 +160,15 @@ export function CurrentWakeCard({
         ) : null}
       </div>
 
-      <div className="wake-recorder" aria-disabled={formDisabled}>
+      <div className="wake-recorder" aria-disabled={readOnly}>
         <div className="section-heading">
           <div>
             <h2>本项记录</h2>
           </div>
           <div className="section-heading__state">
-            {isPreviewing
+            {isPreviewMode(mode)
               ? <StatusBadge tone="warning">预览</StatusBadge>
-              : isReadOnly
+              : settled
                 ? <StatusBadge tone="success">已确认</StatusBadge>
                 : draft.updatedAt
                   ? <StatusBadge tone="info">已暂存</StatusBadge>
@@ -173,14 +181,14 @@ export function CurrentWakeCard({
           <SystemStepFields
             step={item.systemStep}
             draft={draft}
-            disabled={formDisabled}
+            disabled={readOnly}
             onToggleCheck={onSystemCheck}
             onToggleBluff={onSystemBluff}
           />
         ) : null}
 
         {item.targetCount > 0 ? (
-          <fieldset disabled={formDisabled}>
+          <fieldset disabled={readOnly}>
             <legend>{item.targetLabel ?? '目标'} <span>{draft.targets.length}/{item.targetCount}</span></legend>
             <div className="seat-grid">
               {Array.from({ length: playerCount }, (_, index) => index + 1).map((seat) => (
@@ -198,7 +206,7 @@ export function CurrentWakeCard({
         ) : null}
 
         {item.roleChoices ? (
-          <fieldset disabled={formDisabled}>
+          <fieldset disabled={readOnly}>
             <legend className="choice-legend">
               <span>{roleChoiceTitle(item)}</span>
               <small>{roleChoiceHint(item)}</small>
@@ -219,7 +227,7 @@ export function CurrentWakeCard({
           </fieldset>
         ) : null}
 
-        <fieldset disabled={formDisabled}>
+        <fieldset disabled={readOnly}>
           <legend className="result-legend">
             <span>结果候选</span>
             {aiAvailable && draft.outputSource?.kind !== 'ai' ? (
@@ -228,7 +236,7 @@ export function CurrentWakeCard({
                 variant="ghost"
                 compact
                 className="ai-result-action"
-                disabled={!canUseAI || formDisabled}
+                disabled={!canUseAI || readOnly}
                 aria-label={isAIAdviceLoading ? 'AI推荐中' : aiActionLabel}
                 onClick={onUseAI}
               >
@@ -237,7 +245,7 @@ export function CurrentWakeCard({
             ) : draft.outputSource?.kind === 'ai' ? <StatusBadge tone="info">AI草稿</StatusBadge> : null}
             {!draft.outcomeId
               ? <StatusBadge tone="neutral">待选择</StatusBadge>
-              : !isReadOnly ? <StatusBadge tone="warning">待确认</StatusBadge> : null}
+              : !settled ? <StatusBadge tone="warning">待确认</StatusBadge> : null}
           </legend>
           <div className="outcome-grid">
             {item.outcomeOptions.map((option) => {
@@ -268,7 +276,7 @@ export function CurrentWakeCard({
           </div>
         </fieldset>
 
-        <ConfirmDraftPreview draft={draft} isReadOnly={isReadOnly} />
+        <ConfirmDraftPreview draft={draft} settled={settled} />
 
         <SettlementAssistPanel
           aiAdvice={aiAdvice}

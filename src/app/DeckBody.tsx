@@ -89,8 +89,17 @@ function DeckNodeBody({
             phaseLabel: '开局前',
           })}
           onLoadDemo={() => {
+            // 把刚选的模式带进示例局。replace-session 是整份覆盖——
+            // 归档回放时那正是我们要的（那一局当时是什么模式就渲染成什么模式），
+            // 但「载入示例」是开一局**新的**，说书人两秒前刚回答过「魔典放在哪」，
+            // 不带过去就会静默退回纯记录，而他只会看到魔典没出现、不知道为什么。
             const demo = createPrototypeGameSession()
-            dispatch({ type: 'replace-session', session: demo })
+            dispatch({
+              type: 'replace-session',
+              session: session.hostingMode
+                ? { ...demo, hostingMode: session.hostingMode, hostingModeHistory: session.hostingModeHistory }
+                : demo,
+            })
             onDeckNodeChange(deckNodeForSession(demo))
           }}
         />
@@ -110,6 +119,8 @@ function DeckNodeBody({
     return (
       <NightWorkbench
         sessionBinding={nightBinding}
+        /* 魔典模式下转盘在 core 上，这里不再画第二份——一屏两份会让遮蔽形同虚设。 */
+        carouselElsewhere={session.hostingMode === 'grimoire'}
         onExit={onExitToArchive}
         onCloseNight={() => onDeckNodeChange('dawn')}
       />

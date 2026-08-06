@@ -41,6 +41,7 @@ const localStorageKeyAllowlist = [
   { key: 'botc-copilot-session-snapshot-v1', owner: 'src/services/session/snapshotRotation.ts', why: '耐久性闸门：快照槽前缀，实际 key 追加槽号' },
   { key: 'botc-copilot-session-snapshot-v1-index', owner: 'src/services/session/snapshotRotation.ts', why: '耐久性闸门：快照索引。它不是第二份真值，主副本始终权威' },
   { key: 'botc-copilot-session-lock-v1', owner: 'src/services/session/instanceLock.ts', why: '耐久性闸门：单实例锁，防第二个标签页整份覆盖存档' },
+  { key: 'botc-copilot-grimoire-prompts-v1', owner: 'src/services/settings/grimoirePromptPreferences.ts', why: '完整度提示条的「不再提示」等一次性提示的记忆。纯 UI 偏好，不参与任何对局判定' },
   { key: 'botc-copilot-hosting-preferences-v1', owner: 'src/services/settings/hostingPreferences.ts', why: '新局默认模式偏好。只是初值来源，运行时真值永远是 session.hostingMode' },
 ]
 const allowedStorageKeys = new Set(localStorageKeyAllowlist.map((entry) => entry.key))

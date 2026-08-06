@@ -1,5 +1,5 @@
 /**
- * 魔典模式的主视图宿主：完整度条 + 遮蔽栏 + 座位环 + 核 + 工作抽屉。
+ * 魔典模式的主视图宿主：回执带 + 完整度条 + 遮蔽栏 + 座位环 + 核 + 工作抽屉。
  *
  * 它**替换**主持台中间那一层，而不是加在它旁边：原来占满整屏的工作台
  * （黄昏交接 / 夜间工作台 / 黎明播报 / 白天工作台）原样落进抽屉，一行代码都不改。
@@ -7,12 +7,12 @@
  * 那条规矩在这一层的执行点——本文件里没有任何一段是既有功能的第二份实现。
  *
  * 三条硬约束：
- * 1. 画布内零 dispatch（G1）。这一层唯一的 dispatch 是模式切换，且它发生在浮层里，
- *    不在环上。点座位只打开既有的 PlayerStatusSheet。
+ * 1. 环上的写入一律走草稿两段式（G2）。这一层的所有座位手势都只产生草稿，
+ *    真正的 dispatch 只有 useGrimoireWriteLayer.commit 一处，且与回执绑在一起。
  * 2. 五个相位数字全部走投影（见 stage/corePhaseSources），算式绝不进 payload（裁决 10）。
  * 3. hostingMode 只在 App 层决定渲染哪个宿主，这一层拿到的就已经是「渲染魔典」这个结论。
  */
-import { useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type ReactNode } from 'react'
 import { GrimoireCanvas, type GrimoireCanvasSeat } from './GrimoireCanvas'
 import { CompletenessBar } from './completeness/CompletenessBar'
 import {
@@ -22,10 +22,19 @@ import {
   NO_COMPLETENESS_DISMISSAL,
   type CompletenessDismissal,
 } from './completeness/grimoireCompleteness'
+import { BackfillReviewPanel } from './backfill/BackfillReviewPanel'
+import { projectBackfillCards, type BackfillCard } from './backfill/backfillHints'
 import { WorkDrawer } from './drawer/WorkDrawer'
+import type { WorkDrawerDetent } from './drawer/detents'
 import { useGrimoireShield } from './shield/useGrimoireShield'
 import { GrimoireShieldBar } from './stage/GrimoireShieldBar'
 import { SessionInfoOverlay } from './stage/SessionInfoOverlay'
+import { GrimoireReceiptBar } from './write/GrimoireReceiptBar'
+import { SeatActionBar } from './write/SeatActionBar'
+import { SeatActionDrawerPath } from './write/SeatActionDrawerPath'
+import { SeatConfirmBar } from './write/SeatConfirmBar'
+import { useGrimoireWriteLayer } from './write/useGrimoireWriteLayer'
+import { useSeatWriteBindings } from './write/useSeatWriteBindings'
 import {
   corePhaseFor,
   projectDawnRoll,
@@ -36,9 +45,11 @@ import {
   projectVoteTally,
 } from './stage/corePhaseSources'
 import { useDiscussionTimer } from '../day-workbench/state/useDiscussionTimer'
-import { projectStorytellerSeatSummaries } from '../game-session/state/projectors'
+import { projectCurrentPlayerStates, projectStorytellerSeatSummaries } from '../game-session/state/projectors'
 import { latestNightSegmentId, type DeckNode } from '../hosting-deck/deckNode'
 import { scriptDisplayName } from '../../domain/scripts'
+import { readGrimoirePromptPreferences, silenceGrimoireCompletenessPrompt } from '../../services/settings/grimoirePromptPreferences'
+import { shieldVisibility } from './shield/shieldLevel'
 import type { GameSessionAction } from '../game-session/state/sessionActions'
 import type { GameSessionState } from '../game-session/types'
 import './stage/grimoire-stage.css'
@@ -49,19 +60,24 @@ interface GrimoireStageProps {
   deckNode: DeckNode
   onOpenSetup: () => void
   onOpenScriptLibrary: () => void
-  /** 「逐条核对」的落点：本局记录。补录本身是 G2 的补录建议卡，本批只把人送到记录前。 */
+  /** 本局记录。补录建议卡接管了完整度条上的「逐条核对」，这个入口仍留给别处。 */
   onOpenRecords: () => void
   onOpenPlayerStatus: (seatId: number) => void
+  /**
+   * SeatActionBar 第五格。缺省时退到座位卡——PlayerStatusBar 里本来就有「更换角色」，
+   * 一跳可达。这是过渡桥，真正的目标是 App 层直接把 RoleChangeSheet 挂上来。
+   */
+  onOpenRoleChange?: (seatId: number) => void
   /** 当前节点的工作台或交接卡，原样落进抽屉。 */
   children: ReactNode
 }
 
 /** 抽屉顶部常驻的手势契约。暗光下说书人只有余裕记「点下去 = 做当前这一步」。 */
 const GESTURE_CONTRACT: Record<DeckNode, string> = {
-  dusk: '点座位 = 打开座位卡；环上不改状态',
-  night: '点座位 = 打开座位卡；夜间记录在抽屉里确认',
-  dawn: '点座位 = 打开座位卡；生死由你更新，工具不反推',
-  day: '点座位 = 打开座位卡；提名与票型在抽屉里记',
+  dusk: '点座位 = 座位操作；点完只是草稿，抽屉里确认才落账',
+  night: '点座位 = 座位操作；夜间记录仍在抽屉里确认',
+  dawn: '点座位 = 座位操作；生死由你更新，工具不反推',
+  day: '点座位 = 座位操作；提名与票型在抽屉里记',
 }
 
 const DRAWER_LABEL: Record<DeckNode, string> = {
@@ -94,12 +110,28 @@ export function GrimoireStage({
   onOpenScriptLibrary,
   onOpenRecords,
   onOpenPlayerStatus,
+  onOpenRoleChange,
   children,
 }: GrimoireStageProps) {
   const shield = useGrimoireShield()
   const timer = useDiscussionTimer()
+  /* 舞台要按抽屉当前占多高来留白，所以它得知道档位；换相位时跟着新工作台的默认档走。 */
+  const [drawerDetent, setDrawerDetent] = useState<WorkDrawerDetent>(DRAWER_DETENT[deckNode])
+  useEffect(() => setDrawerDetent(DRAWER_DETENT[deckNode]), [deckNode])
+
   const [infoOpen, setInfoOpen] = useState(false)
-  const [dismissal, setDismissal] = useState<CompletenessDismissal>(NO_COMPLETENESS_DISMISSAL)
+  const [dismissal, setDismissal] = useState<CompletenessDismissal>(
+    // 「不再提示」按过就跨会话闭嘴。只活在组件 state 里的话，刷新一次就又冒出来，
+    // 而它的触发条件在一局里通常一直成立——被反复无效化之后人学到的是「这条提示不用看」。
+    () => readGrimoirePromptPreferences().completenessSilenced
+      ? { silenced: true, deferredAtHints: null }
+      : NO_COMPLETENESS_DISMISSAL,
+  )
+  const [reviewOpen, setReviewOpen] = useState(false)
+  const [skipped, setSkipped] = useState<ReadonlySet<string>>(new Set())
+
+  const write = useGrimoireWriteLayer(session, dispatch)
+  const bindings = useSeatWriteBindings(write, deckNode)
 
   const seats: GrimoireCanvasSeat[] = useMemo(
     () => projectStorytellerSeatSummaries(session).map((seat) => ({
@@ -126,18 +158,54 @@ export function GrimoireStage({
 
   const completeness = useMemo(() => projectGrimoireCompleteness(session), [session])
   const notice = completenessNotice(completeness)
+  const playerStates = useMemo(() => projectCurrentPlayerStates(session), [session])
+  const backfillCards = useMemo(
+    () => projectBackfillCards(session, completeness, playerStates),
+    [completeness, playerStates, session],
+  )
   // 抽屉档位、遮蔽级别、浮层开关都会让这一层重渲，而这个投影要走一遍整条 timeline。
   const ghostVotesRemaining = useMemo(() => projectGhostVotesRemaining(session), [session])
 
+  const markBackfill = (card: BackfillCard) => write.commitBackfill({
+    seatId: card.seatId,
+    draft: card.draft,
+    backfill: card.backfill,
+    reason: card.reason,
+  })
+
+  const openRoleChange = onOpenRoleChange ?? onOpenPlayerStatus
+  // L0 是「立刻盖住一切」的手势，必须绝对：抽屉里托管的是既有全屏页
+  // （夜间工作台会显示角色名、黄昏交接会显示恶魔的三张伪装），
+  // 而画布的遮蔽管不到抽屉。所以 L0 下抽屉内容**整段不进 DOM**，不是视觉遮住。
+  const drawerVisible = shieldVisibility(shield.level).seatIdentity
+
   return (
-    <div className="grimoire-stage">
+    /* 留白值写在 CSS 里按 data-drawer 分档，不在这里算：
+       算一遍就等于把 detents.ts 的三档高度抄成第二份，两份必然漂移。 */
+    <div className="grimoire-stage" data-drawer={drawerDetent}>
+      <GrimoireReceiptBar receipt={write.receipt} onUndo={write.undo} />
+
       {isCompletenessVisible(notice, completeness, dismissal) ? (
         <CompletenessBar
           completeness={completeness}
           onOpenSetup={onOpenSetup}
-          onReview={onOpenRecords}
+          onReview={() => setReviewOpen(true)}
           onDefer={() => setDismissal({ silenced: false, deferredAtHints: completeness.pendingStateHints })}
-          onSilence={() => setDismissal({ silenced: true, deferredAtHints: null })}
+          onSilence={() => {
+            silenceGrimoireCompletenessPrompt()
+            setDismissal({ silenced: true, deferredAtHints: null })
+          }}
+        />
+      ) : null}
+
+      {reviewOpen && drawerVisible ? (
+        <BackfillReviewPanel
+          cards={backfillCards}
+          skipped={skipped}
+          onMark={markBackfill}
+          onSkip={(card) => setSkipped((current) => new Set(current).add(card.id))}
+          onClose={() => setReviewOpen(false)}
+          onOpenRecords={onOpenRecords}
         />
       ) : null}
 
@@ -146,8 +214,24 @@ export function GrimoireStage({
       <GrimoireCanvas
         seats={seats}
         shield={shield.level}
-        actionHint="打开座位卡"
-        onSelectSeat={onOpenPlayerStatus}
+        actionHint="座位操作"
+        onSelectSeat={bindings.openActionBar}
+        onSeatHold={bindings.openActionBar}
+        onChipGesture={bindings.handleChipGesture}
+        ghostsBySeat={write.ghostsBySeat}
+        ghostLifeBySeat={write.ghostLifeBySeat}
+        anchoredSeatId={bindings.actionBarSeatId}
+        renderSeatAnchor={(seatId) => playerStates[seatId] ? (
+          <SeatActionBar
+            seatId={seatId}
+            state={playerStates[seatId]}
+            onDraft={(cell) => bindings.draftFromCell(seatId, cell)}
+            onAddMarker={(label) => bindings.addMarker(seatId, label)}
+            onOpenRoleChange={() => { bindings.closeActionBar(); openRoleChange(seatId) }}
+            onOpenSeatCard={() => { bindings.closeActionBar(); onOpenPlayerStatus(seatId) }}
+            onClose={bindings.closeActionBar}
+          />
+        ) : null}
         onBlindCover={shield.coverNow}
         scriptName={scriptDisplayName(session.scriptId)}
         onOpenSessionInfo={() => setInfoOpen(true)}
@@ -165,11 +249,42 @@ export function GrimoireStage({
           而不是留在上一段被拖到的位置。同一相位内 key 不变，说书人拖出来的档位照旧算数。 */}
       <WorkDrawer
         key={deckNode}
+        onDetentChange={setDrawerDetent}
         gestureContract={GESTURE_CONTRACT[deckNode]}
         label={DRAWER_LABEL[deckNode]}
         defaultDetent={DRAWER_DETENT[deckNode]}
+        peekSlot={write.projected && drawerVisible ? {
+          kind: 'seat-state-confirm',
+          label: `确认 ${write.projected.seatId}号 状态`,
+          content: (
+            <SeatConfirmBar
+              projected={write.projected}
+              segments={write.segments}
+              segmentId={write.segmentId}
+              onSegmentChange={write.setSegmentId}
+              onConfirm={write.confirmDraft}
+              onCancel={write.clearDraft}
+            />
+          ),
+        } : undefined}
       >
-        {children}
+        {drawerVisible ? (
+          <>
+            <SeatActionDrawerPath
+              seatIds={seats.map((seat) => seat.seatId)}
+              playerStates={playerStates}
+              markerDetail={shieldVisibility(shield.level).markerDetail}
+              onDraft={bindings.draftFromCell}
+              onAddMarker={bindings.addMarker}
+              onRemoveMarker={bindings.removeMarker}
+              onOpenRoleChange={openRoleChange}
+              onOpenSeatCard={onOpenPlayerStatus}
+            />
+            {children}
+          </>
+        ) : (
+          <p className="grimoire-stage__drawer-blackout" role="status">魔典已盖上 · 抽屉内容已收起</p>
+        )}
       </WorkDrawer>
 
       <SessionInfoOverlay

@@ -10,14 +10,23 @@
  *
  * 遮蔽由 shieldVisibility 决定「渲不渲染」而不是「显不显示」：L1 下角色名、图标 src、
  * 标记 label 全部不进 DOM。这条不能靠 CSS，CSS 挡不住截屏、屏读器和 devtools。
+ *
+ * G2 起有两种根元素形态，由「chip 能不能操作」决定：
+ * - 只读（G1 的观察面）：根就是那颗 token 键，chip 是 aria-hidden 的装饰。
+ * - 可写：chip 各自是一颗键，而按钮不能套按钮，所以根退成一个定位容器，
+ *   token 变成容器里的第一颗键。两种形态共用同一份 class 与行内定位，
+ *   区别只在标签名——把它做成两个组件才是真正的分叉。
  */
 import { Skull } from 'lucide-react'
-import type { CSSProperties } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { RoleDisc } from '../../../components/ui/RoleDisc'
-import type { ManualStatusMarker } from '../../night-workbench/types'
 import type { PlayerState } from '../../game-session/model/playerTypes'
-import { foldSatellites, satellitePlacements } from '../layout/satelliteArc'
+import { satellitePlacements } from '../layout/satelliteArc'
+import { SEAT_ACTION_HOLD_MS } from '../write/seatActions'
+import { useHoldGesture } from '../write/useHoldGesture'
 import { shieldVisibility, type ShieldLevel } from '../shield/shieldLevel'
+import { foldChips, seatChips, type SeatGhostChip } from './seatChips'
+import { SeatChipLayer, type SeatChipGestureEvent } from './SeatChipLayer'
 import './grimoire-seat.css'
 
 /** 命中区外扩下限。token 降到 64px 时手指仍要够得着。 */
@@ -56,41 +65,15 @@ export interface GrimoireSeatProps {
   actionHint?: string
   onSelect?: (seatId: number) => void
   disabled?: boolean
-}
-
-type ChipKind = 'poisoned' | 'drunk' | 'marker' | 'fold'
-
-interface SeatChip {
-  key: string
-  kind: ChipKind
-  /** L2 才进 DOM。 */
-  label: string | null
-  foldedCount?: number
-}
-
-/** 顺序恒定 中毒 → 醉酒 → 具名标记，与 PlayerStatusBar 一致：靠位置记比靠读字快。 */
-function chipsFor(state: PlayerState, markerDetail: boolean): SeatChip[] {
-  const chips: SeatChip[] = []
-  if (state.poisoned) chips.push({ key: 'poisoned', kind: 'poisoned', label: '中毒' })
-  if (state.drunk) chips.push({ key: 'drunk', kind: 'drunk', label: '醉酒' })
-  for (const marker of state.markers as readonly ManualStatusMarker[]) {
-    chips.push({
-      key: `marker-${marker.id}`,
-      kind: 'marker',
-      // label 本身就是角色信息（「僧侣保护」「红鲱鱼」「是酒鬼」），L1 下一律不进 DOM。
-      label: markerDetail ? marker.label : null,
-    })
-  }
-  return chips
-}
-
-function foldChips(chips: SeatChip[]): SeatChip[] {
-  const { visible, folded } = foldSatellites(chips.length)
-  if (folded === 0) return chips
-  return [
-    ...chips.slice(0, visible - 1),
-    { key: 'fold', kind: 'fold', label: null, foldedCount: folded },
-  ]
+  /** 尚未落盘的草稿幽灵 chip。 */
+  ghosts?: readonly SeatGhostChip[]
+  /** 这一座位上挂着一条生死草稿：token 上盖一层虚线幽灵帷幕，与实体帷幕明显不同。 */
+  ghostLife?: 'dead' | 'alive'
+  /** 长按 400ms 的加速器。它永远只是第二条路，等价入口在抽屉里。 */
+  onHold?: (seatId: number) => void
+  onChipGesture?: (seatId: number, event: SeatChipGestureEvent) => void
+  /** 锚在这个座位下方的浮层（SeatActionBar）。只有可写形态才有地方挂它。 */
+  anchored?: ReactNode
 }
 
 function accessibleName(
@@ -130,14 +113,21 @@ export function GrimoireSeat({
   actionHint,
   onSelect,
   disabled = false,
+  ghosts,
+  ghostLife,
+  onHold,
+  onChipGesture,
+  anchored,
 }: GrimoireSeatProps) {
   const visibility = shieldVisibility(shield)
+  const hold = useHoldGesture(SEAT_ACTION_HOLD_MS, onHold ? () => onHold(seatId) : undefined)
   // L0 下整个座位不渲染任何内容——不是盖住，是不进 DOM。
+  // hook 必须在这一句之前调用完，否则 L0 与 L1 之间会换一套 hook 顺序。
   if (!visibility.seatIdentity) return null
 
   const roleVisible = visibility.roleIdentity && role !== null
   const chips = visibility.markerCount
-    ? foldChips(chipsFor(state, visibility.markerDetail))
+    ? foldChips(seatChips(state, visibility.markerDetail, ghosts))
     : []
   const placements = satellitePlacements({
     count: chips.length,
@@ -154,6 +144,7 @@ export function GrimoireSeat({
     height: tokenSize,
     // 命中区靠 ::before 外扩，不靠把 token 画大——放大 token 会挤掉弧距。
     '--seat-hit': `${Math.max(tokenSize, SEAT_HIT_TARGET)}px`,
+    '--hold-progress': hold.progress,
   } as CSSProperties
 
   const classes = [
@@ -162,19 +153,26 @@ export function GrimoireSeat({
     selected ? 'grimoire-seat--selected' : '',
     dead ? 'grimoire-seat--dead' : '',
     impaired ? 'grimoire-seat--impaired' : '',
+    ghostLife ? 'grimoire-seat--ghost-life' : '',
   ].filter(Boolean).join(' ')
 
-  return (
-    <button
-      type="button"
-      className={classes}
-      style={style}
-      data-seat-id={seatId}
-      disabled={disabled}
-      aria-pressed={selected}
-      aria-label={accessibleName(seatId, nickname, state, role, roleVisible, chips.length, actionHint)}
-      onClick={onSelect ? () => onSelect(seatId) : undefined}
-    >
+  const tokenProps = {
+    type: 'button' as const,
+    'data-seat-id': seatId,
+    disabled,
+    'aria-pressed': selected,
+    'aria-label': accessibleName(seatId, nickname, state, role, roleVisible, chips.length, actionHint),
+    onClick: hold.wrapClick(onSelect ? () => onSelect(seatId) : undefined),
+    ...(onHold ? {
+      onPointerDown: hold.onPointerDown,
+      onPointerUp: hold.onPointerUp,
+      onPointerLeave: hold.onPointerLeave,
+      onPointerCancel: hold.onPointerCancel,
+    } : {}),
+  }
+
+  const tokenBody = (
+    <>
       <RoleDisc
         // 遮蔽时 roleName / initial / imageSrc 都不会进 DOM：RoleDisc 的 concealed 态只渲染「隐」。
         initial={roleVisible ? role.initial : ''}
@@ -192,25 +190,40 @@ export function GrimoireSeat({
           <span className="grimoire-seat__shroud-text">亡</span>
         </span>
       ) : null}
-      {chips.map((chip, index) => {
-        const place = placements[index]
-        return (
-          <span
-            key={chip.key}
-            className={`grimoire-seat__chip grimoire-seat__chip--${chip.kind}`}
-            data-chip={chip.kind}
-            style={{
-              width: place.size,
-              height: place.size,
-              left: tokenSize / 2 + place.dx - place.size / 2,
-              top: tokenSize / 2 + place.dy - place.size / 2,
-            }}
-            aria-hidden="true"
-          >
-            {chip.kind === 'fold' ? `+${chip.foldedCount}` : chip.label}
-          </span>
-        )
-      })}
-    </button>
+      {ghostLife ? (
+        // 幽灵帷幕：虚线 + 40% 不透明 + 「待确认」三重区分，绝不与实体帷幕长成一样。
+        <span className="grimoire-seat__ghost-shroud" aria-hidden="true">
+          {ghostLife === 'dead' ? '待确认 亡' : '待确认 活'}
+        </span>
+      ) : null}
+    </>
+  )
+
+  const chipLayer = (
+    <SeatChipLayer
+      seatId={seatId}
+      chips={chips}
+      placements={placements}
+      tokenSize={tokenSize}
+      onChipGesture={onChipGesture ? (event) => onChipGesture(seatId, event) : undefined}
+    />
+  )
+
+  // 只读形态：整个座位就是一颗键，Tab 序里只占一格。
+  if (!onChipGesture && !anchored) {
+    return (
+      <button {...tokenProps} className={classes} style={style}>
+        {tokenBody}
+        {chipLayer}
+      </button>
+    )
+  }
+
+  return (
+    <div className={classes} style={style} data-seat-container={seatId}>
+      <button {...tokenProps} className="grimoire-seat__token">{tokenBody}</button>
+      {chipLayer}
+      {anchored}
+    </div>
   )
 }
