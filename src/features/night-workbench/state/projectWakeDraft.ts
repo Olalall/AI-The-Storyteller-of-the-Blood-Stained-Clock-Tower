@@ -23,6 +23,14 @@ export function selectedRoleLabel(item: WakeItem, draft: WakeDraft) {
   return item.roleChoices?.find((role) => role.id === draft.roleChoice)?.label ?? ''
 }
 
+export function selectedRegistrationLabel(item: WakeItem, draft: WakeDraft) {
+  return item.registrationSpec?.choices.find((choice) => choice.id === draft.registration?.value)?.label ?? ''
+}
+
+export function hasForbiddenRegistration(item: WakeItem, draft: WakeDraft) {
+  return Boolean(draft.registration?.value && item.forbiddenRegistrationValues?.includes(draft.registration.value))
+}
+
 export function projectPlayerChoice(item: WakeItem, draft: WakeDraft) {
   if (item.systemStep) {
     const checked = systemStepChecks(draft)
@@ -36,26 +44,69 @@ export function projectPlayerChoice(item: WakeItem, draft: WakeDraft) {
 
   const targets = targetText(draft.targets)
   const role = selectedRoleLabel(item, draft)
+  const registration = selectedRegistrationLabel(item, draft)
   const parts: string[] = []
 
   if (targets) parts.push(item.targetKind === 'storyteller_info' ? `告知${targets}` : `选择${targets}`)
   if (role) parts.push(`${item.roleLabel ?? '角色'}：${role}`)
+  if (registration) parts.push(`${item.registrationSpec?.label ?? '登记'}：${registration}`)
 
   return parts.join(' · ')
+}
+
+export function wakeTargetRange(item: WakeItem) {
+  return {
+    minimum: item.minimumTargetCount ?? item.targetCount,
+    maximum: item.targetCount,
+  }
+}
+
+export function wakeTargetsValid(item: WakeItem, draft: WakeDraft, playerCount?: number) {
+  const { minimum, maximum } = wakeTargetRange(item)
+  if (minimum < 0 || maximum < 0 || minimum > maximum) return false
+  return draft.targets.length >= minimum && wakeTargetsStructurallyValid(item, draft, playerCount)
+}
+
+export function wakeTargetsStructurallyValid(item: WakeItem, draft: WakeDraft, playerCount?: number) {
+  const { minimum, maximum } = wakeTargetRange(item)
+  if (minimum < 0 || maximum < 0 || minimum > maximum) return false
+  if (draft.targets.length > maximum) return false
+  const uniqueTargets = new Set(draft.targets)
+  if (uniqueTargets.size !== draft.targets.length) return false
+  return draft.targets.every((seatId) =>
+    Number.isInteger(seatId) &&
+    seatId > 0 &&
+    (playerCount === undefined || seatId <= playerCount) &&
+    !item.forbiddenTargetSeatIds?.includes(seatId),
+  )
+}
+
+export function wakeTargetsSatisfyRequiredInput(item: WakeItem, draft: WakeDraft) {
+  if (!wakeTargetsValid(item, draft)) return false
+  if (item.targetCount <= 0) return false
+  return draft.targets.length > 0
+}
+
+function wakeTargetsReadyForOutcome(option: WakeOutcomeOption, item: WakeItem, draft: WakeDraft) {
+  if (!wakeTargetsValid(item, draft)) return false
+  if (option.targetCounts?.length) return option.targetCounts.includes(draft.targets.length)
+  return wakeTargetsSatisfyRequiredInput(item, draft)
 }
 
 function renderTemplate(template: string, item: WakeItem, draft: WakeDraft) {
   const targets = targetText(draft.targets)
   const role = selectedRoleLabel(item, draft)
+  const registration = selectedRegistrationLabel(item, draft)
   const values: Record<string, string> = {
     actor: item.systemStep ? item.roleName : `${item.seatId}号${item.roleName}`,
     target: targets,
     targets,
     role,
+    registration,
     bluffs: item.systemStep ? bluffLabels(item.systemStep, draft) : '',
   }
 
-  return template.replace(/\{(actor|target|targets|role|bluffs)\}/g, (_, key: string) => values[key] ?? '')
+  return template.replace(/\{(actor|target|targets|role|registration|bluffs)\}/g, (_, key: string) => values[key] ?? '')
 }
 
 /**
@@ -67,14 +118,16 @@ export function wakeInputsSatisfied(item: WakeItem, draft: WakeDraft) {
   // 系统步骤卡没有目标，但勾选清单和三张伪装同样是「这条记录成立的前提」：
   // 少了它们写出来的就是一条没有内容的假记录。
   if (item.systemStep && systemStepMissingReason(item, draft)) return false
-  if (draft.targets.length < item.targetCount) return false
+  if (!wakeTargetsValid(item, draft)) return false
+  if (item.registrationSpec && !selectedRegistrationLabel(item, draft)) return false
+  if (hasForbiddenRegistration(item, draft)) return false
   return !item.roleChoices || Boolean(selectedRoleLabel(item, draft))
 }
 
 export function outcomeReady(option: WakeOutcomeOption, item: WakeItem, draft: WakeDraft) {
   if (!wakeInputsSatisfied(item, draft)) return false
   return option.requiredInputs.every((input) => {
-    if (input === 'targets') return draft.targets.length === item.targetCount
+    if (input === 'targets') return wakeTargetsReadyForOutcome(option, item, draft)
     return Boolean(selectedRoleLabel(item, draft))
   })
 }
@@ -85,6 +138,7 @@ export function hasWakeDraftContent(draft: WakeDraft) {
     systemStepChecks(draft).length > 0 ||
     systemStepBluffs(draft).length > 0 ||
     Boolean(draft.roleChoice) ||
+    Boolean(draft.registration) ||
     Boolean(draft.outcomeId) ||
     Boolean(draft.storytellerResult.trim()) ||
     Boolean(draft.informationGiven.trim())

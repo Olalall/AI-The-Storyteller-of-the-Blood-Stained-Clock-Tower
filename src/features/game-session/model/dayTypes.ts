@@ -1,4 +1,4 @@
-import type { RoleSnapshot } from '../../night-workbench/types'
+import type { RoleSnapshot, StorytellerRegistrationSnapshot } from '../../night-workbench/types'
 import type { TimelineBase } from './timelineBaseTypes'
 
 /** 未确认的白天票型草稿；可恢复，但不是时间线事实。 */
@@ -18,6 +18,8 @@ export interface DaySkillParticipantSnapshot {
   seatId: number
   /** 记录当时的真实身份；缺失时不能用当前身份倒推。 */
   actualRole: RoleSnapshot | null
+  /** 仅在技能需要时由说书人明确登记；旧记录允许缺失。 */
+  registration?: StorytellerRegistrationSnapshot
 }
 
 /**
@@ -46,6 +48,7 @@ export interface DayActionSkillDraft {
   claimedRoleId: string
   targetSeatIds: number[]
   targetActualRoleIds: Record<number, string>
+  targetAlignments?: Record<number, 'good' | 'evil'>
   outcomeKind: DaySkillOutcomeKind | null
   outcomeNote: string
 }

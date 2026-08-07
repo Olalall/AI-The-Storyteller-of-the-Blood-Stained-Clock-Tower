@@ -5,10 +5,10 @@
  * 混在舞台的渲染流程里，下一个人加第四种时会在 JSX 中间再插一个三元，
  * 而那正是「环上点一下到底会发生什么」变得没人说得清的开始。
  */
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 import { projectNightRing } from '../night/projectNightRing'
 import { NightSeatOverlay } from '../night/NightSeatOverlay'
-import { commitNightRingTarget } from '../night/nightRingBridge'
+import { commitNightRingTargetFromState } from '../night/nightRingBridge'
 import { nightSeatTapHint } from '../night/nightTargetTap'
 import { useDayRing, type DayRingBinding } from '../day/useDayRing'
 import { DayRingOverlay } from '../day/DayRingOverlay'
@@ -18,7 +18,8 @@ import type { ShieldLevel } from '../shield/shieldLevel'
 import type { DeckNode } from '../../hosting-deck/deckNode'
 import type { GameSessionState } from '../../game-session/types'
 import type { GameSessionAction } from '../../game-session/state/sessionActions'
-import type { NightWorkbenchSessionBinding } from '../../night-workbench/state/gameSessionAdapter'
+import { sessionInitialNightState, type NightWorkbenchSessionBinding } from '../../night-workbench/state/gameSessionAdapter'
+import type { NightWorkbenchState } from '../../night-workbench/types'
 
 export interface RingBindings {
   /** 座位角标层（夜序 ①②✓「缓」与草稿目标描边）。非夜间为 undefined。 */
@@ -67,6 +68,10 @@ export function useRingBindings({
 }: UseRingBindingsInput): RingBindings {
   /* 夜：角标 + 点座位选目标。停在夜节点才生效——别的相位环上点座位仍是座位操作。 */
   const nightRing = deckNode === 'night' ? projectNightRing(session) : null
+  const latestNightStateRef = useRef<NightWorkbenchState | null>(null)
+  useEffect(() => {
+    latestNightStateRef.current = nightRing ? sessionInitialNightState(nightBinding) : null
+  }, [nightBinding, nightRing])
   const seatOverlays = useMemo(() => {
     if (!nightRing) return undefined
     return Object.fromEntries(seatIds.map((seatId) => [seatId, (
@@ -117,7 +122,10 @@ export function useRingBindings({
         : `选${nightRing.target.targetLabel ?? '目标'}`,
       onSelect: (seatId: number) => {
         if (!nightWritable) return notify(nightSeatTapHint(nightRing.target, seatId))
-        if (!commitNightRingTarget(nightBinding, seatId)) {
+        const latest = latestNightStateRef.current ?? sessionInitialNightState(nightBinding)
+        const result = commitNightRingTargetFromState(nightBinding, latest, seatId)
+        latestNightStateRef.current = result.next
+        if (!result.committed) {
           notify(nightSeatTapHint(nightRing.target, seatId))
         }
       },

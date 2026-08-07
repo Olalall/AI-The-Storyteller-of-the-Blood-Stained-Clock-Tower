@@ -12,7 +12,7 @@ export type SetupCountedTeam = 'townsfolk' | 'outsider' | 'minion' | 'demon'
 
 export type SetupTemplateStyle = 'balanced' | 'chaos' | 'beginner' | 'long-game' | 'bluff-heavy'
 
-export type AbilityInputKind = 'none' | 'player' | 'players' | 'role' | 'number' | 'text'
+export type AbilityInputKind = 'none' | 'player' | 'players' | 'role' | 'number' | 'text' | 'boolean'
 
 export interface ScriptSource {
   author?: string
@@ -69,6 +69,19 @@ export interface NightOrderEntry {
   order: number
   note?: string
   knowledgeStatus: KnowledgeStatus
+  /** 非角色本人接收的夜间通知；运行时据此生成系统步骤，不把角色持有者误当成唤醒对象。 */
+  delivery?: NightOrderDelivery
+}
+
+export interface NightOrderDelivery {
+  kind: 'audience_notice'
+  audience: {
+    team: 'minion' | 'demon'
+    excludeRoleIds?: readonly RoleId[]
+  }
+  mode: 'sequential' | 'together'
+  infoToken: string
+  sensitive: boolean
 }
 
 export interface SetupTemplate {

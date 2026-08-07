@@ -12,6 +12,7 @@ import type {
   RoleChangeEvent,
   WakeDraft,
   WakeItem,
+  StorytellerRegistrationValue,
 } from '../types'
 import { ConfirmDraftPreview } from './ConfirmDraftPreview'
 import { PlayerStatusBar } from './PlayerStatusBar'
@@ -19,7 +20,7 @@ import { roleChoiceHint, roleChoiceTitle } from './roleChoiceLabels'
 import { SystemStepFields, SystemStepRoster } from './SystemStepPanel'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
 import { WakeTargetPicker, type WakeTargetPickerKind } from './WakeTargetPicker'
-
+import { WakeRegistrationFields } from './WakeRegistrationFields'
 interface CurrentWakeCardProps {
   /** 当日客观事实；只对回溯型角色渲染，遮蔽态下由本组件跳过。 */
   dayFacts?: DayFacts | null
@@ -54,6 +55,7 @@ interface CurrentWakeCardProps {
   onUnshield: () => void
   onTarget: (seat: number) => void
   onRoleChoice: (roleId: string) => void
+  onRegistrationChoice: (value: StorytellerRegistrationValue) => void
   onSystemCheck: (checkId: string) => void
   onSystemBluff: (roleId: string) => void
   onOutcome: (outcomeId: string) => void
@@ -86,6 +88,7 @@ export function CurrentWakeCard({
   onUnshield,
   onTarget,
   onRoleChoice,
+  onRegistrationChoice,
   onSystemCheck,
   onSystemBluff,
   onOutcome,
@@ -204,6 +207,7 @@ export function CurrentWakeCard({
             targetLabel={item.targetLabel ?? '目标'}
             targetCount={item.targetCount}
             targets={draft.targets}
+            forbiddenSeatIds={item.forbiddenTargetSeatIds}
             disabled={readOnly}
             onTarget={onTarget}
           />
@@ -230,6 +234,13 @@ export function CurrentWakeCard({
             </div>
           </fieldset>
         ) : null}
+
+        {item.registrationSpec ? <WakeRegistrationFields spec={item.registrationSpec}
+          draft={draft}
+          forbiddenValues={item.forbiddenRegistrationValues}
+          disabled={readOnly}
+          onChange={onRegistrationChoice}
+        /> : null}
 
         <fieldset disabled={readOnly}>
           <legend className="result-legend">
@@ -302,7 +313,6 @@ export function CurrentWakeCard({
             <p>{draft.informationGiven}</p>
           </section>
         ) : null}
-
       </div>
     </section>
   )

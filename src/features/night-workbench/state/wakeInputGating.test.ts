@@ -54,12 +54,76 @@ describe('唤醒项的输入门', () => {
     }
   })
 
+  it('rejects duplicate, overflowing and forbidden targets', () => {
+    const item = { ...itemNeedingTarget(), targetCount: 2, minimumTargetCount: 1, forbiddenTargetSeatIds: [6] } as WakeItem
+
+    expect(wakeInputsSatisfied(item, draftWith({ targets: [4, 4] }))).toBe(false)
+    expect(wakeInputsSatisfied(item, draftWith({ targets: [4, 5, 7] }))).toBe(false)
+    expect(wakeInputsSatisfied(item, draftWith({ targets: [6] }))).toBe(false)
+    expect(wakeInputsSatisfied(item, draftWith({ targets: [4] }))).toBe(true)
+  })
+
+  it('allows required target outcomes across an explicit target range', () => {
+    const item = { ...itemNeedingTarget(), targetCount: 3, minimumTargetCount: 1 } as WakeItem
+    const option = item.outcomeOptions[0]
+
+    expect(outcomeReady(option, item, draftWith({ targets: [] }))).toBe(false)
+    expect(outcomeReady(option, item, draftWith({ targets: [4] }))).toBe(true)
+    expect(outcomeReady(option, item, draftWith({ targets: [4, 5] }))).toBe(true)
+    expect(outcomeReady(option, item, draftWith({ targets: [4, 5, 6] }))).toBe(true)
+    expect(outcomeReady(option, item, draftWith({ targets: [4, 5, 6, 7] }))).toBe(false)
+  })
+
+  it('honors outcome-specific target counts such as one-or-three targets', () => {
+    const item = {
+      ...itemNeedingTarget(),
+      targetCount: 3,
+      minimumTargetCount: 1,
+      outcomeOptions: [
+        { id: 'one', label: '一名', requiredInputs: ['targets'], targetCounts: [1], resultTemplate: '{targets}' },
+        { id: 'three', label: '三名', requiredInputs: ['targets'], targetCounts: [3], resultTemplate: '{targets}' },
+      ],
+    } as WakeItem
+
+    expect(outcomeReady(item.outcomeOptions[0], item, draftWith({ targets: [4] }))).toBe(true)
+    expect(outcomeReady(item.outcomeOptions[0], item, draftWith({ targets: [4, 5] }))).toBe(false)
+    expect(outcomeReady(item.outcomeOptions[1], item, draftWith({ targets: [4, 5, 6] }))).toBe(true)
+  })
+
+  it('keeps optional target branches usable when choosing nobody is a valid role action', () => {
+    const item = { ...itemNeedingTarget(), targetCount: 1, minimumTargetCount: 0 } as WakeItem
+    const withNoTarget = emptyWakeDraft()
+    const withTarget = draftWith({ targets: [7] })
+
+    expect(wakeInputsSatisfied(item, withNoTarget)).toBe(true)
+    expect(outcomeReady(item.outcomeOptions[0], item, withNoTarget)).toBe(false)
+    expect(outcomeReady(item.outcomeOptions[1], item, withNoTarget)).toBe(true)
+    expect(outcomeReady(item.outcomeOptions[0], item, withTarget)).toBe(true)
+  })
+
   it('still requires a role choice when the item offers one', () => {
     const item = { ...itemNeedingTarget(), roleChoices: [{ id: 'chef', label: '厨师' }] } as WakeItem
     const onlyTarget = draftWith({ targets: [7] })
 
     expect(wakeInputsSatisfied(item, onlyTarget)).toBe(false)
     expect(wakeInputsSatisfied(item, draftWith({ targets: [7], roleChoice: 'chef' }))).toBe(true)
+  })
+
+  it('rejects a forbidden storyteller registration', () => {
+    const item = {
+      ...itemNeedingTarget(),
+      registrationSpec: {
+        kind: 'role_type' as const,
+        label: '本夜展示类型',
+        choices: [{ id: 'outsider', label: '外来者' }],
+      },
+      forbiddenRegistrationValues: ['outsider' as const],
+    } as WakeItem
+
+    expect(wakeInputsSatisfied(item, draftWith({
+      targets: [7],
+      registration: { kind: 'role_type', seatId: 7, value: 'outsider' },
+    }))).toBe(false)
   })
 })
 

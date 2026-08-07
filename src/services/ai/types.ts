@@ -1,6 +1,6 @@
 import type { GameArchiveRecord } from '../archive'
 import type { SetupPrototypeCandidate, SetupSeatProfile } from '../../features/setup'
-import type { AIResultAdvice, NightWorkbenchState, WakeDraft, WakeItem } from '../../features/night-workbench/types'
+import type { AIResultAdvice, NightWorkbenchState, StorytellerRegistrationSnapshot, WakeDraft, WakeHistoricalContext, WakeItem } from '../../features/night-workbench/types'
 import type { PlayerExperience } from '../../features/game-session/types'
 import type { AIRoleKnowledgeBrief } from '../../domain/role-knowledge'
 import type { AIRoleResearchBrief } from '../../domain/scripts'
@@ -117,17 +117,25 @@ export interface NightSettlementContext {
       roleName: string
       ability: string
       targetCount: number
+      minimumTargetCount?: number
       status: {
         life: string
         impairments: string[]
         markers: string[]
       }
+      previousRegistration?: StorytellerRegistrationSnapshot
+      forbiddenRegistrationValues?: WakeItem['forbiddenRegistrationValues']
+      previousTargets?: number[]
+      forbiddenTargetSeatIds?: number[]
+      previousTargetRequired?: boolean
+      historicalContext?: WakeHistoricalContext
     }
   draft: {
     targets: number[]
     roleChoice: string
     outcomeId: string
     draftRevision: number
+    registration?: StorytellerRegistrationSnapshot
   }
   selectedTargets: {
     seatId: number

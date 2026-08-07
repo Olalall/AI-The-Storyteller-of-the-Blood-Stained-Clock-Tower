@@ -40,6 +40,9 @@ export function buildDaySkillContext(
   const targets = draft.targetSeatIds.map((seatId) => ({
     seatId,
     actualRole: roleForId(roleOptions, draft.targetActualRoleIds[seatId]) ?? cloneRoleSnapshot(currentRoles.get(seatId)),
+    registration: draft.abilityRoleId === 'moonchild' && draft.targetAlignments?.[seatId]
+      ? { kind: 'alignment' as const, seatId, value: draft.targetAlignments[seatId] }
+      : undefined,
   }))
   const context: DaySkillContext = {
     abilityRole: roleForId(roleOptions, draft.abilityRoleId),
@@ -54,7 +57,10 @@ export function buildDaySkillContext(
 }
 
 export function canRecordDaySkill(draft: DaySkillDraft) {
-  return draft.actorSeatId !== null && Boolean(draft.abilityRoleId) && Boolean(draft.outcomeKind) &&
+  const registrationReady = draft.abilityRoleId !== 'moonchild' || (
+    draft.targetSeatIds.length === 1 && draft.targetSeatIds.every((seatId) => Boolean(draft.targetAlignments?.[seatId]))
+  )
+  return draft.actorSeatId !== null && Boolean(draft.abilityRoleId) && Boolean(draft.outcomeKind) && registrationReady &&
     (draft.outcomeKind !== 'custom' || Boolean(draft.outcomeNote.trim()))
 }
 

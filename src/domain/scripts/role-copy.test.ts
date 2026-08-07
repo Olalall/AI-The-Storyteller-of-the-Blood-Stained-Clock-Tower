@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { getSmartScriptPack, roleAbilityForScript, rolePromptForScript } from './catalog'
+import { getSmartScriptPack, roleAbilityForScript, rolePromptForScript, smartScriptPacks } from './catalog'
 
 const officialBasicScriptIds = ['trouble-brewing', 'bad-moon-rising', 'sects-and-violets']
 const tpiRecommendedScriptIds = ['one-in-one-out', 'a-grimm-chorus', 'hide-and-seek', 'lunar-eclipse']
@@ -111,5 +111,23 @@ describe('official basic script role copy', () => {
 
     expect(roleAbilityForScript('devout-theists', 'legion')).toContain('多数玩家是军团')
     expect(rolePromptForScript('devout-theists', 'legion')).toContain('不自动生成多名军团')
+  })
+
+  it('does not fall back to English for the remaining imported roles', () => {
+    expect(roleAbilityForScript('church-of-spies', 'cultleader')).toContain('存活邻座')
+    expect(roleAbilityForScript('insanity-and-intuition', 'poppygrower')).toContain('互相不认识')
+    expect(roleAbilityForScript('insanity-and-intuition', 'plaguedoctor')).toContain('说书人获得一个爪牙能力')
+    expect(roleAbilityForScript('insanity-and-intuition', 'boomdandy')).toContain('除三名玩家外')
+  })
+
+  it('preserves the not-first-night marker in shared localized copy', () => {
+    for (const roleId of [
+      'assassin', 'flowergirl', 'gambler', 'imp', 'legion', 'lycanthrope',
+      'monk', 'ojo', 'oracle', 'professor', 'towncrier', 'zombuul',
+    ]) {
+      const pack = smartScriptPacks.find((candidate) => candidate.roles.some((role) => role.id === roleId))
+      if (!pack) throw new Error(`${roleId} is missing from the catalog`)
+      expect(roleAbilityForScript(pack.scriptId, roleId), roleId).toContain('*')
+    }
   })
 })

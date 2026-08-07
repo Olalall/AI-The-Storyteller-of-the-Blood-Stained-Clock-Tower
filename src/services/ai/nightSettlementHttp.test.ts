@@ -87,6 +87,42 @@ describe('night settlement HTTP adapter', () => {
     expect(advice?.authorityWarnings).toEqual(['先核对发动者状态。', '确认本项前不写日志。'])
   })
 
+  it('puts confirmed previous registration and current storyteller registration on the wire', async () => {
+    const base = adviceInput()
+    const input = {
+      ...base,
+      item: {
+        ...base.item,
+        previousRegistration: { kind: 'role_type' as const, seatId: 4, value: 'outsider' as const },
+        forbiddenRegistrationValues: ['outsider' as const],
+        previousTargets: [4],
+        forbiddenTargetSeatIds: [4],
+        previousTargetRequired: true,
+        minimumTargetCount: 0,
+        historicalContext: { kind: 'pukka_poison' as const, status: 'ready' as const, seatIds: [4], summary: '4号为旧毒候选。' },
+      },
+      draft: {
+        ...base.draft,
+        registration: { kind: 'role_type' as const, seatId: 3, value: 'minion' as const },
+      },
+    }
+    await createNightResultAdviceAsync(input, {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_url, init) => {
+        const payload = JSON.parse(String(init?.body)) as { wakeItem: { previousRegistration?: unknown; forbiddenRegistrationValues?: string[]; previousTargets?: number[]; forbiddenTargetSeatIds?: number[]; previousTargetRequired?: boolean; minimumTargetCount?: number; historicalContext?: unknown }; draft: { registration?: unknown } }
+        expect(payload.wakeItem.previousRegistration).toEqual(input.item.previousRegistration)
+        expect(payload.wakeItem.forbiddenRegistrationValues).toEqual(['outsider'])
+        expect(payload.wakeItem.previousTargets).toEqual([4])
+        expect(payload.wakeItem.forbiddenTargetSeatIds).toEqual([4])
+        expect(payload.wakeItem.previousTargetRequired).toBe(true)
+        expect(payload.wakeItem.minimumTargetCount).toBe(0)
+        expect(payload.wakeItem.historicalContext).toEqual(input.item.historicalContext)
+        expect(payload.draft.registration).toEqual(input.draft.registration)
+        return jsonResponse({ accepted: true, data: { draft: { status: 'needs_input', missing: ['仅验证请求。'] } } })
+      },
+    })
+  })
+
   it('sends selected target context from all seats, not only the night queue', async () => {
     const input = {
       ...adviceInput(),
@@ -195,7 +231,11 @@ describe('night settlement HTTP adapter', () => {
    * 而 7 号这一步根本没被提到——按钮点下去写的是一次凭空的状态变更。
    */
   it('keeps structured state-change drafts only for seats in this request', async () => {
-    const advice = await createNightResultAdviceAsync(adviceInput(), {
+    const input = adviceInput()
+    input.item.historicalContext = {
+      kind: 'pukka_poison', status: 'ready', seatIds: [4], summary: '4号为旧毒候选。',
+    }
+    const advice = await createNightResultAdviceAsync(input, {
       runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
       fetcher: async () => jsonResponse({
         accepted: true,
@@ -206,6 +246,7 @@ describe('night settlement HTTP adapter', () => {
             summary: '草稿。',
             stateChangeDrafts: [
               { text: '给3号加中毒', seatId: 3, change: { field: 'poisoned', to: 'true' } },
+              { text: '4号死亡候选', seatId: 4, change: { field: 'life', to: 'dead' } },
               { text: '给7号加中毒', seatId: 7, change: { field: 'poisoned', to: 'true' } },
               '涉及疯狂：不判断玩家是否破疯狂。',
             ],
@@ -216,6 +257,7 @@ describe('night settlement HTTP adapter', () => {
 
     expect(advice?.stateChangeDrafts).toEqual([
       { text: '给3号加中毒', seatId: 3, change: { field: 'poisoned', to: 'true' } },
+      { text: '4号死亡候选', seatId: 4, change: { field: 'life', to: 'dead' } },
       { text: '涉及疯狂：不判断玩家是否破疯狂。' },
     ])
   })

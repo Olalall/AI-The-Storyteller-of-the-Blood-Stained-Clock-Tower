@@ -12,7 +12,7 @@ export const shuoShuRenZhiNuFirstNight: readonly NightOrderEntry[] = [
   { roleId: "cerenovus", order: 25, note: "让洗脑师选择一名玩家和一个善良角色。标记那名玩家疯狂。让洗脑师重新入睡。唤醒洗脑师的目标。对这名玩家展示“该角色的能力对你生效”信息标记，洗脑师角色标记，该玩家需要疯狂证明的角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "mezepheles", order: 27, note: "告诉灵言师他的秘密词语。", knowledgeStatus: 'confirmed' },
   { roleId: "pixie", order: 29, note: "对小精灵展示一个在场的镇民角色。", knowledgeStatus: 'confirmed' },
-  { roleId: "butler", order: 38, note: "让管家选择一名玩家。标记那名玩家为他的主人。", knowledgeStatus: 'confirmed' },
+  { roleId: "butler", order: 38, note: "让管家选择一名玩家。标记那名玩家为他的主人。提醒：流放表决不受主人限制，管家可自由参与表决。", knowledgeStatus: 'confirmed' },
   { roleId: "bountyhunter", order: 45, note: "指向一名邪恶玩家。随后唤醒那名因赏金猎人而转变为邪恶的镇民，并告知他变成了邪恶阵营。", knowledgeStatus: 'confirmed' },
   { roleId: "mathematician", order: 51, note: "给他展示数字手势来告诉他在首个夜晚里有多少玩家的角色能力受他人影响而未正常生效。", knowledgeStatus: 'confirmed' },
 ]
@@ -31,7 +31,7 @@ export const shuoShuRenZhiNuOtherNight: readonly NightOrderEntry[] = [
   { roleId: "vortex", order: 31, note: "让涡流选择一名玩家。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "legion", order: 34, note: "由说书人决定，让哪一名玩家死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "lilmonsta", order: 36, note: "唤醒所有爪牙，允许他们以指向的方式决定谁照看小怪宝，但不能产生其他交流，否则会有非常糟糕的事情发生。说书人选择一名玩家，那名玩家死亡。", knowledgeStatus: 'confirmed' },
-  { roleId: "butler", order: 55, note: "让管家选择一名玩家。标记那名玩家为他的主人。", knowledgeStatus: 'confirmed' },
+  { roleId: "butler", order: 55, note: "让管家选择一名玩家。标记那名玩家为他的主人。提醒：流放表决不受主人限制，管家可自由参与表决。", knowledgeStatus: 'confirmed' },
   { roleId: "bountyhunter", order: 65, note: "如果赏金猎人知晓的邪恶玩家死亡，指向另一名邪恶玩家。", knowledgeStatus: 'confirmed' },
   { roleId: "mathematician", order: 71, note: "给他展示数字手势来告诉他从上个黎明到数学家醒来前有多少玩家的角色能力受他人影响而未正常生效。", knowledgeStatus: 'confirmed' },
 ]

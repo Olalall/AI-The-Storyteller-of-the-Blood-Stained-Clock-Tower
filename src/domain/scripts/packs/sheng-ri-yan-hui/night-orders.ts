@@ -10,7 +10,7 @@ export const shengRiYanHuiFirstNightOrder = [
   {"roleId": "devilsadvocate", "order": 22, "note": "让魔鬼代言人选择一名存活玩家。标记那名玩家处决不死。", "knowledgeStatus": "confirmed"},
   {"roleId": "cerenovus", "order": 25, "note": "让洗脑师选择一名玩家和一个善良角色。标记那名玩家疯狂。让洗脑师重新入睡。唤醒洗脑师的目标。对这名玩家展示“该角色的能力对你生效”信息标记，洗脑师角色标记，该玩家需要疯狂证明的角色标记。", "knowledgeStatus": "confirmed"},
   {"roleId": "chef", "order": 35, "note": "给他展示数字手势来告诉他场上邻座邪恶玩家有多少对。", "knowledgeStatus": "confirmed"},
-  {"roleId": "butler", "order": 38, "note": "让管家选择一名玩家。标记那名玩家为他的主人。", "knowledgeStatus": "confirmed"},
+  {"roleId": "butler", "order": 38, "note": "让管家选择一名玩家。标记那名玩家为他的主人。提醒：流放表决不受主人限制，管家可自由参与表决。", "knowledgeStatus": "confirmed"},
   {"roleId": "noble", "order": 43, "note": "以任意顺序指向三名玩家，其中一名邪恶。", "knowledgeStatus": "confirmed"},
 ] as const satisfies readonly NightOrderEntry[]
 
@@ -29,8 +29,8 @@ export const shengRiYanHuiOtherNightOrder = [
   {"roleId": "acrobat", "order": 39, "note": "如果杂技演员左右两侧最近的存活善良玩家之一中毒或醉酒，杂技演员死亡。", "knowledgeStatus": "confirmed"},
   {"roleId": "sweetheart", "order": 41, "note": "如果心上人死亡，会有一名玩家立刻醉酒。如果你还没有让这件事情发生，那么现在为任意一位玩家放置醉酒标记。", "knowledgeStatus": "confirmed"},
   {"roleId": "choirboy", "order": 44, "note": "如果国王被恶魔杀死，将唱诗男孩唤醒并告诉他谁是那个杀死国王的恶魔。", "knowledgeStatus": "confirmed"},
-  {"roleId": "butler", "order": 55, "note": "让管家选择一名玩家。标记那名玩家为他的主人。", "knowledgeStatus": "confirmed"},
+  {"roleId": "butler", "order": 55, "note": "让管家选择一名玩家。标记那名玩家为他的主人。提醒：流放表决不受主人限制，管家可自由参与表决。", "knowledgeStatus": "confirmed"},
   {"roleId": "oracle", "order": 60, "note": "给他展示数字手势来告诉他当前已死亡的玩家中有多少玩家是邪恶的。", "knowledgeStatus": "confirmed"},
   {"roleId": "juggler", "order": 62, "note": "给他展示数字手势来告诉他他当天白天猜测正确的次数。", "knowledgeStatus": "confirmed"},
-  {"roleId": "king", "order": 64, "note": "如果死亡玩家人数大于存活玩家，唤醒国王并对其展示一个存活的角色标记。", "knowledgeStatus": "confirmed"},
+  {"roleId": "king", "order": 64, "note": "如果死亡玩家人数大于或等于存活玩家，唤醒国王并对其展示一个存活的角色标记。", "knowledgeStatus": "confirmed"},
 ] as const satisfies readonly NightOrderEntry[]

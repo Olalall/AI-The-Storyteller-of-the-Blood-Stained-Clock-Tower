@@ -1,5 +1,5 @@
 import type { NightWorkbenchState, WakeDraft, WakeItem } from '../types'
-import { outcomeReady } from './projectWakeDraft'
+import { outcomeReady, wakeTargetsValid } from './projectWakeDraft'
 
 export function canEditItem(state: NightWorkbenchState, item: WakeItem) {
   return state.previewEntryId === state.activeCursorId &&
@@ -12,6 +12,7 @@ export function canEditItem(state: NightWorkbenchState, item: WakeItem) {
 export function canConfirmDraft(state: NightWorkbenchState, item: WakeItem, draft: WakeDraft) {
   const selectedOutcome = item.outcomeOptions.find((option) => option.id === draft.outcomeId)
   return canEditItem(state, item) && Boolean(
+    wakeTargetsValid(item, draft, state.playerCount) &&
     selectedOutcome &&
     outcomeReady(selectedOutcome, item, draft) &&
     draft.outputSource?.templateId === selectedOutcome.id &&

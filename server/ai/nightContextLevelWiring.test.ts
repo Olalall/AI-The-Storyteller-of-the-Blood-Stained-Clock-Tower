@@ -173,4 +173,40 @@ describe('校验器认 contextLevel', () => {
     expect(isNightSettlementRequest({ ...request(), contextLevel: 'partial' })).toBe(false)
     expect(isNightSettlementRequest({ ...request(), unknownSeatIds: ['7'] })).toBe(false)
   })
+
+  it('rejects invalid target and registration drafts before provider use', () => {
+    expect(isNightSettlementRequest({
+      ...request(),
+      draft: { ...request().draft, targets: [3, 3] },
+    })).toBe(false)
+    expect(isNightSettlementRequest({
+      ...request(),
+      wakeItem: { ...request().wakeItem, targetCount: 1 },
+      draft: { ...request().draft, targets: [3, 4] },
+    })).toBe(false)
+    expect(isNightSettlementRequest({
+      ...request(),
+      wakeItem: { ...request().wakeItem, forbiddenTargetSeatIds: [3] },
+    })).toBe(false)
+    expect(isNightSettlementRequest({
+      ...request(),
+      wakeItem: { ...request().wakeItem, forbiddenRegistrationValues: ['outsider'] },
+      draft: {
+        ...request().draft,
+        registration: { kind: 'role_type', seatId: 3, value: 'outsider' },
+      },
+    })).toBe(false)
+  })
+
+  it('rejects selected target snapshots outside the current player range', () => {
+    const selectedTarget = request().selectedTargets[0]
+    expect(isNightSettlementRequest({
+      ...request(),
+      selectedTargets: [{ ...selectedTarget, seatId: 999 }],
+    })).toBe(false)
+    expect(isNightSettlementRequest({
+      ...request(),
+      selectedTargets: [selectedTarget, { ...selectedTarget }],
+    })).toBe(false)
+  })
 })
