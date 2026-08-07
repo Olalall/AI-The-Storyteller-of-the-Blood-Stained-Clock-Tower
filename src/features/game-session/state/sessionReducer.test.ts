@@ -271,6 +271,38 @@ describe('night workbench commit command', () => {
     })
   })
 
+  it('rejects a night workbench commit whose record violates the wake target contract', () => {
+    const session = createPrototypeGameSession()
+    const runId = session.activeNightRunId!
+    const run = session.nightRuns[runId]
+    const wakeItemId = run.activeCursorId
+    const invalidDraft = {
+      ...emptyWakeDraft(),
+      targets: [1, 2],
+      roleChoice: 'investigator',
+      outcomeId: 'applied',
+      storytellerResult: '非法多目标记录',
+    }
+    const nextRun = {
+      ...run,
+      queue: run.queue.map((item) => item.id === wakeItemId ? { ...item, progress: 'confirmed' as const } : item),
+      drafts: { ...run.drafts, [wakeItemId]: invalidDraft },
+    }
+
+    expect(gameSessionReducer(session, {
+      type: 'commit-night-workbench',
+      nightRun: nextRun,
+      records: [{
+        id: 'night-invalid-target-count',
+        wakeItemId,
+        revision: 1,
+        confirmedAt: '2026-07-13T10:00:00.000Z',
+        snapshot: invalidDraft,
+      }],
+      roleChanges: [],
+    })).toBe(session)
+  })
+
   it('closes the active night and creates a separate next-night run only when explicitly started', () => {
     const session = createPrototypeGameSession()
     const originalRunId = session.activeNightRunId!
@@ -416,6 +448,18 @@ describe('night workbench commit command', () => {
       entry: { ...correctionEntry, wakeItemId: 'other-wake-item' },
       input: { id: 'history-correction-invalid', createdAt: '2026-07-14T10:00:00.000Z' },
     })
+    const invalidTargets = gameSessionReducer(session, {
+      type: 'append-correction',
+      originalEntryId: original.id,
+      entry: {
+        ...correctionEntry,
+        record: {
+          ...correctionEntry.record,
+          snapshot: { ...correctionEntry.record.snapshot, targets: [1, 2] },
+        },
+      },
+      input: { id: 'history-correction-invalid-targets', createdAt: '2026-07-14T10:00:00.000Z' },
+    })
     const vote = session.timeline.find((entry) => entry.kind === 'vote_round')
 
     const dayAction = gameSessionReducer(session, {
@@ -452,6 +496,7 @@ describe('night workbench commit command', () => {
       correctionReason: '记录目标有误',
     })
     expect(mismatched).toBe(session)
+    expect(invalidTargets).toBe(session)
     expect(categoryMismatch).toBe(dayAction)
     if (vote?.kind === 'vote_round') {
       expect(gameSessionReducer(session, {
@@ -461,5 +506,30 @@ describe('night workbench commit command', () => {
         input: { id: 'vote-correction-invalid', createdAt: '2026-07-14T10:00:00.000Z' },
       })).toBe(session)
     }
+  })
+
+  it('rejects direct night-action appends that bypass the wake target contract', () => {
+    const session = createPrototypeGameSession()
+    const original = session.timeline.find((entry) => entry.kind === 'night_action')
+    if (!original || original.kind !== 'night_action') throw new Error('fixture is incomplete')
+
+    const invalid = gameSessionReducer(session, {
+      type: 'append-phase-entry',
+      phaseKind: 'night',
+      entry: {
+        kind: 'night_action',
+        nightRunId: original.nightRunId,
+        wakeItemId: original.wakeItemId,
+        summary: '非法夜间记录',
+        details: [],
+        record: {
+          revision: original.record.revision + 1,
+          snapshot: { ...original.record.snapshot, targets: [1, 2] },
+        },
+      },
+      input: { id: 'direct-night-invalid-targets', createdAt: '2026-07-14T10:03:00.000Z' },
+    })
+
+    expect(invalid).toBe(session)
   })
 })

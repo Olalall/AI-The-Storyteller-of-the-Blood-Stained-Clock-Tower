@@ -1,5 +1,11 @@
 import { createSmartScriptSetupCandidates } from '../../features/setup'
-import { applyOutcome, outcomeReady } from '../../features/night-workbench/state/projectWakeDraft'
+import {
+  applyOutcome,
+  hasForbiddenRegistration,
+  outcomeReady,
+  wakeTargetsSatisfyRequiredInput,
+  wakeTargetRange,
+} from '../../features/night-workbench/state/projectWakeDraft'
 import type { AIAdapter, CreateNightResultAdviceInput } from './types'
 import { getPrototypeAIResultTemplate } from './prototypeNightAdvice'
 import { getComplexRoleKnowledge, type ComplexRoleKnowledge, type RoleKnowledgeRiskTag } from '../../domain/role-knowledge'
@@ -130,9 +136,37 @@ function createNightResultAdvice({ state, item, draft }: CreateNightResultAdvice
   if (!template) return null
 
   const option = item.outcomeOptions.find((candidate) => candidate.id === template.recommendedOutcomeId)
+  const targetRange = wakeTargetRange(item)
+  const targetRequirement = option?.targetCounts?.length
+    ? `${option.targetCounts.join('或')}个${item.targetLabel ?? '目标'}`
+    : targetRange.minimum === targetRange.maximum
+    ? `${targetRange.maximum}个${item.targetLabel ?? '目标'}`
+    : `${targetRange.minimum}-${targetRange.maximum}个${item.targetLabel ?? '目标'}`
+  const targetRequirementMissing = Boolean(option?.requiredInputs.includes('targets') && (
+    option.targetCounts?.length
+      ? !option.targetCounts.includes(draft.targets.length)
+      : !wakeTargetsSatisfyRequiredInput(item, draft)
+  ))
   const missing = [
-    option?.requiredInputs.includes('targets') && draft.targets.length !== item.targetCount ? `缺少${item.targetLabel ?? '目标'}` : '',
+    targetRequirementMissing ? `目标数量需为${targetRequirement}` : '',
     option?.requiredInputs.includes('role') && !draft.roleChoice ? `缺少${item.roleLabel ?? '角色'}` : '',
+    item.registrationSpec && !draft.registration ? `缺少${item.registrationSpec.label}` : '',
+    hasForbiddenRegistration(item, draft)
+      ? '气球驾驶员健康时，本夜展示类型不能与上一夜相同；请改选展示类型或先记录醉酒/中毒状态。'
+      : '',
+    item.roleId === 'balloonist' && state.nightType === 'other' && !item.previousRegistration && !item.historicalContext
+      ? '缺少上一夜已确认的展示类型登记'
+      : '',
+    item.roleId === 'moonchild' && !item.previousRegistration && !item.historicalContext
+      ? '缺少白天选择时已确认的阵营登记'
+      : '',
+    item.previousTargetRequired && !item.previousTargets?.length
+      ? '缺少上一夜已确认目标，不能核对连续选择限制'
+      : '',
+    item.previousTargetRequired && draft.targets.some((seatId) => item.previousTargets?.includes(seatId))
+      ? '本夜目标与上一夜已确认目标重复，请先改选'
+      : '',
+    item.historicalContext?.status === 'missing' ? item.historicalContext.summary : '',
   ].filter(Boolean)
   const adviceId = `${item.id}-ai-${state.revision}-${draft.draftRevision}`
   const projected = projectedAdviceDrafts({ item, draft, outcomeId: option?.id, roleKnowledge, roleResearch })

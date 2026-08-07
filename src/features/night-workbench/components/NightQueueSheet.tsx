@@ -34,10 +34,11 @@ export function NightQueueSheet({
   onPreview,
 }: NightQueueSheetProps) {
   const [view, setView] = useState<'game' | 'official'>('game')
-  const currentItems: NightOrderListItem[] = queue.map((item) => ({
+  const visibleQueue = concealed ? queue.filter((item) => !item.systemStep?.sensitive) : queue
+  const currentItems: NightOrderListItem[] = visibleQueue.map((item, index) => ({
     id: item.id,
     kind: 'game',
-    orderIndex: item.orderIndex,
+    orderIndex: concealed ? index + 1 : item.orderIndex,
     roleId: item.roleId,
     roleName: item.roleName,
     roleInitial: item.roleInitial,
@@ -48,6 +49,7 @@ export function NightQueueSheet({
     progress: item.progress,
     applicability: item.applicability,
     systemStep: Boolean(item.systemStep),
+    systemStepSensitive: Boolean(item.systemStep?.sensitive),
   }))
   const officialItems = getOfficialNightOrder(nightType)
   const nightTypeLabel = nightType === 'first' ? '首夜' : '其他夜'
@@ -63,7 +65,9 @@ export function NightQueueSheet({
       onOpenChange={handleOpenChange}
       title="夜间顺序"
       description={view === 'game'
-        ? `本局 · ${queue.length}项 · 已确认${completed} · 暂缓${deferred} · 待核对${needsReview}`
+        ? concealed
+          ? `本局 · ${visibleQueue.length}项 · 敏感步骤已隐藏`
+          : `本局 · ${queue.length}项 · 已确认${completed} · 暂缓${deferred} · 待核对${needsReview}`
         : `官方 · ${nightTypeLabel} · ${officialItems.length}项`}
       presentation="page"
       trigger={(

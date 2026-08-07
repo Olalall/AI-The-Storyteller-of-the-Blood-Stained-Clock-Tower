@@ -37,7 +37,7 @@ export const shenFenWeiJiOtherNight: readonly NightOrderEntry[] = [
   { roleId: "barber", order: 40, note: "如果理发师今天死亡了，唤醒恶魔并展示“该角色的效果对你生效”信息标记和理发师角色标记。如果恶魔选择了两名玩家，将这两名玩家分别独自唤醒。对他们展示“你是”信息标记和他们的新角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "farmer", order: 46, note: "如果农民在夜晚死去，则选择另一位善良玩家成为农民。唤醒这名玩家，并告知他成为了农民。", knowledgeStatus: 'confirmed' },
   { roleId: "moonchild", order: 49, note: "如果月之子在白天触发了死亡能力并选择了一名善良玩家，该玩家死亡。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
-  { roleId: "balloonist", order: 63, note: "选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", knowledgeStatus: 'confirmed' },
+  { roleId: "balloonist", order: 63, note: "选择一名角色类型与上一夜所示玩家不同的玩家，指给气球驾驶员；记录本夜所示玩家，供下一夜核对。", knowledgeStatus: 'confirmed' },
   { roleId: "bountyhunter", order: 65, note: "如果赏金猎人知晓的邪恶玩家死亡，指向另一名邪恶玩家。", knowledgeStatus: 'confirmed' },
   { roleId: "general", order: 69, note: "告诉将军你认为的答案。", knowledgeStatus: 'confirmed' },
 ]

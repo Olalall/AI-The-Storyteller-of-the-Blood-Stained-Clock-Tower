@@ -86,6 +86,7 @@ function localAdvice(input: CreateNightResultAdviceInput, warning?: string) {
 function seatIdsInRequest({ state, item, draft }: CreateNightResultAdviceInput) {
   const seats = new Set<number>([item.seatId, ...draft.targets])
   for (const target of selectedNightTargetsForAI(state, draft)) seats.add(target.seatId)
+  for (const seatId of item.historicalContext?.seatIds ?? []) seats.add(seatId)
   return seats
 }
 
@@ -112,6 +113,7 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
       ability: item.ability,
       storytellerPrompt: item.storytellerPrompt,
       targetCount: item.targetCount,
+      minimumTargetCount: item.minimumTargetCount,
       targetLabel: item.targetLabel,
       roleLabel: item.roleLabel,
       status: {
@@ -119,6 +121,12 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
         impairments: [...item.status.impairments],
         markers: item.status.markers.map((marker) => marker.label),
       },
+      previousRegistration: item.previousRegistration ? { ...item.previousRegistration } : undefined,
+      forbiddenRegistrationValues: item.forbiddenRegistrationValues ? [...item.forbiddenRegistrationValues] : undefined,
+      previousTargets: item.previousTargets ? [...item.previousTargets] : undefined,
+      forbiddenTargetSeatIds: item.forbiddenTargetSeatIds ? [...item.forbiddenTargetSeatIds] : undefined,
+      previousTargetRequired: item.previousTargetRequired,
+      historicalContext: item.historicalContext ? structuredClone(item.historicalContext) : undefined,
     },
     draft: {
       targets: [...draft.targets],
@@ -126,6 +134,7 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
       outcomeId: draft.outcomeId,
       playerChoice: draft.playerChoice,
       draftRevision: draft.draftRevision,
+      registration: draft.registration ? { ...draft.registration } : undefined,
     },
     availableOutcomes: item.outcomeOptions.map((outcome) => ({
       id: outcome.id,

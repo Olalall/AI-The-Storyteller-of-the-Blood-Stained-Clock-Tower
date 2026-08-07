@@ -26,6 +26,7 @@ interface NightTargetEchoProps {
   targetCount: number
   /** 已选目标，顺序即点击顺序。 */
   targets: readonly number[]
+  forbiddenSeatIds?: readonly number[]
   /** 自上而下的写入闸门。禁用时回显仍然显示，只是点不动。 */
   disabled: boolean
   /** 与环上点座位走的是同一个回调：切换选中，由 reducer 决定顶掉谁。 */
@@ -38,6 +39,7 @@ export function NightTargetEcho({
   targetLabel,
   targetCount,
   targets,
+  forbiddenSeatIds = [],
   disabled,
   onTarget,
 }: NightTargetEchoProps) {
@@ -84,6 +86,7 @@ export function NightTargetEcho({
               key={seat}
               seat={seat}
               selected={targets.includes(seat)}
+              disabled={forbiddenSeatIds.includes(seat)}
               self={seat === selfSeatId}
               onClick={() => onTarget(seat)}
               aria-label={`选择${seat}号玩家`}

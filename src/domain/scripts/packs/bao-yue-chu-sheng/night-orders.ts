@@ -30,7 +30,7 @@ export const baoYueChuShengOtherNight: readonly NightOrderEntry[] = [
   {"roleId": "professor", "order": 45, "note": "教授可以选择一名死亡玩家。如果他这么做了，标记教授失去能力，然后如果那名玩家是镇民，标记那名玩家被复活。如果被复活的玩家其角色在当晚的后续时段中应该被唤醒，则照常唤醒；如果该玩家的角色只会在首个夜晚被唤醒，则立即唤醒该玩家来使用自己的能力。黎明时，在宣布哪些玩家死亡后，宣布哪些玩家再次变成存活状态了（不要说明原因）。之后的夜晚无需再唤醒教授。", "knowledgeStatus": "confirmed"},
   {"roleId": "grandmother", "order": 50, "note": "如果孙子被恶魔杀死，祖母也会一同死亡。标记祖母死亡。", "knowledgeStatus": "confirmed"},
   {"roleId": "seamstress", "order": 61, "note": "女裁缝可以选择除自己以外的两名玩家。如果她这么做了，对她点头或摇头示意这两名玩家是否为同一阵营，随后标记女裁缝失去能力。之后的夜晚无需再唤醒女裁缝。", "knowledgeStatus": "confirmed"},
-  {"roleId": "balloonist", "order": 63, "note": "选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", "knowledgeStatus": "confirmed"},
-  {"roleId": "king", "order": 64, "note": "如果死亡玩家人数大于存活玩家，唤醒国王并对其展示一个存活的角色标记。", "knowledgeStatus": "confirmed"},
+  {"roleId": "balloonist", "order": 63, "note": "选择一名角色类型与上一夜所示玩家不同的玩家，指给气球驾驶员；记录本夜所示玩家，供下一夜核对。", "knowledgeStatus": "confirmed"},
+  {"roleId": "king", "order": 64, "note": "如果死亡玩家人数大于或等于存活玩家，唤醒国王并对其展示一个存活的角色标记。", "knowledgeStatus": "confirmed"},
   {"roleId": "chambermaid", "order": 70, "note": "让侍女选择除自己外的两名存活玩家。给她展示数字手势来告诉她这些玩家中有几人因自身能力被唤醒。", "knowledgeStatus": "confirmed"},
 ]

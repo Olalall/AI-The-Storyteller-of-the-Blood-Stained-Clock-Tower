@@ -4,6 +4,7 @@ import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge } from '../../components/ui/StatusBadge'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
+import { canAppendHistoryCorrection } from '../game-session/state/sessionReducerGuards'
 import {
   filterTimelineHistory,
   projectCorrectionChain,
@@ -112,12 +113,17 @@ export function TimelineHistorySheet({
   function appendCorrection(entry: PhaseTimelineEntryInput) {
     if (!editing || !isEditableEntry(editing.source)) return
     const id = correctionId(editing.id)
-    dispatch({
+    const action: Extract<GameSessionAction, { type: 'append-correction' }> = {
       type: 'append-correction',
       originalEntryId: editing.id,
       entry,
       input: { id, createdAt: new Date().toISOString() },
-    })
+    }
+    if (!canAppendHistoryCorrection(session, action)) {
+      setNotice('无法追加更正：缺少原夜晚队列或更正内容不符合原行动规则。')
+      return
+    }
+    dispatch(action)
     setEditingEntryId(null)
     setSelectedEntryId(id)
     setNotice('更正已追加到原昼夜。')

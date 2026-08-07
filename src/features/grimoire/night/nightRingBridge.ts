@@ -1,41 +1,40 @@
-/**
- * 环上点座位 → 夜间草稿。
- *
- * 这里刻意**不**自己算「下一刻的 targets 是什么」，而是把意图交给夜间工作台原来那个
- * reducer 去跑。自己算的话，环与抽屉会各持一份「点第四个人时顶掉谁」的规则，
- * 而它们迟早不一致——不一致的那一刻，说书人看到的描边和落账的目标是两回事。
- *
- * 落的是**草稿**：nightWorkbenchReducer 的 target 分支只动 drafts，
- * 确认仍然在抽屉底栏。环上点一百下也不会产生一条确认记录。
- */
 import {
   createNightWorkbenchCommit,
   sessionInitialNightState,
   type NightWorkbenchSessionBinding,
 } from '../../night-workbench/state/gameSessionAdapter'
 import { nightWorkbenchReducer } from '../../night-workbench/state/nightWorkbenchReducer'
+import type { NightWorkbenchState } from '../../night-workbench/types'
 
 /**
- * 把一次环上的点击落进草稿。
+ * 把环上的一次座位点击落进夜间草稿。
  *
- * 返回是否真的写了：没写时调用方要给一句话（「本项不点目标」这类），
- * 因为按下去毫无反应是本工具里最坏的一种反馈——说书人会以为自己点上了。
+ * 这里仍然只写草稿，不确认权威记录；确认仍在夜晚抽屉底栏完成。
  */
 export function commitNightRingTarget(
   binding: NightWorkbenchSessionBinding,
   seatId: number,
-  /** 时钟停在调用方：reducer 必须可重放，自己取 now 会让同一组输入产生不同结果。 */
   at = new Date().toISOString(),
 ): boolean {
-  // 座位得真的存在。reducer 的 target 分支不校验这个——它假设调用方给的是
-  // 队列里点出来的号码。环确实只给得出真座位，但这个函数是公开的，
-  // 一个越界号码会静默落进草稿，然后在确认时变成一条指向无人座位的记录。
-  if (!binding.session.seats[seatId]) return false
+  return commitNightRingTargetFromState(binding, sessionInitialNightState(binding), seatId, at).committed
+}
 
-  const state = sessionInitialNightState(binding)
+/**
+ * 与 commitNightRingTarget 相同，但允许调用方传入“上一点击后的最新本地夜晚状态”。
+ *
+ * 这用于桌面魔典环上的快速连续多目标点击：React session 还没来得及重渲染时，
+ * 第二次点击必须基于第一次点击后的草稿继续算，不能从旧 session 重新算。
+ */
+export function commitNightRingTargetFromState(
+  binding: NightWorkbenchSessionBinding,
+  state: NightWorkbenchState,
+  seatId: number,
+  at = new Date().toISOString(),
+): { committed: boolean; next: NightWorkbenchState } {
+  if (!binding.session.seats[seatId]) return { committed: false, next: state }
+
   const next = nightWorkbenchReducer(state, { type: 'target', seatId, at })
-  // reducer 用「同一引用即无变化」表达拒绝，守卫挡下的点击在这里原样返回 false。
-  if (next === state) return false
+  if (next === state) return { committed: false, next }
   binding.dispatchSession(createNightWorkbenchCommit(next, binding))
-  return true
+  return { committed: true, next }
 }

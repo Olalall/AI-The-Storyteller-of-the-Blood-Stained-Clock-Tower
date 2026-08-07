@@ -41,4 +41,15 @@ describe('complex role knowledge', () => {
     })
   })
 
+  it('keeps corrected timing and victory conditions in the AI brief', () => {
+    const mathematician = roleKnowledgeForAI('mathematician')
+    const damsel = roleKnowledgeForAI('damsel')
+    const politician = roleKnowledgeForAI('politician')
+
+    expect(mathematician?.requiredContext.join(' ')).toContain('上个黎明以来')
+    expect(JSON.stringify(mathematician)).not.toContain('上个白天以来')
+    expect(damsel?.reminders.join(' ')).toContain('落难少女的阵营落败')
+    expect(politician?.reminders.join(' ')).toContain('不是政客固有规则')
+  })
+
 })

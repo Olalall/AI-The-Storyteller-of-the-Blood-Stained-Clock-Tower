@@ -48,6 +48,32 @@ describe('夜环的只读闸门', () => {
     expect(dispatchSession).toHaveBeenCalled()
   })
 
+  it('keeps earlier night targets during rapid multi-target ring taps', () => {
+    const session = createPrototypeGameSession()
+    const runId = session.activeNightRunId!
+    const run = session.nightRuns[runId]
+    const itemId = run.previewEntryId
+    const multiTargetSession: GameSessionState = {
+      ...session,
+      nightRuns: {
+        ...session.nightRuns,
+        [runId]: {
+          ...run,
+          queue: run.queue.map((item) => item.id === itemId
+            ? { ...item, targetCount: 2, minimumTargetCount: 2, targetLabel: '两名目标' }
+            : item),
+        },
+      },
+    }
+    const { view, dispatchSession } = mount(multiTargetSession)
+
+    view.result.current.onSelectSeat(6)
+    view.result.current.onSelectSeat(7)
+
+    const lastAction = dispatchSession.mock.calls.at(-1)?.[0]
+    expect(lastAction?.nightRun.drafts[itemId].targets).toEqual([6, 7])
+  })
+
   it('refuses to write while previewing another item, and says why', () => {
     // 抽屉里那张卡此刻是 fieldset disabled，而两块屏显示的是同一项。
     // 环上点得动的话，说书人回头看已确认的项会发现目标被自己改掉了。

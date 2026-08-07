@@ -41,8 +41,9 @@ export function NightQueueList({
         const hidden = interactive && concealed
         const status = item.progress ? progressMeta[item.progress] : null
         // 系统步骤的 playerLabel 是爪牙/恶魔名单，遮蔽时不能露出；它也没有可称呼的座位号。
+        const sensitiveSystemStep = Boolean(item.systemStepSensitive)
         const title = hidden
-          ? item.systemStep ? item.roleName : `${item.seatId}号角色`
+          ? item.systemStep ? sensitiveSystemStep ? '系统步骤已遮蔽' : item.roleName : `${item.seatId}号角色`
           : item.roleName
         const detail = item.systemStep
           ? hidden ? '名单已遮蔽' : item.playerLabel
@@ -82,7 +83,7 @@ export function NightQueueList({
                 className={`night-queue-item ${active ? 'night-queue-item--active' : ''} ${previewed ? 'night-queue-item--previewed' : ''}`}
                 onClick={() => onPreview?.(item.id)}
                 aria-label={item.systemStep
-                  ? `预览夜序第${item.orderIndex}项：${item.roleName}`
+                  ? `预览夜序第${item.orderIndex}项：${hidden && sensitiveSystemStep ? '系统步骤已遮蔽' : item.roleName}`
                   : `预览夜序第${item.orderIndex}项：${item.seatId}号${hidden ? '角色已遮蔽' : item.roleName}`}
                 ref={active ? activeRef : undefined}
               >

@@ -12,6 +12,20 @@ import type { SystemStepSpec, WakeDraft } from '../types'
 
 /** 首夜系统步骤的只读名单。名单不可点，多座位指认只在下方留勾选痕迹。 */
 export function SystemStepRoster({ step }: { step: SystemStepSpec }) {
+  if (step.recipientLabels) {
+    return (
+      <section className="system-step-roster" aria-label="本步骤名单">
+        <strong>名单</strong>
+        <dl>
+          <div>
+            <dt>{step.audienceLabel ?? '接收者'}</dt>
+            <dd>{step.recipientLabels.length ? step.recipientLabels.join(' / ') : '无 · 本步骤无需通知'}</dd>
+          </div>
+        </dl>
+        <StatusBadge tone="neutral">只读 · 不自动结算</StatusBadge>
+      </section>
+    )
+  }
   return (
     <section className="system-step-roster" aria-label="本步骤名单">
       <strong>名单</strong>

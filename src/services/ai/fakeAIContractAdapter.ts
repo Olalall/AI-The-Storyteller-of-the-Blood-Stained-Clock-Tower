@@ -46,8 +46,9 @@ function setupAdvice(request: Extract<AIContractRequest, { kind: 'setup_advice' 
 
 function nightAdvice(request: Extract<AIContractRequest, { kind: 'night_settlement' }>): AIContractResponse<NightSettlementDraft> {
   const { draft, roleKnowledge, roleResearch, wakeItem } = request.context
+  const minimumTargetCount = wakeItem.minimumTargetCount ?? wakeItem.targetCount
   const missing = [
-    wakeItem.targetCount > draft.targets.length ? '目标未选完' : '',
+    draft.targets.length < minimumTargetCount || draft.targets.length > wakeItem.targetCount ? '目标数量不符合本角色夜晚契约' : '',
   ].filter(Boolean)
   const roleFacts = [
     'AI 只能给出技能结果草稿，不能直接改变玩家状态或日志。',

@@ -5,6 +5,9 @@ export interface NightActionEntry extends TimelineBase {
   kind: 'night_action'
   nightRunId: string
   wakeItemId: string
+  /** 新记录写入；旧记录允许缺失。用于跨夜按同一角色座位检索登记快照。 */
+  actorSeatId?: number
+  roleId?: string
   summary: string
   details: string[]
   record: {

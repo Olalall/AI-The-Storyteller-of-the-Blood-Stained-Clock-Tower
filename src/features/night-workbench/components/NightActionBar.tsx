@@ -18,6 +18,7 @@ interface NightActionBarProps {
   canConfirm: boolean
   activeLabel: string
   previewLabel: string
+  concealed?: boolean
   onReturnCurrent: () => void
   onActivatePreview: () => void
   onResume: () => void
@@ -38,6 +39,7 @@ export function NightActionBar({
   canConfirm,
   activeLabel,
   previewLabel,
+  concealed = false,
   onReturnCurrent,
   onActivatePreview,
   onResume,
@@ -52,8 +54,8 @@ export function NightActionBar({
   if (isPreviewMode(mode)) {
     return <StickyActionBar>
       <div className="preview-action-bar">
-        <Button variant="secondary" aria-label={`退出预览，回到正在处理的${activeLabel}；夜间处理位置不变`} onClick={onReturnCurrent}>回到{wakeShortLabel(activeItem)}</Button>
-        <Button variant="primary" aria-label={`将夜间处理位置切换到${previewLabel}；不确认或保存记录`} onClick={onActivatePreview}>处理{wakeShortLabel(current)}</Button>
+        <Button variant="secondary" aria-label={`退出预览，回到正在处理的${activeLabel}；夜间处理位置不变`} onClick={onReturnCurrent}>回到{wakeShortLabel(activeItem, concealed)}</Button>
+        <Button variant="primary" aria-label={`将夜间处理位置切换到${previewLabel}；不确认或保存记录`} onClick={onActivatePreview}>处理{wakeShortLabel(current, concealed)}</Button>
       </div>
     </StickyActionBar>
   }
