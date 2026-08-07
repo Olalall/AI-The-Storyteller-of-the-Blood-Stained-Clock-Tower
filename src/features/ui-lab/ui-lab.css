@@ -11,7 +11,7 @@
 .ui-lab__section > header p { margin: 0; color: var(--text-subtle); font-size: .75rem; }
 .token-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: var(--space-10); }
 .token-card { min-height: 112px; padding: var(--space-16); border: 1px solid var(--border); border-radius: var(--radius-lg); background: var(--surface-panel); display: grid; justify-items: start; align-content: space-between; gap: var(--space-10); }
-.token-card i { width: 30px; height: 6px; border-radius: 999px; }
+.token-card i { width: 30px; height: 6px; border-radius: var(--radius-pill); }
 .token-card strong { font-size: .84rem; }
 .component-row { display: flex; flex-wrap: wrap; gap: var(--space-10); align-items: center; }
 .disc-row { display: flex; align-items: flex-end; gap: clamp(20px, 6vw, 72px); flex-wrap: wrap; }

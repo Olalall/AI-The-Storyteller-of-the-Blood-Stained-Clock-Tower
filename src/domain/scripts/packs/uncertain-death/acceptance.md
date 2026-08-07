@@ -45,7 +45,7 @@ monk, scarletwoman, lunatic, exorcist, pukka, nodashii, assassin, godfather, swe
 - 疯子假恶魔信息边界。
 - 提线木偶隐藏邪恶身份边界。
 - 普卡中毒与延迟死亡链路。
-- 诺达鲺相邻镇民中毒提醒。
+- 诺-达鲺相邻镇民中毒提醒。
 - 红唇女郎恶魔传递提醒。
 - 心上人死亡后醉酒选择。
 - 陌客误判提醒。

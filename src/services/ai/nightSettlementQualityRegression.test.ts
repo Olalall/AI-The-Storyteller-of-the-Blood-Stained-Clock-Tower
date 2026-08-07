@@ -57,7 +57,7 @@ describe('night settlement AI quality regression', () => {
       recommendedOutcomeId: 'wrong',
     })
     expect(advice?.journalDrafts.join(' ')).toContain('错误，应死亡，待确认状态')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('死亡')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('死亡')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动杀死赌徒')
     expect(JSON.stringify(advice)).not.toContain('confirmedBy')
   })
@@ -89,9 +89,9 @@ describe('night settlement AI quality regression', () => {
 
     expect(advice?.recommendedOutcomeId).toBe('swap')
     expect(advice?.journalDrafts.join(' ')).toContain('交换角色和阵营')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('身份')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('阵营')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('中毒')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('身份')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('阵营')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('中毒')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动交换身份')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动改阵营')
   })
@@ -111,8 +111,8 @@ describe('night settlement AI quality regression', () => {
 
     expect(convertAdvice?.recommendedOutcomeId).toBe('convert')
     expect(convertAdvice?.journalDrafts.join(' ')).toContain('转化为邪恶方古')
-    expect(convertAdvice?.stateChangeDrafts.join(' ')).toContain('身份')
-    expect(convertAdvice?.stateChangeDrafts.join(' ')).toContain('阵营')
+    expect(convertAdvice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('身份')
+    expect(convertAdvice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('阵营')
     expect(convertAdvice?.authorityWarnings.join(' ')).toContain('自动更换恶魔')
     expect(killAdvice?.recommendedOutcomeId).toBe('kill')
     expect(killAdvice?.journalDrafts.join(' ')).toContain('死亡')
@@ -133,7 +133,7 @@ describe('night settlement AI quality regression', () => {
 
     expect(alreadyInPlay?.recommendedOutcomeId).toBe('already-in-play')
     expect(changed?.recommendedOutcomeId).toBe('changed')
-    expect(changed?.stateChangeDrafts.join(' ')).toContain('身份')
+    expect(changed?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('身份')
     expect(changed?.authorityWarnings.join(' ')).toContain('自动更换角色')
   })
 
@@ -158,9 +158,9 @@ describe('night settlement AI quality regression', () => {
 
     expect(advice?.recommendedOutcomeId).toBe('poison')
     expect(advice?.journalDrafts.join(' ')).toContain('中毒')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('中毒')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('死亡')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('延迟')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('中毒')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('死亡')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('延迟')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动杀人')
   })
 
@@ -180,7 +180,7 @@ describe('night settlement AI quality regression', () => {
     })
 
     expect(advice?.recommendedOutcomeId).toBe('range-reminder')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('中毒')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('中毒')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动批量中毒')
     expect(JSON.stringify(advice)).not.toContain('confirmedBy')
   })
@@ -201,8 +201,8 @@ describe('night settlement AI quality regression', () => {
     })
 
     expect(advice?.recommendedOutcomeId).toBe('succession')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('身份')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('阵营')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('身份')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('阵营')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动改身份')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动判胜')
   })
@@ -226,8 +226,8 @@ describe('night settlement AI quality regression', () => {
 
     expect(advice?.recommendedOutcomeId).toBe('ability-recorded')
     expect(advice?.journalDrafts.join(' ')).toContain('麻脸巫婆')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('隐藏信息')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('开局')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('隐藏信息')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('开局')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动执行爪牙结算')
   })
 
@@ -247,8 +247,8 @@ describe('night settlement AI quality regression', () => {
     })
 
     expect(advice?.recommendedOutcomeId).toBe('number-draft')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('延迟')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('隐藏信息')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('延迟')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('隐藏信息')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动给最终数字')
   })
 
@@ -270,8 +270,8 @@ describe('night settlement AI quality regression', () => {
 
     expect(advice?.recommendedOutcomeId).toBe('recorded')
     expect(advice?.journalDrafts.join(' ')).toContain('供真实恶魔核对')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('死亡')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('隐藏信息')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('死亡')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('隐藏信息')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动杀人')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动向疯子泄露真相')
   })
@@ -289,7 +289,7 @@ describe('night settlement AI quality regression', () => {
       recommendedOutcomeId: 'applied',
     })
     expect(advice?.playerMessageDrafts.join(' ')).toContain('疯狂地声称自己是调查员')
-    expect(advice?.stateChangeDrafts.join(' ')).toContain('疯狂')
+    expect(advice?.stateChangeDrafts.map((entry) => entry.text).join(' ')).toContain('疯狂')
     expect(advice?.authorityWarnings.join(' ')).toContain('自动处决')
   })
 })

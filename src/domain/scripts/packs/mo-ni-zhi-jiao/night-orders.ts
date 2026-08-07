@@ -11,9 +11,9 @@ export const moNiZhiJiaoFirstNight: readonly NightOrderEntry[] = [
   { roleId: "empath", order: 8, knowledgeStatus: 'confirmed' },
   { roleId: "dreamer", order: 9, knowledgeStatus: 'confirmed' },
   { roleId: "seamstress", order: 10, knowledgeStatus: 'confirmed' },
-  { roleId: "nightwatchman", order: 11, knowledgeStatus: 'confirmed' },
-  { roleId: "ogre", order: 12, knowledgeStatus: 'confirmed' },
-  { roleId: "xiuxingzhe", order: 13, knowledgeStatus: 'confirmed' },
+  { roleId: "xiuxingzhe", order: 11, knowledgeStatus: 'confirmed' },
+  { roleId: "nightwatchman", order: 12, knowledgeStatus: 'confirmed' },
+  { roleId: "ogre", order: 13, knowledgeStatus: 'confirmed' },
 ]
 
 export const moNiZhiJiaoOtherNight: readonly NightOrderEntry[] = [

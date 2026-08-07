@@ -1,11 +1,29 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+
+
+/** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
+
+
+
+/** 默认落地是空对局的入口界面；依赖中局夹具的用例需要显式载入示例。 */
+async function loadDemoSession(page: Page) {
+  const demo = page.getByRole('button', { name: /载入示例对局/ })
+  if (await demo.isVisible().catch(() => false)) await demo.click()
+}
+
+async function openArchive(page: import('@playwright/test').Page) {
+  const back = page.getByRole('button', { name: '本局', exact: true })
+  if (await back.isVisible().catch(() => false)) await back.click()
+  await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+}
 
 async function reset(page: import('@playwright/test').Page) {
   await page.setViewportSize({ width: 720, height: 900 })
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
-  await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+  await loadDemoSession(page)
+  await openArchive(page)
 }
 
 async function timeline(page: import('@playwright/test').Page) {
@@ -60,6 +78,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   expect((await timeline(page)).length).toBe(beforeOpening)
 
   const beforeSetup = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'setup_changed').length
+  await openArchive(page)
   await page.getByRole('button', { name: 'AI配板与调整' }).click()
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
   await page.locator('.setup-panel__advice-entry').click()
@@ -75,6 +94,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await expect(page.getByRole('button', { name: '进入夜晚' })).toBeVisible()
 
   const beforeNight = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'night_action').length
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.getByRole('heading', { name: /第3夜/ })).toBeVisible()
   await page.getByRole('button', { name: '选择3号玩家' }).click()
@@ -88,6 +108,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await expect(page.getByText('10号洗脑师选择3号成为调查员，目标受到影响。')).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/06-dashboard-after-night.png', fullPage: false })
 
+  await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.getByRole('heading', { name: '第3天' })).toBeVisible()
   await page.getByRole('button', { name: '开始私聊倒计时' }).click()
@@ -107,13 +128,14 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/08-day-vote-before-record.png', fullPage: false })
   await page.getByRole('button', { name: '记录本轮票型' }).click()
   await expect.poll(async () => (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'vote_round').length).toBe(beforeVote + 1)
-  await expect(page.getByText('4号暂列')).toBeVisible()
+  await expect(page.locator('.day-card--standing').getByText('4号暂列')).toBeVisible()
 
   const beforeStateChange = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'player_state_changed').length
   await page.getByRole('button', { name: '记录处决4号' }).click()
@@ -131,7 +153,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByRole('button', { name: '关闭4号玩家' }).click()
   expect((await timeline(page)).length).toBe(beforeOpenSeat)
 
-  await page.getByRole('button', { name: '日记' }).click()
+  await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await expect(page.getByRole('dialog', { name: '日记' })).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/11-journal-open.png', fullPage: false })
   await page.getByRole('button', { name: /查看投票记录/ }).first().click()

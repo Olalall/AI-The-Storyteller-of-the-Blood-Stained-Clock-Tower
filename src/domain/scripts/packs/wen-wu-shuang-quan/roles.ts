@@ -128,7 +128,7 @@ export const wenWuShuangQuanRoles = [
     inputKinds: ["none"],
     setupImpact: ["Balloonist adds 0-1 Outsider depending on script/version; excluded from first templates here."],
     stateChanges: ["Tracks categories already shown to Balloonist."],
-    highRiskNotes: ["Balloonist setup and category-tracking information remain storyteller-confirmed.", "First-night source reminder: 选择一种角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。", "Other-night source reminder: 选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。"],
+    highRiskNotes: ["Balloonist setup and category-tracking information remain storyteller-confirmed.", "First-night source reminder: 选择一种角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。", "Other-night source reminder: 选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", "Legacy Balloonist text from the source script: forced +1 Outsider and no more wakes once every character type has been learned. Current official rule differs: +0~1 Outsider (Storyteller's choice) and the Balloonist wakes every night, learning a player of a character type different from the previous night."],
   }),
   role({
     id: "sailor",
@@ -158,11 +158,11 @@ export const wenWuShuangQuanRoles = [
     name: "半兽人",
     officialName: "lycanthrope",
     team: "townsfolk",
-    abilityText: "每个夜晚*，你要选择一名存活的玩家，如果他是善良的，他死亡，并且当晚不会再有其他玩家死亡。",
+    abilityText: "每个夜晚*，你要选择一名存活玩家：如果他是善良的，他死亡，并且当晚恶魔不会造成死亡。会有一名善良玩家始终被当作邪恶阵营。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/lycanthrope.png",
     inputKinds: ["none"],
-    possibleOutcomes: ["Good target may die and later deaths tonight may be prevented."],
-    highRiskNotes: ["Lycanthrope may kill a good target and suppress later night deaths; death-prevention chain remains manual.", "Other-night source reminder: 半兽人指向一名存活玩家：如果那名玩家善良，则立刻死去且今夜不会再有玩家死亡。"],
+    possibleOutcomes: ["Good target may die and the Demon does not kill tonight."],
+    highRiskNotes: ["Lycanthrope may kill a good target and suppress the Demon kill tonight; one good player always registers as evil and cannot be killed this way; death-prevention chain remains manual.", "Other-night source reminder: 半兽人指向一名存活玩家：如果那名玩家善良，则立刻死去且今夜不会再有玩家死亡。"],
   }),
   role({
     id: "soldier",

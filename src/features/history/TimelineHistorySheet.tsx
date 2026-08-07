@@ -23,6 +23,12 @@ interface TimelineHistorySheetProps {
   onOpenPlayerStatus?: (seatId: number) => void
   onOpenDayWorkbench?: () => void
   onOpenSetup?: () => void
+  /**
+   * 受控模式。记录入口全产品只有一个（阶段轨道右端），由上层持有开关；
+   * 传入 open 时本组件不再渲染自己的触发按钮，避免又长出第二个入口。
+   */
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
 }
 
 const initialFilters: TimelineHistoryFilters = { phaseKey: 'all', seatId: null, category: 'all' }
@@ -67,8 +73,13 @@ export function TimelineHistorySheet({
   onOpenPlayerStatus,
   onOpenDayWorkbench,
   onOpenSetup,
+  open: controlledOpen,
+  onOpenChange: onControlledOpenChange,
 }: TimelineHistorySheetProps) {
-  const [open, setOpen] = useState(false)
+  const [uncontrolledOpen, setUncontrolledOpen] = useState(false)
+  const isControlled = controlledOpen !== undefined
+  const open = isControlled ? controlledOpen : uncontrolledOpen
+  const setOpen = isControlled ? (next: boolean) => onControlledOpenChange?.(next) : setUncontrolledOpen
   const [filters, setFilters] = useState<TimelineHistoryFilters>(initialFilters)
   const [selectedEntryId, setSelectedEntryId] = useState<string | null>(null)
   const [editingEntryId, setEditingEntryId] = useState<string | null>(null)
@@ -144,7 +155,7 @@ export function TimelineHistorySheet({
       description={description}
       contentClassName="sheet-content--timeline-history"
       presentation="page"
-      trigger={<Button variant="secondary" compact><BookOpenText aria-hidden="true" />日记</Button>}
+      trigger={isControlled ? undefined : <Button variant="secondary" compact><BookOpenText aria-hidden="true" />日记</Button>}
     >
       {editing && isEditableEntry(editing.source) ? <TimelineHistoryCorrectionEditor
         entry={editing.source}

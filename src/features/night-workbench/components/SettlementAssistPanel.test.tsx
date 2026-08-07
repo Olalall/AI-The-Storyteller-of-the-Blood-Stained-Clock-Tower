@@ -1,6 +1,9 @@
 import { render, screen, within } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
-import type { AIResultAdvice } from '../types'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+import type { PlayerState } from '../../game-session/model/playerTypes'
+import type { StateChangeAdoptionContext } from '../../../services/ai/stateChangeAdoption'
+import type { AIResultAdvice, AIStateChangeDraft } from '../types'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
 
 function missingAdvice(missing: string[]): AIResultAdvice {
@@ -14,7 +17,7 @@ function missingAdvice(missing: string[]): AIResultAdvice {
     sourceDraftRevision: 1,
     knowledgeVersion: 'test',
     status: 'needs_input',
-    summary: '\u5148\u8865\u9f50\u672c\u9879\u9009\u62e9\u3002',
+    summary: '先补齐本项选择。',
     facts: [],
     missing,
     journalDrafts: [],
@@ -25,47 +28,143 @@ function missingAdvice(missing: string[]): AIResultAdvice {
   }
 }
 
-function answerAdvice(): AIResultAdvice {
+function answerAdvice(stateChangeDrafts: AIStateChangeDraft[] = [{ text: '涉及疯狂：不判断玩家是否破疯狂。' }]): AIResultAdvice {
   return {
     ...missingAdvice([]),
     status: 'answer',
     recommendedOutcomeId: 'applied',
-    summary: '\u5efa\u8bae\u91c7\u7528\u751f\u6548\u8349\u7a3f\u3002',
-    facts: ['\u6d17\u8111\u5e08\u53ea\u7ed9\u75af\u72c2\u63d0\u9192'],
+    summary: '建议采用生效草稿。',
+    facts: ['洗脑师只给疯狂提醒'],
     missing: [],
-    journalDrafts: ['10\u53f7\u6d17\u8111\u5e08\u9009\u62e93\u53f7\u6210\u4e3a\u8c03\u67e5\u5458\u3002'],
-    playerMessageDrafts: ['\u660e\u5929\u8bf7\u75af\u72c2\u5730\u58f0\u79f0\u81ea\u5df1\u662f\u8c03\u67e5\u5458\u3002'],
-    stateChangeDrafts: ['\u6d89\u53ca\u75af\u72c2\uff1a\u4e0d\u5224\u65ad\u73a9\u5bb6\u662f\u5426\u7834\u75af\u72c2\u3002'],
-    authorityWarnings: ['\u786e\u8ba4\u672c\u9879\u524d\u4e0d\u5199\u65e5\u5fd7\u3001\u4e0d\u6539\u72b6\u6001\u3002'],
+    journalDrafts: ['10号洗脑师选择3号成为调查员。'],
+    playerMessageDrafts: ['明天请疯狂地声称自己是调查员。'],
+    stateChangeDrafts,
+    authorityWarnings: ['确认本项前不写日志、不改状态。'],
     confidence: 'medium',
   }
 }
 
+function alive(overrides: Partial<PlayerState> = {}): PlayerState {
+  return { life: 'alive', poisoned: false, drunk: false, markers: [], ...overrides }
+}
+
+function adoptionContext(playerStates: Record<number, PlayerState>): StateChangeAdoptionContext {
+  return { playerStates, segmentId: 'segment-night-1' }
+}
+
 describe('SettlementAssistPanel', () => {
   it('shows actionable guidance for missing AI inputs', () => {
-    render(<SettlementAssistPanel aiAdvice={missingAdvice(['\u7f3a\u5c11\u73a9\u5bb6', '\u7f3a\u5c11\u58f0\u79f0\u89d2\u8272'])} />)
+    render(<SettlementAssistPanel aiAdvice={missingAdvice(['缺少玩家', '缺少声称角色'])} />)
 
-    const panel = screen.getByRole('region', { name: '\u672c\u9879\u8f85\u52a9' })
-    expect(within(panel).getByText('AI\u7f3a\u5c11')).toBeInTheDocument()
-    expect(within(panel).getByText('\u7f3a\u5c11\u73a9\u5bb6\u3001\u7f3a\u5c11\u58f0\u79f0\u89d2\u8272')).toBeInTheDocument()
-    expect(within(panel).getByText('\u73a9\u5bb6')).toBeInTheDocument()
-    expect(within(panel).getByText('\u5728\u4e0a\u65b9\u76ee\u6807\u533a\u70b9\u73a9\u5bb6\u53f7\u7801\u3002')).toBeInTheDocument()
-    expect(within(panel).getByText('\u58f0\u79f0\u89d2\u8272')).toBeInTheDocument()
-    expect(within(panel).getByText('\u5728\u89d2\u8272\u533a\u9009\u62e9\u672c\u6b21\u58f0\u660e\u6216\u731c\u6d4b\u3002')).toBeInTheDocument()
-    expect(within(panel).getByText('\u8865\u9f50\u540e\u53ef\u91cd\u65b0\u63a8\u8350')).toBeInTheDocument()
+    const panel = screen.getByRole('region', { name: '本项辅助' })
+    expect(within(panel).getByText('AI缺少')).toBeInTheDocument()
+    expect(within(panel).getByText('缺少玩家、缺少声称角色')).toBeInTheDocument()
+    expect(within(panel).getByText('玩家')).toBeInTheDocument()
+    expect(within(panel).getByText('在上方目标区点玩家号码。')).toBeInTheDocument()
+    expect(within(panel).getByText('声称角色')).toBeInTheDocument()
+    expect(within(panel).getByText('在角色区选择本次声明或猜测。')).toBeInTheDocument()
+    expect(within(panel).getByText('补齐后可重新推荐')).toBeInTheDocument()
   })
 
   it('shows AI draft previews without implying authority changes', () => {
     render(<SettlementAssistPanel aiAdvice={answerAdvice()} aiOutcomeLabel={'受到影响'} />)
 
-    const panel = screen.getByRole('region', { name: '\u672c\u9879\u8f85\u52a9' })
-    expect(within(panel).getByText('AI\u5efa\u8bae')).toBeInTheDocument()
+    const panel = screen.getByRole('region', { name: '本项辅助' })
+    expect(within(panel).getByText('AI建议')).toBeInTheDocument()
     expect(within(panel).getByText('建议结果')).toBeInTheDocument()
     expect(within(panel).getAllByText('受到影响')).toHaveLength(2)
-    expect(within(panel).getByText('\u5efa\u8bae\u8bb0\u5f55')).toBeInTheDocument()
+    expect(within(panel).getByText('建议记录')).toBeInTheDocument()
     expect(within(panel).getByText('告知玩家')).toBeInTheDocument()
     expect(within(panel).getByText('状态确认')).toBeInTheDocument()
     expect(within(panel).getByText('风险提醒')).toBeInTheDocument()
-    expect(within(panel).getByText(/\u786e\u8ba4\u672c\u9879\u524d/)).toBeInTheDocument()
+    expect(within(panel).getByText(/确认本项前/)).toBeInTheDocument()
+  })
+
+  /*
+   * 没有落盘上下文时不许出现任何写入入口。
+   * 违反的后果：夜间工作台上会出现一枚点了没反应、或者拿不到 expectedBefore 就往下写的按钮。
+   */
+  it('renders plain state-change text with no write affordance when no adoption context is supplied', () => {
+    render(<SettlementAssistPanel
+      aiAdvice={answerAdvice([{ text: '给3号加中毒', seatId: 3, change: { field: 'poisoned', to: 'true' } }])}
+      aiOutcomeLabel={'受到影响'}
+    />)
+
+    const panel = screen.getByRole('region', { name: '本项辅助' })
+    expect(within(panel).getByText('给3号加中毒')).toBeInTheDocument()
+    expect(within(panel).queryByRole('button')).toBeNull()
+  })
+
+  /*
+   * 纯文本建议（本地降级路径给的就是这种）永远不该长出落盘键。
+   * 违反的后果：一句「可能涉及中毒」会变成一枚可点的按钮，而它并不知道该改谁。
+   */
+  it('keeps text-only drafts unclickable even with a full adoption context', () => {
+    render(<SettlementAssistPanel
+      aiAdvice={answerAdvice([{ text: '可能涉及中毒：确认后在玩家状态中标记。' }])}
+      aiOutcomeLabel={'受到影响'}
+      adoption={adoptionContext({ 3: alive() })}
+      onAdoptStateChange={vi.fn()}
+    />)
+
+    const panel = screen.getByRole('region', { name: '本项辅助' })
+    expect(within(panel).getByText('可能涉及中毒：确认后在玩家状态中标记。')).toBeInTheDocument()
+    expect(within(panel).queryByRole('button')).toBeNull()
+  })
+
+  /*
+   * 采纳按钮的三件事一次钉死：文案用第三段式、点击派发的是组件自造的
+   * confirm-player-state-change、expectedBefore 取自当前局面而不是建议。
+   */
+  it('dispatches a self-built confirm-player-state-change when the storyteller commits', async () => {
+    const onAdopt = vi.fn()
+    render(<SettlementAssistPanel
+      aiAdvice={answerAdvice([{ text: '给3号加中毒', seatId: 3, change: { field: 'poisoned', to: 'true' } }])}
+      aiOutcomeLabel={'受到影响'}
+      adoption={adoptionContext({ 3: alive({ life: 'dead' }) })}
+      onAdoptStateChange={onAdopt}
+    />)
+
+    const button = screen.getByRole('button', { name: /确认落盘/ })
+    expect(button.textContent).toContain('3号 中毒→是')
+    // 边界禁用词：写着「已应用」的按钮会让说书人跳过确认，而跳过那一次不会有任何报错。
+    expect(button.textContent).not.toMatch(/应用|执行|AI 已处理|已自动/)
+
+    await userEvent.click(button)
+
+    expect(onAdopt).toHaveBeenCalledTimes(1)
+    const action = onAdopt.mock.calls[0][0]
+    expect(action.type).toBe('confirm-player-state-change')
+    expect(action.seatId).toBe(3)
+    expect(action.expectedBefore).toEqual(alive({ life: 'dead' }))
+    expect(action.after).toEqual(alive({ life: 'dead', poisoned: true }))
+    expect(action.ops).toEqual([{ op: 'impairment_set', seatId: 3, impairment: 'poisoned', value: true }])
+    expect(action.reason).toContain('advice-1')
+  })
+
+  /*
+   * 「确认落盘」是本卡上唯一不在 fieldset 里的写入口，所以只读得单独压给它一次。
+   * 归档回看与预览别人那一项时，它必须和目标网格一起哑掉——不然「readOnly 自上而下强制」
+   * 这条就有一个洞，而这个洞恰好开在唯一一个直接改玩家状态的按钮上。
+   */
+  it('obeys the top-down readOnly gate instead of judging for itself', async () => {
+    const onAdopt = vi.fn()
+    const props = {
+      aiAdvice: answerAdvice([{ text: '给3号加中毒', seatId: 3, change: { field: 'poisoned' as const, to: 'true' } }]),
+      aiOutcomeLabel: '受到影响',
+      adoption: adoptionContext({ 3: alive() }),
+      onAdoptStateChange: onAdopt,
+    }
+    // 前置：不传 readOnly 时它是可点的，否则下面只是在证明这颗按钮从来都点不动。
+    const open = render(<SettlementAssistPanel {...props} />)
+    expect(within(open.container).getByRole('button', { name: /确认落盘/ })).toBeEnabled()
+    open.unmount()
+
+    render(<SettlementAssistPanel {...props} readOnly />)
+    const button = screen.getByRole('button', { name: /确认落盘/ })
+    expect(button).toBeDisabled()
+
+    await userEvent.click(button)
+    expect(onAdopt).not.toHaveBeenCalled()
   })
 })

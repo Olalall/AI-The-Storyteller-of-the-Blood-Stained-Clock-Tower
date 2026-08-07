@@ -22,7 +22,7 @@ describe('archive service command boundary', () => {
     const second = archiveGame(command)
 
     expect(first.archive.id).toBe(`archive-${session.id}-${command.commandId}`)
-    expect(first.archive.schemaVersion).toBe(1)
+    expect(first.archive.schemaVersion).toBe(2)
     expect(second.archive.id).toBe(first.archive.id)
     expect(listArchives()).toHaveLength(1)
     expect(getArchive(first.archive.id)?.winner).toBe('good')
@@ -74,8 +74,8 @@ describe('archive service command boundary', () => {
     delete (legacyArchive as Partial<typeof archive>).schemaVersion
     window.localStorage.setItem(gameArchiveStorageKey, JSON.stringify([legacyArchive]))
 
-    expect(listArchives()[0].schemaVersion).toBe(1)
-    expect(getArchive(archive.id)?.schemaVersion).toBe(1)
+    expect(listArchives()[0].schemaVersion).toBe(2)
+    expect(getArchive(archive.id)?.schemaVersion).toBe(2)
   })
 
   it('can switch archive persistence through an adapter contract', () => {

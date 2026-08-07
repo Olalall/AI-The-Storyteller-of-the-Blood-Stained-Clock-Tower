@@ -1,8 +1,11 @@
 import { projectCurrentPlayerStates } from '../../features/game-session/state/projectors'
 import { projectEffectiveTimelineEntries } from '../../features/game-session/state/projectTimelineHistory'
 import type { GameSessionState, TimelineEntry } from '../../features/game-session/types'
+import { assertNever } from '../../shared/assertNever'
 import { localArchiveAdapter } from './localArchiveAdapter'
+import { LEGACY_HOSTING_MODE, projectArchiveCompleteness } from './archiveMigration'
 import {
+  CURRENT_ARCHIVE_SCHEMA_VERSION,
   winnerLabels,
   type ArchiveGameCommand,
   type ArchiveGameResult,
@@ -48,7 +51,7 @@ function countByKind(entries: TimelineEntry[]) {
   }, {})
 }
 
-function entrySummary(entry: TimelineEntry) {
+function entrySummary(entry: TimelineEntry): string {
   switch (entry.kind) {
     case 'night_action': return entry.summary
     case 'day_action': return entry.summary
@@ -58,6 +61,10 @@ function entrySummary(entry: TimelineEntry) {
     case 'player_state_changed': return `${entry.seatId}号状态已更新`
     case 'setup_confirmed': return '配板已确认'
     case 'setup_changed': return `${entry.seatId}号角色已调整`
+    default:
+      // 归档必须容忍更新版本写入的条目：只做编译期穷尽，运行时仍给空摘要而不是崩掉整份归档。
+      assertNever(entry)
+      return ''
   }
 }
 
@@ -99,7 +106,7 @@ export function createGameArchiveRecord({
   const projection = projectGameArchiveSession(session)
 
   return {
-    schemaVersion: 1,
+    schemaVersion: CURRENT_ARCHIVE_SCHEMA_VERSION,
     id: archiveId ?? `archive-${session.id}-${Date.now()}`,
     sessionId: session.id,
     archivedAt,
@@ -129,6 +136,12 @@ export function createGameArchiveRecord({
       }
     }),
     session,
+    // 归档时把模式与完整度**固化**下来。内嵌 session 里其实也有前两个，但复盘读的是这里：
+    // 一份归档的自我描述不该依赖读取方去内嵌 session 里翻，翻的路径每多一条，
+    // 就多一处可能写成 `?? 'grimoire'` 的回落。
+    hostingMode: session.hostingMode ?? LEGACY_HOSTING_MODE,
+    hostingModeHistory: session.hostingModeHistory ?? [],
+    grimoireCompleteness: projectArchiveCompleteness(session),
   }
 }
 

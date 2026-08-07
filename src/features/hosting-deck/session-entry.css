@@ -1,0 +1,9 @@
+.session-entry { min-height: calc(100dvh - 48px); display: grid; place-items: center; padding: var(--space-24); background: var(--surface-base); }
+.session-entry__card { width: min(560px, 100%); display: grid; gap: var(--space-16); padding: var(--space-32); border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--surface-panel); text-align: center; }
+.session-entry__eyebrow { color: var(--accent-text); font-size: var(--type-meta); font-weight: 800; letter-spacing: .14em; }
+.session-entry__card h1 { margin: 0; font: 800 var(--type-page-title) var(--font-display); color: var(--text-strong); }
+.session-entry__card p { margin: 0; color: var(--text-muted); font-size: var(--type-body); line-height: var(--line-body); }
+.session-entry__actions { display: flex; justify-content: center; gap: var(--space-12); flex-wrap: wrap; }
+.session-entry__demo { min-height: var(--touch-min); border: 1px dashed var(--border-strong); border-radius: var(--radius-md); background: transparent; color: var(--text-subtle); font-size: var(--type-label); font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
+.session-entry__demo:hover { color: var(--text-body); border-color: var(--accent-border); }
+.session-entry__demo svg { width: 15px; }

@@ -1,0 +1,72 @@
+.hosting-mode-card__lede {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
+.hosting-mode-card__options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-12);
+}
+
+/* 两个选项等价呈现、不预选：预选等于替说书人回答了一个只有他知道答案的问题。 */
+.hosting-mode-card__option {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas: 'icon title' 'icon detail';
+  gap: var(--space-4) var(--space-12);
+  min-height: var(--touch-min);
+  padding: var(--space-14) var(--space-16);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+  color: var(--text-body);
+  text-align: left;
+  cursor: pointer;
+}
+
+.hosting-mode-card__option:hover {
+  background: var(--surface-hover);
+}
+
+.hosting-mode-card__option:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.hosting-mode-card__option.is-selected {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+}
+
+.hosting-mode-card__icon {
+  grid-area: icon;
+  align-self: start;
+  width: 20px;
+  height: 20px;
+  color: var(--accent-text);
+}
+
+.hosting-mode-card__option strong {
+  grid-area: title;
+  color: var(--text-strong);
+  font-size: var(--type-label);
+}
+
+.hosting-mode-card__option small {
+  grid-area: detail;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+  line-height: var(--line-body);
+}
+
+.hosting-mode-card__narrow-note {
+  margin: 0;
+  padding: var(--space-10) var(--space-12);
+  border-radius: var(--radius-sm);
+  background: var(--info-soft);
+  border: 1px solid var(--info-border);
+  color: var(--info-text);
+  font-size: var(--type-meta);
+}

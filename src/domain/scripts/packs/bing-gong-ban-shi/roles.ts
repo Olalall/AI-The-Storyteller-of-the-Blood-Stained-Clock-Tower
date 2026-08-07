@@ -109,7 +109,7 @@ export const bingGongBanShiRoles = [
     abilityText: "每个夜晚*，你要选择一名玩家并猜测他的角色：如果你猜错了，你会死亡。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/gambler.png",
     inputKinds: ["none"],
-    highRiskNotes: ["First-night source reminder: ?让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。"],
+    highRiskNotes: ["Other-night source reminder: ?让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。"],
   }),
   role({
     id: "jinyiwei",
@@ -119,7 +119,7 @@ export const bingGongBanShiRoles = [
     abilityText: "每个夜晚*，你要选择一名玩家：如果他在下个黄昏前死亡，你代替他死亡。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202301/c_5878087694761_691045fa.jpg",
     inputKinds: ["none"],
-    highRiskNotes: ["First-night source reminder: ?移除上个夜晚放置的“保护”标记。唤醒锦衣卫，让其选择一名玩家。在该玩家角色标记旁放置“保护”提示标记。"],
+    highRiskNotes: ["Other-night source reminder: ?移除上个夜晚放置的“保护”标记。唤醒锦衣卫，让其选择一名玩家。在该玩家角色标记旁放置“保护”提示标记。", "锦衣卫首个夜晚不行动（能力为“每个夜晚*”）。", "锦衣卫的能力在白天也能触发：处决、流放等白天造成的死亡同样会由锦衣卫代替目标死亡。", "原本的死亡效果被锦衣卫的能力阻止后，不会再继续触发因原本死亡而导致的一系列效果（如小恶魔自杀不会传位）。", "已死亡的锦衣卫失去能力，锦衣卫只能成功保护目标玩家一次；如果目标的死亡被其他效果阻止或无法被锦衣卫阻止，锦衣卫的能力不触发，也不会导致锦衣卫死亡。"],
   }),
   role({
     id: "professor",
@@ -139,7 +139,8 @@ export const bingGongBanShiRoles = [
     abilityText: "你以为你是一个外来者，但你实际上不是。如果有邪恶玩家的能力选择或影响了你，你会立即变成一个不在场的镇民角色。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202310/c_9233465308961_9aa67828.jpg",
     inputKinds: ["none"],
-    highRiskNotes: ["First-night source reminder: ?如果白天有邪恶玩家的能力对悟道者造成影响，告知悟道者变成一个不在场的镇民。"],
+    setupImpact: ["在游戏设置时，移除悟道者角色标记，并添加一个不在场的外来者角色标记，然后再让玩家抽取角色；抽到该外来者的玩家实际是悟道者，且不具有这个外来者的角色能力。"],
+    highRiskNotes: ["First-night source reminder: ?如果白天有邪恶玩家的能力对悟道者造成影响，告知悟道者变成一个不在场的镇民。", "当悟道者被邪恶玩家的能力选择或影响时，在相关的效果生效前，悟道者会先改变角色，变成一个不在场的镇民。"],
   }),
   role({
     id: "tealady",
@@ -169,6 +170,7 @@ export const bingGongBanShiRoles = [
     abilityText: "你拥有一个爪牙角色的能力。当你使用能力时，说书人可能会要求你更换选择。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/alchemist.png",
     inputKinds: ["none"],
+    setupImpact: ["如果炼金术士获得的爪牙能力会导致在设置阶段添加或移除角色（如男爵），这一能力也会在设置阶段生效。"],
     highRiskNotes: ["First-night source reminder: 展示给炼金术士一个不在场的爪牙标记"],
   }),
   role({
@@ -310,7 +312,7 @@ export const bingGongBanShiRoles = [
     abilityText: "每个夜晚*，你可以选择三名玩家（所有玩家都会得知你选了谁）：他们分别秘密决定自己的生死，然后如果他们都存活则都死亡。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/al-hadikhia.png",
     inputKinds: ["none"],
-    highRiskNotes: ["First-night source reminder: ?哈迪寂亚选择三名玩家。对所有人宣告第一位玩家，然后唤醒他并让他秘密选择活着还是死去。依次对第二第三位玩家如此做。如果三名玩家都选择活着，他们都死去。"],
+    highRiskNotes: ["Other-night source reminder: ?哈迪寂亚选择三名玩家。对所有人宣告第一位玩家，然后唤醒他并让他秘密选择活着还是死去。依次对第二第三位玩家如此做。如果三名玩家都选择活着，他们都死去。", "哈迪寂亚可以不进行选择：此时说书人不会宣布哈迪寂亚在场并选择玩家的播报，夜晚继续进行，当晚无人因此死亡。", "结算条件以百科为准：只看三名玩家在各自选择结算后是否全部存活（不看他们选了什么）——若都存活则都死亡；选择“死去”但受免死能力保护而存活的玩家也计入“都存活”；已死亡的玩家选择“活着”会被复活；哈迪寂亚醉酒或中毒时能力不产生任何效果，也不发播报。"],
   }),
   role({
     id: "qiongqi",
@@ -321,7 +323,7 @@ export const bingGongBanShiRoles = [
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202310/c_3300298608961_2077dc45.jpg",
     inputKinds: ["none"],
     setupImpact: ["First-night source reminder: First-night source reminder: First-night source reminder: First-night source reminder: First-night source reminder: First-night source reminder: ??"],
-    highRiskNotes: ["First-night source reminder: ?（清清自编）让穷奇选择一名玩家。如果白天没有外来者死亡，标记该玩家死亡。如果白天有外来者死亡，标记该玩家“视为存活”。说书人选择一名玩家，那名玩家死亡。"],
+    highRiskNotes: ["Other-night source reminder: ?（清清自编）让穷奇选择一名玩家。如果白天没有外来者死亡，标记该玩家死亡。如果白天有外来者死亡，标记该玩家“视为存活”。说书人选择一名玩家，那名玩家死亡。", "“活尸”状态：该玩家实际已死亡但被当作存活；如同醉酒中毒，他失去自身能力，其能力获取的信息可能出错。", "“活尸”玩家再次死亡时，“死亡时触发的能力”不会触发，但“得知自己死亡”的能力会正常触发。", "胜负判定按实际存活人数计算：“活尸”不算存活，游戏可能在城镇广场表面人数尚多时结束。", "“活尸”是一次性状态：即使之后穷奇醉酒中毒或死亡也不会恢复；如果玩家的死亡被阻止，他不会进入“活尸”状态，而是正常存活。"],
   }),
   role({
     id: "taowu",
@@ -331,7 +333,7 @@ export const bingGongBanShiRoles = [
     abilityText: "每个夜晚*，你要选择一名玩家：他死亡。当你将要死亡时，改为一名存活且具有能力的爪牙失去能力。你不会得知恶魔信息。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202310/c_9082388608961_e3ff7173.jpg",
     inputKinds: ["none"],
-    highRiskNotes: ["First-night source reminder: （清清自编）不要唤醒拿到梼杌的玩家，他不会得知自己的爪牙是谁，也不会得知三个不在场的角色。", "First-night source reminder: ?（清清自编）让梼杌选择一名玩家。标记那名玩家死亡。如果梼杌选择了自己，在一名存活且具有能力的爪牙身边放置“失去能力”标记。"],
+    highRiskNotes: ["First-night source reminder: （清清自编）不要唤醒拿到梼杌的玩家，他不会得知自己的爪牙是谁，也不会得知三个不在场的角色。", "Other-night source reminder: ?（清清自编）让梼杌选择一名玩家。标记那名玩家死亡。如果梼杌选择了自己，在一名存活且具有能力的爪牙身边放置“失去能力”标记。", "梼杌首个夜晚不行动（能力为“每个夜晚*”）：首夜不要唤醒梼杌，也不提供恶魔信息。"],
   }),
   role({
     id: "imp",

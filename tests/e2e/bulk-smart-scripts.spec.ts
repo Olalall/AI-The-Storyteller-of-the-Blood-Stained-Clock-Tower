@@ -25,6 +25,41 @@ function selectedScriptIds() {
   return allScriptIds.slice(offset, offset + limit)
 }
 
+
+
+
+/** 首夜前两张是系统步骤卡（爪牙信息 / 恶魔信息）：勾满清单、选满伪装后确认，才轮到角色卡。 */
+async function settleFirstNightSystemSteps(page: Page) {
+  for (let card = 0; card < 2; card += 1) {
+    const recorder = page.locator('.wake-recorder')
+    if (!(await recorder.locator('.system-step-check').count().catch(() => 0))) return
+
+    const checks = recorder.locator('.system-step-check input[type="checkbox"]')
+    for (let i = 0; i < await checks.count(); i += 1) {
+      const box = checks.nth(i)
+      if (!(await box.isChecked().catch(() => true))) await box.check()
+    }
+
+    // 恶魔信息卡要选满三张伪装；爪牙信息卡没有 chip，循环自然空转。
+    for (let guard = 0; guard < 6; guard += 1) {
+      const legend = (await recorder.locator('.choice-legend').first().textContent().catch(() => '')) ?? ''
+      const counts = /(\d+)\s*\/\s*(\d+)/.exec(legend)
+      if (counts && Number(counts[1]) >= Number(counts[2])) break
+      const free = recorder.locator('.choice-chips button:not([disabled])[aria-pressed="false"]')
+      if (!(await free.count().catch(() => 0))) break
+      await free.first().click()
+    }
+
+    const chosen = await recorder.locator('.outcome-grid button[aria-pressed="true"]').count().catch(() => 0)
+    const outcome = recorder.locator('.outcome-grid button:not([disabled])')
+    if (!chosen && await outcome.count().catch(() => 0)) await outcome.first().click()
+
+    const next = page.getByRole('button', { name: '确认并下一位' })
+    if (await next.isEnabled().catch(() => false)) await next.click()
+    await page.waitForTimeout(150)
+  }
+}
+
 async function openBlankSetup(page: Page, runId: string) {
   await page.goto('/')
   await page.evaluate(({ storageKey, id }) => {
@@ -106,7 +141,8 @@ test('bulk smart scripts can be selected, drafted, confirmed and sampled in nigh
         await page.getByRole('button', { name: '进入夜晚' }).click()
         await expect(page.getByRole('region', { name: '夜间角色预览' })).toBeVisible()
         await expect(page.getByRole('heading', { name: '本项记录' })).toBeVisible()
-        await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
+        await settleFirstNightSystemSteps(page)
+  await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
       }
     })
   }

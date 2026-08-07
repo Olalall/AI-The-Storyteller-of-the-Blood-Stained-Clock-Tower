@@ -10,9 +10,14 @@ import type {
 } from './types'
 import { roleKnowledgeForAI } from '../../domain/role-knowledge'
 import { roleResearchForAI } from '../../domain/scripts'
+import { nightContextLevel, sessionContextLevel } from './aiContextLevel'
 import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
 
 interface BuildRequestOptions {
+  /**
+   * 只给测试和将来的显式降级用。缺省一律由 coverage 推导——写死 'minimal' 是这个字段
+   * 过去只存在于类型里的原因：三个 build 函数都填同一个常量，收信的一端自然没有理由去读。
+   */
   contextLevel?: AIContextLevel
   createdAt?: string
 }
@@ -53,7 +58,7 @@ export function buildSetupAdviceRequest(
   return {
     requestId: requestId('ai-setup', createdAt),
     kind: 'setup_advice',
-    contextLevel: options.contextLevel ?? 'minimal',
+    contextLevel: options.contextLevel ?? sessionContextLevel(session),
     createdAt,
     knowledgeVersion: session.knowledgeVersion,
     question: '根据当前人数和玩家经验，给出配板候选排序和提醒。',
@@ -70,7 +75,7 @@ export function buildNightSettlementRequest({
   state,
   item,
   draft,
-  contextLevel = 'minimal',
+  contextLevel,
   createdAt,
 }: BuildNightSettlementRequestOptions): NightSettlementRequest {
   const timestamp = createdAtOrNow(createdAt)
@@ -78,7 +83,7 @@ export function buildNightSettlementRequest({
   return {
     requestId: requestId(`ai-night-${item.id}`, timestamp),
     kind: 'night_settlement',
-    contextLevel,
+    contextLevel: contextLevel ?? nightContextLevel(state),
     createdAt: timestamp,
     knowledgeVersion: state.knowledgeVersion,
     question: '根据当前唤醒项和说书人已录入选择，给出技能结果草稿。',
@@ -123,7 +128,7 @@ export function buildReviewDraftRequest(
   return {
     requestId: requestId(`ai-review-${archive.id}`, createdAt),
     kind: 'review_draft',
-    contextLevel: options.contextLevel ?? 'minimal',
+    contextLevel: options.contextLevel ?? sessionContextLevel(archive.session),
     createdAt,
     knowledgeVersion: archive.session.knowledgeVersion,
     question: '基于归档摘要生成赛后复盘草稿。',

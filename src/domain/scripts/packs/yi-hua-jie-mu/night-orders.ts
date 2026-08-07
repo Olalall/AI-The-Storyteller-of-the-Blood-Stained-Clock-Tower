@@ -1,7 +1,6 @@
 import type { NightOrderEntry } from '../../types'
 
 export const yiHuaJieMuFirstNight: readonly NightOrderEntry[] = [
-  { roleId: "villageidiot", order: 45, note: "让村夫指向一名玩家，根据对方的阵营，对他给出拇指向上或向下的手势。", knowledgeStatus: 'confirmed' },
   { roleId: "lunatic", order: 2300, note: "如果有七名或更多玩家，唤醒疯子：展示“他们是你的爪牙”信息标记。指向任意对应数量的玩家。展示“这些角色不在场”信息标记。展示三个善良角色。让疯子重新入睡。唤醒恶魔。展示“你是”信息标记和恶魔角色标记。展示“这名玩家是”信息标记和疯子角色标记，然后指向疯子玩家。", knowledgeStatus: 'confirmed' },
   { roleId: "marionette", order: 3200, note: "选择一个邻近恶魔的善良玩家放置提线木偶标记。唤醒恶魔并告知他谁是提线木偶。", knowledgeStatus: 'confirmed' },
   { roleId: "qianke", order: 4000, note: "唤醒掮客，让他指向两名存活玩家。如果这两名玩家阵营相同，在这些玩家的角色标记旁放置“熟客”提示标记。", knowledgeStatus: 'confirmed' },
@@ -12,6 +11,7 @@ export const yiHuaJieMuFirstNight: readonly NightOrderEntry[] = [
   { roleId: "dianyuzhang", order: 6700, note: "唤醒典狱长，让其选择至多三名玩家。在这些玩家角色标记旁放置“囚禁”提示标记。", knowledgeStatus: 'confirmed' },
   { roleId: "fortuneteller", order: 8000, note: "让占卜师选择两名玩家。如果其中有恶魔或“干扰项”，点头示意，否则摇头。", knowledgeStatus: 'confirmed' },
   { roleId: "langzhong", order: 9300, note: "唤醒郎中，让其指向一名玩家。以不会被其他玩家察觉的形式对其提供与该玩家角色能力相关的一个词语。", knowledgeStatus: 'confirmed' },
+  { roleId: "villageidiot", order: 10100, note: "让村夫指向一名玩家，根据对方的阵营，对他给出拇指向上或向下的手势。", knowledgeStatus: 'confirmed' },
   { roleId: "nightwatchman", order: 10700, note: "守夜人可以指向一名玩家。如果他这么做，则唤醒那名玩家，告知其被守夜人选中，且告知他守夜人是谁。", knowledgeStatus: 'confirmed' },
   { roleId: "yinluren", order: 12200, note: "唤醒引路人，让其选择两名玩家。以点头或摇头作为信息给出。", knowledgeStatus: 'confirmed' },
   { roleId: "chambermaid", order: 12400, note: "让侍女选择除自己外的两名存活玩家。给她展示数字手势来告诉她这些玩家中有几人因自身能力被唤醒。", knowledgeStatus: 'confirmed' },
@@ -19,7 +19,6 @@ export const yiHuaJieMuFirstNight: readonly NightOrderEntry[] = [
 ]
 
 export const yiHuaJieMuOtherNight: readonly NightOrderEntry[] = [
-  { roleId: "villageidiot", order: 65, note: "让村夫指向一名玩家，根据对方的阵营，对他给出拇指向上或向下的手势。", knowledgeStatus: 'confirmed' },
   { roleId: "qianke", order: 1010, note: "移除上个夜晚放置的“熟客”标记。唤醒掮客，让他指向两名存活玩家。如果这两名玩家阵营相同，在这些玩家的角色标记旁放置“熟客”提示标记。", knowledgeStatus: 'confirmed' },
   { roleId: "gudiao", order: 1500, note: "唤醒蛊雕，让其选择一个方向。将他的“中毒”标记移动至那个方向上的下一个存活玩家的角色标记旁。随后对他指向那名玩家，并展示“他是”提示标记和该玩家的角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "gambler", order: 2000, note: "让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。", knowledgeStatus: 'confirmed' },
@@ -33,6 +32,7 @@ export const yiHuaJieMuOtherNight: readonly NightOrderEntry[] = [
   { roleId: "gossip", order: 9100, note: "如果白天的声明为真，会有一名玩家死亡，并由说书人来选择一名玩家，标记该玩家死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "fortuneteller", order: 11000, note: "让占卜师选择两名玩家。如果其中有恶魔或“干扰项”，点头示意，否则摇头。", knowledgeStatus: 'confirmed' },
   { roleId: "langzhong", order: 12200, note: "唤醒郎中，让其指向一名玩家。以不会被其他玩家察觉的形式对其提供与该玩家角色能力相关的一个词语。", knowledgeStatus: 'confirmed' },
+  { roleId: "villageidiot", order: 12800, note: "让村夫指向一名玩家，根据对方的阵营，对他给出拇指向上或向下的手势。", knowledgeStatus: 'confirmed' },
   { roleId: "nightwatchman", order: 13400, note: "守夜人可以指向一名玩家。如果他这么做，则唤醒那名玩家，告知其被守夜人选中，且告知他守夜人是谁。", knowledgeStatus: 'confirmed' },
   { roleId: "yinluren", order: 14600, note: "唤醒引路人，让其选择两名玩家。以点头或摇头作为信息给出。", knowledgeStatus: 'confirmed' },
   { roleId: "chambermaid", order: 14800, note: "让侍女选择除自己外的两名存活玩家。给她展示数字手势来告诉她这些玩家中有几人因自身能力被唤醒。", knowledgeStatus: 'confirmed' },

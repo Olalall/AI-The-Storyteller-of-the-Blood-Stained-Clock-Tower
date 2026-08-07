@@ -16,7 +16,7 @@ export const insanityAndIntuitionSetupRules: readonly SetupRule[] = [
   {
     id: 'vigormortis-outsider',
     roleId: 'vigormortis',
-    summary: '维格莫提斯会减少 1 名外来者；杀死爪牙后的保留能力和中毒邻座只做提醒。',
+    summary: '亡骨魔会减少 1 名外来者；杀死爪牙后的保留能力和中毒邻座只做提醒。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [officialRolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -40,7 +40,7 @@ export const insanityAndIntuitionSetupRules: readonly SetupRule[] = [
   {
     id: 'boomdandy-mass-death',
     roleId: 'boomdandy',
-    summary: '爆炸花花公子被处决会造成大量死亡和倒计时指认；必须人工逐项确认。',
+    summary: '炸弹人被处决会造成大量死亡和倒计时指认；必须人工逐项确认。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [officialRolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -64,7 +64,7 @@ export const insanityAndIntuitionSetupRules: readonly SetupRule[] = [
   {
     id: 'nodashii-neighbor-poisoning',
     roleId: 'nodashii',
-    summary: '诺达鲺让相邻镇民中毒；相邻范围和中毒状态只做核对提醒。',
+    summary: '诺-达鲺让相邻镇民中毒；相邻范围和中毒状态只做核对提醒。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [officialRolesSourceUrl, scriptSourceUrl],
     reviewedAt,

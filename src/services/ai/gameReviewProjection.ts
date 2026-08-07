@@ -1,4 +1,5 @@
 import { projectStorytellerSeatSummaries } from '../../features/game-session/state/projectors'
+import { assertNever } from '../../shared/assertNever'
 import type { GameArchiveRecord } from '../archive'
 import type { GameAIPlayerReview, GameAIReviewDraft } from './types'
 
@@ -37,6 +38,10 @@ function entrySeatIds(archive: GameArchiveRecord) {
         ids.add(entry.seatId)
         break
       case 'setup_confirmed':
+        break
+      default:
+        // 归档可能来自更新版本；未知 kind 只是不贡献座位，不能让整份复盘失败。
+        assertNever(entry)
         break
     }
     idsByEntry.set(entry.id, [...ids])

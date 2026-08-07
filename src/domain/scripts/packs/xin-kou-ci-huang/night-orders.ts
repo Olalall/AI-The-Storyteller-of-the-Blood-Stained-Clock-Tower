@@ -1,10 +1,10 @@
 import type { NightOrderEntry } from '../../types'
 
 export const xinKouCiHuangFirstNightOrder: readonly NightOrderEntry[] = [
-  { roleId: "boffin", order: 2, note: "科学怪人", knowledgeStatus: 'confirmed' },
-  { roleId: "philosopher", order: 3, note: "哲学家", knowledgeStatus: 'confirmed' },
-  { roleId: "kazali", order: 4, note: "卡扎力", knowledgeStatus: 'confirmed' },
-  { roleId: "lordoftyphon", order: 12, note: "堤丰之首", knowledgeStatus: 'confirmed' },
+  { roleId: "lordoftyphon", order: 2, note: "堤丰之首", knowledgeStatus: 'confirmed' },
+  { roleId: "kazali", order: 3, note: "卡扎力", knowledgeStatus: 'confirmed' },
+  { roleId: "boffin", order: 4, note: "科学怪人", knowledgeStatus: 'confirmed' },
+  { roleId: "philosopher", order: 12, note: "哲学家", knowledgeStatus: 'confirmed' },
   { roleId: "poisoner", order: 46, note: "投毒者", knowledgeStatus: 'confirmed' },
   { roleId: "courtier", order: 51, note: "侍臣", knowledgeStatus: 'confirmed' },
   { roleId: "yaggababble", order: 66, note: "牙噶巴卜", knowledgeStatus: 'confirmed' },

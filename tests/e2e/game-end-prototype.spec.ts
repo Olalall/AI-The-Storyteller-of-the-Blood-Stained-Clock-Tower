@@ -1,11 +1,29 @@
-﻿import { expect, test } from '@playwright/test'
+﻿import { expect, test, type Page } from '@playwright/test'
+
+
+/** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
+
+/** 默认落地是空对局的入口界面；用例依赖的中局夹具需要显式载入。 */
+async function loadDemoSession(page: Page) {
+  const demo = page.getByRole('button', { name: /载入示例对局/ })
+  if (await demo.isVisible().catch(() => false)) await demo.click()
+}
+
+async function openArchive(page: import('@playwright/test').Page) {
+  const back = page.getByRole('button', { name: '本局', exact: true })
+  if (await back.isVisible().catch(() => false)) await back.click()
+  // 本用例中途会切换剧本，所以不能断言固定剧本名，只断言档案层本身已打开。
+  await expect(page.locator('.dashboard')).toBeVisible()
+}
 
 test('game end prototype saves an archive and opens AI historical review', async ({ page }) => {
   await page.setViewportSize({ width: 1180, height: 900 })
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
 
+  await openArchive(page)
   await page.locator('.dashboard__end-entry').click()
   await expect(page.locator('.game-end')).toBeVisible()
   await page.locator('.game-end__winner-grid button').first().click()
@@ -32,16 +50,19 @@ test('game end prototype saves an archive and opens AI historical review', async
   await page.screenshot({ path: 'artifacts/screenshots/game-end-2026-07-16/02-game-review-history.png', fullPage: false })
 
   await page.reload()
+  await loadDemoSession(page)
+  await openArchive(page)
   await page.locator('.dashboard__review-entry').click()
   await expect(page.locator('.game-review__list button')).toHaveCount(1)
   await expect(page.locator('.game-ai-review')).toContainText('AI复盘草稿')
 
   await page.getByLabel('关闭').click()
+  await openArchive(page)
   await page.locator('.dashboard__end-entry').click()
   await page.getByRole('button', { name: '保存本局' }).click()
   await page.getByLabel('我已保存本局，确认重置游戏').check()
   await page.locator('.game-end__finish-step--danger').getByRole('button', { name: '重置游戏' }).click()
-  await expect(page.locator('.dashboard')).toBeVisible()
+  // 重置后落在主持台并直接打开配板面板（不再先回首页），下面几条断言即新的落点。
   await expect(page.locator('.game-end')).toBeHidden()
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
   await expect(page.getByText('选择人数')).toBeVisible()
@@ -56,9 +77,13 @@ test('game end prototype saves an archive and opens AI historical review', async
   expect(resetState.dayVoteDraft).toBeNull()
   expect(resetState.dayActionDraft).toBeNull()
 
+  // 重置后配板面板是打开的，它盖住轨道；先关掉它才能进档案层。
   await page.getByRole('button', { name: '关闭AI配板与调整' }).click()
-  await expect(page.locator('.dashboard__player-empty')).toContainText('暂无玩家')
-  await expect(page.locator('.dashboard__stage-overview')).toContainText('待配板')
+  await openArchive(page)
+  await expect(page.getByRole('status').filter({ hasText: '暂无玩家' })).toBeVisible()
+  // 「当前阶段」卡已被常驻轨道取代：重置后没有任何记录段，轨道建议下一步是黄昏。
+  await expect(page.getByRole('navigation', { name: '主持阶段' }).locator('.ui-phase-node--suggest')).toContainText('黄昏')
+  await openArchive(page)
   await page.locator('.dashboard__script-switch').click()
   await expect(page.locator('.script-library')).toBeVisible()
   await page.locator('.script-library__script-actions .ui-button--primary').first().click()
@@ -88,6 +113,7 @@ test('game end prototype saves an archive and opens AI historical review', async
   const setupEntry = confirmedSetup.timeline.find((entry: { kind: string }) => entry.kind === 'setup_confirmed')
   expect(setupEntry.setup.draft.assignments).toHaveLength(12)
 
+  await openArchive(page)
   await page.locator('.dashboard__identity-entry').click()
   await expect(page.locator('.identity-deal__seat-grid button')).toHaveCount(12)
   await page.locator('.sheet-content--identity-deal .sheet-close').click()
@@ -99,5 +125,5 @@ test('game end prototype saves an archive and opens AI historical review', async
   const roleBySeat = new Map(setupEntry.setup.draft.assignments.map((assignment: { seatId: number; role: { id: string } }) => [assignment.seatId, assignment.role.id]))
   expect(run.phaseSegmentId).toBe(nightState.phaseSegments.find((segment: { kind: string }) => segment.kind === 'night').id)
   expect(run.queue.length).toBeGreaterThan(0)
-  expect(run.queue.every((item: { seatId: number; roleId: string }) => roleBySeat.get(item.seatId) === item.roleId)).toBe(true)
+  expect(run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep).every((item: { seatId: number; roleId: string }) => roleBySeat.get(item.seatId) === item.roleId)).toBe(true)
 })

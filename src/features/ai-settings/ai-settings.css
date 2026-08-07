@@ -1,7 +1,7 @@
 .ai-settings-panel {
   width: min(980px, 100%);
   margin: 0 auto;
-  padding: clamp(var(--space-18), 4cqw, var(--space-34));
+  padding: clamp(var(--space-18), 4cqw, var(--space-32));
   display: grid;
   gap: var(--space-16);
 }
@@ -16,7 +16,7 @@
 
 .ai-settings-connection {
   min-height: 128px;
-  padding: clamp(var(--space-18), 3cqw, var(--space-26));
+  padding: clamp(var(--space-18), 3cqw, var(--space-24));
   display: flex;
   align-items: end;
   justify-content: space-between;
@@ -64,7 +64,7 @@
 }
 
 .ai-settings-card {
-  padding: clamp(var(--space-16), 3cqw, var(--space-22));
+  padding: clamp(var(--space-16), 3cqw, var(--space-24));
   display: grid;
   gap: var(--space-16);
 }
@@ -84,7 +84,7 @@
 .ai-settings-advanced label {
   min-width: 0;
   display: grid;
-  gap: var(--space-7);
+  gap: var(--space-8);
   color: var(--text-muted);
   font-size: var(--type-meta);
   font-weight: 850;
@@ -125,7 +125,7 @@
 }
 
 .ai-settings-advanced {
-  padding-top: var(--space-2);
+  padding-top: var(--space-4);
   grid-template-columns: minmax(0, .75fr) minmax(0, .75fr) minmax(160px, .5fr);
 }
 
@@ -409,7 +409,7 @@
 }
 
 .sheet-content--asset-pack .sheet-body {
-  padding: 0 clamp(var(--space-18), 3cqw, var(--space-30)) var(--space-24);
+  padding: 0 clamp(var(--space-18), 3cqw, var(--space-32)) var(--space-24);
 }
 
 .asset-pack-guide {
@@ -431,7 +431,7 @@
 
 .asset-pack-guide__hero {
   min-height: 150px;
-  padding: clamp(var(--space-18), 4cqw, var(--space-28));
+  padding: clamp(var(--space-18), 4cqw, var(--space-24));
   display: grid;
   align-content: end;
   gap: var(--space-8);
@@ -513,7 +513,7 @@
 .asset-pack-guide__list li {
   position: relative;
   min-height: 38px;
-  padding: var(--space-9) var(--space-12) var(--space-9) var(--space-30);
+  padding: var(--space-10) var(--space-12) var(--space-10) var(--space-32);
   display: flex;
   align-items: center;
   border-radius: var(--radius-md);
@@ -527,7 +527,7 @@
   top: 50%;
   width: 7px;
   height: 7px;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--accent);
   transform: translateY(-50%);
 }

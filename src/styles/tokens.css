@@ -6,7 +6,7 @@
   --type-body: 0.9375rem;
   --type-action: 0.9375rem;
   --type-section: 1.25rem;
-  --type-page-title: clamp(1.8rem, 4cqw, 2.6rem);
+  --type-page-title: clamp(1.8rem, 4vw, 2.6rem);
   --line-body: 1.55;
   --surface-base: #090d12;
   --surface-panel: #11171e;
@@ -55,6 +55,8 @@
   --radius-md: 12px;
   --radius-lg: 16px;
   --radius-xl: 22px;
+  /* 药丸只用于徽标类元素；它是 8/14/22 之外唯一允许的圆角。 */
+  --radius-pill: 999px;
   --touch-min: 44px;
   --shadow-sm: 0 4px 12px rgb(0 0 0 / 22%);
   --shadow-panel: 0 20px 60px rgb(0 0 0 / 24%);

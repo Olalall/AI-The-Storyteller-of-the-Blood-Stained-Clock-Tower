@@ -21,7 +21,7 @@ describe('Church of Spies smart script pack', () => {
     expect(churchOfSpiesSmartScriptPack.roles.every((role) => role.knowledgeStatus === 'confirmed')).toBe(true)
 
     const byId = new Map(churchOfSpiesSmartScriptPack.roles.map((role) => [role.id, role]))
-    expect(byId.get('cultleader')?.name).toBe('邪教领袖')
+    expect(byId.get('cultleader')?.name).toBe('异教领袖')
     expect(byId.get('cultleader')?.research?.teamChanges).toContain('夜晚可能改变阵营。')
     expect(byId.get('baron')?.research?.setupImpact.length).toBeGreaterThan(0)
     expect(byId.get('marionette')?.research?.highRiskNotes.length).toBeGreaterThan(0)

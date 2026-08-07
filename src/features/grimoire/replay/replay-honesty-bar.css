@@ -1,0 +1,51 @@
+.replay-honesty-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: var(--space-8) var(--space-12);
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--info-border);
+  border-radius: var(--radius-sm);
+  background: var(--info-soft);
+  color: var(--info-text);
+  font-size: var(--type-meta);
+}
+
+.replay-honesty-bar__icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.replay-honesty-bar__text {
+  flex: 1 1 16rem;
+  min-width: 0;
+}
+
+.replay-honesty-bar__title {
+  display: block;
+  font-size: var(--type-label);
+}
+
+.replay-honesty-bar__body,
+.replay-honesty-bar__ledger {
+  margin: var(--space-4) 0 0;
+}
+
+/* 数字那行压暗：它是佐证不是主张，读到标题和正文就够了。 */
+.replay-honesty-bar__ledger {
+  color: var(--text-muted);
+}
+
+/* 只读那句推到右端并且不换行：它是这条里唯一一句关于「你现在能做什么」的话。 */
+.replay-honesty-bar__lock {
+  flex: none;
+  margin-inline-start: auto;
+  align-self: center;
+  color: var(--text-muted);
+}
+
+/* 全程魔典局只需要「归档只读」这一层意思，正文压到与数字同一档，避免抢眼。 */
+.replay-honesty-bar--read-only .replay-honesty-bar__body {
+  color: var(--text-muted);
+}

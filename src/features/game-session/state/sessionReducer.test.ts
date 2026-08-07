@@ -54,6 +54,66 @@ describe('day resolution reducer commands', () => {
     expect(projectCurrentPlayerStates(resolved)[4].life).toBe('dead')
   })
 
+  it('records an execution that does not cause death without changing player state', () => {
+    const withVote = recordVoteRound()
+    const daySegmentId = currentDayId(withVote)
+    const resolved = gameSessionReducer(withVote, {
+      type: 'confirm-day-execution',
+      daySegmentId,
+      nomineeSeatId: 4,
+      sourceRoundId: 'round-4-6',
+      executionEntryId: 'execution-4',
+      playerStateEntryId: 'state-4',
+      confirmedAt: '2026-07-13T09:01:00.000Z',
+      causesDeath: false,
+    })
+
+    const execution = resolved.timeline.find((entry) => entry.id === 'execution-4')
+    expect(execution?.kind).toBe('execution')
+    expect(execution && 'causedDeath' in execution ? execution.causedDeath : undefined).toBe(false)
+    expect(resolved.timeline.filter((entry) => entry.kind === 'player_state_changed')).toHaveLength(0)
+    expect(projectCurrentPlayerStates(resolved)[4].life).toBe('alive')
+  })
+
+  it('records an execution of an already dead player and keeps it as the day resolution', () => {
+    const withFirstVote = recordVoteRound(createPrototypeGameSession(), 4, 6)
+    const firstDayId = currentDayId(withFirstVote)
+    const afterFirstExecution = gameSessionReducer(withFirstVote, {
+      type: 'confirm-day-execution',
+      daySegmentId: firstDayId,
+      nomineeSeatId: 4,
+      sourceRoundId: 'round-4-6',
+      executionEntryId: 'execution-4',
+      playerStateEntryId: 'state-4',
+      confirmedAt: '2026-07-13T09:01:00.000Z',
+    })
+    expect(projectCurrentPlayerStates(afterFirstExecution)[4].life).toBe('dead')
+
+    // 新的一天：已死亡的 4 号仍可被提名并处决（消耗当天唯一的处决机会）。
+    const closed = closeOpenSegment(afterFirstExecution, 'day', '2026-07-13T09:05:00.000Z')
+    const secondDay = gameSessionReducer(closed, {
+      type: 'open-phase-segment',
+      phaseKind: 'day',
+      createdAt: '2026-07-13T09:06:00.000Z',
+    })
+    const withSecondVote = recordVoteRound(secondDay, 4, 7)
+    const secondDayId = currentDayId(withSecondVote)
+    const resolved = gameSessionReducer(withSecondVote, {
+      type: 'confirm-day-execution',
+      daySegmentId: secondDayId,
+      nomineeSeatId: 4,
+      sourceRoundId: 'round-4-7',
+      executionEntryId: 'execution-4-again',
+      playerStateEntryId: 'state-4-again',
+      confirmedAt: '2026-07-13T09:07:00.000Z',
+    })
+
+    const execution = resolved.timeline.find((entry) => entry.id === 'execution-4-again')
+    expect(execution?.kind).toBe('execution')
+    expect(execution && 'causedDeath' in execution ? execution.causedDeath : undefined).toBe(false)
+    expect(resolved.timeline.filter((entry) => entry.segmentId === secondDayId && entry.kind === 'player_state_changed')).toHaveLength(0)
+  })
+
   it('rejects a stale standing and any second resolution for the same open day', () => {
     const firstRound = recordVoteRound()
     const withNewLeader = recordVoteRound(firstRound, 5, 7)

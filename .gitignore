@@ -33,6 +33,7 @@ test-results
 .env
 .env.*
 !.env.example
+.openai-key
 *.pid
 # Local scratch/generated files
 tmp_*

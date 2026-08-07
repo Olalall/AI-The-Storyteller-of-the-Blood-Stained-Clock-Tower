@@ -1,4 +1,4 @@
-import { Pause, Play, RotateCcw, SlidersHorizontal } from 'lucide-react'
+import { Pause, Play, RotateCcw, SlidersHorizontal, MonitorPlay } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../../../components/ui/Button'
 import { Sheet } from '../../../components/ui/Sheet'
@@ -7,7 +7,7 @@ import { DayTimerSettings } from './DayTimerSettings'
 
 const stageLabels = { private: '私聊', public: '公聊' } as const
 
-export function DayTimer() {
+export function DayTimer({ onProject }: { onProject?: () => void }) {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const timer = useDiscussionTimer()
   const stageLabel = stageLabels[timer.activeStage]
@@ -46,6 +46,11 @@ export function DayTimer() {
           />
         </Sheet>
         <div className="day-timer__actions">
+          {onProject ? (
+            <Button variant="ghost" compact aria-label="投屏倒计时给玩家看" onClick={onProject}>
+              <MonitorPlay aria-hidden="true" /><span>投屏</span>
+            </Button>
+          ) : null}
           {timer.activeStage === 'private' && timer.hasElapsed ? (
             <Button variant="primary" compact aria-label="开始公聊倒计时" onClick={timer.startPublic}>
               <Play aria-hidden="true" /><span>开始公聊</span>

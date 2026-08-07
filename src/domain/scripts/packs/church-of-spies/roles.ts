@@ -36,7 +36,7 @@ const reusableRoleIds = churchOfSpiesRoleIds.filter((roleId) => roleId !== 'cult
 
 const cultLeaderRole = {
   id: 'cultleader',
-  name: '邪教领袖',
+  name: '异教领袖',
   officialName: 'Cult Leader',
   team: 'townsfolk',
   abilityText:

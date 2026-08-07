@@ -199,7 +199,7 @@ export const zhuoYueBiFangRoles = [
     abilityText: "如果你死亡，当晚与你邻近的存活玩家之一可能会死亡。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202310/c_0178555308961_1721ee8f.jpg",
     inputKinds: ["none"],
-    highRiskNotes: ["Other-night source reminder: 如果煞星死亡，将与其邻近的存活善良玩家之一标记为死亡。"],
+    highRiskNotes: ["Other-night source reminder: 如果煞星死亡，由说书人决定是否触发其能力：若触发，与其邻近的存活玩家之一（可善可恶）死亡，标记那名玩家死亡。"],
   }),
   role({
     id: "tinker",

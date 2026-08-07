@@ -1,4 +1,5 @@
 import type { GameSessionState, TimelineEntry } from '../types'
+import { assertNever } from '../../../shared/assertNever'
 import { formatDaySkillDetails, formatDaySkillSummary } from '../daySkillPresentation'
 
 export type TimelineHistoryCategory =
@@ -46,6 +47,13 @@ const categoryLabel: Record<TimelineHistoryCategory, string> = {
   setup: '配板',
 }
 
+interface TimelineHistoryFieldSet {
+  category: TimelineHistoryCategory
+  summary: string
+  details: string[]
+  seatIds: number[]
+}
+
 function uniqueSeatIds(values: Array<number | null | undefined>) {
   return [...new Set(values.filter((value): value is number => typeof value === 'number' && Number.isInteger(value) && value > 0))]
     .sort((left, right) => left - right)
@@ -66,7 +74,11 @@ function stateLabel(entry: Extract<TimelineEntry, { kind: 'player_state_changed'
     .join(' · ')
 }
 
-function historyFields(session: GameSessionState, entry: TimelineEntry) {
+/**
+ * 显式声明返回类型，新增 timeline kind 时缺分支会直接在本函数报 TS2366，
+ * 而不是让调用方拿到 undefined 后在字段访问处才炸。
+ */
+function historyFields(session: GameSessionState, entry: TimelineEntry): TimelineHistoryFieldSet {
   switch (entry.kind) {
     case 'setup_confirmed':
       return {
@@ -150,11 +162,25 @@ function historyFields(session: GameSessionState, entry: TimelineEntry) {
 
 function correctionHelp(entry: TimelineEntry, isSuperseded: boolean) {
   if (isSuperseded) return '这条记录已有更新，请在最新版本上继续更正。'
-  if (entry.kind === 'night_action' || entry.kind === 'day_action') return undefined
-  if (entry.kind === 'vote_round') return '票型影响暂列结果；从白天工作台重新记录。'
-  if (entry.kind === 'player_state_changed') return '状态影响当前局面；从玩家状态板追加状态记录。'
-  if (entry.kind === 'execution' || entry.kind === 'no_execution') return '日终与玩家状态需保持一致；从白天工作台调整。'
-  return '身份与配板调整从配板面板操作。'
+  switch (entry.kind) {
+    case 'night_action':
+    case 'day_action':
+      return undefined
+    case 'vote_round':
+      return '票型影响暂列结果；从白天工作台重新记录。'
+    case 'player_state_changed':
+      return '状态影响当前局面；从玩家状态板追加状态记录。'
+    case 'execution':
+    case 'no_execution':
+      return '日终与玩家状态需保持一致；从白天工作台调整。'
+    case 'setup_confirmed':
+    case 'setup_changed':
+      return '身份与配板调整从配板面板操作。'
+    default:
+      // 未知 kind 沿用配板兜底文案，与穷尽检查加入前一致。
+      assertNever(entry)
+      return '身份与配板调整从配板面板操作。'
+  }
 }
 
 /** 审计视图保留全链；当前局面投影只消费每条链的最后一版。 */

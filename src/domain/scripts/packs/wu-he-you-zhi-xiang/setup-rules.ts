@@ -12,6 +12,6 @@ export const wuHeYouZhiXiangSetupRules: readonly SetupRule[] = [
   { id: "poppy-grower-evil-hidden", roleId: "poppygrower", summary: "Poppy Grower hides evil team recognition until Poppy Grower dies.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
   { id: "drunk-false-identity", roleId: "drunk", summary: "Drunk sees a Townsfolk identity but is truly the Drunk; player projection and storyteller check are separate.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
   { id: "hatter-change-window", roleId: "hatter", summary: "After Hatter death, evil players may choose new same-type characters; never batch-change identities automatically.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
-  { id: "plague-doctor-storyteller-minion", roleId: "plaguedoctor", summary: "When Plague Doctor dies, the Storyteller gains an out-of-play Minion ability reminder only.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
+  { id: "plague-doctor-storyteller-minion", roleId: "plaguedoctor", summary: "When Plague Doctor dies, the Storyteller gains a Minion ability (usually out-of-play, but may be an in-play Minion's ability) — reminder only.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
   { id: "politician-endgame", roleId: "politician", summary: "Politician responsibility and win change are endgame judgment candidates only.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
 ]

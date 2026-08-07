@@ -32,21 +32,77 @@
 .status-badge {
   min-height: 26px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   padding: 2px 9px;
   display: inline-flex;
   align-items: center;
+  gap: 4px;
   white-space: nowrap;
   font-size: var(--type-meta);
   font-weight: 700;
   line-height: 1.2;
 }
+/* 只允许缩到 22px 高；再小就不是徽标，应该改用普通文本。字号仍保持 --type-meta。 */
+.status-badge--sm { min-height: 22px; padding: 1px 7px; }
+.status-badge svg { width: 12px; height: 12px; flex: 0 0 auto; }
 .status-badge--neutral { background: var(--surface-soft); color: var(--text-muted); }
 .status-badge--current { background: var(--accent-soft); border-color: var(--accent-border); color: var(--accent-text); }
 .status-badge--success { background: var(--success-soft); border-color: var(--success-border); color: var(--success-text); }
 .status-badge--warning { background: var(--warning-soft); border-color: var(--warning-border); color: var(--warning-text); }
 .status-badge--danger { background: var(--danger-soft); border-color: var(--danger-border); color: var(--danger-text); }
 .status-badge--info { background: var(--info-soft); border-color: var(--info-border); color: var(--info-text); }
+
+/* 卡片：各 feature 手写的「1px 描边 + radius-lg + 面板底 + eyebrow/标题/操作」收敛到这里。 */
+.ui-card {
+  min-width: 0;
+  padding: var(--space-20);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-panel);
+}
+.ui-card--soft { background: var(--surface-soft); }
+.ui-card__header {
+  margin-bottom: var(--space-12);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+.ui-card__titles { min-width: 0; }
+.ui-card__eyebrow { display: block; color: var(--accent-text); font-size: var(--type-meta); font-weight: 800; letter-spacing: .12em; }
+.ui-card__eyebrow--info { color: var(--info-text); letter-spacing: .1em; }
+.ui-card__title { margin: 3px 0 0; font: 800 var(--type-section) var(--font-display); }
+/* 开发态护栏：超过两层的卡片直接标红，配合 console.error 定位。生产态不加这个类，渲染不变。 */
+.ui-card--over-nested { outline: 2px solid #ff4d4f; outline-offset: 2px; }
+
+/* 表单三件套：label + 控件 + 说明/错误。 */
+.ui-field { min-width: 0; display: grid; gap: var(--space-6); }
+.ui-field__label { color: var(--text-muted); font-size: var(--type-label); font-weight: 800; }
+.ui-field__hint { color: var(--text-subtle); font-size: var(--type-meta); line-height: 1.5; }
+.ui-field__error { color: var(--danger-text); font-size: var(--type-meta); font-weight: 700; }
+.ui-field--invalid input,
+.ui-field--invalid select,
+.ui-field--invalid textarea { border-color: var(--danger-border); }
+
+/* 空态：虚线框 + 一句主文案 + 可选说明，全产品共用一套。 */
+.ui-empty {
+  min-height: 132px;
+  padding: var(--space-20);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: var(--space-8);
+  border: 1px dashed var(--border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--surface-soft);
+  color: var(--text-muted);
+  text-align: center;
+}
+.ui-empty--compact { min-height: 72px; padding: var(--space-12); }
+.ui-empty > svg { width: 26px; height: 26px; color: var(--text-subtle); }
+.ui-empty__title { color: var(--text-strong); font: 800 1.1rem var(--font-display); }
+.ui-empty__description { max-width: 420px; font-size: var(--type-label); font-weight: 700; line-height: 1.6; }
+.ui-empty__action { margin-top: var(--space-4); }
 
 .seat-button {
   min-width: 52px;
@@ -66,10 +122,19 @@
 .seat-button__number { position: relative; z-index: 1; font-family: var(--font-display); font-size: 1.06rem; font-weight: 700; }
 .seat-button__check { width: 18px; height: 18px; position: absolute; top: 5px; right: 5px; z-index: 1; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #17130d; }
 .seat-button__check svg { width: 11px; height: 11px; stroke-width: 3; }
+.seat-button__dead { position: absolute; right: 4px; bottom: 4px; z-index: 1; display: grid; place-items: center; color: var(--danger-text); }
+.seat-button__dead svg { width: 13px; height: 13px; stroke-width: 2.2; }
+.seat-button__self { position: absolute; top: 3px; left: 3px; z-index: 1; padding: 0 4px; border-radius: var(--radius-pill); background: var(--info-soft); color: var(--info-text); font-size: var(--type-meta); font-weight: 800; line-height: 1.35; letter-spacing: 0; }
 .seat-button:hover:not(:disabled) { border-color: var(--border-strong); background: var(--surface-hover); }
 .seat-button:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .seat-button--selected { border: 2px solid var(--accent-strong); background: var(--accent-soft); color: var(--accent-text); }
-.seat-button--subdued { border-style: dashed; color: var(--text-subtle); opacity: .62; }
+/* 死亡是语义状态：虚线描边 + Skull 图标 + 语义色三重编码，昼夜共用同一套表达。 */
+.seat-button--dead { border-style: dashed; border-color: var(--danger-border); color: var(--danger-text); }
+.seat-button--dead .seat-button__number { opacity: .82; }
+.seat-button--selected.seat-button--dead { border-style: dashed; border-color: var(--accent-strong); color: var(--accent-text); }
+.seat-button--selected.seat-button--dead .seat-button__number { opacity: 1; }
+/* subdued 只表示低强调，不承载任何规则或状态含义。 */
+.seat-button--subdued { color: var(--text-subtle); opacity: .62; }
 .seat-button--selected.seat-button--subdued { opacity: 1; }
 .seat-button:disabled { cursor: not-allowed; opacity: .42; }
 
@@ -152,6 +217,38 @@
 .sheet-content--record, .sheet-content--role-change { width: min(440px, calc(100vw - 32px)); }
 .sheet-content--page.sheet-content--record, .sheet-content--page.sheet-content--role-change, .sheet-content--page.sheet-content--player-status, .sheet-content--page.sheet-content--timeline-history { width: 100vw; }
 
+/*
+ * 内联呈现：同一张页就地长在宿主（魔典工作抽屉）的 DOM 里。
+ * 这里只解除「浮在视口上」那一层——定位、层级、宽度、投影、入场动画；
+ * 页内部的排版仍然走 .sheet-content--page 那套规则，因为抽屉 full 档的尺寸
+ * 本来就定义为「等于 presentation=page」，这正是「只换容器」的字面意思。
+ *
+ * 选择器写成两个类（0,2,0）不是笔误：features 侧存在
+ * .sheet-content--setup:not(.sheet-content--page) 这类同为 0,1,0 的宽度规则，
+ * @media(max-width:560px) 里也有一条 .sheet-content { position 相关 }。
+ * 单类选择器与它们同分，谁赢取决于 CSS 文件的打包顺序——那不是可以依赖的东西。
+ */
+.sheet-content.sheet-content--inline {
+  position: static;
+  inset: auto;
+  z-index: auto;
+  width: auto;
+  max-width: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  animation: none;
+  overflow: visible;
+}
+
+/*
+ * 滚动交还给宿主。页自己再当滚动容器的话，抽屉里会出现两条滚动条，
+ * 而页内那些 position: sticky 的底栏会粘在一个永远滚不动的盒子上（等于不粘）。
+ */
+.sheet-content.sheet-content--inline > .sheet-body {
+  overflow: visible;
+}
+
 .sticky-action-bar {
   position: sticky;
   bottom: 0;
@@ -177,4 +274,82 @@
 
 @media (prefers-reduced-motion: reduce) {
   .ui-button, .sheet-overlay, .sheet-content { animation: none; transition: none; }
+}
+
+/* 说书人操作回执：任何断点下都不得隐藏（见 HostNotice 组件注释）。 */
+.ui-host-notice {
+  width: min(1080px, calc(100% - var(--space-32)));
+  margin: 0 auto;
+  max-height: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  transition: max-height 180ms ease, margin 180ms ease;
+}
+.ui-host-notice.is-visible { max-height: 96px; margin-block: var(--space-8); }
+/* 动作被撤下时焦点会被送到这层容器上（见 HostNotice），所以它得有可见的落点。 */
+.ui-host-notice:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.ui-host-notice__text {
+  flex: 1 1 auto;
+  min-height: 38px;
+  padding: 7px var(--space-16);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  border: 1px solid var(--info-border);
+  border-radius: var(--radius-md);
+  background: var(--info-soft);
+  color: var(--info-text);
+  font-size: var(--type-label);
+  font-weight: 700;
+}
+/* 即时动作（3.5 秒撤销）在 live region 之外，不参与播报，也不随文本一起被重读。 */
+.ui-host-notice__action { flex: none; display: flex; align-items: center; }
+@media (prefers-reduced-motion: reduce) { .ui-host-notice { transition: none; } }
+
+/* 常驻阶段轨道：全局唯一，48px 吸顶；状态用文字+形状+颜色三重表达。 */
+.ui-visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.ui-phase-track {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  min-height: 48px;
+  padding: 0 var(--space-16);
+  display: flex;
+  align-items: center;
+  gap: var(--space-12);
+  border-bottom: 1px solid var(--border);
+  background: rgb(10 14 19 / 92%);
+  backdrop-filter: blur(6px);
+}
+.ui-phase-track__nodes { flex: 1 1 auto; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: var(--space-4); overflow-x: auto; scrollbar-width: none; }
+.ui-phase-track__nodes::-webkit-scrollbar { display: none; }
+.ui-phase-track__actions { flex: none; display: flex; align-items: center; gap: var(--space-8); }
+
+.ui-phase-node {
+  min-height: var(--touch-min);
+  padding: 0 var(--space-10);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: var(--radius-sm);
+  color: var(--text-subtle);
+  font-size: var(--type-label);
+  font-weight: 800;
+  white-space: nowrap;
+}
+.ui-phase-node__dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; }
+.ui-phase-node__segment { color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; }
+
+.ui-phase-node--done { color: var(--text-muted); }
+.ui-phase-node--done .ui-phase-node__dot { background: currentColor; }
+.ui-phase-node--open { color: var(--accent-text); background: var(--accent-soft); }
+.ui-phase-node--open .ui-phase-node__dot { background: currentColor; box-shadow: 0 0 0 3px var(--accent-soft); }
+.ui-phase-node--suggest { color: var(--info-text); border: 1px dashed var(--info-border); }
+.ui-phase-node--idle { color: var(--text-subtle); opacity: .7; }
+
+@container app-frame (max-width: 560px) {
+  .ui-phase-node__label { font-size: var(--type-meta); }
+  .ui-phase-node { padding: 0 6px; }
 }

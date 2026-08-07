@@ -43,7 +43,7 @@ export const churchOfSpiesSetupTemplates: readonly SetupTemplate[] = [
     style: 'balanced',
     roles: ['pixie', 'highpriestess', 'exorcist', 'undertaker', 'ravenkeeper', 'spy', 'nodashii'],
     bluffs: ['librarian', 'steward', 'cultleader'],
-    note: '间谍和诺达鲺同场，适合练登记异常和邻座中毒提醒。',
+    note: '间谍和诺-达鲺同场，适合练登记异常和邻座中毒提醒。',
   }),
   template({
     id: 'baron-cult-seven',
@@ -51,7 +51,7 @@ export const churchOfSpiesSetupTemplates: readonly SetupTemplate[] = [
     style: 'chaos',
     roles: ['steward', 'cultleader', 'nightwatchman', 'klutz', 'drunk', 'baron', 'po'],
     bluffs: ['librarian', 'pixie', 'fortuneteller'],
-    note: '男爵加二外来者，邪教领袖阵营变化必须手动确认。',
+    note: '男爵加二外来者，异教领袖阵营变化必须手动确认。',
     baron: true,
   }),
   template({
@@ -77,7 +77,7 @@ export const churchOfSpiesSetupTemplates: readonly SetupTemplate[] = [
     style: 'balanced',
     roles: ['librarian', 'cultleader', 'fortuneteller', 'exorcist', 'nightwatchman', 'klutz', 'saint', 'spy', 'po'],
     bluffs: ['steward', 'pixie', 'highpriestess'],
-    note: '邪教领袖加间谍，适合练阵营变化记录和伪登记。',
+    note: '异教领袖加间谍，适合练阵营变化记录和伪登记。',
   }),
   template({
     id: 'baron-outsiders-nine',
@@ -102,7 +102,7 @@ export const churchOfSpiesSetupTemplates: readonly SetupTemplate[] = [
     style: 'chaos',
     roles: ['pixie', 'cultleader', 'highpriestess', 'exorcist', 'nightwatchman', 'klutz', 'drunk', 'baron', 'spy', 'po'],
     bluffs: ['librarian', 'steward', 'fortuneteller'],
-    note: '男爵压缩镇民，Po 蓄力和邪教领袖阵营变化都需人工确认。',
+    note: '男爵压缩镇民，Po 蓄力和异教领袖阵营变化都需人工确认。',
     baron: true,
   }),
   template({
@@ -144,7 +144,7 @@ export const churchOfSpiesSetupTemplates: readonly SetupTemplate[] = [
     style: 'chaos',
     roles: ['cultleader', 'highpriestess', 'exorcist', 'juggler', 'artist', 'klutz', 'saint', 'mutant', 'drunk', 'baron', 'scarletwoman', 'nodashii'],
     bluffs: ['librarian', 'steward', 'pixie'],
-    note: '四外来者男爵局，诺达鲺相邻中毒不能自动写状态。',
+    note: '四外来者男爵局，诺-达鲺相邻中毒不能自动写状态。',
     baron: true,
   }),
   template({
@@ -212,6 +212,6 @@ export const churchOfSpiesSetupTemplates: readonly SetupTemplate[] = [
     style: 'long-game',
     roles: ['librarian', 'cultleader', 'highpriestess', 'exorcist', 'monk', 'juggler', 'nightwatchman', 'artist', 'ravenkeeper', 'saint', 'drunk', 'marionette', 'scarletwoman', 'spy', 'nodashii'],
     bluffs: ['steward', 'pixie', 'fortuneteller'],
-    note: '诺达鲺长局，邻座中毒和间谍登记都不能自动裁定。',
+    note: '诺-达鲺长局，邻座中毒和间谍登记都不能自动裁定。',
   }),
 ]

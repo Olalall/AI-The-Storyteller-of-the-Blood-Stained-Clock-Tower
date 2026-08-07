@@ -55,8 +55,8 @@ describe('official basic script role copy', () => {
     expect(roleAbilityForScript('bad-moon-rising', 'gambler')).toContain('猜错')
     expect(rolePromptForScript('bad-moon-rising', 'gambler')).toContain('确认后再处理死亡')
 
-    expect(roleAbilityForScript('sects-and-violets', 'snakecharmer')).toContain('新舞蛇人中毒')
-    expect(rolePromptForScript('sects-and-violets', 'snakecharmer')).toContain('新舞蛇人中毒')
+    expect(roleAbilityForScript('sects-and-violets', 'snakecharmer')).toContain('新舞蛇人永久中毒')
+    expect(rolePromptForScript('sects-and-violets', 'snakecharmer')).toContain('永久中毒')
 
     expect(roleAbilityForScript('sects-and-violets', 'cerenovus')).toContain('疯狂证明')
     expect(rolePromptForScript('sects-and-violets', 'cerenovus')).toContain('被洗脑成了该角色')
@@ -76,7 +76,7 @@ describe('official basic script role copy', () => {
     expect(roleAbilityForScript('a-grimm-chorus', 'yaggababble')).toContain('当天每公开说出一次暗号')
     expect(rolePromptForScript('a-grimm-chorus', 'yaggababble')).toContain('不能自动根据聊天判断')
 
-    expect(roleAbilityForScript('a-grimm-chorus', 'damsel')).toContain('爪牙公开猜中你一次')
+    expect(roleAbilityForScript('a-grimm-chorus', 'damsel')).toContain('每局游戏限一次')
     expect(rolePromptForScript('a-grimm-chorus', 'damsel')).toContain('胜负必须由说书人确认')
 
     expect(roleAbilityForScript('hide-and-seek', 'pixie')).toContain('首夜得知一个在场镇民')
@@ -106,7 +106,7 @@ describe('official basic script role copy', () => {
     expect(roleAbilityForScript('quick-maths', 'riot')).toContain('被提名者死亡')
     expect(rolePromptForScript('quick-maths', 'riot')).toContain('工具只记录和提醒')
 
-    expect(roleAbilityForScript('devout-theists', 'lleech')).toContain('只有宿主死亡')
+    expect(roleAbilityForScript('devout-theists', 'lleech')).toContain('只有当宿主死亡时')
     expect(rolePromptForScript('devout-theists', 'lleech')).toContain('不要自动处理')
 
     expect(roleAbilityForScript('devout-theists', 'legion')).toContain('多数玩家是军团')

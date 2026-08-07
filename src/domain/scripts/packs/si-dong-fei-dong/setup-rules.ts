@@ -6,7 +6,7 @@ const sourceUrls = [
 ]
 
 export const siDongFeiDongSetupRules: readonly SetupRule[] = [
-  { id: "bounty-hunter-evil-townsfolk", roleId: "bountyhunter", summary: "Bounty Hunter adds one Outsider and one evil Townsfolk; current templates avoid automatic use.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
+  { id: "bounty-hunter-evil-townsfolk", roleId: "bountyhunter", summary: "Bounty Hunter makes one Townsfolk evil (no Outsider count change); current templates avoid automatic use.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
   { id: "balloonist-outsider", roleId: "balloonist", summary: "Balloonist can add one Outsider; templates avoid automatic adjustment unless storyteller chooses it.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
   { id: "godfather-outsider", roleId: "godfather", summary: "Godfather can modify Outsider count and has a death trigger; templates avoid automatic adjustment.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },
   { id: "barber-swap", roleId: "barber", summary: "Barber death can allow Demon to swap two characters; identity changes are confirmation-only.", knowledgeStatus: 'confirmed', sourceUrls, reviewedAt: "2026-07-21" },

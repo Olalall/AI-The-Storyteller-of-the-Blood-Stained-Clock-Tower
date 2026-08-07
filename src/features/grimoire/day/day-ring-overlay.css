@@ -1,0 +1,143 @@
+/*
+  白天叠加层。位置全部由 dayRingAnchors / nominationArc 算好后行内给，
+  这里只管外观——与座位层同一条分工，免得同一个坐标在 JS 与 CSS 里各存一份。
+*/
+.day-ring-overlay {
+  position: absolute;
+  inset: 0;
+  /* 整层不吃指针：举手打卡走 token 自己那颗键。只有死亡票 chip 单独开权限。 */
+  pointer-events: none;
+}
+
+.day-ring-overlay__arc {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+/*
+  1px 冷青 hairline。为什么这么细：核占的是椭圆最大内接矩形，它的四角顶到 token 内缘，
+  核与环之间没有空环带——任何一条连线都必然从核的角上压过去。
+  细到 1px、压到 0.8 不透明，是让它能被看见、又不至于划花「举手N / 门槛M / 差X」那三个数。
+*/
+.day-ring-overlay__arc-line {
+  fill: none;
+  stroke: var(--focus);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0.8;
+}
+
+/* 暖金 = 此刻的焦点。提名步实心（正在选人），计票步空心（焦点让给举手的人）。 */
+.day-ring-overlay__marker {
+  fill: var(--accent);
+}
+
+.day-ring-overlay__arc[data-emphasis='settled'] .day-ring-overlay__marker {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.5;
+}
+
+/*
+  举手打卡：✋ + 「举」+ 序号，三重编码。
+  颜色取 info（冷青族）而不是暖金——它是计数，不是焦点。
+*/
+.day-ring-overlay__punch {
+  position: absolute;
+  translate: -50% -50%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 22px;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--info-border);
+  background: var(--surface-raised);
+  color: var(--info-text);
+  font-size: var(--type-meta);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.day-ring-overlay__punch svg {
+  width: 12px;
+  height: 12px;
+}
+
+.day-ring-overlay__punch-order {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-strong);
+}
+
+/*
+  死亡票二次确认 chip。44px 且独占整条卫星弧（confirmationChipPlacement 已经这么算了）：
+  幽灵票一局只有一张、按下去就用掉，此刻屏幕上不该有别的东西跟它抢手指。
+  未确认时虚线——它是一次待确认的动作，不是一个既成事实。
+*/
+.day-ring-overlay__ghost-vote {
+  position: absolute;
+  translate: -50% -50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px dashed var(--danger-border);
+  background: var(--surface-raised);
+  color: var(--danger-text);
+  font-size: var(--type-meta);
+  line-height: 1;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.day-ring-overlay__ghost-vote svg {
+  width: 13px;
+  height: 13px;
+}
+
+.day-ring-overlay__ghost-vote[data-state='confirmed'] {
+  border-style: solid;
+  background: var(--danger-soft);
+}
+
+.day-ring-overlay__ghost-vote:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+.day-ring-overlay__ghost-vote:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/*
+  「本日处决」角标。帷幕不在这里画：处决造成死亡时 GrimoireSeat 已经按 life=dead
+  盖了帷幕，再盖一层就是同一件事的第二份实现；而弄臣、魔鬼代言人这类被处决却活着的人，
+  给他盖帷幕等于在环上说了一句假话。所以这一层只回答「今天处决过谁」。
+*/
+.day-ring-overlay__execution {
+  position: absolute;
+  translate: -50% -50%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  height: 22px;
+  padding: 0 var(--space-8);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--danger-border);
+  background: var(--danger-soft);
+  color: var(--danger-text);
+  font-size: var(--type-meta);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.day-ring-overlay__execution svg {
+  width: 12px;
+  height: 12px;
+}

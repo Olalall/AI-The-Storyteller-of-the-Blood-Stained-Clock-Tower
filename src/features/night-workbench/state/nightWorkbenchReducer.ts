@@ -1,15 +1,24 @@
 import type { AIResultAdvice, NightWorkbenchState, RoleChangeReason, RoleSnapshot, WakeDraft, WakeItem } from '../types'
-import { applyAIResultAdvice, createAIResultAdvice } from './aiResultAdvice'
+import { applyAIResultAdvice } from './aiResultAdvice'
 import { applyDefaultOutcome, applyOutcome, emptyWakeDraft, invalidateOutcome } from './projectWakeDraft'
 import { advanceFrom, updatePreviewDraft } from './nightWorkbenchDrafts'
 import { appendRoleChange } from './roleChanges'
 import { canConfirmDraft, canEditItem } from './workbenchGuards'
 
-export type NightWorkbenchAction =
+/**
+ * 组件只描述「做什么」，不带时间。
+ *
+ * 时间戳从 reducer 里搬出去是为了让 reducer 重新变回纯函数：原先 confirm / 草稿更新 / 换角
+ * 三处直接调 `new Date()`，同一组 (state, action) 每次跑出来的结果都不一样，
+ * 归档没法忠实回放，而不变量单测又恰好建立在「reducer 是纯函数」这个前提上。
+ */
+export type NightWorkbenchIntent =
   | { type: 'preview'; id: string }
   | { type: 'return-current' }
   | { type: 'target'; seatId: number }
   | { type: 'role-choice'; roleId: string }
+  | { type: 'system-check'; checkId: string }
+  | { type: 'system-bluff'; roleId: string }
   | { type: 'outcome'; outcomeId: string }
   | { type: 'confirm'; advance: boolean }
   | { type: 'defer' }
@@ -22,16 +31,25 @@ export type NightWorkbenchAction =
   | { type: 'toggle-privacy' }
   | { type: 'set-privacy'; shielded: boolean }
   | { type: 'toggle-dim' }
-  | { type: 'use-ai-result' }
   | { type: 'apply-ai-advice'; advice: AIResultAdvice | null }
   | { type: 'change-role'; role: RoleSnapshot; reason: RoleChangeReason }
   | { type: 'clear-draft' }
+
+/**
+ * reducer 的输入：意图 + 调用方生成的时间戳。
+ *
+ * `at` 挂在所有 action 上而不是只挂需要写时间的那几条，是刻意的：只要有一条 action 不带 `at`，
+ * 下一个在它里面加时间字段的人就会顺手写 `new Date()`，纯函数保证在那一刻悄悄失效。
+ * 回放时把归档里记下来的 `at` 原样传回来，就能得到与当初逐字节相同的结果。
+ */
+export type NightWorkbenchAction = NightWorkbenchIntent & { at: string }
 
 function applyAIAdviceToState(
   state: NightWorkbenchState,
   item: WakeItem,
   draft: WakeDraft,
   advice: AIResultAdvice | null,
+  at: string,
 ) {
   if (!advice) return { ...state, lastNotice: '当前角色暂无AI结算建议' }
   if (advice.status === 'needs_input') {
@@ -43,7 +61,7 @@ function applyAIAdviceToState(
   }
   const appliedDraft = applyAIResultAdvice(state, item, draft, advice)
   if (!appliedDraft) return { ...state, lastNotice: 'AI建议已失效' }
-  const next = updatePreviewDraft(state, () => appliedDraft)
+  const next = updatePreviewDraft(state, at, () => appliedDraft)
   if (next === state) return state
   return {
     ...next,
@@ -65,19 +83,38 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       }
     }
     case 'target':
-      return updatePreviewDraft(state, (draft, item) => {
+      return updatePreviewDraft(state, action.at, (draft, item) => {
         const exists = draft.targets.includes(action.seatId)
         const without = draft.targets.filter((id) => id !== action.seatId)
         const targets = exists ? without : [...without, action.seatId].slice(-item.targetCount)
         return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, targets }))
       })
     case 'role-choice':
-      return updatePreviewDraft(state, (draft, item) => {
+      return updatePreviewDraft(state, action.at, (draft, item) => {
         const roleChoice = draft.roleChoice === action.roleId ? '' : action.roleId
         return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, roleChoice }))
       })
+    case 'system-check':
+      return updatePreviewDraft(state, action.at, (draft, item) => {
+        if (!item.systemStep?.checks.some((check) => check.id === action.checkId)) return draft
+        const checked = draft.systemChecks ?? []
+        const systemChecks = checked.includes(action.checkId)
+          ? checked.filter((id) => id !== action.checkId)
+          : [...checked, action.checkId]
+        return invalidateOutcome(item, { ...draft, systemChecks })
+      })
+    case 'system-bluff':
+      return updatePreviewDraft(state, action.at, (draft, item) => {
+        const bluffCount = item.systemStep?.bluffCount ?? 0
+        if (!bluffCount || !item.systemStep?.bluffChoices?.some((choice) => choice.id === action.roleId)) return draft
+        const selected = draft.bluffRoleIds ?? []
+        const bluffRoleIds = selected.includes(action.roleId)
+          ? selected.filter((id) => id !== action.roleId)
+          : [...selected, action.roleId].slice(-bluffCount)
+        return invalidateOutcome(item, { ...draft, bluffRoleIds })
+      })
     case 'outcome':
-      return updatePreviewDraft(state, (draft, item) => {
+      return updatePreviewDraft(state, action.at, (draft, item) => {
         if (!action.outcomeId || draft.outcomeId === action.outcomeId) {
           return {
             ...draft,
@@ -101,7 +138,7 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
         id: `${state.activeCursorId}-record-${recordRevision}`,
         wakeItemId: state.activeCursorId,
         revision: recordRevision,
-        confirmedAt: new Date().toISOString(),
+        confirmedAt: action.at,
         correctionOf: state.correctionItemId ? previous?.id : undefined,
         snapshot: structuredClone(draft),
       }
@@ -187,27 +224,21 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       return state.privacyShielded === action.shielded ? state : { ...state, privacyShielded: action.shielded }
     case 'toggle-dim':
       return { ...state, dimmed: !state.dimmed }
-    case 'use-ai-result': {
-      const item = state.queue.find((entry) => entry.id === state.previewEntryId)
-      if (!item || !canEditItem(state, item)) return state
-      const draft = state.drafts[item.id] ?? emptyWakeDraft()
-      const advice = createAIResultAdvice(state, item, draft)
-      return applyAIAdviceToState(state, item, draft, advice)
-    }
     case 'apply-ai-advice': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
       if (!item || !canEditItem(state, item)) return state
       const draft = state.drafts[item.id] ?? emptyWakeDraft()
-      return applyAIAdviceToState(state, item, draft, action.advice)
+      return applyAIAdviceToState(state, item, draft, action.advice, action.at)
     }
     case 'change-role': {
       if (state.previewEntryId !== state.activeCursorId || state.correctionItemId) return state
       const item = state.queue.find((entry) => entry.id === state.activeCursorId)
       const draft = state.drafts[state.activeCursorId]
+      if (item?.systemStep) return { ...state, lastNotice: '系统步骤没有角色可换' }
       if (!item || (draft?.updatedAt && item.progress !== 'confirmed')) {
         return { ...state, lastNotice: '请先完成或清空当前草稿，再更换角色' }
       }
-      return appendRoleChange(state, item, action.role, action.reason)
+      return appendRoleChange(state, item, action.role, action.reason, action.at)
     }
     case 'clear-draft': {
       if (state.previewEntryId !== state.activeCursorId || state.correctionItemId) return state
