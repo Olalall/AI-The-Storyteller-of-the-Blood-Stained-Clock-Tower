@@ -27,7 +27,7 @@ export const tianTangHuaYuanOtherNight: readonly NightOrderEntry[] = [
   { roleId: "fortuneteller", order: 54, note: "让占卜师选择两名玩家。如果其中有恶魔或“干扰项”，点头示意，否则摇头。", knowledgeStatus: 'confirmed' },
   { roleId: "dreamer", order: 57, note: "让筑梦师指向一名玩家。对他展示善良和邪恶的角色标记各一个，其中一个是属于该玩家的角色。", knowledgeStatus: 'confirmed' },
   { roleId: "oracle", order: 60, note: "给他展示数字手势来告诉他当前已死亡的玩家中有多少玩家是邪恶的。", knowledgeStatus: 'confirmed' },
-  { roleId: "king", order: 64, note: "如果死亡玩家人数大于存活玩家，唤醒国王并对其展示一个存活的角色标记。", knowledgeStatus: 'confirmed' },
+  { roleId: "king", order: 64, note: "如果死亡玩家人数大于或等于存活玩家，唤醒国王并对其展示一个存活的角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "spy", order: 68, note: "将魔典展示给间谍，他想看多久就看多久。", knowledgeStatus: 'confirmed' },
   { roleId: "chambermaid", order: 70, note: "让侍女选择除自己外的两名存活玩家。给她展示数字手势来告诉她这些玩家中有几人因自身能力被唤醒。", knowledgeStatus: 'confirmed' },
 ]

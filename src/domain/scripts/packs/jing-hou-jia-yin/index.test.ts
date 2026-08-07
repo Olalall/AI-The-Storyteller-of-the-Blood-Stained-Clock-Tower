@@ -19,10 +19,21 @@ describe('jingHouJiaYinSmartScriptPack', () => {
   })
 
   it('uses the source-provided night order as the wake-up base', () => {
-    expect(jingHouJiaYinSmartScriptPack.nightOrders.firstNight.map((entry) => entry.roleId)).toContain('xiuxingzhe')
-    expect(jingHouJiaYinSmartScriptPack.nightOrders.firstNight.map((entry) => entry.roleId)).toContain('damsel')
-    expect(jingHouJiaYinSmartScriptPack.nightOrders.otherNight.map((entry) => entry.roleId)).toContain('pithag')
-    expect(jingHouJiaYinSmartScriptPack.nightOrders.otherNight.map((entry) => entry.roleId)).toContain('hatter')
+    const firstNightIds = jingHouJiaYinSmartScriptPack.nightOrders.firstNight.map((entry) => entry.roleId)
+    const otherNightIds = jingHouJiaYinSmartScriptPack.nightOrders.otherNight.map((entry) => entry.roleId)
+
+    expect(firstNightIds).toContain('xiuxingzhe')
+    expect(firstNightIds.filter((id) => ['poisoner', 'huntsman', 'damsel'].includes(id))).toEqual([
+      'poisoner',
+      'huntsman',
+      'damsel',
+    ])
+    expect(otherNightIds).toContain('pithag')
+    expect(otherNightIds).toContain('hatter')
+    expect(otherNightIds).not.toContain('alsaahir')
+    expect(otherNightIds).not.toContain('artist')
+    expect(otherNightIds).not.toContain('drunk')
+    expect(otherNightIds).not.toContain('soldier')
   })
 
   it('provides verified setup templates for all 7-15 player counts', () => {

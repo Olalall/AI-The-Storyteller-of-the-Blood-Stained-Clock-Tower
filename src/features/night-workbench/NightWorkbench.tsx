@@ -8,6 +8,7 @@ import { NightActionBar } from './components/NightActionBar'
 import { GameRecordSheet } from './components/GameRecordSheet'
 import { NightCloseFooter } from './components/NightCloseFooter'
 import { NightPlayerCarousel } from './components/NightPlayerCarousel'
+import { NightProgress } from './components/NightProgress'
 import { NightQueueSheet } from './components/NightQueueSheet'
 import { PrivateRevealOverlay } from './components/PrivateRevealOverlay'
 import { RoleChangeSheet } from './components/RoleChangeSheet'
@@ -15,7 +16,7 @@ import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchN
 import { projectCurrentAssignments } from '../game-session/state/projectors'
 import { projectDayFacts } from '../game-session/state/projectDayFacts'
 import { projectGameRecordEntries } from './state/gameRecordProjection'
-import { hasWakeDraftContent } from './state/projectWakeDraft'
+import { hasForbiddenRegistration, hasWakeDraftContent } from './state/projectWakeDraft'
 import { projectWakePlayerStatus } from './state/projectWakePlayerStatus'
 import { createResolutionHint } from './state/resolutionHint'
 import { currentRoleForItem } from './state/roleChanges'
@@ -85,7 +86,7 @@ export function NightWorkbench({
   const recordEntries = projectGameRecordEntries(state)
   const dayFacts = projectDayFacts(sessionBinding.session)
   // 系统步骤是流程记录，不是可结算的技能：AI 结算链路对它没有任何依据可用。
-  const aiAvailable = current.outcomeOptions.length > 0 && !current.systemStep
+  const aiAvailable = current.outcomeOptions.length > 0 && !current.systemStep && current.aiAdviceEnabled !== false
   const isAIAdviceLoading = loadingItemId === current.id
   // 原式 `!isPreviewing && !isReadOnly`：两者的并集就是「这一屏不可写」，即 readOnly。
   const canUseAI = !readOnly && aiAvailable && !isAIAdviceLoading
@@ -105,10 +106,10 @@ export function NightWorkbench({
     .at(-1)
   const aiAdvice = aiReference ? state.aiAdviceLog[aiReference.adviceId] : currentInputAdvice
   const activeLabel = activeItem.systemStep
-    ? activeItem.roleName
+    ? state.privacyShielded && activeItem.systemStep.sensitive ? '系统步骤已遮蔽' : activeItem.roleName
     : state.privacyShielded ? `${activeItem.seatId}号角色` : `${activeItem.seatId}号 ${activeRole.name}`
   const previewLabel = current.systemStep
-    ? current.roleName
+    ? state.privacyShielded && current.systemStep.sensitive ? '系统步骤已遮蔽' : current.roleName
     : state.privacyShielded ? `${current.seatId}号角色` : `${current.seatId}号 ${currentRole.name}`
   // 原式 `!isPreviewing && !isCorrecting`：焦点要落在正在处理的那一项上，且不在更正过程中。
   // 注意它不等于「可写」——已确认（settled）的项仍然允许换角，所以不能写成 !readOnly。
@@ -123,6 +124,8 @@ export function NightWorkbench({
   const canRevealInformation = !state.privacyShielded && isLiveFocusMode(mode) && Boolean(draft.informationGiven.trim())
   const visibleNotice = state.lastNotice?.includes('夜序快照') ? '' : state.lastNotice
   const systemMissing = systemStepMissingReason(current, draft)
+  const hasForbiddenTarget = draft.targets.some((seatId) => current.forbiddenTargetSeatIds?.includes(seatId))
+  const hasForbiddenRegistrationValue = hasForbiddenRegistration(current, draft)
   const missingReason = current.applicability === 'needs_review'
       ? '确认是否适用'
       : current.progress === 'deferred'
@@ -134,13 +137,19 @@ export function NightWorkbench({
             ? '已确认'
             : systemMissing
               ? systemMissing
+            : hasForbiddenTarget
+              ? '改选与上一夜不同的目标'
+            : hasForbiddenRegistrationValue
+              ? '改选与上一夜不同的展示类型'
             // 顺序必须是 目标 → 角色 → 结果：有些结果选项不要求输入（如「未受影响」），
             // 先判结果会在目标还没选时提示「选结果」，而此时唯一可点的正是那个空输入选项，
             // 一按就写下一条假记录。
-            : current.targetCount > draft.targets.length
+            : (current.minimumTargetCount ?? current.targetCount) > draft.targets.length
               ? `选${current.targetLabel ?? '目标'}`
               : current.roleChoices && !draft.roleChoice
                 ? `选${current.roleLabel ?? '角色'}`
+                : current.registrationSpec && !draft.registration
+                  ? `选${current.registrationSpec.label}`
                 : !draft.outcomeId || !draft.storytellerResult.trim()
                   ? '选结果'
                   : ''
@@ -203,7 +212,7 @@ export function NightWorkbench({
         onLeave={exitAfterPrompt}
       /> : null}
       <HostNotice message={leavePromptOpen ? '' : visibleNotice} />
-      {carouselElsewhere ? null : <NightPlayerCarousel
+      {carouselElsewhere || state.privacyShielded ? null : <NightPlayerCarousel
         current={current}
         currentRole={currentRole}
         currentRoleChange={currentRoleChange}
@@ -217,21 +226,7 @@ export function NightWorkbench({
         onNext={() => next && dispatch({ type: 'preview', id: next.id })}
       />}
       <div className="night-content-grid">
-        <div className="night-progress" aria-label={`当前夜序第${activeIndex + 1}项，共${state.queue.length}项`}>
-          <p className="night-progress__numbers">
-            <span>夜序</span>
-            <strong>{activeIndex + 1}</strong>
-            <small>/{state.queue.length}</small>
-          </p>
-          <div className="night-progress__track" aria-hidden="true">
-            <i style={{ width: `${((activeIndex + 1) / state.queue.length) * 100}%` }} />
-          </div>
-          <div className="night-progress__meta">
-            <span>已确认 {completed}</span>
-            {deferred ? <span>暂缓 {deferred}</span> : null}
-            {needsReview ? <span>待核对 {needsReview}</span> : null}
-          </div>
-        </div>
+        <NightProgress queue={state.queue} activeItem={activeItem} concealed={state.privacyShielded} />
         <CurrentWakeCard
           dayFacts={dayFacts}
           item={current}
@@ -256,6 +251,7 @@ export function NightWorkbench({
           onUnshield={() => dispatch({ type: 'set-privacy', shielded: false })}
           onTarget={(seatId) => dispatch({ type: 'target', seatId })}
           onRoleChoice={(roleId) => dispatch({ type: 'role-choice', roleId })}
+          onRegistrationChoice={(value) => dispatch({ type: 'registration-choice', value })}
           onSystemCheck={(checkId) => dispatch({ type: 'system-check', checkId })}
           onSystemBluff={(roleId) => dispatch({ type: 'system-bluff', roleId })}
           onOutcome={(outcomeId) => dispatch({ type: 'outcome', outcomeId })}
@@ -274,10 +270,11 @@ export function NightWorkbench({
             current={current}
             mode={mode}
             readOnly={readOnly}
-            missingReason={missingReason}
+            missingReason={state.privacyShielded ? '' : missingReason}
             canConfirm={canConfirm}
             activeLabel={activeLabel}
             previewLabel={previewLabel}
+            concealed={state.privacyShielded}
             onReturnCurrent={() => dispatch({ type: 'return-current' })}
             onActivatePreview={() => dispatch({ type: 'activate-preview' })}
             onResume={() => dispatch({ type: 'resume' })}

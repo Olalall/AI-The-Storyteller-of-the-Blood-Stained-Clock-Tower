@@ -43,6 +43,14 @@ describe('seatIdsInRequest', () => {
   it('allows only seats the model actually saw', () => {
     expect([...seatIdsInRequest(request())].sort((left, right) => left - right)).toEqual([3, 10])
   })
+
+  it('allows role-specific historical candidate seats that were included in the request', () => {
+    const input = request()
+    input.wakeItem.historicalContext = {
+      kind: 'pukka_poison', status: 'ready', seatIds: [4], summary: '4号为旧毒候选。',
+    }
+    expect([...seatIdsInRequest(input)].sort((left, right) => left - right)).toEqual([3, 4, 10])
+  })
 })
 
 describe('normalizeStateChangeDrafts', () => {

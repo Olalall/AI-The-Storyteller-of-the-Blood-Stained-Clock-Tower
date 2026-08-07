@@ -150,6 +150,74 @@ describe('night settlement provider', () => {
     expect(draft.disclaimer).toContain('说书人确认')
   })
 
+  it('forces needs_input when the previous target is required but missing', async () => {
+    const input = nightInput()
+    input.wakeItem.previousTargetRequired = true
+    const fallback = fallbackNightSettlementAdviceDraft(input)
+    expect(fallback.status).toBe('needs_input')
+    expect(fallback.recommendedOutcomeId).toBeUndefined()
+    expect(fallback.missing.join(' ')).toContain('上一夜已确认目标')
+
+    const provider = createOpenAICompatibleNightSettlementProvider({
+      baseUrl: 'https://ai.example.test/v1', model: 'night-model', apiKey: secret, timeoutSeconds: 1,
+      fetcher: async () => response({ status: 'answer', recommendedOutcomeId: 'applied', missing: [] }),
+    })
+    const result = await provider.generateNightSettlementAdvice(input)
+    expect(result.draft.status).toBe('needs_input')
+    expect(result.draft.recommendedOutcomeId).toBeUndefined()
+    expect(result.draft.missing.join(' ')).toContain('上一夜已确认目标')
+  })
+
+  it('rejects a stale draft that repeats the corrected previous target', () => {
+    const input = nightInput()
+    input.wakeItem.previousTargetRequired = true
+    input.wakeItem.previousTargets = [3]
+    const fallback = fallbackNightSettlementAdviceDraft(input)
+    expect(fallback.status).toBe('needs_input')
+    expect(fallback.recommendedOutcomeId).toBeUndefined()
+    expect(fallback.missing.join(' ')).toContain('重复')
+  })
+
+  it('forces needs_input when a healthy Balloonist repeats the previous role type', async () => {
+    const input = nightInput()
+    input.wakeItem.roleId = 'balloonist'
+    input.wakeItem.roleName = '气球驾驶员'
+    input.wakeItem.previousRegistration = { kind: 'role_type', seatId: 4, value: 'outsider' }
+    input.draft.registration = { kind: 'role_type', seatId: 5, value: 'outsider' }
+    const fallback = fallbackNightSettlementAdviceDraft(input)
+    expect(fallback.status).toBe('needs_input')
+    expect(fallback.recommendedOutcomeId).toBeUndefined()
+    expect(fallback.missing.join(' ')).toContain('气球驾驶员健康时')
+
+    const provider = createOpenAICompatibleNightSettlementProvider({
+      baseUrl: 'https://ai.example.test/v1', model: 'night-model', apiKey: secret, timeoutSeconds: 1,
+      fetcher: async () => response({ status: 'answer', recommendedOutcomeId: 'applied', missing: [] }),
+    })
+    const result = await provider.generateNightSettlementAdvice(input)
+    expect(result.draft.status).toBe('needs_input')
+    expect(result.draft.recommendedOutcomeId).toBeUndefined()
+    expect(result.draft.missing.join(' ')).toContain('气球驾驶员健康时')
+  })
+
+  it('forces needs_input when role-specific historical context is missing', async () => {
+    const input = nightInput()
+    input.wakeItem.historicalContext = {
+      kind: 'pukka_poison', status: 'missing', seatIds: [], summary: '缺少普卡成功中毒历史。',
+    }
+    const fallback = fallbackNightSettlementAdviceDraft(input)
+    expect(fallback.status).toBe('needs_input')
+    expect(fallback.recommendedOutcomeId).toBeUndefined()
+    expect(fallback.missing).toContain('缺少普卡成功中毒历史。')
+
+    const provider = createOpenAICompatibleNightSettlementProvider({
+      baseUrl: 'https://ai.example.test/v1', model: 'night-model', apiKey: secret, timeoutSeconds: 1,
+      fetcher: async () => response({ status: 'answer', recommendedOutcomeId: 'applied', missing: [] }),
+    })
+    const result = await provider.generateNightSettlementAdvice(input)
+    expect(result.draft.status).toBe('needs_input')
+    expect(result.draft.recommendedOutcomeId).toBeUndefined()
+  })
+
   it('adds deterministic warnings when the acting role is impaired', async () => {
     const input = nightInput()
     input.wakeItem.status = {

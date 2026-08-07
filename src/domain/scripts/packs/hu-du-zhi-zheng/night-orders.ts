@@ -20,7 +20,7 @@ export const huDuZhiZhengOtherNightOrder: readonly NightOrderEntry[] = [
   { roleId: "preacher", order: 2, note: "传教士选择一名玩家。如果选中了爪牙，则唤醒并告知他被传教士选中。", knowledgeStatus: 'confirmed' },
   { roleId: "gudiao", order: 3, note: "唤醒蛊雕，让其选择一个方向。将他的“中毒”标记移动至那个方向上的下一个存活玩家的角色标记旁。随后对他指向那名玩家，并展示“他是”提示标记和该玩家的角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "witch", order: 4, note: "让女巫选择一名玩家。标记那名玩家被诅咒。", knowledgeStatus: 'confirmed' },
-  { roleId: "lycanthrope", order: 5, note: "半兽人指向一名存活玩家：如果那名玩家善良，则立刻死去且今夜不会再有玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "lycanthrope", order: 5, note: "半兽人指向一名存活玩家：如果那名玩家善良，则立刻死去且当晚只有恶魔不会造成死亡，其他来源仍可造成死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "lilmonsta", order: 6, note: "唤醒所有爪牙，允许他们以指向的方式决定谁照看小怪宝，但不能产生其他交流，否则会有非常糟糕的事情发生。说书人选择一名玩家，那名玩家死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "assassin", order: 7, note: "刺客可以选择一名玩家。如果他这么做了，标记那名玩家死亡，且刺客失去能力，之后的夜晚无需再唤醒刺客。", knowledgeStatus: 'confirmed' },
   { roleId: "godfather", order: 8, note: "如果有外来者在今天白天死亡，让教父选择一名玩家。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },

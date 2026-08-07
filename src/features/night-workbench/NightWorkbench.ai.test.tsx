@@ -83,7 +83,7 @@ describe('NightWorkbench 的 AI 与遮蔽', () => {
     render(<NightWorkbenchHarness />)
     await user.click(screen.getByRole('button', { name: 'AI推荐' }))
     expect(await screen.findByText('AI缺少')).toBeInTheDocument()
-    expect(screen.getAllByText(/缺少玩家、缺少声称角色/)).toHaveLength(2)
+    expect(screen.getAllByText((content) => content.includes('目标数量需为') && content.includes('缺少声称角色'))).toHaveLength(2)
     expect(screen.getByText('补齐后可重新推荐')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: '受到影响，AI建议' })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: '确认本项' })).toBeDisabled()

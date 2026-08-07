@@ -36,7 +36,7 @@ export const siDongFeiDongOtherNightOrder: readonly NightOrderEntry[] = [
   { roleId: "tinker", order: 48, note: "修补匠可能会死亡。如果说书人选择让修补匠死亡，放置死亡标记。", knowledgeStatus: 'confirmed' },
   { roleId: "moonchild", order: 49, note: "如果月之子在白天触发了死亡能力并选择了一名善良玩家，该玩家死亡。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "oracle", order: 60, note: "给他展示数字手势来告诉他当前已死亡的玩家中有多少玩家是邪恶的。", knowledgeStatus: 'confirmed' },
-  { roleId: "balloonist", order: 63, note: "选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", knowledgeStatus: 'confirmed' },
+  { roleId: "balloonist", order: 63, note: "选择一名角色类型与上一夜所示玩家不同的玩家，指给气球驾驶员；记录本夜所示玩家，供下一夜核对。", knowledgeStatus: 'confirmed' },
   { roleId: "bountyhunter", order: 65, note: "如果赏金猎人知晓的邪恶玩家死亡，指向另一名邪恶玩家。", knowledgeStatus: 'confirmed' },
   { roleId: "mathematician", order: 71, note: "给他展示数字手势来告诉他从上个黎明到数学家醒来前有多少玩家的角色能力受他人影响而未正常生效。", knowledgeStatus: 'confirmed' },
 ]

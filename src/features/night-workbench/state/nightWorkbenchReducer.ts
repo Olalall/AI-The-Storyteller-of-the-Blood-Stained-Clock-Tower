@@ -17,6 +17,7 @@ export type NightWorkbenchIntent =
   | { type: 'return-current' }
   | { type: 'target'; seatId: number }
   | { type: 'role-choice'; roleId: string }
+  | { type: 'registration-choice'; value: string }
   | { type: 'system-check'; checkId: string }
   | { type: 'system-bluff'; roleId: string }
   | { type: 'outcome'; outcomeId: string }
@@ -82,17 +83,40 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
         lastNotice: active ? `已回到${active.playerLabel}` : '已回到正在处理的角色',
       }
     }
-    case 'target':
+    case 'target': {
+      if (!Number.isInteger(action.seatId) || action.seatId < 1 || action.seatId > state.playerCount) return state
+      const item = state.queue.find((item) => item.id === state.previewEntryId)
+      if (!item || !canEditItem(state, item) || item.targetCount <= 0) return state
+      if (item.forbiddenTargetSeatIds?.includes(action.seatId)
+        && !state.drafts[state.previewEntryId]?.targets.includes(action.seatId)) {
+        return { ...state, lastNotice: `${action.seatId}号是上一夜目标，本夜不能重复选择` }
+      }
       return updatePreviewDraft(state, action.at, (draft, item) => {
         const exists = draft.targets.includes(action.seatId)
         const without = draft.targets.filter((id) => id !== action.seatId)
         const targets = exists ? without : [...without, action.seatId].slice(-item.targetCount)
-        return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, targets }))
+        return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, targets, registration: undefined }))
       })
+    }
     case 'role-choice':
       return updatePreviewDraft(state, action.at, (draft, item) => {
         const roleChoice = draft.roleChoice === action.roleId ? '' : action.roleId
         return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, roleChoice }))
+      })
+    case 'registration-choice':
+      if (state.queue.find((item) => item.id === state.previewEntryId)?.forbiddenRegistrationValues?.includes(action.value as NonNullable<WakeDraft['registration']>['value'])
+        && state.drafts[state.previewEntryId]?.registration?.value !== action.value) {
+        return { ...state, lastNotice: '本夜登记不能与上一夜展示类型相同；如因醉酒或中毒需要例外，请改为人工记录。' }
+      }
+      return updatePreviewDraft(state, action.at, (draft, item) => {
+        const spec = item.registrationSpec
+        const seatId = draft.targets[0]
+        const choice = spec?.choices.find((candidate) => candidate.id === action.value)
+        if (!spec || !seatId || !choice) return draft
+        const registration = draft.registration?.value === choice.id
+          ? undefined
+          : { kind: spec.kind, seatId, value: choice.id as NonNullable<WakeDraft['registration']>['value'] }
+        return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, registration }))
       })
     case 'system-check':
       return updatePreviewDraft(state, action.at, (draft, item) => {

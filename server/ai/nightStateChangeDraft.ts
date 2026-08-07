@@ -51,6 +51,7 @@ export function seatIdsInRequest(input: NightSettlementProviderRequest): Set<num
   const seats = new Set<number>([input.wakeItem.seatId])
   for (const seatId of input.draft.targets) seats.add(seatId)
   for (const target of input.selectedTargets ?? []) seats.add(target.seatId)
+  for (const seatId of input.wakeItem.historicalContext?.seatIds ?? []) seats.add(seatId)
   return seats
 }
 
