@@ -2,7 +2,7 @@
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, beforeEach } from 'vitest'
 import { useGameSession } from '../game-session/state/useGameSession'
-import { gameSessionStorageKey } from '../game-session/data/createPrototypeSession'
+import { createPrototypeGameSession, gameSessionStorageKey } from '../game-session/data/createPrototypeSession'
 import type { GameSessionState } from '../game-session/types'
 import { DiscussionTimerProvider } from './state/discussionTimer'
 import { DayWorkbench } from './DayWorkbench'
@@ -16,8 +16,17 @@ function storedState() {
   return JSON.parse(window.localStorage.getItem(gameSessionStorageKey) ?? '{}') as GameSessionState
 }
 
+
+/**
+ * 默认落地已改为空对局（首次打开显示入口界面），而这些用例测的是工作台本身，
+ * 需要一局进行中的对局做夹具，所以显式播种。
+ */
+function seedPrototypeSession() {
+  window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(createPrototypeGameSession()))
+}
+
 describe('DayWorkbench records', () => {
-  beforeEach(() => window.localStorage.clear())
+  beforeEach(() => { window.localStorage.clear(); seedPrototypeSession() })
 
   it('records a structured day skill only after the storyteller confirms it', async () => {
     const user = userEvent.setup()
@@ -163,6 +172,7 @@ describe('DayWorkbench records', () => {
     await user.click(screen.getByRole('button', { name: '选择1号为提名人' }))
     await user.click(screen.getByRole('tab', { name: '被提名人 · 未选' }))
     await user.click(screen.getByRole('button', { name: '选择4号为被提名人' }))
+    await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
     await user.click(screen.getByRole('button', { name: '记录1号举手' }))
 
     await waitFor(() => expect(storedState().dayVoteDraft).toMatchObject({
@@ -174,8 +184,8 @@ describe('DayWorkbench records', () => {
     first.unmount()
     render(<DayWorkbenchHarness />)
 
-    expect(screen.getByRole('tab', { name: '提名人 · 1号' })).toBeVisible()
-    expect(screen.getByRole('tab', { name: '被提名人 · 4号' })).toBeVisible()
+    // 提名已完成，该步折叠为摘要条；举手是当前展开的步骤。
+    expect(screen.getByRole('button', { name: '回到步骤1：提名' })).toHaveTextContent('1号提名 4号')
     expect(screen.getByLabelText('举手1票，死亡票0张，处决门槛6')).toBeVisible()
   })
 
@@ -214,6 +224,7 @@ describe('DayWorkbench records', () => {
     await user.click(screen.getByRole('button', { name: '选择1号为提名人' }))
     await user.click(screen.getByRole('tab', { name: '被提名人 · 未选' }))
     await user.click(screen.getByRole('button', { name: '选择4号为被提名人' }))
+    await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
     await user.click(screen.getByRole('button', { name: '记录1号举手' }))
 
     await user.click(screen.getByRole('button', { name: '结束今天' }))
@@ -231,3 +242,44 @@ describe('DayWorkbench records', () => {
   })
 })
 
+
+describe('DayWorkbench 步骤序列', () => {
+  beforeEach(() => { window.localStorage.clear(); seedPrototypeSession() })
+
+  it('collapses finished steps and lets the storyteller go back without losing later input', async () => {
+    const user = userEvent.setup()
+    render(<DayWorkbenchHarness />)
+
+    await user.click(screen.getByRole('button', { name: '选择1号为提名人' }))
+    await user.click(screen.getByRole('tab', { name: '被提名人 · 未选' }))
+    await user.click(screen.getByRole('button', { name: '选择4号为被提名人' }))
+    await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
+    await user.click(screen.getByRole('button', { name: '记录2号举手' }))
+
+    // 回退到提名步骤
+    await user.click(screen.getByRole('button', { name: '回到步骤1：提名' }))
+    expect(screen.getByRole('tab', { name: '提名人 · 1号' })).toBeVisible()
+
+    // 回退不得清空后续步骤已填内容
+    expect(storedState().dayVoteDraft).toMatchObject({ nominatorSeatId: 1, nomineeSeatId: 4, raisedSeatIds: [2] })
+    await user.click(screen.getByRole('button', { name: '回到步骤2：举手' }))
+    expect(screen.getByLabelText(/举手1票/)).toBeVisible()
+  })
+
+  it('puts the round confirmation in the single bottom bar instead of the page tail', async () => {
+    const user = userEvent.setup()
+    render(<DayWorkbenchHarness />)
+
+    await user.click(screen.getByRole('button', { name: '选择1号为提名人' }))
+    await user.click(screen.getByRole('tab', { name: '被提名人 · 未选' }))
+    await user.click(screen.getByRole('button', { name: '选择4号为被提名人' }))
+
+    // 提名步的底栏是显式推进；推进后才换成记录票型。
+    const bar = document.querySelector('.sticky-action-bar')
+    expect(bar).not.toBeNull()
+    expect(bar).toHaveTextContent('下一步：记录举手')
+
+    await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
+    expect(document.querySelector('.sticky-action-bar')).toHaveTextContent('记录本轮票型')
+  })
+})

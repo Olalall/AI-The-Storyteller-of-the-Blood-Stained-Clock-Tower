@@ -1,0 +1,35 @@
+.grimoire-canvas {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+}
+
+/* 舞台是布局求解的输入：它的实测尺寸决定环的半轴与 token 档位，所以必须能被 ResizeObserver 量到。 */
+.grimoire-canvas__stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+}
+
+/* 环退化为网格：核跟随正常流排在上方，座位按 token 尺寸自动铺列。 */
+.grimoire-canvas[data-mode='grid'] .grimoire-canvas__stage {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+  overflow-y: auto;
+  padding: var(--space-12);
+}
+
+.grimoire-canvas__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+  gap: var(--space-20) var(--space-12);
+  justify-items: center;
+}
+
+.grimoire-canvas__blackout {
+  margin: auto;
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}

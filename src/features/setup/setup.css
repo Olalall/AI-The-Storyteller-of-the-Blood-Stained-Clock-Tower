@@ -111,9 +111,8 @@
   color: var(--text-subtle) !important;
   font-size: var(--type-meta) !important;
 }
-.setup-candidate-empty { grid-column: 1 / -1; min-height: 110px; display: grid; place-items: center; gap: var(--space-6); padding: var(--space-20); border: 1px dashed var(--border-strong); border-radius: var(--radius-lg); background: var(--surface-soft); color: var(--text-muted); text-align: center; }
-.setup-candidate-empty strong { color: var(--text-strong); font: 800 1.1rem var(--font-display); }
-.setup-candidate-empty span { font-size: var(--type-label); }
+/* 空态外形来自共享 .ui-empty；这里只留候选栅格里的占位与高度。 */
+.ui-empty.setup-candidate-empty { grid-column: 1 / -1; min-height: 110px; }
 .setup-candidate { min-width: 0; padding: var(--space-16); display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-10); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-soft); }
 .setup-candidate > div { width: 100%; display: flex; justify-content: space-between; gap: var(--space-8); align-items: flex-start; }
 .setup-candidate__badges { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-end; flex-wrap: wrap; gap: 5px; }
@@ -229,7 +228,7 @@
   white-space: nowrap;
 }
 .setup-panel__draft {
-  padding: clamp(var(--space-16), 2.2cqw, var(--space-22));
+  padding: clamp(var(--space-16), 2.2cqw, var(--space-24));
 }
 .setup-panel__rule-card,
 .setup-panel__bluff-card {
@@ -340,7 +339,7 @@
 }
 .setup-panel {
   width: min(1120px, calc(100% - 48px));
-  padding: clamp(var(--space-24), 4cqw, var(--space-36)) 0 72px;
+  padding: clamp(var(--space-24), 4cqw, var(--space-32)) 0 72px;
   gap: clamp(var(--space-24), 3cqw, var(--space-32));
 }
 .setup-panel__active-candidate {
@@ -400,7 +399,7 @@
   display: inline-grid;
   place-items: center;
   border: 1px solid var(--accent-border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--accent-soft);
   color: var(--accent-text);
   font-size: var(--type-label);
@@ -410,7 +409,7 @@
 .setup-panel__draft {
   padding: 0;
   display: grid;
-  gap: var(--space-22);
+  gap: var(--space-24);
   border: 0;
   background: transparent;
 }
@@ -504,19 +503,7 @@
   font-size: var(--type-label);
   font-weight: 900;
 }
-.setup-panel__bluff-top em {
-  min-height: 22px;
-  padding: 0 8px;
-  display: inline-grid;
-  place-items: center;
-  border: 1px solid var(--accent-border);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent-text);
-  font-size: var(--type-meta);
-  font-style: normal;
-  font-weight: 900;
-}
+/* 「建议 / 可选」是状态徽标，外形来自共享 StatusBadge。 */
 .setup-panel__bluff-grid select {
   width: 100%;
   font-weight: 850;
@@ -527,7 +514,7 @@
   width: fit-content;
   padding: 4px 8px;
   border: 1px solid var(--info-border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--info-soft);
   color: var(--info-text);
   font-size: var(--type-meta);
@@ -703,7 +690,7 @@
   align-items: center;
   gap: 7px;
   border: 1px solid var(--border);
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   background: var(--surface-soft);
   color: var(--text-muted);
   font: 850 var(--type-label) var(--font-body);

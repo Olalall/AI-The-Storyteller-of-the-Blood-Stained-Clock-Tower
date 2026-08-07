@@ -41,7 +41,7 @@ export const aGrimmChorusSetupRules: readonly SetupRule[] = [
   {
     id: 'yaggababble-secret-phrase',
     roleId: 'yaggababble',
-    summary: '呓语魔：开局得知暗号；当天公开说出次数由说书人记录，可能造成死亡。',
+    summary: '牙噶巴卜：开局得知暗号；当天公开说出次数由说书人记录，可能造成死亡。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,

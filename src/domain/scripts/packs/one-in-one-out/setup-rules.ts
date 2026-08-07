@@ -25,7 +25,7 @@ export const oneInOneOutSetupRules: readonly SetupRule[] = [
   {
     id: 'mezepheles-turns-evil',
     roleId: 'mezepheles',
-    summary: '灵言师：首个说出暗号的善良玩家当晚变邪恶；受象牙之灵额外邪恶限制。',
+    summary: '灵言师：首个说出暗号的善良玩家当晚变邪恶；受圣洁之魂额外邪恶限制。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -49,7 +49,7 @@ export const oneInOneOutSetupRules: readonly SetupRule[] = [
   {
     id: 'spirit-of-ivory-extra-evil-limit',
     roleId: 'spiritofivory',
-    summary: '象牙之灵：额外邪恶玩家不能超过 1 名；它是传奇角色，不进入座位池。',
+    summary: '圣洁之魂：额外邪恶玩家不能超过 1 名；它是传奇角色，不进入座位池。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,

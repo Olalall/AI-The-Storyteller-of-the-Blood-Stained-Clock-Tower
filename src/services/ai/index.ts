@@ -6,8 +6,12 @@ export {
   createGameReviewDraftAsync,
   createSetupAdviceDraftAsync,
 } from './aiService'
+export { aiContextLevelForCoverage, nightContextLevel, sessionContextLevel, unknownSeatIds } from './aiContextLevel'
 export { buildNightSettlementRequest, buildReviewDraftRequest, buildSetupAdviceRequest } from './contextBuilder'
 export { fakeAIContractAdapter } from './fakeAIContractAdapter'
+export { normalizeStateChangeDrafts, textStateChangeDrafts } from './aiStateChangeDraft'
+export { buildStateChangeAdoption, projectStateChangeAdoption } from './stateChangeAdoption'
+export type { ProjectedStateChange, StateChangeAdoptionContext } from './stateChangeAdoption'
 export type {
   AIContextLevel,
   AIContextSeat,

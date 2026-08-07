@@ -13,11 +13,14 @@ describe('wuHeYouZhiXiangSmartScriptPack', () => {
     expect(wuHeYouZhiXiangSmartScriptPack.roles.map((role) => role.id)).toContain('plaguedoctor')
   })
 
-  it('uses the source-provided night order as the wake-up base', () => {
+  it('uses the official night order as the wake-up base', () => {
+    // 卡扎力先创建爪牙，罂粟种植者才能正确决定是否跳过爪牙/恶魔信息；
+    // 被卡扎力选中变爪牙的玩家（可能是哲学家）不应先以善良身份行动。
+    // 依据：官方 nightsheet 与钟楼百科《夜晚行动顺序一览》首夜段。
     expect(wuHeYouZhiXiangSmartScriptPack.nightOrders.firstNight.map((entry) => entry.roleId)).toEqual([
+      'kazali',
       'philosopher',
       'poppygrower',
-      'kazali',
       'poisoner',
       'harpy',
       'mezepheles',

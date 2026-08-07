@@ -8,6 +8,26 @@
 .app-frame__rail { display: none; min-width: 0; }
 .app-frame__workspace { min-width: 0; }
 
+/*
+ * 魔典舞台要按视口高度求解环的半轴，所以它必须拿到一个**确定**的高度。
+ * 而 workspace/deck 默认是 block、高度随内容——舞台的 flex: 1 因此完全落空，
+ * 只拿到两条提示栏的高度，画布塌成 0，座位靠绝对定位溢出到抽屉底下。
+ * 用 :has() 把这条限定在魔典模式：纯记录模式仍是内容撑开 + 页面滚动，一行不变。
+ */
+/*
+ * 整个框架恰好一屏高。默认的 `.app-frame__body { min-height: 100dvh }` 是在 48px 的
+ * 阶段轨道**之外**再要一屏，总高 100dvh + 48px——纯记录模式下页面会滚动，看不出来；
+ * 魔典模式下这 48px 会把环整体压到折叠线以下，下半弧的座位钻进抽屉底下。
+ */
+.app-frame:has(.grimoire-stage) { height: 100dvh; display: flex; flex-direction: column; }
+/* 隐式 grid 行是 auto，按内容撑开——不显式给 minmax(0,1fr) 的话，
+   上面那条限高会被行高顶穿，workspace 又回到内容高度。 */
+.app-frame:has(.grimoire-stage) .app-frame__body { min-height: 0; flex: 1; grid-template-rows: minmax(0, 1fr); }
+
+/* grid item 的 min-height 默认是 auto，会被内容顶回去；不归零的话上面那条限高白设。 */
+.app-frame__workspace:has(.grimoire-stage) { display: flex; flex-direction: column; min-height: 0; }
+.app-frame__deck:has(.grimoire-stage) { flex: 1; min-height: 0; display: flex; }
+
 @container app-frame (min-width: 1024px) {
   .app-frame[data-has-rail='true'] .app-frame__body { grid-template-columns: 216px minmax(0, 1fr); }
   .app-frame[data-has-rail='true'] .app-frame__rail { display: block; }

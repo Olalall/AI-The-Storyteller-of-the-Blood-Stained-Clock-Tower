@@ -29,6 +29,8 @@ describe('App game reset flow', () => {
     await waitFor(() => expect(window.localStorage.getItem(setupRosterMemoryKey)).toContain('待清除昵称'))
     window.localStorage.setItem(identityDealReceiptsStorageKey(dirtySession.id), JSON.stringify({ 1: '2026-07-19T00:00:00.000Z' }))
 
+    // 主持台是默认视图，「结束对局」入口在档案页；先用轨道右端的「本局」进去。
+    fireEvent.click(screen.getByRole('button', { name: '本局' }))
     fireEvent.click(container.querySelector('.dashboard__end-entry') as HTMLButtonElement)
     fireEvent.click(screen.getByRole('button', { name: '保存本局' }))
     await screen.findByText('本局已保存到本机浏览器')
@@ -66,6 +68,8 @@ describe('App game reset flow', () => {
 
     const { container } = render(<App />)
     await waitFor(() => expect(window.localStorage.getItem(setupRosterMemoryKey)).toContain('上一局1号'))
+    // 主持台是默认视图，「结束对局」入口在档案页；先用轨道右端的「本局」进去。
+    fireEvent.click(screen.getByRole('button', { name: '本局' }))
     fireEvent.click(container.querySelector('.dashboard__end-entry') as HTMLButtonElement)
     fireEvent.click(screen.getByRole('button', { name: '保存本局' }))
     await screen.findByText('本局已保存到本机浏览器')

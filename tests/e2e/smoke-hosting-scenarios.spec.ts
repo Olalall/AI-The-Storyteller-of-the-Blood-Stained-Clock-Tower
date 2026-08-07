@@ -2,6 +2,48 @@
 
 const sessionStorageKey = 'botc-copilot-session-v1'
 
+
+/** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
+
+
+
+/** 首夜前两张是系统步骤卡（爪牙信息 / 恶魔信息）：勾满清单、选满伪装后确认，才轮到角色卡。 */
+async function settleFirstNightSystemSteps(page: Page) {
+  for (let card = 0; card < 2; card += 1) {
+    const recorder = page.locator('.wake-recorder')
+    if (!(await recorder.locator('.system-step-check').count().catch(() => 0))) return
+
+    const checks = recorder.locator('.system-step-check input[type="checkbox"]')
+    for (let i = 0; i < await checks.count(); i += 1) {
+      const box = checks.nth(i)
+      if (!(await box.isChecked().catch(() => true))) await box.check()
+    }
+
+    // 恶魔信息卡要选满三张伪装；爪牙信息卡没有 chip，循环自然空转。
+    for (let guard = 0; guard < 6; guard += 1) {
+      const legend = (await recorder.locator('.choice-legend').first().textContent().catch(() => '')) ?? ''
+      const counts = /(\d+)\s*\/\s*(\d+)/.exec(legend)
+      if (counts && Number(counts[1]) >= Number(counts[2])) break
+      const free = recorder.locator('.choice-chips button:not([disabled])[aria-pressed="false"]')
+      if (!(await free.count().catch(() => 0))) break
+      await free.first().click()
+    }
+
+    const chosen = await recorder.locator('.outcome-grid button[aria-pressed="true"]').count().catch(() => 0)
+    const outcome = recorder.locator('.outcome-grid button:not([disabled])')
+    if (!chosen && await outcome.count().catch(() => 0)) await outcome.first().click()
+
+    const next = page.getByRole('button', { name: '确认并下一位' })
+    if (await next.isEnabled().catch(() => false)) await next.click()
+    await page.waitForTimeout(150)
+  }
+}
+
+async function openArchive(page: Page) {
+  const enter = page.getByRole('button', { name: '本局', exact: true })
+  if (await enter.isVisible().catch(() => false)) await enter.click()
+}
+
 async function openBlankSetup(page: Page, runId: string) {
   await page.goto('/')
   await page.evaluate(({ storageKey, id }) => {
@@ -25,8 +67,10 @@ async function openBlankSetup(page: Page, runId: string) {
     }))
   }, { storageKey: sessionStorageKey, id: `session-${runId}` })
   await page.reload()
+  await openArchive(page)
   const setupHeading = page.getByRole('heading', { name: 'AI配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
+    await openArchive(page)
     await page.getByRole('button', { name: 'AI配板与调整' }).click()
   }
   await expect(setupHeading).toBeVisible()
@@ -71,8 +115,10 @@ test('hosting scenario B: 7人开局后夜序只投影在场角色，状态由�
   await expect(page.locator('.identity-deal__seat-grid button')).toHaveCount(7)
   await page.locator('.sheet-content--identity-deal .sheet-close').click()
 
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
+  await settleFirstNightSystemSteps(page)
   await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
 
   const nightSession = await readSession(page)
@@ -80,8 +126,8 @@ test('hosting scenario B: 7人开局后夜序只投影在场角色，状态由�
   const setupEntry = nightSession.timeline.find((entry: { kind: string }) => entry.kind === 'setup_confirmed')
   const inPlayRoleBySeat = new Map(setupEntry.setup.draft.assignments.map((assignment: { seatId: number; role: { id: string } }) => [assignment.seatId, assignment.role.id]))
   expect(run.queue.length).toBeGreaterThan(0)
-  expect(run.queue.every((item: { seatId: number; roleId: string }) => inPlayRoleBySeat.get(item.seatId) === item.roleId)).toBe(true)
-  expect(run.queue.every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 7)).toBe(true)
+  expect(run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep).every((item: { seatId: number; roleId: string }) => inPlayRoleBySeat.get(item.seatId) === item.roleId)).toBe(true)
+  expect(run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep).every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 7)).toBe(true)
 
   await returnDashboard(page)
   await page.getByRole('button', { name: /查看1号/ }).click()
@@ -98,16 +144,19 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   await openBlankSetup(page, 'scenario-c-15')
   await createConfirmedSetup(page, { scriptId: 'quick-maths', playerCount: 15 })
 
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
   await expect(page.locator('.carousel-current')).toBeVisible()
+  await settleFirstNightSystemSteps(page)
   await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
   const nightSession = await readSession(page)
   const run = nightSession.nightRuns[nightSession.activeNightRunId]
   expect(run.queue.length).toBeGreaterThan(0)
-  expect(run.queue.every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 15)).toBe(true)
+  expect(run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep).every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 15)).toBe(true)
 
   await returnDashboard(page)
+  await openArchive(page)
   await page.getByRole('button', { name: '进入白天' }).click()
   await expect(page.locator('.day-workbench')).toBeVisible()
   await expect(page.locator('.day-seat-grid button')).toHaveCount(15)
@@ -115,15 +164,21 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: /被提名人/ }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6, 7, 8]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
   await page.getByRole('button', { name: '记录本轮票型' }).click()
-  await expect(page.getByText('4号暂列')).toBeVisible()
+  await expect(page.locator('.day-card--standing').getByText('4号暂列')).toBeVisible()
+
+  // 记录完一轮后停在「暂列」步；再提名一轮要先点开折叠的提名摘要。
+
+  await page.getByRole('button', { name: '回到步骤1：提名' }).click()
 
   await page.getByRole('button', { name: '选择2号为提名人' }).click()
   await page.getByRole('tab', { name: /被提名人/ }).click()
   await page.getByRole('button', { name: '选择5号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手' }).click()
   for (const seatId of [1, 2, 3, 4]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
@@ -135,7 +190,7 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
 
   await returnDashboard(page)
   await expect(page.getByRole('button', { name: /查看15号/ })).toBeVisible()
-  await page.getByRole('button', { name: '日记' }).click()
+  await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await expect(page.getByRole('dialog', { name: '日记' })).toBeVisible()
   await expect(page.getByRole('button', { name: /查看投票记录/ })).toHaveCount(2)
 })
@@ -147,7 +202,9 @@ test('hosting scenario D: 缺少角色图标时仍可开局并进入夜序', asy
   await page.setViewportSize({ width: 900, height: 900 })
   await openBlankSetup(page, 'scenario-d-missing-assets')
   await createConfirmedSetup(page, { scriptId: 'catfishing', playerCount: 12 })
+  await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
+  await settleFirstNightSystemSteps(page)
   await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
 })

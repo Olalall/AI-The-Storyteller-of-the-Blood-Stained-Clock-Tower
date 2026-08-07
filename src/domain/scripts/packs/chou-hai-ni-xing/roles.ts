@@ -90,7 +90,7 @@ export const chouHaiNiXingRoles = [
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202410/c_7787277188271_9eba6446.jpg",
     inputKinds: ["none"],
     setupImpact: ["Setup bracket text applies; storyteller confirms composition, adjacency or no-evil setup before play."],
-    highRiskNotes: ["First-night source reminder: 选择一种角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。", "Other-night source reminder: 选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。"],
+    highRiskNotes: ["First-night source reminder: 将“得知”提示标记放置在任意一名玩家的角色标记旁，唤醒气球驾驶员并指向该玩家。", "Other-night source reminder: 将“得知”提示标记放置在一名与当前放置着该提示标记的角色类型不同的玩家角色标记旁，唤醒气球驾驶员并指向该玩家。如果气球驾驶员中毒或醉酒，他可以得知与上一次得知玩家的角色类型相同的玩家。"],
   }),
   role({
     id: "dreamer",
@@ -160,7 +160,7 @@ export const chouHaiNiXingRoles = [
     abilityText: "每局游戏限一次，在夜晚时，你可以选择一个角色：如果该角色在场，该角色之一从当晚开始醉酒三天三夜。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/courtier.png",
     inputKinds: ["none"],
-    highRiskNotes: ["First-night source reminder: 侍臣可以选择一个角色。如果他这么做了，标记侍臣失去能力，标记被选择的角色所对应的玩家醉酒。之后的夜晚无需再唤醒侍臣。", "Other-night source reminder: 侍臣可以选择一个角色。如果他这么做了，标记侍臣失去能力，标记被选择的角色所对应的玩家醉酒。之后的夜晚无需再唤醒侍臣。"],
+    highRiskNotes: ["First-night source reminder: 侍臣可以选择一个角色。如果他这么做了且该角色在场，该角色之一从当晚开始醉酒三天三夜（“醉酒1”在之后的黄昏依次替换为“醉酒2”“醉酒3”；再下一个黄昏移除“醉酒3”，此时才标记侍臣失去能力）。之后的夜晚无需再唤醒侍臣。", "Other-night source reminder: 侍臣可以选择一个角色。如果他这么做了且该角色在场，该角色之一从当晚开始醉酒三天三夜（“醉酒1”在之后的黄昏依次替换为“醉酒2”“醉酒3”；再下一个黄昏移除“醉酒3”，此时才标记侍臣失去能力）。之后的夜晚无需再唤醒侍臣。"],
   }),
   role({
     id: "amnesiac",

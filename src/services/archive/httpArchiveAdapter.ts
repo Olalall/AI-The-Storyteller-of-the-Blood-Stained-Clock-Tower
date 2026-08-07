@@ -1,3 +1,4 @@
+import { hydrateArchiveAnnotations, hydrateArchiveRecords } from './archiveMigration'
 import type { AsyncArchiveAdapter, GameArchiveRecord } from './types'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
@@ -79,9 +80,13 @@ export function createHttpArchiveAdapter({
   fetcher = fetch,
 }: CreateHttpArchiveAdapterOptions = {}): AsyncArchiveAdapter {
   return {
+    // 三处出口都补一遍标注（补字段，不动版本号）：后端至今不认识这三个字段，
+    // 它转发新记录时字段能原样带回，但更早存进 archives.json 的那批一个都没有。
+    // 不在客户端补齐的话，那批归档的 hostingMode 会是 undefined——
+    // 而「缺失」与「'record'」在界面上长得一样，正是诚实条要区分的两件事。
     async load() {
       const body = await requestJson(fetcher, urlFor(baseUrl, '/api/archives')) as ArchiveApiListBody
-      return Array.isArray(body.archives) ? body.archives : []
+      return hydrateArchiveRecords(body.archives)
     },
 
     async save(record) {
@@ -97,13 +102,13 @@ export function createHttpArchiveAdapter({
       if (body.accepted !== true || !body.data?.archive || !Array.isArray(body.data.archives)) {
         throw new ArchiveHttpError('BAD_REQUEST', 502, 'Invalid archive response')
       }
-      return body.data.archives
+      return hydrateArchiveRecords(body.data.archives)
     },
 
     async get(archiveId) {
       try {
         const body = await requestJson(fetcher, urlFor(baseUrl, `/api/archives/${encodeURIComponent(archiveId)}`)) as ArchiveApiDetailBody
-        return body.archive ?? null
+        return hydrateArchiveAnnotations(body.archive)
       } catch (error) {
         if (error instanceof ArchiveHttpError && error.code === 'ARCHIVE_NOT_FOUND') return null
         throw error

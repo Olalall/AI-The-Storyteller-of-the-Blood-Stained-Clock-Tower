@@ -1,13 +1,17 @@
+import type { GameSessionState, HostingMode } from '../types'
 import type {
   ScriptId,
 } from '../../../domain/scripts'
 import type {
   DayActionDraft,
   DayVoteDraft,
+  GrimoireOp,
   NightRunState,
   PhaseKind,
   PlayerExperience,
   PlayerState,
+  PlayerStateBackfill,
+  PlayerStateChangeOrigin,
   SetupDraft,
 } from '../types'
 import type { ConfirmedWakeRecord, RoleChangeEvent, RoleSnapshot } from '../../night-workbench/types'
@@ -44,6 +48,11 @@ export type GameSessionAction =
     executionEntryId: string
     playerStateEntryId: string
     confirmedAt: string
+    /**
+     * 本次处决是否造成死亡，由说书人裁定。false 时只记录处决事实、不改存活状态
+     * （弄臣首次免死、魔鬼代言人保护、处决已死亡玩家等）。省略按 true 处理。
+     */
+    causesDeath?: boolean
   }
   | {
     /** 白天最终无处决同样必须显式确认，且只能写入当前开放的白天段。 */
@@ -54,6 +63,8 @@ export type GameSessionAction =
   }
   | {
     type: 'confirm-player-state-change'
+    /** 撤销时填被撤销条目的 id。见 PlayerStateChangedEntry.revertOf。 */
+    revertOf?: string
     seatId: number
     expectedBefore: PlayerState
     after: PlayerState
@@ -61,6 +72,15 @@ export type GameSessionAction =
     entryId: string
     confirmedAt: string
     reason: string
+    /**
+     * 本次改动的原子意图。魔典路径必须带且长度恒为 1；旧路径不带，行为不变。
+     * 带了就要接受 grimoireOpInvariant 的检查：差异字段集必须是 ops[0] 名字的字面子集。
+     */
+    ops?: GrimoireOp[]
+    origin?: PlayerStateChangeOrigin
+    /** 同一次手势波及多座位时，各座位一条 action，共用这个 id。 */
+    batchId?: string
+    backfill?: PlayerStateBackfill
   }
   | {
     /** 说书人本机辨认用昵称；不属于身份、状态或昼夜事实。 */
@@ -106,4 +126,16 @@ export type GameSessionAction =
     playerCount?: number
     seats?: readonly { seatId: number; nickname?: string; experience?: PlayerExperience | null }[]
   }
+  | {
+    /**
+     * 记录本局用哪种模式主持。这是**唯一**写入 hostingMode 的入口。
+     * 它只留痕，不改变任何其他状态——模式不得成为行为分支。
+     */
+    type: 'set-hosting-mode'
+    mode: HostingMode
+    changedAt: string
+    phaseLabel: string
+  }
   | { type: 'reset-session' }
+  /** 整局替换。只用于「载入示例对局」这类显式动作，不用于任何自动流程。 */
+  | { type: 'replace-session'; session: GameSessionState }

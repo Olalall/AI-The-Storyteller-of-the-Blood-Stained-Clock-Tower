@@ -16,7 +16,7 @@ export const punchySetupRules: readonly SetupRule[] = [
   {
     id: 'huntsman-damsel',
     roleId: 'huntsman',
-    summary: '猎人：开局加入落难少女；若猎人夜晚选中落难少女，目标变成一个不在场镇民。',
+    summary: '巡山人：开局加入落难少女；若巡山人夜晚选中落难少女，目标变成一个不在场镇民。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -32,7 +32,7 @@ export const punchySetupRules: readonly SetupRule[] = [
   {
     id: 'vigormortis-outsider',
     roleId: 'vigormortis',
-    summary: '维格莫提斯：-1 外来者；杀死爪牙后该爪牙保留能力并让相邻一名镇民中毒。',
+    summary: '亡骨魔：-1 外来者；杀死爪牙后该爪牙保留能力并让相邻一名镇民中毒。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -48,7 +48,7 @@ export const punchySetupRules: readonly SetupRule[] = [
   {
     id: 'spirit-of-ivory-extra-evil',
     roleId: 'spiritofivory',
-    summary: '象牙之灵：额外邪恶玩家不能超过 1 名；作为传奇规则约束，不进入座位身份。',
+    summary: '圣洁之魂：额外邪恶玩家不能超过 1 名；作为传奇规则约束，不进入座位身份。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [rolesSourceUrl, scriptSourceUrl],
     reviewedAt,

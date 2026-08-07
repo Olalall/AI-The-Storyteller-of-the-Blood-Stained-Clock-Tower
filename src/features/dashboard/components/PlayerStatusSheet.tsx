@@ -1,6 +1,7 @@
 import { FlaskConical, HeartPulse, Skull, Tag, Wine } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Button } from '../../../components/ui/Button'
+import { EmptyState } from '../../../components/ui/EmptyState'
 import { RoleDisc } from '../../../components/ui/RoleDisc'
 import { Sheet } from '../../../components/ui/Sheet'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
@@ -72,7 +73,9 @@ export function PlayerStatusSheet({ open, onOpenChange, seat, role, playerState,
 
         <section className="player-status-sheet__activity" aria-labelledby="player-activity-title">
           <div className="player-status-sheet__section-heading"><div><span>记录</span><h3 id="player-activity-title">相关记录</h3></div></div>
-          {activity.length ? <ul>{activity.map((entry) => <li key={entry.id}><span>{entry.phaseLabel}</span><strong>{entry.summary}</strong></li>)}</ul> : <p>暂无结构化相关记录</p>}
+          {activity.length
+            ? <ul>{activity.map((entry) => <li key={entry.id}><span>{entry.phaseLabel}</span><strong>{entry.summary}</strong></li>)}</ul>
+            : <EmptyState compact title="暂无结构化相关记录" />}
         </section>
       </div>
     </Sheet>

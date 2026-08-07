@@ -2,6 +2,7 @@ import { Archive, Download, RotateCcw, ShieldAlert, Trophy } from 'lucide-react'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
+import { downloadTextFile } from '../../services/session/exportSession'
 import type { GameSessionState } from '../game-session/types'
 import {
   applyArchiveRuntimeSettings,
@@ -19,6 +20,7 @@ import {
   type GameWinner,
 } from '../../services/archive'
 import { GameReviewPanel } from './GameReviewPanel'
+import { GrimoireReplaySheet } from './GrimoireReplaySheet'
 import './game-end.css'
 
 interface GameEndSheetProps {
@@ -37,18 +39,6 @@ function createCommandId(prefix: string) {
   return `${prefix}-${Date.now()}`
 }
 
-function downloadTextFile(filename: string, content: string) {
-  const blob = new Blob([content], { type: 'application/json;charset=utf-8' })
-  const url = URL.createObjectURL(blob)
-  const link = document.createElement('a')
-  link.href = url
-  link.download = filename
-  document.body.append(link)
-  link.click()
-  link.remove()
-  URL.revokeObjectURL(url)
-}
-
 export function GameEndSheet({ open, onOpenChange, session, initialMode = 'end', onResetGame }: GameEndSheetProps) {
   const [mode, setMode] = useState<GameEndMode>(initialMode)
   const [winner, setWinner] = useState<Winner>('undecided')
@@ -58,6 +48,7 @@ export function GameEndSheet({ open, onOpenChange, session, initialMode = 'end',
   const [archives, setArchives] = useState<GameArchiveRecord[]>([])
   const [selectedArchiveId, setSelectedArchiveId] = useState<string | null>(null)
   const [resetAcknowledged, setResetAcknowledged] = useState(false)
+  const [replayArchive, setReplayArchive] = useState<GameArchiveRecord | null>(null)
   const [notice, setNotice] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
 
@@ -297,8 +288,11 @@ export function GameEndSheet({ open, onOpenChange, session, initialMode = 'end',
           onSelectArchive={setSelectedArchiveId}
           onExportArchive={exportArchive}
           onStartArchive={() => setMode('end')}
+          onReplayInGrimoire={setReplayArchive}
         />}
       </div>
+      {/* 回看那张画布挂在收尾表单**之外**：它是整屏的，套在里面会出现两层可滚动的页。 */}
+      <GrimoireReplaySheet archive={replayArchive} onOpenChange={() => setReplayArchive(null)} />
     </Sheet>
   )
 }

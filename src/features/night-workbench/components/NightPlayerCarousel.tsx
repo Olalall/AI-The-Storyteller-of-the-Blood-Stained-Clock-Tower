@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight, RefreshCw } from 'lucide-react'
 import { RoleDisc } from '../../../components/ui/RoleDisc'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
+import { isPreviewMode, type WorkbenchMode } from '../state/workbenchMode'
 import type { RoleChangeEvent, RoleSnapshot, WakeItem } from '../types'
 import { progressMeta } from './statusMeta'
 
@@ -13,7 +14,7 @@ interface NightPlayerCarouselProps {
   next?: WakeItem
   nextRole?: RoleSnapshot
   concealed: boolean
-  isPreviewing: boolean
+  mode: WorkbenchMode
   onPrevious: () => void
   onNext: () => void
 }
@@ -24,8 +25,8 @@ function NeighborDisc({ item, role, direction, concealed }: { item?: WakeItem; r
   return (
     <div className={`carousel-neighbor carousel-neighbor--${direction}`}>
       <RoleDisc initial={displayRole.initial} roleName={displayRole.name} imageSrc={displayRole.iconPath} size="small" concealed={concealed} changed={displayRole.id !== item.roleId} />
-      <span className="carousel-neighbor__label">{concealed ? `${item.seatId}号` : displayRole.name}</span>
-      <small>{item.seatId}号 · {progressMeta[item.progress].label}</small>
+      <span className="carousel-neighbor__label">{concealed && !item.systemStep ? `${item.seatId}号` : displayRole.name}</span>
+      <small>{item.systemStep ? '系统步骤' : `${item.seatId}号`} · {progressMeta[item.progress].label}</small>
     </div>
   )
 }
@@ -39,10 +40,11 @@ export function NightPlayerCarousel({
   next,
   nextRole,
   concealed,
-  isPreviewing,
+  mode,
   onPrevious,
   onNext,
 }: NightPlayerCarouselProps) {
+  const previewing = isPreviewMode(mode)
   return (
     <section className="night-carousel" role="region" aria-label="夜间角色预览">
       <button
@@ -58,8 +60,8 @@ export function NightPlayerCarousel({
 
       <div className="carousel-current">
         <div className="carousel-current__eyebrow">
-          <StatusBadge tone={isPreviewing ? 'warning' : 'current'}>
-            {isPreviewing ? '正在预览' : '正在处理'}
+          <StatusBadge tone={previewing ? 'warning' : 'current'}>
+            {previewing ? '正在预览' : '正在处理'}
           </StatusBadge>
           <span>夜序 {current.orderIndex}</span>
         </div>
@@ -69,14 +71,15 @@ export function NightPlayerCarousel({
             roleName={currentRole.name}
             imageSrc={currentRole.iconPath}
             size="large"
-            active={!isPreviewing}
+            active={!previewing}
             concealed={concealed}
             changed={Boolean(currentRoleChange)}
           />
         </div>
         <div className={`carousel-current__copy ${concealed ? 'concealed-copy' : ''}`}>
-          <strong>{concealed ? '角色信息已遮蔽' : currentRole.name}</strong>
-          <span>{current.playerLabel}</span>
+          <strong>{concealed && !current.systemStep ? '角色信息已遮蔽' : currentRole.name}</strong>
+          {/* 系统步骤的 playerLabel 就是爪牙/恶魔名单本身，遮蔽时不能照原样显示。 */}
+          <span>{concealed && current.systemStep ? '名单已遮蔽' : current.playerLabel}</span>
           {!concealed && currentRoleChange ? (
             <small className="carousel-current__change"><RefreshCw aria-hidden="true" />已变更 · 原{currentRoleChange.fromRole.name}</small>
           ) : null}

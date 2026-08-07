@@ -9,6 +9,8 @@ import { localAIAdapter } from './localAIAdapter'
 import type { AIConfidence, AIProviderKind, CreateNightResultAdviceInput } from './types'
 import { roleKnowledgeForAI } from '../../domain/role-knowledge'
 import { roleResearchForAI } from '../../domain/scripts'
+import { nightContextLevel, unknownSeatIds } from './aiContextLevel'
+import { normalizeStateChangeDrafts } from './aiStateChangeDraft'
 import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
@@ -25,7 +27,11 @@ interface BackendNightSettlementDraft {
   warnings?: string[]
   journalDrafts?: string[]
   playerMessageDrafts?: string[]
-  stateChangeDrafts?: string[]
+  /**
+   * unknown 而不是具体形状：这条响应可能来自还没升级的后端（纯 string[]），
+   * 也可能来自一个代理。声明成结构化类型等于替对面担保，而担保的代价是运行时崩在渲染层。
+   */
+  stateChangeDrafts?: unknown
   authorityWarnings?: string[]
   disclaimer?: string
 }
@@ -72,6 +78,17 @@ function localAdvice(input: CreateNightResultAdviceInput, warning?: string) {
   }
 }
 
+/**
+ * 本次请求里出现过的座位号：发动者、已选目标、已展开状态的目标。
+ * 与 server 端 seatIdsInRequest 同口径——白名单两边对不上时，一条建议会在后端过关、
+ * 在前端被丢，而界面上只表现为「按钮有时候不出现」。
+ */
+function seatIdsInRequest({ state, item, draft }: CreateNightResultAdviceInput) {
+  const seats = new Set<number>([item.seatId, ...draft.targets])
+  for (const target of selectedNightTargetsForAI(state, draft)) seats.add(target.seatId)
+  return seats
+}
+
 function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
   const selectedTargets = selectedNightTargetsForAI(state, draft)
 
@@ -81,6 +98,10 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
     nightRunId: state.nightRunId,
     phaseLabel: state.nightLabel,
     playerCount: state.playerCount,
+    // 这两个字段才是 contextLevel「真正接通」的那根线：只在 build 函数里推导出来
+    // 而不发上去，单测会从 minimal 变成 standard，线上一个字节都不会变。
+    contextLevel: nightContextLevel(state),
+    unknownSeatIds: unknownSeatIds(state),
     wakeItem: {
       id: item.id,
       orderIndex: item.orderIndex,
@@ -132,6 +153,8 @@ function mapBackendDraft(
     : undefined
   const status = payload.status === 'answer' && recommended ? 'answer' : 'needs_input'
   const adviceId = `${input.item.id}-ai-${input.state.revision}-${input.draft.draftRevision}-backend`
+  // 后端已经过一次同判据的解析，这里再过一次不是重复：这条响应未必来自那个后端。
+  const backendStateChanges = normalizeStateChangeDrafts(payload.stateChangeDrafts, seatIdsInRequest(input))
   const warningDrafts = stringArray(payload.warnings, 5)
   const authorityWarnings = [
     ...warningDrafts,
@@ -162,9 +185,7 @@ function mapBackendDraft(
     playerMessageDrafts: stringArray(payload.playerMessageDrafts, 4).length
       ? stringArray(payload.playerMessageDrafts, 4)
       : fallback?.playerMessageDrafts ?? [],
-    stateChangeDrafts: stringArray(payload.stateChangeDrafts, 5).length
-      ? stringArray(payload.stateChangeDrafts, 5)
-      : fallback?.stateChangeDrafts ?? [],
+    stateChangeDrafts: backendStateChanges.length ? backendStateChanges : fallback?.stateChangeDrafts ?? [],
     authorityWarnings: authorityWarnings.length
       ? authorityWarnings
       : fallback?.authorityWarnings ?? ['确认本项前不写日志、不改状态。'],

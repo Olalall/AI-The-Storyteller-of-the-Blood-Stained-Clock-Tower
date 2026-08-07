@@ -1,7 +1,8 @@
-import { Archive, Download } from 'lucide-react'
+import { Archive, BookOpen, Download } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
-import type { GameArchiveRecord } from '../../services/archive'
+import { EmptyState } from '../../components/ui/EmptyState'
+import { archiveHostingTag, archiveLifeSummary, type GameArchiveRecord } from '../../services/archive'
 import { GameAIReviewPanel } from './GameAIReviewPanel'
 
 interface GameReviewPanelProps {
@@ -9,6 +10,8 @@ interface GameReviewPanelProps {
   selectedArchive: GameArchiveRecord | null
   onSelectArchive: (archiveId: string) => void
   onExportArchive: (archive: GameArchiveRecord) => void
+  /** 在魔典里回看这一局。缺省不提供——纯记录模式下这条入口没有意义。 */
+  onReplayInGrimoire?: (archive: GameArchiveRecord) => void
   onStartArchive: () => void
 }
 
@@ -33,11 +36,44 @@ function formatArchiveDate(value: string) {
   })
 }
 
+/**
+ * 归档摘要里那几个数字，以及它们成立的前提。
+ *
+ * 「存活 12 / 死亡 0」在一局没录过状态变更的对局里是假的：那两个数字来自
+ * projectCurrentPlayerStates，而它在没有任何 player_state_changed 时原样返回建局初值。
+ * 于是一局死了六个人、说书人全程在实体魔典上记生死的对局，会在战绩里显示「无人死亡」。
+ * 所以先说这局当时是怎么主持的，再决定那两个数字有没有资格露面。
+ */
+function ArchiveHostingLine({ archive }: { archive: GameArchiveRecord }) {
+  const tag = archiveHostingTag(archive)
+  const life = archiveLifeSummary(archive)
+
+  return <>
+    <div className="game-review__hosting" aria-label="本局主持模式">
+      <span>主持模式</span>
+      <strong>{tag.label}</strong>
+      {tag.detail ? <small>{tag.detail}</small> : null}
+    </div>
+    <div className="game-end__stats game-end__stats--compact">
+      <div><span>玩家</span><strong>{archive.playerCount}</strong></div>
+      <div><span>记录</span><strong>{archive.summary.records}</strong></div>
+      <div><span>存活</span><strong>{life.aliveLabel}</strong></div>
+      <div><span>死亡</span><strong>{life.deadLabel}</strong></div>
+    </div>
+    {life.recorded ? null : (
+      <p className="game-review__unrecorded" role="note">
+        这局没有在工具里录过状态变更 —— 生死以说书人当时的实体魔典为准，不是「无人死亡」。
+      </p>
+    )}
+  </>
+}
+
 export function GameReviewPanel({
   archives,
   selectedArchive,
   onSelectArchive,
   onExportArchive,
+  onReplayInGrimoire,
   onStartArchive,
 }: GameReviewPanelProps) {
   const [dateFilter, setDateFilter] = useState('all')
@@ -54,12 +90,14 @@ export function GameReviewPanel({
 
   if (!archives.length) {
     return <section className="game-review" aria-label="历史复盘">
-      <div className="game-review__empty">
-        <Archive aria-hidden="true" />
-        <strong>暂无历史归档</strong>
-        <p>先在“结束归档”中生成归档，之后这里可以查看任意历史对局。</p>
+      <EmptyState
+        className="game-review__empty"
+        icon={<Archive aria-hidden="true" />}
+        title="暂无历史归档"
+        description="先在“结束归档”中生成归档，之后这里可以查看任意历史对局。"
+      >
         <Button variant="primary" onClick={onStartArchive}>去归档本局</Button>
-      </div>
+      </EmptyState>
     </section>
   }
 
@@ -82,7 +120,8 @@ export function GameReviewPanel({
         >
           <span>{formatArchiveTime(archive.archivedAt)}</span>
           <strong>{archive.scriptName}</strong>
-          <small>{archive.winnerLabel} · {archive.summary.records}条记录</small>
+          {/* 模式标签进列表：一屏扫下来就知道哪几局的空白是「当时没录」而不是「当时没有」。 */}
+          <small>{archive.winnerLabel} · {archive.summary.records}条记录 · {archiveHostingTag(archive).label}</small>
         </button>
       ))}
       </div>
@@ -93,12 +132,7 @@ export function GameReviewPanel({
           <span>胜方</span>
           <strong>{selectedArchive.winnerLabel}</strong>
         </div>
-        <div className="game-end__stats game-end__stats--compact">
-          <div><span>玩家</span><strong>{selectedArchive.playerCount}</strong></div>
-          <div><span>记录</span><strong>{selectedArchive.summary.records}</strong></div>
-          <div><span>死亡</span><strong>{selectedArchive.summary.dead}</strong></div>
-          <div><span>投票</span><strong>{selectedArchive.summary.votes}</strong></div>
-        </div>
+        <ArchiveHostingLine archive={selectedArchive} />
         <dl className="game-review__metrics">
           <div><dt>夜晚</dt><dd>{selectedArchive.summary.nightActions}条</dd></div>
           <div><dt>白天</dt><dd>{selectedArchive.summary.dayActions}条</dd></div>
@@ -122,6 +156,11 @@ export function GameReviewPanel({
         <GameAIReviewPanel archive={selectedArchive} />
         <div className="game-end__actions">
           <Button variant="secondary" onClick={() => onExportArchive(selectedArchive)}><Download aria-hidden="true" />导出这局</Button>
+          {onReplayInGrimoire ? (
+            <Button variant="ghost" onClick={() => onReplayInGrimoire(selectedArchive)}>
+              <BookOpen aria-hidden="true" />在魔典里回看
+            </Button>
+          ) : null}
         </div>
       </> : null}
     </article>

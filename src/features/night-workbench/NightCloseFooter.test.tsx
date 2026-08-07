@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { useMemo } from 'react'
 import { beforeEach, describe, expect, it } from 'vitest'
-import { gameSessionStorageKey } from '../game-session/data/createPrototypeSession'
+import { createPrototypeGameSession, gameSessionStorageKey } from '../game-session/data/createPrototypeSession'
 import { useGameSession } from '../game-session/state/useGameSession'
 import type { GameSessionState } from '../game-session/types'
 import { NightWorkbench } from './NightWorkbench'
@@ -17,8 +17,17 @@ function storedSession() {
   return JSON.parse(window.localStorage.getItem(gameSessionStorageKey) ?? '{}') as GameSessionState
 }
 
+
+/**
+ * 默认落地已改为空对局（首次打开显示入口界面），而这些用例测的是工作台本身，
+ * 需要一局进行中的对局做夹具，所以显式播种。
+ */
+function seedPrototypeSession() {
+  window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(createPrototypeGameSession()))
+}
+
 describe('NightCloseFooter', () => {
-  beforeEach(() => window.localStorage.clear())
+  beforeEach(() => { window.localStorage.clear(); seedPrototypeSession() })
 
   it('ends the current night only after explicit confirmation', async () => {
     const user = userEvent.setup()

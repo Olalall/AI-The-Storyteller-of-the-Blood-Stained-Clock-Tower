@@ -1,0 +1,92 @@
+/* 夜间叠加层。定位相对 GrimoireSeat 的根元素（它已经是 position:absolute / relative 的定位容器），
+   所以这里只写 inset，不写 left/top——尺寸与位置的真值仍然在 solveRingLayout 那一份。 */
+.night-seat-overlay {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  /* 装饰层绝不吃手势：token 与卫星 chip 都在它下面，抢到一次点击就等于环点不动了。 */
+  pointer-events: none;
+  /* 焦点环与死亡帷幕会重叠，让夜序压在上面：夜里说书人先要看见「现在叫谁」。 */
+  z-index: 2;
+}
+
+/* 当前项：全屏唯一一枚暖金焦点环。用 outline 不用 box-shadow，
+   是为了和 GrimoireSeat 的选中态（box-shadow 暖金）叠加时仍然分得出两层。 */
+.night-seat-overlay__focus-ring {
+  position: absolute;
+  inset: -7px;
+  border-radius: 50%;
+  border: 3px solid var(--accent-strong);
+  box-shadow: 0 0 0 1px var(--surface-base);
+}
+
+/* 角标：token 右上角一枚药丸。位置恒定，说书人靠位置读而不是靠找。 */
+.night-seat-overlay__badge {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  min-width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--surface-raised);
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* 当前项的角标跟着焦点环走暖金；后续两项刻意留冷灰，
+   「下一个是谁」不该和「现在是谁」抢注意力。 */
+.night-seat-overlay--focus .night-seat-overlay__badge {
+  border-color: var(--accent-border);
+  background: var(--accent-soft);
+  color: var(--accent-text);
+}
+
+.night-seat-overlay--confirmed .night-seat-overlay__badge {
+  border-color: var(--success-border);
+  background: var(--success-soft);
+  color: var(--success-text);
+}
+
+.night-seat-overlay--deferred .night-seat-overlay__badge {
+  border-color: var(--warning-border);
+  background: var(--warning-soft);
+  color: var(--warning-text);
+}
+
+/* 草稿目标：虚线暖金描边。虚线是这里唯一表达「还没落账」的形状，
+   实线一律留给已经写进记录的东西。 */
+.night-seat-overlay__target {
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  border: 2px dashed var(--accent-border);
+}
+
+/* 「目标」小字挂在 token 正上方：下沿是座位号牌，右上角是夜序角标，
+   只剩这一处不会撞。 */
+.night-seat-overlay__target-text {
+  position: absolute;
+  left: 50%;
+  top: -9px;
+  translate: -50% 0;
+  padding: 0 var(--space-6);
+  border-radius: var(--radius-pill);
+  border: 1px dashed var(--accent-border);
+  background: var(--surface-base);
+  color: var(--accent-text);
+  font-size: var(--type-meta);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+/* 焦点环与「目标」小字同时出现时，小字要让开那 7px 的环。 */
+.night-seat-overlay--focus .night-seat-overlay__target-text {
+  top: -16px;
+}

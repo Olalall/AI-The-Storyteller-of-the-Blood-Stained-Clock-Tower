@@ -1,6 +1,21 @@
-import { expect, test } from '@playwright/test'
+import { expect, test, type Page } from '@playwright/test'
+
+
+/** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
+
+/** 默认落地是空对局的入口界面；用例依赖的中局夹具需要显式载入。 */
+async function loadDemoSession(page: Page) {
+  const demo = page.getByRole('button', { name: /载入示例对局/ })
+  if (await demo.isVisible().catch(() => false)) await demo.click()
+}
+
+async function openArchive(page: Page) {
+  const enter = page.getByRole('button', { name: '本局', exact: true })
+  if (await enter.isVisible().catch(() => false)) await enter.click()
+}
 
 async function enterNight(page: import('@playwright/test').Page) {
+  await openArchive(page)
   await page.getByRole('button', { name: /\u8fdb\u5165\u591c\u665a/ }).click()
   await expect(page.getByRole('heading', { name: /\u7b2c\d+\u591c/ })).toBeVisible()
 }
@@ -11,6 +26,9 @@ const viewports = [
   { name: 'split-720', width: 720, height: 900 },
   { name: 'split-828', width: 828, height: 900 },
   { name: 'pad-1280', width: 1280, height: 800 },
+  // Mac 是宽而矮：高度才是瓶颈，确认区最容易被顶出视口。
+  { name: 'mac-air-1440', width: 1440, height: 900 },
+  { name: 'mac-16-1728', width: 1728, height: 1117 },
 ]
 
 for (const viewport of viewports) {
@@ -19,6 +37,7 @@ for (const viewport of viewports) {
     await page.goto('/')
     await page.evaluate(() => window.localStorage.clear())
     await page.reload()
+    await loadDemoSession(page)
     await enterNight(page)
 
     await expect(page.getByRole('region', { name: '\u591c\u95f4\u89d2\u8272\u9884\u89c8' })).toBeVisible()
@@ -33,6 +52,7 @@ test('selected outcome can be toggled off before confirmation', async ({ page })
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
   await enterNight(page)
 
   await page.getByRole('button', { name: '\u9009\u62e93\u53f7\u73a9\u5bb6' }).click()
@@ -50,6 +70,7 @@ test('AI result suggestion is available for a generic role', async ({ page }) =>
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
   await enterNight(page)
 
   await page.getByRole('button', { name: '\u9009\u62e93\u53f7\u73a9\u5bb6' }).click()

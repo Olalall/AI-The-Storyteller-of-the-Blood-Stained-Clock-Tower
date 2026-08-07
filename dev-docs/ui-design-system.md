@@ -21,14 +21,30 @@
 - `RoleDisc`
 - `Sheet`
 - `StickyActionBar`
+- `Card` / `Field` / `EmptyState`
+- `PhaseTrack`
+
+魔典模式新增、同样属于共享层（显式登记，避免绕过共享层另起炉灶）：
+
+- `GrimoireSeat` —— 环上的座位 token，容器化 `RoleDisc`
+- `GrimoireCanvas` —— 座位环画布，含窄屏网格退化
+- `GrimoireCore` —— 环心的 Town Info
+- `WorkDrawer` —— peek / half / full 三档底部抽屉
+- `HostingModeCard` / `DowngradeHandoffCard` —— 模式选择与降级交接
+- `CompletenessBar` —— 魔典完整度提示条
 
 ### 座位号码卡
 
 - `SeatButton` 是夜间目标、白天提名和举手共用的号码输入，不是角色 Token。
 - 外形使用至少 48px 高的圆角矩形键，只显示号码；不再把数字和“号”拆成两行。
 - 选中态必须同时显示勾选、描边和颜色，并保留 `aria-pressed`；不能只用暖金底色表达已选。
-- `subdued` 仅表示低强调，不能替代真正的 `disabled`；业务层不得把它当规则限制。
-- 角色 PNG 与圆形 Token 只保留给 `RoleDisc`，避免把座位操作误解为另一套魔典。
+- 状态语义由专门的属性承载，业务层不得再用视觉属性兼职表达状态：
+  - `dead` 表示该座位玩家已死亡，使用虚线描边 + Skull 图标 + 危险语义色三重编码，并在可访问名后追加“（已死亡）”；白天提名/举手与夜间目标网格共用同一套表达，任何页面不得另写死亡样式。
+  - `self` 表示该座位是当前行动者本人，用左上角“本人”文字角标表示，并在可访问名后追加“（本人）”；它只是身份提示，不改变可点击性。
+  - `subdued` 仅表示低强调，不表达死亡、本人或任何规则限制，也不能替代真正的 `disabled`。
+- 死亡表达只允许由 `SeatButton` 输出。业务样式表不得再用 `.is-dead` 之类的包裹类给座位加虚线。
+- 纯记录模式下座位是号码键（`SeatButton`），不承载角色图像，避免被误解为魔典；魔典模式下座位是角色 Token（`GrimoireSeat`，复用 `RoleDisc` 的图像与降级规则），承载图标、状态环与提示标记。两者是同一 seatId 的两种呈现，共用选中态契约（勾选 + 描边 + 颜色 + `aria-pressed`），不得各自发明选中语义。
+- 角色 PNG 与圆形 Token 的渲染只保留给 `RoleDisc`；`GrimoireSeat` 是它的容器而不是第二种圆形 token，死亡/中毒/醉酒的表达一律在容器层覆盖，`RoleDisc` 不加任何新 prop。
 
 ## 业务组件
 

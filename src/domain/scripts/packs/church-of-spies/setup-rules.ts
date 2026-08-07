@@ -16,7 +16,7 @@ export const churchOfSpiesSetupRules: readonly SetupRule[] = [
   {
     id: 'cultleader-alignment-change',
     roleId: 'cultleader',
-    summary: '邪教领袖夜晚可能变成相邻存活玩家的阵营；邪教胜利和阵营变化必须由说书人确认。',
+    summary: '异教领袖夜晚可能变成相邻存活玩家的阵营；邪教胜利和阵营变化必须由说书人确认。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [officialRolesSourceUrl, scriptSourceUrl],
     reviewedAt,
@@ -64,7 +64,7 @@ export const churchOfSpiesSetupRules: readonly SetupRule[] = [
   {
     id: 'nodashii-neighbor-poisoning',
     roleId: 'nodashii',
-    summary: '诺达鲺会让相邻镇民中毒；这是说书人状态核对项，不自动写入玩家状态。',
+    summary: '诺-达鲺会让相邻镇民中毒；这是说书人状态核对项，不自动写入玩家状态。',
     knowledgeStatus: 'confirmed',
     sourceUrls: [officialRolesSourceUrl, scriptSourceUrl],
     reviewedAt,

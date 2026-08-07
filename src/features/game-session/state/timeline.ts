@@ -9,6 +9,7 @@ import type {
   TimelineEntry,
   VoteRoundEntry,
 } from '../types'
+import { assertNever } from '../../../shared/assertNever'
 import { closePhaseSegment, findOpenSegment, getOrCreateOpenSegment } from './phaseSegments'
 
 type PhaseTimelineEntryBody =
@@ -33,11 +34,21 @@ export interface TimelineAppendResult {
 }
 
 export function entryCanUsePhase(entry: PhaseTimelineEntryInput, phaseKind: PhaseKind) {
-  if (entry.kind === 'night_action') return phaseKind === 'night'
-  if (entry.kind === 'day_action' || entry.kind === 'vote_round' || entry.kind === 'execution' || entry.kind === 'no_execution') {
-    return phaseKind === 'day'
+  switch (entry.kind) {
+    case 'night_action':
+      return phaseKind === 'night'
+    case 'day_action':
+    case 'vote_round':
+    case 'execution':
+    case 'no_execution':
+      return phaseKind === 'day'
+    case 'player_state_changed':
+      return true
+    default:
+      // 未知 kind 沿用「不限制相位」，与穷尽检查加入前一致。
+      assertNever(entry)
+      return true
   }
-  return true
 }
 
 /**

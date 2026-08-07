@@ -1,24 +1,7 @@
+import { migrateArchiveRecords } from './archiveMigration'
 import type { ArchiveAdapter, GameArchiveRecord } from './types'
 
 export const gameArchiveStorageKey = 'botc-game-archives-v1'
-
-function normalizeArchiveRecord(value: unknown): GameArchiveRecord | null {
-  if (!value || typeof value !== 'object') return null
-  const record = value as Partial<GameArchiveRecord>
-  const valid = (record.schemaVersion === 1 || record.schemaVersion === undefined) &&
-    typeof record.id === 'string' &&
-    typeof record.sessionId === 'string' &&
-    typeof record.archivedAt === 'string' &&
-    typeof record.winner === 'string' &&
-    typeof record.winnerLabel === 'string' &&
-    typeof record.scriptName === 'string' &&
-    typeof record.playerCount === 'number' &&
-    Boolean(record.summary) &&
-    Array.isArray(record.timeline) &&
-    Boolean(record.session)
-  if (!valid) return null
-  return { ...record, schemaVersion: 1 } as GameArchiveRecord
-}
 
 function sortByArchivedAt(records: GameArchiveRecord[]) {
   return records.sort((left, right) => right.archivedAt.localeCompare(left.archivedAt))
@@ -29,9 +12,9 @@ export const localArchiveAdapter: ArchiveAdapter = {
     try {
       const stored = window.localStorage.getItem(gameArchiveStorageKey)
       if (!stored) return []
-      const parsed: unknown = JSON.parse(stored)
-      if (!Array.isArray(parsed)) return []
-      return sortByArchivedAt(parsed.map(normalizeArchiveRecord).filter((record): record is GameArchiveRecord => Boolean(record)))
+      // 校验与 1→2 迁移在同一处：读进来的记录一律已经带齐模式标注，
+      // 上层不必再各自写一句 `?? 'record'`——那种回落写第二遍时就会有人写成 'grimoire'。
+      return sortByArchivedAt(migrateArchiveRecords(JSON.parse(stored)))
     } catch {
       return []
     }

@@ -151,6 +151,94 @@ describe('night settlement HTTP adapter', () => {
     expect(advice?.missing).toContain('先补齐本项选择。')
   })
 
+  /*
+   * contextLevel 只有上了网线才叫接通。
+   * 违反的后果：build 函数里的推导单测从 minimal 变 standard 全绿，而后端收到的请求体
+   * 里根本没有这个字段——线上一个字节都不会变。
+   */
+  it('puts the derived context level and the unknown seats on the wire', async () => {
+    const partial = {
+      ...adviceInput(),
+      state: {
+        ...initialNightWorkbenchState,
+        seatSnapshots: {
+          ...initialNightWorkbenchState.seatSnapshots,
+          4: { ...initialNightWorkbenchState.seatSnapshots[4], role: null },
+        },
+      },
+    }
+
+    await createNightResultAdviceAsync(partial, {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const payload = JSON.parse(String(init?.body)) as { contextLevel?: string; unknownSeatIds?: number[] }
+        expect(payload.contextLevel).toBe('minimal')
+        expect(payload.unknownSeatIds).toEqual([4])
+        return jsonResponse({ accepted: true, data: { draft: { status: 'needs_input', missing: ['先补录4号身份。'] } } })
+      },
+    })
+
+    await createNightResultAdviceAsync(adviceInput(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const payload = JSON.parse(String(init?.body)) as { contextLevel?: string; unknownSeatIds?: number[] }
+        expect(payload.contextLevel).toBe('standard')
+        expect(payload.unknownSeatIds).toEqual([])
+        return jsonResponse({ accepted: true, data: { draft: { status: 'needs_input', missing: [] } } })
+      },
+    })
+  })
+
+  /*
+   * 结构化建议只在座位号真的出现在本次请求里时才保留结构。
+   * 违反的后果：一条「给 7 号加中毒」会带着可点的落盘按钮送到说书人面前，
+   * 而 7 号这一步根本没被提到——按钮点下去写的是一次凭空的状态变更。
+   */
+  it('keeps structured state-change drafts only for seats in this request', async () => {
+    const advice = await createNightResultAdviceAsync(adviceInput(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async () => jsonResponse({
+        accepted: true,
+        data: {
+          draft: {
+            status: 'answer',
+            recommendedOutcomeId: 'applied',
+            summary: '草稿。',
+            stateChangeDrafts: [
+              { text: '给3号加中毒', seatId: 3, change: { field: 'poisoned', to: 'true' } },
+              { text: '给7号加中毒', seatId: 7, change: { field: 'poisoned', to: 'true' } },
+              '涉及疯狂：不判断玩家是否破疯狂。',
+            ],
+          },
+        },
+      }),
+    })
+
+    expect(advice?.stateChangeDrafts).toEqual([
+      { text: '给3号加中毒', seatId: 3, change: { field: 'poisoned', to: 'true' } },
+      { text: '涉及疯狂：不判断玩家是否破疯狂。' },
+    ])
+  })
+
+  /*
+   * 后端一条状态建议都没给时回退到本地草稿，而本地草稿只有纯文本。
+   * 这条钉的是「两套形状并存」那个缺陷：回退回来的东西必须仍然是 AIStateChangeDraft。
+   */
+  it('falls back to text-only local drafts, keeping one shape end to end', async () => {
+    const advice = await createNightResultAdviceAsync(adviceInput(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async () => jsonResponse({
+        accepted: true,
+        data: { draft: { status: 'answer', recommendedOutcomeId: 'applied', summary: '草稿。' } },
+      }),
+    })
+
+    expect(advice?.stateChangeDrafts.length).toBeGreaterThan(0)
+    expect(advice?.stateChangeDrafts.every((draft) => (
+      typeof draft.text === 'string' && draft.seatId === undefined && draft.change === undefined
+    ))).toBe(true)
+  })
+
   it('falls back to local advice when backend route fails', async () => {
     const advice = await createNightResultAdviceAsync(adviceInput(), {
       runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },

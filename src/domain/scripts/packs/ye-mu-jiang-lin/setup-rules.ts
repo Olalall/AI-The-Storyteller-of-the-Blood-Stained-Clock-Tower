@@ -5,6 +5,14 @@ const reviewedAt = '2026-07-21'
 
 export const yeMuJiangLinSetupRules: readonly SetupRule[] = [
   {
+    id: "ye-mu-jiang-lin-alchemist-setup",
+    roleId: "alchemist",
+    summary: "If the Alchemist's gained Minion ability adds or removes characters during setup (e.g. Godfather's Outsider change), that effect applies during setup.",
+    knowledgeStatus: 'confirmed',
+    sourceUrls: [sourceUrl],
+    reviewedAt,
+  },
+  {
     id: "ye-mu-jiang-lin-godfather-reminder",
     roleId: "godfather",
     summary: "Godfather can add or remove 1 Outsider and may get an extra night kill after an Outsider dies by day.",

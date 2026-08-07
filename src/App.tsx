@@ -1,72 +1,99 @@
 import { useMemo, useState } from 'react'
 import { AppFrame } from './app/AppFrame'
+import { AppOverlays } from './app/AppOverlays'
+import { AppPhaseTrack } from './app/AppPhaseTrack'
+import { DeckBody } from './app/DeckBody'
+import { useAppOverlays } from './app/useAppOverlays'
+import { useDeckNavigation } from './app/useDeckNavigation'
 import { Dashboard } from './features/dashboard/Dashboard'
 import { SessionRail } from './features/dashboard/components/SessionRail'
-import { PlayerStatusOverlay } from './features/dashboard/components/PlayerStatusOverlay'
-import { DayWorkbench } from './features/day-workbench/DayWorkbench'
-import { PublicChatTimerPage } from './features/day-workbench/PublicChatTimerPage'
 import { DiscussionTimerProvider } from './features/day-workbench/state/discussionTimer'
 import { useGameSession } from './features/game-session/state/useGameSession'
-import { GameEndSheet } from './features/game-end/GameEndSheet'
-import { IdentityDealSheet } from './features/identity-deal/IdentityDealSheet'
-import { NightWorkbench } from './features/night-workbench/NightWorkbench'
-import { ScriptLibrarySheet } from './features/script-library/ScriptLibrarySheet'
-import { SetupPanel } from './features/setup/SetupPanel'
-import { clearIdentityDealReceipts } from './services/identity-deal'
-import type { ScriptId } from './domain/scripts'
-type View = 'dashboard' | 'night' | 'day' | 'timer'
+import { useSessionDurability } from './features/game-session/state/useSessionDurability'
+import { DurabilityNotices } from './features/game-session/components/DurabilityNotices'
+
+/** 顶层只有主持台与档案两个视图：档案是覆盖层，主持台在其后保持挂载。 */
+type View = 'deck' | 'archive'
 
 function App() {
-  const [view, setView] = useState<View>('dashboard')
-  const [setupOpen, setSetupOpen] = useState(false)
-  const [identityDealOpen, setIdentityDealOpen] = useState(false)
-  const [gameEndOpen, setGameEndOpen] = useState(false)
-  const [gameEndMode, setGameEndMode] = useState<'end' | 'review'>('end')
-  const [scriptLibraryOpen, setScriptLibraryOpen] = useState(false)
-  const [setupScriptId, setSetupScriptId] = useState<ScriptId>('catfishing')
-  const [playerStatusSeatId, setPlayerStatusSeatId] = useState<number | null>(null)
+  const [view, setView] = useState<View>('deck')
   const { session, dispatch } = useGameSession()
+  const overlays = useAppOverlays()
+  const durability = useSessionDurability(session, dispatch)
+  const { deckNode, setDeckNode, enterNight, enterDay, resetGame } =
+    useDeckNavigation(session, dispatch, overlays, () => setView('deck'))
+  // 还没配过板的空对局显示入口界面；配板确认后才谈得上黄昏。
+  const hasStarted = session.playerCount > 0
   const nightBinding = useMemo(() => ({ session, dispatchSession: dispatch }), [session, dispatch])
-
-  function enterNight() {
-    const activeRun = session.activeNightRunId ? session.nightRuns[session.activeNightRunId] : undefined
-    const segment = activeRun?.phaseSegmentId
-      ? session.phaseSegments.find((item) => item.id === activeRun.phaseSegmentId)
-      : undefined
-    if (!activeRun || segment?.closedAt) dispatch({ type: 'start-next-night-run' })
-    dispatch({ type: 'open-phase-segment', phaseKind: 'night', createdAt: new Date().toISOString() })
-    setView('night')
-  }
-
-  function enterDay() {
-    dispatch({ type: 'open-phase-segment', phaseKind: 'day', createdAt: new Date().toISOString() })
-    setView('day')
-  }
-
-  function resetGame() {
-    clearIdentityDealReceipts(session.id)
-    setSetupScriptId(session.scriptId)
-    dispatch({ type: 'reset-session' })
-    setView('dashboard')
-    setSetupOpen(true)
-    setIdentityDealOpen(false)
-    setGameEndOpen(false)
-    setScriptLibraryOpen(false)
-    setPlayerStatusSeatId(null)
-  }
 
   return (
     <DiscussionTimerProvider key={session.id} sessionId={session.id}>
-      <AppFrame rail={view === 'night' || view === 'day' ? <SessionRail session={session} onOpenPlayerStatus={setPlayerStatusSeatId} /> : undefined}>
-        {view === 'dashboard' ? <Dashboard session={session} dispatch={dispatch} onEnterNight={enterNight} onEnterDay={enterDay} onOpenTimer={() => setView('timer')} onOpenSetup={() => setSetupOpen(true)} onOpenIdentityDeal={() => setIdentityDealOpen(true)} onOpenGameEnd={(mode = 'end') => { setGameEndMode(mode); setGameEndOpen(true) }} onOpenScriptLibrary={() => setScriptLibraryOpen(true)} onOpenPlayerStatus={setPlayerStatusSeatId} /> : null}
-        {view === 'night' ? <NightWorkbench sessionBinding={nightBinding} onExit={() => setView('dashboard')} /> : null}
-        {view === 'day' ? <DayWorkbench session={session} dispatch={dispatch} onExit={() => setView('dashboard')} /> : null}
-        {view === 'timer' ? <PublicChatTimerPage onExit={() => setView('dashboard')} /> : null}
-        <SetupPanel open={setupOpen} onOpenChange={setSetupOpen} session={session} dispatch={dispatch} setupScriptId={setupScriptId} onSetupScriptChange={setSetupScriptId} />
-        <IdentityDealSheet open={identityDealOpen} onOpenChange={setIdentityDealOpen} session={session} />
-        <GameEndSheet open={gameEndOpen} onOpenChange={setGameEndOpen} session={session} initialMode={gameEndMode} onResetGame={resetGame} />
-        <ScriptLibrarySheet open={scriptLibraryOpen} onOpenChange={setScriptLibraryOpen} session={session} onSelectScript={(scriptId) => { setSetupScriptId(scriptId); setSetupOpen(true) }} />
-        <PlayerStatusOverlay seatId={playerStatusSeatId} session={session} dispatch={dispatch} onOpenChange={(open) => { if (!open) setPlayerStatusSeatId(null) }} />
+      <AppFrame
+        /*
+         * 魔典模式不挂侧轨。两个理由：它的「玩家状态」十二格与环显示的是同一件事，
+         * 而重复的局面板会让说书人不知道该信哪一个；更要紧的是侧轨在舞台之外，
+         * 遮蔽管不到它——实测按下「全遮蔽」后环清空了，侧轨仍在显示
+         * 「5号舞蛇人选择2号」。一个盖不住全部的全遮蔽比没有更危险。
+         */
+        rail={view === 'deck' && session.hostingMode !== 'grimoire' && (deckNode === 'night' || deckNode === 'day')
+          ? <SessionRail session={session} onOpenPlayerStatus={overlays.setPlayerStatusSeatId} />
+          : undefined}
+        phaseTrack={(
+          <AppPhaseTrack
+            session={session}
+            activeNode={view === 'deck' && hasStarted ? deckNode : undefined}
+            inArchive={view === 'archive'}
+            onOpenRecords={() => overlays.setRecordsOpen(true)}
+            onToggleArchive={() => setView(view === 'archive' ? 'deck' : 'archive')}
+            onOpenGameEnd={() => overlays.openGameEnd('end')}
+          />
+        )}
+      >
+        <DurabilityNotices durability={durability} />
+        {/* 档案打开时卸载主持台：覆盖层背后留一份完整 DOM 会让同名内容出现两份，
+            读屏与键盘也仍能走进去。deckNode 保存在 App 上，返回时回到原节点。 */}
+        <div className="app-frame__deck" hidden={view === 'archive'}>
+          {view === 'deck' ? (
+            <DeckBody
+              session={session}
+              dispatch={dispatch}
+              deckNode={deckNode}
+              onDeckNodeChange={setDeckNode}
+              hasStarted={hasStarted}
+              nightBinding={nightBinding}
+              onStartNight={enterNight}
+              onStartDay={enterDay}
+              onExitToArchive={() => setView('archive')}
+              onOpenSetup={() => overlays.setSetupOpen(true)}
+              onOpenScriptLibrary={() => overlays.setScriptLibraryOpen(true)}
+              onOpenTimer={() => overlays.setTimerOpen(true)}
+              onOpenRecords={() => overlays.setRecordsOpen(true)}
+              onOpenPlayerStatus={overlays.setPlayerStatusSeatId}
+            />
+          ) : null}
+        </div>
+        {view === 'archive' ? (
+          <Dashboard
+            session={session}
+            dispatch={dispatch}
+            onEnterNight={enterNight}
+            onEnterDay={enterDay}
+            onOpenTimer={() => overlays.setTimerOpen(true)}
+            onOpenSetup={() => overlays.setSetupOpen(true)}
+            onOpenIdentityDeal={() => overlays.setIdentityDealOpen(true)}
+            onOpenGameEnd={overlays.openGameEnd}
+            onOpenScriptLibrary={() => overlays.setScriptLibraryOpen(true)}
+            onOpenPlayerStatus={overlays.setPlayerStatusSeatId}
+            onExitArchive={() => setView('deck')}
+          />
+        ) : null}
+        <AppOverlays
+          overlays={overlays}
+          session={session}
+          dispatch={dispatch}
+          onOpenDayWorkbench={enterDay}
+          onResetGame={resetGame}
+        />
       </AppFrame>
     </DiscussionTimerProvider>
   )

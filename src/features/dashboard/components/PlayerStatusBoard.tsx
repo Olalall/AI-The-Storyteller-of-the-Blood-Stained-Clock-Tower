@@ -1,4 +1,7 @@
 import { FlaskConical, HeartPulse, Skull, Tag, Wine } from 'lucide-react'
+import { Card } from '../../../components/ui/Card'
+import { EmptyState } from '../../../components/ui/EmptyState'
+import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { storytellerStateLabel } from '../../game-session/seatPresentation'
 import type { StorytellerSeatSummary } from '../../game-session/state/projectors'
 
@@ -11,16 +14,21 @@ export function PlayerStatusBoard({ seats, onSelectSeat }: PlayerStatusBoardProp
   const alive = seats.filter(({ state }) => state.life === 'alive').length
   const dead = seats.length - alive
   return (
-    <section className="dashboard-card dashboard-card--players" aria-labelledby="player-status-title">
-      <div className="dashboard-card__header dashboard-card__header--players">
-        <div><span>状态</span><h2 id="player-status-title">玩家状态</h2></div>
-        <p><strong>{seats.length}人 · 存活{alive} · 死亡{dead}</strong><small>点卡核对</small></p>
-      </div>
+    <Card
+      surface="soft"
+      className="dashboard-card dashboard-card--players"
+      eyebrow="状态"
+      title="玩家状态"
+      titleId="player-status-title"
+      aria-labelledby="player-status-title"
+      actions={<p><strong>{seats.length}人 · 存活{alive} · 死亡{dead}</strong><small>点卡核对</small></p>}
+    >
       {seats.length === 0 ? (
-        <div className="dashboard__player-empty" role="status">
-          <strong>暂无玩家</strong>
-          <span>先进入 AI 配板或切换板子，录入人数和座位后再显示状态。</span>
-        </div>
+        <EmptyState
+          role="status"
+          title="暂无玩家"
+          description="先进入 AI 配板或切换板子，录入人数和座位后再显示状态。"
+        />
       ) : <div className="dashboard__player-grid">
         {seats.map(({ seatId, nickname, role, state }) => {
           const LifeIcon = state.life === 'alive' ? HeartPulse : Skull
@@ -45,7 +53,7 @@ export function PlayerStatusBoard({ seats, onSelectSeat }: PlayerStatusBoardProp
                 <strong>{seatId}号</strong>
                 <span className="dashboard-player-seat__life">
                   <LifeIcon aria-hidden="true" />
-                  {dead ? <em>死亡</em> : null}
+                  {dead ? <StatusBadge tone="danger" size="sm">死亡</StatusBadge> : null}
                 </span>
               </span>
               {conditionBadges.length ? <span className="dashboard-player-seat__status-stack" aria-hidden="true">
@@ -58,6 +66,6 @@ export function PlayerStatusBoard({ seats, onSelectSeat }: PlayerStatusBoardProp
           )
         })}
       </div>}
-    </section>
+    </Card>
   )
 }
