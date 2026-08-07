@@ -10,6 +10,8 @@ import { nextNightSequence } from '../../game-session/state/createNextNightRun'
 import { initialNightWorkbenchState } from '../data/initialNightWorkbenchState'
 import type { NightSeatSnapshot, NightWorkbenchState, PlayerStatusSnapshot, RoleChangeReason } from '../types'
 import { storytellerSeatLabel } from '../../game-session/seatPresentation'
+import { refreshNightRunHistoricalContext } from '../../game-session/state/nightHistoricalContext'
+import { hasForbiddenRegistration, hasWakeDraftContent, invalidateOutcome, wakeTargetsStructurallyValid } from './projectWakeDraft'
 
 export interface NightWorkbenchSessionBinding {
   session: GameSessionState
@@ -70,6 +72,35 @@ function seatSnapshotsForSession(session: GameSessionState): Record<number, Nigh
   })) as Record<number, NightSeatSnapshot>
 }
 
+function wakeContractFingerprint(item: NightWorkbenchState['queue'][number]) {
+  return JSON.stringify({
+    targetCount: item.targetCount,
+    minimumTargetCount: item.minimumTargetCount,
+    previousRegistration: item.previousRegistration,
+    forbiddenRegistrationValues: item.forbiddenRegistrationValues,
+    previousTargets: item.previousTargets,
+    forbiddenTargetSeatIds: item.forbiddenTargetSeatIds,
+    previousTargetRequired: item.previousTargetRequired,
+    historicalContext: item.historicalContext,
+    outcomeIds: item.outcomeOptions.map((option) => option.id),
+  })
+}
+
+function refreshDraftsForQueue(session: GameSessionState, run: NightRunState, queue: NightWorkbenchState['queue']) {
+  const originalById = new Map(run.queue.map((item) => [item.id, item]))
+  const queueById = new Map(queue.map((item) => [item.id, item]))
+  return Object.fromEntries(Object.entries(run.drafts).flatMap(([itemId, draft]) => {
+    const item = queueById.get(itemId)
+    if (!item) return []
+    if (!wakeTargetsStructurallyValid(item, draft, session.playerCount)) return []
+    if (hasForbiddenRegistration(item, draft)) return []
+    const original = originalById.get(itemId)
+    const contractChanged = !original || wakeContractFingerprint(original) !== wakeContractFingerprint(item)
+    const nextDraft = contractChanged ? invalidateOutcome(item, draft) : draft
+    return hasWakeDraftContent(nextDraft) ? [[itemId, structuredClone(nextDraft)]] : []
+  }))
+}
+
 export function sessionInitialNightState(binding: NightWorkbenchSessionBinding): NightWorkbenchState {
   const runId = binding.session.activeNightRunId
   const run = runId ? binding.session.nightRuns[runId] : undefined
@@ -90,6 +121,8 @@ export function sessionInitialNightState(binding: NightWorkbenchSessionBinding):
       reason: legacyReason(entry.reason),
       confirmedBy: 'storyteller' as const,
     }))
+  // 每次打开都从有效时间线刷新跨夜事实；上一夜若刚被更正，不沿用创建夜晚时的旧缓存。
+  const queue = structuredClone(refreshNightRunHistoricalContext(binding.session, run))
   return {
     nightRunId: run.id,
     scriptId: run.scriptId,
@@ -98,11 +131,11 @@ export function sessionInitialNightState(binding: NightWorkbenchSessionBinding):
     playerCount: run.playerCount,
     revision: run.revision,
     knowledgeVersion: run.knowledgeVersion,
-    queue: structuredClone(run.queue),
+    queue,
     seatSnapshots: seatSnapshotsForSession(binding.session),
     activeCursorId: run.activeCursorId,
     previewEntryId: run.previewEntryId,
-    drafts: structuredClone(run.drafts),
+    drafts: refreshDraftsForQueue(binding.session, run, queue),
     privacyShielded: run.privacyShielded,
     dimmed: run.dimmed,
     aiAdviceLog: structuredClone(run.aiAdviceLog),

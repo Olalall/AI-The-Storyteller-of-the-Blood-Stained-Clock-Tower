@@ -9,8 +9,9 @@ export function isSystemStep(item: WakeItem): boolean {
 }
 
 /** 底栏与轮播里的短标签。系统步骤没有可称呼的座位号，改用步骤名。 */
-export function wakeShortLabel(item: WakeItem): string {
-  return item.systemStep ? item.roleName : `${item.seatId}号`
+export function wakeShortLabel(item: WakeItem, concealed = false): string {
+  if (item.systemStep) return concealed && item.systemStep.sensitive ? '系统步骤' : item.roleName
+  return `${item.seatId}号`
 }
 
 export function systemStepChecks(draft: WakeDraft): string[] {

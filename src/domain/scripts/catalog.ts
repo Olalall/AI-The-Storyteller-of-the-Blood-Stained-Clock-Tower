@@ -1,6 +1,7 @@
-import type { AIRoleResearchBrief, RoleId, RoleTeam, ScriptId, SmartRoleDefinition, SmartScriptPack } from './types'
+import type { AbilityInputKind, AIRoleResearchBrief, NightOrderEntry, RoleId, RoleTeam, ScriptId, SmartRoleDefinition, SmartScriptPack } from './types'
 import { createScriptRegistry } from './registry'
 import { resolveCharacterIconPath } from './roleIconPaths'
+import officialNightSheet from '../../features/night-workbench/data/official/nightsheet.json' with { type: 'json' }
 import { aGrimmChorusSmartScriptPack } from './packs/a-grimm-chorus'
 import { anDuChenCangSmartScriptPack } from './packs/an-du-chen-cang'
 import { badMoonRisingSmartScriptPack } from './packs/bad-moon-rising'
@@ -142,6 +143,11 @@ const roleIdAliases: Readonly<Record<RoleId, RoleId>> = {
   al_hadikhia: 'alhadikhia',
   spirit_of_ivory: 'spiritofivory',
   high_priestess: 'highpriestess',
+  organ_grinder: 'organgrinder',
+}
+
+export function normalizeRoleId(roleId: RoleId): RoleId {
+  return roleIdAliases[roleId] ?? roleId
 }
 
 const sourceSmartScriptPacks = [
@@ -264,12 +270,183 @@ const sourceSmartScriptPacks = [
   baoMengMiTuanSmartScriptPack,
 ] as const satisfies readonly SmartScriptPack[]
 
+const damselDelivery = {
+  kind: 'audience_notice',
+  audience: { team: 'minion', excludeRoleIds: ['marionette'] },
+  mode: 'sequential',
+  infoToken: '落难少女',
+  sensitive: true,
+} as const
+
+const organGrinderNote = '唤醒街头风琴手，让他选择自己是否醉酒直到下个黄昏；只记录选择，不自动改变醉酒状态。'
+const canonicalRoleInputKinds: Readonly<Record<RoleId, readonly AbilityInputKind[]>> = {
+  exorcist: ['player'],
+  devilsadvocate: ['player'],
+  pukka: ['player'],
+  yanluo: ['player'],
+  po: ['player'],
+  godfather: ['player'],
+  imp: ['player'],
+  vigormortis: ['player'],
+  widow: ['player'],
+  fanggu: ['player'],
+  nodashii: ['player'],
+  poisoner: ['player'],
+  snakecharmer: ['player'],
+  vortox: ['player'],
+  vortex: ['player'],
+  assassin: ['player'],
+  ravenkeeper: ['player'],
+  monk: ['player'],
+  butler: ['player'],
+  professor: ['player'],
+  sailor: ['player'],
+  zombuul: ['player'],
+  lycanthrope: ['player'],
+  preacher: ['player'],
+  witch: ['player'],
+  nightwatchman: ['player'],
+  ogre: ['player'],
+  lleech: ['player'],
+  villageidiot: ['player'],
+  highpriestess: ['player'],
+  balloonist: ['player'],
+  miao_si: ['player'],
+  ming_jiao: ['player'],
+  mo_gan_na: ['player'],
+  nian_gu_mo: ['player'],
+  qian_pan: ['player'],
+  qianmianren: ['player'],
+  qiao_zha_fan: ['player'],
+  qing_yi_lou: ['player'],
+  qiong_qi: ['player'],
+  ren_zhi_xian_sheng: ['player'],
+  ri_yue_shen_jiao: ['player'],
+  san_wei_zhi_li: ['player'],
+  shu_shi: ['player'],
+  si_zhi_wo: ['player'],
+  taowu: ['player'],
+  tian_long_jiao: ['player'],
+  tian_xuan_zhi_zi: ['player'],
+  wang_zi: ['player'],
+  wen_yi_zhi_yuan: ['player'],
+  ye_yan: ['player'],
+  xue_zhi_nv: ['player'],
+  yi_xiang_ren: ['player'],
+  you_ling: ['player'],
+  you_xia: ['player'],
+  yu_jing: ['player'],
+  zong_huo_kuang: ['player'],
+  zu_zhang: ['player'],
+  shabaloth: ['players'],
+  seamstress: ['players'],
+  fortuneteller: ['players'],
+  barber: ['players'],
+  noble: ['players'],
+  alhadikhia: ['players'],
+  innkeeper: ['players'],
+  chambermaid: ['players', 'number'],
+  harpy: ['players'],
+  dianyuzhang: ['players'],
+  taotie: ['players'],
+  pu_ren: ['players'],
+  tian_ji_ge: ['players'],
+  tou_ming_ren: ['players'],
+  wu_ling_jun: ['players'],
+  xi_mo_ren: ['players'],
+  yi_zhen_huang_liang: ['players'],
+  zou_si_fan: ['players'],
+  shuangtoujiao: ['players'],
+  baojun: ['players'],
+  zhi_shi_fen_zi: ['players'],
+  wan_jun_zhi_li: ['players'],
+  shi_mo: ['players', 'role'],
+  gambler: ['player', 'role'],
+  cerenovus: ['player', 'role'],
+  pithag: ['player', 'role'],
+  summoner: ['player', 'role'],
+  huntsman: ['player', 'role'],
+  mei_shu_guan_zhang: ['player', 'role'],
+  wu_ming: ['player', 'role'],
+  wu_shi: ['player', 'role'],
+  xie_shu_shi: ['player', 'role'],
+  investigator: ['players', 'role'],
+  librarian: ['players', 'role'],
+  washerwoman: ['players', 'role'],
+}
+
+function normalizeInputKinds(role: SmartRoleDefinition): readonly AbilityInputKind[] {
+  const roleId = normalizeRoleId(role.id)
+  if (roleId === 'organgrinder') return ['boolean']
+  return canonicalRoleInputKinds[roleId] ?? inferInputKindsFromAbility(role) ?? role.inputKinds
+}
+
+function inferInputKindsFromAbility(role: SmartRoleDefinition): readonly AbilityInputKind[] | undefined {
+  if (role.inputKinds.some((kind) => kind !== 'none')) return undefined
+  const text = role.abilityText
+  const choosesPlayer = /(选择|选中).{0,28}(玩家|目标)/.test(text)
+  const learnsSpecificPlayers = /得知.{0,12}(一名|1名|两名|2名|二名|三名|3名).{0,12}玩家/.test(text)
+  const pluralPlayer = /(两名|2名|二名|三名|3名|任意名|任意数量|若干|至少三名|最多.{0,4}名|至多.{0,4}名).{0,12}(玩家|目标)/.test(text)
+  const choosesRole = /(选择|猜测|得知|查看).{0,24}(角色|镇民|外来者|爪牙|恶魔)/.test(text)
+  const kinds: AbilityInputKind[] = []
+
+  if (choosesPlayer || learnsSpecificPlayers) kinds.push(pluralPlayer ? 'players' : 'player')
+  if (choosesRole) kinds.push('role')
+
+  return kinds.length ? kinds : undefined
+}
+
+function insertNightOrder(
+  entries: readonly NightOrderEntry[],
+  entry: NightOrderEntry,
+  nightType: 'firstNight' | 'otherNight',
+) {
+  const withoutDuplicate = entries.filter((candidate) => normalizeRoleId(candidate.roleId) !== normalizeRoleId(entry.roleId))
+  const officialOrder = new Map(officialNightSheet[nightType].map((roleId, index) => [roleId, index]))
+  const entryOrder = officialOrder.get(normalizeRoleId(entry.roleId))
+  const insertionIndex = entryOrder === undefined ? -1 : withoutDuplicate.findIndex((candidate) => {
+    const candidateOrder = officialOrder.get(normalizeRoleId(candidate.roleId))
+    return candidateOrder !== undefined && candidateOrder > entryOrder
+  })
+  if (insertionIndex === -1) return [...withoutDuplicate, entry]
+  return [...withoutDuplicate.slice(0, insertionIndex), entry, ...withoutDuplicate.slice(insertionIndex)]
+}
+
+function enrichNightOrders(pack: SmartScriptPack) {
+  const hasOrganGrinder = pack.roles.some((role) => normalizeRoleId(role.id) === 'organgrinder')
+  const withDamselDelivery = pack.nightOrders.firstNight.map((entry) => (
+    normalizeRoleId(entry.roleId) === 'damsel' && !entry.delivery
+      ? { ...entry, delivery: damselDelivery }
+      : entry
+  ))
+  if (!hasOrganGrinder) {
+    return { firstNight: withDamselDelivery, otherNight: pack.nightOrders.otherNight }
+  }
+  const organRoleId = pack.roles.find((role) => normalizeRoleId(role.id) === 'organgrinder')?.id ?? 'organgrinder'
+  return {
+    firstNight: insertNightOrder(withDamselDelivery, {
+      roleId: organRoleId,
+      order: 39,
+      note: organGrinderNote,
+      knowledgeStatus: 'confirmed',
+    }, 'firstNight'),
+    otherNight: insertNightOrder(pack.nightOrders.otherNight, {
+      roleId: organRoleId,
+      order: 25,
+      note: organGrinderNote,
+      knowledgeStatus: 'confirmed',
+    }, 'otherNight'),
+  }
+}
+
 export const smartScriptPacks = sourceSmartScriptPacks.map((pack) => ({
   ...pack,
   roles: pack.roles.map((role) => ({
     ...role,
     iconPath: resolveCharacterIconPath(role),
+    inputKinds: normalizeInputKinds(role),
   })),
+  nightOrders: enrichNightOrders(pack),
 })) satisfies readonly SmartScriptPack[]
 
 export const smartScriptRegistry = createScriptRegistry(smartScriptPacks)
@@ -340,7 +517,7 @@ export function roleResearchForAI(scriptId: ScriptId, roleId: RoleId): AIRoleRes
 }
 
 function findRoleForScript(scriptId: ScriptId, roleId: RoleId) {
-  const canonicalRoleId = roleIdAliases[roleId] ?? roleId
+  const canonicalRoleId = normalizeRoleId(roleId)
   return getSmartScriptPack(scriptId).roles.find((candidate) => (
     candidate.id === roleId || candidate.id === canonicalRoleId
   ))

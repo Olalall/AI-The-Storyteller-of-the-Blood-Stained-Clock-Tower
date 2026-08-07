@@ -51,6 +51,39 @@ export interface WakeRoleChoice {
   label: string
 }
 
+export type StorytellerRegistrationKind = 'role_type' | 'alignment'
+export type StorytellerRegistrationValue = 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'good' | 'evil'
+
+/** 说书人在当时明确采用的登记结果；不能从角色默认类型或当前身份倒推。 */
+export interface StorytellerRegistrationSnapshot {
+  kind: StorytellerRegistrationKind
+  seatId: number
+  value: StorytellerRegistrationValue
+}
+
+export interface WakeRegistrationSpec {
+  kind: StorytellerRegistrationKind
+  label: string
+  choices: WakeRoleChoice[]
+}
+
+export type WakeHistoricalContextKind =
+  | 'balloonist_role_type'
+  | 'moonchild_choice'
+  | 'once_per_game_use'
+  | 'pukka_poison'
+  | 'shabaloth_regurgitation'
+  | 'yanluo_delayed_death'
+  | 'po_charge'
+
+/** 只读的角色专用历史事实；用于提示和 AI 上下文，不直接执行状态变化。 */
+export interface WakeHistoricalContext {
+  kind: WakeHistoricalContextKind
+  status: 'ready' | 'clear' | 'missing'
+  seatIds: number[]
+  summary: string
+}
+
 export interface RoleSnapshot {
   id: string
   name: string
@@ -79,6 +112,8 @@ export interface WakeOutcomeOption {
   id: string
   label: string
   requiredInputs: OutcomeInput[]
+  /** 若存在，表示本结果只接受这些明确目标数，例如“选一人或三人”。 */
+  targetCounts?: readonly number[]
   resultTemplate: string
   informationTemplate?: string
 }
@@ -165,7 +200,7 @@ export interface OutcomeResolutionHint {
  * 它们没有单一行动者，也没有可选目标——按评审裁决，多座位指认只做勾选清单，
  * 名单一律是只读文案，不进 WakeDraft.targets，也不改 projectWakeDraft 的目标模型。
  */
-export type SystemStepKind = 'minion_info' | 'demon_info'
+export type SystemStepKind = 'minion_info' | 'demon_info' | 'audience_notice'
 
 export interface SystemStepCheck {
   id: string
@@ -192,6 +227,11 @@ export interface SystemStepSpec {
   bluffCount?: number
   /** 仅恶魔信息：剧本角色减去在场角色后的善良角色。 */
   bluffChoices?: SystemStepBluffChoice[]
+  /** 普通群体通知使用；存在时名单面板不再套用“爪牙/恶魔互认”两行。 */
+  audienceLabel?: string
+  recipientLabels?: string[]
+  /** 遮蔽时连步骤名也隐藏，防止从队列得知敏感角色在场。 */
+  sensitive?: boolean
 }
 
 export interface WakeItem {
@@ -211,12 +251,24 @@ export interface WakeItem {
   history?: string
   reason?: string
   targetCount: number
+  /** 最少目标数；省略时必须选满 targetCount。用于珀等允许明确空选的角色。 */
+  minimumTargetCount?: number
   targetLabel?: string
   targetKind?: TargetKind
   roleChoices?: WakeRoleChoice[]
   roleLabel?: string
+  registrationSpec?: WakeRegistrationSpec
+  /** 只读历史事实，供说书人和 AI 核对；不会自动写入本夜草稿。 */
+  previousRegistration?: StorytellerRegistrationSnapshot
+  forbiddenRegistrationValues?: StorytellerRegistrationValue[]
+  previousTargets?: number[]
+  forbiddenTargetSeatIds?: number[]
+  previousTargetRequired?: boolean
+  historicalContext?: WakeHistoricalContext
   interactionVersion: string
   outcomeOptions: WakeOutcomeOption[]
+  /** false 表示这是玩家本人必须作出的决定，AI 不得替代或推荐。 */
+  aiAdviceEnabled?: boolean
   /** 有值时本项是系统步骤卡，没有目标网格，也不参与换角与AI建议。 */
   systemStep?: SystemStepSpec
 }
@@ -232,6 +284,7 @@ export interface NightSeatSnapshot {
 export interface WakeDraft {
   targets: number[]
   roleChoice: string
+  registration?: StorytellerRegistrationSnapshot
   outcomeId: string
   playerChoice: string
   storytellerResult: string
@@ -284,6 +337,7 @@ export interface NightOrderListItem {
   phaseMarker?: boolean
   /** 系统步骤：没有单一座位，playerLabel 本身就是名单，遮蔽时必须整条替换。 */
   systemStep?: boolean
+  systemStepSensitive?: boolean
 }
 
 export interface ConfirmedWakeRecord {

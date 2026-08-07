@@ -21,6 +21,11 @@ export function participantLabel(seatId: number, role: RoleSnapshot | null | und
   return `${seatId}号（${role?.name ?? '当时身份未记录'}）`
 }
 
+function registrationLabel(context: DaySkillContext['targets'][number]) {
+  if (context.registration?.kind !== 'alignment') return ''
+  return `，选择时${context.registration.value === 'good' ? '善良' : '邪恶'}`
+}
+
 export function formatDaySkillSummary(context: DaySkillContext | undefined, fallbackActorSeatId: number | null, fallbackTargetSeatIds: readonly number[]) {
   if (!context?.actor || !context.abilityRole) {
     return `${fallbackActorSeatId ?? '未选'}号发动白天技能${fallbackTargetSeatIds.length ? ` → ${fallbackTargetSeatIds.join('、')}号` : ''}`
@@ -29,7 +34,7 @@ export function formatDaySkillSummary(context: DaySkillContext | undefined, fall
   const actor = participantLabel(context.actor.seatId, context.actor.actualRole)
   const claim = context.claimedRole ? `称${context.claimedRole.name}` : ''
   const targets = context.targets.length
-    ? context.targets.map((target) => participantLabel(target.seatId, target.actualRole)).join('、')
+    ? context.targets.map((target) => `${participantLabel(target.seatId, target.actualRole)}${registrationLabel(target)}`).join('、')
     : '无目标'
   return `${context.abilityRole.name} · ${actor}${claim} → ${targets} · ${outcomeLabel(context)}`
 }
@@ -48,6 +53,9 @@ export function formatDaySkillDetails(context: DaySkillContext | undefined, fall
     context.actor ? `发动者（实际）：${participantLabel(context.actor.seatId, context.actor.actualRole)}` : '发动者（实际）：未记录',
     context.claimedRole ? `公开声称：${context.claimedRole.name}` : '',
     context.targets.length ? `目标（实际）：${context.targets.map((target) => participantLabel(target.seatId, target.actualRole)).join('、')}` : '目标（实际）：无目标',
+    context.targets.some((target) => target.registration?.kind === 'alignment')
+      ? `选择时阵营：${context.targets.map((target) => `${target.seatId}号${target.registration?.value === 'good' ? '善良' : '邪恶'}`).join('、')}`
+      : '',
     `结果：${outcomeLabel(context)}`,
   ].filter(Boolean)
 }

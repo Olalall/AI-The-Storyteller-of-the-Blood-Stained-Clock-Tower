@@ -20,6 +20,7 @@ interface WakeTargetPickerProps {
   targetLabel: string
   targetCount: number
   targets: readonly number[]
+  forbiddenSeatIds?: readonly number[]
   disabled: boolean
   onTarget: (seat: number) => void
 }
@@ -31,6 +32,7 @@ export function WakeTargetPicker({
   targetLabel,
   targetCount,
   targets,
+  forbiddenSeatIds = [],
   disabled,
   onTarget,
 }: WakeTargetPickerProps) {
@@ -42,6 +44,7 @@ export function WakeTargetPicker({
         targetLabel={targetLabel}
         targetCount={targetCount}
         targets={targets}
+        forbiddenSeatIds={forbiddenSeatIds}
         disabled={disabled}
         onTarget={onTarget}
       />
@@ -57,6 +60,7 @@ export function WakeTargetPicker({
             key={seat}
             seat={seat}
             selected={targets.includes(seat)}
+            disabled={forbiddenSeatIds.includes(seat)}
             self={seat === selfSeatId}
             onClick={() => onTarget(seat)}
             aria-label={`选择${seat}号玩家`}

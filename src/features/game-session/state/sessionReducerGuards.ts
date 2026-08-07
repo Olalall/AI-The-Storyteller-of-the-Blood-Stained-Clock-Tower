@@ -1,5 +1,8 @@
 import type { GameSessionState } from '../types'
 import type { GameSessionAction } from './sessionActions'
+import type { PhaseTimelineEntryInput } from './timeline'
+import { wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
+import { refreshNightRunHistoricalContext } from './nightHistoricalContext'
 
 export function hasDayResolution(state: GameSessionState, segmentId: string) {
   return state.timeline.some((entry) =>
@@ -30,10 +33,23 @@ export function canAppendHistoryCorrection(
   if (action.entry.kind !== original.kind) return false
 
   if (original.kind === 'night_action' && action.entry.kind === 'night_action') {
-    return original.nightRunId === action.entry.nightRunId && original.wakeItemId === action.entry.wakeItemId
+    if (original.nightRunId !== action.entry.nightRunId || original.wakeItemId !== action.entry.wakeItemId) return false
+    return canAppendNightActionEntry(state, action.entry)
   }
 
   return original.kind === 'day_action' && action.entry.kind === 'day_action' && original.category === action.entry.category
+}
+
+export function canAppendNightActionEntry(
+  state: GameSessionState,
+  entry: Extract<PhaseTimelineEntryInput, { kind: 'night_action' }>,
+) {
+  const run = state.nightRuns[entry.nightRunId]
+  const item = run
+    ? refreshNightRunHistoricalContext(state, run).find((candidate) => candidate.id === entry.wakeItemId)
+    : undefined
+  return Boolean(item
+    && wakeTargetsStructurallyValid(item, entry.record.snapshot, state.playerCount))
 }
 
 

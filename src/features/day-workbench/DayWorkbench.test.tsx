@@ -6,6 +6,7 @@ import { createPrototypeGameSession, gameSessionStorageKey } from '../game-sessi
 import type { GameSessionState } from '../game-session/types'
 import { DiscussionTimerProvider } from './state/discussionTimer'
 import { DayWorkbench } from './DayWorkbench'
+import { roleSnapshotsForScript } from '../../domain/scripts'
 
 function DayWorkbenchHarness() {
   const { session, dispatch } = useGameSession()
@@ -57,6 +58,36 @@ describe('DayWorkbench records', () => {
         },
       })
       expect(state.dayActionDraft).toBeNull()
+    })
+  })
+
+  it('requires and freezes Moonchild target alignment without changing player life', async () => {
+    const user = userEvent.setup()
+    const state = storedState()
+    const moonchild = roleSnapshotsForScript('bad-moon-rising').find((role) => role.id === 'moonchild')
+    if (!moonchild) throw new Error('Moonchild fixture is missing')
+    window.localStorage.setItem(gameSessionStorageKey, JSON.stringify({
+      ...state,
+      scriptRoles: [...(state.scriptRoles ?? []), moonchild],
+    }))
+    render(<DayWorkbenchHarness />)
+
+    await user.click(screen.getByRole('button', { name: '记技能/事件' }))
+    await user.click(screen.getByRole('button', { name: '选择6号为发动者' }))
+    await user.selectOptions(screen.getByLabelText('按此技能结算'), 'moonchild')
+    await user.click(screen.getByRole('button', { name: '选择5号为目标' }))
+    await user.click(screen.getByRole('button', { name: '技能生效' }))
+    expect(screen.getByRole('button', { name: '记录技能' })).toBeDisabled()
+
+    await user.click(screen.getByRole('button', { name: '善良' }))
+    await user.click(screen.getByRole('button', { name: '记录技能' }))
+    await waitFor(() => {
+      const state = storedState()
+      const entry = state.timeline.find((item) => item.kind === 'day_action' && item.skillContext?.abilityRole?.id === 'moonchild')
+      expect(entry).toMatchObject({
+        skillContext: { targets: [{ seatId: 5, registration: { kind: 'alignment', seatId: 5, value: 'good' } }] },
+      })
+      expect(state.timeline.some((item) => item.kind === 'player_state_changed')).toBe(false)
     })
   })
 

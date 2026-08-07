@@ -68,6 +68,36 @@ describe('AI draft contract', () => {
     expect(response.ruleFacts.join(' ')).toContain('自动杀死赌徒')
   })
 
+  it('passes only the confirmed previous Balloonist registration and current storyteller draft', () => {
+    const base = initialNightWorkbenchState.queue[0]
+    const item = {
+      ...base,
+      roleId: 'balloonist',
+      previousRegistration: { kind: 'role_type' as const, seatId: 4, value: 'outsider' as const },
+      forbiddenRegistrationValues: ['outsider' as const],
+      previousTargets: [4],
+      forbiddenTargetSeatIds: [4],
+      previousTargetRequired: true,
+      minimumTargetCount: 0,
+      historicalContext: { kind: 'pukka_poison' as const, status: 'ready' as const, seatIds: [4], summary: '4号为旧毒候选。' },
+    }
+    const draft = {
+      ...emptyWakeDraft(),
+      targets: [7],
+      registration: { kind: 'role_type' as const, seatId: 7, value: 'minion' as const },
+    }
+    const request = buildNightSettlementRequest({ state: initialNightWorkbenchState, item, draft })
+    expect(request.context.wakeItem.previousRegistration).toEqual(item.previousRegistration)
+    expect(request.context.wakeItem.forbiddenRegistrationValues).toEqual(['outsider'])
+    expect(request.context.wakeItem.previousTargets).toEqual([4])
+    expect(request.context.wakeItem.forbiddenTargetSeatIds).toEqual([4])
+    expect(request.context.wakeItem.previousTargetRequired).toBe(true)
+    expect(request.context.wakeItem.minimumTargetCount).toBe(0)
+    expect(request.context.wakeItem.historicalContext).toEqual(item.historicalContext)
+    expect(request.context.draft.registration).toEqual(draft.registration)
+    expect(JSON.stringify(request.context)).not.toContain('confirmedRecords')
+  })
+
   /*
    * 这一条盯着「假绿」：把三处 'minimal' 换成 'standard' 常量，上面几条照样绿。
    * 只有同一个 build 函数在两种局面下给出两个不同的档位，才说明它真的在推导。

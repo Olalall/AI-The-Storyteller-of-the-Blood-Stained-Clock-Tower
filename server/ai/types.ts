@@ -227,12 +227,24 @@ export interface NightSettlementProviderRequest {
     ability: string
     storytellerPrompt: string
     targetCount: number
+    minimumTargetCount?: number
     targetLabel?: string
     roleLabel?: string
     status: {
       life: string
       impairments: readonly string[]
       markers: readonly string[]
+    }
+    previousRegistration?: NightSettlementRegistration
+    forbiddenRegistrationValues?: readonly NightSettlementRegistration['value'][]
+    previousTargets?: readonly number[]
+    forbiddenTargetSeatIds?: readonly number[]
+    previousTargetRequired?: boolean
+    historicalContext?: {
+      kind: 'balloonist_role_type' | 'moonchild_choice' | 'once_per_game_use' | 'pukka_poison' | 'shabaloth_regurgitation' | 'yanluo_delayed_death' | 'po_charge'
+      status: 'ready' | 'clear' | 'missing'
+      seatIds: readonly number[]
+      summary: string
     }
   }
   draft: {
@@ -241,6 +253,7 @@ export interface NightSettlementProviderRequest {
     outcomeId: string
     playerChoice: string
     draftRevision: number
+    registration?: NightSettlementRegistration
   }
   availableOutcomes: readonly NightSettlementOutcomeBrief[]
   selectedTargets?: readonly NightSettlementSelectedTargetBrief[]
@@ -254,6 +267,12 @@ export interface NightSettlementProviderRequest {
     aiCannot: readonly string[]
   }
   roleResearch?: RoleResearchProviderBrief
+}
+
+export interface NightSettlementRegistration {
+  kind: 'role_type' | 'alignment'
+  seatId: number
+  value: 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'good' | 'evil'
 }
 
 /**

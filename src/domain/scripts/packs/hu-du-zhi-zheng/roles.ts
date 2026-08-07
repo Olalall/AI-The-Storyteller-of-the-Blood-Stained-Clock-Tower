@@ -127,9 +127,9 @@ export const huDuZhiZhengRoles = [
     team: "townsfolk",
     abilityText: "每个夜晚*，你要选择一名存活玩家：如果他是善良的，他死亡，并且当晚恶魔不会造成死亡。会有一名善良玩家始终被当作邪恶阵营。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/lycanthrope.png",
-    inputKinds: ["none"],
+    inputKinds: ["player"],
     possibleOutcomes: ["Good target may die and the Demon does not kill tonight."],
-    highRiskNotes: ["Lycanthrope may kill a good target and suppress the Demon kill tonight; one good player always registers as evil and cannot be killed this way; death-prevention chain remains manual.", "Other-night source reminder: 半兽人指向一名存活玩家：如果那名玩家善良，则立刻死去且今夜不会再有玩家死亡。"],
+    highRiskNotes: ["Lycanthrope may kill a good target and suppress the Demon kill tonight; one good player always registers as evil and cannot be killed this way; death-prevention chain remains manual.", "Other-night source reminder: 半兽人指向一名存活玩家：如果那名玩家善良，则立刻死去且当晚只有恶魔不会造成死亡，其他来源仍可造成死亡。"],
   }),
   role({
     id: "flowergirl",

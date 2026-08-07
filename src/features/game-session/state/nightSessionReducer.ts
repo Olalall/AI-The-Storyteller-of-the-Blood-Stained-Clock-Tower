@@ -1,6 +1,7 @@
 import type { GameSessionState } from '../types'
 import { appendCorrection, appendPhaseEntry } from './timeline'
 import type { GameSessionAction } from './sessionActions'
+import { wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
 
 type NightSessionActionType =
   | 'commit-night-workbench'
@@ -42,6 +43,7 @@ function commitNightWorkbench(
   ])
   if (records.some((record) =>
     !queueItemById.has(record.wakeItemId) ||
+    !wakeTargetsStructurallyValid(queueItemById.get(record.wakeItemId)!, record.snapshot, state.playerCount) ||
     (record.correctionOf !== undefined && !knownRecordIds.has(record.correctionOf)))) return state
 
   let nextState = state
@@ -55,6 +57,8 @@ function commitNightWorkbench(
       kind: 'night_action' as const,
       nightRunId: run.id,
       wakeItemId: record.wakeItemId,
+      actorSeatId: item.seatId,
+      roleId: item.roleId,
       summary: record.snapshot.storytellerResult || `${item.seatId}号记录已确认`,
       details: [record.snapshot.playerChoice, record.snapshot.informationGiven].filter(Boolean),
       record: { revision: record.revision, snapshot: structuredClone(record.snapshot) },

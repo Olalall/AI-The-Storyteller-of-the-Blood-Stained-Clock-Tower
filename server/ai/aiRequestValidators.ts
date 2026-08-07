@@ -71,19 +71,78 @@ function validUnknownSeatIds(value: unknown) {
   return value === undefined || (Array.isArray(value) && value.every((seatId) => Number.isInteger(seatId)))
 }
 
-function validSelectedTargets(value: unknown) {
+function validSeatIdList(value: unknown, playerCount: number) {
   if (value === undefined) return true
-  return Array.isArray(value) && value.every((target) => (
-    isRecord(target)
-    && Number.isInteger(target.seatId)
-    && typeof target.playerLabel === 'string'
-    && typeof target.roleId === 'string'
-    && typeof target.roleName === 'string'
-    && isRecord(target.status)
-    && typeof target.status.life === 'string'
-    && validStringArray(target.status.impairments)
-    && validStringArray(target.status.markers)
-  ))
+  if (!Array.isArray(value)) return false
+  const seats = new Set<number>()
+  for (const seatId of value) {
+    if (!Number.isInteger(seatId) || seatId < 1 || seatId > playerCount || seats.has(seatId)) return false
+    seats.add(seatId)
+  }
+  return true
+}
+
+function validDraftTargets(value: unknown, wakeItem: Record<string, unknown>, playerCount: number) {
+  if (!validSeatIdList(value, playerCount) || !Array.isArray(value)) return false
+  const targetCount = Number(wakeItem.targetCount)
+  const minimumTargetCount = wakeItem.minimumTargetCount === undefined
+    ? targetCount
+    : Number(wakeItem.minimumTargetCount)
+  const forbidden = new Set(Array.isArray(wakeItem.forbiddenTargetSeatIds) ? wakeItem.forbiddenTargetSeatIds : [])
+  return value.length >= minimumTargetCount
+    && value.length <= targetCount
+    && value.every((seatId) => !forbidden.has(seatId))
+}
+
+function validSelectedTargets(value: unknown, playerCount: number) {
+  if (value === undefined) return true
+  if (!Array.isArray(value)) return false
+  const seats = new Set<number>()
+  return value.every((target) => {
+    if (!isRecord(target) || !Number.isInteger(target.seatId)) return false
+    const seatId = Number(target.seatId)
+    if (seatId < 1 || seatId > playerCount || seats.has(seatId)) return false
+    seats.add(seatId)
+    return typeof target.playerLabel === 'string'
+      && typeof target.roleId === 'string'
+      && typeof target.roleName === 'string'
+      && isRecord(target.status)
+      && typeof target.status.life === 'string'
+      && validStringArray(target.status.impairments)
+      && validStringArray(target.status.markers)
+  })
+}
+
+function validRegistration(value: unknown, playerCount: number) {
+  if (value === undefined) return true
+  if (!isRecord(value) || !Number.isInteger(value.seatId) || value.seatId < 1 || value.seatId > playerCount) return false
+  if (value.kind === 'role_type') return ['townsfolk', 'outsider', 'minion', 'demon'].includes(String(value.value))
+  if (value.kind === 'alignment') return value.value === 'good' || value.value === 'evil'
+  return false
+}
+
+function validRegistrationValues(value: unknown) {
+  if (value === undefined) return true
+  const allowed = new Set(['townsfolk', 'outsider', 'minion', 'demon', 'good', 'evil'])
+  return Array.isArray(value) && value.every((item) => allowed.has(String(item))) && new Set(value).size === value.length
+}
+
+function validDraftRegistration(value: unknown, wakeItem: Record<string, unknown>, playerCount: number) {
+  if (!validRegistration(value, playerCount)) return false
+  if (value === undefined) return true
+  if (!isRecord(value)) return false
+  const forbidden = new Set(Array.isArray(wakeItem.forbiddenRegistrationValues) ? wakeItem.forbiddenRegistrationValues : [])
+  return !forbidden.has(value.value)
+}
+
+function validHistoricalContext(value: unknown, playerCount: number) {
+  if (value === undefined) return true
+  return isRecord(value)
+    && ['balloonist_role_type', 'moonchild_choice', 'once_per_game_use', 'pukka_poison', 'shabaloth_regurgitation', 'yanluo_delayed_death', 'po_charge'].includes(String(value.kind))
+    && ['ready', 'clear', 'missing'].includes(String(value.status))
+    && Array.isArray(value.seatIds)
+    && value.seatIds.every((seatId) => Number.isInteger(seatId) && seatId >= 1 && seatId <= playerCount)
+    && typeof value.summary === 'string'
 }
 
 export function isSetupAdviceRequest(value: unknown): value is SetupAdviceProviderRequest {
@@ -116,10 +175,24 @@ export function isNightSettlementRequest(value: unknown): value is NightSettleme
     && typeof value.wakeItem.roleName === 'string'
     && typeof value.wakeItem.ability === 'string'
     && Number.isInteger(value.wakeItem.seatId)
-    && Array.isArray(value.draft.targets)
+    && value.wakeItem.seatId >= 1
+    && value.wakeItem.seatId <= value.playerCount
+    && typeof value.wakeItem.targetCount === 'number'
+    && Number.isInteger(value.wakeItem.targetCount)
+    && value.wakeItem.targetCount >= 0
+    && value.wakeItem.targetCount <= value.playerCount
+    && validRegistration(value.wakeItem.previousRegistration, value.playerCount)
+    && validRegistrationValues(value.wakeItem.forbiddenRegistrationValues)
+    && validSeatIdList(value.wakeItem.previousTargets, value.playerCount)
+    && validSeatIdList(value.wakeItem.forbiddenTargetSeatIds, value.playerCount)
+    && (value.wakeItem.previousTargetRequired === undefined || typeof value.wakeItem.previousTargetRequired === 'boolean')
+    && (value.wakeItem.minimumTargetCount === undefined || (typeof value.wakeItem.minimumTargetCount === 'number' && Number.isInteger(value.wakeItem.minimumTargetCount) && value.wakeItem.minimumTargetCount >= 0 && value.wakeItem.minimumTargetCount <= value.wakeItem.targetCount))
+    && validHistoricalContext(value.wakeItem.historicalContext, value.playerCount)
+    && validDraftTargets(value.draft.targets, value.wakeItem, value.playerCount)
     && typeof value.draft.roleChoice === 'string'
     && typeof value.draft.outcomeId === 'string'
-    && validSelectedTargets(value.selectedTargets)
+    && validDraftRegistration(value.draft.registration, value.wakeItem, value.playerCount)
+    && validSelectedTargets(value.selectedTargets, value.playerCount)
     && validRoleResearch(value.roleResearch)
     && value.availableOutcomes.every((outcome) => (
       isRecord(outcome)
