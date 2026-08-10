@@ -54,7 +54,6 @@ export function AISettingsSheet() {
   const [open, setOpen] = useState(false)
   const [settings, setSettings] = useState<AISettings>(() => readAISettings())
   const [archiveSettings, setArchiveSettings] = useState<ArchiveRuntimeSettings>(() => readArchiveRuntimeSettings())
-  const [apiKey, setApiKey] = useState('')
   const [saved, setSaved] = useState(false)
   const [testStatus, setTestStatus] = useState<TestStatus | null>(null)
   const [backendStatus, setBackendStatus] = useState<TestStatus | null>(null)
@@ -63,7 +62,6 @@ export function AISettingsSheet() {
     if (!open) return
     setSettings(readAISettings())
     setArchiveSettings(readArchiveRuntimeSettings())
-    setApiKey('')
     setSaved(false)
     setTestStatus(null)
     setBackendStatus(null)
@@ -122,15 +120,15 @@ export function AISettingsSheet() {
       setTestStatus({ tone: 'warning', message: '请先填写接入地址和模型名字。' })
       return
     }
-    if (!apiKey.trim()) {
-      setTestStatus({ tone: 'warning', message: '缺少 API KEY；保存不会保存密钥。' })
+    if (!settings.apiKey.trim()) {
+      setTestStatus({ tone: 'warning', message: '缺少 API KEY；请先填写后再测试。' })
       return
     }
-    setTestStatus({ tone: 'success', message: '本次测试配置完整；保存不会让前端长期持有 API KEY。' })
+    setTestStatus({ tone: 'success', message: '配置完整；保存后会记住在这台设备上。' })
   }
 
   async function liveTestConnection() {
-    setTestStatus(await testLiveAIConnection(archiveSettings, settings, apiKey))
+    setTestStatus(await testLiveAIConnection(archiveSettings, settings, settings.apiKey))
   }
 
   function save() {
@@ -143,8 +141,8 @@ export function AISettingsSheet() {
     setTestStatus((current) => current ?? {
       tone: 'neutral',
       message: settings.mode === 'backend'
-        ? '已保存非敏感设置；真实 AI 继续使用后端 .env。'
-        : '已保存非敏感设置；兼容接口的 API KEY 仍只用于本次测试。',
+        ? '已保存设置；真实 AI 继续使用后端 .env。'
+        : '已保存到这台设备；本机运行时后续请求会继续使用这个 API KEY。',
     })
     void refreshBackendStatus(nextArchiveSettings)
   }
@@ -154,7 +152,6 @@ export function AISettingsSheet() {
     const nextArchive = resetArchiveRuntimeSettings()
     setSettings(next)
     setArchiveSettings(nextArchive)
-    setApiKey('')
     setSaved(true)
     setTestStatus({ tone: 'neutral', message: '已恢复默认。' })
   }
@@ -164,7 +161,7 @@ export function AISettingsSheet() {
       open={open}
       onOpenChange={setOpen}
       title="AI API 设置"
-      description="长期 AI 由后端 .env 接管；页面里的 API KEY 只用于一次连通测试，不写入本地存储。"
+      description="本机运行时，API KEY 会保存在这台设备的浏览器中；公网 VPS 仍使用后端 .env。"
       presentation="page"
       contentClassName="sheet-content--ai-settings"
       trigger={
@@ -228,15 +225,15 @@ export function AISettingsSheet() {
               <span>API KEY</span>
               <input
                 type="password"
-                value={apiKey}
-                onChange={(event) => { setApiKey(event.target.value); setSaved(false); setTestStatus(null) }}
+                value={settings.apiKey}
+                onChange={(event) => patch({ apiKey: event.target.value })}
                 placeholder="sk-..."
-                autoComplete="new-password"
+                autoComplete="current-password"
               />
             </label>
           </div>
 
-          <p id="ai-mode-note" className="ai-settings-note"><KeyRound aria-hidden="true" />选择“使用后端配置”时，AI 请求使用后端 `.env` 的地址、模型和 Key；选择“临时兼容接口测试”时，页面输入只发给一次测试请求。</p>
+          <p id="ai-mode-note" className="ai-settings-note"><KeyRound aria-hidden="true" />本机运行时，保存的 API KEY 会用于后续配板、夜间和复盘请求；访问公网后端时不会把本机 Key 发给远程服务器。</p>
 
           <div className="ai-settings-advanced" aria-label="高级参数">
             <label>

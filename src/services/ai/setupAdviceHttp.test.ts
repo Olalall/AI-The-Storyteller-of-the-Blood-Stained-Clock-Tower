@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { SetupPrototypeCandidate } from '../../features/setup'
+import { defaultAISettings, saveAISettings } from '../settings'
 import { createSetupAdviceDraftAsync, type CreateSetupAdviceDraftAsyncInput } from './setupAdviceHttp'
 
 function candidates(): SetupPrototypeCandidate[] {
@@ -65,6 +66,8 @@ function jsonResponse(body: unknown, status = 200) {
 }
 
 describe('setup advice HTTP adapter', () => {
+  beforeEach(() => window.localStorage.clear())
+
   it('uses local setup advice without calling backend in local mode', async () => {
     let called = false
     const draft = await createSetupAdviceDraftAsync(inputFixture(), {
@@ -140,6 +143,27 @@ describe('setup advice HTTP adapter', () => {
     expect(draft.balanceSummary[0]).toContain('信息量')
     expect(draft.qualityTags[0]).toMatchObject({ candidateId: 'setup-b', label: '高反转' })
     expect(draft.microAdjustments[0]).toMatchObject({ candidateId: 'setup-b', replaceInRoleId: 'dreamer' })
+  })
+
+  it('uses the locally saved API key for a local runtime', async () => {
+    const secret = 'sk-local-setup-key'
+    saveAISettings({
+      ...defaultAISettings,
+      mode: 'openai-compatible',
+      baseUrl: 'https://ai.example.test/v1',
+      model: 'local-model',
+      apiKey: secret,
+    })
+
+    await createSetupAdviceDraftAsync(inputFixture(), {
+      runtimeSettings: { mode: 'local', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (input, init) => {
+        expect(String(input)).toBe('http://127.0.0.1:8787/api/ai/setup-advice')
+        const body = JSON.parse(String(init?.body)) as { clientProvider?: { apiKey?: string; model?: string } }
+        expect(body.clientProvider).toMatchObject({ apiKey: secret, model: 'local-model' })
+        return jsonResponse({ accepted: true, data: { draft: { provider: 'openai-compatible', draftOnly: true } } })
+      },
+    })
   })
 
   it('falls back to local setup advice when backend route fails', async () => {

@@ -241,14 +241,15 @@ npm run dev:backend
 
 ## AI 配置
 
-真实 AI 走后端代理，前端只保存非敏感设置。设置页里的 API Key 只用于一次连通测试，不会保存；要让 AI 在之后的配板、夜间和复盘请求中持续使用，请把 Key 配置到后端 `.env`。不要把 API Key 写入源码或提交到 Git。
+真实 AI 走后端代理。GitHub 下载版默认不带任何 API Key；用户可以在本机设置页填写并保存自己的 Key，Key 只保存在这台设备的浏览器本地存储中，不会进入 GitHub、对局归档或日志。公网 VPS 仍建议把 Key 配置到后端 `.env`。
 
 当前状态：
 
 - 后端已有 OpenAI-compatible provider 配置和一次性 live test 入口。
 - 默认 `BOTC_AI_ENABLED=false`，不调用真实模型。
-- 设置页选择“使用后端配置”时，真实请求读取后端的 `BOTC_AI_BASE_URL`、`BOTC_AI_MODEL` 和 `BOTC_AI_API_KEY`；页面输入不会覆盖后端长期配置。
-- “临时兼容接口测试”只适合验证一个地址和模型是否可通，不代表保存后会长期使用该 Key。
+- 设置页选择“使用后端配置”时，真实请求读取后端的 `BOTC_AI_BASE_URL`、`BOTC_AI_MODEL` 和 `BOTC_AI_API_KEY`。
+- 设置页选择“临时兼容接口测试”并保存后，本机运行版会在后续配板、夜间和复盘请求中继续使用本机保存的地址、模型和 Key；只有 loopback 后端会收到这份本机 Key，公网后端不会收到它。
+- 本机保存的是明文浏览器配置，不适合在共享电脑上使用；需要删除时点击“恢复默认”或清理该站点的本地数据。
 - AI 配板、夜间结算和赛后复盘仍是草稿建议；不会自动改权威状态。
 - 详细启动方式见 `dev-docs/AI_RUNTIME_STARTUP.md`。
 

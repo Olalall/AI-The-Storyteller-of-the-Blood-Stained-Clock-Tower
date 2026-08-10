@@ -63,11 +63,11 @@ test('empty session explains the three steps before the first game', async ({ pa
   await expect(page.getByRole('list', { name: '开局三步' })).toContainText('按夜序逐项确认')
 })
 
-test('AI settings explain backend persistence versus one-off testing', async ({ page }) => {
+test('AI settings explain local persistence versus backend persistence', async ({ page }) => {
   await resetToDashboard(page)
   await page.getByRole('button', { name: '打开AI API设置' }).click()
 
-  await expect(page.getByText('长期 AI 由后端 .env 接管')).toBeVisible()
+  await expect(page.getByText('本机运行时，API KEY 会保存在这台设备的浏览器中')).toBeVisible()
   const mode = page.getByLabel('调用方式')
   await expect(mode.locator('option[value="backend"]')).toHaveCount(1)
   await expect(mode.locator('option[value="openai-compatible"]')).toHaveCount(1)
