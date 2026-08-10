@@ -1,8 +1,8 @@
-import { normalizeRoleId } from '../../../domain/scripts'
-import type { DayActionEntry, GameSessionState, NightActionEntry, NightRunState } from '../types'
+import { normalizeRoleId, roleTeamByIdForScript } from '../../../domain/scripts'
+import type { DayActionEntry, ExecutionEntry, GameSessionState, NightActionEntry, NightRunState, PlayerStateChangedEntry, SetupChangedEntry } from '../types'
 import type { StorytellerRegistrationSnapshot, WakeItem } from '../../night-workbench/types'
 import { projectEffectiveTimelineEntries } from './projectTimelineHistory'
-import { projectCurrentPlayerStates } from './projectors'
+import { projectConfirmedSetup, projectCurrentPlayerStates } from './projectors'
 
 const previousTargetRoleIds = new Set(['exorcist', 'devilsadvocate'])
 const oncePerGameNightRoleIds = new Set(['professor', 'assassin', 'courtier', 'nightwatchman', 'seamstress', 'huntsman', 'engineer'])
@@ -102,6 +102,130 @@ function previousTargets(session: GameSessionState, item: WakeItem, sequence: nu
   return previousNightEntry(session, item, sequence)?.record.snapshot.targets
 }
 
+interface GodfatherTriggerProjection {
+  status: 'ready' | 'clear' | 'missing'
+  seatId?: number
+  summary: string
+}
+
+function roleAtTime(session: GameSessionState, seatId: number, createdAt: string) {
+  const setup = projectConfirmedSetup(session)
+  const assignment = setup?.draft.assignments.find((candidate) => candidate.seatId === seatId)
+  if (!assignment || !setup) return undefined
+
+  let role = { ...assignment.role }
+  const changes = session.timeline
+    .filter((entry): entry is SetupChangedEntry => entry.kind === 'setup_changed'
+      && entry.baseSetupId === setup.id
+      && entry.seatId === seatId
+      && entry.createdAt <= createdAt)
+    .sort((left, right) => left.createdAt.localeCompare(right.createdAt) || left.id.localeCompare(right.id))
+  for (const change of changes) {
+    if (role.id === change.fromRole.id) role = { ...change.toRole }
+  }
+  return role
+}
+
+function previousGodfatherTrigger(session: GameSessionState, sequence: number): GodfatherTriggerProjection {
+  if (sequence <= 1) {
+    return { status: 'clear', summary: '首夜只发送教父得知外来者的信息；没有前一个白天的外来者处决死亡。' }
+  }
+
+  const dayIds = segmentIds(session, 'day', sequence - 1)
+  const dayEntries = projectEffectiveTimelineEntries(session.timeline)
+    .filter((entry) => dayIds.has(entry.segmentId ?? ''))
+  const execution = dayEntries
+    .filter((entry): entry is ExecutionEntry => entry.kind === 'execution')
+    .sort((left, right) => right.createdAt.localeCompare(left.createdAt) || right.id.localeCompare(left.id))[0]
+  if (!execution) {
+    const hasNoExecution = dayEntries.some((entry) => entry.kind === 'no_execution')
+    return hasNoExecution
+      ? { status: 'clear', summary: '上一个白天没有处决；教父本晚没有额外击杀。' }
+      : { status: 'missing', summary: '缺少上一个白天的处决结算记录；先确认是否有外来者被处决并实际死亡。' }
+  }
+  if (execution.executedSeatId === undefined) {
+    return { status: 'missing', summary: '处决记录缺少座位；不能判断教父是否触发。' }
+  }
+  if (execution.causedDeath === false) {
+    return { status: 'clear', seatId: execution.executedSeatId, summary: `上一个白天处决了${execution.executedSeatId}号，但该处决没有造成死亡；教父不触发。` }
+  }
+
+  const role = roleAtTime(session, execution.executedSeatId, execution.createdAt)
+  const team = role ? roleTeamByIdForScript(session.scriptId)[role.id] : undefined
+  if (!role || !team) {
+    return { status: 'missing', seatId: execution.executedSeatId, summary: `上一个白天${execution.executedSeatId}号确实死亡，但当时角色类别未记录；不能判断是否为外来者。` }
+  }
+  if (team !== 'outsider') {
+    return { status: 'clear', seatId: execution.executedSeatId, summary: `上一个白天处决死亡的是${execution.executedSeatId}号${role.name}，不是外来者；教父不触发。` }
+  }
+  return { status: 'ready', seatId: execution.executedSeatId, summary: `上一个白天${execution.executedSeatId}号${role.name}被处决并实际死亡；教父本晚可以额外选择一名玩家。` }
+}
+
+function godfatherContext(session: GameSessionState, item: WakeItem, sequence: number): WakeItem {
+  const projection = previousGodfatherTrigger(session, sequence)
+  const base = {
+    ...item,
+    history: projection.summary,
+    historicalContext: {
+      kind: 'godfather_trigger' as const,
+      status: projection.status,
+      seatIds: projection.seatId ? [projection.seatId] : [],
+      summary: projection.summary,
+    },
+  }
+  if (projection.status === 'ready') {
+    return {
+      ...base,
+      targetCount: 1,
+      minimumTargetCount: 1,
+      targetLabel: '额外击杀目标',
+      targetKind: 'player_choice',
+      outcomeOptions: [{
+        id: 'godfather-kill',
+        label: '记录教父额外击杀',
+        requiredInputs: ['targets'],
+        resultTemplate: '{actor}记录额外击杀{targets}；只生成死亡候选，仍需说书人确认。',
+      }],
+    }
+  }
+  return {
+    ...base,
+    targetCount: 0,
+    minimumTargetCount: 0,
+    targetLabel: undefined,
+    targetKind: undefined,
+    applicability: projection.status === 'missing' ? 'needs_review' : item.applicability,
+    outcomeOptions: [{
+      id: projection.status === 'clear' ? 'godfather-no-kill' : 'godfather-manual-review',
+      label: projection.status === 'clear' ? '本晚不触发额外击杀' : '教父触发条件待核对',
+      requiredInputs: [],
+      resultTemplate: projection.summary,
+    }],
+    aiAdviceEnabled: projection.status !== 'missing',
+  }
+}
+
+function fangguContext(session: GameSessionState, item: WakeItem, sequence: number): WakeItem {
+  const converted = priorRoleEntries(session, item, sequence)
+    .find((entry) => entry.record.snapshot.outcomeId === 'convert')
+  const summary = converted
+    ? `本局已记录方古成功转化${seatsLabel(converted.record.snapshot.targets)}；之后外来者只按普通击杀处理，不再生成转化建议。`
+    : '本局尚未找到方古成功转化记录；只有本次确实杀死外来者时，才可能触发首次转化。'
+  return {
+    ...item,
+    history: item.history ? `${item.history} ${summary}` : summary,
+    historicalContext: {
+      kind: 'fanggu_conversion',
+      status: converted ? 'ready' : 'clear',
+      seatIds: converted ? [...converted.record.snapshot.targets] : [],
+      summary,
+    },
+    outcomeOptions: converted
+      ? item.outcomeOptions.filter((option) => option.id !== 'convert')
+      : item.outcomeOptions,
+  }
+}
+
 interface MoonchildChoiceProjection {
   status: 'ready' | 'clear' | 'missing'
   seatId?: number
@@ -176,8 +300,12 @@ function registrationLabel(value: StorytellerRegistrationSnapshot['value']) {
   return ({ townsfolk: '镇民', outsider: '外来者', minion: '爪牙', demon: '恶魔', good: '善良', evil: '邪恶' })[value]
 }
 
-function moonchildOutcomes(projection: MoonchildChoiceProjection) {
+function moonchildOutcomes(projection: MoonchildChoiceProjection, actorImpaired: boolean) {
   const registration = projection.registration
+  if (projection.status === 'ready' && actorImpaired) return [{
+    id: 'no-death-candidate', label: '本夜不产生死亡候选', requiredInputs: [],
+    resultTemplate: `月之子白天选择的${registration?.seatId ?? '目标'}号在选择时登记为善良，但月之子本夜醉酒或中毒；本夜不产生死亡候选。`,
+  }]
   if (projection.status === 'ready' && registration?.kind === 'alignment' && registration.value === 'good') return [{
     id: 'death-candidate', label: `${registration.seatId}号死亡候选`, requiredInputs: [],
     resultTemplate: `月之子白天选择的${registration.seatId}号在选择时登记为善良；仅记录死亡候选，仍需说书人另行确认状态。`,
@@ -231,20 +359,80 @@ function balloonistContext(session: GameSessionState, item: WakeItem, sequence: 
 
 function moonchildContext(session: GameSessionState, item: WakeItem, sequence: number): WakeItem {
   const projection = previousMoonchildChoice(session, item, sequence - 1)
+  const actorImpaired = item.status.impairments.includes('poisoned') || item.status.impairments.includes('drunk')
+  const effectiveProjection = projection.status === 'ready' && actorImpaired
+    ? { ...projection, status: 'clear' as const, summary: `${projection.summary} 月之子本夜醉酒或中毒，本夜不产生死亡候选。` }
+    : projection
   return {
     ...item,
     targetCount: 0,
     targetLabel: undefined,
     targetKind: undefined,
     previousRegistration: projection.registration?.kind === 'alignment' ? projection.registration : undefined,
-    history: projection.summary,
+    history: effectiveProjection.summary,
     historicalContext: {
       kind: 'moonchild_choice',
+      status: effectiveProjection.status,
+      seatIds: effectiveProjection.seatId ? [effectiveProjection.seatId] : [],
+      summary: effectiveProjection.summary,
+    },
+    outcomeOptions: moonchildOutcomes(projection, actorImpaired),
+  }
+}
+
+interface ZombuulDayProjection {
+  status: 'ready' | 'clear' | 'missing'
+  summary: string
+}
+
+function previousZombuulDay(session: GameSessionState, sequence: number): ZombuulDayProjection {
+  const dayEntries = projectEffectiveTimelineEntries(session.timeline)
+    .filter((entry) => segmentIds(session, 'day', sequence - 1).has(entry.segmentId ?? ''))
+  if (!dayEntries.length) return { status: 'missing', summary: '缺少上一个白天的结算记录；不能判断僵怖本夜是否应当行动。' }
+
+  const causedDeath = dayEntries.some((entry) => (
+    entry.kind === 'execution' && (entry.causedDeath ?? true)
+  )) || dayEntries.some((entry): entry is PlayerStateChangedEntry => (
+    entry.kind === 'player_state_changed' && entry.before.life !== 'dead' && entry.after.life === 'dead'
+  ))
+  if (causedDeath) return { status: 'clear', summary: '上一个白天已有玩家实际死亡；僵怖本夜不唤醒。' }
+
+  if (dayEntries.some((entry) => entry.kind === 'day_action' || entry.kind === 'vote_round')) {
+    return { status: 'missing', summary: '上一个白天有技能或公开事件记录，但未能确认是否有人死亡；僵怖本夜先人工核对。' }
+  }
+  if (dayEntries.some((entry) => entry.kind === 'execution' || entry.kind === 'no_execution')) {
+    return { status: 'ready', summary: '上一个白天没有实际死亡；僵怖本夜可以选择一名玩家。' }
+  }
+  return { status: 'missing', summary: '上一个白天的死亡结算不完整；僵怖本夜先人工核对。' }
+}
+
+function zombuulContext(session: GameSessionState, item: WakeItem, sequence: number): WakeItem {
+  const projection = previousZombuulDay(session, sequence)
+  const base = {
+    ...item,
+    history: projection.summary,
+    historicalContext: {
+      kind: 'zombuul_day_death' as const,
       status: projection.status,
-      seatIds: projection.seatId ? [projection.seatId] : [],
+      seatIds: [],
       summary: projection.summary,
     },
-    outcomeOptions: moonchildOutcomes(projection),
+  }
+  if (projection.status === 'ready') return base
+  return {
+    ...base,
+    applicability: projection.status === 'clear' ? 'not_applicable' : 'needs_review',
+    targetCount: 0,
+    minimumTargetCount: 0,
+    targetLabel: undefined,
+    targetKind: undefined,
+    aiAdviceEnabled: false,
+    outcomeOptions: [{
+      id: projection.status === 'clear' ? 'zombuul-no-action' : 'zombuul-manual-review',
+      label: projection.status === 'clear' ? '本夜不唤醒僵怖' : '僵怖行动条件待核对',
+      requiredInputs: [],
+      resultTemplate: projection.summary,
+    }],
   }
 }
 
@@ -493,7 +681,10 @@ export function applyWakeHistoricalContext(
 ): WakeItem {
   const roleId = normalizeRoleId(item.roleId)
   if (roleId === 'balloonist') return balloonistContext(session, item, sequence)
+  if (roleId === 'godfather') return godfatherContext(session, item, sequence)
+  if (roleId === 'fanggu') return fangguContext(session, item, sequence)
   if (roleId === 'moonchild') return moonchildContext(session, item, sequence)
+  if (roleId === 'zombuul') return zombuulContext(session, item, sequence)
   if (roleId === 'pukka') return pukkaContext(session, item, sequence)
   if (roleId === 'shabaloth') return shabalothContext(session, item, sequence)
   if (roleId === 'yanluo') return yanluoContext(session, item, sequence)

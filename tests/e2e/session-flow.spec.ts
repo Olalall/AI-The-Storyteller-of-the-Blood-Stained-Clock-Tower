@@ -52,6 +52,30 @@ async function dragThirdSeatToFourth(page: import('@playwright/test').Page) {
   await expect(seatButtons.nth(3)).toContainText(before[0].role)
 }
 
+test('empty session explains the three steps before the first game', async ({ page }) => {
+  await page.goto('/')
+  await page.evaluate(() => window.localStorage.clear())
+  await page.reload()
+
+  await expect(page.getByRole('main', { name: '开始新对局' })).toBeVisible()
+  await expect(page.getByRole('list', { name: '开局三步' })).toContainText('选择板子和人数')
+  await expect(page.getByRole('list', { name: '开局三步' })).toContainText('确认配板并发身份')
+  await expect(page.getByRole('list', { name: '开局三步' })).toContainText('按夜序逐项确认')
+})
+
+test('AI settings explain backend persistence versus one-off testing', async ({ page }) => {
+  await resetToDashboard(page)
+  await page.getByRole('button', { name: '打开AI API设置' }).click()
+
+  await expect(page.getByText('长期 AI 由后端 .env 接管')).toBeVisible()
+  const mode = page.getByLabel('调用方式')
+  await expect(mode.locator('option[value="backend"]')).toHaveCount(1)
+  await expect(mode.locator('option[value="openai-compatible"]')).toHaveCount(1)
+  await mode.selectOption('backend')
+  await expect(page.getByLabel('接入地址')).toBeDisabled()
+  await expect(page.getByLabel('模型名字')).toBeDisabled()
+})
+
 test('dashboard keeps day and night as peer entries and only records day facts after counting', async ({ page }) => {
   await resetToDashboard(page)
 

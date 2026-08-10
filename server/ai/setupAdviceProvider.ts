@@ -80,7 +80,7 @@ function normalizeMicroAdjustments(value: unknown, input: SetupAdviceProviderReq
     const outRole = candidate?.roles.find((role) => role.roleId === replaceOutRoleId)
     const inRole = rolePoolById.get(replaceInRoleId)
     if (!candidate || !outRole || !inRole || replaceOutRoleId === replaceInRoleId) return []
-    if (inRole.team === 'traveler' || inRole.team === 'fabled') return []
+    if (inRole.team === 'traveler' || inRole.team === 'fabled' || inRole.team === 'loric') return []
     return [{
       candidateId,
       candidateTitle: candidate.title,

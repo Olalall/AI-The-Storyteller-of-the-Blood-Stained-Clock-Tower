@@ -6,7 +6,9 @@ export type PlayerCount = 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15
 
 export type KnowledgeStatus = 'confirmed' | 'needs-review' | 'missing'
 
-export type RoleTeam = 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'traveler' | 'fabled'
+export type RoleSourceKind = 'official-catalog' | 'community-or-custom'
+
+export type RoleTeam = 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'traveler' | 'fabled' | 'loric'
 
 export type SetupCountedTeam = 'townsfolk' | 'outsider' | 'minion' | 'demon'
 
@@ -31,6 +33,7 @@ export interface SmartRoleDefinition {
   iconPath?: string
   inputKinds: readonly AbilityInputKind[]
   knowledgeStatus: KnowledgeStatus
+  sourceKind?: RoleSourceKind
   research?: RoleResearchMetadata
 }
 
@@ -52,6 +55,7 @@ export interface AIRoleResearchBrief {
   name: string
   officialName?: string
   knowledgeStatus: KnowledgeStatus
+  sourceKind?: RoleSourceKind
   inputKinds: readonly AbilityInputKind[]
   setupImpact: readonly string[]
   possibleOutcomes: readonly string[]
