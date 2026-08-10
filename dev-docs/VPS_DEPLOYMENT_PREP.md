@@ -2,7 +2,7 @@
 
 Status: Deployed on Tencent Lighthouse. Public assistant URL: http://your-vps-host:3000/. Old V2.5 remains on http://your-vps-host/.
 
-> 安全说明：VPS 的真实公网地址只在部署者私下保存和分享，不写入仓库；这里的 `your-vps-host` 只是占位符。
+> 安全说明：VPS 的真实公网地址只在部署者私下保存和分享，不写入仓库；这里的 `your-vps-host` 只是占位符。源码默认只绑定本机，公网 VPS 需要显式使用 `-AllowPublicBind`。
 
 ## 目标
 
