@@ -176,7 +176,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/sync-to-vps.ps1 
 ```powershell
 cd C:\botc-storyteller-companion
 npm ci --omit=dev --no-fund
-$env:BOTC_BACKEND_HOST='0.0.0.0'
+$env:BOTC_BACKEND_HOST='127.0.0.1'
 $env:BOTC_BACKEND_PORT='3000'
 $env:BOTC_STATIC_DIR='dist'
 $env:BOTC_ARCHIVE_DATA_FILE='data\archives\archives.json'
@@ -187,8 +187,9 @@ node dist-server\runtime.mjs
 
 ```powershell
 curl.exe http://127.0.0.1:3000/healthz
-curl.exe http://<VPS_IP>:3000/healthz
 ```
+
+公网访问应由同机的带认证反向代理转发到 `127.0.0.1:3000`。不要直接把 `/api/archives`、`/api/recovery` 或 AI 接口暴露给公网；只有已经完成防火墙和反向代理保护时，才显式使用启动脚本的 `-AllowPublicBind`。
 
 期望返回包含：
 
@@ -223,7 +224,7 @@ Linux：当前只记录建议，用 systemd 托管 `node dist-server/runtime.mjs
 
 共同要求：
 
-- 保持 `BOTC_BACKEND_HOST=0.0.0.0`，否则公网无法访问。
+- 默认保持 `BOTC_BACKEND_HOST=127.0.0.1`，由反向代理负责公网入口；不要为了“能访问”直接把 runtime 绑定到 `0.0.0.0`。
 - 把日志写到部署目录下的 `logs/`，不要写到仓库源码目录。
 - 把 AI Key 写进服务环境变量或服务器 secret，不写进启动脚本模板。
 
@@ -322,7 +323,7 @@ http://<VPS_IP>:3000/
 
 | 现象 | 先查什么 | 常见原因 |
 | --- | --- | --- |
-| 页面打不开 | `curl /healthz`、端口监听、防火墙 | 服务没启动、端口未开放、host 不是 `0.0.0.0` |
+| 页面打不开 | `curl /healthz`、端口监听、反向代理 | 服务没启动、代理未转发、后端地址或端口不一致 |
 | 重启后服务没起来 | `Get-ScheduledTask botc-storyteller-backend`、`logs/runtime.log` | 计划任务没注册、Node 路径不对、runtime 文件缺失 |
 | 前端打开但归档失败 | 后端地址设置、`/api/archives` 响应 | 前端仍指向本地、后端没启动、CORS/反代错误 |
 | AI 显示不可用 | `/api/settings/ai`、环境变量 | `BOTC_AI_ENABLED=false` 或缺 Key/model/baseUrl |

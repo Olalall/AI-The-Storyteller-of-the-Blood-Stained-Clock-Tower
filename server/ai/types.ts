@@ -182,6 +182,7 @@ export interface RoleResearchProviderBrief {
   roleId: string
   name: string
   officialName?: string
+  sourceKind?: 'official-catalog' | 'community-or-custom'
   knowledgeStatus: string
   inputKinds: readonly string[]
   setupImpact: readonly string[]
@@ -241,7 +242,7 @@ export interface NightSettlementProviderRequest {
     forbiddenTargetSeatIds?: readonly number[]
     previousTargetRequired?: boolean
     historicalContext?: {
-      kind: 'balloonist_role_type' | 'moonchild_choice' | 'once_per_game_use' | 'pukka_poison' | 'shabaloth_regurgitation' | 'yanluo_delayed_death' | 'po_charge'
+      kind: 'balloonist_role_type' | 'fanggu_conversion' | 'godfather_trigger' | 'moonchild_choice' | 'once_per_game_use' | 'pukka_poison' | 'shabaloth_regurgitation' | 'yanluo_delayed_death' | 'po_charge' | 'zombuul_day_death'
       status: 'ready' | 'clear' | 'missing'
       seatIds: readonly number[]
       summary: string
