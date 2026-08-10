@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { SetupPrototypeCandidate } from '../../features/setup'
+import { defaultAISettings, saveAISettings } from '../settings'
 import { createSetupAdviceDraftAsync, type CreateSetupAdviceDraftAsyncInput } from './setupAdviceHttp'
 
 function candidates(): SetupPrototypeCandidate[] {
@@ -65,6 +66,8 @@ function jsonResponse(body: unknown, status = 200) {
 }
 
 describe('setup advice HTTP adapter', () => {
+  beforeEach(() => window.localStorage.clear())
+
   it('uses local setup advice without calling backend in local mode', async () => {
     let called = false
     const draft = await createSetupAdviceDraftAsync(inputFixture(), {
@@ -138,6 +141,44 @@ describe('setup advice HTTP adapter', () => {
     expect(draft.balanceSummary[0]).toContain('信息量')
     expect(draft.qualityTags[0]).toMatchObject({ candidateId: 'setup-b', label: '高反转' })
     expect(draft.microAdjustments[0]).toMatchObject({ candidateId: 'setup-b', replaceInRoleId: 'dreamer' })
+  })
+
+  it('sends saved compatible-provider settings to a safe backend for later AI requests', async () => {
+    saveAISettings({
+      ...defaultAISettings,
+      mode: 'openai-compatible',
+      baseUrl: 'https://ai.example.test/v1',
+      model: 'saved-model',
+      apiKey: 'test-key-persisted-locally',
+    })
+
+    await createSetupAdviceDraftAsync(inputFixture(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const body = JSON.parse(String(init?.body)) as Record<string, unknown>
+        expect(body.providerSettings).toEqual({
+          provider: 'openai-compatible',
+          baseUrl: 'https://ai.example.test/v1',
+          model: 'saved-model',
+          apiKey: 'test-key-persisted-locally',
+          timeoutSeconds: 30,
+        })
+        return jsonResponse({ accepted: true, data: { draft: { provider: 'openai-compatible' } } })
+      },
+    })
+  })
+
+  it('does not send a saved key to an insecure backend URL', async () => {
+    saveAISettings({ ...defaultAISettings, mode: 'openai-compatible', apiKey: 'test-key-persisted-locally' })
+
+    await createSetupAdviceDraftAsync(inputFixture(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://example.test:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const body = JSON.parse(String(init?.body)) as Record<string, unknown>
+        expect(body.providerSettings).toBeUndefined()
+        return jsonResponse({ accepted: true, data: { draft: { provider: 'fake' } } })
+      },
+    })
   })
 
   it('falls back to local setup advice when backend route fails', async () => {

@@ -3,6 +3,8 @@ import { readFile, stat } from 'node:fs/promises'
 import path from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { createAIProxyHandlers, createAIProxyRoutes } from './ai'
+import { createOpenAICompatibleReviewDraftProvider } from './ai/reviewDraftProvider'
+import { isAIProviderConfigured, readAIProviderPrivateSettings } from './ai/aiProviderSettings'
 import { createArchiveHandlers } from './archive/handlers'
 import { createArchiveHttpRoutes } from './archive/httpArchiveRoutes'
 import { JsonArchiveRepository } from './archive/jsonArchiveRepository'
@@ -118,7 +120,31 @@ async function serveStatic(request: Request, staticDir: string) {
 
 export function createArchiveRuntime(options: ArchiveRuntimeOptions = {}) {
   const repository = new JsonArchiveRepository(options.dataFile ?? defaultDataFile())
-  const archiveRoute = createArchiveHttpRoutes(createArchiveHandlers(repository))
+  const privateAISettings = readAIProviderPrivateSettings()
+  const reviewProviderForSettings = (settings: { baseUrl: string; model: string; apiKey: string; timeoutSeconds: number }) => (
+    createOpenAICompatibleReviewDraftProvider({
+      baseUrl: settings.baseUrl,
+      model: settings.model,
+      apiKey: settings.apiKey,
+      timeoutSeconds: settings.timeoutSeconds,
+    })
+  )
+  const archiveRoute = createArchiveHttpRoutes(createArchiveHandlers(repository, {
+    reviewDraftProvider: isAIProviderConfigured(privateAISettings)
+      ? reviewProviderForSettings({
+          baseUrl: privateAISettings.baseUrl ?? '',
+          model: privateAISettings.model ?? '',
+          apiKey: privateAISettings.apiKey ?? '',
+          timeoutSeconds: privateAISettings.timeoutSeconds,
+        })
+      : undefined,
+    reviewDraftProviderForRequest: (settings) => reviewProviderForSettings({
+      baseUrl: settings.baseUrl,
+      model: settings.model,
+      apiKey: settings.apiKey,
+      timeoutSeconds: settings.timeoutSeconds ?? privateAISettings.timeoutSeconds,
+    }),
+  }))
   const recoveryRoute = createRecoveryHttpRoutes(createRecoveryHandlers(
     new JsonRecoveryRepository(options.recoveryDataFile ?? defaultRecoveryDataFile()),
   ))

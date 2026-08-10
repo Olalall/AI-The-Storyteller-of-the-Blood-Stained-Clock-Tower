@@ -6,6 +6,7 @@ import {
 import type { SetupPrototypeCandidate } from '../../features/setup'
 import { roleKnowledgeForAI } from '../../domain/role-knowledge'
 import { getSmartScriptPack, roleResearchForAI } from '../../domain/scripts'
+import { savedAIProviderSettingsFor } from './savedAIProviderSettings'
 import type { AIConfidence, AIContextSeat, AIProviderKind, SetupAdviceRuntimeDraft, SetupBalanceMicroAdjustment, SetupQualityTag } from './types'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
@@ -207,12 +208,13 @@ function setupRoleKnowledgeWarnings(input: CreateSetupAdviceDraftAsyncInput) {
   return [...warnings].slice(0, 5)
 }
 
-function requestBody(input: CreateSetupAdviceDraftAsyncInput) {
+function requestBody(input: CreateSetupAdviceDraftAsyncInput, runtimeSettings: ArchiveRuntimeSettings) {
   return {
     scriptId: input.scriptId,
     scriptName: input.scriptName,
     knowledgeVersion: input.knowledgeVersion,
     playerCount: input.playerCount,
+    providerSettings: savedAIProviderSettingsFor(runtimeSettings),
     seats: input.seats,
     rolePool: rolePoolForScript(input.scriptId),
     candidates: input.candidates.map((candidate) => ({
@@ -276,7 +278,7 @@ export async function createSetupAdviceDraftAsync(
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody(input)),
+        body: JSON.stringify(requestBody(input, runtimeSettings)),
       },
     )
     const body = await response.json() as SetupAdviceBackendResponse
