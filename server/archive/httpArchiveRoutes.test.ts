@@ -182,6 +182,60 @@ describe('archive HTTP routes', () => {
     expect((body.warnings as string[])).toContain('draft_only')
   })
 
+  it('passes a saved frontend provider override to later review requests', async () => {
+    const repository = new JsonArchiveRepository(path.join(tempDir, 'provider-override-archives.json'))
+    let receivedKey = ''
+    const provider: ReviewDraftProvider = {
+      async generateReviewDraft(archive) {
+        return {
+          draft: {
+            archiveId: archive.id,
+            generatedAt: '2026-07-19T00:00:00.000Z',
+            provider: 'openai-compatible',
+            confidence: 'medium',
+            disclaimer: 'AI 复盘草稿，仅供说书人参考。',
+            gameEvaluation: { summary: 'override review', highlights: [], risks: [] },
+            fullReview: { summary: 'override full review', turningPoints: [], suggestedReplayOrder: [] },
+            playerReviews: [],
+          },
+          warnings: ['provider_review_draft', 'draft_only'],
+        }
+      },
+    }
+    const route = createArchiveHttpRoutes(createArchiveHandlers(repository, {
+      reviewDraftProviderForRequest: (settings) => {
+        receivedKey = settings.apiKey
+        return provider
+      },
+    }))
+    const data = fixture('route-provider-override')
+    const savedBody = await jsonBody(await route(request(`/api/games/${data.session.id}/archive`, {
+      method: 'POST',
+      body: JSON.stringify({ commandId: data.commandId, payload: { archive: data.archive } }),
+    })))
+    const savedArchive = (savedBody.data as { archive: { id: string } }).archive
+
+    const response = await route(request(`/api/archives/${savedArchive.id}/review-draft`, {
+      method: 'POST',
+      body: JSON.stringify({
+        reviewStyle: 'sharp',
+        providerSettings: {
+          provider: 'openai-compatible',
+          baseUrl: 'https://ai.example.test/v1',
+          model: 'saved-review-model',
+          apiKey: 'test-key-persisted-locally',
+          timeoutSeconds: 5,
+        },
+      }),
+    }))
+    const text = await response.text()
+
+    expect(response.status).toBe(200)
+    expect(receivedKey).toBe('test-key-persisted-locally')
+    expect(text).not.toContain('test-key-persisted-locally')
+    expect((JSON.parse(text).data.draft as AIReviewDraft).provider).toBe('openai-compatible')
+  })
+
   it('falls back to a fake review draft when the injected provider fails', async () => {
     const repository = new JsonArchiveRepository(path.join(tempDir, 'provider-fallback-archives.json'))
     const provider: ReviewDraftProvider = {

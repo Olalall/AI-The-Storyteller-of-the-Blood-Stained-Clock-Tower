@@ -282,6 +282,44 @@ describe('AI proxy routes', () => {
     expect(draft.recommendedCandidateIds).toEqual(['setup-b'])
   })
 
+  it('uses saved frontend provider settings even when backend env AI is disabled', async () => {
+    const fetcher: FetchLike = async (_input, init) => {
+      const headers = init?.headers as Record<string, string>
+      expect(String(init?.body)).not.toContain(secret)
+      expect(headers.Authorization).toBe(`Bearer ${secret}`)
+      return new Response(JSON.stringify({
+        choices: [{ message: { content: JSON.stringify({
+          confidence: 'high',
+          recommendedCandidateIds: ['setup-a'],
+          disclaimer: 'AI 只给草稿。',
+        }) } }],
+      }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    }
+    const route = createAIProxyRoutes(createAIProxyHandlers({ env: {}, fetcher }))
+    const body = {
+      ...setupAdviceBody(),
+      providerSettings: {
+        provider: 'openai-compatible',
+        baseUrl: 'https://ai.example.test/v1',
+        model: 'saved-model',
+        apiKey: secret,
+        timeoutSeconds: 5,
+      },
+    }
+
+    const response = await route(request('/api/ai/setup-advice', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }))
+    const text = await response.text()
+    const payload = JSON.parse(text) as { data: { draft: { provider: string } } }
+
+    expect(response.status).toBe(200)
+    expect(text).not.toContain(secret)
+    expect(payload.data.draft.provider).toBe('openai-compatible')
+  })
+
   it('rejects malformed setup advice requests before provider calls', async () => {
     let called = false
     const route = createAIProxyRoutes(createAIProxyHandlers({
@@ -371,6 +409,48 @@ describe('AI proxy routes', () => {
     expect(draft.provider).toBe('openai-compatible')
     expect(draft.recommendedOutcomeId).toBe('wrong')
     expect(draft.disclaimer).toContain('草稿')
+  })
+
+  it('uses saved frontend provider settings for later night requests', async () => {
+    const fetcher: FetchLike = async (_input, init) => {
+      const headers = init?.headers as Record<string, string>
+      expect(String(init?.body)).not.toContain(secret)
+      expect(headers.Authorization).toBe(`Bearer ${secret}`)
+      return new Response(JSON.stringify({
+        choices: [{ message: { content: JSON.stringify({
+          status: 'answer',
+          confidence: 'medium',
+          recommendedOutcomeId: 'correct',
+          summary: '已生成夜间结果草稿。',
+          ruleFacts: ['先由说书人确认。'],
+          missing: [],
+          disclaimer: 'AI 只给草稿。',
+        }) } }],
+      }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    }
+    const route = createAIProxyRoutes(createAIProxyHandlers({ env: {}, fetcher }))
+    const body = {
+      ...nightSettlementBody(),
+      providerSettings: {
+        provider: 'openai-compatible',
+        baseUrl: 'https://ai.example.test/v1',
+        model: 'saved-night-model',
+        apiKey: secret,
+        timeoutSeconds: 5,
+      },
+    }
+
+    const response = await route(request('/api/ai/night-settlement-advice', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }))
+    const text = await response.text()
+    const payload = JSON.parse(text) as { data: { draft: { provider: string } } }
+
+    expect(response.status).toBe(200)
+    expect(text).not.toContain(secret)
+    expect(payload.data.draft.provider).toBe('openai-compatible')
   })
 
   it('rejects malformed night settlement requests before provider calls', async () => {

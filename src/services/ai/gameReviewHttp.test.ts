@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPrototypeGameSession } from '../../features/game-session/data/createPrototypeSession'
 import { createGameArchiveRecord } from '../archive'
+import { defaultAISettings, saveAISettings } from '../settings'
 import { createGameReviewDraftAsync } from './gameReviewHttp'
 
 function archiveFixture() {
@@ -77,6 +78,30 @@ describe('game review HTTP adapter', () => {
     expect(draft.playerScores[0]).toMatchObject({ seatId: 1, score: 82 })
     expect(draft.playerScores[0].keyEvents).toEqual(['日志出现多次'])
     expect(draft.fullReview.turningPoints).toEqual(['第1夜：关键行动'])
+  })
+
+  it('sends saved compatible-provider settings when generating a later review', async () => {
+    saveAISettings({
+      ...defaultAISettings,
+      mode: 'openai-compatible',
+      baseUrl: 'https://ai.example.test/v1',
+      model: 'saved-review-model',
+      apiKey: 'test-key-persisted-locally',
+    })
+
+    await createGameReviewDraftAsync(archiveFixture(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const body = JSON.parse(String(init?.body)) as Record<string, unknown>
+        expect(body.providerSettings).toMatchObject({
+          provider: 'openai-compatible',
+          baseUrl: 'https://ai.example.test/v1',
+          model: 'saved-review-model',
+          apiKey: 'test-key-persisted-locally',
+        })
+        return jsonResponse({ accepted: true, data: { draft: {} } })
+      },
+    })
   })
 
   it('falls back to local drafts when the backend review route fails', async () => {

@@ -8,6 +8,7 @@ import type {
   AISettingsLiveTestResult,
   AISettingsTestResult,
   NightSettlementAdviceDraft,
+  AIProviderOverrideRequest,
   NightSettlementProviderRequest,
   SetupAdviceDraft,
   SetupAdviceProviderRequest,
@@ -25,6 +26,21 @@ function logAIProviderFailure(env: NodeJS.ProcessEnv, scope: string, error: unkn
     return
   }
   console.warn(`[botc-ai] ${scope} failed`)
+}
+
+function effectiveSettings(privateSettings: ReturnType<typeof readAIProviderPrivateSettings>, override?: AIProviderOverrideRequest) {
+  if (!override) return privateSettings
+  return {
+    ...privateSettings,
+    mode: 'backend_proxy' as const,
+    provider: 'openai-compatible' as const,
+    enabled: true,
+    baseUrl: override.baseUrl.trim(),
+    model: override.model.trim(),
+    apiKey: override.apiKey.trim(),
+    timeoutSeconds: override.timeoutSeconds ?? privateSettings.timeoutSeconds,
+    apiKeyConfigured: true,
+  }
 }
 
 export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
@@ -105,7 +121,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
     },
 
     async generateSetupAdvice(input: SetupAdviceProviderRequest): Promise<SetupAdviceDraft> {
-      const settings = readAIProviderPrivateSettings(env)
+      const settings = effectiveSettings(readAIProviderPrivateSettings(env), input.providerSettings)
       if (!settings.enabled) {
         return fallbackSetupAdviceDraft(input, 'AI 未启用，已使用本地模板顺序。')
       }
@@ -121,7 +137,8 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
           timeoutSeconds: settings.timeoutSeconds,
           fetcher: options.fetcher,
         })
-        return (await provider.generateSetupAdvice(input)).draft
+        const { providerSettings: _providerSettings, ...providerInput } = input
+        return (await provider.generateSetupAdvice(providerInput)).draft
       } catch (error) {
         logAIProviderFailure(env, 'setup-advice', error)
         const code = error instanceof AIProviderError ? error.code : 'AI_PROVIDER_UNAVAILABLE'
@@ -130,7 +147,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
     },
 
     async generateNightSettlementAdvice(input: NightSettlementProviderRequest): Promise<NightSettlementAdviceDraft> {
-      const settings = readAIProviderPrivateSettings(env)
+      const settings = effectiveSettings(readAIProviderPrivateSettings(env), input.providerSettings)
       if (!settings.enabled) {
         return fallbackNightSettlementAdviceDraft(input, 'AI 未启用，已使用本地结果候选。')
       }
@@ -146,7 +163,8 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
           timeoutSeconds: settings.timeoutSeconds,
           fetcher: options.fetcher,
         })
-        return (await provider.generateNightSettlementAdvice(input)).draft
+        const { providerSettings: _providerSettings, ...providerInput } = input
+        return (await provider.generateNightSettlementAdvice(providerInput)).draft
       } catch (error) {
         logAIProviderFailure(env, 'night-settlement-advice', error)
         return fallbackNightSettlementAdviceDraft(input, 'AI 夜间建议失败，已使用本地结果候选。')

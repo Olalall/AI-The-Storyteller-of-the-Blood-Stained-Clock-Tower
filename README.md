@@ -229,7 +229,7 @@ npm run dev:backend
 
 ## AI 配置
 
-真实 AI 走后端代理，前端只保存非敏感设置。不要把 API Key 写入源码或提交到 Git。
+真实 AI 走后端代理。兼容接口模式下，前端可将 API Key 保存到当前浏览器本地，供后续请求使用；它不会写入源码、GitHub、归档或响应。共享设备/VPS 推荐仍由后端环境变量管理 Key。
 
 当前状态：
 
@@ -256,7 +256,7 @@ $env:BOTC_AI_API_KEY='your-local-secret'
 - `dev-docs/VPS_DEPLOYMENT_PREP.md`：当前自用 VPS 与旧 V2.5 的目录、端口和共存边界。
 - `dev-docs/AI_RUNTIME_STARTUP.md`：真实 AI provider 的环境变量和连通测试。
 
-关键边界：API Key 只放后端环境变量；归档数据默认是 JSON 文件；AI 不可用时，手动主持流程仍必须可用。
+关键边界：API Key 不进源码、GitHub、归档或响应；可按场景保存在当前浏览器或后端环境变量；归档数据默认是 JSON 文件；AI 不可用时，手动主持流程仍必须可用。
 
 ## 验证
 

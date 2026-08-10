@@ -12,6 +12,7 @@ import { roleResearchForAI } from '../../domain/scripts'
 import { nightContextLevel, unknownSeatIds } from './aiContextLevel'
 import { normalizeStateChangeDrafts } from './aiStateChangeDraft'
 import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
+import { savedAIProviderSettingsFor } from './savedAIProviderSettings'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
 
@@ -90,7 +91,7 @@ function seatIdsInRequest({ state, item, draft }: CreateNightResultAdviceInput) 
   return seats
 }
 
-function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
+function requestBody({ state, item, draft }: CreateNightResultAdviceInput, runtimeSettings: ArchiveRuntimeSettings) {
   const selectedTargets = selectedNightTargetsForAI(state, draft)
 
   return {
@@ -99,6 +100,7 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
     nightRunId: state.nightRunId,
     phaseLabel: state.nightLabel,
     playerCount: state.playerCount,
+    providerSettings: savedAIProviderSettingsFor(runtimeSettings),
     // 这两个字段才是 contextLevel「真正接通」的那根线：只在 build 函数里推导出来
     // 而不发上去，单测会从 minimal 变成 standard，线上一个字节都不会变。
     contextLevel: nightContextLevel(state),
@@ -218,7 +220,7 @@ export async function createNightResultAdviceAsync(
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody(input)),
+        body: JSON.stringify(requestBody(input, runtimeSettings)),
       },
     )
     const body = await response.json() as BackendNightSettlementResponse
