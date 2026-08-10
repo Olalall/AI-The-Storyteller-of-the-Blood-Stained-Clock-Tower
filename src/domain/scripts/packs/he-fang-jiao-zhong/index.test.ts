@@ -14,6 +14,7 @@ describe('heFangJiaoZhongSmartScriptPack', () => {
   })
 
   it('keeps fabled roles out of setup templates and bluffs', () => {
+    expect(heFangJiaoZhongSmartScriptPack.roles.find((role) => role.id === 'stormcatcher')?.team).toBe('loric')
     for (const template of heFangJiaoZhongSmartScriptPack.setupTemplates) {
       expect(template.roles, template.templateId).not.toContain('stormcatcher')
       expect(template.bluffs, template.templateId).not.toContain('stormcatcher')

@@ -138,7 +138,7 @@ function validDraftRegistration(value: unknown, wakeItem: Record<string, unknown
 function validHistoricalContext(value: unknown, playerCount: number) {
   if (value === undefined) return true
   return isRecord(value)
-    && ['balloonist_role_type', 'moonchild_choice', 'once_per_game_use', 'pukka_poison', 'shabaloth_regurgitation', 'yanluo_delayed_death', 'po_charge'].includes(String(value.kind))
+    && ['balloonist_role_type', 'fanggu_conversion', 'godfather_trigger', 'moonchild_choice', 'once_per_game_use', 'pukka_poison', 'shabaloth_regurgitation', 'yanluo_delayed_death', 'po_charge', 'zombuul_day_death'].includes(String(value.kind))
     && ['ready', 'clear', 'missing'].includes(String(value.status))
     && Array.isArray(value.seatIds)
     && value.seatIds.every((seatId) => Number.isInteger(seatId) && seatId >= 1 && seatId <= playerCount)

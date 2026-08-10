@@ -27,7 +27,7 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
     ability: '每晚选择除你以外的一名玩家作为主人；明天白天，只有主人投票时你才能投票。',
     prompt: '流放表决不受主人限制，管家可自由参与表决。',
   },
-  drunk: { ability: '你以为自己是某个镇民，但其实是酒鬼，技能不会生效。' },
+  drunk: { ability: '你不知道自己是酒鬼；你以为自己是某个镇民，但其实不是。' },
   recluse: { ability: '你可能被登记为邪恶和爪牙或恶魔，即使死亡也可能如此。' },
   saint: { ability: '若你死于处决，你的阵营落败。' },
   poisoner: { ability: '每晚选择一名玩家，该玩家今晚和明天白天中毒。' },
@@ -45,17 +45,21 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
   sailor: { ability: '每晚选择一名存活玩家；你和目标之一醉酒到黄昏。你不会死亡。' },
   chambermaid: { ability: '每晚选择除自己外两名存活玩家，得知其中几人因自身能力醒来。' },
   innkeeper: { ability: '每个夜晚*，选择两名玩家：他们当晚不会死亡，但其中一人会醉酒到下个黄昏。' },
+  acrobat: {
+    ability: '每个夜晚*，选择一名玩家：如果他当晚醉酒或中毒（包括之后变醉或中毒），你死亡。',
+    prompt: '记录一名目标；核对目标当晚是否曾醉酒或中毒，再由说书人确认杂技演员是否死亡。',
+  },
   gambler: {
     ability: '每晚*选择一名玩家并猜测其角色；猜错则你死亡。',
     prompt: '记录目标和猜测角色；由说书人核对是否猜错，确认后再处理死亡。',
   },
-  exorcist: { ability: '每个夜晚*，选择一名玩家（与上个夜晚不同）；若选中恶魔，他会得知你是驱魔人，但当晚不会因其自身能力而被唤醒。' },
+  exorcist: { ability: '每个夜晚*，选择一名玩家（与上个夜晚不同）；若选中恶魔，他得知你是驱魔人，但本晚不会因自己的能力醒来。' },
   gossip: { ability: '每天可发表公开流言；若流言为真，夜晚有一名玩家死亡。' },
   courtier: { ability: '每局一次，夜晚选择一个角色：如果该角色在场，该角色之一从当晚开始醉酒三天三夜。' },
   professor: { ability: '每局一次，夜晚*选择一名死亡玩家；若其是镇民，目标复活。' },
   minstrel: { ability: '当一名爪牙死于处决时，除你和旅行者以外的所有其他玩家醉酒直到明天黄昏。' },
   tealady: { ability: '你的两侧存活邻座若是善良，他们不能死亡。' },
-  fool: { ability: '首次将死亡时，你不会死亡。' },
+  fool: { ability: '第一次死亡时，你不会死亡。' },
   pacifist: { ability: '被处决的善良玩家可能不会死亡。' },
   goon: { ability: '每个夜晚，首个使用其自身能力选择了你的玩家醉酒直到下个黄昏；你转变为他的阵营。' },
   lycanthrope: {
@@ -81,7 +85,10 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
   },
   tinker: { ability: '你可能随时死亡。' },
   moonchild: { ability: '当你得知你死亡时，公开选择一名存活玩家；如果他是善良的，在当晚他会死亡。' },
-  godfather: { ability: '你知道有哪些外来者在场；若外来者白天死亡，今晚多杀一人；开局可能增减外来者。' },
+  godfather: {
+    ability: '你开始时得知哪些外来者在场。若今天有外来者被处决并死亡，今晚选择一名玩家：他死亡。[-1或+1外来者]',
+    prompt: '首夜只告知在场外来者；其他夜只有外来者被白天处决并实际死亡时，才选择一名玩家死亡。即使有两名外来者符合条件，也只额外选择一名。',
+  },
   devilsadvocate: { ability: '每晚选择一名存活玩家（与上个夜晚不同）；若其明天被处决，不会死亡。' },
   assassin: { ability: '每局一次，夜晚*选择一名玩家死亡，即使目标通常不会死亡。' },
   marionette: {
@@ -96,7 +103,7 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
     ability: '恶魔拥有一个不在场善良角色的能力，即使他醉酒或中毒；恶魔和科学怪人都知道该能力。',
     prompt: '记录恶魔获得的能力；不自动执行该善良角色的结算逻辑。',
   },
-  mastermind: { ability: '若恶魔死于处决且这会导致游戏结束，再额外进行一个夜晚和一个白天；在那个白天若有玩家被处决，他的阵营落败（无人被处决则善良获胜）。' },
+  mastermind: { ability: '若恶魔死于处决且这会导致游戏结束，再进行一个夜晚和一个白天；之后的白天若有玩家被处决，该玩家的阵营落败（无人被处决则善良获胜）。' },
   pukka: { ability: '每晚选择一名玩家：他中毒。上个因你的能力中毒的玩家会死亡并恢复健康。' },
   shabaloth: { ability: '每个夜晚*，选择两名玩家死亡；你上个夜晚选择过且当前死亡的玩家之一可能会被你反刍复活。' },
   po: { ability: '每个夜晚*，你可以选择一名玩家：他死亡。如果你上次选择时没有选择任何玩家，当晚你要选择三名玩家：他们死亡。' },
@@ -108,6 +115,14 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
   voudon: { ability: '只有你和死亡的玩家可以投票，且投票不需要使用投票标记；忽略票数需要过半的要求。' },
 
   clockmaker: { ability: '首夜得知恶魔到最近爪牙之间相隔几步。' },
+  king: {
+    ability: '每晚，若死亡玩家数量大于或等于存活玩家数量，你得知一个存活角色；恶魔知道你是国王。',
+    prompt: '先核对当前死亡与存活人数；是否触发、展示哪个角色由说书人确认。',
+  },
+  choirboy: {
+    ability: '若恶魔杀死国王，你得知哪名玩家是恶魔。[+国王]',
+    prompt: '只有国王确实被恶魔杀死时才触发；其他死亡来源不触发。',
+  },
   noble: {
     ability: '首夜得知 3 名玩家，其中有且只有 1 名邪恶玩家。',
     prompt: '记录 3 名玩家；可包含误导来源，但不要自动判断真实邪恶。',
@@ -155,7 +170,7 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
   },
   juggler: { ability: '在你的首个白天，可以公开猜测任意玩家的角色最多五次；当晚得知猜测正确的角色数量。' },
   sage: { ability: '若恶魔杀死你，当晚得知两名玩家，其中一名是杀死你的那个恶魔。' },
-  sweetheart: { ability: '你死亡后，一名玩家醉酒。' },
+  sweetheart: { ability: '你死亡后，一名玩家从此醉酒。' },
   klutz: { ability: '当你得知自己死亡时，公开选择一名存活玩家；若其邪恶，你的阵营落败。' },
   barber: { ability: '如果你死亡，在当晚恶魔可以选择两名玩家（不能选择其他恶魔）交换角色。' },
   mutant: { ability: '若你疯狂地表现出自己是外来者，可能被处决。' },
@@ -164,7 +179,7 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
     ability: '每晚选择一名玩家和一个善良角色；他明天白天和夜晚必须疯狂证明自己是该角色，否则可能被处决。',
     prompt: '记录目标和疯狂角色；告知时强调“你被洗脑成了该角色，需要疯狂证明自己”。',
   },
-  pithag: { ability: '每个夜晚*，选择一名玩家和一个角色；若该角色不在场，目标变成该角色。如果因此创造了一个恶魔，当晚的死亡由说书人决定。' },
+  pithag: { ability: '每个夜晚*，选择一名玩家和一个角色；若该角色不在场，目标变成该角色。如果因此创造了一个恶魔，当晚的死亡由说书人决定；若该角色已在场，能力无效。' },
   eviltwin: { ability: '你与一名对立阵营的玩家互相知道对方是什么角色；如果其中善良玩家被处决，邪恶阵营获胜；如果你们都存活，善良阵营无法获胜。' },
   nodashii: { ability: '每个夜晚*，你要选择一名玩家：他死亡。与你邻近的两名镇民中毒。' },
   vigormortis: { ability: '每个夜晚*，选择一名玩家死亡；被你杀死的爪牙保留能力，且与他邻近的两名镇民之一中毒。[-1外来者]' },
@@ -173,7 +188,10 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
     ability: '第 3 天爪牙变成暴乱；被提名者死亡，并必须立即提名一名存活玩家。',
     prompt: '白天投票链和胜负都由说书人确认；工具只记录和提醒。',
   },
-  fanggu: { ability: '每个夜晚*，选择一名玩家死亡；被该能力杀死的外来者改为变成邪恶的方古且你代替他死亡（每局仅能成功转化一次）。[+1外来者]' },
+  fanggu: {
+    ability: '每个夜晚*，选择一名玩家：他死亡。你首次以此能力杀死外来者时，该玩家变成邪恶的方古，而你代替他死亡。[+1外来者]',
+    prompt: '记录本局是否已经成功转化；首次以此能力杀死外来者才转化，之后外来者只按普通击杀处理。',
+  },
   lleech: {
     ability: '每个夜晚*，选择一名玩家死亡；在你的首个夜晚，选择一名存活的玩家中毒（宿主）。只有当宿主死亡时，你才会立即死亡。',
     prompt: '记录宿主、中毒和死亡判定；不要自动处理宿主保护或恶魔死亡。',
@@ -187,10 +205,22 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
     ability: '每晚得知一名与上一晚不同角色类型的玩家；开局可增加 0 或 1 名外来者。',
     prompt: '记录每晚告知的玩家和其角色类型；是否增加外来者由模板和说书人确认。',
   },
+  bountyhunter: {
+    ability: '首夜得知一名邪恶玩家；若该玩家死亡，你今晚得知另一名邪恶玩家。[1名镇民为邪恶]',
+    prompt: '记录当前得知的邪恶玩家；目标死亡后只生成新的告知候选，不自动改阵营。',
+  },
   knight: { ability: '首夜得知两名不是恶魔的玩家。' },
   highpriestess: {
     ability: '每晚得知说书人认为你最应该交流的一名玩家。',
     prompt: '由说书人选择最值得交流的玩家；这是建议型信息，不自动推导。',
+  },
+  fearmonger: {
+    ability: '每晚选择一名玩家；若你提名并处决该玩家，该玩家阵营落败。首次选择或更换目标时，全场得知。',
+    prompt: '记录当前目标及是否首次/更换；提名、处决和阵营失败都由说书人确认。',
+  },
+  lilmonsta: {
+    ability: '每晚爪牙秘密决定谁照看小怪宝并成为恶魔；每晚*可能有一名玩家死亡。[+1爪牙]',
+    prompt: '记录本晚照看者和死亡候选；不自动改恶魔身份、阵营或生死状态。',
   },
   villageidiot: {
     ability: '每晚选择一名玩家并得知其阵营；可能有额外村夫，其中一名额外村夫醉酒。',
@@ -280,17 +310,39 @@ const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
   },
   barista: { ability: '每个夜晚，直至下个黄昏，由说书人二选一：一名玩家解除并免受醉酒和中毒影响且会得知正确信息，或一名玩家的能力可以生效两次；该玩家会得知是哪个效果。' },
   harlot: { ability: '每个夜晚*，选择一名存活玩家；如果他同意，你会得知他的角色，但你们两个可能同时死亡（由说书人决定，与目标阵营无关）。' },
+  gangster: { ability: '每天限一次，你可以选择杀死一名与你相邻的存活玩家，但需要另一名相邻存活玩家同意。' },
   butcher: { ability: '每个白天，首次处决后，你可以再次发起提名。' },
   bonecollector: { ability: '每局一次，在夜晚时*，选择一名死亡的玩家：他重新获得能力直到下个黄昏。' },
   deviant: { ability: '如果你表现得很有趣，当天你不能被流放。' },
+  hatter: {
+    ability: '若你今天或今晚死亡，当晚爪牙和恶魔可以选择新的同类型角色。',
+    prompt: '确认帽匠死亡时机、爪牙/恶魔选择和重复角色限制；身份变化必须由说书人确认。',
+  },
+  stormcatcher: {
+    ability: '指定一个善良角色；若该角色在场，他只能死于处决，但所有邪恶玩家知道是哪名玩家。若该角色不在场，首夜唤醒所有邪恶玩家并告知该角色不在场。',
+    prompt: '这是传奇角色规则，不进入座位身份；角色是否在场、保护范围和告知都由说书人确认。',
+  },
 }
 
 export function localizedRoleAbility(role: SmartRoleDefinition) {
+  if (isCustomRoleDefinition(role)) return role.abilityText
+  if (isAcrobatNeighborVariant(role)) return role.abilityText
   return localizedRoleCopyById[role.id]?.ability ?? role.abilityText
 }
 
 export function localizedRolePrompt(role: SmartRoleDefinition) {
+  if (isCustomRoleDefinition(role)) return promptFromRole(role)
+  if (isAcrobatNeighborVariant(role)) return promptFromRole(role)
   return localizedRoleCopyById[role.id]?.prompt ?? promptFromRole(role)
+}
+
+function isAcrobatNeighborVariant(role: SmartRoleDefinition) {
+  return role.id === 'acrobat' && /(邻近|neighbor|neighbour)/i.test(role.abilityText)
+}
+
+function isCustomRoleDefinition(role: SmartRoleDefinition) {
+  const officialName = role.officialName?.trim().toLowerCase()
+  return officialName === 'custom' || officialName === '自定义'
 }
 
 function promptFromRole(role: SmartRoleDefinition) {

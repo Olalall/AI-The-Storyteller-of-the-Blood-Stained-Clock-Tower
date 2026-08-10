@@ -45,7 +45,7 @@ GStone uses custom ids like `21087_xxxx`. This pack maps them to stable official
 
 ## Boundaries
 
-- Storm Catcher is fabled: rule reminder only, never in seat identities or Demon bluffs.
+- Storm Catcher is Loric: rule reminder only, never in seat identities or Demon bluffs.
 - Lil Monsta and Huntsman are documented, but not used in first setup templates to avoid babysitter / identity-change overload.
 - Fang Gu and Balloonist templates carry explicit setup adjustments.
 - Night resolution only produces advice and draft entries; no automatic death, identity, alignment or victory changes.

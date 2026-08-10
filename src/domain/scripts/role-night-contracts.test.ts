@@ -22,6 +22,30 @@ function nightNote(entry: { roleId: string; note?: string }): string {
 }
 
 describe('role, night-order and AI research contracts', () => {
+  it('matches night-order aliases to the role definitions used by the queue builder', () => {
+    for (const pack of smartScriptPacks) {
+      const roleIds = new Set(pack.roles.map((role) => normalizeRoleId(role.id)))
+      for (const entry of [...pack.nightOrders.firstNight, ...pack.nightOrders.otherNight]) {
+        expect(roleIds.has(normalizeRoleId(entry.roleId)), `${pack.scriptId}/${entry.roleId}`).toBe(true)
+      }
+    }
+  })
+
+  it('keeps known official roles in official relative night order after pack import', () => {
+    for (const pack of smartScriptPacks) {
+      for (const nightType of ['firstNight', 'otherNight'] as const) {
+        const officialOrder = new Map(officialNightSheet[nightType].map((roleId, index) => [roleId, index]))
+        let previous = -1
+        for (const entry of pack.nightOrders[nightType]) {
+          const current = officialOrder.get(normalizeRoleId(entry.roleId))
+          if (current === undefined) continue
+          expect(current, `${pack.scriptId}/${nightType}/${entry.roleId}`).toBeGreaterThanOrEqual(previous)
+          previous = current
+        }
+      }
+    }
+  })
+
   it('wakes every Organ Grinder on both night types with a player-owned boolean choice', () => {
     for (const scriptId of organGrinderPacks) {
       const pack = smartScriptPacks.find((candidate) => candidate.scriptId === scriptId)
@@ -80,6 +104,15 @@ describe('role, night-order and AI research contracts', () => {
       for (const roleId of ['exorcist', 'devilsadvocate']) {
         const role = pack.roles.find((candidate) => normalizeRoleId(candidate.id) === roleId)
         if (role) expect(role.inputKinds, `${pack.scriptId}/${roleId}`).toContain('player')
+      }
+    }
+  })
+
+  it('does not expose English source-only wake placeholders in the runtime queue', () => {
+    for (const pack of smartScriptPacks) {
+      for (const entry of [...pack.nightOrders.firstNight, ...pack.nightOrders.otherNight]) {
+        expect(entry.note).not.toBe('Source first-night wake reminder.')
+        expect(entry.note).not.toBe('Source other-night wake reminder.')
       }
     }
   })

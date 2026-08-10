@@ -212,6 +212,7 @@ export function SetupCandidateBrowser({
           </Button>
         </div>
       </div>
+      <p className="setup-candidate__disclaimer">AI 只排序和解释已录入候选；采用为草稿不会发送身份，最终仍需说书人确认配板。</p>
       {advice ? <div className="setup-candidate__ai-strip" role="status">
         <div className="setup-candidate__ai-top">
           <div>

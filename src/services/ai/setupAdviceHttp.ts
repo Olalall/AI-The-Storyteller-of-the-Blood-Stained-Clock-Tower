@@ -5,7 +5,7 @@ import {
 } from '../archive'
 import type { SetupPrototypeCandidate } from '../../features/setup'
 import { roleKnowledgeForAI } from '../../domain/role-knowledge'
-import { getSmartScriptPack, roleResearchForAI } from '../../domain/scripts'
+import { getSmartScriptPack, normalizeRoleId, roleAbilityForScript, roleResearchForAI } from '../../domain/scripts'
 import type { AIConfidence, AIContextSeat, AIProviderKind, SetupAdviceRuntimeDraft, SetupBalanceMicroAdjustment, SetupQualityTag } from './types'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
@@ -62,7 +62,12 @@ async function fetchWithTimeout(fetcher: FetchLike, timeoutMs: number, input: st
 function roleFromPack(scriptId: string, roleId: string) {
   const pack = getSmartScriptPack(scriptId)
   const research = roleResearchForAI(scriptId, roleId)
-  return pack.roles.find((role) => role.id === roleId || role.id === research?.roleId)
+  const canonicalRoleId = normalizeRoleId(roleId)
+  return pack.roles.find((role) => (
+    role.id === roleId
+      || role.id === research?.roleId
+      || normalizeRoleId(role.id) === canonicalRoleId
+  ))
 }
 
 function rolePoolForScript(scriptId: string) {
@@ -75,7 +80,7 @@ function rolePoolForScript(scriptId: string) {
         roleId: role.id,
         roleName: role.name,
         team: role.team,
-        abilityText: role.abilityText,
+        abilityText: roleAbilityForScript(scriptId, role.id),
         knowledgeStatus: role.knowledgeStatus,
         inputKinds: role.inputKinds,
         setupImpact: research?.setupImpact ?? role.research?.setupImpact.slice(0, 3) ?? [],
@@ -227,7 +232,7 @@ function requestBody(input: CreateSetupAdviceDraftAsyncInput) {
         roleId: assignment.role.id,
         roleName: assignment.role.name,
         team: roleFromPack(input.scriptId, assignment.role.id)?.team,
-        abilityText: roleFromPack(input.scriptId, assignment.role.id)?.abilityText,
+        abilityText: roleAbilityForScript(input.scriptId, assignment.role.id),
         roleKnowledge: roleKnowledgeForAI(assignment.role.id),
         roleResearch: roleResearchForAI(input.scriptId, assignment.role.id),
       })),

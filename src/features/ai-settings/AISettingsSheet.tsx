@@ -25,14 +25,14 @@ import './ai-settings.css'
 
 const modeLabels: Record<AIProviderMode, string> = {
   off: '关闭',
-  backend: '后端代理',
-  'openai-compatible': '兼容接口',
+  backend: '使用后端配置',
+  'openai-compatible': '临时兼容接口测试',
 }
 
 const modeDescriptions: Record<AIProviderMode, string> = {
   off: '只用本地原型',
-  backend: '推荐，密钥在后端',
-  'openai-compatible': 'OpenAI 兼容地址',
+  backend: '推荐，长期使用后端 .env',
+  'openai-compatible': '只发起一次测试，不保存 Key',
 }
 
 type TestStatus = {
@@ -42,6 +42,12 @@ type TestStatus = {
 
 function providerTone(mode: AIProviderMode): BadgeTone {
   return mode === 'off' ? 'neutral' : 'warning'
+}
+
+function providerStatusLabel(mode: AIProviderMode) {
+  if (mode === 'off') return '未启用'
+  if (mode === 'backend') return '后端接管'
+  return '仅本次测试'
 }
 
 export function AISettingsSheet() {
@@ -120,7 +126,7 @@ export function AISettingsSheet() {
       setTestStatus({ tone: 'warning', message: '缺少 API KEY；保存不会保存密钥。' })
       return
     }
-    setTestStatus({ tone: 'success', message: '本页配置完整；API KEY 不会保存。' })
+    setTestStatus({ tone: 'success', message: '本次测试配置完整；保存不会让前端长期持有 API KEY。' })
   }
 
   async function liveTestConnection() {
@@ -134,7 +140,12 @@ export function AISettingsSheet() {
     setArchiveSettings(nextArchiveSettings)
     setSettings(readAISettings())
     setSaved(true)
-    setTestStatus((current) => current ?? { tone: 'neutral', message: '已保存非敏感设置。' })
+    setTestStatus((current) => current ?? {
+      tone: 'neutral',
+      message: settings.mode === 'backend'
+        ? '已保存非敏感设置；真实 AI 继续使用后端 .env。'
+        : '已保存非敏感设置；兼容接口的 API KEY 仍只用于本次测试。',
+    })
     void refreshBackendStatus(nextArchiveSettings)
   }
 
@@ -153,7 +164,7 @@ export function AISettingsSheet() {
       open={open}
       onOpenChange={setOpen}
       title="AI API 设置"
-      description="配置模型和接入地址；API KEY 只用于本次测试，不写入本地存储。"
+      description="长期 AI 由后端 .env 接管；页面里的 API KEY 只用于一次连通测试，不写入本地存储。"
       presentation="page"
       contentClassName="sheet-content--ai-settings"
       trigger={
@@ -168,7 +179,7 @@ export function AISettingsSheet() {
             <span><PlugZap aria-hidden="true" />连接配置</span>
             <h3 id="ai-connection-title">AI API</h3>
           </div>
-          <StatusBadge tone={providerTone(settings.mode)}>{settings.mode === 'off' ? '未启用' : '待接入'}</StatusBadge>
+          <StatusBadge tone={providerTone(settings.mode)}>{providerStatusLabel(settings.mode)}</StatusBadge>
         </section>
 
         <section className="ai-settings-card ai-settings-card--form" aria-labelledby="ai-form-title">
@@ -198,6 +209,7 @@ export function AISettingsSheet() {
                 onChange={(event) => patch({ baseUrl: event.target.value })}
                 placeholder="https://api.example.com/v1"
                 autoComplete="url"
+                disabled={settings.mode === 'backend'}
               />
             </label>
 
@@ -208,6 +220,7 @@ export function AISettingsSheet() {
                 onChange={(event) => patch({ model: event.target.value })}
                 placeholder={defaultAISettings.model}
                 autoComplete="off"
+                disabled={settings.mode === 'backend'}
               />
             </label>
 
@@ -223,7 +236,7 @@ export function AISettingsSheet() {
             </label>
           </div>
 
-          <p id="ai-mode-note" className="ai-settings-note"><KeyRound aria-hidden="true" />API KEY 不保存；后续由本机或 VPS 后端接管密钥。</p>
+          <p id="ai-mode-note" className="ai-settings-note"><KeyRound aria-hidden="true" />选择“使用后端配置”时，AI 请求使用后端 `.env` 的地址、模型和 Key；选择“临时兼容接口测试”时，页面输入只发给一次测试请求。</p>
 
           <div className="ai-settings-advanced" aria-label="高级参数">
             <label>

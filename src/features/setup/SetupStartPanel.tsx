@@ -61,7 +61,7 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
             ))}
           </select>
         </label>
-        <small>开始配板后生效</small>
+        <small>用于本局角色池、人数模板、夜序和 AI 建议；点击开始配板后建立本局草稿</small>
       </div>
 
       <div className="setup-start__counts" aria-label="选择玩家人数">
