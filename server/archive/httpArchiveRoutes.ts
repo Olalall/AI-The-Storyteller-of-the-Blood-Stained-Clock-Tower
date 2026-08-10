@@ -1,6 +1,7 @@
 import type { GameArchiveRecord, GameWinner } from '../../src/services/archive/types'
 import type { createArchiveHandlers } from './handlers'
 import type { ArchiveErrorCode, ArchiveListQuery, ReviewStyle } from './types'
+import { isAIProviderOverrideRequest } from '../ai/aiRequestValidators'
 
 type ArchiveHandlers = ReturnType<typeof createArchiveHandlers>
 
@@ -115,11 +116,13 @@ async function postReviewDraft(handlers: ArchiveHandlers, request: Request, arch
   if (includePlayerScores !== undefined && typeof includePlayerScores !== 'boolean') return apiError('BAD_REQUEST', 400)
   const reviewStyle = reviewStyleFrom(body.reviewStyle)
   if (body.reviewStyle !== undefined && !reviewStyle) return apiError('BAD_REQUEST', 400)
+  if (!isAIProviderOverrideRequest(body.providerSettings) && body.providerSettings !== undefined) return apiError('BAD_REQUEST', 400)
 
   const result = await handlers.generateReviewDraft({
     archiveId,
     reviewStyle,
     includePlayerScores,
+    providerSettings: body.providerSettings,
   })
   return result.accepted ? json(result) : apiError(result.error, 404)
 }
