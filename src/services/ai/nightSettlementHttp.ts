@@ -12,6 +12,8 @@ import { roleResearchForAI } from '../../domain/scripts'
 import { nightContextLevel, unknownSeatIds } from './aiContextLevel'
 import { normalizeStateChangeDrafts } from './aiStateChangeDraft'
 import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
+import { aiEnabledFor, aiTransportSettings, clientProviderSettingsFor, type ClientAIProviderSettings } from './clientProviderSettings'
+import { readAISettings } from '../settings'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
 
@@ -90,10 +92,11 @@ function seatIdsInRequest({ state, item, draft }: CreateNightResultAdviceInput) 
   return seats
 }
 
-function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
+function requestBody({ state, item, draft }: CreateNightResultAdviceInput, clientProvider?: ClientAIProviderSettings) {
   const selectedTargets = selectedNightTargetsForAI(state, draft)
 
   return {
+    ...(clientProvider ? { clientProvider } : {}),
     scriptId: state.scriptId,
     knowledgeVersion: state.knowledgeVersion,
     nightRunId: state.nightRunId,
@@ -208,17 +211,20 @@ export async function createNightResultAdviceAsync(
 ): Promise<AIResultAdvice | null> {
   const fallback = localAIAdapter.createNightResultAdvice(input)
   const runtimeSettings = options.runtimeSettings ?? readArchiveRuntimeSettings()
-  if (runtimeSettings.mode !== 'http') return fallback
+  const aiSettings = readAISettings()
+  if (runtimeSettings.mode === 'local' && !aiEnabledFor(aiSettings)) return fallback
+  const transportSettings = aiTransportSettings(runtimeSettings)
+  const clientProvider = clientProviderSettingsFor(transportSettings, aiSettings)
 
   try {
     const response = await fetchWithTimeout(
       options.fetcher ?? fetch,
-      runtimeSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs,
-      urlFor(runtimeSettings.baseUrl || defaultArchiveRuntimeSettings.baseUrl),
+      transportSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs,
+      urlFor(transportSettings.baseUrl || defaultArchiveRuntimeSettings.baseUrl),
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody(input)),
+        body: JSON.stringify(requestBody(input, clientProvider)),
       },
     )
     const body = await response.json() as BackendNightSettlementResponse

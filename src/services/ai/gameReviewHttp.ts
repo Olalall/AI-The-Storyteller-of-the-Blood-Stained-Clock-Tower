@@ -5,6 +5,8 @@ import {
 } from '../archive'
 import type { GameArchiveRecord } from '../archive'
 import { localAIAdapter } from './localAIAdapter'
+import { aiEnabledFor, aiTransportSettings, clientProviderSettingsFor } from './clientProviderSettings'
+import { readAISettings } from '../settings'
 import type { AIProviderKind, GameAIPlayerReview, GameAIReviewDraft } from './types'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
@@ -47,8 +49,8 @@ export interface CreateGameReviewDraftAsyncOptions {
   fetcher?: FetchLike
 }
 
-function urlFor(baseUrl: string, archiveId: string) {
-  return `${baseUrl.replace(/\/$/, '')}/api/archives/${encodeURIComponent(archiveId)}/review-draft`
+function urlFor(baseUrl: string) {
+  return `${baseUrl.replace(/\/$/, '')}/api/ai/review-draft`
 }
 
 async function fetchWithTimeout(fetcher: FetchLike, timeoutMs: number, input: string, init: RequestInit) {
@@ -108,17 +110,25 @@ export async function createGameReviewDraftAsync(
 ): Promise<GameAIReviewDraft> {
   const fallback = localAIAdapter.createGameReviewDraft(archive)
   const runtimeSettings = options.runtimeSettings ?? readArchiveRuntimeSettings()
-  if (runtimeSettings.mode !== 'http') return fallback
+  const aiSettings = readAISettings()
+  if (runtimeSettings.mode === 'local' && !aiEnabledFor(aiSettings)) return fallback
+  const transportSettings = aiTransportSettings(runtimeSettings)
+  const clientProvider = clientProviderSettingsFor(transportSettings, aiSettings)
 
   try {
     const response = await fetchWithTimeout(
       options.fetcher ?? fetch,
-      runtimeSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs,
-      urlFor(runtimeSettings.baseUrl || defaultArchiveRuntimeSettings.baseUrl, archive.id),
+      transportSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs,
+      urlFor(transportSettings.baseUrl || defaultArchiveRuntimeSettings.baseUrl),
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reviewStyle: 'sharp', includePlayerScores: true }),
+        body: JSON.stringify({
+          archive,
+          reviewStyle: 'sharp',
+          includePlayerScores: true,
+          ...(clientProvider ? { clientProvider } : {}),
+        }),
       },
     )
     const body = await response.json() as BackendReviewResponse

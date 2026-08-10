@@ -7,9 +7,9 @@
 
 采用后端代理。
 
-- 前端可以提供保存入口。
-- API Key 不写入前端持久化存储。
-- VPS 后端保存和读取敏感配置。
+- 前端可以提供本机保存入口；仅 GitHub 下载版的本机 loopback 模式使用这条路径。
+- 本机 API Key 可以写入当前浏览器的本地设置，但不进入归档、日志、导出文件或 GitHub。
+- VPS 后端继续保存和读取服务器侧敏感配置；远程 runtime 不接受浏览器本机 Key。
 - 前端只能看到非敏感配置，例如 provider、baseUrl、model、timeout、keySaved、maskedKey。
 
 ## 2. Provider 设置

@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPrototypeGameSession } from '../../features/game-session/data/createPrototypeSession'
 import { createGameArchiveRecord } from '../archive'
+import { defaultAISettings, saveAISettings } from '../settings'
 import { createGameReviewDraftAsync } from './gameReviewHttp'
 
 function archiveFixture() {
@@ -41,7 +42,9 @@ describe('game review HTTP adapter', () => {
   it('maps backend review drafts into the front-end review shape', async () => {
     const draft = await createGameReviewDraftAsync(archiveFixture(), {
       runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
-      fetcher: async () => jsonResponse({
+      fetcher: async (input) => {
+        expect(String(input)).toBe('http://127.0.0.1:8787/api/ai/review-draft')
+        return jsonResponse({
         accepted: true,
         data: {
           draft: {
@@ -68,7 +71,8 @@ describe('game review HTTP adapter', () => {
             }],
           },
         },
-      }),
+        })
+      },
     })
 
     expect(draft.provider).toBe('openai-compatible')
@@ -77,6 +81,28 @@ describe('game review HTTP adapter', () => {
     expect(draft.playerScores[0]).toMatchObject({ seatId: 1, score: 82 })
     expect(draft.playerScores[0].keyEvents).toEqual(['日志出现多次'])
     expect(draft.fullReview.turningPoints).toEqual(['第1夜：关键行动'])
+  })
+
+  it('uses the locally saved API key for a local review request', async () => {
+    const secret = 'sk-local-review-key'
+    saveAISettings({
+      ...defaultAISettings,
+      mode: 'openai-compatible',
+      baseUrl: 'https://ai.example.test/v1',
+      model: 'local-model',
+      apiKey: secret,
+    })
+
+    await createGameReviewDraftAsync(archiveFixture(), {
+      runtimeSettings: { mode: 'local', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (input, init) => {
+        expect(String(input)).toBe('http://127.0.0.1:8787/api/ai/review-draft')
+        const body = JSON.parse(String(init?.body)) as { archive?: unknown; clientProvider?: { apiKey?: string } }
+        expect(body.archive).toBeTruthy()
+        expect(body.clientProvider?.apiKey).toBe(secret)
+        return jsonResponse({ accepted: true, data: { draft: { provider: 'openai-compatible', gameEvaluation: {}, fullReview: {}, playerReviews: [] } } })
+      },
+    })
   })
 
   it('falls back to local drafts when the backend review route fails', async () => {

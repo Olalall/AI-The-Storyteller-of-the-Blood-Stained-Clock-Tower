@@ -17,6 +17,7 @@ export function normalizeAISettings(value: unknown): AISettings {
     mode: isMode(candidate.mode) ? candidate.mode : defaultAISettings.mode,
     model: typeof candidate.model === 'string' && candidate.model.trim() ? candidate.model.trim() : defaultAISettings.model,
     baseUrl: typeof candidate.baseUrl === 'string' && candidate.baseUrl.trim() ? candidate.baseUrl.trim() : defaultAISettings.baseUrl,
+    apiKey: typeof candidate.apiKey === 'string' ? candidate.apiKey.trim() : defaultAISettings.apiKey,
     timeoutSeconds: clampInteger(candidate.timeoutSeconds, 5, 120, defaultAISettings.timeoutSeconds),
     maxContextTokens: clampInteger(candidate.maxContextTokens, 2000, 128000, defaultAISettings.maxContextTokens),
     streaming: Boolean(candidate.streaming),
@@ -28,5 +29,6 @@ export function sanitizeAISettingsForSave(settings: AISettings): AISettings {
     ...settings,
     model: settings.model.trim() || defaultAISettings.model,
     baseUrl: settings.baseUrl.trim() || defaultAISettings.baseUrl,
+    apiKey: settings.apiKey.trim(),
   })
 }

@@ -6,6 +6,8 @@ import {
 import type { SetupPrototypeCandidate } from '../../features/setup'
 import { roleKnowledgeForAI } from '../../domain/role-knowledge'
 import { getSmartScriptPack, normalizeRoleId, roleAbilityForScript, roleResearchForAI } from '../../domain/scripts'
+import { aiEnabledFor, aiTransportSettings, clientProviderSettingsFor, type ClientAIProviderSettings } from './clientProviderSettings'
+import { readAISettings } from '../settings'
 import type { AIConfidence, AIContextSeat, AIProviderKind, SetupAdviceRuntimeDraft, SetupBalanceMicroAdjustment, SetupQualityTag } from './types'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
@@ -212,8 +214,9 @@ function setupRoleKnowledgeWarnings(input: CreateSetupAdviceDraftAsyncInput) {
   return [...warnings].slice(0, 5)
 }
 
-function requestBody(input: CreateSetupAdviceDraftAsyncInput) {
+function requestBody(input: CreateSetupAdviceDraftAsyncInput, clientProvider?: ClientAIProviderSettings) {
   return {
+    ...(clientProvider ? { clientProvider } : {}),
     scriptId: input.scriptId,
     scriptName: input.scriptName,
     knowledgeVersion: input.knowledgeVersion,
@@ -271,17 +274,20 @@ export async function createSetupAdviceDraftAsync(
 ): Promise<SetupAdviceRuntimeDraft> {
   const fallback = localDraft(input)
   const runtimeSettings = options.runtimeSettings ?? readArchiveRuntimeSettings()
-  if (runtimeSettings.mode !== 'http') return fallback
+  const aiSettings = readAISettings()
+  if (runtimeSettings.mode === 'local' && !aiEnabledFor(aiSettings)) return fallback
+  const transportSettings = aiTransportSettings(runtimeSettings)
+  const clientProvider = clientProviderSettingsFor(transportSettings, aiSettings)
 
   try {
     const response = await fetchWithTimeout(
       options.fetcher ?? fetch,
-      runtimeSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs,
-      urlFor(runtimeSettings.baseUrl || defaultArchiveRuntimeSettings.baseUrl),
+      transportSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs,
+      urlFor(transportSettings.baseUrl || defaultArchiveRuntimeSettings.baseUrl),
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(requestBody(input)),
+        body: JSON.stringify(requestBody(input, clientProvider)),
       },
     )
     const body = await response.json() as SetupAdviceBackendResponse

@@ -11,8 +11,8 @@ import {
 describe('settings service', () => {
   beforeEach(() => window.localStorage.clear())
 
-  it('saves only normalized non-sensitive AI settings', () => {
-    const settings: AISettings & { apiKey?: string } = {
+  it('saves normalized AI settings and remembers the local API key', () => {
+    const settings: AISettings = {
       ...defaultAISettings,
       mode: 'openai-compatible',
       model: '  gpt-test  ',
@@ -26,11 +26,12 @@ describe('settings service', () => {
     saveAISettings(settings)
 
     const raw = window.localStorage.getItem(aiSettingsStorageKey)
-    expect(raw).not.toContain('sk-should-not-persist')
+    expect(raw).toContain('sk-should-not-persist')
     expect(readAISettings()).toMatchObject({
       mode: 'openai-compatible',
       model: 'gpt-test',
       baseUrl: 'https://example.test/v1',
+      apiKey: 'sk-should-not-persist',
       timeoutSeconds: 120,
       maxContextTokens: 2000,
       streaming: true,

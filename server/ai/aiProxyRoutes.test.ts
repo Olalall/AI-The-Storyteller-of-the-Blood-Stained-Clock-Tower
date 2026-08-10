@@ -5,8 +5,8 @@ import { createAIProxyRoutes } from './aiProxyRoutes'
 
 const secret = 'sk-route-secret-should-not-leak'
 
-function request(pathname: string, init: RequestInit = {}) {
-  return new Request(`http://127.0.0.1${pathname}`, init)
+function request(pathname: string, init: RequestInit = {}, host = '127.0.0.1') {
+  return new Request(`http://${host}${pathname}`, init)
 }
 
 async function jsonBody(response: Response) {
@@ -399,5 +399,58 @@ describe('AI proxy routes', () => {
     expect(response.status).toBe(400)
     expect((body.error as { code: string }).code).toBe('BAD_REQUEST')
     expect(called).toBe(false)
+  })
+
+  it('uses a client provider only for loopback requests', async () => {
+    const clientProvider = {
+      provider: 'openai-compatible',
+      baseUrl: 'https://ai.example.test/v1',
+      model: 'local-model',
+      apiKey: 'sk-client-only',
+      timeoutSeconds: 5,
+    }
+    let localProviderCalled = false
+    const localRoute = createAIProxyRoutes(createAIProxyHandlers({
+      env: {},
+      fetcher: async (_input, init) => {
+        localProviderCalled = true
+        const headers = init?.headers as Record<string, string>
+        expect(headers.Authorization).toBe('Bearer sk-client-only')
+        expect(String(init?.body)).not.toContain('sk-client-only')
+        return new Response(JSON.stringify({
+          choices: [{ message: { content: JSON.stringify({
+            confidence: 'medium',
+            recommendedCandidateIds: ['setup-b'],
+            disclaimer: 'AI 只给草稿。',
+          }) } }],
+        }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+      },
+    }))
+    const localResponse = await localRoute(request('/api/ai/setup-advice', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...setupAdviceBody(), clientProvider }),
+    }))
+    expect(localResponse.status).toBe(200)
+    expect(localProviderCalled).toBe(true)
+
+    let remoteProviderCalled = false
+    const remoteRoute = createAIProxyRoutes(createAIProxyHandlers({
+      env: {},
+      fetcher: async () => {
+        remoteProviderCalled = true
+        return new Response('{}')
+      },
+    }))
+    const remoteResponse = await remoteRoute(request('/api/ai/setup-advice', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...setupAdviceBody(), clientProvider }),
+    }, 'public.example.test'))
+    const remoteBody = await jsonBody(remoteResponse)
+    const remoteDraft = (remoteBody.data as Record<string, unknown>).draft as Record<string, unknown>
+    expect(remoteResponse.status).toBe(200)
+    expect(remoteProviderCalled).toBe(false)
+    expect(remoteDraft.provider).toBe('fake')
   })
 })

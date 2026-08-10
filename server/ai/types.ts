@@ -44,6 +44,18 @@ export interface AISettingsLiveTestRequest {
   timeoutSeconds?: number
 }
 
+/**
+ * 浏览器本机模式的临时请求配置。它只允许由 loopback runtime 使用，
+ * 不写入服务端环境变量，也不返回给浏览器以外的响应。
+ */
+export interface ClientAIProviderSettings {
+  provider: 'openai-compatible'
+  baseUrl: string
+  model: string
+  apiKey: string
+  timeoutSeconds: number
+}
+
 export interface AISettingsLiveTestResult {
   ok: boolean
   provider: AIProviderKind

@@ -57,11 +57,11 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByLabel('模型名字').fill('gpt-4.1-mini')
   await page.getByLabel('API KEY').fill('sk-test-not-saved')
   await page.getByRole('button', { name: '校验配置' }).click()
-  await expect(page.getByText('本页配置完整；API KEY 不会保存。')).toBeVisible()
+  await expect(page.getByText('配置完整；保存后会记住在这台设备上。')).toBeVisible()
   await page.getByRole('button', { name: '保存设置' }).click()
   await expect(page.getByText('已保存设置')).toBeVisible()
   const storageAfterAISettings = await page.evaluate(() => Object.values(window.localStorage).join('\n'))
-  expect(storageAfterAISettings).not.toContain('sk-test-not-saved')
+  expect(storageAfterAISettings).toContain('sk-test-not-saved')
   await page.getByRole('button', { name: '关闭AI API 设置' }).click()
   expect((await timeline(page)).length).toBe(beforeOpening)
 
