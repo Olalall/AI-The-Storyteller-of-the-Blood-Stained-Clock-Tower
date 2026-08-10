@@ -85,8 +85,8 @@
 ## 2026-07-27 - VPS 同步最新 GitHub 版本
 
 ### 给非开发者看的交付说明
-- 已把当前 GitHub 最新版本同步到自用 VPS 的新工具目录，访问地址仍是 `http://124.223.37.191:3000/`。
-- 旧 V2.5 没有删除、没有覆盖，`http://124.223.37.191/` 仍然可访问。
+- 已把当前 GitHub 最新版本同步到自用 VPS 的新工具目录，访问地址仍是 `http://your-vps-host:3000/`。
+- 旧 V2.5 没有删除、没有覆盖，`http://your-vps-host/` 仍然可访问。
 - 本次部署没有写入 API Key，也没有开启真实 AI；远端服务仍按手动主持优先的边界运行。
 
 ### Before / After
@@ -96,9 +96,9 @@
 ### 验证
 - 本地 `npm run package:vps` 通过，包含 `npm run check` 和 `npm run smoke:backend`。
 - 部署包 SHA256：`F8C050D235D82746D3723E852D44785996162C9B6A1F95F776D05FD2C565CD56`。
-- `http://124.223.37.191:3000/healthz` 返回 200。
-- `http://124.223.37.191:3000/` 返回 200。
-- `http://124.223.37.191/` 返回 200，旧 V2.5 未误伤。
+- `http://your-vps-host:3000/healthz` 返回 200。
+- `http://your-vps-host:3000/` 返回 200。
+- `http://your-vps-host/` 返回 200，旧 V2.5 未误伤。
 
 ### 风险
 - SSH/SCP 不通，VPS 也无法稳定下载 GitHub Release asset；本次实际采用 Tencent TAT 分片上传。
