@@ -5,6 +5,7 @@ import {
 } from '../archive'
 import type { GameArchiveRecord } from '../archive'
 import { localAIAdapter } from './localAIAdapter'
+import { savedAIProviderSettingsFor } from './savedAIProviderSettings'
 import type { AIProviderKind, GameAIPlayerReview, GameAIReviewDraft } from './types'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
@@ -118,7 +119,11 @@ export async function createGameReviewDraftAsync(
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ reviewStyle: 'sharp', includePlayerScores: true }),
+        body: JSON.stringify({
+          reviewStyle: 'sharp',
+          includePlayerScores: true,
+          providerSettings: savedAIProviderSettingsFor(runtimeSettings),
+        }),
       },
     )
     const body = await response.json() as BackendReviewResponse

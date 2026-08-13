@@ -61,9 +61,10 @@ export function AISettingsSheet() {
 
   useEffect(() => {
     if (!open) return
-    setSettings(readAISettings())
+    const savedSettings = readAISettings()
+    setSettings(savedSettings)
     setArchiveSettings(readArchiveRuntimeSettings())
-    setApiKey('')
+    setApiKey(savedSettings.apiKey ?? '')
     setSaved(false)
     setTestStatus(null)
     setBackendStatus(null)
@@ -123,10 +124,10 @@ export function AISettingsSheet() {
       return
     }
     if (!apiKey.trim()) {
-      setTestStatus({ tone: 'warning', message: '缺少 API KEY；保存不会保存密钥。' })
+      setTestStatus({ tone: 'warning', message: '缺少 API KEY；保存后正式 AI 无法调用兼容接口。' })
       return
     }
-    setTestStatus({ tone: 'success', message: '本次测试配置完整；保存不会让前端长期持有 API KEY。' })
+    setTestStatus({ tone: 'success', message: '本页配置完整；保存后正式 AI 会使用这份配置。' })
   }
 
   async function liveTestConnection() {
@@ -134,18 +135,15 @@ export function AISettingsSheet() {
   }
 
   function save() {
-    saveAISettings(sanitizeAISettingsForSave(settings))
+    saveAISettings(sanitizeAISettingsForSave({ ...settings, apiKey }))
     saveArchiveRuntimeSettings(archiveSettings)
     const nextArchiveSettings = readArchiveRuntimeSettings()
     setArchiveSettings(nextArchiveSettings)
-    setSettings(readAISettings())
+    const nextSettings = readAISettings()
+    setSettings(nextSettings)
+    setApiKey(nextSettings.apiKey ?? '')
     setSaved(true)
-    setTestStatus((current) => current ?? {
-      tone: 'neutral',
-      message: settings.mode === 'backend'
-        ? '已保存非敏感设置；真实 AI 继续使用后端 .env。'
-        : '已保存非敏感设置；兼容接口的 API KEY 仍只用于本次测试。',
-    })
+    setTestStatus((current) => current ?? { tone: 'success', message: '已保存；后续 AI 请求会使用本机保存的配置。' })
     void refreshBackendStatus(nextArchiveSettings)
   }
 
@@ -164,7 +162,7 @@ export function AISettingsSheet() {
       open={open}
       onOpenChange={setOpen}
       title="AI API 设置"
-      description="长期 AI 由后端 .env 接管；页面里的 API KEY 只用于一次连通测试，不写入本地存储。"
+        description="配置模型和接入地址；API KEY 保存到本机浏览器，后续请求通过后端代理使用。"
       presentation="page"
       contentClassName="sheet-content--ai-settings"
       trigger={
@@ -236,7 +234,7 @@ export function AISettingsSheet() {
             </label>
           </div>
 
-          <p id="ai-mode-note" className="ai-settings-note"><KeyRound aria-hidden="true" />选择“使用后端配置”时，AI 请求使用后端 `.env` 的地址、模型和 Key；选择“临时兼容接口测试”时，页面输入只发给一次测试请求。</p>
+          <p id="ai-mode-note" className="ai-settings-note"><KeyRound aria-hidden="true" />API KEY 只保存在本机浏览器，不会写入 GitHub；正式请求会经本机或 HTTPS 后端代理发出。</p>
 
           <div className="ai-settings-advanced" aria-label="高级参数">
             <label>
