@@ -1,6 +1,7 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import { initialNightWorkbenchState } from '../../features/night-workbench/data/initialNightWorkbenchState'
 import { emptyWakeDraft } from '../../features/night-workbench/state/projectWakeDraft'
+import { defaultAISettings, saveAISettings } from '../settings'
 import { createNightResultAdviceAsync } from './nightSettlementHttp'
 
 function jsonResponse(body: unknown, status = 200) {
@@ -17,6 +18,8 @@ function adviceInput() {
 }
 
 describe('night settlement HTTP adapter', () => {
+  beforeEach(() => window.localStorage.clear())
+
   it('uses local night advice without calling backend in local mode', async () => {
     let called = false
     const advice = await createNightResultAdviceAsync(adviceInput(), {
@@ -85,6 +88,30 @@ describe('night settlement HTTP adapter', () => {
     })
     expect(advice?.facts).toEqual(['只会填入草稿。'])
     expect(advice?.authorityWarnings).toEqual(['先核对发动者状态。', '确认本项前不写日志。'])
+  })
+
+  it('sends saved compatible-provider settings with later night requests', async () => {
+    saveAISettings({
+      ...defaultAISettings,
+      mode: 'openai-compatible',
+      baseUrl: 'https://ai.example.test/v1',
+      model: 'saved-night-model',
+      apiKey: 'test-key-persisted-locally',
+    })
+
+    await createNightResultAdviceAsync(adviceInput(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const body = JSON.parse(String(init?.body)) as Record<string, unknown>
+        expect(body.providerSettings).toMatchObject({
+          provider: 'openai-compatible',
+          baseUrl: 'https://ai.example.test/v1',
+          model: 'saved-night-model',
+          apiKey: 'test-key-persisted-locally',
+        })
+        return jsonResponse({ accepted: true, data: { draft: { status: 'needs_input' } } })
+      },
+    })
   })
 
   it('puts confirmed previous registration and current storyteller registration on the wire', async () => {

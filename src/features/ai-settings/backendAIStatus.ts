@@ -1,5 +1,6 @@
 import type { BadgeTone } from '../../components/ui/StatusBadge'
 import type { ArchiveRuntimeSettings } from '../../services/archive'
+import { canSendSecretToBackend } from '../../services/ai/savedAIProviderSettings'
 import type { AISettings } from '../../services/settings'
 
 export type BackendAIStatus = {
@@ -63,21 +64,12 @@ export async function testBackendAIConnection(settings: ArchiveRuntimeSettings):
   }
 }
 
-function canSendSecretTo(baseUrl: string) {
-  try {
-    const url = new URL(baseUrl)
-    return url.protocol === 'https:' || url.hostname === '127.0.0.1' || url.hostname === 'localhost' || url.hostname === '::1'
-  } catch {
-    return false
-  }
-}
-
 export async function testLiveAIConnection(
   runtimeSettings: ArchiveRuntimeSettings,
   aiSettings: AISettings,
   apiKey: string,
 ): Promise<BackendAIStatus> {
-  if (!canSendSecretTo(runtimeSettings.baseUrl)) {
+  if (!canSendSecretToBackend(runtimeSettings.baseUrl)) {
     return { tone: 'warning', message: '真实连通测试需要本机地址或 HTTPS 后端。' }
   }
   if (aiSettings.mode === 'off') {

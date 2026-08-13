@@ -241,14 +241,15 @@ npm run dev:backend
 
 ## AI 配置
 
-真实 AI 走后端代理，前端只保存非敏感设置。设置页里的 API Key 只用于一次连通测试，不会保存；要让 AI 在之后的配板、夜间和复盘请求中持续使用，请把 Key 配置到后端 `.env`。不要把 API Key 写入源码或提交到 Git。
+真实 AI 走后端代理。GitHub 下载版默认不带 API Key；用户可以在本机设置页填写并保存自己的 Key，供之后的配板、夜间建议和赛后复盘使用。Key 不会写入源码、GitHub、归档或响应；共享设备/VPS 仍建议使用后端环境变量。
 
 当前状态：
 
 - 后端已有 OpenAI-compatible provider 配置和一次性 live test 入口。
 - 默认 `BOTC_AI_ENABLED=false`，不调用真实模型。
-- 设置页选择“使用后端配置”时，真实请求读取后端的 `BOTC_AI_BASE_URL`、`BOTC_AI_MODEL` 和 `BOTC_AI_API_KEY`；页面输入不会覆盖后端长期配置。
-- “临时兼容接口测试”只适合验证一个地址和模型是否可通，不代表保存后会长期使用该 Key。
+- 设置页选择“使用后端配置”时，真实请求读取后端的 `BOTC_AI_BASE_URL`、`BOTC_AI_MODEL` 和 `BOTC_AI_API_KEY`。
+- 设置页选择“临时兼容接口测试”并保存后，本机运行版会在后续配板、夜间和复盘请求中继续使用本机保存的地址、模型和 Key。
+- 只有本机或 HTTPS 后端会携带浏览器保存的 Key；普通 HTTP 公网地址不会携带这份 Key，并回退到后端配置或本地草稿。
 - AI 配板、夜间结算和赛后复盘仍是草稿建议；不会自动改权威状态。
 - 详细启动方式见 `dev-docs/AI_RUNTIME_STARTUP.md`。
 
@@ -270,7 +271,7 @@ $env:BOTC_AI_API_KEY='your-local-secret'
 - `dev-docs/VPS_DEPLOYMENT_PREP.md`：当前自用 VPS 与旧 V2.5 的目录、端口和共存边界。
 - `dev-docs/AI_RUNTIME_STARTUP.md`：真实 AI provider 的环境变量和连通测试。
 
-关键边界：API Key 只放后端环境变量；归档数据默认是 JSON 文件；AI 不可用时，手动主持流程仍必须可用。
+关键边界：API Key 不进源码、GitHub、归档或响应；可按场景保存在当前浏览器或后端环境变量；归档数据默认是 JSON 文件；AI 不可用时，手动主持流程仍必须可用。
 VPS 默认只绑定 `127.0.0.1`；公网访问应由同机的带认证反向代理转发，通常不需要改变这个绑定。只有明确知道自己在防火墙和代理层已经做好保护时，才传入 `-AllowPublicBind`。不要直接把 runtime 端口裸露到公网。
 
 ## 验证
