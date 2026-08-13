@@ -73,7 +73,7 @@
 - `dev-docs/VPS_DEPLOYMENT_PREP.md` 表格写新辅助工具默认端口 `8787`。
 - 同文档环境变量示例写 `BOTC_ASSISTANT_BACKEND_PORT = '3000'`。
 - `scripts/sync-to-vps.ps1` 默认 `BackendPort = 3000`。
-- 文档顶部又写公共 URL 为 `http://124.223.37.191:3000/`。
+- 文档顶部又写公共 URL 为 `http://your-vps-host:3000/`。
 
 影响：
 

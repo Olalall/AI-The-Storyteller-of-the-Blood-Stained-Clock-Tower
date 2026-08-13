@@ -1,6 +1,8 @@
 # VPS 部署准备：V2.5 与新辅助工具分离
 
-Status: Deployed on Tencent Lighthouse. Public assistant URL: http://124.223.37.191:3000/. Old V2.5 remains on http://124.223.37.191/.
+Status: Deployed on Tencent Lighthouse. Public assistant URL: http://your-vps-host:3000/. Old V2.5 remains on http://your-vps-host/.
+
+> 安全说明：VPS 的真实公网地址只在部署者私下保存和分享，不写入仓库；这里的 `your-vps-host` 只是占位符。源码默认只绑定本机，公网 VPS 需要显式使用 `-AllowPublicBind`。
 
 ## 目标
 
@@ -16,7 +18,7 @@ Status: Deployed on Tencent Lighthouse. Public assistant URL: http://124.223.37.
 |---|---|---:|---|
 | V2.5 | `C:\botc-mvp` | 旧服务端口 | 旧项目保留，不由新脚本处理 |
 | 新辅助工具本地 runtime 默认 | 本机项目目录 | `8787` | `npm run dev:backend` 默认端口 |
-| 当前 VPS 新辅助工具 | `C:\botc-storyteller-companion` | `3000` | 当前对外访问端口：`http://124.223.37.191:3000/` |
+| 当前 VPS 新辅助工具 | `C:\botc-storyteller-companion` | `3000` | 当前对外访问端口：`http://your-vps-host:3000/` |
 | 新辅助工具临时上传 | `C:\botc-storyteller-companion-deploy` | - | 只放同步 zip |
 
 不要把这三层混在一起：
@@ -130,12 +132,12 @@ curl https://<your-domain>/healthz
 
 ## 2026-07-18 远端状态记录
 
-- 腾讯云轻量服务器：Windows Server 2022，公网 IP `124.223.37.191`。
-- 旧 V2.5 继续保留在 `http://124.223.37.191/`，不由新项目脚本处理。
+- 腾讯云轻量服务器：Windows Server 2022，公网 IP `your-vps-host`。
+- 旧 V2.5 继续保留在 `http://your-vps-host/`，不由新项目脚本处理。
 - 新辅助工具目录：`C:\botc-storyteller-companion`。
 - 新辅助工具临时上传目录：`C:\botc-storyteller-companion-deploy`。
-- 新辅助工具对外地址：`http://124.223.37.191:3000/`。
-- 新辅助工具健康检查：`http://124.223.37.191:3000/healthz`。
+- 新辅助工具对外地址：`http://your-vps-host:3000/`。
+- 新辅助工具健康检查：`http://your-vps-host:3000/healthz`。
 - 远端服务名曾记录为 `botc-storyteller-backend`。
 - 本机 runtime 默认 `8787`；当前 VPS 对外使用 `3000`，避免与旧服务和访问习惯混淆。
 - 曾记录启动脚本：`C:\botc-storyteller-companion\start-assistant.ps1`。
@@ -150,15 +152,15 @@ curl https://<your-domain>/healthz
 - 部署包：`botc-storyteller-companion-20260727-170223.zip`。
 - 部署包 SHA256：`F8C050D235D82746D3723E852D44785996162C9B6A1F95F776D05FD2C565CD56`。
 - Release asset 地址：`https://github.com/Olalall/botc-storyteller-companion/releases/download/alpha-preview-20260727/botc-storyteller-companion-20260727-170223.zip`。
-- SSH/SCP 路径失败：`124.223.37.191:22` 连接被关闭。
+- SSH/SCP 路径失败：`your-vps-host:22` 连接被关闭。
 - GitHub Release asset 远端下载失败：VPS 上 `curl` / `Invoke-WebRequest` 到 GitHub 均出现连接重置或无法连接远程服务器。
 - 实际成功路径：Tencent TAT 分片写入 zip base64 → 远端重组 zip → SHA256 校验 → 备份旧新工具目录 → 解压 → 使用绝对路径启动 Node runtime。
 - 远端 Node 路径：`C:\nodejs\node.exe`。
 - TAT 以 SYSTEM 身份运行时找不到 `npm.cmd`，本次跳过 `npm ci` 后直接启动 `dist-server\runtime.mjs`；当前 runtime 打包产物可独立启动。
 - 后续已补充正式脚本：`scripts\vps\start-assistant.ps1` 和 `scripts\vps\install-windows-scheduled-task.ps1`；部署包会自动携带，用于把 `C:\nodejs\node.exe` 绝对路径固化到 Windows Scheduled Task。
-- 新工具远端健康检查通过：`http://124.223.37.191:3000/healthz` 返回 `{"ok":true,"service":"botc-storyteller-backend"}`。
-- 新工具首页通过：`http://124.223.37.191:3000/` 返回 200。
-- 旧 V2.5 首页仍可访问：`http://124.223.37.191/` 返回 200。
+- 新工具远端健康检查通过：`http://your-vps-host:3000/healthz` 返回 `{"ok":true,"service":"botc-storyteller-backend"}`。
+- 新工具首页通过：`http://your-vps-host:3000/` 返回 200。
+- 旧 V2.5 首页仍可访问：`http://your-vps-host/` 返回 200。
 - 备份目录由远端脚本创建在：`C:\botc-storyteller-companion-deploy\backup-20260727-172205`。
 
 ## 2026-07-27 Windows Scheduled Task 托管记录

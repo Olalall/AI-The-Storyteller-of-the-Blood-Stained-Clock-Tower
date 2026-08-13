@@ -69,12 +69,15 @@ export interface WakeRegistrationSpec {
 
 export type WakeHistoricalContextKind =
   | 'balloonist_role_type'
+  | 'fanggu_conversion'
+  | 'godfather_trigger'
   | 'moonchild_choice'
   | 'once_per_game_use'
   | 'pukka_poison'
   | 'shabaloth_regurgitation'
   | 'yanluo_delayed_death'
   | 'po_charge'
+  | 'zombuul_day_death'
 
 /** 只读的角色专用历史事实；用于提示和 AI 上下文，不直接执行状态变化。 */
 export interface WakeHistoricalContext {

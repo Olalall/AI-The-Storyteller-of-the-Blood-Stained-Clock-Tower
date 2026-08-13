@@ -25,10 +25,10 @@ function item(roleId: 'exorcist' | 'devilsadvocate'): WakeItem {
   }
 }
 
-function complexItem(roleId: 'balloonist' | 'moonchild' | 'professor' | 'pukka' | 'shabaloth' | 'yanluo' | 'po'): WakeItem {
+function complexItem(roleId: 'balloonist' | 'moonchild' | 'professor' | 'pukka' | 'shabaloth' | 'yanluo' | 'po' | 'zombuul'): WakeItem {
   return {
     ...item('exorcist'), id: `night-complex-${roleId}-2`, roleId,
-    roleName: ({ balloonist: '气球驾驶员', moonchild: '月之子', professor: '教授', pukka: '普卡', shabaloth: '沙巴洛斯', yanluo: '阎罗', po: '珀' })[roleId],
+    roleName: ({ balloonist: '气球驾驶员', moonchild: '月之子', professor: '教授', pukka: '普卡', shabaloth: '沙巴洛斯', yanluo: '阎罗', po: '珀', zombuul: '僵怖' })[roleId],
     ability: '复杂跨夜技能。', targetCount: 0,
   }
 }
@@ -162,6 +162,47 @@ describe('跨夜目标投影', () => {
 
     expect(projected.historicalContext).toMatchObject({ kind: 'moonchild_choice', status: 'clear', seatIds: [5] })
     expect(projected.outcomeOptions.map((option) => option.id)).toEqual(['no-death-candidate'])
+  })
+
+  it('does not create a Moonchild death candidate when Moonchild is drunk or poisoned at night', () => {
+    const moonchild = complexItem('moonchild')
+    moonchild.status = { life: 'dead', impairments: ['drunk'], markers: [] }
+    const projected = applyWakeHistoricalContext(sessionWithDayHistory([
+      moonchildDayEntry('applied', 5, 'good'),
+    ]), moonchild, 3)
+
+    expect(projected.historicalContext).toMatchObject({ kind: 'moonchild_choice', status: 'clear', seatIds: [5] })
+    expect(projected.history).toContain('本夜醉酒或中毒')
+    expect(projected.outcomeOptions.map((option) => option.id)).toEqual(['no-death-candidate'])
+  })
+
+  it('marks Zombuul as not applicable after an actual daytime death', () => {
+    const session = sessionWithDayHistory([])
+    session.timeline.push({
+      id: 'no-execution-2', kind: 'no_execution', segmentId: 'day-2', createdAt: AT, confirmedBy: 'storyteller',
+    })
+    session.timeline.push({
+      id: 'zombuul-day-death', kind: 'player_state_changed', seatId: 5, before: { life: 'alive', poisoned: false, drunk: false, markers: [] }, after: { life: 'dead', poisoned: false, drunk: false, markers: [] }, reason: '白天技能造成死亡', segmentId: 'day-2', createdAt: AT, confirmedBy: 'storyteller',
+    })
+
+    const projected = applyWakeHistoricalContext(session, complexItem('zombuul'), 3)
+
+    expect(projected.historicalContext).toMatchObject({ kind: 'zombuul_day_death', status: 'clear' })
+    expect(projected.applicability).toBe('not_applicable')
+    expect(projected.outcomeOptions.map((option) => option.id)).toEqual(['zombuul-no-action'])
+  })
+
+  it('allows Zombuul to act when the day explicitly ended without a death', () => {
+    const session = sessionWithDayHistory([])
+    session.timeline.push({
+      id: 'no-execution-2', kind: 'no_execution', segmentId: 'day-2', createdAt: AT, confirmedBy: 'storyteller',
+    })
+
+    const projected = applyWakeHistoricalContext(session, complexItem('zombuul'), 3)
+
+    expect(projected.historicalContext).toMatchObject({ kind: 'zombuul_day_death', status: 'ready' })
+    expect(projected.targetCount).toBe(0)
+    expect(projected.applicability).toBe('applicable')
   })
 
   it('treats night 2 as the Exorcist first action but requires history from night 3 onward', () => {

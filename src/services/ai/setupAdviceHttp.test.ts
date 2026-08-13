@@ -93,6 +93,8 @@ describe('setup advice HTTP adapter', () => {
         expect(serializedBody).toContain('setup-a')
         expect(serializedBody).toContain('rolePool')
         expect(serializedBody).toContain('abilityText')
+        expect(serializedBody).toContain('首夜得知两名玩家中有一名是某个爪牙')
+        expect(serializedBody).not.toContain('You start knowing that 1 of 2 players is a particular Minion')
         expect(serializedBody).toContain('roleKnowledge')
         expect(serializedBody).toContain('roleResearch')
         expect(serializedBody).toContain('舞蛇人')

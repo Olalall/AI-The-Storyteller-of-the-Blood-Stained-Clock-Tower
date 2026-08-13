@@ -3,6 +3,10 @@
 .session-entry__eyebrow { color: var(--accent-text); font-size: var(--type-meta); font-weight: 800; letter-spacing: .14em; }
 .session-entry__card h1 { margin: 0; font: 800 var(--type-page-title) var(--font-display); color: var(--text-strong); }
 .session-entry__card p { margin: 0; color: var(--text-muted); font-size: var(--type-body); line-height: var(--line-body); }
+.session-entry__steps { display: grid; gap: var(--space-8); margin: 0; padding: 0; list-style: none; text-align: left; }
+.session-entry__steps li { display: grid; grid-template-columns: 1fr; gap: 2px; padding: var(--space-10) var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-soft); }
+.session-entry__steps strong { color: var(--text-strong); font-size: var(--type-label); }
+.session-entry__steps span { color: var(--text-muted); font-size: var(--type-meta); line-height: var(--line-body); }
 .session-entry__actions { display: flex; justify-content: center; gap: var(--space-12); flex-wrap: wrap; }
 .session-entry__demo { min-height: var(--touch-min); border: 1px dashed var(--border-strong); border-radius: var(--radius-md); background: transparent; color: var(--text-subtle); font-size: var(--type-label); font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 6px; cursor: pointer; }
 .session-entry__demo:hover { color: var(--text-body); border-color: var(--accent-border); }

@@ -25,14 +25,14 @@ import './ai-settings.css'
 
 const modeLabels: Record<AIProviderMode, string> = {
   off: '关闭',
-  backend: '后端代理',
-  'openai-compatible': '兼容接口',
+  backend: '使用后端配置',
+  'openai-compatible': '临时兼容接口测试',
 }
 
 const modeDescriptions: Record<AIProviderMode, string> = {
   off: '只用本地原型',
-  backend: '推荐，密钥在后端',
-  'openai-compatible': 'OpenAI 兼容地址',
+  backend: '推荐，长期使用后端 .env',
+  'openai-compatible': '只发起一次测试，不保存 Key',
 }
 
 type TestStatus = {
@@ -42,6 +42,12 @@ type TestStatus = {
 
 function providerTone(mode: AIProviderMode): BadgeTone {
   return mode === 'off' ? 'neutral' : 'warning'
+}
+
+function providerStatusLabel(mode: AIProviderMode) {
+  if (mode === 'off') return '未启用'
+  if (mode === 'backend') return '后端接管'
+  return '仅本次测试'
 }
 
 export function AISettingsSheet() {
@@ -156,7 +162,7 @@ export function AISettingsSheet() {
       open={open}
       onOpenChange={setOpen}
       title="AI API 设置"
-      description="配置模型和接入地址；API KEY 保存到本机浏览器，后续请求通过后端代理使用。"
+        description="配置模型和接入地址；API KEY 保存到本机浏览器，后续请求通过后端代理使用。"
       presentation="page"
       contentClassName="sheet-content--ai-settings"
       trigger={
@@ -171,7 +177,7 @@ export function AISettingsSheet() {
             <span><PlugZap aria-hidden="true" />连接配置</span>
             <h3 id="ai-connection-title">AI API</h3>
           </div>
-          <StatusBadge tone={providerTone(settings.mode)}>{settings.mode === 'off' ? '未启用' : '待接入'}</StatusBadge>
+          <StatusBadge tone={providerTone(settings.mode)}>{providerStatusLabel(settings.mode)}</StatusBadge>
         </section>
 
         <section className="ai-settings-card ai-settings-card--form" aria-labelledby="ai-form-title">
@@ -201,6 +207,7 @@ export function AISettingsSheet() {
                 onChange={(event) => patch({ baseUrl: event.target.value })}
                 placeholder="https://api.example.com/v1"
                 autoComplete="url"
+                disabled={settings.mode === 'backend'}
               />
             </label>
 
@@ -211,6 +218,7 @@ export function AISettingsSheet() {
                 onChange={(event) => patch({ model: event.target.value })}
                 placeholder={defaultAISettings.model}
                 autoComplete="off"
+                disabled={settings.mode === 'backend'}
               />
             </label>
 
