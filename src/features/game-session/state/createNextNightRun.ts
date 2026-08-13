@@ -78,20 +78,23 @@ function createSmartScriptNightQueue(
 ) {
   const pack = getSmartScriptPack(session.scriptId)
   const orders = sequence === 1 ? pack.nightOrders.firstNight : pack.nightOrders.otherNight
-  const roleById = new Map(pack.roles.map((role) => [role.id, role]))
-  const teamById = roleTeamByIdForScript(session.scriptId)
+  const roleById = new Map(pack.roles.map((role) => [normalizeRoleId(role.id), role]))
+  const teamById = Object.fromEntries(Object.entries(roleTeamByIdForScript(session.scriptId))
+    .map(([roleId, team]) => [normalizeRoleId(roleId), team]))
   const assignmentsByRole = new Map<string, SetupAssignment[]>()
   for (const assignment of assignments) {
-    assignmentsByRole.set(assignment.role.id, [
-      ...(assignmentsByRole.get(assignment.role.id) ?? []),
+    const roleId = normalizeRoleId(assignment.role.id)
+    assignmentsByRole.set(roleId, [
+      ...(assignmentsByRole.get(roleId) ?? []),
       assignment,
     ])
   }
 
   return orders.flatMap((order) => {
-    const role = roleById.get(order.roleId)
+    const roleId = normalizeRoleId(order.roleId)
+    const role = roleById.get(roleId)
     if (!role) return []
-    const roleAssignments = assignmentsByRole.get(order.roleId) ?? []
+    const roleAssignments = assignmentsByRole.get(roleId) ?? []
     if (order.delivery?.kind === 'audience_notice') {
       if (!roleAssignments.length) return []
       return [createAudienceNoticeItem({
@@ -107,7 +110,7 @@ function createSmartScriptNightQueue(
     }
     return roleAssignments.flatMap((assignment) => {
       const wakeAssignment = normalizeRoleId(role.id) === 'marionette'
-        ? assignments.find((candidate) => teamById[candidate.role.id] === 'demon')
+        ? assignments.find((candidate) => teamById[normalizeRoleId(candidate.role.id)] === 'demon')
         : assignment
       if (!wakeAssignment) return []
       const playerState = playerStates[wakeAssignment.seatId]
@@ -139,10 +142,14 @@ function createSmartWakeItem(input: {
 }): WakeItem {
   const { session, assignment, wakeAssignment, playerState, role, order, runId, sequence } = input
   const roleChoices = createRoleChoices(session.scriptId, role.inputKinds)
-  const targetContract = targetContractFor(role, session.playerCount)
+  const targetContract = targetContractFor(role, session.playerCount, roleAbilityForScript(session.scriptId, role.id))
   const roleSpecificOutcomeOptions = createRoleSpecificOutcomeOptions(role.id, targetContract, Boolean(roleChoices))
   const isPlayerBooleanChoice = role.inputKinds.includes('boolean')
   const dead = playerState.life === 'dead'
+  const canonicalPromptRoleIds = new Set(['godfather', 'fanggu'])
+  const storytellerPrompt = canonicalPromptRoleIds.has(normalizeRoleId(role.id))
+    ? rolePromptForScript(session.scriptId, role.id)
+    : order.note ?? rolePromptForScript(session.scriptId, role.id)
   return applyWakeHistoricalContext(session, {
     id: `${runId}-${role.id}-${assignment.seatId}`,
     orderIndex: order.order,
@@ -155,7 +162,7 @@ function createSmartWakeItem(input: {
     roleInitial: assignment.role.initial,
     iconPath: assignment.role.iconPath,
     ability: roleAbilityForScript(session.scriptId, role.id),
-    storytellerPrompt: order.note ?? rolePromptForScript(session.scriptId, role.id),
+    storytellerPrompt,
     progress: 'pending',
     applicability: dead ? 'needs_review' : 'applicable',
     status: toWakeStatus(playerState),
@@ -240,7 +247,7 @@ const zeroOrOneTargetRoleIds = new Set([
   'ye_yan',
 ])
 
-function targetContractFor(role: SmartRoleDefinition, playerCount: number): NightTargetContract {
+function targetContractFor(role: SmartRoleDefinition, playerCount: number, localizedAbilityText: string): NightTargetContract {
   const roleId = normalizeRoleId(role.id)
   if (threeTargetRoleIds.has(roleId)) return { targetCount: 3, targetLabel: '三名目标' }
   if (twoTargetRoleIds.has(roleId)) return { targetCount: 2, targetLabel: '两名目标' }
@@ -250,7 +257,7 @@ function targetContractFor(role: SmartRoleDefinition, playerCount: number): Nigh
   if (atLeastThreeTargetRoleIds.has(roleId)) return { targetCount: playerCount, minimumTargetCount: 3, targetLabel: '至少三名目标' }
   if (oneOrTwoTargetRoleIds.has(roleId)) return { targetCount: 2, minimumTargetCount: 1, targetLabel: '1-2名目标' }
   if (zeroOrOneTargetRoleIds.has(roleId)) return { targetCount: 1, minimumTargetCount: 0, targetLabel: '本夜选择' }
-  const inferred = inferTargetContractFromAbility(role.abilityText, playerCount)
+  const inferred = inferTargetContractFromAbility(localizedAbilityText, playerCount)
   if (inferred) return inferred
   return { targetCount: targetCountFor(role.inputKinds) }
 }
@@ -366,9 +373,9 @@ function createRoleSpecificOutcomeOptions(roleId: string, targetContract: NightT
       },
       {
         id: 'already-in-play',
-        label: '目标角色已在场',
+        label: '目标角色已在场 · 能力无效',
         requiredInputs: ['targets', 'role'] as OutcomeInput[],
-        resultTemplate: '{actor}本夜选择{targets}变为{role}；该角色当前已在场，是否改为死亡或其他结果由说书人确认。',
+        resultTemplate: '{actor}本夜选择{targets}变为{role}；该角色当前已在场，麻脸巫婆能力无效，不产生其他结果。',
       },
       {
         id: 'no-effect',

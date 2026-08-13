@@ -54,7 +54,7 @@ describe('smart script pack quality gate', () => {
     }
   })
 
-  it('keeps template roles and demon bluffs inside the same pack without using travelers or fabled roles', () => {
+  it('keeps template roles and demon bluffs inside the same pack without using traveler, fabled, or loric roles', () => {
     for (const pack of smartScriptPacks) {
       const roleById = new Map(pack.roles.map((role) => [role.id, role]))
 
@@ -64,6 +64,7 @@ describe('smart script pack quality gate', () => {
           expect(role, `${template.templateId}/${roleId}`).toBeTruthy()
           expect(role?.team, `${template.templateId}/${roleId}`).not.toBe('traveler')
           expect(role?.team, `${template.templateId}/${roleId}`).not.toBe('fabled')
+          expect(role?.team, `${template.templateId}/${roleId}`).not.toBe('loric')
         }
 
         for (const bluffId of template.bluffs) {
@@ -72,6 +73,7 @@ describe('smart script pack quality gate', () => {
           expect(template.roles, `${template.templateId}/${bluffId}`).not.toContain(bluffId)
           expect(bluff?.team, `${template.templateId}/${bluffId}`).not.toBe('traveler')
           expect(bluff?.team, `${template.templateId}/${bluffId}`).not.toBe('fabled')
+          expect(bluff?.team, `${template.templateId}/${bluffId}`).not.toBe('loric')
         }
       }
     }
@@ -110,7 +112,7 @@ describe('smart script pack quality gate', () => {
           garbledResearchText.push(`${pack.scriptId}/${role.id}`)
         }
 
-        if (role.team !== 'traveler' && role.team !== 'fabled' && isHighRiskAbility(role.abilityText)) {
+        if (role.team !== 'traveler' && role.team !== 'fabled' && role.team !== 'loric' && isHighRiskAbility(role.abilityText)) {
           const research = role.research
           const hasStructuredLogic = Boolean(research && [
             research.setupImpact,
