@@ -116,7 +116,7 @@ export function buildSetupAdviceProviderMessages(input: SetupAdviceProviderReque
           '如果 roleKnowledge 或 roleResearch 存在，只能作为风险提醒，不得据此自动改身份或状态。',
           'microAdjustments[].candidateId 必须来自 input.candidates[].id。',
           'microAdjustments[].replaceOutRoleId 必须是该 candidate 的 roles[].roleId。',
-          'microAdjustments[].replaceInRoleId 必须来自 input.rolePool[].roleId，且不能是 traveler/fabled。',
+          'microAdjustments[].replaceInRoleId 必须来自 input.rolePool[].roleId，且不能是 traveler/fabled/loric。',
           '微调建议不需要追求完美，只给 0-4 条最值得人工考虑的替换方向。',
           'qualityTags 给每个重点候选 1-3 个短标签，帮助说书人快速扫风险；candidateId 必须来自 input.candidates[].id。',
           '如果替换会改变阵营、人数组成、外来者修正或恶魔伪装，必须在 risk 里提示重新核对。',

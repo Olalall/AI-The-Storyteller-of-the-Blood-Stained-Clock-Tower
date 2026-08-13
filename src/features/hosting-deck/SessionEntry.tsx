@@ -34,6 +34,11 @@ export function SessionEntry({
         <span className="session-entry__eyebrow">血染钟楼 · 说书人辅助</span>
         <h1>开始一局新的主持</h1>
         <p>先选板子和人数，配好板之后进入黄昏。工具只做记录与建议，所有裁定仍由你确认。</p>
+        <ol className="session-entry__steps" aria-label="开局三步">
+          <li><strong>选择板子和人数</strong><span>填写座位昵称后建立本局草稿</span></li>
+          <li><strong>确认配板并发身份</strong><span>AI 可选，只提供候选和风险提示</span></li>
+          <li><strong>按夜序逐项确认</strong><span>每个结果都由说书人手动确认</span></li>
+        </ol>
         <div className="session-entry__actions">
           <Button variant="primary" onClick={onStartSetup}><PlayCircle aria-hidden="true" />开始配板</Button>
           <Button variant="secondary" onClick={onOpenScriptLibrary}><BookOpenText aria-hidden="true" />浏览板子</Button>

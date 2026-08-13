@@ -1,4 +1,4 @@
-import { FileJson, ShieldCheck } from 'lucide-react'
+import { ShieldCheck } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge } from '../../components/ui/StatusBadge'
@@ -54,7 +54,7 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
         <section className="script-library__section" aria-labelledby="available-script-title">
           <div className="script-library__section-heading">
             <div><span>可用板子</span><h3 id="available-script-title">智能板子</h3></div>
-            <p>开局状态与 AI 建议状态分开显示</p>
+            <p>板子是角色、夜序、模板和规则资料包；AI 只提供候选和草稿。这里的“可直接开局”表示项目内资料已经整理完成，最终结果仍由说书人确认。</p>
           </div>
           <div className="script-library__scripts">
             {smartScriptPacks.map((pack) => {
@@ -71,7 +71,7 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
                     <StatusBadge tone={quality ? readinessTone(quality.readiness) : 'neutral'}>{quality?.readinessLabel ?? '状态未知'}</StatusBadge>
                     <Button variant="primary" disabled={!canSelect} onClick={() => startBlankScript(pack.scriptId)}>选择人数开局</Button>
                     {!canStartBlankScript ? <small>如需新局，先保存并重置当前局。</small> : null}
-                    {canStartBlankScript && quality?.readiness === 'review' ? <small>来源待核对，AI建议需人工确认。</small> : null}
+                    {canStartBlankScript && quality?.readiness === 'review' ? <small>资料仍有缺口，AI建议需人工确认。</small> : null}
                     {canStartBlankScript && quality?.readiness === 'blocked' ? <small>缺少必要知识或人数模板，暂不能开局。</small> : null}
                   </div>
                 </article>
@@ -84,8 +84,7 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
           <div className="script-library__section-heading">
             <div><span>导入</span><h3 id="script-import-title">添加新板子</h3></div>
           </div>
-          <p>JSON、夜序与规则知识包需要一起核对；未核对的板子不能开局或用于智能配板。</p>
-          <Button variant="secondary" disabled title="剧本导入将在知识包合同完成后接入"><FileJson aria-hidden="true" />导入 JSON（待接入）</Button>
+          <p>自定义板子导入正在规划中。当前只能使用项目内已整理好的智能板子，避免把缺少夜序或规则资料的 JSON 直接带入开局。</p>
         </section>
       </div>
     </Sheet>
