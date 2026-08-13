@@ -31,9 +31,8 @@ $resolvedArchiveDir = Split-Path -Parent $resolvedArchiveFile
 
 $localHosts = @('127.0.0.1', 'localhost', '::1')
 if (($localHosts -notcontains $HostName) -and -not $AllowPublicBind) {
-  throw "为避免把没有登录保护的归档和 AI 接口暴露到公网，默认只允许本机绑定。若已配置反向代理认证，请额外传入 -AllowPublicBind。"
+  throw "Public binding is disabled by default. Pass -AllowPublicBind only when a protected reverse proxy or access control is configured."
 }
-
 New-Item -ItemType Directory -Force -Path $resolvedLogDir, $resolvedArchiveDir | Out-Null
 
 $env:BOTC_BACKEND_HOST = $HostName

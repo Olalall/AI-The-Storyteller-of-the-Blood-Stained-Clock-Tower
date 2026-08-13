@@ -44,6 +44,15 @@ export interface AISettingsLiveTestRequest {
   timeoutSeconds?: number
 }
 
+/** 前端保存的兼容接口配置；只允许作为单次业务请求的后端代理覆盖项。 */
+export interface AIProviderOverrideRequest {
+  provider: 'openai-compatible'
+  baseUrl: string
+  model: string
+  apiKey: string
+  timeoutSeconds?: number
+}
+
 export interface AISettingsLiveTestResult {
   ok: boolean
   provider: AIProviderKind
@@ -119,6 +128,7 @@ export interface SetupAdviceProviderRequest {
   scriptName: string
   knowledgeVersion: string
   playerCount: number
+  providerSettings?: AIProviderOverrideRequest
   seats: readonly SetupAdviceSeatBrief[]
   rolePool?: readonly SetupAdviceRolePoolBrief[]
   candidates: readonly SetupAdviceCandidateBrief[]
@@ -212,6 +222,7 @@ export interface NightSettlementProviderRequest {
   nightRunId: string
   phaseLabel: string
   playerCount: number
+  providerSettings?: AIProviderOverrideRequest
   contextLevel?: NightSettlementContextLevel
   /**
    * 工具里还不知道身份的座位号。它是 contextLevel 的证据：光说「我知道得不全」，

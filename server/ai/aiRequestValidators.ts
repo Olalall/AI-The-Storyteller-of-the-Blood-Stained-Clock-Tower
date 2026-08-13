@@ -1,4 +1,4 @@
-import type { NightSettlementProviderRequest, SetupAdviceProviderRequest } from './types'
+import type { AIProviderOverrideRequest, NightSettlementProviderRequest, SetupAdviceProviderRequest } from './types'
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null
@@ -69,6 +69,22 @@ function validContextLevel(value: unknown) {
 
 function validUnknownSeatIds(value: unknown) {
   return value === undefined || (Array.isArray(value) && value.every((seatId) => Number.isInteger(seatId)))
+}
+
+function validTimeoutSeconds(value: unknown) {
+  return value === undefined || (typeof value === 'number' && Number.isFinite(value) && value >= 5 && value <= 120)
+}
+
+export function isAIProviderOverrideRequest(value: unknown): value is AIProviderOverrideRequest {
+  return isRecord(value)
+    && value.provider === 'openai-compatible'
+    && typeof value.baseUrl === 'string'
+    && Boolean(value.baseUrl.trim())
+    && typeof value.model === 'string'
+    && Boolean(value.model.trim())
+    && typeof value.apiKey === 'string'
+    && Boolean(value.apiKey.trim())
+    && validTimeoutSeconds(value.timeoutSeconds)
 }
 
 function validSeatIdList(value: unknown, playerCount: number) {
@@ -150,6 +166,7 @@ export function isSetupAdviceRequest(value: unknown): value is SetupAdviceProvid
   if (typeof value.scriptId !== 'string' || typeof value.scriptName !== 'string') return false
   if (typeof value.knowledgeVersion !== 'string') return false
   if (!validPlayerCount(value.playerCount)) return false
+  if (!isAIProviderOverrideRequest(value.providerSettings) && value.providerSettings !== undefined) return false
   if (!Array.isArray(value.seats) || !Array.isArray(value.candidates) || !value.candidates.length) return false
   if (!validRolePool(value.rolePool)) return false
   return value.candidates.every((candidate) => (
@@ -168,6 +185,7 @@ export function isNightSettlementRequest(value: unknown): value is NightSettleme
   if (typeof value.scriptId !== 'string' || typeof value.knowledgeVersion !== 'string') return false
   if (typeof value.nightRunId !== 'string' || typeof value.phaseLabel !== 'string') return false
   if (!validPlayerCount(value.playerCount) || !isRecord(value.wakeItem) || !isRecord(value.draft)) return false
+  if (!isAIProviderOverrideRequest(value.providerSettings) && value.providerSettings !== undefined) return false
   if (!Array.isArray(value.availableOutcomes) || !value.availableOutcomes.length) return false
   if (!validContextLevel(value.contextLevel) || !validUnknownSeatIds(value.unknownSeatIds)) return false
   return typeof value.wakeItem.id === 'string'

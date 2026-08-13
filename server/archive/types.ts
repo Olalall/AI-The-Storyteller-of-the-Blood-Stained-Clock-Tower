@@ -1,5 +1,7 @@
 ﻿import type { GameArchiveRecord, GameWinner } from '../../src/services/archive/types'
 
+import type { AIProviderOverrideRequest } from '../ai/types'
+
 export interface ArchiveListQuery {
   dateFrom?: string
   dateTo?: string
@@ -32,6 +34,7 @@ export interface GenerateReviewDraftCommand {
   archiveId: string
   reviewStyle?: ReviewStyle
   includePlayerScores?: boolean
+  providerSettings?: AIProviderOverrideRequest
 }
 
 export type ArchiveErrorCode =
