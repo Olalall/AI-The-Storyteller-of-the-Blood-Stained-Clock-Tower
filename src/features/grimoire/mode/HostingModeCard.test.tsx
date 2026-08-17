@@ -22,6 +22,21 @@ describe('HostingModeCard', () => {
     expect(onSelect).toHaveBeenCalledExactlyOnceWith('grimoire')
   })
 
+  it('uses one tab stop and supports arrow-key radio selection', async () => {
+    const onSelect = vi.fn()
+    render(<HostingModeCard onSelect={onSelect} />)
+    const record = screen.getByRole('radio', { name: /桌上有实体魔典/ })
+    const grimoire = screen.getByRole('radio', { name: /没有实体魔典/ })
+
+    expect(record).toHaveAttribute('tabindex', '0')
+    expect(grimoire).toHaveAttribute('tabindex', '-1')
+    record.focus()
+    await userEvent.keyboard('{ArrowRight}')
+
+    expect(onSelect).toHaveBeenCalledExactlyOnceWith('grimoire')
+    expect(grimoire).toHaveFocus()
+  })
+
   it('shows which mode is already in effect', () => {
     render(<HostingModeCard value="record" onSelect={vi.fn()} />)
 

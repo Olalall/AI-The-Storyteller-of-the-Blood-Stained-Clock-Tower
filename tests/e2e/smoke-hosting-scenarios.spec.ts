@@ -70,8 +70,7 @@ async function openBlankSetup(page: Page, runId: string) {
   await openArchive(page)
   const setupHeading = page.getByRole('heading', { name: 'AI配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
-    await openArchive(page)
-    await page.getByRole('button', { name: 'AI配板与调整' }).click()
+    await (await import('./helpers/entry-onboarding')).openSetupFromEntry(page)
   }
   await expect(setupHeading).toBeVisible()
 }
@@ -111,6 +110,7 @@ test('hosting scenario B: 7人开局后夜序只投影在场角色，状态由�
   await openBlankSetup(page, 'scenario-b-7')
   await createConfirmedSetup(page, { scriptId: 'trouble-brewing', playerCount: 7 })
 
+  await openArchive(page)
   await page.getByRole('button', { name: '发身份' }).click()
   await expect(page.locator('.identity-deal__seat-grid button')).toHaveCount(7)
   await page.locator('.sheet-content--identity-deal .sheet-close').click()

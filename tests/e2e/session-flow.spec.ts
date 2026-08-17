@@ -1,12 +1,12 @@
 import { expect, test, type Page } from '@playwright/test'
+import { loadDemoSessionFromEntry } from './helpers/entry-onboarding'
 
 
 /** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
 
 /** 默认落地是空对局的入口界面；用例依赖的中局夹具需要显式载入。 */
 async function loadDemoSession(page: Page) {
-  const demo = page.getByRole('button', { name: /载入示例对局/ })
-  if (await demo.isVisible().catch(() => false)) await demo.click()
+  await loadDemoSessionFromEntry(page)
 }
 
 async function openArchive(page: import('@playwright/test').Page) {
@@ -52,25 +52,50 @@ async function dragThirdSeatToFourth(page: import('@playwright/test').Page) {
   await expect(seatButtons.nth(3)).toContainText(before[0].role)
 }
 
-test('empty session explains the three steps before the first game', async ({ page }) => {
+test('empty session leads a new user through install, hosting mode and setup', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
 
   await expect(page.getByRole('main', { name: '开始新对局' })).toBeVisible()
-  await expect(page.getByRole('list', { name: '开局三步' })).toContainText('选择板子和人数')
-  await expect(page.getByRole('list', { name: '开局三步' })).toContainText('确认配板并发身份')
-  await expect(page.getByRole('list', { name: '开局三步' })).toContainText('按夜序逐项确认')
+  await expect(page.getByRole('heading', { name: '安装到当前设备' })).toBeVisible()
+  await expect(page.getByRole('button', { name: '开始配板' })).toHaveCount(0)
+  await page.getByRole('button', { name: '暂不安装，先试用' }).click()
+  await expect(page.getByRole('heading', { name: '选择你的主持方式' })).toBeVisible()
+  await expect(page.getByRole('button', { name: '开始配板' })).toBeDisabled()
+  await page.getByRole('radio', { name: /没有实体魔典/ }).click()
+  await expect(page.getByRole('button', { name: '开始配板' })).toBeEnabled()
+  await page.screenshot({ path: 'artifacts/screenshots/onboarding-phone-hosting-mode.png', fullPage: true })
 })
 
-test('AI settings explain backend persistence versus one-off testing', async ({ page }) => {
-  await resetToDashboard(page)
-  await page.getByRole('button', { name: '打开AI API设置' }).click()
+test('returning user gets the compact start page with the previous hosting mode', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+  await page.evaluate(() => {
+    window.localStorage.clear()
+    window.localStorage.setItem('botc-copilot-hosting-preferences-v1', JSON.stringify({
+      defaultHostingMode: 'record',
+      hasCompletedInstallIntro: true,
+      hasCompletedFirstRunChoice: true,
+    }))
+  })
+  await page.reload()
 
-  await expect(page.getByText('长期 AI 由后端 .env 接管')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '开始一局新的主持' })).toBeVisible()
+  await expect(page.getByLabel('当前主持方式')).toContainText('实体魔典 + 工具记录')
+  await expect(page.getByRole('heading', { name: '安装到当前设备' })).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '开始配板' })).toBeEnabled()
+  await page.screenshot({ path: 'artifacts/screenshots/returning-phone-session-entry.png', fullPage: true })
+})
+
+test('AI settings distinguish backend secrets from browser-saved compatible settings', async ({ page }) => {
+  await resetToDashboard(page)
+  await page.getByRole('button', { name: '打开应用设置' }).click()
+
   const mode = page.getByLabel('调用方式')
-  await expect(mode.locator('option[value="backend"]')).toHaveCount(1)
-  await expect(mode.locator('option[value="openai-compatible"]')).toHaveCount(1)
+  await expect(mode.locator('option[value="backend"]')).toContainText('长期使用后端 .env')
+  await expect(mode.locator('option[value="openai-compatible"]')).toContainText('配置保存在当前设备')
   await mode.selectOption('backend')
   await expect(page.getByLabel('接入地址')).toBeDisabled()
   await expect(page.getByLabel('模型名字')).toBeDisabled()

@@ -14,6 +14,8 @@ import type { HostingMode } from '../../features/game-session/types'
 
 export interface HostingPreferences {
   defaultHostingMode: HostingMode
+  /** 安装说明已经看过或明确选择先试用；只控制首次引导，不控制 PWA 能力。 */
+  hasCompletedInstallIntro: boolean
   /** 首次引导卡问过没有。问过就不再打扰，除非用户自己去主持设置里改。 */
   hasCompletedFirstRunChoice: boolean
 }
@@ -22,6 +24,7 @@ export const hostingPreferencesStorageKey = 'botc-copilot-hosting-preferences-v1
 
 export const defaultHostingPreferences: HostingPreferences = {
   defaultHostingMode: 'grimoire',
+  hasCompletedInstallIntro: false,
   hasCompletedFirstRunChoice: false,
 }
 
@@ -36,6 +39,7 @@ export function normalizeHostingPreferences(value: unknown): HostingPreferences 
     defaultHostingMode: isHostingMode(candidate.defaultHostingMode)
       ? candidate.defaultHostingMode
       : defaultHostingPreferences.defaultHostingMode,
+    hasCompletedInstallIntro: candidate.hasCompletedInstallIntro === true,
     hasCompletedFirstRunChoice: candidate.hasCompletedFirstRunChoice === true,
   }
 }
@@ -61,11 +65,24 @@ export function saveHostingPreferences(preferences: HostingPreferences) {
 }
 
 export function resetHostingPreferences() {
-  window.localStorage.removeItem(hostingPreferencesStorageKey)
+  try {
+    window.localStorage.removeItem(hostingPreferencesStorageKey)
+  } catch {
+    // 浏览器拒绝存储访问时，重置仍返回内存默认值，不阻止用户继续使用。
+  }
   return defaultHostingPreferences
 }
 
 /** 记下这次的选择，同时把「问过了」标上。 */
 export function rememberHostingChoice(mode: HostingMode) {
-  saveHostingPreferences({ defaultHostingMode: mode, hasCompletedFirstRunChoice: true })
+  saveHostingPreferences({
+    ...readHostingPreferences(),
+    defaultHostingMode: mode,
+    hasCompletedFirstRunChoice: true,
+  })
+}
+
+/** 记住用户已经处理过安装建议；清浏览器数据后重新出现属于预期行为。 */
+export function rememberInstallIntroComplete() {
+  saveHostingPreferences({ ...readHostingPreferences(), hasCompletedInstallIntro: true })
 }

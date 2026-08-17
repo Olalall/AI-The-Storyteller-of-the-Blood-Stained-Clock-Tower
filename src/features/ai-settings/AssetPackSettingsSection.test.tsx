@@ -35,6 +35,9 @@ describe('AssetPackSettingsSection', () => {
 
     render(<AssetPackSettingsSection packs={packs} fetcher={fetcher} />)
 
+    expect(screen.getByText('未检测')).toBeInTheDocument()
+    expect(fetcher).not.toHaveBeenCalled()
+    await user.click(screen.getByRole('button', { name: '重新检测' }))
     expect(await screen.findByText('需导入')).toBeInTheDocument()
     expect(screen.getByText('0/1')).toBeInTheDocument()
 
@@ -55,6 +58,7 @@ describe('AssetPackSettingsSection', () => {
 
     render(<AssetPackSettingsSection packs={packs} fetcher={fetcher} />)
 
+    await user.click(screen.getByRole('button', { name: '重新检测' }))
     expect(await screen.findByText('已就绪')).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: '查看导入说明' }))
 

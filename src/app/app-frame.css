@@ -26,7 +26,15 @@
 
 /* grid item 的 min-height 默认是 auto，会被内容顶回去；不归零的话上面那条限高白设。 */
 .app-frame__workspace:has(.grimoire-stage) { display: flex; flex-direction: column; min-height: 0; }
+.app-frame__interactive:has(.grimoire-stage) { flex: 1; min-height: 0; display: flex; }
 .app-frame__deck:has(.grimoire-stage) { flex: 1; min-height: 0; display: flex; }
+
+.app-frame__interactive[inert] {
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.62;
+  filter: saturate(0.55);
+}
 
 @container app-frame (min-width: 1024px) {
   .app-frame[data-has-rail='true'] .app-frame__body { grid-template-columns: 216px minmax(0, 1fr); }

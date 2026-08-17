@@ -1,0 +1,34 @@
+.session-import-undo {
+  width: min(760px, calc(100% - 24px));
+  margin: var(--space-8) auto 0;
+  padding: var(--space-10) var(--space-12);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-10);
+  border: 1px solid var(--success-border);
+  border-radius: var(--radius-md);
+  background: var(--success-soft);
+}
+.session-import-undo > span { min-width: 0; display: grid; gap: 2px; }
+.session-import-undo strong { color: var(--text-strong); font-size: var(--type-label); }
+.session-import-undo small { color: var(--text-muted); font-size: var(--type-meta); line-height: 1.4; }
+.session-import-undo__dismiss {
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 0;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.session-import-undo__dismiss:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.session-import-undo__dismiss svg { width: 18px; height: 18px; }
+
+@media (max-width: 520px) {
+  .session-import-undo { grid-template-columns: minmax(0, 1fr) auto; }
+  .session-import-undo > .ui-button { grid-column: 1 / -1; grid-row: 2; width: 100%; }
+  .session-import-undo__dismiss { grid-column: 2; grid-row: 1; }
+}

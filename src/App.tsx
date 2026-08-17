@@ -1,44 +1,53 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { AppFrame } from './app/AppFrame'
 import { AppOverlays } from './app/AppOverlays'
 import { AppPhaseTrack } from './app/AppPhaseTrack'
 import { DeckBody } from './app/DeckBody'
 import { useAppOverlays } from './app/useAppOverlays'
 import { useDeckNavigation } from './app/useDeckNavigation'
+import { useSessionImport } from './app/useSessionImport'
 import { Dashboard } from './features/dashboard/Dashboard'
 import { SessionRail } from './features/dashboard/components/SessionRail'
 import { DiscussionTimerProvider } from './features/day-workbench/state/discussionTimer'
 import { useGameSession } from './features/game-session/state/useGameSession'
-import { useSessionDurability } from './features/game-session/state/useSessionDurability'
+import { useSessionDurability, useSessionWriteLock } from './features/game-session/state/useSessionDurability'
 import { DurabilityNotices } from './features/game-session/components/DurabilityNotices'
+import { PWAStatusNotices } from './features/pwa/PWAStatusNotices'
+import { PWAInstallProvider } from './features/pwa/PWAInstallProvider'
+import { deckNodeForSession } from './features/hosting-deck/deckNode'
+import { SessionImportUndoNotice } from './features/ai-settings/SessionImportUndoNotice'
 
-/** 顶层只有主持台与档案两个视图：档案是覆盖层，主持台在其后保持挂载。 */
 type View = 'deck' | 'archive'
 
 function App() {
   const [view, setView] = useState<View>('deck')
-  const { session, dispatch } = useGameSession()
+  const writeLock = useSessionWriteLock()
+  const { session, dispatch } = useGameSession(writeLock === 'owner')
+  const guardedDispatch = useCallback<typeof dispatch>((action) => {
+    if (writeLock === 'owner') dispatch(action)
+  }, [dispatch, writeLock])
   const overlays = useAppOverlays()
-  const durability = useSessionDurability(session, dispatch)
+  const durability = useSessionDurability(session, guardedDispatch, { lock: writeLock })
   const { deckNode, setDeckNode, enterNight, enterDay, resetGame } =
-    useDeckNavigation(session, dispatch, overlays, () => setView('deck'))
+    useDeckNavigation(session, guardedDispatch, overlays, () => setView('deck'))
   // 还没配过板的空对局显示入口界面；配板确认后才谈得上黄昏。
   const hasStarted = session.playerCount > 0
-  const nightBinding = useMemo(() => ({ session, dispatchSession: dispatch }), [session, dispatch])
+  const nightBinding = useMemo(() => ({ session, dispatchSession: guardedDispatch }), [session, guardedDispatch])
+  const sessionImport = useSessionImport(session, guardedDispatch, (imported) => {
+    setDeckNode(deckNodeForSession(imported))
+    overlays.closeAll()
+    setView('deck')
+  })
 
   return (
-    <DiscussionTimerProvider key={session.id} sessionId={session.id}>
+    <PWAInstallProvider>
+      <DiscussionTimerProvider key={session.id} sessionId={session.id}>
       <AppFrame
-        /*
-         * 魔典模式不挂侧轨。两个理由：它的「玩家状态」十二格与环显示的是同一件事，
-         * 而重复的局面板会让说书人不知道该信哪一个；更要紧的是侧轨在舞台之外，
-         * 遮蔽管不到它——实测按下「全遮蔽」后环清空了，侧轨仍在显示
-         * 「5号舞蛇人选择2号」。一个盖不住全部的全遮蔽比没有更危险。
-         */
-        rail={view === 'deck' && session.hostingMode !== 'grimoire' && (deckNode === 'night' || deckNode === 'day')
+        /* 魔典模式不挂侧轨：它与座位环重复，而且舞台遮蔽无法覆盖侧轨私密信息。 */
+        rail={writeLock === 'owner' && view === 'deck' && session.hostingMode !== 'grimoire' && (deckNode === 'night' || deckNode === 'day')
           ? <SessionRail session={session} onOpenPlayerStatus={overlays.setPlayerStatusSeatId} />
           : undefined}
-        phaseTrack={(
+        phaseTrack={writeLock === 'owner' && hasStarted ? (
           <AppPhaseTrack
             session={session}
             activeNode={view === 'deck' && hasStarted ? deckNode : undefined}
@@ -47,16 +56,20 @@ function App() {
             onToggleArchive={() => setView(view === 'archive' ? 'deck' : 'archive')}
             onOpenGameEnd={() => overlays.openGameEnd('end')}
           />
-        )}
+        ) : undefined}
       >
+        <PWAStatusNotices hasStarted={hasStarted} />
         <DurabilityNotices durability={durability} />
-        {/* 档案打开时卸载主持台：覆盖层背后留一份完整 DOM 会让同名内容出现两份，
-            读屏与键盘也仍能走进去。deckNode 保存在 App 上，返回时回到原节点。 */}
+        {/* 档案打开时卸载主持台，避免读屏和键盘进入背后的重复 DOM。 */}
+        <div className="app-frame__interactive" inert={writeLock === 'readonly'}>
+        {sessionImport.previousSession ? (
+          <SessionImportUndoNotice onUndo={sessionImport.undo} onDismiss={sessionImport.dismissUndo} />
+        ) : null}
         <div className="app-frame__deck" hidden={view === 'archive'}>
           {view === 'deck' ? (
             <DeckBody
               session={session}
-              dispatch={dispatch}
+              dispatch={guardedDispatch}
               deckNode={deckNode}
               onDeckNodeChange={setDeckNode}
               hasStarted={hasStarted}
@@ -69,13 +82,14 @@ function App() {
               onOpenTimer={() => overlays.setTimerOpen(true)}
               onOpenRecords={() => overlays.setRecordsOpen(true)}
               onOpenPlayerStatus={overlays.setPlayerStatusSeatId}
+              onImportSession={sessionImport.apply}
             />
           ) : null}
         </div>
         {view === 'archive' ? (
           <Dashboard
             session={session}
-            dispatch={dispatch}
+            dispatch={guardedDispatch}
             onEnterNight={enterNight}
             onEnterDay={enterDay}
             onOpenTimer={() => overlays.setTimerOpen(true)}
@@ -84,18 +98,21 @@ function App() {
             onOpenGameEnd={overlays.openGameEnd}
             onOpenScriptLibrary={() => overlays.setScriptLibraryOpen(true)}
             onOpenPlayerStatus={overlays.setPlayerStatusSeatId}
+            onImportSession={sessionImport.apply}
             onExitArchive={() => setView('deck')}
           />
         ) : null}
         <AppOverlays
           overlays={overlays}
           session={session}
-          dispatch={dispatch}
+          dispatch={guardedDispatch}
           onOpenDayWorkbench={enterDay}
           onResetGame={resetGame}
         />
+        </div>
       </AppFrame>
-    </DiscussionTimerProvider>
+      </DiscussionTimerProvider>
+    </PWAInstallProvider>
   )
 }
 

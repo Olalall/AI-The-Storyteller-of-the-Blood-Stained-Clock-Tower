@@ -19,7 +19,7 @@ export const SNAPSHOT_INTERVAL_MS = 60_000
 export interface SnapshotRecord {
   savedAt: string
   sessionId: string
-  reason: 'interval' | 'destructive' | 'phase-close'
+  reason: 'interval' | 'destructive' | 'import' | 'phase-close'
   byteLength: number
   raw: string
 }
@@ -45,8 +45,13 @@ function readIndex(): StoredIndexEntry[] {
     if (!Array.isArray(parsed)) return []
     return parsed.filter((entry): entry is StoredIndexEntry =>
       Boolean(entry) && typeof entry === 'object'
-      && typeof (entry as StoredIndexEntry).slot === 'number'
-      && typeof (entry as StoredIndexEntry).savedAt === 'string')
+      && Number.isInteger((entry as StoredIndexEntry).slot)
+      && (entry as StoredIndexEntry).slot >= 0
+      && (entry as StoredIndexEntry).slot < SNAPSHOT_SLOTS
+      && typeof (entry as StoredIndexEntry).savedAt === 'string'
+      && typeof (entry as StoredIndexEntry).sessionId === 'string'
+      && ['interval', 'destructive', 'import', 'phase-close'].includes((entry as StoredIndexEntry).reason)
+      && typeof (entry as StoredIndexEntry).byteLength === 'number')
   } catch {
     // 索引本身坏了不该连累主存档；当作没有快照即可。
     return []
@@ -63,10 +68,14 @@ export function listSnapshots(): StoredIndexEntry[] {
 }
 
 export function readSnapshot(slot: number): SnapshotRecord | null {
-  const entry = readIndex().find((candidate) => candidate.slot === slot)
-  const raw = window.localStorage.getItem(slotKey(slot))
-  if (!entry || raw === null) return null
-  return { ...entry, raw }
+  try {
+    const entry = readIndex().find((candidate) => candidate.slot === slot)
+    const raw = window.localStorage.getItem(slotKey(slot))
+    if (!entry || raw === null) return null
+    return { ...entry, raw }
+  } catch {
+    return null
+  }
 }
 
 /**
@@ -97,18 +106,40 @@ export function writeSnapshot(
   const free = Array.from({ length: SNAPSHOT_SLOTS }, (_value, index) => index).find((slot) => !used.has(slot))
   const oldest = [...entries].sort((left, right) => left.savedAt.localeCompare(right.savedAt))[0]
   const slot = free ?? oldest?.slot ?? 0
+  let previousRaw: string | null = null
 
   try {
+    previousRaw = window.localStorage.getItem(slotKey(slot))
     window.localStorage.setItem(slotKey(slot), raw)
+    writeIndex([
+      ...entries.filter((entry) => entry.slot !== slot),
+      { slot, savedAt, sessionId: session.id, reason, byteLength: raw.length },
+    ])
+  } catch {
+    // 槽和索引必须一起成功。索引写失败时把槽恢复原样，避免留下“找不到的快照”
+    // 或覆盖仍被旧索引引用的内容。
+    try {
+      if (previousRaw === null) window.localStorage.removeItem(slotKey(slot))
+      else window.localStorage.setItem(slotKey(slot), previousRaw)
+    } catch {
+      // 存储已不可写时无法继续补救；调用方仍会收到 false 并阻止破坏性替换。
+    }
+    return false
+  }
+  return true
+}
+
+/** 删除一份已经消费或明确放弃的快照，槽与索引同步清理。 */
+export function deleteSnapshot(slot: number): boolean {
+  const entries = readIndex()
+  if (!entries.some((entry) => entry.slot === slot)) return true
+  try {
+    writeIndex(entries.filter((entry) => entry.slot !== slot))
+    window.localStorage.removeItem(slotKey(slot))
+    return true
   } catch {
     return false
   }
-
-  writeIndex([
-    ...entries.filter((entry) => entry.slot !== slot),
-    { slot, savedAt, sessionId: session.id, reason, byteLength: raw.length },
-  ])
-  return true
 }
 
 export function clearSnapshots() {
