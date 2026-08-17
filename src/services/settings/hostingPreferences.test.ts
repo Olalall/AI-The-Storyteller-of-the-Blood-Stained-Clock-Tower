@@ -5,6 +5,7 @@ import {
   normalizeHostingPreferences,
   readHostingPreferences,
   rememberHostingChoice,
+  rememberInstallIntroComplete,
   resetHostingPreferences,
   saveHostingPreferences,
 } from './hostingPreferences'
@@ -14,6 +15,7 @@ describe('主持模式偏好', () => {
 
   it('defaults to the grimoire so a storyteller without a physical one is not stuck', () => {
     expect(defaultHostingPreferences.defaultHostingMode).toBe('grimoire')
+    expect(defaultHostingPreferences.hasCompletedInstallIntro).toBe(false)
     expect(defaultHostingPreferences.hasCompletedFirstRunChoice).toBe(false)
   })
 
@@ -23,6 +25,25 @@ describe('主持模式偏好', () => {
     const stored = readHostingPreferences()
     expect(stored.defaultHostingMode).toBe('record')
     expect(stored.hasCompletedFirstRunChoice).toBe(true)
+  })
+
+  it('remembers a skipped install intro without inventing a hosting choice', () => {
+    rememberInstallIntroComplete()
+
+    const stored = readHostingPreferences()
+    expect(stored.hasCompletedInstallIntro).toBe(true)
+    expect(stored.hasCompletedFirstRunChoice).toBe(false)
+  })
+
+  it('keeps the install decision when the hosting mode is chosen later', () => {
+    rememberInstallIntroComplete()
+    rememberHostingChoice('record')
+
+    expect(readHostingPreferences()).toMatchObject({
+      defaultHostingMode: 'record',
+      hasCompletedInstallIntro: true,
+      hasCompletedFirstRunChoice: true,
+    })
   })
 
   it('falls back to the default rather than trusting a garbage value', () => {
@@ -37,7 +58,9 @@ describe('主持模式偏好', () => {
 
   it('treats a missing first-run flag as not-yet-asked, never as asked', () => {
     // 反过来错的话，首次引导卡会被静默跳过，模式就替用户默认选了。
-    expect(normalizeHostingPreferences({ defaultHostingMode: 'record' }).hasCompletedFirstRunChoice).toBe(false)
+    const normalized = normalizeHostingPreferences({ defaultHostingMode: 'record' })
+    expect(normalized.hasCompletedInstallIntro).toBe(false)
+    expect(normalized.hasCompletedFirstRunChoice).toBe(false)
     expect(normalizeHostingPreferences({ hasCompletedFirstRunChoice: 'yes' }).hasCompletedFirstRunChoice).toBe(false)
   })
 
@@ -55,5 +78,15 @@ describe('主持模式偏好', () => {
     rememberHostingChoice('record')
     expect(resetHostingPreferences()).toEqual(defaultHostingPreferences)
     expect(window.localStorage.getItem(hostingPreferencesStorageKey)).toBeNull()
+  })
+
+  it('still returns defaults when storage refuses a reset', () => {
+    const removeItem = vi.spyOn(Storage.prototype, 'removeItem').mockImplementation(() => {
+      throw new DOMException('blocked', 'SecurityError')
+    })
+
+    expect(() => resetHostingPreferences()).not.toThrow()
+    expect(resetHostingPreferences()).toEqual(defaultHostingPreferences)
+    removeItem.mockRestore()
   })
 })

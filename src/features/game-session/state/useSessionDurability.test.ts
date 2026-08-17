@@ -1,9 +1,15 @@
 import { act, renderHook } from '@testing-library/react'
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPrototypeGameSession } from '../data/createPrototypeSession'
-import { acquireLock, clearSnapshots, listSnapshots, snapshotSlotKey } from '../../../services/session'
+import {
+  acquireLock,
+  clearSnapshots,
+  instanceLockStorageKey,
+  listSnapshots,
+  snapshotSlotKey,
+} from '../../../services/session'
 import { writeSnapshot } from '../../../services/session/snapshotRotation'
-import { useSessionDurability } from './useSessionDurability'
+import { useSessionDurability, useSessionWriteLock } from './useSessionDurability'
 
 const AT = (minute: number) => `2026-08-05T12:${String(minute).padStart(2, '0')}:00.000Z`
 
@@ -24,6 +30,16 @@ describe('useSessionDurability', () => {
     acquireLock('another-tab', Date.now())
     const { result } = renderHook(() => useSessionDurability(createPrototypeGameSession(), () => undefined))
     expect(result.current.lock).toBe('readonly')
+  })
+
+  it('does not offer a writable recovery action in a read-only tab', () => {
+    writeSnapshot(createPrototypeGameSession(), 'interval', AT(0))
+    acquireLock('another-tab', Date.now())
+
+    const { result } = renderHook(() => useSessionDurability(sessionWithTimelineOf(1), () => undefined))
+
+    expect(result.current.lock).toBe('readonly')
+    expect(result.current.candidates).toEqual([])
   })
 
   it('offers a snapshot that holds more records than the current save', () => {
@@ -117,5 +133,24 @@ describe('useSessionDurability', () => {
 
     // 锁释放后，下一个标签页应当能拿到所有权。
     expect(acquireLock('next-tab', Date.now())).toBe('owner')
+  })
+
+  it('reuses an App-level lock without competing for a second lock', () => {
+    const { result } = renderHook(() => {
+      const lock = useSessionWriteLock()
+      return useSessionDurability(createPrototypeGameSession(), () => undefined, { lock })
+    })
+
+    expect(result.current.lock).toBe('owner')
+  })
+
+  it('releases the lock before a full-page reload', () => {
+    renderHook(() => useSessionDurability(createPrototypeGameSession(), () => undefined))
+    expect(window.localStorage.getItem(instanceLockStorageKey)).not.toBeNull()
+
+    act(() => window.dispatchEvent(new PageTransitionEvent('pagehide')))
+
+    expect(window.localStorage.getItem(instanceLockStorageKey)).toBeNull()
+    expect(acquireLock('reloaded-page', Date.now())).toBe('owner')
   })
 })

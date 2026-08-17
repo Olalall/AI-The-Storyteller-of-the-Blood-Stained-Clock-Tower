@@ -5,8 +5,8 @@ import { expect, test, type Page } from '@playwright/test'
 
 /** 默认落地是空对局的入口界面；用例依赖的中局夹具需要显式载入。 */
 async function loadDemoSession(page: Page) {
-  const demo = page.getByRole('button', { name: /载入示例对局/ })
-  if (await demo.isVisible().catch(() => false)) await demo.click()
+  const { loadDemoSessionFromEntry } = await import('./helpers/entry-onboarding')
+  await loadDemoSessionFromEntry(page)
 }
 
 async function openArchive(page: Page) {

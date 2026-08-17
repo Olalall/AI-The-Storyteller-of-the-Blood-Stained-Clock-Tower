@@ -22,6 +22,7 @@ export {
 export {
   SNAPSHOT_SLOTS,
   clearSnapshots,
+  deleteSnapshot,
   listSnapshots,
   readSnapshot,
   snapshotIndexKey,
@@ -36,6 +37,16 @@ export {
 } from './instanceLock'
 export type { LockState } from './instanceLock'
 export { downloadTextFile, exportSessionJson, sessionExportFilename } from './exportSession'
+export {
+  MAX_SESSION_IMPORT_BYTES,
+  parseSessionImportText,
+  readSessionImportFile,
+} from './sessionImport'
+export type {
+  SessionImportErrorCode,
+  SessionImportPreview,
+  SessionImportResult,
+} from './sessionImport'
 export {
   pushRecoverySnapshot,
   recoverySnapshotPath,

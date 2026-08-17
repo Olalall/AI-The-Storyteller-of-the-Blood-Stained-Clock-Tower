@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { DeckBody } from './DeckBody'
 import { DiscussionTimerProvider } from '../features/day-workbench/state/discussionTimer'
@@ -43,6 +44,7 @@ function renderDeck(session: GameSessionState) {
         onOpenTimer={vi.fn()}
         onOpenRecords={vi.fn()}
         onOpenPlayerStatus={vi.fn()}
+        onImportSession={vi.fn()}
       />
     </DiscussionTimerProvider>,
   )
@@ -50,7 +52,7 @@ function renderDeck(session: GameSessionState) {
 
 describe('DeckBody hosting mode switch', () => {
   let restore = () => {}
-  beforeEach(() => { restore = stubResizeObserver() })
+  beforeEach(() => { window.localStorage.clear(); restore = stubResizeObserver() })
   afterEach(() => restore())
 
   it('leaves the record-mode path completely untouched', () => {
@@ -73,11 +75,14 @@ describe('DeckBody hosting mode switch', () => {
     expect(container.querySelector('.work-drawer')?.contains(screen.getByText('黄昏 · 交接'))).toBe(true)
   })
 
-  it('does not raise a ring before the board is configured', () => {
+  it('does not raise a ring before the board is configured', async () => {
     // 空局的环上一个座位都没有，而此刻唯一该做的事是配板。
     const { container } = renderDeck({ ...createEmptyGameSession(), hostingMode: 'grimoire' })
 
     expect(container.querySelector('.grimoire-canvas')).toBeNull()
-    expect(screen.getByText('你的魔典放在哪里？')).toBeVisible()
+    expect(screen.getByRole('heading', { name: '安装到当前设备' })).toBeVisible()
+    await userEvent.click(screen.getByRole('button', { name: '暂不安装，先试用' }))
+    expect(screen.getByRole('heading', { name: '选择你的主持方式' })).toBeVisible()
+    expect(screen.getByRole('radio', { name: /没有实体魔典/ })).toBeVisible()
   })
 })

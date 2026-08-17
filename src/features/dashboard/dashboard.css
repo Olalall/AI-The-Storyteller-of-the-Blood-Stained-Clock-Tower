@@ -194,6 +194,9 @@
 }
 
 @container (max-width: 620px) {
+  .dashboard__header { flex-wrap: wrap; }
+  .dashboard__header > .ui-button:first-child { flex: 0 0 auto; white-space: nowrap; }
+  .dashboard__header h1 { flex: 1 1 140px; }
   .dashboard__timer-entry { display: inline-flex; }
   .dashboard__timer-entry small { display: none; }
   .dashboard__phase-launch, .dashboard__grid { grid-template-columns: 1fr; }

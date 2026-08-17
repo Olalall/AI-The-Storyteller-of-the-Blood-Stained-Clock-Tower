@@ -25,6 +25,7 @@ export interface OpenAISetupAdviceProviderOptions {
   apiKey: string
   timeoutSeconds: number
   fetcher?: FetchLike
+  redirect?: RequestRedirect
 }
 
 function confidenceFrom(value: unknown): AIAdviceConfidence {
@@ -251,6 +252,7 @@ export function createOpenAICompatibleSetupAdviceProvider(options: OpenAISetupAd
         apiKey: options.apiKey,
         timeoutSeconds: options.timeoutSeconds,
         fetcher: options.fetcher,
+        redirect: options.redirect,
       }, buildSetupAdviceProviderMessages(input))
       const draft = normalizeDraft(payload, input)
       if (!draft.recommendedCandidateIds.length) {
