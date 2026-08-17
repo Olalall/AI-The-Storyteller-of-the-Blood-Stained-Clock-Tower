@@ -25,6 +25,18 @@ function Run {
   }
 }
 
+function Get-Sha256 {
+  param([string]$Path)
+  $stream = [System.IO.File]::OpenRead($Path)
+  $sha256 = [System.Security.Cryptography.SHA256]::Create()
+  try {
+    return ([System.BitConverter]::ToString($sha256.ComputeHash($stream))).Replace("-", "")
+  } finally {
+    $sha256.Dispose()
+    $stream.Dispose()
+  }
+}
+
 function Copy-RequiredPath {
   param(
     [string]$Source,
@@ -100,13 +112,12 @@ if (Test-Path -LiteralPath $zipPath) {
 $sourcePattern = Join-Path $stagePath "*"
 Compress-Archive -Path $sourcePattern -DestinationPath $zipPath -Force
 
-$hash = Get-FileHash -LiteralPath $zipPath -Algorithm SHA256
 $info = Get-Item -LiteralPath $zipPath
 $result = [ordered]@{
   ok = $true
   zipPath = $zipPath
   sizeMB = [math]::Round($info.Length / 1MB, 2)
-  sha256 = $hash.Hash
+  sha256 = Get-Sha256 $zipPath
   packageDir = $stagePath
 }
 $result | ConvertTo-Json -Depth 4 | Tee-Object -FilePath (Join-Path $outputPath "latest-package.json")
