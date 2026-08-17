@@ -1,16 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { readFileSync, readdirSync } from 'node:fs'
-import { join } from 'node:path'
-
-const rgGlobs = [
-  '--hidden',
-  '--glob', '!node_modules/**',
-  '--glob', '!dist/**',
-  '--glob', '!dist-server/**',
-  '--glob', '!package-lock.json',
-  '--glob', '!scripts/public-release-audit.mjs',
-  '--glob', '!.git/**',
-]
+import { readFileSync } from 'node:fs'
 
 const regexChecks = [
   {
@@ -53,44 +42,32 @@ const fixedChecks = [
   { name: 'local F drive path', token: 'F:\\' },
 ]
 
-// 这是发布闸门。它以前在没装 ripgrep 的机器上直接抛 ENOENT 堆栈——
-// 既没扫描也没有可读的失败信息，而调用者很容易把「崩了」当成「没扫出问题」。
-// 现在：有 rg 就用 rg（快），没有就走 Node 兜底，两条路都真的扫。
 const EXCLUDED_FILES = new Set(['package-lock.json', 'scripts/public-release-audit.mjs'])
 
 /**
- * 扫描面 = git 跟踪的文件。
+ * 扫描面 = Git 已跟踪文件 + 尚未跟踪但未被 .gitignore 排除的文件。
  *
- * 这与 rg 的默认行为一致（rg 尊重 .gitignore），而且更精确：本仓的 public/assets 下
+ * 发布前的新文件通常还没提交；只扫 git ls-files 会让真正准备进入 Release 的新文件
+ * 落在门禁之外。使用 --cached --others --exclude-standard 可覆盖拟发布文件，同时继续
+ * 排除 node_modules、构建产物和本地素材包。
+ *
+ * 本仓的 public/assets 下
  * 有大量本地下载的、被 .gitignore 排除的角色图。用目录遍历会把它们当文本读，
  * 于是 JPEG 的字节流里凑巧出现的 "F:\\" 会被报成「本地路径泄露」——
  * 一次全是假阳性的发布闸门，比没有闸门更糟：它会训练人忽略它。
  */
-function trackedTextFiles() {
-  return execFileSync('git', ['ls-files', '-z'], { encoding: 'utf8' })
+function publishableTextFiles() {
+  return execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { encoding: 'utf8' })
     .split('\0')
-    .filter((file) => file && !EXCLUDED_FILES.has(file))
+    .filter((file) => file && !EXCLUDED_FILES.has(file) && !BINARY_EXTENSIONS.test(file))
 }
 
 // git 跟踪的二进制（图标、字体）同样不该被当文本扫。
 const BINARY_EXTENSIONS = /\.(png|jpe?g|gif|webp|ico|woff2?|ttf|otf|pdf|zip|gz|mp4|wasm)$/i
 
-function hasRipgrep() {
-  try {
-    execFileSync('rg', ['--version'], { stdio: 'ignore' })
-    return true
-  } catch {
-    return false
-  }
-}
-
-const ripgrepAvailable = hasRipgrep()
-if (!ripgrepAvailable) console.warn('[public-audit] ripgrep 不可用，改用 Node 扫描（较慢，结果等价）')
-
 function scanWithNode(matcher) {
   const hits = []
-  for (const file of trackedTextFiles()) {
-    if (BINARY_EXTENSIONS.test(file)) continue
+  for (const file of publishableTextFiles()) {
     let text
     try {
       text = readFileSync(file, 'utf8')
@@ -105,30 +82,12 @@ function scanWithNode(matcher) {
 }
 
 function runRg(pattern) {
-  if (!ripgrepAvailable) {
-    const regex = new RegExp(pattern)
-    return scanWithNode((line) => regex.test(line))
-  }
-  try {
-    return execFileSync('rg', ['-n', ...rgGlobs, pattern, '.'], { encoding: 'utf8' })
-      .split(/\r?\n/)
-      .filter(Boolean)
-  } catch (error) {
-    if (error.status === 1) return []
-    throw error
-  }
+  const regex = new RegExp(pattern)
+  return scanWithNode((line) => regex.test(line))
 }
 
 function runFixed(token) {
-  if (!ripgrepAvailable) return scanWithNode((line) => line.includes(token))
-  try {
-    return execFileSync('rg', ['-n', '-F', ...rgGlobs, token, '.'], { encoding: 'utf8' })
-      .split(/\r?\n/)
-      .filter(Boolean)
-  } catch (error) {
-    if (error.status === 1) return []
-    throw error
-  }
+  return scanWithNode((line) => line.includes(token))
 }
 
 let failed = false

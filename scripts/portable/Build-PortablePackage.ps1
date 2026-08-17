@@ -14,6 +14,17 @@ function Run([string]$file, [string[]]$Arguments) {
   if ($LASTEXITCODE -ne 0) { throw "命令失败：$file $($Arguments -join ' ')" }
 }
 
+function Get-Sha256([string]$Path) {
+  $stream = [System.IO.File]::OpenRead($Path)
+  $sha256 = [System.Security.Cryptography.SHA256]::Create()
+  try {
+    return ([System.BitConverter]::ToString($sha256.ComputeHash($stream))).Replace('-', '')
+  } finally {
+    $sha256.Dispose()
+    $stream.Dispose()
+  }
+}
+
 if (-not $SkipChecks) {
   Run 'npm.cmd' @('run', 'check')
   Run 'npm.cmd' @('run', 'smoke:backend')
@@ -73,7 +84,7 @@ if (-not $SkipNodeRuntime) {
     Select-Object -First 1
   if (-not $checksumLine) { throw "Node.js 官方校验文件中缺少 $nodeArchiveName。" }
   $expectedHash = ($checksumLine -split '\s+')[0].ToUpperInvariant()
-  $actualHash = (Get-FileHash -LiteralPath $nodeArchive -Algorithm SHA256).Hash.ToUpperInvariant()
+  $actualHash = (Get-Sha256 $nodeArchive).ToUpperInvariant()
   if ($actualHash -ne $expectedHash) {
     Remove-Item -LiteralPath $nodeArchive -Force
     throw "Node.js 运行时 SHA-256 校验失败。期望 $expectedHash，实际 $actualHash。"
@@ -92,7 +103,7 @@ $manifest = [ordered]@{
   packageType = 'windows-portable-launcher'
   createdAt = (Get-Date).ToString('o')
   bundledNodeVersion = if ($SkipNodeRuntime) { $null } else { $NodeVersion }
-  nodeRequirement = if ($SkipNodeRuntime) { 'Node.js 20 LTS or newer' } else { 'Bundled; no separate installation required' }
+  nodeRequirement = if ($SkipNodeRuntime) { 'Node.js ^20.19.0 or >=22.12.0' } else { 'Bundled; no separate installation required' }
   defaultUrl = 'http://127.0.0.1:8787'
   ai = 'optional; configured locally by Start-Storyteller.ps1'
   characterAssets = 'optional; official and community role art downloaded from original sources after explicit user confirmation'

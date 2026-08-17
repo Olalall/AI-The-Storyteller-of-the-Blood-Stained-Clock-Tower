@@ -90,10 +90,14 @@ $nodePath = if (Test-Path -LiteralPath $bundledNode) {
   if ($systemNode) { $systemNode.Source } else { $null }
 }
 if (-not $nodePath) {
-  Fail '未找到内置运行环境。请下载 GitHub Release 的 Windows 便捷包，或安装 Node.js 20 LTS。'
+  Fail '未找到内置运行环境。请下载 GitHub Release 的 Windows 便捷包，或安装 Node.js 20.19+ / 22.12+。'
 }
 $nodeVersion = (& $nodePath --version).Trim()
-if ($nodeVersion -notmatch '^v(\d+)' -or [int]$Matches[1] -lt 20) { Fail "当前 Node.js 为 $nodeVersion，需要 Node.js 20 LTS 或更高版本。" }
+if ($nodeVersion -notmatch '^v(\d+)\.(\d+)\.(\d+)') { Fail "无法识别 Node.js 版本：$nodeVersion。" }
+$nodeMajor = [int]$Matches[1]
+$nodeMinor = [int]$Matches[2]
+$nodeSupported = ($nodeMajor -eq 20 -and $nodeMinor -ge 19) -or ($nodeMajor -eq 22 -and $nodeMinor -ge 12) -or $nodeMajor -ge 23
+if (-not $nodeSupported) { Fail "当前 Node.js 为 $nodeVersion，需要 Node.js 20.19+ 或 22.12+。" }
 
 if (-not (Test-Path -LiteralPath $runtime) -or -not (Test-Path -LiteralPath $staticDir)) {
   $sourcePackage = Join-Path $appDir 'package.json'
@@ -102,7 +106,7 @@ if (-not (Test-Path -LiteralPath $runtime) -or -not (Test-Path -LiteralPath $sta
   }
 
   $npm = Get-Command npm.cmd -ErrorAction SilentlyContinue
-  if (-not $npm) { Fail '检测到源码目录，但未找到 npm。请安装 Node.js 20 LTS，或直接下载 GitHub Release 便捷包。' }
+  if (-not $npm) { Fail '检测到源码目录，但未找到 npm。请安装 Node.js 20.19+ / 22.12+，或直接下载 GitHub Release 便捷包。' }
   Write-Host "`n检测到这是源码目录，不是已构建便捷包。" -ForegroundColor Yellow
   $buildAnswer = Read-Host '现在自动安装依赖并构建吗？(Y/N)'
   if ($buildAnswer -notmatch '^(y|yes|是)$') {
