@@ -4,6 +4,7 @@ import {
   SNAPSHOT_INTERVAL_MS,
   SNAPSHOT_SLOTS,
   clearSnapshots,
+  deleteSnapshot,
   listSnapshots,
   readSnapshot,
   shouldSnapshot,
@@ -52,7 +53,36 @@ describe('快照轮转', () => {
     writeSnapshot(createPrototypeGameSession(), 'interval', AT(0))
 
     expect(shouldSnapshot('destructive', now)).toBe(true)
+    expect(shouldSnapshot('import', now)).toBe(true)
     expect(shouldSnapshot('phase-close', now)).toBe(true)
+  })
+
+  it('rolls the slot back when the index write fails', () => {
+    const originalSetItem = Storage.prototype.setItem
+    const previous = createPrototypeGameSession()
+    writeSnapshot(previous, 'interval', AT(0))
+    const previousEntry = listSnapshots()[0]
+    const previousRaw = readSnapshot(previousEntry.slot)!.raw
+    const setItem = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(function (this: Storage, key, value) {
+      if (key === snapshotIndexKey) throw new DOMException('quota', 'QuotaExceededError')
+      return originalSetItem.call(this, key, value)
+    })
+
+    const written = writeSnapshot({ ...previous, id: 'replacement' }, 'import', AT(1))
+
+    expect(written).toBe(false)
+    expect(readSnapshot(previousEntry.slot)?.raw).toBe(previousRaw)
+    expect(listSnapshots()).toHaveLength(1)
+    setItem.mockRestore()
+  })
+
+  it('deletes a consumed import snapshot from both the index and slot', () => {
+    writeSnapshot(createPrototypeGameSession(), 'import', AT(0))
+    const entry = listSnapshots()[0]
+
+    expect(deleteSnapshot(entry.slot)).toBe(true)
+    expect(listSnapshots()).toEqual([])
+    expect(readSnapshot(entry.slot)).toBeNull()
   })
 
   it('takes the first snapshot immediately rather than after a minute of play', () => {

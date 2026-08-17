@@ -81,6 +81,205 @@ function nightSettlementBody() {
 }
 
 describe('AI proxy routes', () => {
+  it('public mode hides server provider settings and never uses the VPS key without complete BYOK settings', async () => {
+    let calls = 0
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: {
+        BOTC_AI_ENABLED: 'true',
+        BOTC_AI_PROVIDER: 'openai-compatible',
+        BOTC_AI_BASE_URL: 'https://server-provider.example.test/v1',
+        BOTC_AI_MODEL: 'server-model',
+        BOTC_AI_API_KEY: secret,
+        BOTC_PUBLIC_ACCESS_MODE: 'true',
+        BOTC_PUBLIC_AI_ALLOWED_HOSTS: 'ai.example.test',
+      },
+      fetcher: async () => {
+        calls += 1
+        return new Response('{}')
+      },
+    }))
+
+    const settingsResponse = await route(request('/api/settings/ai'))
+    const liveResponse = await route(request('/api/settings/ai/live-test', { method: 'POST' }))
+    const setupResponse = await route(request('/api/ai/setup-advice', {
+      method: 'POST',
+      body: JSON.stringify(setupAdviceBody()),
+    }))
+    const nightResponse = await route(request('/api/ai/night-settlement-advice', {
+      method: 'POST',
+      body: JSON.stringify(nightSettlementBody()),
+    }))
+    const text = [
+      await settingsResponse.text(),
+      await liveResponse.text(),
+      await setupResponse.text(),
+      await nightResponse.text(),
+    ].join('\n')
+
+    expect(calls).toBe(0)
+    expect(text).not.toContain(secret)
+    expect(text).not.toContain('server-provider.example.test')
+    expect(text).not.toContain('server-model')
+    expect(JSON.parse(text.split('\n')[0]).settings).toMatchObject({
+      mode: 'off',
+      provider: 'fake',
+      apiKeyConfigured: false,
+    })
+    expect(JSON.parse(text.split('\n')[1])).toMatchObject({
+      ok: false,
+      code: 'AI_PROVIDER_UNCONFIGURED',
+    })
+    expect(JSON.parse(text.split('\n')[2]).data.draft.provider).toBe('fake')
+    expect(JSON.parse(text.split('\n')[3]).data.draft.provider).toBe('fake')
+  })
+
+  it('public mode applies one allowlist policy and rejects redirects on all three real provider paths', async () => {
+    const redirects: Array<RequestRedirect | undefined> = []
+    const authorizations: string[] = []
+    const fetcher: FetchLike = async (_input, init) => {
+      redirects.push(init?.redirect)
+      const headers = init?.headers as Record<string, string> | undefined
+      authorizations.push(String(headers?.Authorization))
+      const serialized = String(init?.body)
+      let content: Record<string, unknown> = { ok: true, message: 'ready' }
+      if (serialized.includes('rank_setup_candidates')) {
+        content = { recommendedCandidateIds: ['setup-a'], disclaimer: 'AI 只给草稿。' }
+      } else if (serialized.includes('draft_night_settlement_advice')) {
+        content = {
+          status: 'answer',
+          recommendedOutcomeId: 'correct',
+          summary: '仅生成草稿。',
+          disclaimer: 'AI 只给草稿。',
+        }
+      }
+      return new Response(JSON.stringify({
+        choices: [{ message: { content: JSON.stringify(content) } }],
+      }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+    }
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: { BOTC_AI_API_KEY: 'sk-vps-key-must-stay-unused' },
+      publicAccess: {
+        mode: 'public',
+        allowedProviderHostnames: ['ai.example.test'],
+      },
+      fetcher,
+    }))
+    const providerSettings = {
+      provider: 'openai-compatible',
+      baseUrl: 'https://ai.example.test/v1',
+      model: 'browser-model',
+      apiKey: secret,
+      timeoutSeconds: 5,
+    }
+
+    const liveResponse = await route(request('/api/settings/ai/live-test', {
+      method: 'POST', body: JSON.stringify(providerSettings),
+    }))
+    const setupResponse = await route(request('/api/ai/setup-advice', {
+      method: 'POST', body: JSON.stringify({ ...setupAdviceBody(), providerSettings }),
+    }))
+    const nightResponse = await route(request('/api/ai/night-settlement-advice', {
+      method: 'POST', body: JSON.stringify({ ...nightSettlementBody(), providerSettings }),
+    }))
+
+    expect(await jsonBody(liveResponse)).toMatchObject({ ok: true, code: 'AI_PROVIDER_READY' })
+    expect(await jsonBody(setupResponse)).toMatchObject({ data: { draft: { provider: 'openai-compatible' } } })
+    expect(await jsonBody(nightResponse)).toMatchObject({ data: { draft: { provider: 'openai-compatible' } } })
+    expect(redirects).toEqual(['error', 'error', 'error'])
+    expect(authorizations).toEqual([`Bearer ${secret}`, `Bearer ${secret}`, `Bearer ${secret}`])
+    expect(authorizations.join(' ')).not.toContain('sk-vps-key-must-stay-unused')
+  })
+
+  it.each([
+    ['empty allowlist', 'https://ai.example.test/v1', []],
+    ['HTTP provider', 'http://ai.example.test/v1', ['ai.example.test']],
+    ['non-exact hostname', 'https://ai.example.test.attacker.invalid/v1', ['ai.example.test']],
+    ['localhost', 'https://localhost/v1', ['localhost']],
+    ['IP literal', 'https://127.0.0.1/v1', ['127.0.0.1']],
+    ['metadata hostname', 'https://metadata.google.internal/v1', ['metadata.google.internal']],
+  ])('public mode blocks %s before live provider fetch', async (_label, baseUrl, allowedProviderHostnames) => {
+    let called = false
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: { BOTC_AI_API_KEY: 'sk-vps-key-must-stay-unused' },
+      publicAccess: { mode: 'public', allowedProviderHostnames },
+      fetcher: async () => {
+        called = true
+        return new Response('{}')
+      },
+    }))
+
+    const response = await route(request('/api/settings/ai/live-test', {
+      method: 'POST',
+      body: JSON.stringify({
+        provider: 'openai-compatible', baseUrl, model: 'browser-model', apiKey: secret,
+      }),
+    }))
+    const text = await response.text()
+
+    expect(called).toBe(false)
+    expect(text).not.toContain(secret)
+    expect(JSON.parse(text)).toMatchObject({ ok: false, code: 'AI_PROVIDER_UNCONFIGURED' })
+  })
+
+  it('public mode applies the same URL policy to setup and night BYOK requests', async () => {
+    let calls = 0
+    const providerSettings = {
+      provider: 'openai-compatible',
+      baseUrl: 'http://ai.example.test/v1',
+      model: 'browser-model',
+      apiKey: secret,
+    }
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: { BOTC_AI_API_KEY: 'sk-vps-key-must-stay-unused' },
+      publicAccess: { mode: 'public', allowedProviderHostnames: ['ai.example.test'] },
+      fetcher: async () => {
+        calls += 1
+        return new Response('{}')
+      },
+    }))
+
+    const setupResponse = await route(request('/api/ai/setup-advice', {
+      method: 'POST', body: JSON.stringify({ ...setupAdviceBody(), providerSettings }),
+    }))
+    const nightResponse = await route(request('/api/ai/night-settlement-advice', {
+      method: 'POST', body: JSON.stringify({ ...nightSettlementBody(), providerSettings }),
+    }))
+    const setupText = await setupResponse.text()
+    const nightText = await nightResponse.text()
+
+    expect(calls).toBe(0)
+    expect(setupText).not.toContain(secret)
+    expect(nightText).not.toContain(secret)
+    expect(JSON.parse(setupText)).toMatchObject({ data: { draft: { provider: 'fake' } } })
+    expect(JSON.parse(nightText)).toMatchObject({ data: { draft: { provider: 'fake' } } })
+  })
+
+  it('keeps the default local custom HTTP provider behavior unchanged', async () => {
+    let redirect: RequestRedirect | undefined
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: {},
+      fetcher: async (_input, init) => {
+        redirect = init?.redirect
+        return new Response(JSON.stringify({
+          choices: [{ message: { content: '{"ok":true}' } }],
+        }), { status: 200, headers: { 'Content-Type': 'application/json' } })
+      },
+    }))
+
+    const response = await route(request('/api/settings/ai/live-test', {
+      method: 'POST',
+      body: JSON.stringify({
+        provider: 'openai-compatible',
+        baseUrl: 'http://local-provider.test/v1',
+        model: 'local-model',
+        apiKey: secret,
+      }),
+    }))
+
+    expect(await jsonBody(response)).toMatchObject({ ok: true, code: 'AI_PROVIDER_READY' })
+    expect(redirect).toBeUndefined()
+  })
+
   it('returns public settings without leaking the API key', async () => {
     const route = createRoutes({
       BOTC_AI_ENABLED: 'true',
@@ -175,6 +374,39 @@ describe('AI proxy routes', () => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ provider: 'openai-compatible', model: 'review-model' }),
+    }))
+    const body = await jsonBody(response)
+
+    expect(response.status).toBe(200)
+    expect(body.ok).toBe(false)
+    expect(body.code).toBe('AI_PROVIDER_UNCONFIGURED')
+    expect(called).toBe(false)
+  })
+
+  it('never combines a client-controlled base URL with the server API key', async () => {
+    let called = false
+    const fetcher: FetchLike = async () => {
+      called = true
+      return new Response('{}')
+    }
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: {
+        BOTC_AI_ENABLED: 'true',
+        BOTC_AI_PROVIDER: 'openai-compatible',
+        BOTC_AI_BASE_URL: 'https://trusted.example.test/v1',
+        BOTC_AI_MODEL: 'server-model',
+        BOTC_AI_API_KEY: secret,
+      },
+      fetcher,
+    }))
+
+    const response = await route(request('/api/settings/ai/live-test', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        provider: 'openai-compatible',
+        baseUrl: 'https://attacker.example.test/v1',
+      }),
     }))
     const body = await jsonBody(response)
 

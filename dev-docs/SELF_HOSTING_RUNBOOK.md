@@ -5,6 +5,8 @@
 
 本文给本机运行或自用 VPS 部署使用。它不是 SaaS 方案，也不授权恢复玩家端、官方魔典同步器或自动规则引擎。
 
+> 公开分享模式已通过源码测试和本机 HTTP smoke。下面的命令是配置示例，不代表已经部署到目标 VPS；真正上线后仍要复查 HTTPS、反向代理、防火墙和限流行为。
+
 ## 一句话结论
 
 推荐部署形态：
@@ -38,6 +40,57 @@ OpenAI-compatible AI provider（Key 只放后端环境变量）
 - 让 AI 自动修改身份、阵营、死亡、毒醉、处决或胜负。
 - 把新工具部署进 `C:\botc-mvp` 等旧 V2.5 目录。
 - 一边部署一边顺手改 nginx、数据库、官方魔典同步或玩家端。
+
+## 运行模式
+
+### 默认：本机 / 自用模式
+
+不设置 `BOTC_PUBLIC_ACCESS_MODE`，或显式设为 `false`，保持现有行为：
+
+```powershell
+$env:BOTC_PUBLIC_ACCESS_MODE='false'
+$env:BOTC_BACKEND_HOST='127.0.0.1'
+$env:BOTC_BACKEND_PORT='8787'
+npm run dev:backend
+```
+
+该模式面向本机或已经由外层认证保护的自用 VPS。归档、恢复和服务器 AI 接口按原有合同工作。它不应被当作匿名公网服务直接暴露。
+
+### 公开分享模式
+
+要匿名分享静态页面和 PWA，必须显式启用：
+
+```powershell
+$env:BOTC_PUBLIC_ACCESS_MODE='true'
+$env:BOTC_PUBLIC_AI_ALLOWED_HOSTS='api.example.com,api2.example.com'
+$env:BOTC_BACKEND_HOST='127.0.0.1'
+$env:BOTC_BACKEND_PORT='3000'
+node dist-server\runtime.mjs
+```
+
+公开模式应形成以下边界：
+
+| 能力 | 匿名公开 | 说明 |
+| --- | --- | --- |
+| 静态页面、PWA、Service Worker | 是 | 通过 HTTPS 反向代理提供 |
+| `GET /healthz` | 是 | 只用于简单存活检查 |
+| 浏览器本机对局、本机归档、导出恢复 | 是 | 数据留在每位用户自己的浏览器，不依赖 VPS 私有 API |
+| `/api/archives*` | 否 | 可能包含完整对局和真实身份，不向匿名用户开放 |
+| `/api/recovery/*` | 否 | 半局快照属于私有数据，不向匿名用户开放 |
+| 使用 VPS 环境变量 Key 的 AI | 否 | 防止服务器额度被匿名消耗 |
+| 用户自带 Key（BYOK）AI | 可选 | 仅限 `BOTC_PUBLIC_AI_ALLOWED_HOSTS` 中的 HTTPS 主机，并受服务端频率与请求大小限制 |
+
+`BOTC_PUBLIC_AI_ALLOWED_HOSTS` 留空时，公开模式不提供真实 AI 代理，普通用户仍可使用本机模板、夜序、技能提示、投票、日志和离线功能。设置白名单时只写 provider 主机名，不写协议、路径、Key 或任何 VPS 地址，例如：
+
+```powershell
+$env:BOTC_PUBLIC_AI_ALLOWED_HOSTS='api.example.com'
+```
+
+公开 BYOK 请求必须同时提交完整的 HTTPS 地址、模型和用户自己的 Key；缺少任一项都会拒绝，绝不会逐字段回退到 VPS 配置。AI 请求体上限为 1 MiB、同一 runtime 可见来源地址每分钟最多 10 次 AI 请求；其他 `/api/` 请求体上限为 5 MiB、每分钟最多 30 次。白名单、限流和请求大小限制是后端安全边界，不能用 CORS、未公开网址或前端隐藏按钮代替。
+
+当前限流故意不信任客户端可伪造的 `X-Forwarded-For`，只使用 runtime 连接看到的地址。通过 nginx 等反向代理时，所有公网请求通常会显示成同一个代理地址，因此会共享限额。这不会放宽安全边界，但可能较早触发 429；正式开放 BYOK 前要按真实代理拓扑做压力验收，不能擅自改成信任任意转发头。
+
+重要：隐藏公网地址不是安全措施。知道网址的人可以转发，自动扫描也可能发现服务；即使 GitHub 不写 VPS 地址，也必须保留上述后端限制。
 
 ## 本机运行
 
@@ -191,6 +244,8 @@ curl.exe http://127.0.0.1:3000/healthz
 
 公网访问应由同机的带认证反向代理转发到 `127.0.0.1:3000`。不要直接把 `/api/archives`、`/api/recovery` 或 AI 接口暴露给公网；只有已经完成防火墙和反向代理保护时，才显式使用启动脚本的 `-AllowPublicBind`。
 
+如果启用了 `BOTC_PUBLIC_ACCESS_MODE=true`，反向代理可以匿名转发静态页面、PWA 和 `/healthz`；runtime 仍应绑定 `127.0.0.1`，由后端公开模式拒绝私有归档、恢复和 VPS Key AI。不要因为启用公开模式就开放 runtime 监听端口。
+
 期望返回包含：
 
 ```json
@@ -244,7 +299,7 @@ $env:BOTC_AI_TIMEOUT_MS='30000'
 $env:BOTC_AI_MAX_CONTEXT_TOKENS='12000'
 ```
 
-前端页面只保存非敏感配置；真实 Key 只由后端读取。配置说明见 `AI_RUNTIME_STARTUP.md`。
+前端页面可在用户明确保存后把 BYOK 配置写入当前浏览器的 `localStorage`；这不等于上传 GitHub 或写入 VPS。公共电脑和不可信浏览器扩展环境不应保存真实 Key。VPS 自有 Key 仍只由后端环境变量读取。配置说明见 `AI_RUNTIME_STARTUP.md`。
 
 ## 数据备份
 
@@ -297,16 +352,16 @@ npm run sync:vps -- -Execute
 
 6. 远端安装生产依赖并重启服务。
 
-7. 验证：
+7. 在 VPS 本机验证：
 
 ```powershell
-curl.exe http://<VPS_IP>:3000/healthz
+curl.exe http://127.0.0.1:3000/healthz
 ```
 
-8. 打开浏览器验证：
+8. 通过已配置的 HTTPS 反向代理地址打开浏览器验证；不要把真实域名或 IP 写回仓库文档。
 
 ```text
-http://<VPS_IP>:3000/
+https://your-public-host.example/
 ```
 
 ## 回滚
@@ -343,6 +398,7 @@ http://<VPS_IP>:3000/
 - 能保存一局归档并刷新后仍可查看。
 - AI 未配置时，手动主持流程仍可用。
 - 如果启用真实 AI，必须手动点一次真实连通测试。
+- 如果启用公开分享模式，匿名请求必须只能访问静态/PWA、`/healthz` 和经过白名单限制的可选 BYOK；私有归档、恢复和 VPS Key AI 必须返回拒绝。
 - 旧 V2.5 访问路径不受影响。
 
 ## 相关文档

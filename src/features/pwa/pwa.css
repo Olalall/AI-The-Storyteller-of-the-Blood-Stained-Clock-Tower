@@ -1,0 +1,81 @@
+.pwa-status-stack {
+  position: relative;
+  width: min(680px, calc(100% - 24px));
+  margin: var(--space-8) auto 0;
+  display: grid;
+  gap: var(--space-8);
+}
+
+.pwa-status-notice {
+  min-height: var(--touch-min);
+  padding: var(--space-10) var(--space-12);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-10);
+  border: 1px solid var(--info-border);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--surface-panel) 94%, var(--info-soft));
+  box-shadow: var(--shadow-panel);
+}
+
+.pwa-status-notice--offline { border-color: var(--warning-border); }
+.pwa-status-notice--update { border-color: var(--accent-border); }
+.pwa-status-notice > svg { width: 20px; height: 20px; color: var(--accent-text); }
+.pwa-status-notice > span { min-width: 0; display: grid; gap: 2px; }
+.pwa-status-notice strong { color: var(--text-strong); font-size: var(--type-label); }
+.pwa-status-notice small { color: var(--text-muted); font-size: var(--type-meta); line-height: 1.4; }
+.pwa-status-notice__close {
+  width: var(--touch-min);
+  height: var(--touch-min);
+  border: 0;
+  border-radius: var(--radius-pill);
+  display: grid;
+  place-items: center;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.pwa-status-notice__close:hover { background: var(--surface-soft); color: var(--text-strong); }
+.pwa-status-notice__close:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.pwa-status-notice__close svg { width: 18px; height: 18px; }
+
+.pwa-install-card {
+  min-height: 64px;
+  padding: var(--space-10) var(--space-12);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-10);
+  border-top: 1px solid var(--border);
+  text-align: left;
+}
+.pwa-install-card--installed { grid-template-columns: auto minmax(0, 1fr); }
+.pwa-install-card__icon,
+.pwa-install-card > svg { color: var(--accent-text); }
+.pwa-install-card__icon { width: 34px; height: 34px; display: grid; place-items: center; border-radius: var(--radius-md); background: var(--accent-soft); }
+.pwa-install-card__icon svg,
+.pwa-install-card > svg { width: 18px; height: 18px; }
+.pwa-install-card__copy,
+.pwa-install-card--installed > span { min-width: 0; display: grid; gap: 2px; }
+.pwa-install-card strong { color: var(--text-strong); font-size: var(--type-label); }
+.pwa-install-card small { color: var(--text-muted); font-size: var(--type-meta); line-height: 1.45; }
+.pwa-install-card__hint-icon { margin-inline: var(--space-10); }
+.pwa-install-card__message { grid-column: 2 / -1; color: var(--warning-text); }
+.pwa-install-card__fallback {
+  max-width: 150px;
+  color: var(--text-subtle);
+  text-align: right;
+}
+.pwa-install-card--compact { border: 1px solid var(--border); border-radius: var(--radius-md); }
+
+@media (max-width: 520px) {
+  .pwa-status-notice { grid-template-columns: auto minmax(0, 1fr); }
+  .pwa-status-notice > .ui-button,
+  .pwa-status-notice__close { grid-column: 2; justify-self: stretch; }
+  .pwa-status-notice__close { justify-self: end; }
+  .pwa-install-card { grid-template-columns: auto minmax(0, 1fr); }
+  .pwa-install-card > .ui-button,
+  .pwa-install-card__hint-icon,
+  .pwa-install-card__fallback { grid-column: 2; justify-self: start; text-align: left; }
+}

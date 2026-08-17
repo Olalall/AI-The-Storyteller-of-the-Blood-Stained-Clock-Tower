@@ -13,8 +13,8 @@ const layouts = [
 
 /** 默认落地是空对局的入口界面；依赖中局夹具的用例需要显式载入示例。 */
 async function loadDemoSession(page: Page) {
-  const demo = page.getByRole('button', { name: /载入示例对局/ })
-  if (await demo.isVisible().catch(() => false)) await demo.click()
+  const { loadDemoSessionFromEntry } = await import('./helpers/entry-onboarding')
+  await loadDemoSessionFromEntry(page)
 }
 
 async function openArchive(page: import('@playwright/test').Page) {
@@ -115,7 +115,8 @@ test('compact dashboard cards project role, nickname and status without changing
   await page.getByRole('button', { name: '切换板子' }).click()
   await expect(page.getByRole('heading', { name: '切换板子' })).toBeVisible()
   await expect(page.getByText('当前对局')).toBeVisible()
-  await expect(page.getByText('JSON、夜序与规则知识包需要一起核对；未核对的板子不能开局或用于智能配板。')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '智能板子看板' })).toBeVisible()
+  await expect(page.getByLabel('板子质量清单')).toBeVisible()
   await page.getByRole('button', { name: '关闭切换板子' }).click()
   const after = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)
   expect(after).toBe(before)

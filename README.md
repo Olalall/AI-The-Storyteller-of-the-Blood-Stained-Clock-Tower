@@ -1,5 +1,7 @@
 # 血染钟楼AI说书人辅助工具
 
+> **手机 / 平板用户：**通过 HTTPS 打开部署地址后，可以安装到主屏幕。首次完整打开后，配板、身份交接、夜序、投票、日志和本机复盘可离线使用；真实 AI 和云端归档仍需联网。
+
 > **Windows 用户：**查看 [简洁安装教程](安装教程.md)。请从 Releases 下载 `botc-storyteller-companion-windows-portable.zip`，不要下载源码 ZIP。
 
 根据个人理解制作的，AI血染钟楼说书人辅助工具，因为本人线下组局常常遇到这种问题，1.配板需要说书人非常熟悉技能，角色，有理解，才能配出比较好玩的板子，耗时长。2.技能结算，夜间处理长。3.投票记录麻烦。4.发送玩家身份太过古法，不够方便。5.全局日志需要手动记录。6.复盘评分复杂等问题。
@@ -216,6 +218,20 @@ AI 不可以：
 
 ## 快速开始
 
+### 手机和平板（PWA）
+
+1. 用浏览器打开项目的 **HTTPS 部署地址**。
+2. 首次进入先处理“安装到当前设备”：Android/Chrome 点“安装”，没有按钮时用浏览器菜单的“安装应用”或“添加到主屏幕”；iPhone/iPad 使用浏览器分享菜单里的“添加到主屏幕”，当前浏览器没有该入口时再改用 Safari。也可以选“暂不安装，先试用”。
+3. 接着明确选择“桌上有实体魔典”或“没有实体魔典”，再点“开始配板”；回访时会沿用上次选择，不重复展示完整引导。
+4. 第一次保持联网，等页面完整打开；以后断网仍可进入核心手动主持流程。
+5. 对局默认保存在当前浏览器。换设备、清浏览器数据或重装前，在“应用设置 → 导出与恢复当前对局”导出 JSON；新设备选择该文件、核对摘要后再确认恢复。
+
+安装和版本更新不会在对局中强制刷新。断网时真实 AI、后端连通测试和云端归档不可用，但本机记录不应因此中断。
+
+### 源码开发
+
+需要 Node.js `^20.19.0` 或 `>=22.12.0`。Windows 普通用户优先下载自带运行环境的便携包，无需单独安装 Node.js。
+
 ```powershell
 npm install
 npm run dev
@@ -241,15 +257,16 @@ npm run dev:backend
 
 ## AI 配置
 
-真实 AI 走后端代理。GitHub 下载版默认不带 API Key；用户可以在本机设置页填写并保存自己的 Key，供之后的配板、夜间建议和赛后复盘使用。Key 不会写入源码、GitHub、归档或响应；共享设备/VPS 仍建议使用后端环境变量。
+真实 AI 走后端代理。GitHub 下载版默认不带 API Key；用户可以在页面设置里填写并保存自己的 Key，供之后的配板、夜间建议和赛后复盘使用。页面保存会把配置写入当前站点在当前浏览器里的 `localStorage`：关闭页面或重开应用后仍可继续使用，但不会因此上传到 GitHub，也不会变成服务器端保存的 Key。清除该站点数据、换浏览器或换设备后需要重新填写；共享设备/VPS 仍建议使用后端环境变量。
 
 当前状态：
 
 - 后端已有 OpenAI-compatible provider 配置和一次性 live test 入口。
 - 默认 `BOTC_AI_ENABLED=false`，不调用真实模型。
 - 设置页选择“使用后端配置”时，真实请求读取后端的 `BOTC_AI_BASE_URL`、`BOTC_AI_MODEL` 和 `BOTC_AI_API_KEY`。
-- 设置页选择“临时兼容接口测试”并保存后，本机运行版会在后续配板、夜间和复盘请求中继续使用本机保存的地址、模型和 Key。
+- 设置页选择“兼容接口”并保存后，本机运行版会在后续配板、夜间和复盘请求中继续使用当前浏览器保存的地址、模型和 Key。
 - 只有本机或 HTTPS 后端会携带浏览器保存的 Key；普通 HTTP 公网地址不会携带这份 Key，并回退到后端配置或本地草稿。
+- 浏览器 `localStorage` 不是密码保险箱；公共电脑、多人共用浏览器或安装了不可信扩展的环境不要保存 Key。可在设置中恢复默认，或清除该站点数据来删除浏览器内保存的配置。
 - AI 配板、夜间结算和赛后复盘仍是草稿建议；不会自动改权威状态。
 - 详细启动方式见 `dev-docs/AI_RUNTIME_STARTUP.md`。
 
@@ -272,13 +289,37 @@ $env:BOTC_AI_API_KEY='your-local-secret'
 - `dev-docs/AI_RUNTIME_STARTUP.md`：真实 AI provider 的环境变量和连通测试。
 
 关键边界：API Key 不进源码、GitHub、归档或响应；可按场景保存在当前浏览器或后端环境变量；归档数据默认是 JSON 文件；AI 不可用时，手动主持流程仍必须可用。
-VPS 默认只绑定 `127.0.0.1`；公网访问应由同机的带认证反向代理转发，通常不需要改变这个绑定。只有明确知道自己在防火墙和代理层已经做好保护时，才传入 `-AllowPublicBind`。不要直接把 runtime 端口裸露到公网。
+VPS 默认只绑定 `127.0.0.1`；公网访问应由同机反向代理转发，通常不需要改变这个绑定。只有明确知道自己在防火墙和代理层已经做好保护时，才传入 `-AllowPublicBind`。不要直接把 runtime 端口裸露到公网。
+
+### 公开分享模式
+
+默认不启用公开模式，现有本机和自用 VPS 行为保持兼容。要把 HTTPS 页面分享给普通用户时，必须显式设置：
+
+```powershell
+$env:BOTC_PUBLIC_ACCESS_MODE='true'
+$env:BOTC_PUBLIC_AI_ALLOWED_HOSTS='api.example.com'
+node dist-server\runtime.mjs
+```
+
+公开模式的边界：
+
+- 匿名开放静态页面、PWA 资源和 `/healthz`。
+- 匿名用户仍可完整使用当前浏览器里的对局、本机归档、导出恢复和离线手动主持流程。
+- `/api/archives*`、`/api/recovery/*` 和使用 VPS 自有 Key 的 AI 能力不对匿名用户开放。
+- `BOTC_PUBLIC_AI_ALLOWED_HOSTS` 是可选 BYOK 白名单，填写逗号分隔的 provider 主机名；只接受白名单中的 HTTPS 服务。留空表示公开模式不提供真实 AI 代理。
+- BYOK 必须由用户提交完整的接口地址、模型和自己的 Key，不会缺一项后回退使用 VPS Key；公网模式下 AI 请求体上限为 1 MiB，同一 runtime 可见来源地址每分钟最多 10 次 AI 请求。
+- 隐藏 VPS 地址不是安全措施。地址可能被转发或扫描发现，安全边界必须由运行模式、反向代理、防火墙和后端拒绝规则共同提供。
+
+公开模式已通过源码测试、生产后端构建和本机 HTTP smoke；真正上线仍需按自托管手册配置 HTTPS 反向代理和防火墙，并在 VPS 部署后再次验收。当前限流只读取 runtime 看到的连接地址；反向代理部署可能让所有公网用户共享同一限额，正式开放 BYOK 前应结合代理配置和实际流量复核。
 
 ## 验证
 
 ```powershell
 npm run check
 npm run test:e2e
+npm run test:e2e:pwa
+npm run test:e2e:mobile-audit
+npm run verify:pwa
 npm run smoke:backend
 npm run smoke:ai-night-live
 npm run audit:public
@@ -322,8 +363,8 @@ npm run screenshots:github
 - `dev-docs/AI_INTEGRATION_PLAN.md`：真实 AI 接入和上下文最小化。
 - `dev-docs/SMOKE_HOSTING_SCENARIOS.md`：模拟主持流程验收。
 - `dev-docs/GITHUB_RELEASE_CHECKLIST.md`：GitHub 发布检查清单。
-- dev-docs/GITHUB_PUBLICATION_STATUS.md：GitHub 公开发布状态。
-- dev-docs/releases/alpha-preview-20260727.md：首个 alpha preview Release Notes 草稿。
+- `dev-docs/GITHUB_PUBLICATION_STATUS.md`：GitHub 公开发布状态。
+- `dev-docs/releases/alpha-preview-20260817.md`：当前 `0.1.0-alpha.3` Release Notes 草稿。
 
 ## 第三方与免责声明
 

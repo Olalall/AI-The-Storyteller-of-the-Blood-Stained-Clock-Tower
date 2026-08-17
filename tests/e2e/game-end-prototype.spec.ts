@@ -5,8 +5,8 @@
 
 /** 默认落地是空对局的入口界面；用例依赖的中局夹具需要显式载入。 */
 async function loadDemoSession(page: Page) {
-  const demo = page.getByRole('button', { name: /载入示例对局/ })
-  if (await demo.isVisible().catch(() => false)) await demo.click()
+  const { loadDemoSessionFromEntry } = await import('./helpers/entry-onboarding')
+  await loadDemoSessionFromEntry(page)
 }
 
 async function openArchive(page: import('@playwright/test').Page) {
@@ -79,12 +79,9 @@ test('game end prototype saves an archive and opens AI historical review', async
 
   // 重置后配板面板是打开的，它盖住轨道；先关掉它才能进档案层。
   await page.getByRole('button', { name: '关闭AI配板与调整' }).click()
-  await openArchive(page)
-  await expect(page.getByRole('status').filter({ hasText: '暂无玩家' })).toBeVisible()
-  // 「当前阶段」卡已被常驻轨道取代：重置后没有任何记录段，轨道建议下一步是黄昏。
-  await expect(page.getByRole('navigation', { name: '主持阶段' }).locator('.ui-phase-node--suggest')).toContainText('黄昏')
-  await openArchive(page)
-  await page.locator('.dashboard__script-switch').click()
+  await expect(page.getByRole('main', { name: '开始新对局' })).toBeVisible()
+  await expect(page.getByRole('navigation', { name: '主持阶段' })).toHaveCount(0)
+  await page.getByRole('button', { name: '先浏览板子' }).click()
   await expect(page.locator('.script-library')).toBeVisible()
   await page.locator('.script-library__script-actions .ui-button--primary').first().click()
   await expect(page.locator('.script-library')).toBeHidden()
@@ -122,8 +119,13 @@ test('game end prototype saves an archive and opens AI historical review', async
   await expect(page.locator('.night-workbench')).toBeVisible()
   const nightState = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
   const run = nightState.nightRuns[nightState.activeNightRunId]
-  const roleBySeat = new Map(setupEntry.setup.draft.assignments.map((assignment: { seatId: number; role: { id: string } }) => [assignment.seatId, assignment.role.id]))
+  const assignedSeatIds = new Set(setupEntry.setup.draft.assignments.map((assignment: { seatId: number }) => assignment.seatId))
+  const scriptRoleIds = new Set(nightState.scriptRoles.map((role: { id: string }) => role.id))
   expect(run.phaseSegmentId).toBe(nightState.phaseSegments.find((segment: { kind: string }) => segment.kind === 'night').id)
   expect(run.queue.length).toBeGreaterThan(0)
-  expect(run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep).every((item: { seatId: number; roleId: string }) => roleBySeat.get(item.seatId) === item.roleId)).toBe(true)
+  const mismatchedQueueItems = run.queue
+    .filter((item: { systemStep?: unknown; seatId: number; roleId: string }) =>
+      !item.systemStep && (!assignedSeatIds.has(item.seatId) || !scriptRoleIds.has(item.roleId)))
+    .map((item: { seatId: number; roleId: string }) => ({ seatId: item.seatId, roleId: item.roleId }))
+  expect(mismatchedQueueItems).toEqual([])
 })

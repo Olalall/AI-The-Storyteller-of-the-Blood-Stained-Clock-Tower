@@ -76,7 +76,6 @@ $manifest = [ordered]@{
   project = "botc-storyteller-companion"
   product = "钟楼说书人副驾驶"
   createdAt = (Get-Date).ToString("o")
-  sourcePath = $root
   defaultBackendPort = 8787
   defaultRemoteDir = "C:\botc-storyteller-companion"
   defaultStagingDir = "C:\botc-storyteller-companion-deploy"

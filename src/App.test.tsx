@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import { beforeEach, describe, expect, it } from 'vitest'
 import App from './App'
 import { gameArchiveStorageKey } from './services/archive'
-import { gameSessionStorageKey } from './services/session'
+import { acquireLock, gameSessionStorageKey } from './services/session'
 import { createPrototypeGameSession } from './features/game-session/data/createPrototypeSession'
 import { setupRosterMemoryKey } from './features/setup/setupRosterMemory'
 import { identityDealReceiptsStorageKey } from './services/identity-deal'
@@ -95,5 +95,24 @@ describe('App game reset flow', () => {
       expect(session.seats[1]).toMatchObject({ nickname: '上一局1号', experience: 'veteran' })
     })
     expect(screen.getByText('角色组合')).toBeInTheDocument()
+  })
+})
+
+describe('App multi-tab write lock', () => {
+  beforeEach(() => window.localStorage.clear())
+
+  it('makes the second tab inert and refuses session writes', async () => {
+    const original = createPrototypeGameSession()
+    window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(original))
+    expect(acquireLock('primary-tab', Date.now())).toBe('owner')
+
+    const { container } = render(<App />)
+
+    expect(await screen.findByText(/另一个窗口正在主持这局/)).toBeInTheDocument()
+    expect(container.querySelector('.app-frame__interactive')).toHaveAttribute('inert')
+    expect(screen.queryByRole('button', { name: '本局' })).not.toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: '稍后处理' }))
+    expect(storedSession()).toEqual(original)
   })
 })

@@ -1,4 +1,4 @@
-import { mkdtemp, rm } from 'node:fs/promises'
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { closeArchiveRuntime, startArchiveRuntime } from '../dist-server/runtime.mjs'
@@ -154,4 +154,54 @@ try {
 } finally {
   await closeArchiveRuntime(server)
   await rm(tempDir, { recursive: true, force: true })
+}
+
+const publicTempDir = await mkdtemp(path.join(os.tmpdir(), 'botc-public-runtime-smoke-'))
+const publicStaticDir = path.join(publicTempDir, 'static')
+await mkdir(publicStaticDir, { recursive: true })
+await writeFile(path.join(publicStaticDir, 'manifest.webmanifest'), '{"name":"BOTC"}', 'utf8')
+const publicServer = startArchiveRuntime({
+  port: 0,
+  publicAccessMode: true,
+  dataFile: path.join(publicTempDir, 'archives.json'),
+  recoveryDataFile: path.join(publicTempDir, 'recovery.json'),
+  staticDir: publicStaticDir,
+})
+
+try {
+  await new Promise((resolve) => publicServer.once('listening', resolve))
+  const address = publicServer.address()
+  if (!address || typeof address !== 'object') throw new Error('Public runtime did not expose a TCP address')
+  const baseUrl = `http://127.0.0.1:${address.port}`
+
+  const health = await json(await fetch(`${baseUrl}/healthz`))
+  if (health.ok !== true) throw new Error('Public healthz failed')
+
+  const archiveResponse = await fetch(`${baseUrl}/api/archives`)
+  const archiveBody = await archiveResponse.json()
+  if (archiveResponse.status !== 403 || archiveBody.error?.code !== 'PUBLIC_API_FORBIDDEN') {
+    throw new Error(`Public archive boundary failed: ${archiveResponse.status} ${JSON.stringify(archiveBody)}`)
+  }
+
+  const aiSettings = await json(await fetch(`${baseUrl}/api/settings/ai`))
+  if (aiSettings.settings.mode !== 'off' || aiSettings.settings.apiKeyConfigured !== false) {
+    throw new Error('Public AI settings should not expose a server provider')
+  }
+
+  const manifestResponse = await fetch(`${baseUrl}/manifest.webmanifest`)
+  if (manifestResponse.status !== 200 || !manifestResponse.headers.get('content-type')?.startsWith('application/manifest+json')) {
+    throw new Error(`Public PWA manifest content type failed: ${manifestResponse.status} ${manifestResponse.headers.get('content-type')}`)
+  }
+
+  console.log(JSON.stringify({
+    ok: true,
+    publicMode: true,
+    health: health.ok,
+    archiveStatus: archiveResponse.status,
+    aiMode: aiSettings.settings.mode,
+    manifestContentType: manifestResponse.headers.get('content-type'),
+  }, null, 2))
+} finally {
+  await closeArchiveRuntime(publicServer)
+  await rm(publicTempDir, { recursive: true, force: true })
 }

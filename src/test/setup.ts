@@ -1,6 +1,16 @@
 import '@testing-library/jest-dom/vitest'
 import { cleanup } from '@testing-library/react'
-import { afterEach } from 'vitest'
+import { afterEach, vi } from 'vitest'
+
+// 生产构建由 vite-plugin-pwa 提供这个虚拟模块；单测不启动 Service Worker，
+// 只给状态 Hook 一份稳定的空实现，避免测试运行器去加载浏览器专用注册脚本。
+vi.mock('virtual:pwa-register/react', () => ({
+  useRegisterSW: () => ({
+    offlineReady: [false, vi.fn()],
+    needRefresh: [false, vi.fn()],
+    updateServiceWorker: vi.fn(),
+  }),
+}))
 
 /**
  * Node ≥ 26 自带一个实验性的全局 `localStorage`，未带 `--localstorage-file` 时它恒为 undefined，
