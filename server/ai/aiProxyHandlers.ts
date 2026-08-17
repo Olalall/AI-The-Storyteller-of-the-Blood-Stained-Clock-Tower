@@ -2,6 +2,12 @@ import { AIProviderError, type FetchLike } from './aiProviderClient'
 import { isAIProviderConfigured, publicAISettingsFrom, readAIProviderPrivateSettings } from './aiProviderSettings'
 import { liveSettingsFrom, runOpenAICompatibleLiveTest } from './liveTestProvider'
 import { createOpenAICompatibleNightSettlementProvider, fallbackNightSettlementAdviceDraft } from './nightSettlementProvider'
+import {
+  resolveAIPublicAccessPolicy,
+  validatePublicProviderSettings,
+  type AIPublicAccessPolicyOptions,
+  type ResolvedAIPublicAccessPolicy,
+} from './publicAccessPolicy'
 import { createOpenAICompatibleSetupAdviceProvider, fallbackSetupAdviceDraft } from './setupAdviceProvider'
 import type {
   AISettingsLiveTestRequest,
@@ -17,6 +23,7 @@ import type {
 export interface AIProxyHandlerOptions {
   env?: NodeJS.ProcessEnv
   fetcher?: FetchLike
+  publicAccess?: AIPublicAccessPolicyOptions
 }
 
 function logAIProviderFailure(env: NodeJS.ProcessEnv, scope: string, error: unknown) {
@@ -28,31 +35,59 @@ function logAIProviderFailure(env: NodeJS.ProcessEnv, scope: string, error: unkn
   console.warn(`[botc-ai] ${scope} failed`)
 }
 
-function effectiveSettings(privateSettings: ReturnType<typeof readAIProviderPrivateSettings>, override?: AIProviderOverrideRequest) {
-  if (!override) return privateSettings
+function effectiveSettings(
+  privateSettings: ReturnType<typeof readAIProviderPrivateSettings>,
+  override: AIProviderOverrideRequest | undefined,
+  publicAccess: ResolvedAIPublicAccessPolicy,
+) {
+  if (publicAccess.mode === 'public') {
+    const validation = validatePublicProviderSettings(override, publicAccess)
+    if (!validation.ok || !override) {
+      return { settings: privateSettings, rejection: validation.ok ? '公网 AI 需要浏览器提供完整 BYOK 配置。' : validation.message }
+    }
+    return {
+      settings: {
+        ...privateSettings,
+        mode: 'backend_proxy' as const,
+        provider: 'openai-compatible' as const,
+        enabled: true,
+        baseUrl: override.baseUrl.trim(),
+        model: override.model.trim(),
+        apiKey: override.apiKey.trim(),
+        timeoutSeconds: override.timeoutSeconds ?? privateSettings.timeoutSeconds,
+        apiKeyConfigured: true,
+      },
+      redirect: 'error' as const,
+    }
+  }
+  if (!override) return { settings: privateSettings }
   return {
-    ...privateSettings,
-    mode: 'backend_proxy' as const,
-    provider: 'openai-compatible' as const,
-    enabled: true,
-    baseUrl: override.baseUrl.trim(),
-    model: override.model.trim(),
-    apiKey: override.apiKey.trim(),
-    timeoutSeconds: override.timeoutSeconds ?? privateSettings.timeoutSeconds,
-    apiKeyConfigured: true,
+    settings: {
+      ...privateSettings,
+      mode: 'backend_proxy' as const,
+      provider: 'openai-compatible' as const,
+      enabled: true,
+      baseUrl: override.baseUrl.trim(),
+      model: override.model.trim(),
+      apiKey: override.apiKey.trim(),
+      timeoutSeconds: override.timeoutSeconds ?? privateSettings.timeoutSeconds,
+      apiKeyConfigured: true,
+    },
   }
 }
 
 export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
   const env = options.env ?? process.env
+  const publicAccess = resolveAIPublicAccessPolicy(options.publicAccess, env)
+  const privateSettingsForRequest = () => readAIProviderPrivateSettings(publicAccess.mode === 'public' ? {} : env)
 
   return {
     getPublicSettings() {
-      return publicAISettingsFrom(readAIProviderPrivateSettings(env))
+      return publicAISettingsFrom(privateSettingsForRequest())
     },
 
     testProviderSettings(): AISettingsTestResult {
-      const settings = readAIProviderPrivateSettings(env)
+      const settings = privateSettingsForRequest()
       if (!settings.enabled) {
         return {
           ok: false,
@@ -80,14 +115,36 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
     },
 
     async liveTestProviderSettings(input?: AISettingsLiveTestRequest): Promise<AISettingsLiveTestResult> {
-      const privateSettings = readAIProviderPrivateSettings(env)
-      const settings = liveSettingsFrom(input, {
+      const privateSettings = privateSettingsForRequest()
+      let settings = liveSettingsFrom(input, {
         provider: privateSettings.provider,
         baseUrl: privateSettings.baseUrl,
         model: privateSettings.model,
         apiKey: privateSettings.apiKey,
         timeoutSeconds: privateSettings.timeoutSeconds,
       })
+      let redirect: RequestRedirect | undefined
+
+      if (publicAccess.mode === 'public') {
+        const validation = validatePublicProviderSettings(input, publicAccess)
+        if (!validation.ok || !input) {
+          return {
+            ok: false,
+            provider: input?.provider === 'openai-compatible' ? 'openai-compatible' : 'fake',
+            model: typeof input?.model === 'string' ? input.model.trim() || undefined : undefined,
+            code: 'AI_PROVIDER_UNCONFIGURED',
+            message: validation.ok ? '公网 AI 需要浏览器提供完整 BYOK 配置。' : validation.message,
+          }
+        }
+        settings = {
+          provider: 'openai-compatible',
+          baseUrl: input.baseUrl?.trim(),
+          model: input.model?.trim(),
+          apiKey: input.apiKey?.trim(),
+          timeoutSeconds: typeof input.timeoutSeconds === 'number' ? input.timeoutSeconds : privateSettings.timeoutSeconds,
+        }
+        redirect = 'error'
+      }
 
       if (settings.provider !== 'openai-compatible' || !settings.baseUrl || !settings.model || !settings.apiKey) {
         return {
@@ -100,7 +157,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
       }
 
       try {
-        await runOpenAICompatibleLiveTest(settings, options.fetcher)
+        await runOpenAICompatibleLiveTest(settings, options.fetcher, redirect)
         return {
           ok: true,
           provider: settings.provider,
@@ -121,7 +178,11 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
     },
 
     async generateSetupAdvice(input: SetupAdviceProviderRequest): Promise<SetupAdviceDraft> {
-      const settings = effectiveSettings(readAIProviderPrivateSettings(env), input.providerSettings)
+      const resolved = effectiveSettings(privateSettingsForRequest(), input.providerSettings, publicAccess)
+      const settings = resolved.settings
+      if (resolved.rejection) {
+        return fallbackSetupAdviceDraft(input, resolved.rejection)
+      }
       if (!settings.enabled) {
         return fallbackSetupAdviceDraft(input, 'AI 未启用，已使用本地模板顺序。')
       }
@@ -136,6 +197,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
           apiKey: settings.apiKey ?? '',
           timeoutSeconds: settings.timeoutSeconds,
           fetcher: options.fetcher,
+          redirect: resolved.redirect,
         })
         const { providerSettings: _providerSettings, ...providerInput } = input
         return (await provider.generateSetupAdvice(providerInput)).draft
@@ -147,7 +209,11 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
     },
 
     async generateNightSettlementAdvice(input: NightSettlementProviderRequest): Promise<NightSettlementAdviceDraft> {
-      const settings = effectiveSettings(readAIProviderPrivateSettings(env), input.providerSettings)
+      const resolved = effectiveSettings(privateSettingsForRequest(), input.providerSettings, publicAccess)
+      const settings = resolved.settings
+      if (resolved.rejection) {
+        return fallbackNightSettlementAdviceDraft(input, resolved.rejection)
+      }
       if (!settings.enabled) {
         return fallbackNightSettlementAdviceDraft(input, 'AI 未启用，已使用本地结果候选。')
       }
@@ -162,6 +228,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
           apiKey: settings.apiKey ?? '',
           timeoutSeconds: settings.timeoutSeconds,
           fetcher: options.fetcher,
+          redirect: resolved.redirect,
         })
         const { providerSettings: _providerSettings, ...providerInput } = input
         return (await provider.generateNightSettlementAdvice(providerInput)).draft
