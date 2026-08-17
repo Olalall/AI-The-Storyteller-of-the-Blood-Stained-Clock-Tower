@@ -1,4 +1,4 @@
-import { mkdtemp, rm } from 'node:fs/promises'
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { afterEach, describe, expect, it, vi } from 'vitest'
@@ -9,11 +9,14 @@ const tempDirs: string[] = []
 async function runtime(publicAccessMode: boolean) {
   const tempDir = await mkdtemp(path.join(os.tmpdir(), 'botc-public-runtime-'))
   tempDirs.push(tempDir)
+  const staticDir = path.join(tempDir, 'static')
+  await mkdir(staticDir, { recursive: true })
+  await writeFile(path.join(staticDir, 'manifest.webmanifest'), '{"name":"BOTC"}', 'utf8')
   return createArchiveRuntime({
     publicAccessMode,
     dataFile: path.join(tempDir, 'archives.json'),
     recoveryDataFile: path.join(tempDir, 'recovery.json'),
-    staticDir: path.join(tempDir, 'static'),
+    staticDir,
   })
 }
 
@@ -30,6 +33,15 @@ describe('public access runtime boundary', () => {
 
     expect(response.status).toBe(200)
     expect(await response.json()).toMatchObject({ ok: true })
+  })
+
+  it('serves the PWA manifest with the web app manifest media type', async () => {
+    const route = await runtime(true)
+
+    const response = await route(new Request('http://public.example/manifest.webmanifest'))
+
+    expect(response.status).toBe(200)
+    expect(response.headers.get('content-type')).toBe('application/manifest+json; charset=utf-8')
   })
 
   it.each([
