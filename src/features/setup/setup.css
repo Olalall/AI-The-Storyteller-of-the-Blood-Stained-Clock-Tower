@@ -24,7 +24,7 @@
 .setup-start__roster { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-10); }
 .setup-start__seat-row { min-width: 0; display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(86px, .5fr); align-items: center; gap: var(--space-8); padding: var(--space-10); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-soft); }
 .setup-start__seat-row span { color: var(--text-strong); font-weight: 800; white-space: nowrap; }
-.setup-start__seat-row input, .setup-start__seat-row select { width: 100%; min-width: 0; min-height: 40px; box-sizing: border-box; padding: 0 var(--space-10); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-panel); color: var(--text-strong); }
+.setup-start__seat-row input, .setup-start__seat-row select { width: 100%; min-width: 0; min-height: var(--touch-min); box-sizing: border-box; padding: 0 var(--space-10); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-panel); color: var(--text-strong); }
 .setup-start__footer { display: flex; justify-content: flex-end; }
 .setup-panel__candidates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-12); }
 .setup-panel__candidates > .setup-panel__section-heading { grid-column: 1 / -1; margin-bottom: 0; }

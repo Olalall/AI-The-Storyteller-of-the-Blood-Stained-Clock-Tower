@@ -21,18 +21,21 @@ import {
 import { ArchiveRuntimeSettingsSection } from './ArchiveRuntimeSettingsSection'
 import { AssetPackSettingsSection } from './AssetPackSettingsSection'
 import { readBackendAIStatus, testBackendAIConnection, testLiveAIConnection } from './backendAIStatus'
+import type { GameSessionState } from '../game-session/types'
+import { SessionBackupSection } from './SessionBackupSection'
+import { PWAInstallCard } from '../pwa/PWAInstallCard'
 import './ai-settings.css'
 
 const modeLabels: Record<AIProviderMode, string> = {
   off: '关闭',
   backend: '使用后端配置',
-  'openai-compatible': '临时兼容接口测试',
+  'openai-compatible': '兼容接口',
 }
 
 const modeDescriptions: Record<AIProviderMode, string> = {
   off: '只用本地原型',
   backend: '推荐，长期使用后端 .env',
-  'openai-compatible': '只发起一次测试，不保存 Key',
+  'openai-compatible': '配置保存在当前设备',
 }
 
 type TestStatus = {
@@ -47,10 +50,16 @@ function providerTone(mode: AIProviderMode): BadgeTone {
 function providerStatusLabel(mode: AIProviderMode) {
   if (mode === 'off') return '未启用'
   if (mode === 'backend') return '后端接管'
-  return '仅本次测试'
+  return '本机配置'
 }
 
-export function AISettingsSheet() {
+interface AISettingsSheetProps {
+  session: GameSessionState
+  onImportSession: (session: GameSessionState) => void
+  triggerLabel?: string
+}
+
+export function AISettingsSheet({ session, onImportSession, triggerLabel = '打开应用设置' }: AISettingsSheetProps) {
   const [open, setOpen] = useState(false)
   const [settings, setSettings] = useState<AISettings>(() => readAISettings())
   const [archiveSettings, setArchiveSettings] = useState<ArchiveRuntimeSettings>(() => readArchiveRuntimeSettings())
@@ -161,17 +170,25 @@ export function AISettingsSheet() {
     <Sheet
       open={open}
       onOpenChange={setOpen}
-      title="AI API 设置"
-        description="配置模型和接入地址；API KEY 保存到本机浏览器，后续请求通过后端代理使用。"
+      title="应用设置"
+        description="管理本机存档、AI 接入、归档方式和角色图片。"
       presentation="page"
       contentClassName="sheet-content--ai-settings"
       trigger={
-        <button type="button" className="dashboard__settings-trigger" aria-label="打开AI API设置">
+        <button type="button" className="dashboard__settings-trigger" aria-label={triggerLabel}>
           <Settings aria-hidden="true" />
         </button>
       }
     >
       <form className="ai-settings-panel" onSubmit={(event) => { event.preventDefault(); save() }}>
+        <section className="ai-settings-card" aria-labelledby="device-install-title">
+          <div className="ai-settings-card__heading">
+            <span>当前设备</span>
+            <h3 id="device-install-title">安装与离线使用</h3>
+          </div>
+          <PWAInstallCard compact />
+        </section>
+
         <section className="ai-settings-connection" aria-labelledby="ai-connection-title">
           <div className="ai-settings-connection__head">
             <span><PlugZap aria-hidden="true" />连接配置</span>
@@ -265,6 +282,7 @@ export function AISettingsSheet() {
           </div>
         </section>
 
+        <SessionBackupSection session={session} onImportSession={onImportSession} />
         <ArchiveRuntimeSettingsSection settings={archiveSettings} onChange={patchArchive} />
         <AssetPackSettingsSection />
 

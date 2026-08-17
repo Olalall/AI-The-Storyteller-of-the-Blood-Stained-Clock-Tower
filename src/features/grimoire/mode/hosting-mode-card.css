@@ -4,6 +4,11 @@
   font-size: var(--type-meta);
 }
 
+.hosting-mode-card--embedded {
+  display: grid;
+  gap: var(--space-12);
+}
+
 .hosting-mode-card__options {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

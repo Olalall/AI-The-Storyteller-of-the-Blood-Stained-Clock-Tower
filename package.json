@@ -1,12 +1,13 @@
 {
   "name": "botc-storyteller-companion",
   "private": true,
-  "version": "0.1.0-alpha.2",
+  "version": "0.1.0-alpha.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "dev:backend": "npm run build:backend && node dist-server/runtime.mjs",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/clean-client-build.mjs && tsc -b && vite build",
+    "verify:pwa": "node scripts/verify-pwa-build.mjs",
     "build:backend": "vite build --config vite.backend.config.ts",
     "lint": "oxlint",
     "preview": "vite preview",
@@ -14,9 +15,11 @@
     "test:server": "vitest run server",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:pwa": "playwright test --config playwright.pwa.config.ts",
+    "test:e2e:mobile-audit": "npm run build && playwright test --config playwright.mobile-audit.config.ts",
     "smoke:backend": "npm run build:backend && node scripts/smoke-backend-runtime.mjs",
     "verify:architecture": "node scripts/verify-architecture.mjs",
-    "check": "npm run lint && npm run test && npm run build && npm run verify:architecture",
+    "check": "npm run lint && npm run test && npm run build && npm run verify:pwa && npm run verify:architecture",
     "package:vps": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/package-vps.ps1",
     "package:portable": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/portable/Build-PortablePackage.ps1",
     "sync:vps": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/sync-to-vps.ps1",
@@ -44,6 +47,7 @@
     "oxlint": "^1.71.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.1",
+    "vite-plugin-pwa": "1.3.0",
     "vitest": "^4.1.10"
   },
   "license": "MIT"

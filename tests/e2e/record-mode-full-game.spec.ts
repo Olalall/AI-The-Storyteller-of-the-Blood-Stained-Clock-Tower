@@ -152,8 +152,7 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   // 配板
   const setupHeading = page.getByRole('heading', { name: 'AI配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
-    await openArchive(page)
-    await page.getByRole('button', { name: 'AI配板与调整' }).click()
+    await (await import('./helpers/entry-onboarding')).openSetupFromEntry(page, 'record')
   }
   await expect(setupHeading).toBeVisible()
   await page.getByLabel('开局板子').selectOption('trouble-brewing')
