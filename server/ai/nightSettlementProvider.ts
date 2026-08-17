@@ -30,6 +30,7 @@ export interface OpenAINightSettlementProviderOptions {
   apiKey: string
   timeoutSeconds: number
   fetcher?: FetchLike
+  redirect?: RequestRedirect
 }
 
 function confidenceFrom(value: unknown): AIAdviceConfidence {
@@ -206,6 +207,7 @@ export function createOpenAICompatibleNightSettlementProvider(options: OpenAINig
         apiKey: options.apiKey,
         timeoutSeconds: options.timeoutSeconds,
         fetcher: options.fetcher,
+        redirect: options.redirect,
       }, buildNightSettlementProviderMessages(input))
       const draft = normalizeDraft(payload, input)
       if (draft.status === 'answer' && !draft.recommendedOutcomeId) {
