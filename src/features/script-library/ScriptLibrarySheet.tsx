@@ -1,4 +1,5 @@
-import { ShieldCheck } from 'lucide-react'
+import { Search, ShieldCheck } from 'lucide-react'
+import { useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge } from '../../components/ui/StatusBadge'
@@ -20,9 +21,15 @@ interface ScriptLibrarySheetProps {
  * 真正切换必须先创建新 GameSession，避免旧时间线、配板和夜序混入新剧本。
  */
 export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript }: ScriptLibrarySheetProps) {
+  const [query, setQuery] = useState('')
   const canStartBlankScript = session.playerCount === 0 && session.timeline.length === 0 && session.phaseSegments.length === 0
   const qualityReport = buildScriptQualityReport(smartScriptPacks)
   const qualityByScriptId = new Map(qualityReport.items.map((item) => [item.scriptId, item]))
+  const normalizedQuery = query.trim().toLocaleLowerCase('zh-CN')
+  const filteredPacks = useMemo(() => {
+    if (!normalizedQuery) return smartScriptPacks
+    return smartScriptPacks.filter((pack) => scriptSearchText(pack).includes(normalizedQuery))
+  }, [normalizedQuery])
 
   function startBlankScript(scriptId: ScriptId) {
     if (!canStartBlankScript) return
@@ -49,15 +56,31 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
           <StatusBadge tone="success">当前使用</StatusBadge>
         </section>
 
-        <ScriptQualityPanel report={qualityReport} currentScriptId={session.scriptId} />
+        {normalizedQuery ? null : <ScriptQualityPanel report={qualityReport} currentScriptId={session.scriptId} />}
 
         <section className="script-library__section" aria-labelledby="available-script-title">
           <div className="script-library__section-heading">
             <div><span>可用板子</span><h3 id="available-script-title">智能板子</h3></div>
             <p>板子是角色、夜序、模板和规则资料包；AI 只提供候选和草稿。这里的“可直接开局”表示项目内资料已经整理完成，最终结果仍由说书人确认。</p>
           </div>
+          <label className="script-library__search">
+            <span>搜索板子</span>
+            <span className="script-library__search-control">
+              <Search aria-hidden="true" />
+              <input
+                type="search"
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+                placeholder="名称、作者、来源或 ID"
+                autoComplete="off"
+              />
+            </span>
+          </label>
+          <p className="script-library__result-count" aria-live="polite">
+            {normalizedQuery ? `找到 ${filteredPacks.length} 个板子` : `共 ${smartScriptPacks.length} 个板子`}
+          </p>
           <div className="script-library__scripts">
-            {smartScriptPacks.map((pack) => {
+            {filteredPacks.map((pack) => {
               const quality = qualityByScriptId.get(pack.scriptId)
               const canSelect = canStartBlankScript && quality?.readiness !== 'blocked'
               return (
@@ -77,6 +100,12 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
                 </article>
               )
             })}
+            {filteredPacks.length === 0 ? (
+              <div className="script-library__empty" role="status">
+                <strong>没有找到匹配的板子</strong>
+                <span>换一个名称、作者或板子 ID 试试。</span>
+              </div>
+            ) : null}
           </div>
         </section>
 
@@ -93,6 +122,17 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
 
 function scriptSourceLabel(source: ScriptSource) {
   return source.version ?? source.verifiedAt
+}
+
+function scriptSearchText(pack: (typeof smartScriptPacks)[number]) {
+  return [
+    pack.displayName,
+    pack.scriptId,
+    pack.source.author,
+    pack.source.version,
+    pack.source.verifiedAt,
+    pack.source.url,
+  ].filter(Boolean).join(' ').toLocaleLowerCase('zh-CN')
 }
 
 function readinessTone(readiness: ScriptReadiness) {

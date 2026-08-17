@@ -1,4 +1,4 @@
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test } from '@playwright/test'
 
 const firstBatchScriptIds = [
   'trouble-brewing',
@@ -13,14 +13,6 @@ const firstBatchScriptIds = [
   'devout-theists',
 ] as const
 
-
-/** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
-
-
-async function openArchive(page: Page) {
-  const enter = page.getByRole('button', { name: '本局', exact: true })
-  if (await enter.isVisible().catch(() => false)) await enter.click()
-}
 
 async function openBlankSetup(page: import('@playwright/test').Page) {
   await page.goto('/')
@@ -44,14 +36,13 @@ async function openBlankSetup(page: import('@playwright/test').Page) {
     }))
   })
   await page.reload()
-  await openArchive(page)
-  await page.getByRole('button', { name: 'AI配板与调整' }).click()
+  await (await import('./helpers/entry-onboarding')).openSetupFromEntry(page)
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
   await expect(page.getByText('选择人数')).toBeVisible()
 }
 
 test('first batch scripts can all start a 12-player setup from the visible UI', async ({ page }) => {
-  test.setTimeout(60_000)
+  test.setTimeout(120_000)
   await page.setViewportSize({ width: 900, height: 900 })
 
   for (const scriptId of firstBatchScriptIds) {

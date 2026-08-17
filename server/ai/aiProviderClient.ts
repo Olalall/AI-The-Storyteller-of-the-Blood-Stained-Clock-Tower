@@ -9,6 +9,7 @@ export interface OpenAICompatibleClientSettings {
   apiKey: string
   timeoutSeconds: number
   fetcher?: FetchLike
+  redirect?: RequestRedirect
 }
 
 export class AIProviderError extends Error {
@@ -114,6 +115,7 @@ export async function callOpenAICompatibleJSON<T>(
         response_format: { type: 'json_object' },
       }),
       signal: controller.signal,
+      ...(settings.redirect ? { redirect: settings.redirect } : {}),
     })
 
     if (!response.ok) {

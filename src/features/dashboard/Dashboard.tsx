@@ -27,6 +27,7 @@ interface DashboardProps {
   onOpenGameEnd: (mode?: 'end' | 'review') => void
   onOpenScriptLibrary: () => void
   onOpenPlayerStatus: (seatId: number) => void
+  onImportSession: (session: GameSessionState) => void
   /** 档案是覆盖层：关闭后回到主持台原节点。 */
   onExitArchive?: () => void
 }
@@ -56,7 +57,7 @@ function continuationLabel(
   return segment ? `继续记录 · ${segment.label}` : '首次确认后建立记录'
 }
 
-export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus, onExitArchive}: DashboardProps) {
+export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus, onImportSession, onExitArchive}: DashboardProps) {
   const scriptName = scriptDisplayName(session.scriptId)
   const storytellerSeats = projectStorytellerSeatSummaries(session)
   const openSegments = projectOpenSegmentLabels(session)
@@ -73,7 +74,7 @@ export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenT
         ) : null}
         <h1>{scriptName}</h1>
         <span className="dashboard__session-meta">· {session.playerCount}人</span>
-        <AISettingsSheet />
+        <AISettingsSheet session={session} onImportSession={onImportSession} />
       </header>
 
       <section className="dashboard__host-tools" aria-label="常用主持工具">

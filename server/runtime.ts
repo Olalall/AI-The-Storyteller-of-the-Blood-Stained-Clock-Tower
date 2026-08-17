@@ -12,12 +12,23 @@ import { createRecoveryHandlers } from './recovery/handlers'
 import { createRecoveryHttpRoutes, recoveryRoutePrefix } from './recovery/httpRecoveryRoutes'
 import { JsonRecoveryRepository } from './recovery/jsonRecoveryRepository'
 import { corsPreflightResponse, isCorsPreflight, withLocalCors } from './runtimeCors'
+import {
+  createRuntimeIpRateLimiter,
+  isPublicModeEnabled,
+  isRequestBodyTooLargeError,
+  readIncomingMessageBody,
+  runtimeBodyLimitForPath,
+} from './runtimeSecurity'
 
 interface ArchiveRuntimeOptions {
   dataFile?: string
   /** 半局快照的落点。与 dataFile 分开，是为了让「半局不进战绩」在存储层面就无法违反。 */
   recoveryDataFile?: string
   staticDir?: string
+  /** 公开分享站：匿名页面可用，但服务器私有数据接口默认关闭。 */
+  publicAccessMode?: boolean
+  /** 公开分享站允许浏览器 BYOK 访问的 AI 服务主机名。 */
+  publicAIAllowedHosts?: readonly string[]
 }
 
 export interface StartArchiveRuntimeOptions extends ArchiveRuntimeOptions {
@@ -32,17 +43,21 @@ function json(data: unknown, status = 200) {
   })
 }
 
-async function nodeRequestToFetchRequest(request: IncomingMessage) {
+async function nodeRequestToFetchRequest(request: IncomingMessage, enforcePublicLimits = false) {
   const host = request.headers.host ?? '127.0.0.1'
   const url = new URL(request.url ?? '/', `http://${host}`)
-  const body = request.method === 'GET' || request.method === 'HEAD'
+  const hasBody = request.method !== 'GET' && request.method !== 'HEAD'
+  const bodyLimit = enforcePublicLimits ? runtimeBodyLimitForPath(url.pathname) : null
+  const body = !hasBody
     ? undefined
-    : ReadableStream.from(request)
+    : bodyLimit === null
+      ? ReadableStream.from(request)
+      : await readIncomingMessageBody(request, bodyLimit)
   return new Request(url, {
     method: request.method,
     headers: request.headers as HeadersInit,
     body,
-    duplex: body ? 'half' : undefined,
+    duplex: body instanceof ReadableStream ? 'half' : undefined,
   } as RequestInit)
 }
 
@@ -77,6 +92,8 @@ function contentType(filePath: string) {
   if (extension === '.html') return 'text/html; charset=utf-8'
   if (extension === '.js' || extension === '.mjs') return 'text/javascript; charset=utf-8'
   if (extension === '.css') return 'text/css; charset=utf-8'
+  if (extension === '.webmanifest') return 'application/manifest+json; charset=utf-8'
+  if (extension === '.json') return 'application/json; charset=utf-8'
   if (extension === '.svg') return 'image/svg+xml'
   if (extension === '.png') return 'image/png'
   if (extension === '.jpg' || extension === '.jpeg') return 'image/jpeg'
@@ -119,6 +136,7 @@ async function serveStatic(request: Request, staticDir: string) {
 }
 
 export function createArchiveRuntime(options: ArchiveRuntimeOptions = {}) {
+  const publicAccessMode = options.publicAccessMode ?? false
   const repository = new JsonArchiveRepository(options.dataFile ?? defaultDataFile())
   const privateAISettings = readAIProviderPrivateSettings()
   const reviewProviderForSettings = (settings: { baseUrl: string; model: string; apiKey: string; timeoutSeconds: number }) => (
@@ -130,7 +148,7 @@ export function createArchiveRuntime(options: ArchiveRuntimeOptions = {}) {
     })
   )
   const archiveRoute = createArchiveHttpRoutes(createArchiveHandlers(repository, {
-    reviewDraftProvider: isAIProviderConfigured(privateAISettings)
+    reviewDraftProvider: !publicAccessMode && isAIProviderConfigured(privateAISettings)
       ? reviewProviderForSettings({
           baseUrl: privateAISettings.baseUrl ?? '',
           model: privateAISettings.model ?? '',
@@ -148,7 +166,14 @@ export function createArchiveRuntime(options: ArchiveRuntimeOptions = {}) {
   const recoveryRoute = createRecoveryHttpRoutes(createRecoveryHandlers(
     new JsonRecoveryRepository(options.recoveryDataFile ?? defaultRecoveryDataFile()),
   ))
-  const aiRoute = createAIProxyRoutes(createAIProxyHandlers())
+  const publicAIAllowedHosts = options.publicAIAllowedHosts
+    ?? (process.env.BOTC_PUBLIC_AI_ALLOWED_HOSTS ?? '').split(',')
+  const aiRoute = createAIProxyRoutes(createAIProxyHandlers({
+    publicAccess: {
+      mode: publicAccessMode ? 'public' : 'local',
+      allowedProviderHostnames: publicAIAllowedHosts,
+    },
+  }))
   const staticDir = options.staticDir ?? defaultStaticDir()
 
   async function routeRuntimeRequest(request: Request): Promise<Response> {
@@ -157,6 +182,15 @@ export function createArchiveRuntime(options: ArchiveRuntimeOptions = {}) {
       return json({ ok: true, service: 'botc-storyteller-backend' })
     }
     if (url.pathname.startsWith('/api/settings/ai') || url.pathname.startsWith('/api/ai/')) return aiRoute(request)
+    if (publicAccessMode && url.pathname.startsWith('/api/')) {
+      return json({
+        accepted: false,
+        error: {
+          code: 'PUBLIC_API_FORBIDDEN',
+          message: '公开分享模式不提供服务器归档或恢复接口；请使用当前浏览器的本机存档。',
+        },
+      }, 403)
+    }
     // 恢复命名空间必须排在下面那条 /api/ 兜底之前。兜底把一切 /api/ 交给归档路由，
     // 排在它后面的路由一条请求都收不到——而且是静悄悄地收不到，
     // 表现为「后端好像没这个接口」，最坏的情况是半局被归档路由收下、进了战绩。
@@ -176,12 +210,35 @@ export function createArchiveRuntime(options: ArchiveRuntimeOptions = {}) {
 }
 
 export function startArchiveRuntime(options: StartArchiveRuntimeOptions = {}) {
-  const handleRequest = createArchiveRuntime(options)
+  const publicAccessMode = options.publicAccessMode ?? isPublicModeEnabled(process.env.BOTC_PUBLIC_ACCESS_MODE)
+  const handleRequest = createArchiveRuntime({ ...options, publicAccessMode })
+  const rateLimiter = createRuntimeIpRateLimiter()
   const server = createServer(async (incoming, outgoing) => {
     try {
-      const request = await nodeRequestToFetchRequest(incoming)
+      if (publicAccessMode) {
+        const rateLimit = rateLimiter.check(incoming)
+        if (!rateLimit.allowed) {
+          incoming.pause()
+          outgoing.setHeader('Connection', 'close')
+          outgoing.setHeader('Retry-After', String(rateLimit.retryAfterSeconds ?? 60))
+          await writeFetchResponse(json({
+            accepted: false,
+            error: { code: 'RATE_LIMITED', message: '请求过于频繁，请稍后再试。' },
+          }, 429), outgoing)
+          return
+        }
+      }
+      const request = await nodeRequestToFetchRequest(incoming, publicAccessMode)
       await writeFetchResponse(await handleRequest(request), outgoing)
-    } catch {
+    } catch (error) {
+      if (isRequestBodyTooLargeError(error)) {
+        outgoing.setHeader('Connection', 'close')
+        await writeFetchResponse(json({
+          accepted: false,
+          error: { code: error.code, message: '请求内容过大，服务器已拒绝处理。' },
+        }, error.status), outgoing)
+        return
+      }
       await writeFetchResponse(json({ accepted: false, error: { code: 'BAD_REQUEST', message: '后端请求处理失败' } }, 500), outgoing)
     }
   })
