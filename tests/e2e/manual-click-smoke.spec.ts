@@ -7,8 +7,8 @@ import { expect, test, type Page } from '@playwright/test'
 
 /** 默认落地是空对局的入口界面；依赖中局夹具的用例需要显式载入示例。 */
 async function loadDemoSession(page: Page) {
-  const demo = page.getByRole('button', { name: /载入示例对局/ })
-  if (await demo.isVisible().catch(() => false)) await demo.click()
+  const { loadDemoSessionFromEntry } = await import('./helpers/entry-onboarding')
+  await loadDemoSessionFromEntry(page)
 }
 
 async function openArchive(page: import('@playwright/test').Page) {
@@ -50,8 +50,8 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/01-dashboard-start.png', fullPage: false })
 
   const beforeOpening = (await timeline(page)).length
-  await page.getByRole('button', { name: '打开AI API设置' }).click()
-  await expect(page.getByRole('heading', { name: 'AI API 设置' })).toBeVisible()
+  await page.getByRole('button', { name: '打开应用设置' }).click()
+  await expect(page.getByRole('heading', { name: '应用设置' })).toBeVisible()
   await page.getByLabel('调用方式').selectOption('openai-compatible')
   await page.getByLabel('接入地址').fill('/api/ai')
   await page.getByLabel('模型名字').fill('gpt-4.1-mini')
@@ -62,10 +62,10 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await expect(page.getByText('已保存设置')).toBeVisible()
   const storageAfterAISettings = await page.evaluate(() => Object.values(window.localStorage).join('\n'))
   expect(storageAfterAISettings).toContain('test-key-persisted-locally')
-  await page.getByRole('button', { name: '关闭AI API 设置' }).click()
-  await page.getByRole('button', { name: '打开AI API设置' }).click()
+  await page.getByRole('button', { name: '关闭应用设置' }).click()
+  await page.getByRole('button', { name: '打开应用设置' }).click()
   await expect(page.getByLabel('API KEY')).toHaveValue('test-key-persisted-locally')
-  await page.getByRole('button', { name: '关闭AI API 设置' }).click()
+  await page.getByRole('button', { name: '关闭应用设置' }).click()
   expect((await timeline(page)).length).toBe(beforeOpening)
 
   await page.getByRole('button', { name: '开场白', exact: true }).click()

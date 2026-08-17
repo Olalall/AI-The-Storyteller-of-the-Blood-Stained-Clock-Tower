@@ -9,6 +9,7 @@
  * 归档走的是同一条路径，区别只在屏幕上多不多一张环。
  */
 import { BookOpenText, NotebookPen } from 'lucide-react'
+import type { KeyboardEvent } from 'react'
 import { Card } from '../../../components/ui/Card'
 import type { HostingMode } from '../../game-session/types'
 import './hosting-mode-card.css'
@@ -19,6 +20,10 @@ interface HostingModeCardProps {
   onSelect: (mode: HostingMode) => void
   /** 逻辑宽度不足以画环的设备上补一句说明。 */
   narrow?: boolean
+  /** 首次开局页已经提供标题时，只渲染选择项，避免卡片套卡片和重复说明。 */
+  embedded?: boolean
+  /** 页面刚切换时短暂阻止上一屏的双击落到选择项。 */
+  disabled?: boolean
 }
 
 const OPTIONS: readonly { mode: HostingMode; title: string; detail: string; icon: typeof NotebookPen }[] = [
@@ -36,15 +41,23 @@ const OPTIONS: readonly { mode: HostingMode; title: string; detail: string; icon
   },
 ]
 
-export function HostingModeCard({ value, onSelect, narrow = false }: HostingModeCardProps) {
-  return (
-    <Card
-      as="div"
-      className="hosting-mode-card"
-      eyebrow="开始之前"
-      eyebrowTone="info"
-      title="你的魔典放在哪里？"
-    >
+export function HostingModeCard({ value, onSelect, narrow = false, embedded = false, disabled = false }: HostingModeCardProps) {
+  function handleOptionKeyDown(event: KeyboardEvent<HTMLButtonElement>, mode: HostingMode) {
+    const currentIndex = OPTIONS.findIndex((option) => option.mode === mode)
+    let nextIndex: number | undefined
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') nextIndex = (currentIndex + 1) % OPTIONS.length
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') nextIndex = (currentIndex - 1 + OPTIONS.length) % OPTIONS.length
+    if (event.key === 'Home') nextIndex = 0
+    if (event.key === 'End') nextIndex = OPTIONS.length - 1
+    if (nextIndex === undefined) return
+    event.preventDefault()
+    onSelect(OPTIONS[nextIndex].mode)
+    const options = event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="radio"]')
+    options?.[nextIndex]?.focus()
+  }
+
+  const content = (
+    <>
       <p className="hosting-mode-card__lede">
         两种都能记完整一局，随时可以改。这只决定屏幕上要不要多一张座位环。
       </p>
@@ -55,8 +68,11 @@ export function HostingModeCard({ value, onSelect, narrow = false }: HostingMode
             type="button"
             role="radio"
             aria-checked={value === mode}
+            disabled={disabled}
+            tabIndex={value ? (value === mode ? 0 : -1) : (mode === OPTIONS[0].mode ? 0 : -1)}
             className={`hosting-mode-card__option ${value === mode ? 'is-selected' : ''}`}
             onClick={() => onSelect(mode)}
+            onKeyDown={(event) => handleOptionKeyDown(event, mode)}
           >
             <Icon className="hosting-mode-card__icon" aria-hidden="true" />
             <strong>{title}</strong>
@@ -69,6 +85,20 @@ export function HostingModeCard({ value, onSelect, narrow = false }: HostingMode
           这台设备的屏幕画不下座位环，选了「没有实体魔典」也会排成列表；换到平板上会自动变回环。
         </p>
       ) : null}
+    </>
+  )
+
+  if (embedded) return <div className="hosting-mode-card hosting-mode-card--embedded">{content}</div>
+
+  return (
+    <Card
+      as="div"
+      className="hosting-mode-card"
+      eyebrow="开始之前"
+      eyebrowTone="info"
+      title="你的魔典放在哪里？"
+    >
+      {content}
     </Card>
   )
 }

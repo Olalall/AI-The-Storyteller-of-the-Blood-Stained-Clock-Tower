@@ -38,6 +38,40 @@ export interface SessionDurability {
   dismiss: () => void
 }
 
+interface SessionDurabilityOptions {
+  /** App 已提前取得的写锁；传入后这里不再创建第二把锁。 */
+  lock?: LockState
+}
+
+function useLockLifecycle(enabled: boolean): LockState {
+  // 每个标签页一个 id，跨刷新会换新——刷新本就该重新竞争锁。
+  const holderId = useMemo(() => `tab-${Math.random().toString(36).slice(2)}-${performance.now()}`, [])
+  const [lock, setLock] = useState<LockState>(() => enabled ? acquireLock(holderId, Date.now()) : 'readonly')
+
+  useEffect(() => {
+    if (!enabled) return
+    const beat = () => setLock(heartbeat(holderId, Date.now()))
+    // React 的清理函数在整页刷新时不保证执行。pagehide 会在手机浏览器刷新、
+    // 关闭标签页以及进入 bfcache 前同步触发，及时释放本页的锁，避免刷新后
+    // 把同一个用户误报成“另一个窗口正在主持”。崩溃时仍由超时机制兜底。
+    const releaseCurrentPageLock = () => releaseLock(holderId)
+    const timer = window.setInterval(beat, LOCK_HEARTBEAT_MS)
+    window.addEventListener('pagehide', releaseCurrentPageLock)
+    return () => {
+      window.clearInterval(timer)
+      window.removeEventListener('pagehide', releaseCurrentPageLock)
+      releaseLock(holderId)
+    }
+  }, [enabled, holderId])
+
+  return lock
+}
+
+/** App 在读取并自动保存 session 之前先取得写锁。 */
+export function useSessionWriteLock(): LockState {
+  return useLockLifecycle(true)
+}
+
 /**
  * 只有当快照里的记录**比现在多**时才算恢复候选。
  *
@@ -71,27 +105,19 @@ function candidatesFor(current: GameSessionState): RecoveryCandidate[] {
 export function useSessionDurability(
   session: GameSessionState,
   dispatch: (action: GameSessionAction) => void,
+  options: SessionDurabilityOptions = {},
 ): SessionDurability {
-  // 每个标签页一个 id，跨刷新会换新——刷新本就该重新竞争锁。
-  const holderId = useMemo(() => `tab-${Math.random().toString(36).slice(2)}-${performance.now()}`, [])
-  const [lock, setLock] = useState<LockState>(() => acquireLock(holderId, Date.now()))
+  const ownLock = useLockLifecycle(options.lock === undefined)
+  const lock = options.lock ?? ownLock
   const [dismissed, setDismissed] = useState(false)
   // 只在挂载时看一次：开局之后再冒出「要不要恢复」会打断正在进行的主持。
   const [candidates] = useState<RecoveryCandidate[]>(() => candidatesFor(session))
 
-  useEffect(() => {
-    const beat = () => setLock(heartbeat(holderId, Date.now()))
-    const timer = window.setInterval(beat, LOCK_HEARTBEAT_MS)
-    return () => {
-      window.clearInterval(timer)
-      releaseLock(holderId)
-    }
-  }, [holderId])
-
   return {
     lock,
-    candidates: dismissed ? [] : candidates,
+    candidates: lock === 'owner' && !dismissed ? candidates : [],
     restore: (candidate) => {
+      if (lock !== 'owner') return
       // 先把当前这份存成快照再替换：恢复本身也是一次破坏性操作，
       // 而说书人有可能恢复错了那一份。界面上承诺了这条，这里必须兑现。
       snapshotBeforeDestructiveChange(session)

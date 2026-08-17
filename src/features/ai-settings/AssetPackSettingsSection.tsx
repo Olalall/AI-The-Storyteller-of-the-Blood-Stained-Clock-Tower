@@ -1,5 +1,5 @@
 import { Download, FileWarning, RefreshCw, ShieldCheck } from 'lucide-react'
-import { useEffect, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge, type BadgeTone } from '../../components/ui/StatusBadge'
@@ -31,7 +31,7 @@ export function AssetPackSettingsSection({
   const [guideOpen, setGuideOpen] = useState(false)
   const [acknowledged, setAcknowledged] = useState(false)
   const [availability, setAvailability] = useState<CharacterAssetAvailability | null>(null)
-  const [status, setStatus] = useState<AssetAvailabilityStatus>('checking')
+  const [status, setStatus] = useState<AssetAvailabilityStatus>('unknown')
   const projection = useMemo(() => projectCharacterAssetPack(packs), [packs])
 
   async function refresh() {
@@ -40,19 +40,6 @@ export function AssetPackSettingsSection({
     setAvailability(next)
     setStatus(next.status)
   }
-
-  useEffect(() => {
-    let active = true
-    setStatus('checking')
-    checkCharacterAssetAvailability(projection.requirements, fetcher).then((next) => {
-      if (!active) return
-      setAvailability(next)
-      setStatus(next.status)
-    })
-    return () => {
-      active = false
-    }
-  }, [fetcher, projection])
 
   const copy = statusCopy[status]
   const available = availability?.available ?? 0

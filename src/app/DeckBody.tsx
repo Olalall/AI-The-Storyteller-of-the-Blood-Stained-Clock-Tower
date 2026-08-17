@@ -18,6 +18,11 @@ import { NightWorkbench } from '../features/night-workbench/NightWorkbench'
 import { GrimoireStage } from '../features/grimoire/GrimoireStageHost'
 import type { GameSessionState } from '../features/game-session/types'
 import type { GameSessionAction } from '../features/game-session/state/sessionActions'
+import {
+  readHostingPreferences,
+  rememberHostingChoice,
+  rememberInstallIntroComplete,
+} from '../services/settings/hostingPreferences'
 
 interface DeckBodyProps {
   session: GameSessionState
@@ -35,6 +40,7 @@ interface DeckBodyProps {
   onOpenTimer: () => void
   onOpenRecords: () => void
   onOpenPlayerStatus: (seatId: number) => void
+  onImportSession: (session: GameSessionState) => void
 }
 
 export function DeckBody(props: DeckBodyProps) {
@@ -75,31 +81,59 @@ function DeckNodeBody({
   onOpenScriptLibrary,
   onOpenTimer,
   onOpenPlayerStatus,
+  onImportSession,
 }: DeckBodyProps) {
   if (deckNode === 'dusk') {
     if (!hasStarted) {
+      const preferences = readHostingPreferences()
+      const defaultHostingMode = session.hostingMode ?? (
+        preferences.hasCompletedFirstRunChoice ? preferences.defaultHostingMode : undefined
+      )
+      const commitHostingMode = (mode: GameSessionState['hostingMode']) => {
+        if (!mode) return
+        rememberHostingChoice(mode)
+        if (session.hostingMode === mode) return
+        dispatch({
+          type: 'set-hosting-mode',
+          mode,
+          changedAt: new Date().toISOString(),
+          phaseLabel: '开局前',
+        })
+      }
       return (
         <SessionEntry
-          onStartSetup={onOpenSetup}
-          onOpenScriptLibrary={onOpenScriptLibrary}
-          hostingMode={session.hostingMode}
-          onSelectHostingMode={(mode) => dispatch({
-            type: 'set-hosting-mode',
-            mode,
-            changedAt: new Date().toISOString(),
-            phaseLabel: '开局前',
-          })}
-          onLoadDemo={() => {
+          session={session}
+          onImportSession={onImportSession}
+          installIntroComplete={preferences.hasCompletedInstallIntro}
+          firstRun={!preferences.hasCompletedFirstRunChoice}
+          defaultHostingMode={defaultHostingMode}
+          onCompleteInstallIntro={rememberInstallIntroComplete}
+          onStartSetup={(mode) => {
+            commitHostingMode(mode)
+            onOpenSetup()
+          }}
+          onOpenScriptLibrary={(mode) => {
+            commitHostingMode(mode)
+            onOpenScriptLibrary()
+          }}
+          onLoadDemo={(mode) => {
+            rememberHostingChoice(mode)
             // 把刚选的模式带进示例局。replace-session 是整份覆盖——
             // 归档回放时那正是我们要的（那一局当时是什么模式就渲染成什么模式），
             // 但「载入示例」是开一局**新的**，说书人两秒前刚回答过「魔典放在哪」，
             // 不带过去就会静默退回纯记录，而他只会看到魔典没出现、不知道为什么。
             const demo = createPrototypeGameSession()
+            const changedAt = new Date().toISOString()
             dispatch({
               type: 'replace-session',
-              session: session.hostingMode
-                ? { ...demo, hostingMode: session.hostingMode, hostingModeHistory: session.hostingModeHistory }
-                : demo,
+              session: {
+                ...demo,
+                hostingMode: mode,
+                hostingModeHistory: [
+                  ...(session.hostingModeHistory ?? []),
+                  { mode, changedAt, phaseLabel: '开局前' },
+                ],
+              },
             })
             onDeckNodeChange(deckNodeForSession(demo))
           }}
