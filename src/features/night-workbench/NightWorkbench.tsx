@@ -264,7 +264,7 @@ export function NightWorkbench({
           }}
           onResolveApplicability={(value) => dispatch({ type: 'resolve-applicability', value })}
         />
-        <section className="night-action-zone" aria-label="确认本项">
+        <section className="night-action-zone" aria-label="当前夜间操作">
           <NightActionBar
             activeItem={activeItem}
             current={current}

@@ -52,7 +52,7 @@ describe('App game reset flow', () => {
       expect(session.dayActionDraft).toBeNull()
     })
     expect(screen.getByRole('heading', { name: 'AI配板与调整' })).toBeInTheDocument()
-    expect(screen.getByText('选择人数')).toBeInTheDocument()
+    expect(screen.getByText('设置本局')).toBeInTheDocument()
     expect(screen.getByLabelText('开局板子')).toHaveValue(dirtySession.scriptId)
     expect(window.localStorage.getItem(identityDealReceiptsStorageKey(dirtySession.id))).toBeNull()
 
@@ -84,7 +84,7 @@ describe('App game reset flow', () => {
     expect(screen.getByLabelText('1号昵称')).toHaveValue('上一局1号')
     expect(screen.getByLabelText('1号经验')).toHaveValue('veteran')
     expect(screen.getByLabelText('7号经验')).toHaveValue('veteran')
-    fireEvent.click(screen.getByRole('button', { name: '开始配板' }))
+    fireEvent.click(screen.getByRole('button', { name: '生成配板方案' }))
 
     await waitFor(() => {
       const session = storedSession()
@@ -94,7 +94,7 @@ describe('App game reset flow', () => {
       expect(session.phaseSegments).toEqual([])
       expect(session.seats[1]).toMatchObject({ nickname: '上一局1号', experience: 'veteran' })
     })
-    expect(screen.getByText('角色组合')).toBeInTheDocument()
+    expect(screen.getByText('选择配板方案')).toBeInTheDocument()
   })
 })
 

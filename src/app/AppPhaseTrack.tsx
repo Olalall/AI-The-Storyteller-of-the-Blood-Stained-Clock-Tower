@@ -8,6 +8,7 @@ import { PhaseTrack } from '../components/ui/PhaseTrack'
 import { projectEffectiveTimelineEntries } from '../features/game-session/state/projectTimelineHistory'
 import { projectPhaseTrack } from '../features/game-session/state/projectPhaseTrack'
 import type { DeckNode } from '../features/hosting-deck/deckNode'
+import { NewUserGuideSheet } from '../features/hosting-deck/NewUserGuideSheet'
 import type { GameSessionState } from '../features/game-session/types'
 
 interface AppPhaseTrackProps {
@@ -33,6 +34,7 @@ export function AppPhaseTrack({
       nodes={projectPhaseTrack(session, activeNode)}
       actions={(
         <>
+          <NewUserGuideSheet />
           <Button variant="ghost" compact onClick={onOpenRecords}>
             本局记录 {projectEffectiveTimelineEntries(session.timeline).length}
           </Button>

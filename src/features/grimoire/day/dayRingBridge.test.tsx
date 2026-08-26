@@ -122,7 +122,7 @@ describe('环与抽屉共用白天焦点', () => {
 
     // 「结束今天」的二次确认条挂起时，抽屉里的座位网格是 disabled 的。
     // 环若还能点，说书人就能一边读「结束今天会清空草稿」一边继续往草稿里加票。
-    await user.click(screen.getByRole('button', { name: '结束今天' }))
+    await user.click(screen.getByRole('button', { name: '准备结束白天' }))
     await waitFor(() => expect(screen.getByTestId('ring-intent')).toHaveTextContent('none'))
     expect(screen.getByRole('button', { name: '环1' })).toBeDisabled()
 

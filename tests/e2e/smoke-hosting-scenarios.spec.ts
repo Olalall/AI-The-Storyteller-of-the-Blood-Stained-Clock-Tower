@@ -78,11 +78,11 @@ async function openBlankSetup(page: Page, runId: string) {
 async function createConfirmedSetup(page: Page, input: { scriptId: string; playerCount: number }) {
   await page.getByLabel('开局板子').selectOption(input.scriptId)
   await page.getByRole('button', { name: `${input.playerCount}人` }).click()
-  await page.getByRole('button', { name: '开始配板' }).click()
+  await page.getByRole('button', { name: '生成配板方案' }).click()
   await expect(page.locator('.setup-candidate')).toHaveCount(3)
   const firstCandidate = page.locator('.setup-candidate').first()
   await expect(firstCandidate.locator('.setup-candidate__roles li')).toHaveCount(input.playerCount)
-  await firstCandidate.getByRole('button', { name: '采用为草稿' }).click()
+  await firstCandidate.getByRole('button', { name: '选择这套配板' }).click()
   await expect(page.locator('.setup-seat-grid button')).toHaveCount(input.playerCount)
   await page.locator('.setup-panel__footer .ui-button--primary').click()
   await expect(page.locator('.setup-panel')).toBeHidden()

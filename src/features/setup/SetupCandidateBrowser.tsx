@@ -195,7 +195,7 @@ export function SetupCandidateBrowser({
         </section>
         <div className="setup-candidate-detail__actions">
           <Button variant="ghost" onClick={() => setSelectedId(null)}>返回列表</Button>
-          <Button variant="primary" onClick={() => onUseCandidate(selected.id)}>采用为草稿</Button>
+          <Button variant="primary" onClick={() => onUseCandidate(selected.id)}>选择这套配板</Button>
         </div>
       </section>
     )
@@ -204,7 +204,7 @@ export function SetupCandidateBrowser({
   return (
     <section className="setup-panel__candidates" aria-labelledby="setup-candidates-title">
       <div className="setup-panel__section-heading">
-        <div><span>AI建议</span><h3 id="setup-candidates-title">角色组合</h3></div>
+        <div><span>开局引导 · 第 3 / 4 步</span><h3 id="setup-candidates-title">选择配板方案</h3></div>
         <div className="setup-candidate__heading-actions">
           {advice ? <StatusBadge tone="info"><Bot aria-hidden="true" />{advice.source === 'backend' ? 'AI草稿' : '模板草稿'}</StatusBadge> : null}
           <Button variant="ghost" compact disabled={!candidates.length || isAdviceLoading} onClick={requestAdvice}>
@@ -212,7 +212,7 @@ export function SetupCandidateBrowser({
           </Button>
         </div>
       </div>
-      <p className="setup-candidate__disclaimer">AI 只排序和解释已录入候选；采用为草稿不会发送身份，最终仍需说书人确认配板。</p>
+      <p className="setup-candidate__disclaimer">选择后只是草稿：仍可换角色、调座位，确认配板前不会发送身份。</p>
       {advice ? <div className="setup-candidate__ai-strip" role="status">
         <div className="setup-candidate__ai-top">
           <div>
@@ -234,8 +234,8 @@ export function SetupCandidateBrowser({
         title={`${playerCount}人暂无已核对模板`}
         description="先选 7 / 12 / 15 人，或后续补模板后再开。"
       /> : null}
-      {visibleCandidates.map((candidate) => (
-        <article className="setup-candidate" key={candidate.id}>
+      {visibleCandidates.map((candidate, index) => (
+        <article className={`setup-candidate ${index === 0 ? 'setup-candidate--featured' : ''} ${index === 0 && advice ? 'setup-candidate--recommended' : ''}`} key={candidate.id}>
           <div><h4>{candidate.title}</h4><div className="setup-candidate__badges">
             {adviceRanks.has(candidate.id) ? (
               <StatusBadge tone={adviceRanks.get(candidate.id) === 0 ? 'info' : 'neutral'}>
@@ -247,14 +247,14 @@ export function SetupCandidateBrowser({
               <StatusBadge key={`${tag.candidateId}-${tag.label}`} tone={qualityTone(tag.tone)}>{tag.label}</StatusBadge>
             ))}
           </div></div>
-          {qualityTags.get(candidate.id)?.[0] ? <p className="setup-candidate__quality"><b>质量提示</b><span>{qualityTags.get(candidate.id)?.[0].reason}</span></p> : null}
-          <ol className="setup-candidate__roles" aria-label={`${candidate.title}角色组合`}>
+          {index === 0 && qualityTags.get(candidate.id)?.[0] ? <p className="setup-candidate__quality"><b>质量提示</b><span>{qualityTags.get(candidate.id)?.[0].reason}</span></p> : null}
+          {index === 0 ? <ol className="setup-candidate__roles" aria-label={`${candidate.title}角色组合`}>
             {candidate.assignments.map((assignment) => <li key={assignment.seatId}><span>{assignment.seatId}号</span><strong>{assignment.role.name}</strong></li>)}
-          </ol>
+          </ol> : null}
           <p className="setup-candidate__advice"><b>建议</b><span>{candidate.rationale.summary}</span></p>
           <div className="setup-candidate__actions">
-            <Button variant="ghost" compact onClick={() => setSelectedId(candidate.id)}>详情<ChevronRight aria-hidden="true" /></Button>
-            <Button variant="secondary" compact onClick={() => onUseCandidate(candidate.id)}>采用为草稿</Button>
+            <Button variant="ghost" compact onClick={() => setSelectedId(candidate.id)}>查看详情<ChevronRight aria-hidden="true" /></Button>
+            <Button variant={index === 0 && advice ? 'primary' : 'secondary'} compact onClick={() => onUseCandidate(candidate.id)}>选择这套配板</Button>
           </div>
         </article>
       ))}

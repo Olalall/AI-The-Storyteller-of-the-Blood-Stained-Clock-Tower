@@ -80,12 +80,12 @@ describe('首夜系统步骤卡的界面', () => {
     render(<Harness />)
 
     expect(screen.getByText(/还差：勾选「已逐个指认恶魔/)).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: '确认本项' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '确认并停留' })).toBeDisabled()
 
     await user.click(screen.getByRole('checkbox', { name: /已逐个指认恶魔/ }))
     await user.click(screen.getByRole('button', { name: '已给出爪牙信息' }))
 
-    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '确认并停留' })).toBeEnabled()
     await user.click(screen.getByRole('button', { name: /确认并下一位/ }))
 
     // 下一项就是恶魔信息，三张伪装还没选。

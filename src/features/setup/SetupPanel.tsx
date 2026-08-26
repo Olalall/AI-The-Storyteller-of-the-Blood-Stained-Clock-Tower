@@ -36,7 +36,6 @@ interface SetupPanelProps {
   onSetupScriptChange: (scriptId: ScriptId) => void
 }
 type SeatAction = 'swap' | 'role' | 'nickname'
-
 export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptId, onSetupScriptChange }: SetupPanelProps) {
   const activeScriptId = session.playerCount > 0 ? session.scriptId : setupScriptId
   const activeScriptPack = useMemo(() => getSmartScriptPack(activeScriptId), [activeScriptId])
@@ -84,6 +83,9 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
   const activeCandidate = effectiveDraft ? candidates.find((candidate) => candidate.id === effectiveDraft.candidateId) : undefined
   const modifierReminders = legality.filter((check) => check.id.startsWith('modifier-'))
   const visibleChecks = legality.filter((check) => check.status === 'fail' || check.status === 'needs_choice')
+  const confirmReason = isStaleDraft
+    ? '配板已变化，请先重新载入'
+    : visibleChecks[0]?.summary ?? (canConfirm ? '核对完成后即可确认' : '请先完成配板核对')
   const inPlayRoleIds = new Set(effectiveDraft?.assignments.map((assignment) => assignment.role.id) ?? [])
   const demonBluffOptions = effectiveDraft
     ? rolesForScript.filter((role) => roleTeamById[role.id] === 'townsfolk' && !inPlayRoleIds.has(role.id))
@@ -92,9 +94,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
   const editorRole = seatEditor
     ? effectiveDraft?.assignments.find((assignment) => assignment.seatId === seatEditor.seatId)?.role ?? null
     : null
-  useEffect(() => {
-    saveSetupRosterMemory(session)
-  }, [session])
+  useEffect(() => { saveSetupRosterMemory(session) }, [session])
   function startSetupSession(input: { playerCount: PlayerCount; seats: readonly SetupRosterSeatInput[] }) {
     dispatch({
       type: 'start-setup-session',
@@ -122,6 +122,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
   function reloadCurrentDraft() {
     setDraft(createDraftFromCurrent(session))
   }
+
   function swapRoles(firstSeatId: number, secondSeatId: number) {
     if (!effectiveDraft || firstSeatId === secondSeatId) return
     const firstAssignment = effectiveDraft.assignments.find((assignment) => assignment.seatId === firstSeatId)
@@ -131,7 +132,6 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     setSelectedSeatId(null)
     setSwapSummary(`已交换 ${firstSeatId}号与${secondSeatId}号角色`)
   }
-
   function selectSeat(seatId: number) {
     if (seatAction === 'role') {
       setSeatEditor({ kind: 'role', seatId })
@@ -148,7 +148,6 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     setSelectedSeatId(selectedSeatId === seatId ? null : seatId)
     setSwapSummary(null)
   }
-
   function startSeatDrag(event: DragEvent<HTMLButtonElement>, seatId: number) {
     if (seatAction !== 'swap') return
     event.dataTransfer.effectAllowed = 'move'
@@ -156,12 +155,10 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     setSelectedSeatId(seatId)
     setSwapSummary(null)
   }
-
   function allowSeatDrop(event: DragEvent<HTMLButtonElement>) {
     event.preventDefault()
     event.dataTransfer.dropEffect = 'move'
   }
-
   function dropSeat(event: DragEvent<HTMLButtonElement>, targetSeatId: number) {
     event.preventDefault()
     const sourceSeatId = Number(event.dataTransfer.getData('text/plain'))
@@ -229,9 +226,9 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
           <em>打开</em>
         </button>}
 
-        {effectiveDraft ? <section className="setup-panel__draft" aria-labelledby="setup-draft-title">
+        {effectiveDraft && !showCandidates ? <section className="setup-panel__draft" aria-labelledby="setup-draft-title">
           <div className="setup-panel__section-heading">
-            <div><span>说书人草稿</span><h3 id="setup-draft-title">角色与座位</h3></div>
+            <div><span>{started ? '调整配板' : '开局引导 · 第 4 / 4 步'}</span><h3 id="setup-draft-title">核对角色与座位</h3></div>
             <StatusBadge tone={canConfirm ? 'success' : 'warning'}>{canConfirm ? '可确认' : '需调整'}</StatusBadge>
           </div>
           <section className="setup-panel__role-panel">
@@ -303,10 +300,16 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
             {visibleChecks.map((check) => <li className={`is-${check.status}`} key={check.id}>{check.passed ? <Check aria-hidden="true" /> : <X aria-hidden="true" />}<span>{check.summary}</span></li>)}
           </ul> : null}
           <div className="setup-panel__footer">
-            {isStaleDraft
-              ? <Button variant="ghost" onClick={reloadCurrentDraft}><Shuffle aria-hidden="true" />重新载入</Button>
-              : <Button variant="ghost" onClick={() => setDraft(null)}><Shuffle aria-hidden="true" />放弃草稿</Button>}
-            <Button variant="primary" disabled={!canConfirm} onClick={confirmDraft}>{started ? '确认调整' : '确认配板'}</Button>
+            <div className="setup-panel__footer-status" role="status">
+              <span>{canConfirm ? '可以确认' : '暂不能确认'}</span>
+              <strong>{confirmReason}</strong>
+            </div>
+            <div className="setup-panel__footer-actions">
+              {isStaleDraft
+                ? <Button variant="ghost" onClick={reloadCurrentDraft}><Shuffle aria-hidden="true" />重新载入</Button>
+                : <Button variant="ghost" onClick={() => setDraft(null)}><Shuffle aria-hidden="true" />放弃草稿</Button>}
+              <Button variant="primary" disabled={!canConfirm} onClick={confirmDraft}>{started ? '保存配板调整' : '确认配板'}</Button>
+            </div>
           </div>
         </section> : null}
       </div>
