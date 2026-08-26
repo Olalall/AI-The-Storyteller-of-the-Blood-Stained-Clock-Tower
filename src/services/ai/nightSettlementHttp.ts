@@ -199,7 +199,7 @@ function mapBackendDraft(
     stateChangeDrafts: backendStateChanges.length ? backendStateChanges : fallback?.stateChangeDrafts ?? [],
     authorityWarnings: authorityWarnings.length
       ? authorityWarnings
-      : fallback?.authorityWarnings ?? ['确认本项前不写日志、不改状态。'],
+      : fallback?.authorityWarnings ?? ['说书人确认前不写日志、不改状态。'],
     confidence: payload.confidence ?? fallback?.confidence ?? 'low',
   }
 }

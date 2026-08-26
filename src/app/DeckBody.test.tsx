@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { DeckBody } from './DeckBody'
 import { DiscussionTimerProvider } from '../features/day-workbench/state/discussionTimer'
@@ -80,9 +79,8 @@ describe('DeckBody hosting mode switch', () => {
     const { container } = renderDeck({ ...createEmptyGameSession(), hostingMode: 'grimoire' })
 
     expect(container.querySelector('.grimoire-canvas')).toBeNull()
-    expect(screen.getByRole('heading', { name: '安装到当前设备' })).toBeVisible()
-    await userEvent.click(screen.getByRole('button', { name: '暂不安装，先试用' }))
-    expect(screen.getByRole('heading', { name: '选择你的主持方式' })).toBeVisible()
+    expect(screen.getByRole('heading', { name: '先选择主持方式' })).toBeVisible()
+    expect(screen.getByText('安装到主屏幕（可稍后）')).toBeVisible()
     expect(screen.getByRole('radio', { name: /没有实体魔典/ })).toBeVisible()
   })
 })

@@ -244,7 +244,7 @@ export function CurrentWakeCard({
 
         <fieldset disabled={readOnly}>
           <legend className="result-legend">
-            <span>结果候选 <small>AI 只生成草稿，确认本项后才写入记录</small></span>
+            <span>结果候选 <small>AI 只生成草稿，经说书人确认后才写入记录</small></span>
             {aiAvailable && draft.outputSource?.kind !== 'ai' ? (
               <Button
                 type="button"

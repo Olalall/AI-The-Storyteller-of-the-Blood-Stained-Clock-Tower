@@ -297,17 +297,17 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
 
         {pendingDayClose ? <section className="day-close-confirm" aria-live="polite">
           {pendingDayClose === 'draft' ? <>
-            <div><strong>{leaveNotice.title}</strong><span>结束今天会清空草稿，且不会写入日记或改变玩家状态。</span></div>
-            <div><Button variant="ghost" onClick={() => setPendingDayClose(null)}>继续处理</Button><Button variant="danger" onClick={closeDay}>清空并结束</Button></div>
+            <div><strong>{leaveNotice.title}</strong><span>结束白天会清空草稿，且不会写入日记或改变玩家状态。</span></div>
+            <div><Button variant="ghost" onClick={() => setPendingDayClose(null)}>继续处理</Button><Button variant="danger" onClick={closeDay}>清空草稿并结束白天</Button></div>
           </> : <>
-            <div><strong>确认结束今天？</strong><span>只关闭当前白天记录，不会进入夜晚。</span></div>
-            <div><Button variant="ghost" onClick={() => setPendingDayClose(null)}>取消</Button><Button variant="danger" onClick={closeDay}>确认结束</Button></div>
+            <div><strong>确认结束白天？</strong><span>只关闭当前白天记录，不会进入夜晚。</span></div>
+            <div><Button variant="ghost" onClick={() => setPendingDayClose(null)}>取消</Button><Button variant="danger" onClick={closeDay}>确认结束白天</Button></div>
           </>}
         </section> : null}
 
         {openDay ? <footer className="day-workbench__footer">
           <div><span>结束白天</span><strong>关闭当前白天记录；不会开始夜晚</strong></div>
-          <Button variant="ghost" disabled={Boolean(pendingResolution || pendingDayClose)} onClick={requestDayClose}>结束今天</Button>
+          <Button variant="ghost" disabled={Boolean(pendingResolution || pendingDayClose)} onClick={requestDayClose}>准备结束白天</Button>
         </footer> : null}
       </div>
     </main>

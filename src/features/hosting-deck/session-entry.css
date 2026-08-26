@@ -123,22 +123,33 @@
   font-size: var(--type-label);
 }
 
-.session-entry__narrow-note {
-  display: none;
-  padding: var(--space-10) var(--space-12);
-  border: 1px solid var(--info-border);
-  border-radius: var(--radius-sm);
-  background: var(--info-soft);
-  color: var(--info-text) !important;
-  font-size: var(--type-meta) !important;
-}
-
-.session-entry__help {
+.session-entry__learning {
   border-top: 1px solid var(--border);
   padding-top: var(--space-12);
 }
 
-.session-entry__help summary {
+.session-entry__learning {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.session-entry__learning > p {
+  font-size: var(--type-meta);
+}
+
+.session-entry__guide-trigger {
+  width: 100%;
+  justify-content: flex-start;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.session-entry__install-help {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-8);
+}
+
+.session-entry__install-help summary {
   min-height: var(--touch-min);
   display: flex;
   align-items: center;
@@ -150,49 +161,14 @@
   list-style: none;
 }
 
-.session-entry__help summary::-webkit-details-marker { display: none; }
-.session-entry__help summary:focus-visible,
-.session-entry__demo:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
-.session-entry__help summary svg { width: 18px; transition: transform 160ms ease; }
-.session-entry__help[open] summary svg { transform: rotate(180deg); }
+.session-entry__install-help summary::-webkit-details-marker { display: none; }
+.session-entry__install-help summary:focus-visible,
+.session-entry__guide-trigger:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.session-entry__install-help summary svg { width: 18px; transition: transform 160ms ease; }
+.session-entry__install-help[open] summary svg { transform: rotate(180deg); }
 
-.session-entry__help ol {
-  display: grid;
-  gap: var(--space-8);
-  margin: var(--space-8) 0 var(--space-12);
-  padding: 0;
-  list-style: none;
-}
-
-.session-entry__help li {
-  display: grid;
-  gap: 2px;
-  padding: var(--space-10) var(--space-12);
-  border-left: 2px solid var(--border-strong);
-}
-
-.session-entry__help li strong { color: var(--text-strong); font-size: var(--type-label); }
-.session-entry__help li span { color: var(--text-muted); font-size: var(--type-meta); }
-
-.session-entry__demo {
-  width: 100%;
-  min-height: var(--touch-min);
-  border: 1px dashed var(--border-strong);
-  border-radius: var(--radius-md);
-  background: transparent;
-  color: var(--text-subtle);
-  font-size: var(--type-label);
-  font-weight: 700;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-8);
-  cursor: pointer;
-}
-
-.session-entry__demo:hover:not(:disabled) { color: var(--text-body); border-color: var(--accent-border); }
-.session-entry__demo:disabled { opacity: .48; cursor: not-allowed; }
-.session-entry__demo svg { width: 16px; }
+.session-entry__install-help .pwa-install-card { margin-top: var(--space-8); }
+.session-entry__install-help > .ui-button { margin-top: var(--space-8); }
 
 @media (max-width: 520px) {
   .session-entry {
@@ -201,8 +177,10 @@
     padding-bottom: calc(var(--space-12) + env(safe-area-inset-bottom));
     padding-left: calc(var(--space-12) + env(safe-area-inset-left));
   }
-  .session-entry__card { gap: var(--space-16); padding: var(--space-20); }
-  .session-entry__narrow-note { display: block; }
+  .session-entry__card { gap: var(--space-14); padding: var(--space-18); }
+  .session-entry__setup-guide { gap: var(--space-12); }
+  .session-entry h1 { font-size: clamp(1.75rem, 9vw, 2.4rem); }
+  .session-entry__launch { padding: var(--space-16); }
   .session-entry__actions { display: grid; }
   .session-entry__actions .ui-button { width: 100%; }
   .session-entry__install-intro > .ui-button { width: 100%; }

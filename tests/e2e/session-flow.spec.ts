@@ -59,13 +59,11 @@ test('empty session leads a new user through install, hosting mode and setup', a
   await page.reload()
 
   await expect(page.getByRole('main', { name: '开始新对局' })).toBeVisible()
-  await expect(page.getByRole('heading', { name: '安装到当前设备' })).toBeVisible()
-  await expect(page.getByRole('button', { name: '开始配板' })).toHaveCount(0)
-  await page.getByRole('button', { name: '暂不安装，先试用' }).click()
-  await expect(page.getByRole('heading', { name: '选择你的主持方式' })).toBeVisible()
-  await expect(page.getByRole('button', { name: '开始配板' })).toBeDisabled()
+  await expect(page.getByRole('heading', { name: '先选择主持方式' })).toBeVisible()
+  await expect(page.getByText('安装到主屏幕（可稍后）')).toBeVisible()
+  await expect(page.getByRole('button', { name: '继续：选择板子和人数' })).toBeDisabled()
   await page.getByRole('radio', { name: /没有实体魔典/ }).click()
-  await expect(page.getByRole('button', { name: '开始配板' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '继续：选择板子和人数' })).toBeEnabled()
   await page.screenshot({ path: 'artifacts/screenshots/onboarding-phone-hosting-mode.png', fullPage: true })
 })
 
@@ -84,8 +82,8 @@ test('returning user gets the compact start page with the previous hosting mode'
 
   await expect(page.getByRole('heading', { name: '开始一局新的主持' })).toBeVisible()
   await expect(page.getByLabel('当前主持方式')).toContainText('实体魔典 + 工具记录')
-  await expect(page.getByRole('heading', { name: '安装到当前设备' })).toHaveCount(0)
-  await expect(page.getByRole('button', { name: '开始配板' })).toBeEnabled()
+  await expect(page.getByText('安装到主屏幕（可稍后）')).toHaveCount(0)
+  await expect(page.getByRole('button', { name: '继续：选择板子和人数' })).toBeEnabled()
   await page.screenshot({ path: 'artifacts/screenshots/returning-phone-session-entry.png', fullPage: true })
 })
 
@@ -106,6 +104,10 @@ test('dashboard keeps day and night as peer entries and only records day facts a
 
   await expect(page.getByRole('button', { name: '进入夜晚' })).toBeVisible()
   await expect(page.getByRole('button', { name: '进入白天' })).toBeVisible()
+  await expect(page.getByRole('button', { name: '新手教学' })).toBeVisible()
+  await page.getByRole('button', { name: '新手教学' }).click()
+  await expect(page.getByRole('heading', { name: '新手教学' })).toBeVisible()
+  await page.getByRole('button', { name: '关闭新手教学' }).click()
   await expect(page.getByText('暂列处决', { exact: true })).toHaveCount(0)
   // 「当前阶段」卡已被常驻阶段轨道取代；轨道的 open 节点带该段标签。
   await expect(page.getByRole('navigation', { name: '主持阶段' }).locator('.ui-phase-node--open')).toContainText('第3夜')
@@ -195,11 +197,11 @@ test('setup candidates stay drafts until the storyteller confirms a future-only 
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
   await expect(page.getByText('AI配板建议')).toBeVisible()
   await page.locator('.setup-panel__advice-entry').click()
-  await expect(page.getByText('AI建议')).toBeVisible()
-  await expect(page.getByText('角色组合')).toBeVisible()
+  await expect(page.getByText('开局引导 · 第 3 / 4 步')).toBeVisible()
+  await expect(page.getByText('选择配板方案')).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/split-720-setup.png' })
   await expect(page.getByText('候选、草稿与确认配板分开。')).toHaveCount(0)
-  await page.locator('.setup-candidate').filter({ hasText: '全员参与' }).getByRole('button', { name: '采用为草稿' }).click()
+  await page.locator('.setup-candidate').filter({ hasText: '全员参与' }).getByRole('button', { name: '选择这套配板' }).click()
   await swapFirstTwoDraftSeats(page)
   await dragThirdSeatToFourth(page)
   await page.screenshot({ path: 'artifacts/screenshots/split-720-setup-card-swap.png', fullPage: true })
@@ -211,8 +213,8 @@ test('setup candidates stay drafts until the storyteller confirms a future-only 
   await page.getByRole('heading', { name: '伪装建议' }).scrollIntoViewIfNeeded()
   await page.screenshot({ path: 'artifacts/screenshots/split-720-setup-bluff-grid.png' })
   await page.screenshot({ path: 'artifacts/screenshots/split-720-setup-draft-rules.png', fullPage: true })
-  await expect(page.getByRole('button', { name: '确认调整' })).toBeEnabled()
-  await page.getByRole('button', { name: '确认调整' }).click()
+  await expect(page.getByRole('button', { name: '保存配板调整' })).toBeEnabled()
+  await page.getByRole('button', { name: '保存配板调整' }).click()
 
   await expect.poll(async () => page.evaluate(() => {
     const state = JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}')
@@ -232,7 +234,7 @@ test('a confirmed night result reaches the dashboard timeline without changing p
   // 选完目标与角色后工具会自动预选「受到影响」；再点一次是取消选择，所以这里只在未选中时点。
   const appliedOutcome = page.getByRole('button', { name: '受到影响', exact: true })
   if ((await appliedOutcome.getAttribute('aria-pressed')) !== 'true') await appliedOutcome.click()
-  await page.getByRole('button', { name: '确认本项' }).click()
+  await page.getByRole('button', { name: '确认并停留' }).click()
   await expect.poll(async () => page.evaluate(() => {
     const state = JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}')
     return state.timeline.some((entry: { kind: string; wakeItemId: string }) => entry.kind === 'night_action' && entry.wakeItemId === 'night-3-cerenovus')
@@ -247,9 +249,9 @@ test('ending a night returns to the dashboard and the next confirmed action star
   await resetToDashboard(page)
   await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
-  await page.getByRole('button', { name: '检查并关闭' }).click()
+  await page.getByRole('button', { name: '准备结束本夜' }).click()
   await expect(page.getByText('关闭第3夜？')).toBeVisible()
-  await page.getByRole('button', { name: '确认关闭' }).click()
+  await page.getByRole('button', { name: '确认结束本夜' }).click()
   await openArchive(page)
 
   const afterClose = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
@@ -261,7 +263,7 @@ test('ending a night returns to the dashboard and the next confirmed action star
   await expect(page.getByRole('heading', { name: '第4夜' })).toBeVisible()
   await page.getByRole('button', { name: '气球驾驶员' }).click()
   await page.getByRole('button', { name: '发动', exact: true }).click()
-  await page.getByRole('button', { name: '确认本项' }).click()
+  await page.getByRole('button', { name: '确认并停留' }).click()
   await expect(page.getByRole('heading', { name: '第4夜' })).toBeVisible()
   await expect.poll(async () => page.evaluate(() => {
     const state = JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}')
@@ -279,8 +281,8 @@ test('the next night record does not include a role change confirmed in the prev
   await page.getByRole('button', { name: '确认改为麻脸巫婆' }).click()
   await expect(page.getByRole('button', { name: '本局记录，共4条' })).toBeVisible()
 
-  await page.getByRole('button', { name: '检查并关闭' }).click()
-  await page.getByRole('button', { name: '确认关闭' }).click()
+  await page.getByRole('button', { name: '准备结束本夜' }).click()
+  await page.getByRole('button', { name: '确认结束本夜' }).click()
   // 关闭本夜后主持台落在黎明播报卡；本例只验证「下一夜是独立的一轮」，走档案层直接开下一夜。
   await openArchive(page)
   await page.getByRole('button', { name: '进入夜晚' }).click()
@@ -342,9 +344,9 @@ test('an unrecorded vote survives returning to the dashboard and must be explici
   await expect(page.getByRole('button', { name: '回到步骤1：提名' })).toContainText('1号提名')
   await expect(page.getByRole('button', { name: '回到步骤1：提名' })).toContainText('4号')
 
-  await page.getByRole('button', { name: '结束今天' }).click()
+  await page.getByRole('button', { name: '准备结束白天' }).click()
   await expect(page.getByText('本轮票型已暂存')).toBeVisible()
-  await page.getByRole('button', { name: '清空并结束' }).click()
+  await page.getByRole('button', { name: '清空草稿并结束白天' }).click()
 
   const state = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
   expect(state.dayVoteDraft).toBeNull()
@@ -436,7 +438,7 @@ test('journal filters a closed day and appends a structured correction without c
   await page.getByRole('button', { name: '选择5号为目标' }).click()
   await page.getByRole('button', { name: '无事发生' }).click()
   await page.getByRole('button', { name: '记录技能' }).click()
-  await page.getByRole('button', { name: '结束今天' }).click()
+  await page.getByRole('button', { name: '准备结束白天' }).click()
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
 
   await page.getByRole('button', { name: /本局记录 \d+/ }).click()

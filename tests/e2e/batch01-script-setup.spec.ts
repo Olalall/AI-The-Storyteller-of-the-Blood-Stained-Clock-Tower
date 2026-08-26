@@ -38,7 +38,7 @@ async function openBlankSetup(page: import('@playwright/test').Page) {
   await page.reload()
   await (await import('./helpers/entry-onboarding')).openSetupFromEntry(page)
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
-  await expect(page.getByText('选择人数')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '设置本局' })).toBeVisible()
 }
 
 test('first batch scripts can all start a 12-player setup from the visible UI', async ({ page }) => {
@@ -54,7 +54,7 @@ test('first batch scripts can all start a 12-player setup from the visible UI', 
       await expect(scriptSelect).toHaveValue(scriptId)
 
       await page.getByRole('button', { name: '12人' }).click()
-      await page.getByRole('button', { name: '开始配板' }).click()
+      await page.getByRole('button', { name: '生成配板方案' }).click()
 
       await expect.poll(async () => {
         const setupShell = JSON.parse(await page.evaluate(() => window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))

@@ -77,7 +77,7 @@ test('an existing game can record a night result and a day vote after going offl
   await page.getByRole('button', { name: '选择3号玩家' }).click()
   await page.getByRole('button', { name: '调查员' }).click()
   await page.getByRole('button', { name: '未受影响' }).click()
-  await page.getByRole('button', { name: '确认本项' }).click()
+  await page.getByRole('button', { name: '确认并停留' }).click()
   await expect.poll(() => page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)).toBe(beforeNight + 1)
 
   await page.getByRole('button', { name: '返回', exact: true }).click()

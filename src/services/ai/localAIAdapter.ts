@@ -40,7 +40,7 @@ function projectedAdviceDrafts({ item, draft, outcomeId, roleKnowledge, roleRese
     ...(roleResearch ? researchStateChangeDraftsFor(roleResearch) : []),
   ])
   const authorityWarnings = [
-    '采用建议只会填入本项草稿；确认本项前不写日志、不改状态。',
+    '采用建议只会填入本项草稿；说书人确认前不写日志、不改状态。',
     ...(roleKnowledge?.aiCannot.slice(0, 3).map((item) => `AI不能${item}`) ?? []),
   ]
 
