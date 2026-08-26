@@ -233,7 +233,7 @@ describe('DayWorkbench records', () => {
     await user.click(screen.getByRole('button', { name: '记技能/事件' }))
     await user.click(screen.getByRole('button', { name: '选择6号为发动者' }))
     await user.click(screen.getByRole('button', { name: '关闭白天记录' }))
-    await user.click(screen.getByRole('button', { name: '结束今天' }))
+    await user.click(screen.getByRole('button', { name: '准备结束白天' }))
 
     expect(screen.getByText('技能记录已暂存')).toBeVisible()
     expect(storedState().phaseSegments.find((segment) => segment.id === 'day-3')?.closedAt).toBeUndefined()
@@ -258,12 +258,12 @@ describe('DayWorkbench records', () => {
     await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
     await user.click(screen.getByRole('button', { name: '记录1号举手' }))
 
-    await user.click(screen.getByRole('button', { name: '结束今天' }))
+    await user.click(screen.getByRole('button', { name: '准备结束白天' }))
     expect(screen.getByText('本轮票型已暂存')).toBeVisible()
     expect(screen.getByRole('button', { name: '继续处理' })).toBeVisible()
     expect(storedState().phaseSegments.find((segment) => segment.id === 'day-3')?.closedAt).toBeUndefined()
 
-    await user.click(screen.getByRole('button', { name: '清空并结束' }))
+    await user.click(screen.getByRole('button', { name: '清空草稿并结束白天' }))
     await waitFor(() => {
       const state = storedState()
       expect(state.phaseSegments.find((segment) => segment.id === 'day-3')?.closedAt).toBeTruthy()

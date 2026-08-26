@@ -93,14 +93,14 @@ describe('NightWorkbench', () => {
 
     expect(screen.getByText('正在预览')).toBeInTheDocument()
     expect(screen.getByRole('region', { name: '夜间角色预览' })).toHaveTextContent('洗脑师')
-    expect(screen.queryByRole('button', { name: '确认本项' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: '确认并停留' })).not.toBeInTheDocument()
     expect(screen.queryByRole('button', { name: '确认并下一位' })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: '退出预览，回到正在处理的10号 洗脑师；夜间处理位置不变' })).toBeEnabled()
     expect(screen.getByRole('button', { name: '将夜间处理位置切换到11号 麻脸巫婆；不确认或保存记录' })).toBeEnabled()
 
     await user.click(screen.getByRole('button', { name: '退出预览，回到正在处理的10号 洗脑师；夜间处理位置不变' }))
     expect(screen.queryByText('正在预览')).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: '确认本项' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '确认并停留' })).toBeInTheDocument()
   })
 
   it('uses the default next destination after confirmation', async () => {
@@ -124,7 +124,7 @@ describe('NightWorkbench', () => {
     render(<NightWorkbenchHarness />)
 
     await completeCurrentDraft(user)
-    await user.click(screen.getByRole('button', { name: '确认本项' }))
+    await user.click(screen.getByRole('button', { name: '确认并停留' }))
 
     expect(screen.getByRole('region', { name: '夜间角色预览' })).toHaveTextContent('洗脑师')
     expect(screen.getByRole('button', { name: /进入下一位/ })).toBeEnabled()
@@ -139,7 +139,7 @@ describe('NightWorkbench', () => {
     expect(screen.getByText('明天请疯狂地声称自己是调查员。')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '受到影响' })).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getByRole('region', { name: '确认前预览' })).toHaveTextContent(/确认后写入.*不自动改身份、阵营、死亡、毒醉。/s)
-    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '确认并停留' })).toBeEnabled()
     await waitFor(() => {
       const draft = storedState().drafts['night-3-cerenovus']
       expect(draft.playerChoice).toBe('选择3号 · 声称角色：调查员')
@@ -147,7 +147,7 @@ describe('NightWorkbench', () => {
     })
 
     await user.click(screen.getByRole('button', { name: '选择4号玩家' }))
-    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '确认并停留' })).toBeEnabled()
     await waitFor(() => expect(storedState().drafts['night-3-cerenovus'].storytellerResult).toBe('10号洗脑师选择4号成为调查员，目标受到影响。'))
   })
 
@@ -155,14 +155,14 @@ describe('NightWorkbench', () => {
     const user = userEvent.setup()
     render(<NightWorkbenchHarness />)
     await completeCurrentDraft(user)
-    await user.click(screen.getByRole('button', { name: '确认本项' }))
+    await user.click(screen.getByRole('button', { name: '确认并停留' }))
 
     expect(screen.getByRole('button', { name: '受到影响' })).toBeDisabled()
     await user.click(screen.getByRole('button', { name: /追加更正/ }))
-    expect(screen.getByRole('button', { name: '确认更正' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '确认更正并停留' })).toBeEnabled()
     await user.click(screen.getByRole('button', { name: '选择4号玩家' }))
     await user.click(screen.getByRole('button', { name: '未受影响' }))
-    await user.click(screen.getByRole('button', { name: '确认更正' }))
+    await user.click(screen.getByRole('button', { name: '确认更正并停留' }))
 
     expect(screen.getByText(/更正记录已追加/)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '未受影响' })).toBeDisabled()
@@ -178,7 +178,7 @@ describe('NightWorkbench', () => {
     const user = userEvent.setup()
     render(<NightWorkbenchHarness />)
     await completeCurrentDraft(user)
-    await user.click(screen.getByRole('button', { name: '确认本项' }))
+    await user.click(screen.getByRole('button', { name: '确认并停留' }))
     await user.click(screen.getByRole('button', { name: /追加更正/ }))
     await user.click(screen.getByRole('button', { name: '选择4号玩家' }))
 
