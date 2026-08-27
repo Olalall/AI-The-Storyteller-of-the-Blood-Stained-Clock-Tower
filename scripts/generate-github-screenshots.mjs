@@ -3,7 +3,7 @@ import { spawn } from 'node:child_process'
 import { mkdir, readdir, rename, rm, unlink } from 'node:fs/promises'
 import path from 'node:path'
 
-const baseUrl = 'http://127.0.0.1:4173'
+const baseUrl = 'http://127.0.0.1:4174'
 const screenshotDir = path.resolve('docs/screenshots')
 const stagingDir = path.resolve('docs/.screenshots-staging')
 
@@ -28,7 +28,7 @@ async function waitForApp(timeoutMs = 30000) {
 async function ensureAppServer() {
   if (await isAppReady()) return null
 
-  const devServer = spawn('cmd.exe', ['/d', '/s', '/c', 'npm run dev -- --host 127.0.0.1 --port 4173'], {
+  const devServer = spawn('cmd.exe', ['/d', '/s', '/c', 'npm run dev -- --host 127.0.0.1 --port 4174'], {
     cwd: process.cwd(),
     env: process.env,
     stdio: 'ignore',
@@ -45,7 +45,18 @@ async function cleanScreenshotDir() {
 }
 
 async function capture(page, fileName) {
+  await page.evaluate(() => window.scrollTo(0, 0))
   await page.screenshot({ path: path.join(stagingDir, fileName), fullPage: false })
+}
+
+async function waitForRoleIcons(page, selector, minimum) {
+  await page.waitForFunction(
+    ({ imageSelector, minimumCount }) => {
+      const images = [...document.querySelectorAll(imageSelector)]
+      return images.length >= minimumCount && images.every((image) => image.complete && image.naturalWidth > 0)
+    },
+    { imageSelector: selector, minimumCount: minimum },
+  )
 }
 
 async function publishScreenshots() {
@@ -89,7 +100,7 @@ async function main() {
   await cleanScreenshotDir()
   const devServer = await ensureAppServer()
   const browser = await chromium.launch()
-  const page = await browser.newPage({ viewport: { width: 1180, height: 900 }, deviceScaleFactor: 1 })
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 })
 
   try {
     await gotoDashboard(page)
@@ -98,6 +109,7 @@ async function main() {
     await loadDemoSessionFromEntry(page)
     await page.getByRole('button', { name: '本局', exact: true }).click()
     await page.locator('.dashboard').waitFor({ state: 'visible' })
+    await waitForRoleIcons(page, '.dashboard .role-disc__icon', 12)
     await capture(page, '01-dashboard.png')
 
     await openDashboardTools(page)
@@ -123,7 +135,14 @@ async function main() {
     await openDashboardTools(page)
     await page.getByRole('button', { name: '进入夜晚' }).click()
     await page.locator('.night-workbench').waitFor({ state: 'visible' })
+    await page.setViewportSize({ width: 1440, height: 960 })
+    await page.getByRole('button', { name: '选择3号玩家' }).click()
+    await page.getByRole('button', { name: '调查员' }).click()
+    const unaffectedOutcome = page.getByRole('button', { name: '未受影响', exact: true })
+    if (await unaffectedOutcome.getAttribute('aria-pressed') !== 'true') await unaffectedOutcome.click()
+    await waitForRoleIcons(page, '.night-workbench .role-disc__icon', 3)
     await capture(page, '05-night-workbench.png')
+    await page.setViewportSize({ width: 1440, height: 900 })
 
     await gotoDashboard(page)
     await openDashboardTools(page)
@@ -178,15 +197,21 @@ async function main() {
 
     await page.setViewportSize({ width: 390, height: 844 })
     await gotoDashboard(page)
+    await waitForRoleIcons(page, '.dashboard .role-disc__icon', 12)
+    await capture(page, '13-mobile-dashboard.png')
+
     await openDashboardTools(page)
     await page.getByRole('button', { name: '发身份' }).click()
     await page.locator('.identity-deal__seat-grid button').first().waitFor({ state: 'visible' })
-    await capture(page, '13-mobile-identity-deal.png')
+    await page.getByRole('button', { name: '打开单人展示' }).click()
+    await page.getByRole('button', { name: '显示身份' }).click()
+    await waitForRoleIcons(page, '.identity-spotlight .role-disc__icon', 1)
+    await capture(page, '14-mobile-identity-display.png')
 
     await gotoDashboard(page)
     await openGameEnd(page)
     await page.locator('.game-end').waitFor({ state: 'visible' })
-    await capture(page, '14-mobile-game-end.png')
+    await capture(page, '15-mobile-game-end.png')
     await publishScreenshots()
   } finally {
     await browser.close()
