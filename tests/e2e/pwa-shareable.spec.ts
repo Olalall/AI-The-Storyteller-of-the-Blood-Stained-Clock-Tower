@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { enterDashboardPhase } from './helpers/dashboard-tools'
 
 test('production PWA can reopen the core host entry while offline', async ({ page, context }) => {
   await page.setViewportSize({ width: 390, height: 844 })
@@ -81,7 +82,7 @@ test('an existing game can record a night result and a day vote after going offl
   await expect.poll(() => page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)).toBe(beforeNight + 1)
 
   await page.getByRole('button', { name: '返回', exact: true }).click()
-  await page.getByRole('button', { name: '进入白天' }).click()
+  await enterDashboardPhase(page, '白天')
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()

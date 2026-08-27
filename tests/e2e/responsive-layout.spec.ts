@@ -1,5 +1,7 @@
 ﻿import { expect, test, type Page } from '@playwright/test'
 
+import { enterDashboardPhase, openDashboardTools } from './helpers/dashboard-tools'
+
 const layouts = [
   { name: 'split-720', width: 720, height: 900, rail: false },
   { name: 'pad-1024', width: 1024, height: 768, rail: true },
@@ -44,7 +46,7 @@ test('three responsive shells keep the dashboard and workbenches inside the view
     await page.screenshot({ path: `artifacts/screenshots/${layout.name}-dashboard-shell.png` })
 
     await openArchive(page)
-    await page.getByRole('button', { name: '进入夜晚' }).click()
+    await enterDashboardPhase(page, '夜晚')
     await expect(page.getByRole('heading', { name: /第3夜/ })).toBeVisible()
     if (layout.rail) await expect(page.getByLabel('本局速览')).toBeVisible()
     else await expect(page.getByLabel('本局速览')).toBeHidden()
@@ -57,7 +59,7 @@ test('Pad rail appears automatically without product navigation controls', async
   await page.setViewportSize({ width: 1024, height: 768 })
   await reset(page)
   await openArchive(page)
-  await page.getByRole('button', { name: '进入白天' }).click()
+  await enterDashboardPhase(page, '白天')
   await expect(page.getByLabel('本局速览')).toBeVisible()
   await expect(page.getByLabel('原型页面')).toHaveCount(0)
   await expect(page.getByText('前端原型')).toHaveCount(0)
@@ -69,7 +71,7 @@ test('Pad rail opens the shared player status page without writing until confirm
   await page.setViewportSize({ width: 1024, height: 768 })
   await reset(page)
   await openArchive(page)
-  await page.getByRole('button', { name: '进入夜晚' }).click()
+  await enterDashboardPhase(page, '夜晚')
   const before = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)
 
   const railSeat = page.getByRole('button', { name: /查看1号/ })
@@ -96,6 +98,8 @@ test('compact dashboard cards project role, nickname and status without changing
   await expect(page.getByRole('navigation', { name: '主持阶段' }).locator('.ui-phase-node--open')).toContainText('第3夜')
   await openArchive(page)
   await expect(page.getByText('12人 · 存活12 · 死亡0')).toBeVisible()
+  await expect(page.getByRole('button', { name: /倒计时/ })).toBeHidden()
+  await openDashboardTools(page)
   await expect(page.getByRole('button', { name: /倒计时/ })).toBeVisible()
   await expect(page.getByText('私聊 15分 → 公聊 10分')).not.toBeVisible()
   await expect(page.getByRole('button', { name: '开场白', exact: true })).toBeVisible()
@@ -126,6 +130,7 @@ test('setup distinguishes replacement, nickname editing, and seat swapping', asy
   await page.setViewportSize({ width: 720, height: 900 })
   await reset(page)
   await openArchive(page)
+  await openDashboardTools(page)
   await page.getByRole('button', { name: 'AI配板与调整' }).click()
   const setupPage = page.getByRole('dialog')
   await expect(setupPage).toHaveAttribute('data-presentation', 'page')

@@ -90,12 +90,12 @@ function App() {
           <Dashboard
             session={session}
             dispatch={guardedDispatch}
+            activeNode={deckNode}
             onEnterNight={enterNight}
             onEnterDay={enterDay}
             onOpenTimer={() => overlays.setTimerOpen(true)}
             onOpenSetup={() => overlays.setSetupOpen(true)}
             onOpenIdentityDeal={() => overlays.setIdentityDealOpen(true)}
-            onOpenGameEnd={overlays.openGameEnd}
             onOpenScriptLibrary={() => overlays.setScriptLibraryOpen(true)}
             onOpenPlayerStatus={overlays.setPlayerStatusSeatId}
             onImportSession={sessionImport.apply}

@@ -36,7 +36,7 @@ const GUIDE_STEPS: readonly GuideStep[] = [
   {
     phase: '身份交接',
     title: '让每名玩家收到身份',
-    summary: '点击顶部“本局”打开总控页，再点击“发身份”。',
+    summary: '点击顶部“本局”打开总控页；身份未领取时，主任务会直接显示“去发身份”。',
     actions: ['屏幕领取：选择座位，打开单人展示，交给本人“显示身份”，领取后返回遮蔽。', '实体抽牌：玩家拿牌后，逐个点击“标记已领取”。', '确认所有玩家都已领取，再回到主持台。'],
     done: '身份领取数量达到全员，且角色仍只对说书人和本人可见。',
     caution: '不要把完整魔典投屏给玩家；共享设备交接前先确认已经回到遮蔽状态。',
@@ -63,7 +63,7 @@ const GUIDE_STEPS: readonly GuideStep[] = [
   {
     phase: '结束与备份',
     title: '保存本局，再复盘或重开',
-    summary: '点击顶部“收尾”进入结束页。先保存本局，重要对局再导出备份。',
+    summary: '点击顶部“更多 → 收尾与复盘”进入结束页。先保存本局，重要对局再导出备份。',
     actions: ['选择获胜阵营或结果未定，点击“保存本局”生成历史归档。', '需要换设备或长期保存时点击“导出备份”。', '进入“历史复盘”查看时间线和 AI 复盘草稿。', '只有确认归档完成后，再勾选确认并重置游戏。'],
     done: '本局出现在历史复盘中，新局可以从空白开局页重新开始。',
     caution: '浏览器本机数据可能被清理；重要对局应主动导出。真实 AI 和云端归档需要联网。',
@@ -76,9 +76,10 @@ interface NewUserGuideSheetProps {
   triggerLabel?: string
   onLoadDemo?: () => void
   demoAvailable?: boolean
+  layer?: 'default' | 'nested'
 }
 
-export function NewUserGuideSheet({ className = '', triggerLabel = '新手教学', onLoadDemo, demoAvailable = false }: NewUserGuideSheetProps) {
+export function NewUserGuideSheet({ className = '', triggerLabel = '新手教学', onLoadDemo, demoAvailable = false, layer = 'default' }: NewUserGuideSheetProps) {
   const [open, setOpen] = useState(false)
   const [stepIndex, setStepIndex] = useState(0)
   const step = GUIDE_STEPS[stepIndex]
@@ -110,6 +111,7 @@ export function NewUserGuideSheet({ className = '', triggerLabel = '新手教学
       title="新手教学"
       description={`第 ${stepIndex + 1} / ${GUIDE_STEPS.length} 步 · ${step.phase}`}
       contentClassName="sheet-content--new-user-guide"
+      layer={layer}
       trigger={<Button type="button" variant="ghost" compact className={className}><BookOpenCheck aria-hidden="true" />{triggerLabel}</Button>}
     >
       <article className="new-user-guide" aria-labelledby="new-user-guide-step-title">
