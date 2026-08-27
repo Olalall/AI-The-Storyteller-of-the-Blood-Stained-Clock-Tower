@@ -2,21 +2,79 @@
 
 ![血染钟楼 AI 说书人辅助工具](docs/assets/github-hero.svg)
 
-> **手机 / 平板用户：**通过 HTTPS 打开部署地址后，可以安装到主屏幕。首次完整打开后，配板、身份交接、夜序、投票、日志和本机复盘可离线使用；真实 AI 和云端归档仍需联网。
+> <strong>手机 / 平板用户：</strong>通过 HTTPS 打开部署地址后，可以安装到主屏幕。首次完整打开后，配板、身份交接、夜序、投票、日志和本机复盘可离线使用；真实 AI 和云端归档仍需联网。
 
-> **Windows 用户：**查看 [简洁安装教程](安装教程.md)。请从 Releases 下载 `botc-storyteller-companion-windows-portable.zip`，不要下载源码 ZIP。
+> <strong>Windows 用户：</strong>查看 [简洁安装教程](安装教程.md)。请从 Releases 下载 `botc-storyteller-companion-windows-portable.zip`，不要下载源码 ZIP。
 
 ## 界面预览
 
-| 本局总览 | AI 配板与调整 |
-| --- | --- |
-| ![本局总览：当前阶段、玩家状态与主持入口](docs/screenshots/01-dashboard.png) | ![AI 配板与调整：候选方案和角色组合](docs/screenshots/03-setup-advice.png) |
+### 本局总览
 
-| 夜间工作台 | 手机发身份 |
-| --- | --- |
-| ![夜间工作台：夜序、当前角色和说书人确认操作](docs/screenshots/05-night-workbench.png) | ![手机发身份：当前玩家和主要操作优先显示](docs/screenshots/13-mobile-identity-deal.png) |
+![本局总览：12 人角色图标、当前阶段、玩家状态与主持入口](docs/screenshots/01-dashboard.png)
 
-以上均由项目内的示例对局自动生成，不包含真实 API Key 或私人 VPS 信息。同一套功能可直接在手机、平板和电脑浏览器使用。
+### 板子库
+
+![板子库：选择和切换智能板子](docs/screenshots/02-script-library.png)
+
+### AI 配板与调整
+
+![AI 配板与调整：三套候选方案和角色组合](docs/screenshots/03-setup-advice.png)
+
+### 发身份
+
+![发身份：座位领取进度与单人展示入口](docs/screenshots/04-identity-deal.png)
+
+### 夜间工作台
+
+![夜间工作台：角色图标、夜序、目标选择和说书人确认操作](docs/screenshots/05-night-workbench.png)
+
+### 白天投票
+
+![白天投票：提名、举手与处决记录](docs/screenshots/06-day-vote.png)
+
+### 公聊倒计时
+
+![公聊倒计时：大字时间显示](docs/screenshots/07-public-timer.png)
+
+### AI 设置
+
+![AI 设置：本机配置与连通检查](docs/screenshots/08-ai-settings.png)
+
+### 开场白展示
+
+![开场白：适合面对玩家的大字展示](docs/screenshots/09-opening-display.png)
+
+### 玩家详情
+
+![玩家详情：角色状态和相关记录](docs/screenshots/10-player-detail.png)
+
+### 本局日记
+
+![本局日记：按时间查看主持记录](docs/screenshots/11-journal.png)
+
+### 历史复盘
+
+![历史复盘：胜负、时间线和复盘信息](docs/screenshots/12-review.png)
+
+### 手机主持台
+
+<p align="center">
+  <img src="docs/screenshots/13-mobile-dashboard.png" width="390" alt="手机主持台：当前任务和带角色图标的玩家状态">
+</p>
+
+### 手机单人身份展示
+
+<p align="center">
+  <img src="docs/screenshots/14-mobile-identity-display.png" width="390" alt="手机单人身份展示：角色图标、名称、技能和领取按钮">
+</p>
+
+### 手机收尾
+
+<p align="center">
+  <img src="docs/screenshots/15-mobile-game-end.png" width="390" alt="手机收尾：保存本局和进入复盘">
+</p>
+
+以上均由项目内的 12 人示例对局自动生成，不包含真实 API Key 或私人 VPS 信息。同一套功能可直接在手机、平板和电脑浏览器使用。截图中的角色图标由维护者在本机按素材清单下载后生成；角色原图不随 Git 仓库发布，来源与权利说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
 根据个人理解制作的，AI血染钟楼说书人辅助工具，因为本人线下组局常常遇到这种问题，1.配板需要说书人非常熟悉技能，角色，有理解，才能配出比较好玩的板子，耗时长。2.技能结算，夜间处理长。3.投票记录麻烦。4.发送玩家身份太过古法，不够方便。5.全局日志需要手动记录。6.复盘评分复杂等问题。
 当前内置 117 个智能板子。这里的“智能板子”不是一个 AI 模型，而是整理好的剧本知识包：里面有角色池、角色技能、首夜/其他夜夜序、7—15 人配板模板、人数规则和高风险提醒。AI 只是读取这些项目内资料，提供配板排序或夜间结果草稿；它不等于官方规则引擎，社区和自定义角色按项目中保存的角色说明使用。
