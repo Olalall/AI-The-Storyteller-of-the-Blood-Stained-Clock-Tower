@@ -12,13 +12,49 @@
 
 ![本局总览：12 人角色图标、当前阶段、玩家状态与主持入口](docs/screenshots/01-dashboard.png)
 
+### 板子库
+
+![板子库：选择和切换智能板子](docs/screenshots/02-script-library.png)
+
 ### AI 配板与调整
 
 ![AI 配板与调整：三套候选方案和角色组合](docs/screenshots/03-setup-advice.png)
 
+### 发身份
+
+![发身份：座位领取进度与单人展示入口](docs/screenshots/04-identity-deal.png)
+
 ### 夜间工作台
 
 ![夜间工作台：角色图标、夜序、目标选择和说书人确认操作](docs/screenshots/05-night-workbench.png)
+
+### 白天投票
+
+![白天投票：提名、举手与处决记录](docs/screenshots/06-day-vote.png)
+
+### 公聊倒计时
+
+![公聊倒计时：大字时间显示](docs/screenshots/07-public-timer.png)
+
+### AI 设置
+
+![AI 设置：本机配置与连通检查](docs/screenshots/08-ai-settings.png)
+
+### 开场白展示
+
+![开场白：适合面对玩家的大字展示](docs/screenshots/09-opening-display.png)
+
+### 玩家详情
+
+![玩家详情：角色状态和相关记录](docs/screenshots/10-player-detail.png)
+
+### 本局日记
+
+![本局日记：按时间查看主持记录](docs/screenshots/11-journal.png)
+
+### 历史复盘
+
+![历史复盘：胜负、时间线和复盘信息](docs/screenshots/12-review.png)
 
 ### 手机主持台
 
@@ -32,30 +68,11 @@
   <img src="docs/screenshots/14-mobile-identity-display.png" width="390" alt="手机单人身份展示：角色图标、名称、技能和领取按钮">
 </p>
 
-<details>
-<summary><strong>展开查看完整界面图库</strong></summary>
+### 手机收尾
 
-| 板子库 | 发身份 |
-| --- | --- |
-| ![板子库：选择和切换智能板子](docs/screenshots/02-script-library.png) | ![发身份：座位领取进度与单人展示入口](docs/screenshots/04-identity-deal.png) |
-
-| 白天投票 | 公聊倒计时 |
-| --- | --- |
-| ![白天投票：提名、举手与处决记录](docs/screenshots/06-day-vote.png) | ![公聊倒计时：大字时间显示](docs/screenshots/07-public-timer.png) |
-
-| AI 设置 | 开场白展示 |
-| --- | --- |
-| ![AI 设置：本机配置与连通检查](docs/screenshots/08-ai-settings.png) | ![开场白：适合面对玩家的大字展示](docs/screenshots/09-opening-display.png) |
-
-| 玩家详情 | 本局日记 |
-| --- | --- |
-| ![玩家详情：角色状态和相关记录](docs/screenshots/10-player-detail.png) | ![本局日记：按时间查看主持记录](docs/screenshots/11-journal.png) |
-
-| 历史复盘 | 手机收尾 |
-| --- | --- |
-| ![历史复盘：胜负、时间线和复盘信息](docs/screenshots/12-review.png) | ![手机收尾：保存本局和进入复盘](docs/screenshots/15-mobile-game-end.png) |
-
-</details>
+<p align="center">
+  <img src="docs/screenshots/15-mobile-game-end.png" width="390" alt="手机收尾：保存本局和进入复盘">
+</p>
 
 以上均由项目内的 12 人示例对局自动生成，不包含真实 API Key 或私人 VPS 信息。同一套功能可直接在手机、平板和电脑浏览器使用。截图中的角色图标由维护者在本机按素材清单下载后生成；角色原图不随 Git 仓库发布，来源与权利说明见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 
