@@ -116,7 +116,7 @@ test('bulk smart scripts can be selected, drafted, confirmed and sampled in nigh
       await expect(scriptSelect).toHaveValue(scriptId)
 
       await page.getByRole('button', { name: '12人' }).click()
-      await page.getByRole('button', { name: '开始配板' }).click()
+      await page.getByRole('button', { name: '生成配板方案' }).click()
 
       await expect(page.locator('.setup-panel__candidates')).toBeVisible()
       await expect(page.locator('.setup-candidate').first()).toBeVisible()
@@ -124,7 +124,7 @@ test('bulk smart scripts can be selected, drafted, confirmed and sampled in nigh
 
       const firstCandidate = page.locator('.setup-candidate').first()
       await expect(firstCandidate.locator('.setup-candidate__roles li')).toHaveCount(12)
-      await firstCandidate.getByRole('button', { name: '采用为草稿' }).click()
+      await firstCandidate.getByRole('button', { name: '选择这套配板' }).click()
       await expect(page.locator('.setup-panel__draft')).toBeVisible()
       await expect(page.locator('.setup-seat-grid button')).toHaveCount(12)
 

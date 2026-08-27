@@ -67,7 +67,7 @@ function applyAIAdviceToState(
   return {
     ...next,
     aiAdviceLog: { ...state.aiAdviceLog, [advice.id]: advice },
-    lastNotice: 'AI建议已填入草稿，等待确认本项',
+    lastNotice: 'AI建议已填入草稿，等待说书人确认',
   }
 }
 

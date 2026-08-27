@@ -25,13 +25,14 @@ describe('App game reset flow', () => {
     dirtySession.seats[1] = { ...dirtySession.seats[1], nickname: '待清除昵称' }
     window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(dirtySession))
 
-    const { container } = render(<App />)
+    render(<App />)
     await waitFor(() => expect(window.localStorage.getItem(setupRosterMemoryKey)).toContain('待清除昵称'))
     window.localStorage.setItem(identityDealReceiptsStorageKey(dirtySession.id), JSON.stringify({ 1: '2026-07-19T00:00:00.000Z' }))
 
-    // 主持台是默认视图，「结束对局」入口在档案页；先用轨道右端的「本局」进去。
+    // 主持台是默认视图；收尾收进轨道右端「更多」，避免和现场主动作竞争。
     fireEvent.click(screen.getByRole('button', { name: '本局' }))
-    fireEvent.click(container.querySelector('.dashboard__end-entry') as HTMLButtonElement)
+    fireEvent.click(screen.getByRole('button', { name: '更多' }))
+    fireEvent.click(screen.getByRole('button', { name: '收尾与复盘' }))
     fireEvent.click(screen.getByRole('button', { name: '保存本局' }))
     await screen.findByText('本局已保存到本机浏览器')
     const resetStep = screen.getByLabelText('结束对局步骤').querySelector('.game-end__finish-step--danger')!
@@ -52,7 +53,7 @@ describe('App game reset flow', () => {
       expect(session.dayActionDraft).toBeNull()
     })
     expect(screen.getByRole('heading', { name: 'AI配板与调整' })).toBeInTheDocument()
-    expect(screen.getByText('选择人数')).toBeInTheDocument()
+    expect(screen.getByText('设置本局')).toBeInTheDocument()
     expect(screen.getByLabelText('开局板子')).toHaveValue(dirtySession.scriptId)
     expect(window.localStorage.getItem(identityDealReceiptsStorageKey(dirtySession.id))).toBeNull()
 
@@ -66,11 +67,12 @@ describe('App game reset flow', () => {
     previousSession.seats[1] = { ...previousSession.seats[1], nickname: '上一局1号', experience: 'veteran' }
     window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(previousSession))
 
-    const { container } = render(<App />)
+    render(<App />)
     await waitFor(() => expect(window.localStorage.getItem(setupRosterMemoryKey)).toContain('上一局1号'))
-    // 主持台是默认视图，「结束对局」入口在档案页；先用轨道右端的「本局」进去。
+    // 主持台是默认视图；收尾收进轨道右端「更多」，避免和现场主动作竞争。
     fireEvent.click(screen.getByRole('button', { name: '本局' }))
-    fireEvent.click(container.querySelector('.dashboard__end-entry') as HTMLButtonElement)
+    fireEvent.click(screen.getByRole('button', { name: '更多' }))
+    fireEvent.click(screen.getByRole('button', { name: '收尾与复盘' }))
     fireEvent.click(screen.getByRole('button', { name: '保存本局' }))
     await screen.findByText('本局已保存到本机浏览器')
     const resetStep = screen.getByLabelText('结束对局步骤').querySelector('.game-end__finish-step--danger')!
@@ -84,7 +86,7 @@ describe('App game reset flow', () => {
     expect(screen.getByLabelText('1号昵称')).toHaveValue('上一局1号')
     expect(screen.getByLabelText('1号经验')).toHaveValue('veteran')
     expect(screen.getByLabelText('7号经验')).toHaveValue('veteran')
-    fireEvent.click(screen.getByRole('button', { name: '开始配板' }))
+    fireEvent.click(screen.getByRole('button', { name: '生成配板方案' }))
 
     await waitFor(() => {
       const session = storedSession()
@@ -94,7 +96,7 @@ describe('App game reset flow', () => {
       expect(session.phaseSegments).toEqual([])
       expect(session.seats[1]).toMatchObject({ nickname: '上一局1号', experience: 'veteran' })
     })
-    expect(screen.getByText('角色组合')).toBeInTheDocument()
+    expect(screen.getByText('选择配板方案')).toBeInTheDocument()
   })
 })
 

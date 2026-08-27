@@ -72,7 +72,7 @@ export function NightActionBar({
     <div className="action-bar__primary">
       {readOnly ? <Button variant="primary" onClick={onAdvance}>进入下一位 <ArrowRight aria-hidden="true" /></Button>
         : <>
-          <Button variant="secondary" onClick={onConfirmStay} disabled={!canConfirm}>{correcting ? '确认更正' : '确认本项'}</Button>
+          <Button variant="secondary" onClick={onConfirmStay} disabled={!canConfirm}>{correcting ? '确认更正并停留' : '确认并停留'}</Button>
           <Button variant="primary" onClick={onConfirmNext} disabled={!canConfirm}>{correcting ? '更正并下一位' : '确认并下一位'}<ArrowRight aria-hidden="true" /></Button>
         </>}
     </div>

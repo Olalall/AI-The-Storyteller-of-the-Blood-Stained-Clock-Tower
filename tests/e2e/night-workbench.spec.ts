@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { enterDashboardPhase } from './helpers/dashboard-tools'
 
 
 /** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
@@ -16,7 +17,7 @@ async function openArchive(page: Page) {
 
 async function enterNight(page: import('@playwright/test').Page) {
   await openArchive(page)
-  await page.getByRole('button', { name: /\u8fdb\u5165\u591c\u665a/ }).click()
+  await enterDashboardPhase(page, '\u591c\u665a')
   await expect(page.getByRole('heading', { name: /\u7b2c\d+\u591c/ })).toBeVisible()
 }
 
@@ -42,7 +43,7 @@ for (const viewport of viewports) {
 
     await expect(page.getByRole('region', { name: '\u591c\u95f4\u89d2\u8272\u9884\u89c8' })).toBeVisible()
     await expect(page.getByRole('heading', { name: '\u672c\u9879\u8bb0\u5f55' })).toBeVisible()
-    await expect(page.getByRole('button', { name: /\u786e\u8ba4\u672c\u9879|\u8ffd\u52a0\u66f4\u6b63|\u8fdb\u5165\u4e0b\u4e00\u4f4d/ })).toBeVisible()
+    await expect(page.getByRole('button', { name: /确认并停留|追加更正|进入下一位/ })).toBeVisible()
     await expect(page.locator('body')).not.toHaveCSS('overflow-x', 'scroll')
   })
 }

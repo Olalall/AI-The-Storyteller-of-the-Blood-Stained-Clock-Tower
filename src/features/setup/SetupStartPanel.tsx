@@ -1,4 +1,4 @@
-import { UsersRound } from 'lucide-react'
+import { ChevronDown, UsersRound } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { smartScriptPacks, type PlayerCount, type ScriptId } from '../../domain/scripts'
 import { Button } from '../../components/ui/Button'
@@ -41,9 +41,9 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
   return (
     <section className="setup-start" aria-labelledby="setup-start-title">
       <div className="setup-start__hero">
-        <span><UsersRound aria-hidden="true" />新局开局</span>
-        <h3 id="setup-start-title">选择人数</h3>
-        <p>{scriptName}</p>
+        <span><UsersRound aria-hidden="true" />开局引导 · 第 2 / 4 步</span>
+        <h3 id="setup-start-title">设置本局</h3>
+        <p>选择板子和人数；昵称、经验可以先用默认值。</p>
       </div>
 
       <div className="setup-start__script-row">
@@ -61,7 +61,7 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
             ))}
           </select>
         </label>
-        <small>用于本局角色池、人数模板、夜序和 AI 建议；点击开始配板后建立本局草稿</small>
+        <small>当前：{scriptName}</small>
       </div>
 
       <div className="setup-start__counts" aria-label="选择玩家人数">
@@ -78,38 +78,43 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
         ))}
       </div>
 
-      <div className="setup-start__roster-heading">
-        <div>
-          <span>玩家</span>
-          <strong>{playerCount}个座位</strong>
+      <details className="setup-start__roster-details">
+        <summary>
+          <span><strong>玩家昵称与经验</strong><small>可选，默认值可以直接开局</small></span>
+          <b>{playerCount}个座位</b>
+          <ChevronDown aria-hidden="true" />
+        </summary>
+        <div className="setup-start__roster-heading">
+          <span>AI 会参考玩家经验排序候选；不填写也能正常配板。</span>
+          <Button variant="ghost" compact disabled={!canReuse} onClick={() => setRoster(buildRosterForPlayerCount(playerCount, memory))}>
+            复用上局昵称
+          </Button>
         </div>
-        <Button variant="ghost" compact disabled={!canReuse} onClick={() => setRoster(buildRosterForPlayerCount(playerCount, memory))}>
-          复用昵称
-        </Button>
-      </div>
 
-      <div className="setup-start__roster" role="list" aria-label="新局玩家昵称和经验">
-        {roster.map((seat) => (
-          <div key={seat.seatId} role="listitem" className="setup-start__seat-row">
-            <span>{seat.seatId}号</span>
-            <input
-              aria-label={`${seat.seatId}号昵称`}
-              value={seat.nickname}
-              onChange={(event) => updateSeat(seat.seatId, { nickname: event.target.value })}
-            />
-            <select
-              aria-label={`${seat.seatId}号经验`}
-              value={seat.experience}
-              onChange={(event) => updateSeat(seat.seatId, { experience: event.target.value as PlayerExperience })}
-            >
-              {Object.entries(experienceLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
-            </select>
-          </div>
-        ))}
-      </div>
+        <div className="setup-start__roster" role="list" aria-label="新局玩家昵称和经验">
+          {roster.map((seat) => (
+            <div key={seat.seatId} role="listitem" className="setup-start__seat-row">
+              <span>{seat.seatId}号</span>
+              <input
+                aria-label={`${seat.seatId}号昵称`}
+                value={seat.nickname}
+                onChange={(event) => updateSeat(seat.seatId, { nickname: event.target.value })}
+              />
+              <select
+                aria-label={`${seat.seatId}号经验`}
+                value={seat.experience}
+                onChange={(event) => updateSeat(seat.seatId, { experience: event.target.value as PlayerExperience })}
+              >
+                {Object.entries(experienceLabels).map(([value, label]) => <option key={value} value={value}>{label}</option>)}
+              </select>
+            </div>
+          ))}
+        </div>
+      </details>
 
       <div className="setup-start__footer">
-        <Button variant="primary" onClick={() => onStart({ playerCount, seats: roster })}>开始配板</Button>
+        <span><small>下一步</small><strong>生成可调整的配板候选，不会发送身份</strong></span>
+        <Button variant="primary" onClick={() => onStart({ playerCount, seats: roster })}>生成配板方案</Button>
       </div>
     </section>
   )
