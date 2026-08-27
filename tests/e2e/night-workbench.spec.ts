@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { enterDashboardPhase } from './helpers/dashboard-tools'
 
 
 /** 主持台是默认视图；首页入口现在在轨道右端「本局」打开的档案层里。 */
@@ -16,7 +17,7 @@ async function openArchive(page: Page) {
 
 async function enterNight(page: import('@playwright/test').Page) {
   await openArchive(page)
-  await page.getByRole('button', { name: /\u8fdb\u5165\u591c\u665a/ }).click()
+  await enterDashboardPhase(page, '\u591c\u665a')
   await expect(page.getByRole('heading', { name: /\u7b2c\d+\u591c/ })).toBeVisible()
 }
 
