@@ -1,0 +1,24 @@
+.sheet-content--app-more { width: min(360px, calc(100vw - 32px)); }
+
+/* 触屏缩放与高 DPR 下 44px 可能落成 43.98px，留 1px 余量。 */
+.ui-phase-track__actions .ui-button { min-height: 45px; }
+
+.app-phase-more__menu {
+  padding: var(--space-20);
+  display: grid;
+  gap: var(--space-8);
+}
+
+.app-phase-more__menu .ui-button {
+  width: 100%;
+  min-height: 52px;
+  justify-content: flex-start;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.app-phase-more__game-end { color: var(--warning-text); }
+
+@media (max-width: 560px) {
+  .sheet-content--app-more { width: 100vw; }
+}

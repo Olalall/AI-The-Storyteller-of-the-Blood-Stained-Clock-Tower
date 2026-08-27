@@ -42,6 +42,7 @@
 .setup-start__footer .ui-button { flex: none; min-height: 52px; }
 .setup-panel__candidates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-12); }
 .setup-panel__candidates > .setup-panel__section-heading { grid-column: 1 / -1; margin-bottom: 0; }
+.setup-candidate__disclaimer { grid-column: 1 / -1; }
 .setup-candidate__heading-actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
 .setup-candidate__heading-actions .ui-button { min-width: 108px; }
 .setup-candidate__ai-strip {

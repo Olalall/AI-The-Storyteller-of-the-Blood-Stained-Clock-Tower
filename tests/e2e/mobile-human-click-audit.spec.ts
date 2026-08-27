@@ -1,4 +1,6 @@
 import { expect, test, type Locator, type Page } from '@playwright/test'
+import { enterDashboardPhase } from './helpers/dashboard-tools'
+import { loadDemoSessionFromEntry } from './helpers/entry-onboarding'
 
 async function expectNoHorizontalOverflow(page: Page) {
   const report = await page.evaluate(() => {
@@ -29,6 +31,18 @@ async function expectInViewport(page: Page, locator: Locator) {
   expect(viewport, '测试必须配置明确视口').not.toBeNull()
   expect(box!.y).toBeGreaterThanOrEqual(0)
   expect(box!.y + box!.height).toBeLessThanOrEqual(viewport!.height)
+}
+
+async function expectFullyVisibleInPhaseRail(item: Locator) {
+  const visibility = await item.evaluate((node) => {
+    const itemRect = node.getBoundingClientRect()
+    const railRect = node.parentElement!.getBoundingClientRect()
+    return {
+      left: itemRect.left >= railRect.left - 1,
+      right: itemRect.right <= railRect.right + 1,
+    }
+  })
+  expect(visibility).toEqual({ left: true, right: true })
 }
 
 async function expectVisibleTouchTargets(page: Page) {
@@ -171,9 +185,80 @@ test('human taps: returning user can reopen install help, change mode and draft 
   await page.getByRole('button', { name: '生成配板方案' }).tap()
   await expect(page.locator('.setup-candidate')).toHaveCount(3)
   await expect(page.locator('.setup-candidate .setup-candidate__roles')).toHaveCount(1)
+  const disclaimerColumns = await page.locator('.setup-candidate__disclaimer').evaluate((element) => {
+    const style = getComputedStyle(element)
+    return [style.gridColumnStart, style.gridColumnEnd]
+  })
+  expect(disclaimerColumns).toEqual(['1', '-1'])
+  if (testInfo.project.name === 'ipad-768') {
+    const candidateTops = await page.locator('.setup-candidate').evaluateAll((candidates) => (
+      candidates.map((candidate) => Math.round(candidate.getBoundingClientRect().top))
+    ))
+    expect(new Set(candidateTops).size).toBe(1)
+  }
   await expectNoHorizontalOverflow(page)
   await expectVisibleTouchTargets(page)
   await page.screenshot({ path: `artifacts/screenshots/mobile-audit-${testInfo.project.name}-candidates.png`, fullPage: true })
+  assertCleanPage()
+})
+
+test('human taps: active game keeps the current task clear and moves secondary actions into More', async ({ page }, testInfo) => {
+  const assertCleanPage = watchPage(page)
+  await clearDevice(page)
+  await loadDemoSessionFromEntry(page)
+  await page.getByRole('button', { name: '本局', exact: true }).tap()
+
+  await expect(page.getByRole('heading', { name: '继续第3夜' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '玩家状态' })).toBeVisible()
+  const playerGridColumns = await page.locator('.dashboard__player-grid').evaluate((grid) => getComputedStyle(grid).gridTemplateColumns.split(' ').length)
+  expect(playerGridColumns).toBe(testInfo.project.name === 'ipad-768' ? 4 : 2)
+  const scriptTitle = page.getByRole('heading', { name: '瓦釜雷鸣 / Catfishing' })
+  await expect(scriptTitle).toBeVisible()
+  if (testInfo.project.name === 'ipad-768') await expect(scriptTitle.locator('.dashboard__script-alt')).toBeVisible()
+  else await expect(scriptTitle.locator('.dashboard__script-alt')).toBeHidden()
+  const summaryLayout = await page.locator('.dashboard__player-summary').evaluate((summary) => {
+    const strong = summary.querySelector('strong')!.getBoundingClientRect()
+    const small = summary.querySelector('small')!.getBoundingClientRect()
+    return { strongBottom: strong.bottom, smallTop: small.top }
+  })
+  expect(summaryLayout.smallTop).toBeGreaterThanOrEqual(summaryLayout.strongBottom - 1)
+  for (const [seat, roleName] of [[2, '气球驾驶员'], [3, '筑梦师']] as const) {
+    const seatCard = page.getByRole('button', { name: new RegExp(`查看${seat}号.*${roleName}`) })
+    const roleDisc = seatCard.locator('.role-disc--tiny')
+    const role = seatCard.locator('b')
+    await expect(roleDisc).toBeVisible()
+    const discBox = await roleDisc.boundingBox()
+    const cardBox = await seatCard.boundingBox()
+    expect(discBox?.width).toBeLessThanOrEqual(44)
+    expect(discBox?.height).toBeLessThanOrEqual(44)
+    expect(cardBox?.width).toBeGreaterThanOrEqual(130)
+    if (testInfo.project.name !== 'ipad-768') expect(cardBox?.height).toBeLessThanOrEqual(130)
+    await expect(role).toHaveText(roleName)
+    const roleFits = await role.evaluate((node) => node.scrollHeight <= node.clientHeight + 1 && node.scrollWidth <= node.clientWidth + 1)
+    expect(roleFits).toBe(true)
+  }
+  const openNight = page.locator('.ui-phase-node--open').filter({ hasText: '第3夜' })
+  await expect(openNight).toBeVisible()
+  await expectFullyVisibleInPhaseRail(openNight)
+  await expect(page.getByText('最近记录')).toHaveCount(0)
+  await expectNoHorizontalOverflow(page)
+  await page.screenshot({ path: `artifacts/screenshots/mobile-audit-${testInfo.project.name}-dashboard.png`, fullPage: true })
+
+  const more = page.getByRole('button', { name: '更多', exact: true })
+  await expectTouchTarget(more)
+  await more.tap()
+  await expect(page.getByRole('heading', { name: '更多主持功能' })).toBeVisible()
+  await expectNoHorizontalOverflow(page)
+  await expectVisibleTouchTargets(page)
+  await page.screenshot({ path: `artifacts/screenshots/mobile-audit-${testInfo.project.name}-more-sheet.png` })
+
+  const tutorial = page.getByRole('button', { name: '新手教学', exact: true })
+  await tutorial.tap()
+  await expect(page.getByRole('heading', { name: '新手教学' })).toBeVisible()
+  await page.getByRole('button', { name: '关闭新手教学' }).tap()
+  await expect(tutorial).toBeFocused()
+  await page.getByRole('button', { name: '关闭更多主持功能' }).tap()
+  await expect(more).toBeFocused()
   assertCleanPage()
 })
 
@@ -193,7 +278,7 @@ test('human taps: an existing game still records night and vote after going offl
   await page.getByRole('button', { name: '未受影响' }).tap()
   await page.getByRole('button', { name: '确认并停留' }).tap()
   await page.getByRole('button', { name: '返回', exact: true }).tap()
-  await page.getByRole('button', { name: '进入白天' }).tap()
+  await enterDashboardPhase(page, '白天')
   await page.getByRole('button', { name: '选择1号为提名人' }).tap()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).tap()
   await page.getByRole('button', { name: '选择4号为被提名人' }).tap()
@@ -202,6 +287,10 @@ test('human taps: an existing game still records night and vote after going offl
     await page.getByRole('button', { name: `记录${seatId}号举手` }).tap()
   }
   await page.getByRole('button', { name: '记录本轮票型' }).tap()
+
+  const votePhase = page.locator('.ui-phase-node[aria-current="step"]')
+  await expect(votePhase).toContainText('提名投票')
+  await expectFullyVisibleInPhaseRail(votePhase)
 
   await expect(page.getByText('当前离线')).toBeVisible()
   await expectNoHorizontalOverflow(page)
