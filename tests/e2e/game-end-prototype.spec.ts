@@ -16,6 +16,69 @@ async function openArchive(page: import('@playwright/test').Page) {
   await expect(page.locator('.dashboard')).toBeVisible()
 }
 
+async function openGameEnd(page: Page) {
+  await page.getByRole('button', { name: '更多' }).click()
+  await page.getByRole('button', { name: '收尾与复盘' }).click()
+}
+
+test('game end phone layout keeps result and save visible without weakening reset confirmation', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+  await page.evaluate(() => window.localStorage.clear())
+  await page.reload()
+  await loadDemoSession(page)
+
+  await openArchive(page)
+  await openGameEnd(page)
+
+  const gameEnd = page.locator('.game-end')
+  const hero = page.locator('.game-end__hero--compact')
+  const modeButtons = page.locator('.game-end__mode-switch button')
+  const winnerButtons = page.locator('.game-end__winner-grid button')
+  const saveButton = page.getByRole('button', { name: '保存本局' })
+  const resetStep = page.locator('.game-end__finish-step--danger')
+  const resetButton = resetStep.getByRole('button', { name: '重置游戏' })
+
+  const pageHeading = page.getByRole('heading', { name: '结束与复盘' })
+  const closeButton = page.getByRole('button', { name: '关闭结束与复盘' })
+  await expect(pageHeading).toBeInViewport()
+  await expect(closeButton).toBeInViewport()
+  for (const box of [await pageHeading.boundingBox(), await closeButton.boundingBox()]) {
+    expect(box?.x).toBeGreaterThanOrEqual(0)
+    expect(box?.y).toBeGreaterThanOrEqual(0)
+    expect((box?.x ?? 0) + (box?.width ?? 0)).toBeLessThanOrEqual(390)
+    expect((box?.y ?? 0) + (box?.height ?? 0)).toBeLessThanOrEqual(844)
+  }
+  await expect(gameEnd).toBeVisible()
+  await expect(hero).toBeInViewport()
+  await expect(saveButton).toBeInViewport()
+  await expect(resetButton).toBeDisabled()
+  await expect(gameEnd).toHaveJSProperty('scrollWidth', await gameEnd.evaluate((element) => element.clientWidth))
+
+  const heroBox = await hero.boundingBox()
+  expect(heroBox?.height).toBeLessThanOrEqual(160)
+
+  const modeBoxes = await modeButtons.evaluateAll((buttons) => buttons.map((button) => button.getBoundingClientRect().height))
+  expect(modeBoxes.every((height) => height >= 44)).toBe(true)
+
+  const winnerBoxes = await winnerButtons.evaluateAll((buttons) => buttons.map((button) => {
+    const box = button.getBoundingClientRect()
+    return { top: box.top, width: box.width, height: box.height }
+  }))
+  expect(winnerBoxes).toHaveLength(3)
+  expect(Math.max(...winnerBoxes.map(({ top }) => top)) - Math.min(...winnerBoxes.map(({ top }) => top))).toBeLessThan(2)
+  expect(winnerBoxes.every(({ width, height }) => width >= 80 && height >= 64)).toBe(true)
+  await page.screenshot({ path: 'artifacts/screenshots/game-end-phone-390-compact.png', fullPage: false })
+
+  await saveButton.click()
+  await expect(page.locator('.game-end__notice')).toContainText('本局已保存到本机浏览器')
+  await expect(resetButton).toBeDisabled()
+  await page.getByLabel('我已保存本局，确认重置游戏').check()
+  await expect(resetButton).toBeEnabled()
+
+  await page.screenshot({ path: 'artifacts/screenshots/game-end-phone-390-reset-confirmation.png', fullPage: false })
+})
+
 test('game end prototype saves an archive and opens AI historical review', async ({ page }) => {
   await page.setViewportSize({ width: 1180, height: 900 })
   await page.goto('/')
@@ -24,7 +87,7 @@ test('game end prototype saves an archive and opens AI historical review', async
   await loadDemoSession(page)
 
   await openArchive(page)
-  await page.locator('.dashboard__end-entry').click()
+  await openGameEnd(page)
   await expect(page.locator('.game-end')).toBeVisible()
   await page.locator('.game-end__winner-grid button').first().click()
   await page.getByRole('button', { name: '保存本局' }).click()
@@ -52,20 +115,21 @@ test('game end prototype saves an archive and opens AI historical review', async
   await page.reload()
   await loadDemoSession(page)
   await openArchive(page)
-  await page.locator('.dashboard__review-entry').click()
+  await openGameEnd(page)
+  await page.getByRole('button', { name: '历史复盘' }).click()
   await expect(page.locator('.game-review__list button')).toHaveCount(1)
   await expect(page.locator('.game-ai-review')).toContainText('AI复盘草稿')
 
   await page.getByLabel('关闭').click()
   await openArchive(page)
-  await page.locator('.dashboard__end-entry').click()
+  await openGameEnd(page)
   await page.getByRole('button', { name: '保存本局' }).click()
   await page.getByLabel('我已保存本局，确认重置游戏').check()
   await page.locator('.game-end__finish-step--danger').getByRole('button', { name: '重置游戏' }).click()
   // 重置后落在主持台并直接打开配板面板（不再先回首页），下面几条断言即新的落点。
   await expect(page.locator('.game-end')).toBeHidden()
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
-  await expect(page.getByText('选择人数')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '设置本局' })).toBeVisible()
   const resetState = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
   expect(resetState.playerCount).toBe(0)
   expect(resetState.seats).toEqual({})
@@ -81,7 +145,7 @@ test('game end prototype saves an archive and opens AI historical review', async
   await page.getByRole('button', { name: '关闭AI配板与调整' }).click()
   await expect(page.getByRole('main', { name: '开始新对局' })).toBeVisible()
   await expect(page.getByRole('navigation', { name: '主持阶段' })).toHaveCount(0)
-  await page.getByRole('button', { name: '先浏览板子' }).click()
+  await page.getByRole('button', { name: '浏览全部板子' }).click()
   await expect(page.locator('.script-library')).toBeVisible()
   await page.locator('.script-library__script-actions .ui-button--primary').first().click()
   await expect(page.locator('.script-library')).toBeHidden()
@@ -91,7 +155,7 @@ test('game end prototype saves an archive and opens AI historical review', async
   await page.getByLabel('开局板子').selectOption('devout-theists')
   await expect(page.getByLabel('开局板子')).toHaveValue('devout-theists')
   await page.getByRole('button', { name: '12人' }).click()
-  await page.getByRole('button', { name: '开始配板' }).click()
+  await page.getByRole('button', { name: '生成配板方案' }).click()
   const setupShell = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
   expect(setupShell.playerCount).toBe(12)
   expect(setupShell.scriptId).toBe('devout-theists')
@@ -111,11 +175,12 @@ test('game end prototype saves an archive and opens AI historical review', async
   expect(setupEntry.setup.draft.assignments).toHaveLength(12)
 
   await openArchive(page)
-  await page.locator('.dashboard__identity-entry').click()
+  await page.getByRole('button', { name: '去发身份' }).click()
   await expect(page.locator('.identity-deal__seat-grid button')).toHaveCount(12)
   await page.locator('.sheet-content--identity-deal .sheet-close').click()
 
-  await page.locator('.dashboard__phase-button').first().click()
+  await page.locator('.dashboard__more-tools > summary').click()
+  await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
   const nightState = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
   const run = nightState.nightRuns[nightState.activeNightRunId]

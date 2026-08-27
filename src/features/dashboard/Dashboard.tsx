@@ -1,167 +1,184 @@
-import { ArrowLeft, Archive, Bot, ChevronRight, Flag, IdCard, MoonStar, Repeat2, SunMedium, Timer } from 'lucide-react'
+import {
+  Bot,
+  ChevronRight,
+  IdCard,
+  MoonStar,
+  Repeat2,
+  SlidersHorizontal,
+  SunMedium,
+  Timer,
+} from 'lucide-react'
 import type { Dispatch } from 'react'
 import { Button } from '../../components/ui/Button'
-import { Card } from '../../components/ui/Card'
-import { EmptyState } from '../../components/ui/EmptyState'
 import { StatusBadge } from '../../components/ui/StatusBadge'
 import { scriptDisplayName } from '../../domain/scripts'
-import { assertNever } from '../../shared/assertNever'
-import { OpeningScriptSheet } from '../host-tools/OpeningScriptSheet'
+import { loadIdentityDealReceipts } from '../../services/identity-deal'
 import { AISettingsSheet } from '../ai-settings/AISettingsSheet'
 import { projectOpenSegmentLabels, projectStorytellerSeatSummaries } from '../game-session/state/projectors'
-import { projectEffectiveTimelineEntries } from '../game-session/state/projectTimelineHistory'
-import { HostingModeSection } from '../grimoire/stage/HostingModeSection'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
-import type { GameSessionState, TimelineEntry } from '../game-session/types'
+import type { GameSessionState } from '../game-session/types'
+import { HostingModeSection } from '../grimoire/stage/HostingModeSection'
+import { nextDayLabel, nextNightLabel, type DeckNode } from '../hosting-deck/deckNode'
+import { OpeningScriptSheet } from '../host-tools/OpeningScriptSheet'
 import { PlayerStatusBoard } from './components/PlayerStatusBoard'
 import './dashboard.css'
 
 interface DashboardProps {
   session: GameSessionState
   dispatch: Dispatch<GameSessionAction>
+  activeNode: DeckNode
   onEnterNight: () => void
   onEnterDay: () => void
   onOpenTimer: () => void
   onOpenSetup: () => void
   onOpenIdentityDeal: () => void
-  onOpenGameEnd: (mode?: 'end' | 'review') => void
   onOpenScriptLibrary: () => void
   onOpenPlayerStatus: (seatId: number) => void
   onImportSession: (session: GameSessionState) => void
-  /** 档案是覆盖层：关闭后回到主持台原节点。 */
-  onExitArchive?: () => void
+  onExitArchive: () => void
 }
 
-function entrySummary(entry: TimelineEntry): string {
-  switch (entry.kind) {
-    case 'night_action': return entry.summary
-    case 'day_action': return entry.summary
-    case 'vote_round': return `${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${entry.raisedSeatIds.length}票`
-    case 'execution': return `确认处决${entry.executedSeatId}号`
-    case 'no_execution': return '确认无处决'
-    case 'player_state_changed': return `${entry.seatId}号状态已更新`
-    case 'setup_confirmed': return '配板已确认'
-    case 'setup_changed': return `${entry.seatId}号角色已调整`
-    default:
-      // 未知 kind 渲染为空，与穷尽检查加入前（返回 undefined）在界面上等价。
-      assertNever(entry)
-      return ''
+const modeNames = {
+  record: '实体魔典',
+  grimoire: '电子魔典',
+} as const
+
+function phaseTask(
+  activeNode: DeckNode,
+  session: GameSessionState,
+  openSegments: ReturnType<typeof projectOpenSegmentLabels>,
+) {
+  const openNight = openSegments.find((segment) => segment.kind === 'night')
+  const openDay = openSegments.find((segment) => segment.kind === 'day')
+
+  if (activeNode === 'night') return {
+    label: openNight?.label ?? nextNightLabel(session),
+    title: `继续${openNight?.label ?? '夜晚'}`,
+    description: '按夜序处理当前角色，结果仍由说书人逐项确认。',
+    icon: MoonStar,
+    kind: 'night' as const,
+  }
+  if (activeNode === 'day') return {
+    label: openDay?.label ?? nextDayLabel(session),
+    title: `继续${openDay?.label ?? '白天'}`,
+    description: '继续记录提名、票型、公开事件与日终结论。',
+    icon: SunMedium,
+    kind: 'day' as const,
+  }
+  if (activeNode === 'dawn') return {
+    label: '黎明交接',
+    title: '完成黎明播报',
+    description: '核对本夜生死变化，宣布睁眼后再进入白天。',
+    icon: SunMedium,
+    kind: 'return' as const,
+  }
+  return {
+    label: '黄昏准备',
+    title: `准备${nextNightLabel(session)}`,
+    description: '核对上一白天结论和夜间准备项，再开始下一夜。',
+    icon: MoonStar,
+    kind: 'return' as const,
   }
 }
 
-function continuationLabel(
-  openSegments: ReturnType<typeof projectOpenSegmentLabels>,
-  kind: 'night' | 'day',
-) {
-  const segment = openSegments.find((item) => item.kind === kind)
-  return segment ? `继续记录 · ${segment.label}` : '首次确认后建立记录'
-}
-
-export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenTimer, onOpenSetup, onOpenIdentityDeal, onOpenGameEnd, onOpenScriptLibrary, onOpenPlayerStatus, onImportSession, onExitArchive}: DashboardProps) {
-  const scriptName = scriptDisplayName(session.scriptId)
+export function Dashboard({
+  session,
+  dispatch,
+  activeNode,
+  onEnterNight,
+  onEnterDay,
+  onOpenTimer,
+  onOpenSetup,
+  onOpenIdentityDeal,
+  onOpenScriptLibrary,
+  onOpenPlayerStatus,
+  onImportSession,
+  onExitArchive,
+}: DashboardProps) {
+  const fullScriptName = scriptDisplayName(session.scriptId)
+  const scriptNameSeparator = fullScriptName.indexOf(' / ')
+  const primaryScriptName = scriptNameSeparator >= 0 ? fullScriptName.slice(0, scriptNameSeparator) : fullScriptName
+  const secondaryScriptName = scriptNameSeparator >= 0 ? fullScriptName.slice(scriptNameSeparator) : ''
   const storytellerSeats = projectStorytellerSeatSummaries(session)
   const openSegments = projectOpenSegmentLabels(session)
-  const recentEntries = [...projectEffectiveTimelineEntries(session.timeline)]
-    .sort((left, right) => right.createdAt.localeCompare(left.createdAt) || right.id.localeCompare(left.id))
-    .slice(0, 3)
+  const task = phaseTask(activeNode, session, openSegments)
+  const receipts = loadIdentityDealReceipts(session.id)
+  const receivedCount = storytellerSeats.filter((seat) => receipts[seat.seatId]).length
+  const identityPending = session.phaseSegments.length === 0 && receivedCount < storytellerSeats.length
+  const TaskIcon = identityPending ? IdCard : task.icon
+
+  function continueCurrentTask() {
+    if (identityPending) {
+      onOpenIdentityDeal()
+      return
+    }
+    if (task.kind === 'night') onEnterNight()
+    else if (task.kind === 'day') onEnterDay()
+    else onExitArchive()
+  }
 
   return (
     <main className="dashboard" aria-label="本局">
-      {/* 单行页头：当前阶段与下一步由常驻阶段轨道承载，这里只留本局的稳定身份。 */}
       <header className="dashboard__header">
-        {onExitArchive ? (
-          <Button variant="ghost" compact onClick={onExitArchive}><ArrowLeft aria-hidden="true" />回到主持台</Button>
-        ) : null}
-        <h1>{scriptName}</h1>
+        <h1 aria-label={fullScriptName} title={fullScriptName}>
+          <span>{primaryScriptName}</span>
+          {secondaryScriptName ? <span className="dashboard__script-alt">{secondaryScriptName}</span> : null}
+        </h1>
         <span className="dashboard__session-meta">· {session.playerCount}人</span>
+        <StatusBadge tone="neutral">{modeNames[session.hostingMode ?? 'record']}</StatusBadge>
         <AISettingsSheet session={session} onImportSession={onImportSession} />
       </header>
 
-      <section className="dashboard__host-tools" aria-label="常用主持工具">
-        <OpeningScriptSheet sessionId={session.id} />
-        <Button variant="secondary" className="dashboard__setup-entry" aria-label="AI配板与调整" onClick={onOpenSetup}>
-          <Bot aria-hidden="true" />
-          <span>AI配板</span>
-        </Button>
-        <Button variant="secondary" className="dashboard__identity-entry" onClick={onOpenIdentityDeal}>
-          <IdCard aria-hidden="true" />
-          <span>发身份</span>
-        </Button>
-        <Button variant="secondary" className="dashboard__timer-entry" onClick={onOpenTimer}>
-          <Timer aria-hidden="true" />
-          <span>公聊倒计时</span>
-        </Button>
-        <Button variant="secondary" className="dashboard__script-switch" onClick={onOpenScriptLibrary}>
-          <Repeat2 aria-hidden="true" />
-          <span>切换板子</span>
-        </Button>
-      </section>
-
-      <section className="dashboard__phase-launch" aria-label="工作台入口">
-        <button type="button" className="dashboard__phase-button" onClick={onEnterNight}>
-          <span className="dashboard__phase-icon"><MoonStar aria-hidden="true" /></span>
-          <span><strong>进入夜晚</strong><small>{continuationLabel(openSegments, 'night')}</small></span>
-          <ChevronRight aria-hidden="true" />
-        </button>
-        <button type="button" className="dashboard__phase-button" onClick={onEnterDay}>
-          <span className="dashboard__phase-icon dashboard__phase-icon--day"><SunMedium aria-hidden="true" /></span>
-          <span><strong>进入白天</strong><small>{continuationLabel(openSegments, 'day')}</small></span>
-          <ChevronRight aria-hidden="true" />
-        </button>
+      <section className="dashboard__focus" aria-labelledby="dashboard-focus-title">
+        <div className={`dashboard__focus-icon${identityPending ? ' dashboard__focus-icon--identity' : task.kind === 'day' ? ' dashboard__focus-icon--day' : ''}`}>
+          <TaskIcon aria-hidden="true" />
+        </div>
+        <div className="dashboard__focus-copy">
+          <span>{identityPending ? '开局准备' : task.label}</span>
+          <h2 id="dashboard-focus-title">{identityPending ? `身份领取 ${receivedCount}/${storytellerSeats.length}` : task.title}</h2>
+          <p>{identityPending
+            ? '先让玩家领取身份；使用实体身份牌时也可以手动标记领取，工具不会强制拦截开夜。'
+            : task.description}</p>
+        </div>
+        <div className="dashboard__focus-actions">
+          <Button variant="primary" onClick={continueCurrentTask}>
+            {identityPending ? '去发身份' : task.title}<ChevronRight aria-hidden="true" />
+          </Button>
+          {identityPending ? <Button variant="ghost" onClick={onExitArchive}>已用实体牌 · 返回首夜准备</Button> : null}
+        </div>
       </section>
 
       <PlayerStatusBoard seats={storytellerSeats} onSelectSeat={onOpenPlayerStatus} />
 
-      {/*
-        模式切换的第二条路径（裁决 7）。第一条在 core 顶行的本局信息浮层里，
-        而那一条只在魔典模式下存在——切回纯记录之后必须还有路回去，
-        否则「切回去」就成了单向门，说书人只能靠重开一局才能再看见环。
-      */}
-      <section className="dashboard__hosting-mode" aria-label="主持设置">
-        <HostingModeSection session={session} dispatch={dispatch} />
-      </section>
+      <details className="dashboard__more-tools">
+        <summary><SlidersHorizontal aria-hidden="true" /><span><strong>更多主持工具</strong><small>配板、身份、计时、板子与主持方式</small></span><ChevronRight aria-hidden="true" /></summary>
+        <div className="dashboard__more-body">
+          <section aria-labelledby="dashboard-tools-title">
+            <h3 id="dashboard-tools-title">主持工具</h3>
+            <div className="dashboard__tool-grid">
+              <OpeningScriptSheet sessionId={session.id} />
+              <Button variant="secondary" aria-label="AI配板与调整" onClick={onOpenSetup}><Bot aria-hidden="true" />AI配板</Button>
+              {!identityPending ? <Button variant="secondary" onClick={onOpenIdentityDeal}><IdCard aria-hidden="true" />发身份</Button> : null}
+              <Button variant="secondary" onClick={onOpenTimer}><Timer aria-hidden="true" />公聊倒计时</Button>
+              <Button variant="secondary" onClick={onOpenScriptLibrary}><Repeat2 aria-hidden="true" />切换板子</Button>
+            </div>
+          </section>
 
-      <div className="dashboard__grid">
-        <Card
-          surface="soft"
-          className="dashboard-card dashboard-card--recent"
-          eyebrow="记录"
-          title="最近记录"
-          titleId="recent-title"
-          aria-labelledby="recent-title"
-        >
-          {recentEntries.length ? (
-            <ul className="dashboard__recent-list">
-              {recentEntries.map((entry) => {
-                const segment = entry.segmentId ? session.phaseSegments.find((item) => item.id === entry.segmentId) : undefined
-                return <li key={entry.id}><span>{segment?.label ?? (entry.kind.startsWith('setup_') ? '配板' : '本局')}</span><strong>{entrySummary(entry)}</strong></li>
-              })}
-            </ul>
-          ) : <EmptyState compact title="尚无确认记录" description="夜间或白天确认第一条记录后，这里显示最近三条。" />}
-        </Card>
+          <section aria-labelledby="dashboard-phase-switch-title">
+            <h3 id="dashboard-phase-switch-title">手动切换工作台</h3>
+            <p>只在需要补记或跳转时使用；进入工作台仍由你明确确认。</p>
+            <div className="dashboard__manual-phase">
+              <Button variant="ghost" onClick={onEnterNight}><MoonStar aria-hidden="true" />进入夜晚</Button>
+              <Button variant="ghost" onClick={onEnterDay}><SunMedium aria-hidden="true" />进入白天</Button>
+            </div>
+          </section>
 
-        <Card
-          surface="soft"
-          className="dashboard-card dashboard-card--end"
-          eyebrow="收尾"
-          title="结束对局"
-          titleId="game-end-title"
-          aria-labelledby="game-end-title"
-          actions={<StatusBadge tone="warning">危险动作</StatusBadge>}
-        >
-          <p>保存本局后才能重置游戏；历史复盘会保留归档。</p>
-          <div className="dashboard__end-actions">
-            <Button variant="secondary" className="dashboard__end-entry" onClick={() => onOpenGameEnd('end')}>
-              <Flag aria-hidden="true" />
-              <span>结束对局</span>
-            </Button>
-            <Button variant="ghost" className="dashboard__review-entry" onClick={() => onOpenGameEnd('review')}>
-              <Archive aria-hidden="true" />
-              <span>历史复盘</span>
-            </Button>
-          </div>
-        </Card>
-      </div>
+          <section aria-labelledby="dashboard-hosting-mode-title">
+            <h3 id="dashboard-hosting-mode-title">主持方式</h3>
+            <HostingModeSection session={session} dispatch={dispatch} />
+          </section>
+        </div>
+      </details>
     </main>
   )
 }

@@ -1,6 +1,8 @@
 import { expect, test, type Page } from '@playwright/test'
 
 
+import { enterDashboardPhase, openDashboardTools } from './helpers/dashboard-tools'
+
 /** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
 
 
@@ -68,6 +70,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByRole('button', { name: '关闭应用设置' }).click()
   expect((await timeline(page)).length).toBe(beforeOpening)
 
+  await openDashboardTools(page)
   await page.getByRole('button', { name: '开场白', exact: true }).click()
   await expect(page.getByRole('heading', { name: '开场白' })).toBeVisible()
   await page.getByRole('button', { name: '编辑文案' }).click()
@@ -82,14 +85,15 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
 
   const beforeSetup = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'setup_changed').length
   await openArchive(page)
+  await openDashboardTools(page)
   await page.getByRole('button', { name: 'AI配板与调整' }).click()
   await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
   await page.locator('.setup-panel__advice-entry').click()
-  await expect(page.getByText('角色组合')).toBeVisible()
+  await expect(page.getByText('选择配板方案')).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/03-setup-advice.png', fullPage: false })
-  await page.locator('.setup-candidate').filter({ hasText: '全员参与' }).getByRole('button', { name: '采用为草稿' }).click()
+  await page.locator('.setup-candidate').filter({ hasText: '全员参与' }).getByRole('button', { name: '选择这套配板' }).click()
   await swapFirstTwoDraftSeats(page)
-  await page.getByRole('button', { name: '确认调整' }).click()
+  await page.getByRole('button', { name: '保存配板调整' }).click()
   await expect.poll(async () => (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'setup_changed').length).toBeGreaterThan(beforeSetup)
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/04-setup-confirmed.png', fullPage: false })
   const closeSetup = page.getByRole('button', { name: '关闭AI配板与调整' })
@@ -98,21 +102,23 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
 
   const beforeNight = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'night_action').length
   await openArchive(page)
-  await page.getByRole('button', { name: '进入夜晚' }).click()
+  await enterDashboardPhase(page, '夜晚')
   await expect(page.getByRole('heading', { name: /第3夜/ })).toBeVisible()
   await page.getByRole('button', { name: '选择3号玩家' }).click()
   await page.getByRole('button', { name: '调查员' }).click()
   const affectedOutcome = page.getByRole('button', { name: '受到影响', exact: true })
   if (await affectedOutcome.getAttribute('aria-pressed') !== 'true') await affectedOutcome.click()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/05-night-before-confirm.png', fullPage: false })
-  await page.getByRole('button', { name: '确认本项' }).click()
+  await page.getByRole('button', { name: '确认并停留' }).click()
   await expect.poll(async () => (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'night_action').length).toBe(beforeNight + 1)
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
+  await page.getByRole('button', { name: /本局记录 \d+/ }).click()
   await expect(page.getByText('10号洗脑师选择3号成为调查员，目标受到影响。')).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/06-dashboard-after-night.png', fullPage: false })
+  await page.getByRole('button', { name: '关闭日记' }).click()
 
   await openArchive(page)
-  await page.getByRole('button', { name: '进入白天' }).click()
+  await enterDashboardPhase(page, '白天')
   await expect(page.getByRole('heading', { name: '第3天' })).toBeVisible()
   await page.getByRole('button', { name: '开始私聊倒计时' }).click()
   await expect(page.getByRole('button', { name: '暂停私聊倒计时' })).toBeVisible()

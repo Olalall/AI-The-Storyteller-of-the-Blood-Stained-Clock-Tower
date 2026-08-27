@@ -63,7 +63,7 @@ test('real AI provider is used by setup advice and night settlement from visible
   expect(setupBody.accepted).toBe(true)
   expect(setupBody.data?.draft?.provider).toBe('openai-compatible')
 
-  await page.locator('.setup-candidate').first().getByRole('button', { name: '采用为草稿' }).click()
+  await page.locator('.setup-candidate').first().getByRole('button', { name: '选择这套配板' }).click()
   await expect(page.locator('.setup-panel__draft')).toBeVisible()
   await page.locator('.setup-panel__footer .ui-button--primary').click()
   await expect(page.locator('.setup-panel')).toBeHidden()

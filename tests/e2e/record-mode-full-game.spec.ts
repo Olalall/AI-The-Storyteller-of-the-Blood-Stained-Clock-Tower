@@ -1,5 +1,7 @@
 import { expect, test, type Page } from '@playwright/test'
 
+import { enterDashboardPhase } from './helpers/dashboard-tools'
+
 const sessionStorageKey = 'botc-copilot-session-v1'
 const archiveStorageKey = 'botc-game-archives-v1'
 
@@ -129,7 +131,7 @@ async function settleWholeNight(page: Page) {
   for (let step = 0; step < queueLength; step += 1) {
     await fillCurrentWakeInputs(page)
     const next = page.getByRole('button', { name: '确认并下一位' })
-    const stay = page.getByRole('button', { name: '确认本项' })
+    const stay = page.getByRole('button', { name: '确认并停留' })
     if (await next.isEnabled().catch(() => false)) await next.click()
     else if (await stay.isEnabled().catch(() => false)) await stay.click()
     else continue
@@ -157,8 +159,8 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await expect(setupHeading).toBeVisible()
   await page.getByLabel('开局板子').selectOption('trouble-brewing')
   await page.getByRole('button', { name: '12人' }).click()
-  await page.getByRole('button', { name: '开始配板' }).click()
-  await page.locator('.setup-candidate').first().getByRole('button', { name: '采用为草稿' }).click()
+  await page.getByRole('button', { name: '生成配板方案' }).click()
+  await page.locator('.setup-candidate').first().getByRole('button', { name: '选择这套配板' }).click()
   await expect(page.locator('.setup-seat-grid button')).toHaveCount(12)
   await page.getByRole('button', { name: '确认配板' }).click()
   await expect(page.locator('.setup-panel')).toBeHidden()
@@ -170,14 +172,14 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
 
   // 首夜
   await openArchive(page)
-  await page.getByRole('button', { name: '进入夜晚' }).click()
+  await enterDashboardPhase(page, '夜晚')
   await expect(page.getByRole('heading', { name: '第1夜' })).toBeVisible()
 
   const night1Confirmed = await settleWholeNight(page)
   await expect.poll(async () => countTimeline(page, (entry) => entry.kind === 'night_action' && entry.segmentId === 'night-1')).toBe(night1Confirmed)
 
-  await page.getByRole('button', { name: '检查并关闭' }).click()
-  await page.getByRole('button', { name: '确认关闭' }).click()
+  await page.getByRole('button', { name: '准备结束本夜' }).click()
+  await page.getByRole('button', { name: '确认结束本夜' }).click()
   // 关闭本夜后主持台落在黎明播报卡，而不是回首页——这是新导航的主路径。
   await expect(page.getByRole('button', { name: /已宣布睁眼/ })).toBeVisible()
 
@@ -187,7 +189,7 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
 
   // 白天投票与处决
   await openArchive(page)
-  await page.getByRole('button', { name: '进入白天' }).click()
+  await enterDashboardPhase(page, '白天')
   await expect(page.getByRole('heading', { name: '第1天' })).toBeVisible()
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: /被提名人/ }).click()
@@ -205,8 +207,8 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await page.getByRole('button', { name: '确认记录' }).click()
   await expect.poll(async () => countTimeline(page, (entry) => entry.kind === 'execution')).toBe(1)
 
-  await page.getByRole('button', { name: '结束今天' }).click()
-  await page.getByRole('button', { name: '确认结束' }).click()
+  await page.getByRole('button', { name: '准备结束白天' }).click()
+  await page.getByRole('button', { name: '确认结束白天' }).click()
   await returnToDashboard(page)
   await expect(page.getByText(/存活11 · 死亡1/)).toBeVisible()
 
@@ -220,17 +222,18 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
 
   // 次夜
   await openArchive(page)
-  await page.getByRole('button', { name: '进入夜晚' }).click()
+  await enterDashboardPhase(page, '夜晚')
   await expect(page.getByRole('heading', { name: '第2夜' })).toBeVisible()
   const night2Confirmed = await settleWholeNight(page)
   await expect.poll(async () => countTimeline(page, (entry) => entry.kind === 'night_action' && entry.segmentId === 'night-2')).toBe(night2Confirmed)
-  await page.getByRole('button', { name: '检查并关闭' }).click()
-  await page.getByRole('button', { name: '确认关闭' }).click()
+  await page.getByRole('button', { name: '准备结束本夜' }).click()
+  await page.getByRole('button', { name: '确认结束本夜' }).click()
   // 关闭本夜后主持台落在黎明播报卡，而不是回首页——这是新导航的主路径。
   await expect(page.getByRole('button', { name: /已宣布睁眼/ })).toBeVisible()
 
-  // 归档：收尾入口现在常驻在阶段轨道右端，不必先回首页。
-  await page.getByRole('button', { name: '收尾' }).click()
+  // 归档：低频收尾动作收进阶段轨道右端「更多」，避免和现场主动作竞争。
+  await page.getByRole('button', { name: '更多' }).click()
+  await page.getByRole('button', { name: '收尾与复盘' }).click()
   await expect(page.getByRole('heading', { name: '结束对局' })).toBeVisible()
   await page.getByRole('radio', { name: '善良获胜' }).click()
   await page.getByRole('button', { name: '保存本局' }).click()

@@ -84,6 +84,15 @@ Copy-RequiredPath "THIRD_PARTY_NOTICES.md" (Join-Path $stagePath "THIRD_PARTY_NO
 Copy-RequiredPath "dev-docs\VPS_DEPLOYMENT_PREP.md" (Join-Path $stagePath "VPS_DEPLOYMENT_PREP.md")
 Copy-RequiredPath "scripts\vps" (Join-Path $stagePath "scripts\vps")
 
+# VPS packages keep third-party binaries out of Git and out of the deployment zip,
+# but include the verified installer and source manifest. A private VPS deployment
+# can run this installer once so every browser receives icons from the VPS itself.
+$portableScriptDir = Join-Path $stagePath "scripts\portable"
+$characterManifestDir = Join-Path $stagePath "asset-packs\characters"
+New-Item -ItemType Directory -Force -Path $portableScriptDir, $characterManifestDir | Out-Null
+Copy-RequiredPath "scripts\portable\Install-CharacterAssets.ps1" (Join-Path $portableScriptDir "Install-CharacterAssets.ps1")
+Copy-RequiredPath "public\assets\characters\source-manifest.json" (Join-Path $characterManifestDir "source-manifest.json")
+
 $manifest = [ordered]@{
   project = "botc-storyteller-companion"
   product = "钟楼说书人副驾驶"
@@ -98,6 +107,7 @@ $manifest = [ordered]@{
     healthz = "/healthz"
     windowsStartScript = "scripts\vps\start-assistant.ps1"
     windowsScheduledTaskInstaller = "scripts\vps\install-windows-scheduled-task.ps1"
+    windowsCharacterAssetInstaller = "scripts\portable\Install-CharacterAssets.ps1"
   }
 }
 $manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $stagePath "DEPLOYMENT_MANIFEST.json") -Encoding UTF8
