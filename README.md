@@ -2,9 +2,9 @@
 
 ![血染钟楼 AI 说书人辅助工具](docs/assets/github-hero.svg)
 
-> **手机 / 平板用户：**通过 HTTPS 打开部署地址后，可以安装到主屏幕。首次完整打开后，配板、身份交接、夜序、投票、日志和本机复盘可离线使用；真实 AI 和云端归档仍需联网。
+> <strong>手机 / 平板用户：</strong>通过 HTTPS 打开部署地址后，可以安装到主屏幕。首次完整打开后，配板、身份交接、夜序、投票、日志和本机复盘可离线使用；真实 AI 和云端归档仍需联网。
 
-> **Windows 用户：**查看 [简洁安装教程](安装教程.md)。请从 Releases 下载 `botc-storyteller-companion-windows-portable.zip`，不要下载源码 ZIP。
+> <strong>Windows 用户：</strong>查看 [简洁安装教程](安装教程.md)。请从 Releases 下载 `botc-storyteller-companion-windows-portable.zip`，不要下载源码 ZIP。
 
 ## 界面预览
 
