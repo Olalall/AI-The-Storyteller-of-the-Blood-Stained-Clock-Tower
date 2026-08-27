@@ -43,7 +43,7 @@ export function UiLab() {
       <section className="ui-lab__section">
         <header><div><span>02</span><h2>动作层级</h2></div><p>一个阶段只允许一个主按钮。</p></header>
         <div className="component-row">
-          <Button variant="primary"><Check aria-hidden="true" />确认本项</Button>
+          <Button variant="primary"><Check aria-hidden="true" />确认并停留</Button>
           <Button variant="secondary">仅保存</Button>
           <Button variant="ghost"><Sparkles aria-hidden="true" />辅助判断</Button>
           <Button variant="danger"><AlertTriangle aria-hidden="true" />放弃草稿</Button>

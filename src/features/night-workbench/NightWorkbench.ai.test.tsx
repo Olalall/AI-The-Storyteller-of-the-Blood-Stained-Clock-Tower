@@ -61,7 +61,7 @@ describe('NightWorkbench 的 AI 与遮蔽', () => {
     expect(screen.getAllByText('AI建议').length).toBeGreaterThan(0)
     expect(screen.getByRole('button', { name: '受到影响，AI建议' })).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getAllByText('明天请疯狂地声称自己是调查员。').length).toBeGreaterThan(0)
-    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    expect(screen.getByRole('button', { name: '确认并停留' })).toBeEnabled()
     await waitFor(() => {
       const state = storedState()
       expect(state.confirmedRecords['night-3-cerenovus']).toBeUndefined()
@@ -69,7 +69,7 @@ describe('NightWorkbench 的 AI 与遮蔽', () => {
       expect(Object.keys(state.aiAdviceLog)).toHaveLength(1)
     })
 
-    await user.click(screen.getByRole('button', { name: '确认本项' }))
+    await user.click(screen.getByRole('button', { name: '确认并停留' }))
     await waitFor(() => {
       const source = storedState().confirmedRecords['night-3-cerenovus'].at(-1).snapshot.outputSource
       expect(source.kind).toBe('ai')
@@ -86,7 +86,7 @@ describe('NightWorkbench 的 AI 与遮蔽', () => {
     expect(screen.getAllByText((content) => content.includes('目标数量需为') && content.includes('缺少声称角色'))).toHaveLength(2)
     expect(screen.getByText('补齐后可重新推荐')).toBeInTheDocument()
     expect(screen.queryByRole('button', { name: '受到影响，AI建议' })).not.toBeInTheDocument()
-    expect(screen.getByRole('button', { name: '确认本项' })).toBeDisabled()
+    expect(screen.getByRole('button', { name: '确认并停留' })).toBeDisabled()
     await waitFor(() => expect(Object.keys(storedState().aiAdviceLog)).toHaveLength(1))
     expect(storedState().confirmedRecords['night-3-cerenovus']).toBeUndefined()
     await user.click(screen.getByRole('button', { name: '选择3号玩家' }))

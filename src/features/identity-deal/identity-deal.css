@@ -343,22 +343,83 @@
 }
 
 @container (max-width: 760px) {
-  .identity-deal__hero,
-  .identity-deal__layout {
-    grid-template-columns: 1fr;
+  .identity-deal {
+    padding: var(--space-16);
+    gap: var(--space-14);
   }
 
   .identity-deal__hero {
-    align-items: stretch;
+    min-height: 0;
+    padding: var(--space-16);
     display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: var(--space-14);
+  }
+
+  .identity-deal__hero strong {
+    margin-top: 2px;
+    font-size: clamp(2rem, 10cqw, 2.8rem);
+  }
+
+  .identity-deal__hero small {
+    margin-top: 4px;
   }
 
   .identity-deal__mode-switch {
     min-width: 0;
   }
 
+  .identity-deal__mode-switch button {
+    min-height: 44px;
+    padding-inline: var(--space-8);
+  }
+
+  .identity-deal__layout {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "current"
+      "seats";
+    gap: var(--space-14);
+  }
+
+  .identity-deal__seat-panel {
+    grid-area: seats;
+  }
+
   .identity-deal__current {
+    grid-area: current;
     position: static;
+  }
+
+  .identity-deal__seat-panel,
+  .identity-deal__current {
+    padding: var(--space-16);
+  }
+
+  .identity-deal__current-card {
+    min-height: 104px;
+    padding: 2px var(--space-8) var(--space-8);
+    grid-template-columns: auto minmax(0, 1fr);
+    justify-items: start;
+    text-align: left;
+  }
+
+  .identity-deal__current-card .role-disc {
+    --disc-size: 88px;
+  }
+
+  .identity-deal__section-heading {
+    margin-bottom: var(--space-10);
+  }
+
+  .identity-deal__seat-grid {
+    gap: var(--space-10);
+  }
+
+  .identity-deal__seat-grid button {
+    min-height: 88px;
+    padding: var(--space-12);
   }
 }
 

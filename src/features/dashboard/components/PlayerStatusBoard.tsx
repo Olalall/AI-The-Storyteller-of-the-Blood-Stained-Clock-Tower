@@ -1,6 +1,7 @@
 import { FlaskConical, HeartPulse, Skull, Tag, Wine } from 'lucide-react'
 import { Card } from '../../../components/ui/Card'
 import { EmptyState } from '../../../components/ui/EmptyState'
+import { RoleDisc } from '../../../components/ui/RoleDisc'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { storytellerStateLabel } from '../../game-session/seatPresentation'
 import type { StorytellerSeatSummary } from '../../game-session/state/projectors'
@@ -21,7 +22,7 @@ export function PlayerStatusBoard({ seats, onSelectSeat }: PlayerStatusBoardProp
       title="玩家状态"
       titleId="player-status-title"
       aria-labelledby="player-status-title"
-      actions={<p><strong>{seats.length}人 · 存活{alive} · 死亡{dead}</strong><small>点卡核对</small></p>}
+      actions={<p className="dashboard__player-summary"><strong>{seats.length}人 · 存活{alive} · 死亡{dead}</strong><small>点卡核对</small></p>}
     >
       {seats.length === 0 ? (
         <EmptyState
@@ -59,6 +60,12 @@ export function PlayerStatusBoard({ seats, onSelectSeat }: PlayerStatusBoardProp
               {conditionBadges.length ? <span className="dashboard-player-seat__status-stack" aria-hidden="true">
                 {conditionBadges.map(({ key, label, icon: Icon }) => <span key={key} className={`dashboard-state-mark dashboard-state-mark--${key}`}><Icon />{label}</span>)}
               </span> : null}
+              <RoleDisc
+                initial={role?.initial ?? '?'}
+                roleName={roleName}
+                imageSrc={role?.iconPath}
+                size="tiny"
+              />
               <b title={roleName}>{roleName}</b>
               <span className="dashboard-player-seat__nickname" title={displayNickname}>{displayNickname}</span>
               <span className="dashboard-player-seat__badges" aria-hidden="true" />

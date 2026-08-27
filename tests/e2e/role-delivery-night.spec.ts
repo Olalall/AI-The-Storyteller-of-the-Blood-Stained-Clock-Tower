@@ -188,7 +188,7 @@ test('Organ Grinder exposes only the player choice and no AI recommendation', as
   await expect(page.getByRole('button', { name: 'AI推荐' })).toHaveCount(0)
 
   await page.getByRole('button', { name: '醉酒至下个黄昏' }).click()
-  await expect(page.getByRole('button', { name: '确认本项' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '确认并停留' })).toBeEnabled()
 })
 
 test('Damsel notice shows its eligible recipients', async ({ page }) => {
@@ -220,7 +220,7 @@ test('Balloonist requires an explicit displayed type and shows only confirmed pr
   await page.getByRole('button', { name: '爪牙' }).click()
   await page.getByRole('button', { name: '记录结果' }).click()
   await expect(page.getByText(/本夜明确登记为爪牙/)).toBeVisible()
-  await expect(page.getByRole('button', { name: '确认本项' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '确认并停留' })).toBeEnabled()
 })
 
 test('Exorcist disables the confirmed previous target and keeps one clear next action', async ({ page }) => {
@@ -230,7 +230,7 @@ test('Exorcist disables the confirmed previous target and keeps one clear next a
   await expect(page.getByRole('button', { name: '选择4号玩家' })).toBeDisabled()
   await page.getByRole('button', { name: '选择5号玩家' }).click()
   await page.getByRole('button', { name: '记录结果' }).click()
-  await expect(page.getByRole('button', { name: '确认本项' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '确认并停留' })).toBeEnabled()
 })
 
 test('Pukka shows the active poison target without applying death or recovery', async ({ page }) => {
@@ -240,7 +240,7 @@ test('Pukka shows the active poison target without applying death or recovery', 
   await page.getByRole('button', { name: '选择5号玩家' }).click()
   await page.getByRole('button', { name: '新毒目标生效' }).click()
   await expect(page.getByText(/4号为死亡并恢复健康候选/)).toBeVisible()
-  await expect(page.getByRole('button', { name: '确认本项' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '确认并停留' })).toBeEnabled()
 })
 
 test('Shabaloth offers only dead previous targets as regurgitation choices', async ({ page }) => {
@@ -252,7 +252,7 @@ test('Shabaloth offers only dead previous targets as regurgitation choices', asy
   await page.getByRole('button', { name: '选择6号玩家' }).click()
   await page.getByRole('button', { name: '选择7号玩家' }).click()
   await page.getByRole('button', { name: '反刍4号' }).click()
-  await expect(page.getByRole('button', { name: '确认本项' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '确认并停留' })).toBeEnabled()
 })
 
 test('Yanluo displays the rolling delayed-death candidate as a draft only', async ({ page }) => {
@@ -274,5 +274,5 @@ test('charged Po requires exactly three targets and has no AI choice recommendat
   await expect(page.getByRole('button', { name: '记录三名目标' })).toBeDisabled()
   await page.getByRole('button', { name: '选择5号玩家' }).click()
   await page.getByRole('button', { name: '记录三名目标' }).click()
-  await expect(page.getByRole('button', { name: '确认本项' })).toBeEnabled()
+  await expect(page.getByRole('button', { name: '确认并停留' })).toBeEnabled()
 })

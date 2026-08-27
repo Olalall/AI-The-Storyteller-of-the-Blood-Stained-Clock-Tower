@@ -1,5 +1,7 @@
 ﻿import { expect, test, type Page } from '@playwright/test'
 
+import { enterDashboardPhase, openDashboardTools } from './helpers/dashboard-tools'
+
 const sessionStorageKey = 'botc-copilot-session-v1'
 
 
@@ -78,11 +80,11 @@ async function openBlankSetup(page: Page, runId: string) {
 async function createConfirmedSetup(page: Page, input: { scriptId: string; playerCount: number }) {
   await page.getByLabel('开局板子').selectOption(input.scriptId)
   await page.getByRole('button', { name: `${input.playerCount}人` }).click()
-  await page.getByRole('button', { name: '开始配板' }).click()
+  await page.getByRole('button', { name: '生成配板方案' }).click()
   await expect(page.locator('.setup-candidate')).toHaveCount(3)
   const firstCandidate = page.locator('.setup-candidate').first()
   await expect(firstCandidate.locator('.setup-candidate__roles li')).toHaveCount(input.playerCount)
-  await firstCandidate.getByRole('button', { name: '采用为草稿' }).click()
+  await firstCandidate.getByRole('button', { name: '选择这套配板' }).click()
   await expect(page.locator('.setup-seat-grid button')).toHaveCount(input.playerCount)
   await page.locator('.setup-panel__footer .ui-button--primary').click()
   await expect(page.locator('.setup-panel')).toBeHidden()
@@ -111,12 +113,13 @@ test('hosting scenario B: 7人开局后夜序只投影在场角色，状态由�
   await createConfirmedSetup(page, { scriptId: 'trouble-brewing', playerCount: 7 })
 
   await openArchive(page)
+  await openDashboardTools(page)
   await page.getByRole('button', { name: '发身份' }).click()
   await expect(page.locator('.identity-deal__seat-grid button')).toHaveCount(7)
   await page.locator('.sheet-content--identity-deal .sheet-close').click()
 
   await openArchive(page)
-  await page.getByRole('button', { name: '进入夜晚' }).click()
+  await enterDashboardPhase(page, '夜晚')
   await expect(page.locator('.night-workbench')).toBeVisible()
   await settleFirstNightSystemSteps(page)
   await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
@@ -145,7 +148,7 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   await createConfirmedSetup(page, { scriptId: 'quick-maths', playerCount: 15 })
 
   await openArchive(page)
-  await page.getByRole('button', { name: '进入夜晚' }).click()
+  await enterDashboardPhase(page, '夜晚')
   await expect(page.locator('.night-workbench')).toBeVisible()
   await expect(page.locator('.carousel-current')).toBeVisible()
   await settleFirstNightSystemSteps(page)
@@ -157,7 +160,7 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
 
   await returnDashboard(page)
   await openArchive(page)
-  await page.getByRole('button', { name: '进入白天' }).click()
+  await enterDashboardPhase(page, '白天')
   await expect(page.locator('.day-workbench')).toBeVisible()
   await expect(page.locator('.day-seat-grid button')).toHaveCount(15)
 
@@ -203,7 +206,7 @@ test('hosting scenario D: 缺少角色图标时仍可开局并进入夜序', asy
   await openBlankSetup(page, 'scenario-d-missing-assets')
   await createConfirmedSetup(page, { scriptId: 'catfishing', playerCount: 12 })
   await openArchive(page)
-  await page.getByRole('button', { name: '进入夜晚' }).click()
+  await enterDashboardPhase(page, '夜晚')
   await expect(page.locator('.night-workbench')).toBeVisible()
   await settleFirstNightSystemSteps(page)
   await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()

@@ -100,7 +100,7 @@ describe('魔典模式下的目标区', () => {
     expect(storedTargets()).toEqual([3])
     expect(nightActionCount()).toBe(before)
     // 而底栏那条「确认后：停留 ⇄ 下一位」还在：落账的入口一处都没搬走。
-    expect(within(screen.getByLabelText('确认本项')).getAllByRole('button', { name: /确认/ }).length)
+    expect(within(screen.getByLabelText('当前夜间操作')).getAllByRole('button', { name: /确认/ }).length)
       .toBeGreaterThan(0)
   })
 })

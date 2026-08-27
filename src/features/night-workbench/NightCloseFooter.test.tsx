@@ -33,10 +33,10 @@ describe('NightCloseFooter', () => {
     const user = userEvent.setup()
     render(<NightHarness />)
 
-    await user.click(screen.getByRole('button', { name: '检查并关闭' }))
+    await user.click(screen.getByRole('button', { name: '准备结束本夜' }))
     expect(screen.getByText('关闭第3夜？')).toBeInTheDocument()
     expect(storedSession().phaseSegments.find((segment) => segment.id === 'night-3')?.closedAt).toBeUndefined()
-    await user.click(screen.getByRole('button', { name: '确认关闭' }))
+    await user.click(screen.getByRole('button', { name: '确认结束本夜' }))
     await waitFor(() => expect(storedSession().phaseSegments.find((segment) => segment.id === 'night-3')?.closedAt).toBeTruthy())
   })
 })

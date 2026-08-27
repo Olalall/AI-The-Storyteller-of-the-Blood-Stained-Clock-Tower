@@ -1,10 +1,11 @@
 import { chromium } from '@playwright/test'
 import { spawn } from 'node:child_process'
-import { mkdir, readdir, unlink } from 'node:fs/promises'
+import { mkdir, readdir, rename, rm, unlink } from 'node:fs/promises'
 import path from 'node:path'
 
 const baseUrl = 'http://127.0.0.1:4173'
 const screenshotDir = path.resolve('docs/screenshots')
+const stagingDir = path.resolve('docs/.screenshots-staging')
 
 async function isAppReady() {
   try {
@@ -39,18 +40,49 @@ async function ensureAppServer() {
 }
 
 async function cleanScreenshotDir() {
-  await mkdir(screenshotDir, { recursive: true })
-  const files = await readdir(screenshotDir)
-  await Promise.all(files.filter((file) => file.endsWith('.png')).map((file) => unlink(path.join(screenshotDir, file))))
+  await rm(stagingDir, { recursive: true, force: true })
+  await mkdir(stagingDir, { recursive: true })
 }
 
 async function capture(page, fileName) {
-  await page.screenshot({ path: path.join(screenshotDir, fileName), fullPage: false })
+  await page.screenshot({ path: path.join(stagingDir, fileName), fullPage: false })
+}
+
+async function publishScreenshots() {
+  await mkdir(screenshotDir, { recursive: true })
+  const oldFiles = await readdir(screenshotDir)
+  await Promise.all(oldFiles.filter((file) => file.endsWith('.png')).map((file) => unlink(path.join(screenshotDir, file))))
+  const newFiles = await readdir(stagingDir)
+  await Promise.all(newFiles.map((file) => rename(path.join(stagingDir, file), path.join(screenshotDir, file))))
+}
+
+async function loadDemoSessionFromEntry(page) {
+  if (!await page.getByRole('main', { name: '开始新对局' }).isVisible().catch(() => false)) return
+
+  await page.getByRole('radio', { name: /桌上有实体魔典/ }).click()
+  await page.getByRole('button', { name: /新手教学/ }).click()
+  for (const label of ['下一步：生成配板', '下一步：发送身份', '下一步：处理夜晚', '下一步：记录白天', '下一步：结束复盘']) {
+    await page.getByRole('button', { name: label }).click()
+  }
+  await page.getByRole('button', { name: '载入示例对局' }).click()
 }
 
 async function gotoDashboard(page) {
   await page.goto(baseUrl)
+  await loadDemoSessionFromEntry(page)
+  const archiveEntry = page.getByRole('button', { name: '本局', exact: true })
+  if (await archiveEntry.isVisible().catch(() => false)) await archiveEntry.click()
   await page.locator('.dashboard').waitFor({ state: 'visible' })
+}
+
+async function openDashboardTools(page) {
+  const tools = page.locator('.dashboard__more-tools')
+  if (!await tools.evaluate((element) => element.open)) await tools.locator('summary').click()
+}
+
+async function openGameEnd(page) {
+  await page.getByRole('button', { name: '更多' }).click()
+  await page.getByRole('button', { name: '收尾与复盘' }).click()
 }
 
 async function main() {
@@ -63,53 +95,62 @@ async function main() {
     await gotoDashboard(page)
     await page.evaluate(() => window.localStorage.clear())
     await page.reload()
+    await loadDemoSessionFromEntry(page)
+    await page.getByRole('button', { name: '本局', exact: true }).click()
     await page.locator('.dashboard').waitFor({ state: 'visible' })
     await capture(page, '01-dashboard.png')
 
-    await page.locator('.dashboard__script-switch').click()
+    await openDashboardTools(page)
+    await page.getByRole('button', { name: '切换板子' }).click()
     await page.locator('.script-library').waitFor({ state: 'visible' })
     await capture(page, '02-script-library.png')
 
     await gotoDashboard(page)
-    await page.locator('.dashboard__setup-entry').click()
+    await openDashboardTools(page)
+    await page.getByRole('button', { name: 'AI配板与调整' }).click()
     await page.locator('.setup-panel').waitFor({ state: 'visible' })
     await page.locator('.setup-panel__advice-entry').click()
-    await page.getByText('角色组合').waitFor({ state: 'visible' })
+    await page.locator('.setup-candidate').first().waitFor({ state: 'visible' })
     await capture(page, '03-setup-advice.png')
 
     await gotoDashboard(page)
-    await page.locator('.dashboard__identity-entry').click()
+    await openDashboardTools(page)
+    await page.getByRole('button', { name: '发身份' }).click()
     await page.locator('.identity-deal__seat-grid button').first().waitFor({ state: 'visible' })
     await capture(page, '04-identity-deal.png')
 
     await gotoDashboard(page)
-    await page.locator('.dashboard__phase-button').first().click()
+    await openDashboardTools(page)
+    await page.getByRole('button', { name: '进入夜晚' }).click()
     await page.locator('.night-workbench').waitFor({ state: 'visible' })
     await capture(page, '05-night-workbench.png')
 
-    await page.getByRole('button', { name: '返回本局', exact: true }).click()
-    await page.locator('.dashboard').waitFor({ state: 'visible' })
-    await page.locator('.dashboard__phase-button').nth(1).click()
+    await gotoDashboard(page)
+    await openDashboardTools(page)
+    await page.getByRole('button', { name: '进入白天' }).click()
     await page.locator('.day-workbench').waitFor({ state: 'visible' })
     await page.getByRole('button', { name: '选择1号为提名人' }).click()
     await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
     await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+    await page.getByRole('button', { name: '下一步：记录举手' }).click()
     for (const seatId of [1, 2, 3, 4, 5]) {
       await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
     }
     await capture(page, '06-day-vote.png')
 
     await gotoDashboard(page)
-    await page.locator('.dashboard__timer-entry').click()
+    await openDashboardTools(page)
+    await page.getByRole('button', { name: '公聊倒计时' }).click()
     await page.locator('.public-timer-page').waitFor({ state: 'visible' })
     await capture(page, '07-public-timer.png')
 
     await gotoDashboard(page)
-    await page.getByRole('button', { name: '打开AI API设置' }).click()
-    await page.getByRole('heading', { name: 'AI API 设置' }).waitFor({ state: 'visible' })
+    await page.getByRole('button', { name: '打开应用设置' }).click()
+    await page.getByRole('heading', { name: '应用设置' }).waitFor({ state: 'visible' })
     await capture(page, '08-ai-settings.png')
 
     await gotoDashboard(page)
+    await openDashboardTools(page)
     await page.getByRole('button', { name: '开场白', exact: true }).click()
     await page.getByRole('heading', { name: '开场白' }).waitFor({ state: 'visible' })
     await page.getByRole('button', { name: '大字展示' }).click()
@@ -122,21 +163,35 @@ async function main() {
     await capture(page, '10-player-detail.png')
 
     await gotoDashboard(page)
-    await page.getByRole('button', { name: '日记' }).click()
-    await page.getByRole('dialog', { name: '日记' }).waitFor({ state: 'visible' })
+    await page.getByRole('button', { name: /本局记录/ }).click()
+    await page.getByRole('heading', { name: '日记' }).waitFor({ state: 'visible' })
     await capture(page, '11-journal.png')
 
     await gotoDashboard(page)
-    await page.locator('.dashboard__end-entry').click()
+    await openGameEnd(page)
     await page.locator('.game-end').waitFor({ state: 'visible' })
     await page.locator('.game-end__winner-grid button').first().click()
     await page.getByRole('button', { name: '保存本局' }).click()
     await page.getByRole('button', { name: '历史复盘' }).click()
     await page.locator('.game-review').waitFor({ state: 'visible' })
     await capture(page, '12-review.png')
+
+    await page.setViewportSize({ width: 390, height: 844 })
+    await gotoDashboard(page)
+    await openDashboardTools(page)
+    await page.getByRole('button', { name: '发身份' }).click()
+    await page.locator('.identity-deal__seat-grid button').first().waitFor({ state: 'visible' })
+    await capture(page, '13-mobile-identity-deal.png')
+
+    await gotoDashboard(page)
+    await openGameEnd(page)
+    await page.locator('.game-end').waitFor({ state: 'visible' })
+    await capture(page, '14-mobile-game-end.png')
+    await publishScreenshots()
   } finally {
     await browser.close()
     if (devServer) devServer.kill()
+    await rm(stagingDir, { recursive: true, force: true })
   }
 }
 
