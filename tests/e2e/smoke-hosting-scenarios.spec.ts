@@ -25,9 +25,9 @@ async function openBlankSetup(page: Page, runId: string) {
     }))
   }, { storageKey: sessionStorageKey, id: `session-${runId}` })
   await page.reload()
-  const setupHeading = page.getByRole('heading', { name: 'AI配板与调整' })
+  const setupHeading = page.getByRole('heading', { name: '智能配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
-    await page.getByRole('button', { name: 'AI配板与调整' }).click()
+    await page.getByRole('button', { name: '智能配板与调整' }).click()
   }
   await expect(setupHeading).toBeVisible()
 }

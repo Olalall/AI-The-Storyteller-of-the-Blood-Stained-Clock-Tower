@@ -5,6 +5,7 @@ import type { DemonBluffAdvice, SetupAssignment, SetupRationale, SetupRuleSelect
 import type { RoleSnapshot } from '../night-workbench/types'
 import { baseDistributionByPlayerCount } from './baseDistribution'
 import { evaluateSetupRules } from './setupRuleEvaluator'
+import { chineseDisplayName } from './setupPresentation'
 import type {
   ScriptSetupRulePack,
   SetupLegalityCheck,
@@ -104,7 +105,7 @@ function styleLabel(style: SetupTemplateStyle) {
 }
 
 function titleForTemplate(template: SetupTemplate, pack: SmartScriptPack) {
-  return `${pack.displayName.split('/').at(0)?.trim() ?? pack.displayName} · ${styleLabel(template.style)}`
+  return `${chineseDisplayName(pack.displayName)} · ${styleLabel(template.style)}`
 }
 
 function buildPlayerFit(seatProfiles: readonly SetupSeatProfile[]) {
@@ -118,7 +119,7 @@ function rationaleForTemplate(template: SetupTemplate, pack: SmartScriptPack, se
     ? '含开局人数修正；确认配板前先看人数核对。'
     : '无自动结算；夜晚结果仍由说书人确认。'
   return {
-    summary: template.notes[0] ?? `${pack.displayName} ${template.playerCount}人已核对模板。`,
+    summary: `${titleForTemplate(template, pack)}，适用于${template.playerCount}人。`,
     pace: candidatePace(template.style),
     playerFit: `${buildPlayerFit(seatProfiles)}${styleLabel(template.style)}模板仅给提醒，不强制锁座。`,
     risk,
@@ -170,11 +171,12 @@ function buildDemonBluffAdviceFromRoles(demonBluffs: ReturnType<typeof normalize
   }
 }
 
-function setupRuleChoiceLabel(ruleSummary: string, choiceId: string) {
-  if (choiceId.includes('add-two')) return '增加2名外来者'
-  if (choiceId.includes('add')) return '增加1名外来者'
-  if (choiceId.includes('remove')) return '减少1名外来者'
-  return ruleSummary
+function setupRuleChoiceLabel(delta: NonNullable<SetupTemplate['setupAdjustments']>[number]['compositionDelta']) {
+  const labels: Record<string, string> = { townsfolk: '镇民', outsider: '外来者', minion: '爪牙', demon: '恶魔' }
+  const parts = Object.entries(delta)
+    .filter((entry): entry is [string, number] => typeof entry[1] === 'number' && entry[1] !== 0)
+    .map(([team, amount]) => `${amount > 0 ? '增加' : '减少'}${Math.abs(amount)}名${labels[team] ?? '角色'}`)
+  return parts.length ? parts.join('，') : '人数不变'
 }
 
 function normalizeRuleToken(value: string) {
@@ -190,6 +192,7 @@ export function createSetupRulePackForScript(pack: SmartScriptPack): ScriptSetup
   const modifierByRule = new Map<string, ScriptSetupRulePack['modifiers'][number]>()
   for (const rule of pack.setupRules) {
     if (!rule.roleId) continue
+    const modifierRole = pack.roles.find((role) => role.id === rule.roleId)
     const adjustments = pack.setupTemplates
       .flatMap((template) => template.setupAdjustments ?? [])
       .filter((adjustment) => adjustment.ruleId === rule.id && adjustment.choiceId)
@@ -197,13 +200,13 @@ export function createSetupRulePackForScript(pack: SmartScriptPack): ScriptSetup
     const choices = [...new Map(adjustments.map((adjustment) => [adjustment.choiceId!, adjustment])).values()]
       .map((adjustment) => ({
         id: adjustment.choiceId!,
-        label: setupRuleChoiceLabel(rule.summary, adjustment.choiceId!),
+        label: setupRuleChoiceLabel(adjustment.compositionDelta),
         delta: adjustment.compositionDelta,
       }))
     modifierByRule.set(rule.id, {
       id: rule.id,
       roleId: rule.roleId,
-      label: rule.summary.split('：')[0] || rule.summary,
+      label: modifierRole ? `${modifierRole.name}人数修正` : '角色人数修正',
       choices,
       requiresStorytellerChoice: false,
       source: rule.summary,
@@ -233,7 +236,7 @@ export function createSetupRulePackForScript(pack: SmartScriptPack): ScriptSetup
       .map((adjustment) => [adjustment.choiceId!, adjustment])).values()]
       .map((adjustment) => ({
         id: adjustment.choiceId!,
-        label: setupRuleChoiceLabel(sourceRule?.summary ?? adjustment.note ?? ruleId, adjustment.choiceId!),
+        label: setupRuleChoiceLabel(adjustment.compositionDelta),
         delta: adjustment.compositionDelta,
       }))
     if (!choices.length) continue

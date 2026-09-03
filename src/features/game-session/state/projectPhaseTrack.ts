@@ -1,6 +1,6 @@
 import type { GameSessionState } from '../types'
 
-export type PhaseNodeId = 'dusk' | 'night' | 'dawn' | 'day' | 'vote' | 'execution'
+export type PhaseNodeId = 'night' | 'day' | 'vote' | 'execution'
 
 /**
  * done    该步在本轮已经发生过
@@ -19,15 +19,13 @@ export interface PhaseTrackNode {
 }
 
 const NODE_LABELS: Record<PhaseNodeId, string> = {
-  dusk: '黄昏',
-  night: '夜',
-  dawn: '黎明',
+  night: '夜晚',
   day: '白天',
   vote: '提名投票',
   execution: '处决',
 }
 
-const ORDER: readonly PhaseNodeId[] = ['dusk', 'night', 'dawn', 'day', 'vote', 'execution']
+const ORDER: readonly PhaseNodeId[] = ['night', 'day', 'vote', 'execution']
 
 /**
  * 轨道只描述「已经发生了什么、现在哪些段开着、建议下一步是什么」，
@@ -49,28 +47,23 @@ export function projectPhaseTrack(session: GameSessionState): readonly PhaseTrac
   const hasVote = dayEntries.some((entry) => entry.kind === 'vote_round')
   const hasResolution = dayEntries.some((entry) => entry.kind === 'execution' || entry.kind === 'no_execution')
 
-  // 两个段都开着时，用最近创建的那个决定「建议下一步」落在哪一侧。
-  const newerOpen = openNight && openDay
-    ? (openNight.createdAt.localeCompare(openDay.createdAt) >= 0 ? 'night' : 'day')
-    : openNight ? 'night' : openDay ? 'day' : null
+  const latestSegment = [...session.phaseSegments]
+    .sort((left, right) => right.createdAt.localeCompare(left.createdAt))[0]
 
   const status: Record<PhaseNodeId, PhaseNodeStatus> = {
-    dusk: anyNight || openNight ? 'done' : 'suggest',
-    night: openNight ? 'open' : anyNight ? 'done' : 'idle',
-    dawn: openNight ? 'idle' : anyNight ? 'done' : 'idle',
+    night: openNight ? 'open' : anyNight ? 'done' : !anyDay ? 'suggest' : 'idle',
     day: openDay ? 'open' : anyDay ? 'done' : 'idle',
     vote: hasVote ? (hasResolution ? 'done' : 'open') : 'idle',
     execution: hasResolution ? 'done' : 'idle',
   }
 
-  if (newerOpen === 'night') {
-    status.dawn = 'suggest'
-  } else if (newerOpen === 'day') {
+  if (openDay) {
     if (!hasVote) status.vote = 'suggest'
     else if (!hasResolution) status.execution = 'suggest'
-  } else if (anyDay || anyNight) {
-    // 没有开放段：下一步是进入下一个黄昏。
-    status.dusk = 'suggest'
+  } else if (!openNight && latestSegment?.kind === 'night') {
+    status.day = 'suggest'
+  } else if (!openNight && latestSegment?.kind === 'day') {
+    status.night = 'suggest'
   }
 
   return ORDER.map((id) => ({

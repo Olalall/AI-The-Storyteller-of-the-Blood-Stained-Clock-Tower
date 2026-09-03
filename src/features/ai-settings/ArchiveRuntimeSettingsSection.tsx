@@ -82,7 +82,6 @@ export function ArchiveRuntimeSettingsSection({ settings, onChange }: ArchiveRun
       </div>
 
       <div className="ai-settings-archive-footer">
-        <p className="ai-settings-note">默认使用本机浏览器；HTTP 失败时不重置当前局。</p>
         <div className="ai-settings-test-actions">
           <Button type="button" variant="secondary" onClick={testArchiveBackend}>测试后端</Button>
           {archiveStatus ? <StatusBadge tone={archiveStatus.tone}>{archiveStatus.message}</StatusBadge> : null}

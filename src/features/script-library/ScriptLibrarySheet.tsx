@@ -1,11 +1,12 @@
-import { FileJson, ShieldCheck } from 'lucide-react'
+import { AlertTriangle, Repeat2 } from 'lucide-react'
+import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge } from '../../components/ui/StatusBadge'
-import { buildScriptQualityReport, scriptDisplayName, smartScriptPacks } from '../../domain/scripts'
-import type { ScriptId, ScriptReadiness, ScriptSource } from '../../domain/scripts'
+import { scriptDisplayName, smartScriptPacks } from '../../domain/scripts'
+import type { ScriptId } from '../../domain/scripts'
+import { projectConfirmedSetup } from '../game-session/state/projectors'
 import type { GameSessionState } from '../game-session/types'
-import { ScriptQualityPanel } from './ScriptQualityPanel'
 import './script-library.css'
 
 interface ScriptLibrarySheetProps {
@@ -13,21 +14,30 @@ interface ScriptLibrarySheetProps {
   onOpenChange: (open: boolean) => void
   session: GameSessionState
   onSelectScript: (scriptId: ScriptId) => void
+  onRequestResetSwitch: (scriptId: ScriptId) => void
 }
 
 /**
  * 当前只提供不改写对局的剧本入口。
  * 真正切换必须先创建新 GameSession，避免旧时间线、配板和夜序混入新剧本。
  */
-export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript }: ScriptLibrarySheetProps) {
-  const canStartBlankScript = session.playerCount === 0 && session.timeline.length === 0 && session.phaseSegments.length === 0
-  const qualityReport = buildScriptQualityReport(smartScriptPacks)
-  const qualityByScriptId = new Map(qualityReport.items.map((item) => [item.scriptId, item]))
+export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript, onRequestResetSwitch }: ScriptLibrarySheetProps) {
+  const [pendingScriptId, setPendingScriptId] = useState<ScriptId | null>(null)
+  const setupConfirmed = Boolean(projectConfirmedSetup(session))
+  const pendingScript = smartScriptPacks.find((pack) => pack.scriptId === pendingScriptId)
 
-  function startBlankScript(scriptId: ScriptId) {
-    if (!canStartBlankScript) return
+  function confirmDirectSwitch() {
+    if (!pendingScriptId || setupConfirmed) return
     onOpenChange(false)
-    onSelectScript(scriptId)
+    onSelectScript(pendingScriptId)
+    setPendingScriptId(null)
+  }
+
+  function continueWithReset() {
+    if (!pendingScriptId || !setupConfirmed) return
+    onOpenChange(false)
+    onRequestResetSwitch(pendingScriptId)
+    setPendingScriptId(null)
   }
 
   return (
@@ -35,7 +45,7 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
       open={open}
       onOpenChange={onOpenChange}
       title="切换板子"
-      description="新板子会从新对局开始，当前记录不会被改写。"
+      description="选择本局板子"
       contentClassName="sheet-content--script-library"
       presentation="page"
     >
@@ -44,60 +54,64 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
           <div>
             <span>当前对局</span>
             <h3 id="current-script-title">{scriptDisplayName(session.scriptId)}</h3>
-            <p>{session.playerCount > 0 ? `${session.playerCount}人 · 已有配板与记录` : '新局未开始'}</p>
           </div>
           <StatusBadge tone="success">当前使用</StatusBadge>
         </section>
 
-        <ScriptQualityPanel report={qualityReport} currentScriptId={session.scriptId} />
-
         <section className="script-library__section" aria-labelledby="available-script-title">
           <div className="script-library__section-heading">
-            <div><span>可用板子</span><h3 id="available-script-title">智能板子</h3></div>
-            <p>开局状态与 AI 建议状态分开显示</p>
+            <div><span>板子</span><h3 id="available-script-title">选择板子</h3></div>
           </div>
           <div className="script-library__scripts">
             {smartScriptPacks.map((pack) => {
-              const quality = qualityByScriptId.get(pack.scriptId)
-              const canSelect = canStartBlankScript && quality?.readiness !== 'blocked'
               return (
                 <article className="script-library__script-card" key={pack.scriptId}>
                   <div>
                     <h4>{pack.displayName}</h4>
-                    <p>{pack.source.author ?? '未知作者'} · {scriptSourceLabel(pack.source)}</p>
-                    <small><ShieldCheck aria-hidden="true" />{pack.playerCounts[0]}—{pack.playerCounts.at(-1)}人 · 模板 {pack.setupTemplates.length}</small>
                   </div>
                   <div className="script-library__script-actions">
-                    <StatusBadge tone={quality ? readinessTone(quality.readiness) : 'neutral'}>{quality?.readinessLabel ?? '状态未知'}</StatusBadge>
-                    <Button variant="primary" disabled={!canSelect} onClick={() => startBlankScript(pack.scriptId)}>选择人数开局</Button>
-                    {!canStartBlankScript ? <small>如需新局，先保存并重置当前局。</small> : null}
-                    {canStartBlankScript && quality?.readiness === 'review' ? <small>来源待核对，AI建议需人工确认。</small> : null}
-                    {canStartBlankScript && quality?.readiness === 'blocked' ? <small>缺少必要知识或人数模板，暂不能开局。</small> : null}
+                    {pack.scriptId === session.scriptId
+                      ? <StatusBadge tone="success">当前</StatusBadge>
+                      : <Button className="script-library__select-button" variant="secondary" onClick={() => setPendingScriptId(pack.scriptId)}>切换到此板子</Button>}
                   </div>
                 </article>
               )
             })}
           </div>
         </section>
-
-        <section className="script-library__section script-library__import" aria-labelledby="script-import-title">
-          <div className="script-library__section-heading">
-            <div><span>导入</span><h3 id="script-import-title">添加新板子</h3></div>
-          </div>
-          <p>JSON、夜序与规则知识包需要一起核对；未核对的板子不能开局或用于智能配板。</p>
-          <Button variant="secondary" disabled title="剧本导入将在知识包合同完成后接入"><FileJson aria-hidden="true" />导入 JSON（待接入）</Button>
-        </section>
       </div>
+
+      <Sheet
+        open={Boolean(pendingScriptId)}
+        onOpenChange={(nextOpen) => { if (!nextOpen) setPendingScriptId(null) }}
+        title="确认切换板子"
+        description={pendingScript ? `目标板子：${pendingScript.displayName}` : '确认目标板子'}
+        contentClassName="sheet-content--script-confirm"
+        layer="nested"
+      >
+        <div className="script-switch-confirm">
+          <div className="script-switch-confirm__summary">
+            {setupConfirmed ? <AlertTriangle aria-hidden="true" /> : <Repeat2 aria-hidden="true" />}
+            <div>
+              <strong>{setupConfirmed ? '当前配板已经确认' : '切换会重新建立配板'}</strong>
+              <p>{setupConfirmed
+                ? '为避免玩家已经看到身份后角色被改写，本局不能直接切换板子。'
+                : '当前未确认的配板会被替换，玩家人数、昵称和经验会继续保留。'}</p>
+            </div>
+          </div>
+          <ul>
+            <li>目标板子将成为新配板的唯一角色来源。</li>
+            <li>{setupConfirmed ? '先保存并重置本局，再在新局使用目标板子。' : '切换后仍需由说书人检查并确认配板。'}</li>
+            <li>身份、阵营和胜负不会由系统自动裁定。</li>
+          </ul>
+          <div className="script-switch-confirm__actions">
+            <Button variant="ghost" onClick={() => setPendingScriptId(null)}>取消</Button>
+            {setupConfirmed
+              ? <Button variant="primary" onClick={continueWithReset}>前往保存并重置</Button>
+              : <Button variant="primary" onClick={confirmDirectSwitch}>确认切换</Button>}
+          </div>
+        </div>
+      </Sheet>
     </Sheet>
   )
-}
-
-function scriptSourceLabel(source: ScriptSource) {
-  return source.version ?? source.verifiedAt
-}
-
-function readinessTone(readiness: ScriptReadiness) {
-  if (readiness === 'ready') return 'success' as const
-  if (readiness === 'review') return 'warning' as const
-  return 'danger' as const
 }

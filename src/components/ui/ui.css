@@ -174,6 +174,7 @@
 .role-disc__change-mark svg { width: 55%; height: 55%; }
 .role-disc--concealed { background: var(--surface-raised); border-color: var(--border-strong); }
 .role-disc--concealed .role-disc__label { color: var(--text-subtle); }
+.role-disc__concealed-icon { width: 32%; height: 32%; opacity: .78; }
 
 .sheet-overlay {
   position: fixed;
@@ -274,8 +275,8 @@
   position: sticky;
   top: 0;
   z-index: 30;
-  min-height: 48px;
-  padding: 0 var(--space-16);
+  min-height: 58px;
+  padding: 0 var(--space-20);
   display: flex;
   align-items: center;
   gap: var(--space-12);
@@ -283,33 +284,47 @@
   background: rgb(10 14 19 / 92%);
   backdrop-filter: blur(6px);
 }
-.ui-phase-track__nodes { flex: 1 1 auto; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: var(--space-4); overflow-x: auto; scrollbar-width: none; }
+.ui-phase-track__nodes { flex: 1 1 auto; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: var(--space-8); overflow-x: auto; scrollbar-width: none; }
 .ui-phase-track__nodes::-webkit-scrollbar { display: none; }
-.ui-phase-track__actions { flex: none; display: flex; align-items: center; gap: var(--space-8); }
+.ui-phase-track__actions {
+  flex: none;
+  padding-left: var(--space-10);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  border-left: 1px solid var(--border);
+}
+.ui-phase-track__actions .ui-button { min-height: 40px; padding-inline: 10px; gap: 6px; color: var(--text-muted); }
+.ui-phase-track__actions .ui-button svg { width: 17px; height: 17px; }
+.ui-phase-track__actions .ui-phase-track__reset { margin-left: 4px; color: var(--danger-text); }
 
 .ui-phase-node {
-  min-height: var(--touch-min);
-  padding: 0 var(--space-10);
+  min-height: 38px;
+  padding: 0 var(--space-12);
   display: flex;
   align-items: center;
   gap: 6px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-pill);
   color: var(--text-subtle);
   font-size: var(--type-label);
   font-weight: 800;
   white-space: nowrap;
 }
 .ui-phase-node__dot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid currentColor; }
-.ui-phase-node__segment { color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; }
 
 .ui-phase-node--done { color: var(--text-muted); }
 .ui-phase-node--done .ui-phase-node__dot { background: currentColor; }
 .ui-phase-node--open { color: var(--accent-text); background: var(--accent-soft); }
 .ui-phase-node--open .ui-phase-node__dot { background: currentColor; box-shadow: 0 0 0 3px var(--accent-soft); }
-.ui-phase-node--suggest { color: var(--info-text); border: 1px dashed var(--info-border); }
+.ui-phase-node--suggest { color: var(--info-text); background: var(--info-soft); }
 .ui-phase-node--idle { color: var(--text-subtle); opacity: .7; }
 
 @container app-frame (max-width: 560px) {
   .ui-phase-node__label { font-size: var(--type-meta); }
   .ui-phase-node { padding: 0 6px; }
+  .ui-phase-track { padding-inline: var(--space-8); gap: var(--space-4); }
+  .ui-phase-track__nodes { min-width: 128px; }
+  .ui-phase-track__actions { padding-left: var(--space-4); }
+  .ui-phase-track__actions .ui-button { min-height: 36px; padding-inline: 6px; font-size: var(--type-meta); }
+  .ui-phase-track__actions .ui-button svg { display: none; }
 }
