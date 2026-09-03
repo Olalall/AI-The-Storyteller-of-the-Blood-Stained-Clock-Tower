@@ -21,13 +21,12 @@ export function PlayerStatusBoard({ seats, onSelectSeat }: PlayerStatusBoardProp
       title="玩家状态"
       titleId="player-status-title"
       aria-labelledby="player-status-title"
-      actions={<p><strong>{seats.length}人 · 存活{alive} · 死亡{dead}</strong><small>点卡核对</small></p>}
+      actions={<p><strong>{seats.length}人 · 存活{alive} · 死亡{dead}</strong></p>}
     >
       {seats.length === 0 ? (
         <EmptyState
           role="status"
           title="暂无玩家"
-          description="先进入 AI 配板或切换板子，录入人数和座位后再显示状态。"
         />
       ) : <div className="dashboard__player-grid">
         {seats.map(({ seatId, nickname, role, state }) => {

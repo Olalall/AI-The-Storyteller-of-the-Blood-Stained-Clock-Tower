@@ -1,4 +1,4 @@
-import { Check, FlaskConical, KeyRound, PlugZap, RefreshCw, RotateCcw, Save, Settings, ShieldCheck } from 'lucide-react'
+import { Check, FlaskConical, PlugZap, RefreshCw, RotateCcw, Save, Settings, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
@@ -18,7 +18,6 @@ import {
   type AISettings,
   type AIProviderMode,
 } from '../../services/settings'
-import { ArchiveRuntimeSettingsSection } from './ArchiveRuntimeSettingsSection'
 import { AssetPackSettingsSection } from './AssetPackSettingsSection'
 import { readBackendAIStatus, testBackendAIConnection, testLiveAIConnection } from './backendAIStatus'
 import './ai-settings.css'
@@ -27,12 +26,6 @@ const modeLabels: Record<AIProviderMode, string> = {
   off: '关闭',
   backend: '后端代理',
   'openai-compatible': '兼容接口',
-}
-
-const modeDescriptions: Record<AIProviderMode, string> = {
-  off: '只用本地原型',
-  backend: '推荐，密钥在后端',
-  'openai-compatible': 'OpenAI 兼容地址',
 }
 
 type TestStatus = {
@@ -83,11 +76,6 @@ export function AISettingsSheet() {
     setSettings((current) => ({ ...current, ...update }))
     setSaved(false)
     setTestStatus(null)
-  }
-
-  function patchArchive(update: Partial<ArchiveRuntimeSettings>) {
-    setArchiveSettings((current) => ({ ...current, ...update }))
-    setSaved(false)
   }
 
   async function refreshBackendStatus(nextSettings = archiveSettings) {
@@ -153,7 +141,7 @@ export function AISettingsSheet() {
       open={open}
       onOpenChange={setOpen}
       title="AI API 设置"
-      description="配置模型和接入地址；API KEY 只用于本次测试，不写入本地存储。"
+      description="接口与素材"
       presentation="page"
       contentClassName="sheet-content--ai-settings"
       trigger={
@@ -183,10 +171,9 @@ export function AISettingsSheet() {
               <select
                 value={settings.mode}
                 onChange={(event) => patch({ mode: event.target.value as AIProviderMode })}
-                aria-describedby="ai-mode-note"
               >
                 {(['off', 'backend', 'openai-compatible'] as const).map((mode) => (
-                  <option key={mode} value={mode}>{modeLabels[mode]} · {modeDescriptions[mode]}</option>
+                  <option key={mode} value={mode}>{modeLabels[mode]}</option>
                 ))}
               </select>
             </label>
@@ -223,55 +210,50 @@ export function AISettingsSheet() {
             </label>
           </div>
 
-          <p id="ai-mode-note" className="ai-settings-note"><KeyRound aria-hidden="true" />API KEY 不保存；后续由本机或 VPS 后端接管密钥。</p>
+          <details className="ai-settings-advanced-panel">
+            <summary>高级设置</summary>
+            <div className="ai-settings-advanced" aria-label="高级参数">
+              <label>
+                <span>超时秒数</span>
+                <input
+                  type="number"
+                  min="5"
+                  max="120"
+                  value={settings.timeoutSeconds}
+                  onChange={(event) => patch({ timeoutSeconds: Number(event.target.value) })}
+                />
+              </label>
+              <label>
+                <span>上下文上限</span>
+                <input
+                  type="number"
+                  min="2000"
+                  max="128000"
+                  step="1000"
+                  value={settings.maxContextTokens}
+                  onChange={(event) => patch({ maxContextTokens: Number(event.target.value) })}
+                />
+              </label>
+              <label className="ai-settings-toggle">
+                <input type="checkbox" checked={settings.streaming} onChange={(event) => patch({ streaming: event.target.checked })} />
+                <span>流式返回</span>
+              </label>
+            </div>
+          </details>
 
-          <div className="ai-settings-advanced" aria-label="高级参数">
-            <label>
-              <span>超时秒数</span>
-              <input
-                type="number"
-                min="5"
-                max="120"
-                value={settings.timeoutSeconds}
-                onChange={(event) => patch({ timeoutSeconds: Number(event.target.value) })}
-              />
-            </label>
-            <label>
-              <span>上下文上限</span>
-              <input
-                type="number"
-                min="2000"
-                max="128000"
-                step="1000"
-                value={settings.maxContextTokens}
-                onChange={(event) => patch({ maxContextTokens: Number(event.target.value) })}
-              />
-            </label>
-            <label className="ai-settings-toggle">
-              <input type="checkbox" checked={settings.streaming} onChange={(event) => patch({ streaming: event.target.checked })} />
-              <span>流式返回</span>
-            </label>
-          </div>
-        </section>
-
-        <ArchiveRuntimeSettingsSection settings={archiveSettings} onChange={patchArchive} />
-        <AssetPackSettingsSection />
-
-        <section className="ai-settings-card ai-settings-card--test" aria-labelledby="ai-test-title">
-          <div className="ai-settings-test-copy">
-            <span><ShieldCheck aria-hidden="true" />安全边界</span>
-            <h3 id="ai-test-title">测试与保存</h3>
-            <p>后端重启、VPS 改环境变量或端口变化后，先刷新状态；真实连通测试会发起一次后端代理请求。</p>
-            {backendStatus ? <StatusBadge tone={backendStatus.tone}>{backendStatus.message}</StatusBadge> : null}
-          </div>
-          <div className="ai-settings-test-actions">
-            <Button type="button" variant="ghost" onClick={() => { void refreshBackendStatus() }}><RefreshCw aria-hidden="true" />刷新状态</Button>
-            <Button type="button" variant="secondary" onClick={validateConfig}><ShieldCheck aria-hidden="true" />校验配置</Button>
-            <Button type="button" variant="secondary" onClick={liveTestConnection}><FlaskConical aria-hidden="true" />真实连通测试</Button>
+          <div className="ai-settings-inline-test" aria-label="接口测试">
+            <div className="ai-settings-test-actions">
+              <Button type="button" variant="ghost" onClick={() => { void refreshBackendStatus() }}><RefreshCw aria-hidden="true" />刷新状态</Button>
+              <Button type="button" variant="secondary" onClick={validateConfig}><ShieldCheck aria-hidden="true" />校验配置</Button>
+              <Button type="button" variant="secondary" onClick={liveTestConnection}><FlaskConical aria-hidden="true" />连通测试</Button>
+            </div>
+            {backendStatus && archiveSettings.mode === 'http' ? <StatusBadge tone={backendStatus.tone}>{backendStatus.message}</StatusBadge> : null}
             {testStatus ? <StatusBadge tone={testStatus.tone}>{testStatus.message}</StatusBadge> : null}
             {saved ? <p className="ai-settings-saved" role="status"><Check aria-hidden="true" />已保存设置</p> : null}
           </div>
         </section>
+
+        <AssetPackSettingsSection />
 
         <footer className="ai-settings-actions">
           <Button type="button" variant="ghost" onClick={reset}><RotateCcw aria-hidden="true" />恢复默认</Button>

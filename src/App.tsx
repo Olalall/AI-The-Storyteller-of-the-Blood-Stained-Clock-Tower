@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react'
 import { AppFrame } from './app/AppFrame'
+import { PhaseUtilityActions } from './app/PhaseUtilityActions'
 import { PhaseTrack } from './components/ui/PhaseTrack'
-import { Button } from './components/ui/Button'
 import { projectPhaseTrack } from './features/game-session/state/projectPhaseTrack'
-import { projectEffectiveTimelineEntries } from './features/game-session/state/projectTimelineHistory'
+import { projectConfirmedSetup } from './features/game-session/state/projectors'
 import { Dashboard } from './features/dashboard/Dashboard'
 import { SessionRail } from './features/dashboard/components/SessionRail'
 import { PlayerStatusOverlay } from './features/dashboard/components/PlayerStatusOverlay'
@@ -17,7 +17,7 @@ import { NightWorkbench } from './features/night-workbench/NightWorkbench'
 import { ScriptLibrarySheet } from './features/script-library/ScriptLibrarySheet'
 import { SetupPanel } from './features/setup/SetupPanel'
 import { clearIdentityDealReceipts } from './services/identity-deal'
-import type { ScriptId } from './domain/scripts'
+import { scriptDisplayName, type ScriptId } from './domain/scripts'
 type View = 'dashboard' | 'night' | 'day' | 'timer'
 
 function App() {
@@ -27,6 +27,8 @@ function App() {
   const [gameEndOpen, setGameEndOpen] = useState(false)
   const [gameEndMode, setGameEndMode] = useState<'end' | 'review'>('end')
   const [scriptLibraryOpen, setScriptLibraryOpen] = useState(false)
+  const [tutorialOpen, setTutorialOpen] = useState(false)
+  const [nextScriptAfterReset, setNextScriptAfterReset] = useState<ScriptId | null>(null)
   const [setupScriptId, setSetupScriptId] = useState<ScriptId>('catfishing')
   const [playerStatusSeatId, setPlayerStatusSeatId] = useState<number | null>(null)
   const { session, dispatch } = useGameSession()
@@ -49,7 +51,7 @@ function App() {
 
   function resetGame() {
     clearIdentityDealReceipts(session.id)
-    setSetupScriptId(session.scriptId)
+    setSetupScriptId(nextScriptAfterReset ?? session.scriptId)
     dispatch({ type: 'reset-session' })
     setView('dashboard')
     setSetupOpen(true)
@@ -57,6 +59,25 @@ function App() {
     setGameEndOpen(false)
     setScriptLibraryOpen(false)
     setPlayerStatusSeatId(null)
+    setNextScriptAfterReset(null)
+  }
+
+  function selectSetupScript(scriptId: ScriptId) {
+    setSetupScriptId(scriptId)
+    if (session.playerCount > 0 && !projectConfirmedSetup(session)) {
+      dispatch({
+        type: 'start-setup-session',
+        scriptId,
+        createdAt: new Date().toISOString(),
+        playerCount: session.playerCount,
+        seats: Object.values(session.seats).map((seat) => ({
+          seatId: seat.seatId,
+          nickname: seat.nickname,
+          experience: seat.experience,
+        })),
+      })
+    }
+    setSetupOpen(true)
   }
 
   return (
@@ -67,24 +88,24 @@ function App() {
           <PhaseTrack
             nodes={projectPhaseTrack(session)}
             actions={(
-              <>
-                <Button variant="ghost" compact onClick={() => { setGameEndMode('review'); setGameEndOpen(true) }}>
-                  本局记录 {projectEffectiveTimelineEntries(session.timeline).length}
-                </Button>
-                <Button variant="ghost" compact onClick={() => { setGameEndMode('end'); setGameEndOpen(true) }}>收尾</Button>
-              </>
+              <PhaseUtilityActions tutorialOpen={tutorialOpen} onTutorialOpenChange={setTutorialOpen}
+                onOpenReview={() => { setGameEndMode('review'); setGameEndOpen(true) }}
+                onOpenReset={() => { setGameEndMode('end'); setGameEndOpen(true) }} />
             )}
           />
         )}
       >
-        {view === 'dashboard' ? <Dashboard session={session} dispatch={dispatch} onEnterNight={enterNight} onEnterDay={enterDay} onOpenTimer={() => setView('timer')} onOpenSetup={() => setSetupOpen(true)} onOpenIdentityDeal={() => setIdentityDealOpen(true)} onOpenGameEnd={(mode = 'end') => { setGameEndMode(mode); setGameEndOpen(true) }} onOpenScriptLibrary={() => setScriptLibraryOpen(true)} onOpenPlayerStatus={setPlayerStatusSeatId} /> : null}
+        {view === 'dashboard' ? <Dashboard session={session} dispatch={dispatch} onEnterNight={enterNight} onEnterDay={enterDay} onOpenTimer={() => setView('timer')} onOpenSetup={() => setSetupOpen(true)} onOpenIdentityDeal={() => setIdentityDealOpen(true)} onOpenScriptLibrary={() => setScriptLibraryOpen(true)} onOpenPlayerStatus={setPlayerStatusSeatId} /> : null}
         {view === 'night' ? <NightWorkbench sessionBinding={nightBinding} onExit={() => setView('dashboard')} /> : null}
         {view === 'day' ? <DayWorkbench session={session} dispatch={dispatch} onExit={() => setView('dashboard')} /> : null}
         {view === 'timer' ? <PublicChatTimerPage onExit={() => setView('dashboard')} /> : null}
         <SetupPanel open={setupOpen} onOpenChange={setSetupOpen} session={session} dispatch={dispatch} setupScriptId={setupScriptId} onSetupScriptChange={setSetupScriptId} />
         <IdentityDealSheet open={identityDealOpen} onOpenChange={setIdentityDealOpen} session={session} />
-        <GameEndSheet open={gameEndOpen} onOpenChange={setGameEndOpen} session={session} initialMode={gameEndMode} onResetGame={resetGame} />
-        <ScriptLibrarySheet open={scriptLibraryOpen} onOpenChange={setScriptLibraryOpen} session={session} onSelectScript={(scriptId) => { setSetupScriptId(scriptId); setSetupOpen(true) }} />
+        <GameEndSheet open={gameEndOpen} session={session} initialMode={gameEndMode} onResetGame={resetGame}
+          nextScriptLabel={nextScriptAfterReset ? scriptDisplayName(nextScriptAfterReset) : null}
+          onOpenChange={(nextOpen) => { setGameEndOpen(nextOpen); if (!nextOpen) setNextScriptAfterReset(null) }} />
+        <ScriptLibrarySheet open={scriptLibraryOpen} onOpenChange={setScriptLibraryOpen} session={session} onSelectScript={selectSetupScript}
+          onRequestResetSwitch={(scriptId) => { setNextScriptAfterReset(scriptId); setGameEndMode('end'); setGameEndOpen(true) }} />
         <PlayerStatusOverlay seatId={playerStatusSeatId} session={session} dispatch={dispatch} onOpenChange={(open) => { if (!open) setPlayerStatusSeatId(null) }} />
       </AppFrame>
     </DiscussionTimerProvider>

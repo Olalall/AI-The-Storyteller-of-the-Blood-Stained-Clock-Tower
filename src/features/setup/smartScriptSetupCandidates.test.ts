@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { roleTeamByIdForScript, type ScriptId } from '../../domain/scripts'
+import { roleTeamByIdForScript, smartScriptPacks, type ScriptId } from '../../domain/scripts'
 import { createSmartScriptSetupSession } from '../game-session/data/createPrototypeSession'
 import { createNextNightRun } from '../game-session/state/createNextNightRun'
 import { createSmartScriptSetupCandidates, evaluateSmartScriptSetup } from './smartScriptSetupCandidates'
@@ -47,6 +47,8 @@ function assertPlayableCandidates(
   expect(candidates.every((candidate) => candidate.scriptId === scriptId)).toBe(true)
   expect(candidates.every((candidate) => candidate.assignments.length === seatProfiles.length)).toBe(true)
   expect(candidates.every((candidate) => candidate.demonBluffs.length === 3)).toBe(true)
+  expect(candidates.every((candidate) => !/[A-Za-z]/.test(candidate.title))).toBe(true)
+  expect(candidates.every((candidate) => !/[A-Za-z]/.test(candidate.rationale.summary))).toBe(true)
 
   const teamByRoleId = roleTeamByIdForScript(scriptId) as Readonly<Record<string, SetupTeam>>
   for (const candidate of candidates) {
@@ -64,6 +66,15 @@ function assertPlayableCandidates(
 }
 
 describe('smart script setup candidates', () => {
+  it('keeps every board candidate title and summary in Chinese', () => {
+    for (const pack of smartScriptPacks) {
+      const candidates = createSmartScriptSetupCandidates(pack.scriptId, profiles, { seed: `${pack.scriptId}-copy` })
+      expect(candidates.length, pack.scriptId).toBeGreaterThan(0)
+      expect(candidates.every((candidate) => !/[A-Za-z]/.test(candidate.title)), pack.scriptId).toBe(true)
+      expect(candidates.every((candidate) => !/[A-Za-z]/.test(candidate.rationale.summary)), pack.scriptId).toBe(true)
+    }
+  })
+
   it.each(firstBatchScriptIds)('generates playable setup candidates for %s', (scriptId) => {
     assertPlayableCandidates(scriptId, profiles, 3)
   })

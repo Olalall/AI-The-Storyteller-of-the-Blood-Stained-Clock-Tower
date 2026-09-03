@@ -25,18 +25,18 @@ describe('App game reset flow', () => {
     dirtySession.seats[1] = { ...dirtySession.seats[1], nickname: '待清除昵称' }
     window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(dirtySession))
 
-    const { container } = render(<App />)
+    render(<App />)
     await waitFor(() => expect(window.localStorage.getItem(setupRosterMemoryKey)).toContain('待清除昵称'))
     window.localStorage.setItem(identityDealReceiptsStorageKey(dirtySession.id), JSON.stringify({ 1: '2026-07-19T00:00:00.000Z' }))
 
-    fireEvent.click(container.querySelector('.dashboard__end-entry') as HTMLButtonElement)
+    fireEvent.click(screen.getByRole('button', { name: '重置游戏' }))
     fireEvent.click(screen.getByRole('button', { name: '保存本局' }))
     await screen.findByText('本局已保存到本机浏览器')
     const resetStep = screen.getByLabelText('结束对局步骤').querySelector('.game-end__finish-step--danger')!
     fireEvent.click(within(resetStep as HTMLElement).getByLabelText('我已保存本局，确认重置游戏'))
     fireEvent.click(within(resetStep as HTMLElement).getByRole('button', { name: '重置游戏' }))
 
-    await waitFor(() => expect(screen.queryByText('结束与复盘')).not.toBeInTheDocument())
+    await waitFor(() => expect(screen.queryByRole('dialog', { name: '重置游戏' })).not.toBeInTheDocument())
     await waitFor(() => {
       const session = storedSession()
       expect(session.playerCount).toBe(0)
@@ -49,7 +49,7 @@ describe('App game reset flow', () => {
       expect(session.dayVoteDraft).toBeNull()
       expect(session.dayActionDraft).toBeNull()
     })
-    expect(screen.getByRole('heading', { name: 'AI配板与调整' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '智能配板与调整' })).toBeInTheDocument()
     expect(screen.getByText('选择人数')).toBeInTheDocument()
     expect(screen.getByLabelText('开局板子')).toHaveValue(dirtySession.scriptId)
     expect(window.localStorage.getItem(identityDealReceiptsStorageKey(dirtySession.id))).toBeNull()
@@ -64,9 +64,9 @@ describe('App game reset flow', () => {
     previousSession.seats[1] = { ...previousSession.seats[1], nickname: '上一局1号', experience: 'veteran' }
     window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(previousSession))
 
-    const { container } = render(<App />)
+    render(<App />)
     await waitFor(() => expect(window.localStorage.getItem(setupRosterMemoryKey)).toContain('上一局1号'))
-    fireEvent.click(container.querySelector('.dashboard__end-entry') as HTMLButtonElement)
+    fireEvent.click(screen.getByRole('button', { name: '重置游戏' }))
     fireEvent.click(screen.getByRole('button', { name: '保存本局' }))
     await screen.findByText('本局已保存到本机浏览器')
     const resetStep = screen.getByLabelText('结束对局步骤').querySelector('.game-end__finish-step--danger')!
@@ -74,7 +74,7 @@ describe('App game reset flow', () => {
     fireEvent.click(within(resetStep as HTMLElement).getByRole('button', { name: '重置游戏' }))
     await waitFor(() => expect(storedSession().playerCount).toBe(0))
 
-    await waitFor(() => expect(screen.getByRole('heading', { name: 'AI配板与调整' })).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole('heading', { name: '智能配板与调整' })).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('开局板子'), { target: { value: 'trouble-brewing' } })
     fireEvent.click(screen.getByRole('button', { name: '7人' }))
     expect(screen.getByLabelText('1号昵称')).toHaveValue('上一局1号')
@@ -91,5 +91,25 @@ describe('App game reset flow', () => {
       expect(session.seats[1]).toMatchObject({ nickname: '上一局1号', experience: 'veteran' })
     })
     expect(screen.getByText('角色组合')).toBeInTheDocument()
+  })
+
+  it('keeps a requested board switch explicit and applies it only after save and reset', async () => {
+    const currentSession = createPrototypeGameSession()
+    window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(currentSession))
+    render(<App />)
+
+    fireEvent.click(screen.getByRole('button', { name: '切换板子' }))
+    const targetCard = screen.getByRole('heading', { name: '暗度陈仓' }).closest('article')
+    fireEvent.click(within(targetCard as HTMLElement).getByRole('button', { name: '切换到此板子' }))
+    fireEvent.click(screen.getByRole('button', { name: '前往保存并重置' }))
+
+    expect(screen.getByText('重置完成后进入“暗度陈仓”配板。')).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: '保存本局' }))
+    await screen.findByText('本局已保存到本机浏览器')
+    const resetStep = screen.getByLabelText('结束对局步骤').querySelector('.game-end__finish-step--danger')!
+    fireEvent.click(within(resetStep as HTMLElement).getByLabelText('我已保存本局，确认重置游戏'))
+    fireEvent.click(within(resetStep as HTMLElement).getByRole('button', { name: '重置游戏' }))
+
+    await waitFor(() => expect(screen.getByLabelText('开局板子')).toHaveValue('an-du-chen-cang'))
   })
 })

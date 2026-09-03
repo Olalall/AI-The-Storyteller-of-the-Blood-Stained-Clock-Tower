@@ -83,10 +83,10 @@ describe('SetupCandidateBrowser AI advice presentation', () => {
     vi.unstubAllGlobals()
   })
 
-  it('shows the AI top pick without applying a setup candidate', async () => {
+  it('shows a concise Chinese recommendation without applying a setup candidate', async () => {
     const user = userEvent.setup()
     saveArchiveRuntimeSettings({ ...defaultArchiveRuntimeSettings, mode: 'http' })
-    vi.stubGlobal('fetch', vi.fn(async () => jsonResponse({
+    const fetchMock = vi.fn(async () => jsonResponse({
       accepted: true,
       data: {
         draft: {
@@ -94,31 +94,31 @@ describe('SetupCandidateBrowser AI advice presentation', () => {
           confidence: 'medium',
           draftOnly: true,
           recommendedCandidateIds: ['setup-b', 'setup-a'],
-          warnings: ['先核对身份交换。'],
-          reasons: ['熟练座更多，反转局更适合本桌。'],
+          warnings: ['High-risk effects need confirmation.'],
+          reasons: ['This setup is better for veteran players.'],
           disclaimer: 'AI 只给草稿。',
         },
       },
-    })))
+    }))
+    vi.stubGlobal('fetch', fetchMock)
     const { onUseCandidate, onPreviewMicroAdjustment } = renderBrowser()
 
-    await user.click(screen.getByRole('button', { name: 'AI推荐' }))
+    await user.click(screen.getByRole('button', { name: '生成推荐' }))
 
-    expect(await screen.findByText('AI首选')).toBeInTheDocument()
-    const adviceStrip = screen.getByRole('status')
-    expect(within(adviceStrip).getByText('首选')).toBeInTheDocument()
+    expect(await screen.findByText('智能首选')).toBeInTheDocument()
+    const adviceStrip = screen.getByRole('status', { name: '推荐结果' })
+    expect(within(adviceStrip).getByText('推荐组合')).toBeInTheDocument()
     expect(within(adviceStrip).getAllByText('戏剧反转').length).toBeGreaterThan(0)
-    expect(within(adviceStrip).getByText('熟练座更多，反转局更适合本桌。')).toBeInTheDocument()
-    expect(within(adviceStrip).getByText('先核对身份交换。')).toBeInTheDocument()
-    expect(within(adviceStrip).getByText('平衡分析')).toBeInTheDocument()
-    expect(within(adviceStrip).getByText('微调建议')).toBeInTheDocument()
-    await user.click(within(adviceStrip).getAllByRole('button', { name: '预览调整' })[0])
-    const setupCards = screen.getAllByRole('article')
-    expect(within(setupCards[0]).getByText('戏剧反转')).toBeInTheDocument()
-    expect(within(setupCards[0]).getByText('质量提示')).toBeInTheDocument()
-    expect(within(setupCards[0]).getByText('高反转')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: '重新推荐' })).toBeEnabled()
+    expect(within(adviceStrip).getByText('身份变化更明显。')).toBeInTheDocument()
+    expect(screen.queryByText(/High-risk|This setup/)).not.toBeInTheDocument()
+    expect(screen.queryByText('质量提示')).not.toBeInTheDocument()
+    expect(await screen.findByText('推荐已生成')).toBeInTheDocument()
+    const refreshButton = screen.getByRole('button', { name: '重新推荐' })
+    expect(refreshButton).toBeEnabled()
+    await user.click(refreshButton)
+    expect(await screen.findByText('推荐已更新（第2次）')).toBeInTheDocument()
+    expect(fetchMock).toHaveBeenCalledTimes(2)
     expect(onUseCandidate).not.toHaveBeenCalled()
-    expect(onPreviewMicroAdjustment).toHaveBeenCalledWith(expect.any(String), expect.objectContaining({ candidateId: expect.any(String) }))
+    expect(onPreviewMicroAdjustment).not.toHaveBeenCalled()
   })
 })

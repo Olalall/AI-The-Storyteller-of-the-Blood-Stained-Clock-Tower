@@ -19,21 +19,20 @@ function statusOf(session: Session, id: PhaseNodeId) {
 }
 
 describe('projectPhaseTrack', () => {
-  it('exposes the six canonical nodes in wiki order', () => {
+  it('exposes only the four stages that have actual workbench actions', () => {
     expect(projectPhaseTrack(blank()).map((node) => node.id))
-      .toEqual(['dusk', 'night', 'dawn', 'day', 'vote', 'execution'])
+      .toEqual(['night', 'day', 'vote', 'execution'])
   })
 
-  it('suggests dusk before anything has happened', () => {
-    expect(statusOf(blank(), 'dusk')).toBe('suggest')
-    expect(statusOf(blank(), 'night')).toBe('idle')
+  it('suggests night before anything has happened', () => {
+    expect(statusOf(blank(), 'night')).toBe('suggest')
   })
 
-  it('marks the open night and suggests dawn next', () => {
+  it('marks the open night without inventing a separate dawn action', () => {
     const session = open(blank(), 'night', '2026-08-04T20:00:00.000Z')
 
     expect(statusOf(session, 'night')).toBe('open')
-    expect(statusOf(session, 'dawn')).toBe('suggest')
+    expect(statusOf(session, 'day')).toBe('idle')
     expect(projectPhaseTrack(session).find((node) => node.id === 'night')?.segmentLabel).toBeTruthy()
   })
 
@@ -87,11 +86,11 @@ describe('projectPhaseTrack', () => {
     expect(JSON.stringify(session)).toBe(snapshot)
   })
 
-  it('falls back to suggesting the next dusk once every segment is closed', () => {
+  it('suggests day after a night segment is closed', () => {
     const withNight = open(blank(), 'night', '2026-08-04T20:00:00.000Z')
     const closed = closeOpenSegment(withNight, 'night', '2026-08-04T20:30:00.000Z')
 
     expect(statusOf(closed, 'night')).toBe('done')
-    expect(statusOf(closed, 'dusk')).toBe('suggest')
+    expect(statusOf(closed, 'day')).toBe('suggest')
   })
 })

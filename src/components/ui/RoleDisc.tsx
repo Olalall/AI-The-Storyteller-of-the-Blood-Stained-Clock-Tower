@@ -1,4 +1,4 @@
-import { RefreshCw } from 'lucide-react'
+import { EyeOff, RefreshCw } from 'lucide-react'
 import './ui.css'
 
 interface RoleDiscProps {
@@ -26,7 +26,7 @@ export function RoleDisc({
       aria-label={concealed ? '角色已遮蔽' : `${roleName}${changed ? '，角色已变更' : ''}`}
     >
       <span className="role-disc__label">
-        {!concealed && imageSrc ? <img className="role-disc__icon" src={imageSrc} alt="" /> : concealed ? '隐' : initial}
+        {!concealed && imageSrc ? <img className="role-disc__icon" src={imageSrc} alt="" /> : concealed ? <EyeOff className="role-disc__concealed-icon" aria-hidden="true" /> : initial}
       </span>
       {changed && !concealed ? <span className="role-disc__change-mark" aria-hidden="true"><RefreshCw /></span> : null}
     </div>

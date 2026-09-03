@@ -42,7 +42,7 @@ test('dashboard keeps day and night as peer entries and only records day facts a
   await expect(page.getByRole('button', { name: '进入夜晚' })).toBeVisible()
   await expect(page.getByRole('button', { name: '进入白天' })).toBeVisible()
   await expect(page.getByText('暂列处决', { exact: true })).toHaveCount(0)
-  await expect(page.getByLabel('当前阶段：第3夜，记录中')).toBeVisible()
+  await expect(page.getByRole('navigation', { name: '主持阶段' }).getByText('第3夜', { exact: true })).toBeVisible()
   await expect(page.getByText('继续记录 · 第3夜')).toBeVisible()
   await expect(page.getByText('首次确认后建立记录')).toBeVisible()
   await expect(page.getByRole('button', { name: /倒计时/ })).toBeVisible()
@@ -99,8 +99,8 @@ test('opening script stays local to the host and does not create a game record',
   await resetToDashboard(page)
   const before = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)
 
-  await page.getByRole('button', { name: '开场白', exact: true }).click()
-  await expect(page.getByRole('heading', { name: '开场白' })).toBeVisible()
+  await page.getByRole('button', { name: '主持资料', exact: true }).click()
+  await expect(page.getByRole('heading', { name: '主持资料' })).toBeVisible()
   await expect(page.getByRole('dialog')).toHaveAttribute('data-presentation', 'page')
   await page.getByRole('button', { name: '编辑文案' }).click()
   await page.getByLabel('开场白文案').fill('请确认座位，准备开始。')
@@ -109,7 +109,7 @@ test('opening script stays local to the host and does not create a game record',
   await expect(page.getByLabel('开场白大字展示')).toContainText('请确认座位，准备开始。')
   await page.screenshot({ path: 'artifacts/screenshots/split-720-opening-script.png', fullPage: true })
   await page.getByRole('button', { name: '退出展示' }).click()
-  await page.getByRole('button', { name: '关闭开场白' }).click()
+  await page.getByRole('button', { name: '关闭主持资料' }).click()
 
   const after = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)
   expect(after).toBe(before)
@@ -118,9 +118,9 @@ test('opening script stays local to the host and does not create a game record',
 
 test('setup candidates stay drafts until the storyteller confirms a future-only adjustment', async ({ page }) => {
   await resetToDashboard(page)
-  await page.getByRole('button', { name: 'AI配板与调整' }).click()
+  await page.getByRole('button', { name: '智能配板与调整' }).click()
 
-  await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: '智能配板与调整' })).toBeVisible()
   await expect(page.getByText('AI配板建议')).toBeVisible()
   await page.locator('.setup-panel__advice-entry').click()
   await expect(page.getByText('AI建议')).toBeVisible()

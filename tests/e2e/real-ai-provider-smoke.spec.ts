@@ -30,8 +30,8 @@ async function openBlankSetup(page: Page) {
     }))
   }, { sessionKey: sessionStorageKey, runtimeKey: archiveRuntimeSettingsStorageKey })
   await page.reload()
-  await page.getByRole('button', { name: 'AI配板与调整' }).click()
-  await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
+  await page.getByRole('button', { name: '智能配板与调整' }).click()
+  await expect(page.getByRole('heading', { name: '智能配板与调整' })).toBeVisible()
 }
 
 test.skip(process.env.BOTC_RUN_REAL_AI_SMOKE !== '1', 'requires a running backend with a real AI key')

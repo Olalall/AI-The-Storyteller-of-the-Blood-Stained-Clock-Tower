@@ -7,7 +7,7 @@ const sessionId = 'session-opening-script-test'
 const defaultOpeningScriptText = defaultOpeningScript.replaceAll('\n', ' ')
 
 function openSheet() {
-  fireEvent.click(screen.getByRole('button', { name: '开场白' }))
+  fireEvent.click(screen.getByRole('button', { name: '主持资料' }))
 }
 
 describe('OpeningScriptSheet', () => {
@@ -20,7 +20,7 @@ describe('OpeningScriptSheet', () => {
     fireEvent.change(screen.getByLabelText('开场白文案'), { target: { value: '今晚请大家保持好奇。' } })
     fireEvent.click(screen.getByRole('button', { name: '保存文案' }))
     expect(window.localStorage.getItem(openingScriptStorageKey(sessionId))).toBe('今晚请大家保持好奇。')
-    fireEvent.click(screen.getByRole('button', { name: '关闭开场白' }))
+    fireEvent.click(screen.getByRole('button', { name: '关闭主持资料' }))
     unmount()
 
     render(<OpeningScriptSheet sessionId={sessionId} />)
@@ -51,5 +51,15 @@ describe('OpeningScriptSheet', () => {
     expect(screen.queryByRole('button', { name: '编辑文案' })).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: '退出展示' }))
     expect(screen.getByLabelText('开场白预览')).toBeVisible()
+  })
+
+  it('switches between concise host materials without overwriting the editable opening', () => {
+    render(<OpeningScriptSheet sessionId={sessionId} />)
+    openSheet()
+    fireEvent.click(screen.getByRole('button', { name: /桌规声明/ }))
+    expect(screen.getByLabelText('桌规声明预览')).toHaveTextContent('不以发誓、赌咒')
+    expect(screen.queryByRole('button', { name: '编辑文案' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: '大字展示' }))
+    expect(screen.getByLabelText('桌规声明大字展示')).toHaveTextContent('规则争议先交给说书人裁定')
   })
 })

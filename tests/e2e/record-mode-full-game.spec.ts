@@ -122,9 +122,9 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await openBlankSession(page)
 
   // 配板
-  const setupHeading = page.getByRole('heading', { name: 'AI配板与调整' })
+  const setupHeading = page.getByRole('heading', { name: '智能配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
-    await page.getByRole('button', { name: 'AI配板与调整' }).click()
+    await page.getByRole('button', { name: '智能配板与调整' }).click()
   }
   await expect(setupHeading).toBeVisible()
   await page.getByLabel('开局板子').selectOption('trouble-brewing')
@@ -196,8 +196,8 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await expect(page.getByRole('main', { name: '本局' })).toBeVisible()
 
   // 归档
-  await page.getByRole('button', { name: '结束对局' }).click()
-  await expect(page.getByRole('heading', { name: '结束对局' })).toBeVisible()
+  await page.getByRole('button', { name: '重置游戏' }).click()
+  await expect(page.getByRole('heading', { name: '重置游戏' })).toBeVisible()
   await page.getByRole('radio', { name: '善良获胜' }).click()
   await page.getByRole('button', { name: '保存本局' }).click()
   await expect(page.getByText('本局已保存到本机浏览器')).toBeVisible()

@@ -38,29 +38,30 @@ describe('AssetPackSettingsSection', () => {
     expect(await screen.findByText('需导入')).toBeInTheDocument()
     expect(screen.getByText('0/1')).toBeInTheDocument()
 
-    await user.click(screen.getByRole('button', { name: '查看导入说明' }))
+    await user.click(screen.getByRole('button', { name: '安装说明' }))
 
-    expect(screen.getByRole('heading', { name: '角色图标素材包' })).toBeInTheDocument()
-    expect(screen.getByText('便捷包首次启动会询问是否安装 718 个官方及第三方图标（约 102 MB）；拒绝后不会下载。')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: '我已了解' })).toBeDisabled()
+    expect(screen.getByRole('heading', { name: '还需安装 1 个图标' })).toBeInTheDocument()
+    expect(screen.getByText(/下载约 102 MB/)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '下载素材安装器' })).toBeDisabled()
 
-    await user.click(screen.getByLabelText('我已了解来源与版权提示'))
+    const clickSpy = vi.spyOn(HTMLAnchorElement.prototype, 'click').mockImplementation(() => undefined)
+    await user.click(screen.getByLabelText('我接受素材来源与使用提示'))
+    await user.click(screen.getByRole('button', { name: '下载素材安装器' }))
 
-    expect(screen.getByRole('button', { name: '我已了解' })).toBeEnabled()
+    expect(clickSpy).toHaveBeenCalledTimes(1)
+    expect(screen.getByText('安装器已下载')).toBeInTheDocument()
   })
 
-  it('shows the community-created-content mark when assets are ready', async () => {
+  it('shows a concise complete state when assets are ready', async () => {
     const user = userEvent.setup()
     const fetcher = vi.fn(async () => ({ ok: true }))
 
     render(<AssetPackSettingsSection packs={packs} fetcher={fetcher} />)
 
     expect(await screen.findByText('已就绪')).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: '查看导入说明' }))
+    await user.click(screen.getByRole('button', { name: '安装说明' }))
 
-    expect(screen.getByRole('img', { name: 'Community Created Content' })).toHaveAttribute(
-      'src',
-      '/assets/community/ccc-sleeve.png',
-    )
+    expect(screen.getByRole('heading', { name: '角色图标已经完整' })).toBeInTheDocument()
+    expect(screen.queryByText('public/assets/characters/')).not.toBeInTheDocument()
   })
 })
