@@ -82,8 +82,8 @@ async function openBlankSetup(page: Page, runId: string) {
     }))
   }, { storageKey: sessionStorageKey, id: `session-${runId}` })
   await page.reload()
-  await page.getByRole('button', { name: 'AI配板与调整' }).click()
-  await expect(page.getByRole('heading', { name: 'AI配板与调整' })).toBeVisible()
+  await page.getByRole('button', { name: '智能配板与调整' }).click()
+  await expect(page.getByRole('heading', { name: '智能配板与调整' })).toBeVisible()
 }
 
 async function setHttpRuntimeIfRequested(page: Page) {

@@ -456,6 +456,8 @@
 /* V3.10.4 dashboard: keep all primary blocks on one width grid. */
 .dashboard {
   width: min(1440px, 100%);
+  padding-top: clamp(var(--space-32), 5cqw, 56px);
+  padding-inline: clamp(var(--space-24), 4cqw, 52px);
 }
 .dashboard__header,
 .dashboard__focus,
