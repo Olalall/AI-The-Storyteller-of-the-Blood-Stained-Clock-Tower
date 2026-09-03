@@ -9,6 +9,7 @@ import {
   supportedPlayerCounts,
   type SetupRosterSeatInput,
 } from './setupRosterMemory'
+import { chineseDisplayName } from './setupPresentation'
 
 interface SetupStartPanelProps {
   scriptId: ScriptId
@@ -56,7 +57,7 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
           >
             {smartScriptPacks.map((pack) => (
               <option key={pack.scriptId} value={pack.scriptId}>
-                {pack.displayName}
+                {chineseDisplayName(pack.displayName)}
               </option>
             ))}
           </select>

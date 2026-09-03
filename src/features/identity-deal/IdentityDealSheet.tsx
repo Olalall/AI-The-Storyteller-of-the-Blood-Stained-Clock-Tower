@@ -152,7 +152,7 @@ export function IdentityDealSheet({ open, onOpenChange, session }: IdentityDealS
                   concealed
                   size="large"
                 /> : <div className="identity-deal__card-token" aria-hidden="true"><Shuffle /></div>}
-              <div>
+              <div className="identity-deal__current-copy">
                 <strong>{seatTitle(selectedSeat)}</strong>
                 <span>{mode === 'screen' ? selectedFacing.privateNote || '默认遮住' : '只记录领取进度'}</span>
               </div>

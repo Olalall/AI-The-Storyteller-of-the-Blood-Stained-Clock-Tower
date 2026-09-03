@@ -7,7 +7,7 @@ import { getSmartScriptPack, roleSnapshotsForScript, roleTeamByIdForScript } fro
 import type { PlayerCount, ScriptId } from '../../domain/scripts'
 import { generateSetupCandidates, type AIContextSeat, type SetupBalanceMicroAdjustment } from '../../services/ai'
 import { isPlayerCount, saveSetupRosterMemory, type SetupRosterSeatInput } from './setupRosterMemory'
-import { projectCurrentAssignments } from '../game-session/state/projectors'
+import { projectConfirmedSetup, projectCurrentAssignments } from '../game-session/state/projectors'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState, SetupDraft } from '../game-session/types'
 import {
@@ -21,9 +21,9 @@ import {
 import { SetupCandidateBrowser } from './SetupCandidateBrowser'
 import { SetupSeatEditorSheet, type SetupSeatEditorKind } from './SetupSeatEditorSheet'
 import { SetupStartPanel } from './SetupStartPanel'
-import { compactBluffHint } from './setupPresentation'
+import { chineseDisplayName } from './setupPresentation'
 import { previewDraftMicroAdjustment } from './setupMicroAdjustmentPreview'
-import { createDraftFromCurrent, currentConfirmedSetupId, sessionHasStarted } from './setupSession'
+import { createDraftFromCurrent, currentConfirmedSetupId, draftForActiveScript } from './setupSession'
 import type { SetupTeam } from './types'
 import './setup.css'
 
@@ -37,8 +37,10 @@ interface SetupPanelProps {
 }
 type SeatAction = 'swap' | 'role' | 'nickname'
 export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptId, onSetupScriptChange }: SetupPanelProps) {
+  const started = Boolean(projectConfirmedSetup(session))
   const activeScriptId = session.playerCount > 0 ? session.scriptId : setupScriptId
   const activeScriptPack = useMemo(() => getSmartScriptPack(activeScriptId), [activeScriptId])
+  const activeScriptName = chineseDisplayName(activeScriptPack.displayName)
   const rolesForScript = useMemo(() => roleSnapshotsForScript(activeScriptId), [activeScriptId])
   const roleTeamById = useMemo(() => roleTeamByIdForScript(activeScriptId), [activeScriptId])
   const profiles = useMemo(() => Object.values(session.seats)
@@ -55,15 +57,15 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     isPlayerCount(profiles.length) ? generateSetupCandidates({ scriptId: activeScriptId, seatProfiles: profiles }) : []
   ), [activeScriptId, profiles])
   const [draft, setDraft] = useState<SetupDraft | null>(null)
+  const [draftScriptId, setDraftScriptId] = useState<ScriptId | null>(null)
   const [selectedSeatId, setSelectedSeatId] = useState<number | null>(null)
   const [swapSummary, setSwapSummary] = useState<string | null>(null)
   const [seatAction, setSeatAction] = useState<SeatAction>('swap')
   const [seatEditor, setSeatEditor] = useState<{ kind: SetupSeatEditorKind; seatId: number } | null>(null)
   const [showCandidates, setShowCandidates] = useState(false)
-  const started = sessionHasStarted(session)
   const currentSetupId = currentConfirmedSetupId(session)
   const expectedSeatIds = profiles.map((profile) => profile.seatId)
-  const effectiveDraft = draft ?? session.setupDraft ?? createDraftFromCurrent(session)
+  const effectiveDraft = draftForActiveScript(activeScriptId, session.scriptId, draftScriptId, draft, session.setupDraft, createDraftFromCurrent(session))
   const legalityReport = effectiveDraft
     ? evaluateSmartScriptSetup(
       activeScriptId,
@@ -104,6 +106,10 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
       seats: input.seats,
     })
   }
+  function saveLocalDraft(nextDraft: SetupDraft | null) {
+    setDraft(nextDraft)
+    setDraftScriptId(nextDraft ? activeScriptId : null)
+  }
 
   function selectCandidateDraft(candidateId: string, adjustment?: SetupBalanceMicroAdjustment) {
     const candidate = candidates.find((item) => item.id === candidateId)
@@ -113,22 +119,21 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     const adjusted = adjustment ? previewDraftMicroAdjustment(nextDraft, adjustment, rolesForScript, updatedAt) : null
     if (adjustment && !adjusted) return
     const draftToUse = adjusted?.draft ?? nextDraft
-    setDraft(started && currentSetupId ? { ...draftToUse, baseSetupId: currentSetupId } : draftToUse)
+    saveLocalDraft(started && currentSetupId ? { ...draftToUse, baseSetupId: currentSetupId } : draftToUse)
     setSelectedSeatId(null)
     setSwapSummary(adjusted?.summary ?? null)
     setSeatAction('swap')
     setShowCandidates(false)
   }
   function reloadCurrentDraft() {
-    setDraft(createDraftFromCurrent(session))
+    saveLocalDraft(createDraftFromCurrent(session))
   }
-
   function swapRoles(firstSeatId: number, secondSeatId: number) {
     if (!effectiveDraft || firstSeatId === secondSeatId) return
     const firstAssignment = effectiveDraft.assignments.find((assignment) => assignment.seatId === firstSeatId)
     const secondAssignment = effectiveDraft.assignments.find((assignment) => assignment.seatId === secondSeatId)
     if (!firstAssignment || !secondAssignment) return
-    setDraft(swapDraftSeats(effectiveDraft, firstSeatId, secondSeatId, new Date().toISOString()))
+    saveLocalDraft(swapDraftSeats(effectiveDraft, firstSeatId, secondSeatId, new Date().toISOString()))
     setSelectedSeatId(null)
     setSwapSummary(`已交换 ${firstSeatId}号与${secondSeatId}号角色`)
   }
@@ -164,29 +169,25 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     const sourceSeatId = Number(event.dataTransfer.getData('text/plain'))
     if (Number.isInteger(sourceSeatId)) swapRoles(sourceSeatId, targetSeatId)
   }
-
   function selectSeatAction(nextAction: SeatAction) {
     setSeatAction(nextAction)
     setSelectedSeatId(null)
     setSwapSummary(null)
   }
-
   function replaceSeatRole(role: NonNullable<typeof editorRole>) {
     if (!effectiveDraft || !seatEditor) return
-    setDraft(replaceDraftRole(effectiveDraft, seatEditor.seatId, role, new Date().toISOString()))
+    saveLocalDraft(replaceDraftRole(effectiveDraft, seatEditor.seatId, role, new Date().toISOString()))
     setSwapSummary(`已替换${seatEditor.seatId}号角色为${role.name}`)
   }
-
   function saveSeatNickname(nickname: string) {
     if (!seatEditor) return
     dispatch({ type: 'update-seat-nickname', seatId: seatEditor.seatId, nickname })
     setSwapSummary(`已修改${seatEditor.seatId}号昵称`)
   }
-
   function updateDemonBluff(bluffIndex: number, roleId: string) {
     if (!effectiveDraft) return
     const role = rolesForScript.find((item) => item.id === roleId)
-    if (role) setDraft(replaceDraftDemonBluff(effectiveDraft, bluffIndex, role, new Date().toISOString()))
+    if (role) saveLocalDraft(replaceDraftDemonBluff(effectiveDraft, bluffIndex, role, new Date().toISOString()))
   }
 
   function confirmDraft() {
@@ -211,17 +212,17 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
         })
       })
     }
-    setDraft(null)
+    saveLocalDraft(null)
     onOpenChange(false)
   }
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange} title="AI配板与调整" description={started ? '后续生效' : activeScriptPack.displayName} contentClassName="sheet-content--setup" presentation="page">
+    <Sheet open={open} onOpenChange={onOpenChange} title="智能配板与调整" description={started ? '后续生效' : activeScriptName} contentClassName="sheet-content--setup" presentation="page">
       <div className="setup-panel">
         {session.playerCount === 0
-          ? <SetupStartPanel scriptId={activeScriptId} scriptName={activeScriptPack.displayName} onScriptChange={onSetupScriptChange} onStart={startSetupSession} />
-          : !effectiveDraft || showCandidates ? <SetupCandidateBrowser scriptId={activeScriptId} scriptName={activeScriptPack.displayName} knowledgeVersion={candidates[0]?.knowledgeVersion ?? session.knowledgeVersion} candidates={candidates} playerCount={session.playerCount} seats={adviceSeats} onUseCandidate={selectCandidateDraft} onPreviewMicroAdjustment={selectCandidateDraft} /> : <button type="button" className="setup-panel__advice-entry" onClick={() => setShowCandidates(true)}>
-          <span><Bot aria-hidden="true" />AI配板建议</span>
+          ? <SetupStartPanel scriptId={activeScriptId} scriptName={activeScriptName} onScriptChange={onSetupScriptChange} onStart={startSetupSession} />
+          : !effectiveDraft || showCandidates ? <SetupCandidateBrowser scriptId={activeScriptId} scriptName={activeScriptName} knowledgeVersion={candidates[0]?.knowledgeVersion ?? session.knowledgeVersion} candidates={candidates} playerCount={session.playerCount} seats={adviceSeats} onUseCandidate={selectCandidateDraft} onPreviewMicroAdjustment={selectCandidateDraft} /> : <button type="button" className="setup-panel__advice-entry" onClick={() => setShowCandidates(true)}>
+          <span><Bot aria-hidden="true" />智能配板</span>
           <strong>{activeCandidate?.title ?? '查看角色组合'}</strong>
           <em>打开</em>
         </button>}
@@ -272,7 +273,6 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
                     <select value={bluff.id} onChange={(event) => updateDemonBluff(index, event.target.value)}>
                       {availableOptions.map((role) => <option value={role.id} key={role.id}>{role.name}</option>)}
                     </select>
-                    <small>{compactBluffHint(advice?.reason)}</small>
                   </label>
                 })}
               </div>
