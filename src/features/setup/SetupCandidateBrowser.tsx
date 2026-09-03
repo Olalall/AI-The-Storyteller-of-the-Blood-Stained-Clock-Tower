@@ -1,9 +1,9 @@
-import { ArrowLeft, Bot, ChevronRight, Sparkles } from 'lucide-react'
+import { ArrowLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { EmptyState } from '../../components/ui/EmptyState'
-import { StatusBadge, type BadgeTone } from '../../components/ui/StatusBadge'
-import { createSetupAdviceDraftAsync, type AIContextSeat, type SetupAdviceRuntimeDraft, type SetupBalanceMicroAdjustment, type SetupQualityTag } from '../../services/ai'
+import { StatusBadge } from '../../components/ui/StatusBadge'
+import { createSetupAdviceDraftAsync, type AIContextSeat, type SetupAdviceRuntimeDraft, type SetupBalanceMicroAdjustment } from '../../services/ai'
 import { detailForCandidate, type CandidateDetailContent } from './setupCandidateDetailContent'
 import type { SetupPrototypeCandidate } from './types'
 
@@ -81,44 +81,13 @@ function adviceRankById(advice: SetupAdviceRuntimeDraft | null) {
   return new Map(advice?.recommendedCandidateIds.map((id, index) => [id, index]) ?? [])
 }
 
-function qualityTagsByCandidate(advice: SetupAdviceRuntimeDraft | null) {
-  const tags = new Map<string, SetupQualityTag[]>()
-  for (const tag of advice?.qualityTags ?? []) {
-    tags.set(tag.candidateId, [...(tags.get(tag.candidateId) ?? []), tag])
-  }
-  return tags
-}
-
-function qualityTone(tone: SetupQualityTag['tone']): BadgeTone {
-  if (tone === 'stable') return 'success'
-  if (tone === 'swingy' || tone === 'storyteller_heavy' || tone === 'new_player_heavy') return 'warning'
-  if (tone === 'good_favored' || tone === 'evil_favored') return 'info'
-  return 'neutral'
-}
-
 function adviceButtonLabel(advice: SetupAdviceRuntimeDraft | null, loading: boolean) {
   if (loading) return '推荐中'
-  return advice ? '重新推荐' : 'AI推荐'
+  return advice ? '重新推荐' : '生成推荐'
 }
 
-
-function MicroAdjustmentList({ advice, onPreview }: { advice: SetupAdviceRuntimeDraft; onPreview?: (candidateId: string, adjustment: SetupBalanceMicroAdjustment) => void }) {
-  if (!advice.microAdjustments.length) return null
-  return (
-    <div className="setup-candidate__ai-tuning" aria-label={'\u89d2\u8272\u6c60\u5fae\u8c03\u5efa\u8bae'}>
-      <strong>{'\u5fae\u8c03\u5efa\u8bae'}</strong>
-      <ul>
-        {advice.microAdjustments.slice(0, 3).map((item) => (
-          <li key={`${item.candidateId}-${item.replaceOutRoleId}-${item.replaceInRoleId}`}>
-            <b>{item.candidateTitle ?? item.candidateId}</b>
-            <span>{item.replaceOutRoleName ?? item.replaceOutRoleId} {'\u2192'} {item.replaceInRoleName ?? item.replaceInRoleId}</span>
-            <small>{item.expectedEffect || item.reason}{'\uff1b'}{item.risk}</small>
-            {onPreview ? <Button variant="ghost" compact onClick={() => onPreview(item.candidateId, item)}>预览调整</Button> : null}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
+function chineseStatement(value: string | undefined, fallback: string) {
+  return value && !/[A-Za-z]/.test(value) ? value : fallback
 }
 
 export function SetupCandidateBrowser({
@@ -129,20 +98,27 @@ export function SetupCandidateBrowser({
   playerCount,
   seats,
   onUseCandidate,
-  onPreviewMicroAdjustment,
+  onPreviewMicroAdjustment: _onPreviewMicroAdjustment,
 }: SetupCandidateBrowserProps) {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [advice, setAdvice] = useState<SetupAdviceRuntimeDraft | null>(null)
   const [isAdviceLoading, setIsAdviceLoading] = useState(false)
+  const [adviceRequestCount, setAdviceRequestCount] = useState(0)
+  const [adviceStatus, setAdviceStatus] = useState('')
   const selected = candidates.find((candidate) => candidate.id === selectedId)
   const visibleCandidates = adviceOrderedCandidates(candidates, advice)
   const adviceRanks = adviceRankById(advice)
-  const qualityTags = qualityTagsByCandidate(advice)
   const topAdvice = advice ? visibleCandidates[0] : undefined
 
   async function requestAdvice() {
     if (!candidates.length || isAdviceLoading) return
+    const nextRequestCount = adviceRequestCount + 1
+    const offset = advice ? adviceRequestCount % candidates.length : 0
+    const requestCandidates = offset
+      ? [...candidates.slice(offset), ...candidates.slice(0, offset)]
+      : candidates
     setIsAdviceLoading(true)
+    setAdviceStatus(advice ? '正在更新推荐' : '正在生成推荐')
     try {
       const draft = await createSetupAdviceDraftAsync({
         scriptId,
@@ -150,9 +126,11 @@ export function SetupCandidateBrowser({
         knowledgeVersion,
         playerCount,
         seats,
-        candidates,
+        candidates: requestCandidates,
       })
       setAdvice(draft)
+      setAdviceRequestCount(nextRequestCount)
+      setAdviceStatus(advice ? `推荐已更新（第${nextRequestCount}次）` : '推荐已生成')
     } finally {
       setIsAdviceLoading(false)
     }
@@ -177,7 +155,7 @@ export function SetupCandidateBrowser({
         </ol>
         {detail ? <DetailGuide detail={detail} /> : (
           <div className="setup-candidate-detail__notes">
-            <section><span>建议</span><p>{selected.rationale.summary}</p></section>
+            <section><span>组合特点</span><p>{selected.rationale.summary}</p></section>
             <section><span>适合玩家</span><p>{selected.rationale.playerFit}</p></section>
             <section><span>调整提醒</span><p>{selected.rationale.risk}</p></section>
           </div>
@@ -195,7 +173,7 @@ export function SetupCandidateBrowser({
         </section>
         <div className="setup-candidate-detail__actions">
           <Button variant="ghost" onClick={() => setSelectedId(null)}>返回列表</Button>
-          <Button variant="primary" onClick={() => onUseCandidate(selected.id)}>采用为草稿</Button>
+          <Button variant="primary" onClick={() => onUseCandidate(selected.id)}>选择组合</Button>
         </div>
       </section>
     )
@@ -204,29 +182,22 @@ export function SetupCandidateBrowser({
   return (
     <section className="setup-panel__candidates" aria-labelledby="setup-candidates-title">
       <div className="setup-panel__section-heading">
-        <div><span>AI建议</span><h3 id="setup-candidates-title">角色组合</h3></div>
+        <div><span>智能配板</span><h3 id="setup-candidates-title">角色组合</h3></div>
         <div className="setup-candidate__heading-actions">
-          {advice ? <StatusBadge tone="info"><Bot aria-hidden="true" />{advice.source === 'backend' ? 'AI草稿' : '模板草稿'}</StatusBadge> : null}
+          <small role="status" aria-label="推荐状态" aria-live="polite">{adviceStatus}</small>
           <Button variant="ghost" compact disabled={!candidates.length || isAdviceLoading} onClick={requestAdvice}>
             <Sparkles aria-hidden="true" />{adviceButtonLabel(advice, isAdviceLoading)}
           </Button>
         </div>
       </div>
-      {advice ? <div className="setup-candidate__ai-strip" role="status">
+      {advice ? <div className="setup-candidate__ai-strip" role="status" aria-label="推荐结果">
         <div className="setup-candidate__ai-top">
           <div>
-            <strong>{'\u9996\u9009'}</strong>
+            <strong>推荐组合</strong>
             <span>{topAdvice?.title ?? '\u6682\u65e0\u5019\u9009'}</span>
           </div>
-          <p>{advice.reasons[0] ?? topAdvice?.rationale.summary ?? advice.disclaimer}</p>
-          {advice.warnings[0] ? <em>{advice.warnings[0]}</em> : null}
+          <p>{chineseStatement(advice.reasons[0], topAdvice?.rationale.summary ?? '当前组合已按玩家经验排序。')}</p>
         </div>
-        {advice.balanceSummary.length ? <div className="setup-candidate__ai-balance" aria-label={'AI \u5e73\u8861\u5206\u6790'}>
-          <strong>{'\u5e73\u8861\u5206\u6790'}</strong>
-          <ul>{advice.balanceSummary.slice(0, 3).map((item) => <li key={item}>{item}</li>)}</ul>
-        </div> : null}
-        <MicroAdjustmentList advice={advice} onPreview={onPreviewMicroAdjustment} />
-        {advice.storytellerNotes[0] ? <p className="setup-candidate__ai-note">{advice.storytellerNotes[0]}</p> : null}
       </div> : null}
       {!candidates.length ? <EmptyState
         className="setup-candidate-empty"
@@ -238,22 +209,18 @@ export function SetupCandidateBrowser({
           <div><h4>{candidate.title}</h4><div className="setup-candidate__badges">
             {adviceRanks.has(candidate.id) ? (
               <StatusBadge tone={adviceRanks.get(candidate.id) === 0 ? 'info' : 'neutral'}>
-                {adviceRanks.get(candidate.id) === 0 ? 'AI首选' : `AI第${(adviceRanks.get(candidate.id) ?? 0) + 1}`}
+                {adviceRanks.get(candidate.id) === 0 ? '智能首选' : `推荐第${(adviceRanks.get(candidate.id) ?? 0) + 1}`}
               </StatusBadge>
             ) : null}
             <StatusBadge tone="neutral">{paceLabel(candidate.rationale.pace)}</StatusBadge>
-            {qualityTags.get(candidate.id)?.slice(0, 2).map((tag) => (
-              <StatusBadge key={`${tag.candidateId}-${tag.label}`} tone={qualityTone(tag.tone)}>{tag.label}</StatusBadge>
-            ))}
           </div></div>
-          {qualityTags.get(candidate.id)?.[0] ? <p className="setup-candidate__quality"><b>质量提示</b><span>{qualityTags.get(candidate.id)?.[0].reason}</span></p> : null}
           <ol className="setup-candidate__roles" aria-label={`${candidate.title}角色组合`}>
             {candidate.assignments.map((assignment) => <li key={assignment.seatId}><span>{assignment.seatId}号</span><strong>{assignment.role.name}</strong></li>)}
           </ol>
-          <p className="setup-candidate__advice"><b>建议</b><span>{candidate.rationale.summary}</span></p>
+          <p className="setup-candidate__advice"><span>{candidate.rationale.summary}</span></p>
           <div className="setup-candidate__actions">
-            <Button variant="ghost" compact onClick={() => setSelectedId(candidate.id)}>详情<ChevronRight aria-hidden="true" /></Button>
-            <Button variant="secondary" compact onClick={() => onUseCandidate(candidate.id)}>采用为草稿</Button>
+            <Button variant="secondary" compact onClick={() => setSelectedId(candidate.id)}>查看<ChevronRight aria-hidden="true" /></Button>
+            <Button variant="primary" compact onClick={() => onUseCandidate(candidate.id)}>选择组合</Button>
           </div>
         </article>
       ))}

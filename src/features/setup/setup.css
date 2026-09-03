@@ -29,12 +29,12 @@
 .setup-panel__candidates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-12); }
 .setup-panel__candidates > .setup-panel__section-heading { grid-column: 1 / -1; margin-bottom: 0; }
 .setup-candidate__heading-actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
+.setup-candidate__heading-actions small { color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; white-space: nowrap; }
 .setup-candidate__heading-actions .ui-button { min-width: 108px; }
 .setup-candidate__ai-strip {
   grid-column: 1 / -1;
-  padding: var(--space-14) var(--space-16);
-  display: grid;
-  grid-template-columns: minmax(160px, .34fr) minmax(0, 1fr);
+  padding: var(--space-16) var(--space-18);
+  display: block;
   align-items: center;
   gap: var(--space-8) var(--space-14);
   border: 1px solid var(--info-border);
@@ -45,8 +45,10 @@
 }
 .setup-candidate__ai-strip > div { display: grid; gap: 2px; }
 .setup-candidate__ai-top {
-  grid-column: 1;
-  grid-row: 1 / span 2;
+  display: grid;
+  grid-template-columns: minmax(190px, .45fr) minmax(0, 1fr);
+  align-items: center;
+  gap: var(--space-16);
 }
 .setup-candidate__ai-balance,
 .setup-candidate__ai-tuning {
@@ -482,7 +484,7 @@
   gap: var(--space-12);
 }
 .setup-panel__bluff-grid label {
-  min-height: 132px;
+  min-height: 0;
   padding: var(--space-14);
   align-content: start;
   gap: var(--space-10);
@@ -507,20 +509,6 @@
 .setup-panel__bluff-grid select {
   width: 100%;
   font-weight: 850;
-}
-.setup-panel__bluff-grid small {
-  min-height: 0;
-  display: inline-flex;
-  width: fit-content;
-  padding: 4px 8px;
-  border: 1px solid var(--info-border);
-  border-radius: var(--radius-pill);
-  background: var(--info-soft);
-  color: var(--info-text);
-  font-size: var(--type-meta);
-  font-weight: 900;
-  line-height: 1.1;
-  -webkit-line-clamp: unset;
 }
 .setup-panel__checks {
   margin-top: 0;
@@ -559,9 +547,6 @@
   }
   .setup-seat-grid { padding: 0; }
   .setup-panel__seat-action { padding: 4px; }
-  .setup-panel__bluff-grid label {
-    min-height: 116px;
-  }
 }
 
 /* Candidate picker: role combination first, advice second. */
@@ -608,7 +593,7 @@
   width: 100%;
   padding: var(--space-10);
   display: grid;
-  gap: 5px;
+  align-content: center;
   border: 1px solid var(--info-border);
   border-radius: var(--radius-sm);
   background: var(--info-soft);
@@ -655,13 +640,16 @@
   width: 100%;
   margin-top: auto;
   display: grid;
-  grid-template-columns: .86fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--space-8);
 }
 .setup-candidate__actions .ui-button {
   min-width: 0;
 }
 @media (max-width: 760px) {
+  .setup-candidate__ai-top {
+    grid-template-columns: 1fr;
+  }
   .setup-candidate__actions {
     grid-template-columns: 1fr;
   }

@@ -52,15 +52,15 @@
   white-space: nowrap;
 }
 .dashboard__phase-launch { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-20); }
-.dashboard__phase-button { min-height: 112px; padding: var(--space-16); display: grid; grid-template-columns: 52px minmax(0, 1fr) 22px; align-items: center; gap: var(--space-12); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); background: var(--surface-panel); color: var(--text-strong); text-align: left; cursor: pointer; box-shadow: var(--shadow-sm); }
+.dashboard__phase-button { min-height: 128px; padding: var(--space-20) var(--space-24); display: flex; justify-content: center; align-items: center; gap: var(--space-18); border: 1px solid var(--border-strong); border-radius: var(--radius-lg); background: var(--surface-panel); color: var(--text-strong); text-align: left; cursor: pointer; box-shadow: var(--shadow-sm); }
 .dashboard__phase-button:hover { border-color: var(--accent-border); background: var(--surface-raised); }
 .dashboard__phase-button:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
-.dashboard__phase-button > svg { color: var(--text-subtle); }
+.dashboard__phase-button > svg { width: 26px; height: 26px; flex: 0 0 auto; margin-left: var(--space-4); color: var(--text-subtle); }
 .dashboard__phase-button strong, .dashboard__phase-button small { display: block; }
 .dashboard__phase-button strong { font: 800 1.15rem var(--font-display); }
 .dashboard__phase-button small { margin-top: 5px; color: var(--text-muted); font-size: var(--type-label); }
-.dashboard__phase-icon { width: 52px; height: 52px; display: grid; place-items: center; border: 1px solid var(--accent-border); border-radius: 50%; color: var(--accent-text); background: var(--accent-soft); }
-.dashboard__phase-icon svg { width: 24px; height: 24px; }
+.dashboard__phase-icon { width: 68px; height: 68px; flex: 0 0 auto; display: grid; place-items: center; border: 1px solid var(--accent-border); border-radius: 50%; color: var(--accent-text); background: var(--accent-soft); }
+.dashboard__phase-icon svg { width: 32px; height: 32px; }
 .dashboard__phase-icon--day { color: var(--info-text); border-color: var(--info-border); background: var(--info-soft); }
 .dashboard-card--players { min-height: auto; margin-top: clamp(var(--space-24), 5cqw, var(--space-32)); padding: var(--space-24); }
 .dashboard-card__header--players > p { display: grid; justify-items: end; gap: 3px; color: var(--text-subtle); font-size: var(--type-meta); font-weight: 750; text-align: right; }
@@ -212,7 +212,7 @@
   .dashboard__player-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 420px) {
-  .dashboard__phase-button { min-height: 92px; grid-template-columns: 42px minmax(0, 1fr) 18px; padding: var(--space-12); }
+  .dashboard__phase-button { min-height: 92px; padding: var(--space-12) 42px; }
   .dashboard__phase-icon { width: 42px; height: 42px; }
   .dashboard__phase-button strong { font-size: 1rem; }
 }
@@ -300,372 +300,6 @@
 @container (max-width: 620px) {
   .dashboard__host-tools {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* V3.8 dashboard phase: status card instead of decorative timeline. */
-.dashboard__stage-overview {
-  width: min(900px, 100%);
-  margin: var(--space-18) auto var(--space-6);
-  display: grid;
-  grid-template-columns: minmax(300px, 1.15fr) minmax(220px, .72fr) minmax(260px, .88fr);
-  gap: var(--space-12);
-  align-items: stretch;
-}
-.dashboard__stage-current,
-.dashboard__stage-context > div,
-.dashboard__stage-latest {
-  border: 1px solid rgb(229 235 240 / 9%);
-  background: linear-gradient(180deg, rgb(18 26 34 / 70%), rgb(10 15 21 / 74%));
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 4%);
-}
-.dashboard__stage-current {
-  min-height: 116px;
-  padding: clamp(var(--space-18), 3cqw, var(--space-24));
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas:
-    "label status"
-    "title status";
-  align-content: center;
-  column-gap: var(--space-18);
-  border-color: rgb(224 177 93 / 30%);
-  border-radius: 30px;
-  background:
-    radial-gradient(circle at 18% 28%, rgb(224 177 93 / 16%), transparent 36%),
-    linear-gradient(145deg, rgb(42 33 18 / 88%), rgb(12 17 23 / 92) 68%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 239 196 / 8%),
-    0 18px 48px rgb(0 0 0 / 16%);
-}
-.dashboard__stage-current span,
-.dashboard__stage-context span,
-.dashboard__stage-latest span {
-  color: var(--accent-text);
-  font-size: var(--type-meta);
-  font-weight: 850;
-  letter-spacing: .12em;
-}
-.dashboard__stage-current span { grid-area: label; align-self: end; }
-.dashboard__stage-current strong {
-  grid-area: title;
-  margin-top: var(--space-6);
-  color: var(--text-strong);
-  font: 850 clamp(2.25rem, 5.4cqw, 3.7rem)/.96 var(--font-display);
-  letter-spacing: .01em;
-}
-.dashboard__stage-current em {
-  grid-area: status;
-  align-self: center;
-  padding: var(--space-8) var(--space-12);
-  border: 1px solid rgb(224 177 93 / 28%);
-  border-radius: var(--radius-pill);
-  color: var(--accent-text);
-  background: rgb(224 177 93 / 10%);
-  font-style: normal;
-  font-size: var(--type-label);
-  font-weight: 850;
-  white-space: nowrap;
-}
-.dashboard__stage-context {
-  display: grid;
-  grid-template-rows: 1fr 1fr;
-  gap: var(--space-10);
-}
-.dashboard__stage-context > div {
-  min-height: 52px;
-  padding: var(--space-10) var(--space-14);
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
-  align-items: center;
-  gap: var(--space-10);
-  border-radius: 18px;
-}
-.dashboard__stage-context span {
-  color: var(--text-subtle);
-  letter-spacing: .06em;
-}
-.dashboard__stage-context strong {
-  min-width: 0;
-  overflow: hidden;
-  color: var(--text-strong);
-  font-size: clamp(1.05rem, 1.7cqw, 1.28rem);
-  font-weight: 850;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.dashboard__stage-context em {
-  color: var(--text-muted);
-  font-style: normal;
-  font-size: var(--type-meta);
-  font-weight: 750;
-  white-space: nowrap;
-}
-.dashboard__stage-latest {
-  min-height: 116px;
-  padding: var(--space-16) var(--space-18);
-  display: grid;
-  align-content: center;
-  gap: var(--space-10);
-  border-radius: 24px;
-}
-.dashboard__stage-latest span { color: var(--info-text); }
-.dashboard__stage-latest strong {
-  display: -webkit-box;
-  overflow: hidden;
-  color: var(--text-strong);
-  font-size: clamp(.98rem, 1.5cqw, 1.12rem);
-  font-weight: 850;
-  line-height: 1.45;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-}
-
-@container (max-width: 860px) {
-  .dashboard__stage-overview {
-    grid-template-columns: 1fr;
-  }
-  .dashboard__stage-context {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: none;
-  }
-  .dashboard__stage-latest {
-    min-height: auto;
-  }
-}
-
-@container (max-width: 520px) {
-  .dashboard__stage-current {
-    min-height: 104px;
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "label"
-      "title"
-      "status";
-    row-gap: var(--space-8);
-  }
-  .dashboard__stage-current em {
-    justify-self: start;
-  }
-  .dashboard__stage-context {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* V3.9 dashboard phase: keep only the current-stage card, with light useful context. */
-.dashboard__stage-overview {
-  width: min(720px, 100%);
-  margin: var(--space-18) auto var(--space-8);
-  display: block;
-}
-.dashboard__stage-current {
-  position: relative;
-  min-height: 132px;
-  padding: clamp(var(--space-18), 3cqw, var(--space-24));
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: end;
-  gap: var(--space-18);
-  overflow: hidden;
-  border: 1px solid rgb(224 177 93 / 30%);
-  border-radius: 30px;
-  background:
-    radial-gradient(circle at 18% 26%, rgb(224 177 93 / 20%), transparent 33%),
-    radial-gradient(circle at 88% 10%, rgb(95 168 178 / 10%), transparent 26%),
-    linear-gradient(145deg, rgb(43 34 20 / 92%), rgb(11 16 22 / 94) 62%);
-  box-shadow:
-    inset 0 1px 0 rgb(255 239 196 / 8%),
-    0 18px 46px rgb(0 0 0 / 16%);
-}
-.dashboard__stage-current::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(115deg, transparent 0 42%, rgb(255 240 198 / 5%) 48%, transparent 56%),
-    repeating-linear-gradient(90deg, rgb(255 255 255 / 2%) 0 1px, transparent 1px 58px);
-  opacity: .7;
-  pointer-events: none;
-}
-.dashboard__stage-current-main,
-.dashboard__stage-current-info,
-.dashboard__stage-current-decoration {
-  position: relative;
-  z-index: 1;
-}
-.dashboard__stage-current-main {
-  display: grid;
-  justify-items: start;
-  align-content: center;
-}
-.dashboard__stage-current-main span {
-  color: var(--accent-text);
-  font-size: var(--type-meta);
-  font-weight: 850;
-  letter-spacing: .12em;
-}
-.dashboard__stage-current-main strong {
-  margin-top: var(--space-8);
-  color: var(--text-strong);
-  font: 850 clamp(2.7rem, 7cqw, 4.35rem)/.9 var(--font-display);
-  letter-spacing: .01em;
-}
-.dashboard__stage-current-main em {
-  margin-top: var(--space-12);
-  padding: var(--space-8) var(--space-12);
-  border: 1px solid rgb(224 177 93 / 32%);
-  border-radius: var(--radius-pill);
-  color: var(--accent-text);
-  background: rgb(224 177 93 / 11%);
-  font-style: normal;
-  font-size: var(--type-label);
-  font-weight: 850;
-  white-space: nowrap;
-}
-.dashboard__stage-current-info {
-  min-width: 190px;
-  padding: var(--space-12) var(--space-14);
-  display: grid;
-  gap: var(--space-8);
-  justify-items: end;
-  border: 1px solid rgb(229 235 240 / 8%);
-  border-radius: 18px;
-  background: rgb(8 13 18 / 36%);
-  backdrop-filter: blur(10px);
-}
-.dashboard__stage-current-info span:first-child {
-  max-width: 220px;
-  overflow: hidden;
-  color: var(--text-strong);
-  font-size: var(--type-label);
-  font-weight: 850;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.dashboard__stage-current-info span:last-child {
-  color: var(--text-muted);
-  font-size: var(--type-meta);
-  font-weight: 800;
-  letter-spacing: .04em;
-}
-.dashboard__stage-current-decoration {
-  position: absolute;
-  right: clamp(var(--space-16), 4cqw, var(--space-32));
-  top: var(--space-18);
-  width: 86px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: var(--space-8);
-  opacity: .72;
-}
-.dashboard__stage-current-decoration i {
-  display: block;
-  width: 9px;
-  height: 9px;
-  border: 1px solid rgb(224 177 93 / 36%);
-  border-radius: var(--radius-pill);
-  background: rgb(224 177 93 / 12%);
-  box-shadow: 0 0 18px rgb(224 177 93 / 12%);
-}
-.dashboard__stage-current-decoration i:nth-child(2) {
-  width: 14px;
-  height: 14px;
-  background: rgb(224 177 93 / 20%);
-}
-.dashboard__stage-current-decoration i:nth-child(3) {
-  width: 6px;
-  height: 6px;
-  opacity: .7;
-}
-
-@container (max-width: 620px) {
-  .dashboard__stage-overview {
-    width: 100%;
-  }
-  .dashboard__stage-current {
-    min-height: 148px;
-    grid-template-columns: 1fr;
-    align-items: start;
-  }
-  .dashboard__stage-current-info {
-    width: fit-content;
-    min-width: 0;
-    justify-items: start;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    backdrop-filter: none;
-  }
-  .dashboard__stage-current-info span:first-child {
-    max-width: min(320px, 72vw);
-  }
-  .dashboard__stage-current-decoration {
-    right: var(--space-18);
-    top: var(--space-18);
-  }
-}
-
-/* V3.9.1 reset old phase-card grid areas that caused text overlap. */
-.dashboard__stage-current {
-  grid-template-areas: none !important;
-}
-.dashboard__stage-current-main,
-.dashboard__stage-current-main span,
-.dashboard__stage-current-main strong,
-.dashboard__stage-current-main em,
-.dashboard__stage-current-info,
-.dashboard__stage-current-info span {
-  grid-area: auto !important;
-  align-self: auto !important;
-}
-.dashboard__stage-current-main span,
-.dashboard__stage-current-main strong,
-.dashboard__stage-current-main em {
-  width: auto !important;
-  min-width: 0 !important;
-  text-align: left !important;
-}
-.dashboard__stage-current-main strong {
-  display: block !important;
-}
-.dashboard__stage-current-main em {
-  justify-self: start !important;
-}
-.dashboard__stage-current-info span {
-  display: block !important;
-}
-
-/* V3.9.2 final spacing: old responsive rules zeroed the current card padding. */
-.dashboard__stage-current {
-  padding: clamp(22px, 3.4cqw, 30px) !important;
-}
-@container (max-width: 620px) {
-  .dashboard__stage-current {
-    padding: 22px !important;
-    min-height: 168px;
-  }
-  .dashboard__stage-current-main strong {
-    font-size: clamp(2.55rem, 13vw, 3.45rem) !important;
-  }
-  .dashboard__stage-current-info {
-    margin-top: var(--space-4);
-  }
-}
-
-/* V3.9.4 align current-stage card with the dashboard action row. */
-.dashboard__stage-overview {
-  width: 100% !important;
-  max-width: none !important;
-}
-.dashboard__stage-current {
-  width: 100% !important;
-}
-@container (min-width: 621px) {
-  .dashboard__stage-current-info {
-    min-width: 250px;
-    margin-right: clamp(var(--space-10), 2cqw, var(--space-20));
   }
 }
 
@@ -872,26 +506,33 @@
 /* V3.10.4 dashboard: keep all primary blocks on one width grid. */
 .dashboard {
   width: min(1440px, 100%);
+  padding-top: clamp(var(--space-32), 5cqw, 56px);
+  padding-inline: clamp(var(--space-24), 4cqw, 52px);
 }
 .dashboard__header,
-.dashboard__stage-overview,
 .dashboard__host-tools,
 .dashboard__phase-launch,
 .dashboard-card,
 .dashboard__grid {
   max-width: none;
 }
-.dashboard__stage-overview {
-  margin-left: 0 !important;
-  margin-right: 0 !important;
+
+/* 主持首页以分段留白建立扫描节奏，避免工具、昼夜入口和玩家状态挤成一块。 */
+.dashboard__header { margin-bottom: clamp(var(--space-24), 3cqw, var(--space-32)); }
+.dashboard__host-tools { margin-bottom: clamp(var(--space-32), 4cqw, 48px); gap: var(--space-14); }
+.dashboard__phase-launch { gap: clamp(var(--space-20), 3cqw, var(--space-32)); }
+.dashboard-card--players { margin-top: clamp(36px, 5cqw, 56px); padding: clamp(var(--space-24), 3cqw, var(--space-32)); }
+.dashboard__grid { margin-top: clamp(var(--space-24), 4cqw, var(--space-40)); }
+.dashboard-card--recent { padding: clamp(var(--space-20), 3cqw, var(--space-32)); }
+
+@container (max-width: 1100px) {
+  .dashboard__player-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-.dashboard__stage-current {
-  min-height: clamp(150px, 16cqw, 240px);
+@container (max-width: 620px) {
+  .dashboard__player-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
-@container (min-width: 1180px) {
-  .dashboard__stage-current {
-    padding-inline: clamp(var(--space-24), 4cqw, var(--space-40));
-  }
+@container (max-width: 420px) {
+  .dashboard__player-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 /* V3.10.5 header: gear floats; main stage keeps the same left/right edge as tools and cards. */
@@ -901,39 +542,5 @@
 @container (max-width: 620px) {
   .dashboard__header > div {
     padding-right: calc(var(--touch-min) + var(--space-10));
-  }
-}
-
-/* V3.11 game-end entry: keep end/reset flow visible but secondary to live hosting. */
-.dashboard-card--end {
-  display: grid;
-  gap: var(--space-14);
-  border-color: rgb(180 77 72 / 20%);
-  background:
-    radial-gradient(circle at 100% 0%, rgb(180 77 72 / 8%), transparent 42%),
-    var(--surface-soft);
-}
-.dashboard-card--end p {
-  max-width: 680px;
-  line-height: 1.6;
-}
-.dashboard__end-entry {
-  width: min(260px, 100%);
-  border-color: rgb(180 77 72 / 22%);
-}
-.dashboard__end-entry:hover {
-  border-color: var(--danger-border);
-}
-.dashboard__end-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-10);
-}
-.dashboard__review-entry {
-  width: min(220px, 100%);
-}
-@container (max-width: 620px) {
-  .dashboard__end-actions .ui-button {
-    width: 100%;
   }
 }

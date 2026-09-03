@@ -4,7 +4,7 @@ import './ui.css'
 
 interface PhaseTrackProps {
   nodes: readonly PhaseTrackNode[]
-  /** 右端常驻入口，通常是「本局记录 N」与「收尾」。 */
+  /** 右端常驻入口，通常是教程、记录与重置。 */
   actions?: ReactNode
 }
 
@@ -29,8 +29,7 @@ export function PhaseTrack({ nodes, actions }: PhaseTrackProps) {
         {nodes.map((node) => (
           <li key={node.id} className={`ui-phase-node ui-phase-node--${node.status}`}>
             <span className="ui-phase-node__dot" aria-hidden="true" />
-            <span className="ui-phase-node__label">{node.label}</span>
-            {node.segmentLabel ? <span className="ui-phase-node__segment">{node.segmentLabel}</span> : null}
+            <span className="ui-phase-node__label">{node.segmentLabel ?? node.label}</span>
             <span className="ui-visually-hidden">（{STATUS_TEXT[node.status]}）</span>
           </li>
         ))}

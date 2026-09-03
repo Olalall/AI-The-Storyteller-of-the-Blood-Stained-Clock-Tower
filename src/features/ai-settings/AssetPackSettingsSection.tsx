@@ -1,4 +1,4 @@
-import { Download, FileWarning, RefreshCw, ShieldCheck } from 'lucide-react'
+import { Download, RefreshCw } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
@@ -11,6 +11,7 @@ import {
   type AssetFetch,
   type CharacterAssetAvailability,
 } from '../../services/assets/assetPackService'
+import installerUrl from '../../../scripts/portable/Install-CharacterAssets.ps1?url'
 
 interface AssetPackSettingsSectionProps {
   packs?: readonly SmartScriptPack[]
@@ -30,6 +31,7 @@ export function AssetPackSettingsSection({
 }: AssetPackSettingsSectionProps) {
   const [guideOpen, setGuideOpen] = useState(false)
   const [acknowledged, setAcknowledged] = useState(false)
+  const [downloaded, setDownloaded] = useState(false)
   const [availability, setAvailability] = useState<CharacterAssetAvailability | null>(null)
   const [status, setStatus] = useState<AssetAvailabilityStatus>('checking')
   const projection = useMemo(() => projectCharacterAssetPack(packs), [packs])
@@ -58,6 +60,16 @@ export function AssetPackSettingsSection({
   const available = availability?.available ?? 0
   const total = projection.requirements.length
 
+  function downloadInstaller() {
+    const link = document.createElement('a')
+    link.href = installerUrl
+    link.download = 'Install-CharacterAssets.ps1'
+    document.body.append(link)
+    link.click()
+    link.remove()
+    setDownloaded(true)
+  }
+
   return (
     <section className="ai-settings-card ai-settings-card--assets" aria-labelledby="asset-pack-title">
       <div className="ai-settings-card__heading">
@@ -68,22 +80,14 @@ export function AssetPackSettingsSection({
       <div className="asset-pack-summary">
         <div>
           <strong>{available}/{total}</strong>
-          <span>本地图标</span>
-        </div>
-        <div>
-          <strong>{projection.remoteIconCount}</strong>
-          <span>未缓存外链</span>
+          <span>{status === 'checking' ? '正在检测角色图标' : availability?.missing ? `缺少 ${availability.missing} 个图标` : '角色图标完整'}</span>
         </div>
         <StatusBadge tone={copy.tone}>{copy.label}</StatusBadge>
-      </div>
-
-      <div className="asset-pack-footer">
-        <p className="ai-settings-note"><FileWarning aria-hidden="true" />便捷包首次启动可安装官方及第三方角色图标。</p>
         <div className="ai-settings-test-actions">
           <Button type="button" variant="ghost" onClick={() => { void refresh() }}>
             <RefreshCw aria-hidden="true" />重新检测
           </Button>
-          <Button type="button" variant="secondary" onClick={() => setGuideOpen(true)}>查看导入说明</Button>
+          <Button type="button" variant="secondary" onClick={() => setGuideOpen(true)}>安装说明</Button>
         </div>
       </div>
 
@@ -91,48 +95,26 @@ export function AssetPackSettingsSection({
         open={guideOpen}
         onOpenChange={setGuideOpen}
         title="素材包"
-        description="下载或导入前先确认来源、版权与用途。"
-        presentation="page"
+        description="安装角色图标"
         layer="nested"
         contentClassName="sheet-content--asset-pack"
       >
         <div className="asset-pack-guide">
-          <section className="asset-pack-guide__hero">
-            <span><ShieldCheck aria-hidden="true" />需手动确认</span>
-            <h3>角色图标素材包</h3>
-            <p>素材来自 TPI Toolmaker Resources、GStone 与社区作者；确认后下载到本机，不进入 Git 仓库。</p>
-            {available > 0 ? <img className="asset-pack-guide__ccc" src="/assets/community/ccc-sleeve.png" alt="Community Created Content" /> : null}
+          <section className="asset-pack-guide__summary">
+            <strong>{available}/{total}</strong>
+            <div><h3>{availability?.missing ? `还需安装 ${availability.missing} 个图标` : '角色图标已经完整'}</h3><p>素材来自 TPI、GStone 与社区作者，安装器会逐个校验文件。</p></div>
           </section>
 
-          <section className="asset-pack-guide__grid" aria-label="素材包导入信息">
-            <article>
-              <span>放置目录</span>
-              <strong>{projection.localDirectory}</strong>
-            </article>
-            <article>
-              <span>来源记录</span>
-              <strong>{projection.manifestPath}</strong>
-            </article>
-            <article>
-              <span>当前缺口</span>
-              <strong>{availability?.missing ?? 0} 个</strong>
-            </article>
-          </section>
-
-          <ul className="asset-pack-guide__list">
-            <li>便捷包首次启动会询问是否安装 718 个官方及第三方图标（约 102 MB）；拒绝后不会下载。</li>
-            <li>不会把素材提交到公开仓库。</li>
-            <li>以后可双击根目录“安装角色素材.cmd”重新安装。</li>
-          </ul>
+          <p className="asset-pack-guide__hint">下载约 102 MB。请把安装器放回软件的 scripts/portable 目录后运行。</p>
 
           <label className="asset-pack-guide__ack">
             <input type="checkbox" checked={acknowledged} onChange={(event) => setAcknowledged(event.target.checked)} />
-            <span>我已了解来源与版权提示</span>
+            <span>我接受素材来源与使用提示</span>
           </label>
 
           <footer className="asset-pack-guide__actions">
-            <Button type="button" variant="secondary" disabled={!acknowledged} onClick={() => setGuideOpen(false)}>我已了解</Button>
-            <Button type="button" variant="ghost" onClick={() => setGuideOpen(false)}>返回设置</Button>
+            <Button type="button" variant="primary" disabled={!acknowledged} onClick={downloadInstaller}><Download aria-hidden="true" />下载素材安装器</Button>
+            {downloaded ? <span role="status">安装器已下载</span> : null}
           </footer>
         </div>
       </Sheet>

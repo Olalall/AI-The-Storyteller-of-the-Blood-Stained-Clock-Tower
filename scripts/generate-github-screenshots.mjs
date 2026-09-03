@@ -110,8 +110,8 @@ async function main() {
     await capture(page, '08-ai-settings.png')
 
     await gotoDashboard(page)
-    await page.getByRole('button', { name: '开场白', exact: true }).click()
-    await page.getByRole('heading', { name: '开场白' }).waitFor({ state: 'visible' })
+    await page.getByRole('button', { name: '主持资料', exact: true }).click()
+    await page.getByRole('heading', { name: '主持资料' }).waitFor({ state: 'visible' })
     await page.getByRole('button', { name: '大字展示' }).click()
     await page.getByLabel('开场白大字展示').waitFor({ state: 'visible' })
     await capture(page, '09-opening-display.png')
@@ -127,7 +127,7 @@ async function main() {
     await capture(page, '11-journal.png')
 
     await gotoDashboard(page)
-    await page.locator('.dashboard__end-entry').click()
+    await page.getByRole('button', { name: '重置游戏' }).click()
     await page.locator('.game-end').waitFor({ state: 'visible' })
     await page.locator('.game-end__winner-grid button').first().click()
     await page.getByRole('button', { name: '保存本局' }).click()
