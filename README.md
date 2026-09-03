@@ -1,6 +1,10 @@
-# 血染钟楼AI说书人辅助工具
+# 血染钟楼-Ai说书人
 
-![血染钟楼 AI 说书人辅助工具](docs/assets/github-hero.svg)
+![血染钟楼-Ai说书人](docs/assets/github-hero.svg)
+
+> 面向线下《血染钟楼》说书人的 AI 辅助工具：帮助处理智能配板、夜序、发身份、投票、日志与复盘；AI 只提供草稿和提醒，最终裁定始终由说书人确认。
+>
+> An AI-assisted companion for in-person *Blood on the Clocktower* storytellers, supporting setup, night order, identity dealing, voting, logs, and review. AI suggests; the storyteller confirms every authoritative result.
 
 > <strong>手机 / 平板用户：</strong>通过 HTTPS 打开部署地址后，可以安装到主屏幕。首次完整打开后，配板、身份交接、夜序、投票、日志和本机复盘可离线使用；真实 AI 和云端归档仍需联网。
 
