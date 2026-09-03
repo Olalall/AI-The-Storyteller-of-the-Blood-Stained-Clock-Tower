@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="620" viewBox="0 0 1600 620" role="img" aria-labelledby="title desc">
-  <title id="title">钟楼说书人副驾驶 GitHub banner</title>
-  <desc id="desc">Pad-first storyteller companion banner with abstract night order rings, dashboard cards, voting logs and AI draft hints.</desc>
+  <title id="title">血染钟楼-Ai说书人 GitHub banner</title>
+  <desc id="desc">A bilingual banner for an AI-assisted Blood on the Clocktower storyteller companion.</desc>
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#050910"/>
@@ -51,7 +51,7 @@
     <rect x="84" y="78" width="744" height="464" rx="32" fill="#0b1118" fill-opacity="0.78" stroke="#e3b45a" stroke-opacity="0.25"/>
     <rect x="112" y="106" width="688" height="118" rx="24" fill="url(#card)" stroke="#ffffff" stroke-opacity="0.08"/>
     <text x="146" y="155" fill="#e3b45a" font-family="Inter, Segoe UI, sans-serif" font-size="22" font-weight="800" letter-spacing="1.5">BOTC STORYTELLER COMPANION</text>
-    <text x="146" y="202" fill="#f7efe2" font-family="Noto Serif SC, Source Han Serif SC, serif" font-size="52" font-weight="900">钟楼说书人副驾驶</text>
+    <text x="146" y="202" fill="#f7efe2" font-family="Noto Serif SC, Source Han Serif SC, serif" font-size="52" font-weight="900">血染钟楼-Ai说书人</text>
 
     <text x="118" y="286" fill="#dbe7f1" font-family="Inter, Segoe UI, sans-serif" font-size="29" font-weight="750">智能配板 · 夜序辅助 · 投票日志 · AI 草稿 · 复盘归档</text>
     <text x="118" y="334" fill="#94a8ba" font-family="Inter, Segoe UI, sans-serif" font-size="23" font-weight="600">Pad-first assistant for in-person Blood on the Clocktower storytellers.</text>
