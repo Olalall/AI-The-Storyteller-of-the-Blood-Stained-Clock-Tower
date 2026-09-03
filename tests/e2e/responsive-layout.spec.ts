@@ -102,7 +102,7 @@ test('compact dashboard cards project role, nickname and status without changing
   await openDashboardTools(page)
   await expect(page.getByRole('button', { name: /倒计时/ })).toBeVisible()
   await expect(page.getByText('私聊 15分 → 公聊 10分')).not.toBeVisible()
-  await expect(page.getByRole('button', { name: '开场白', exact: true })).toBeVisible()
+  await expect(page.getByRole('button', { name: '主持资料', exact: true })).toBeVisible()
   await expect(page.getByText('中毒', { exact: true })).toBeVisible()
   const cards = page.locator('.dashboard-player-seat')
   await expect(cards).toHaveCount(12)

@@ -52,7 +52,7 @@ describe('App game reset flow', () => {
       expect(session.dayVoteDraft).toBeNull()
       expect(session.dayActionDraft).toBeNull()
     })
-    expect(screen.getByRole('heading', { name: 'AI配板与调整' })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: '智能配板与调整' })).toBeInTheDocument()
     expect(screen.getByText('设置本局')).toBeInTheDocument()
     expect(screen.getByLabelText('开局板子')).toHaveValue(dirtySession.scriptId)
     expect(window.localStorage.getItem(identityDealReceiptsStorageKey(dirtySession.id))).toBeNull()
@@ -80,7 +80,7 @@ describe('App game reset flow', () => {
     fireEvent.click(within(resetStep as HTMLElement).getByRole('button', { name: '重置游戏' }))
     await waitFor(() => expect(storedSession().playerCount).toBe(0))
 
-    await waitFor(() => expect(screen.getByRole('heading', { name: 'AI配板与调整' })).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole('heading', { name: '智能配板与调整' })).toBeInTheDocument())
     fireEvent.change(screen.getByLabelText('开局板子'), { target: { value: 'trouble-brewing' } })
     fireEvent.click(screen.getByRole('button', { name: '7人' }))
     expect(screen.getByLabelText('1号昵称')).toHaveValue('上一局1号')

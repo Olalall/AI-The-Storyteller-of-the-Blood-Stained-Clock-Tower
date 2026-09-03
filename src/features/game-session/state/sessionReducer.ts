@@ -60,7 +60,7 @@ export function gameSessionReducer(state: GameSessionState, action: GameSessionA
         seats: action.seats,
       })
     case 'start-setup-session':
-      if (state.playerCount > 0 || state.timeline.length > 0 || state.phaseSegments.length > 0) return state
+      if (state.timeline.length > 0 || state.phaseSegments.length > 0) return state
       if (action.playerCount !== undefined && !isSupportedScriptSetupPlayerCount(action.scriptId, action.playerCount)) return state
       return createSmartScriptSetupSession(action.scriptId, action.createdAt, {
         playerCount: action.playerCount,

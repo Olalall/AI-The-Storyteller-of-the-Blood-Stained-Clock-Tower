@@ -80,7 +80,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await expect(page.getByLabel('开场白大字展示')).toContainText('请确认座位，准备开始。')
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/02-opening-display.png', fullPage: false })
   await page.getByRole('button', { name: '退出展示' }).click()
-  await page.getByRole('button', { name: '关闭开场白' }).click()
+  await page.getByRole('button', { name: '关闭主持资料' }).click()
   expect((await timeline(page)).length).toBe(beforeOpening)
 
   const beforeSetup = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'setup_changed').length
@@ -96,7 +96,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByRole('button', { name: '保存配板调整' }).click()
   await expect.poll(async () => (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'setup_changed').length).toBeGreaterThan(beforeSetup)
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/04-setup-confirmed.png', fullPage: false })
-  const closeSetup = page.getByRole('button', { name: '关闭AI配板与调整' })
+  const closeSetup = page.getByRole('button', { name: '关闭智能配板与调整' })
   if (await closeSetup.isVisible().catch(() => false)) await closeSetup.click()
   await expect(page.getByRole('button', { name: '进入夜晚' })).toBeVisible()
 

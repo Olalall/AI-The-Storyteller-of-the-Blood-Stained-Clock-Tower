@@ -152,7 +152,7 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await openBlankSession(page)
 
   // 配板
-  const setupHeading = page.getByRole('heading', { name: 'AI配板与调整' })
+  const setupHeading = page.getByRole('heading', { name: '智能配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
     await (await import('./helpers/entry-onboarding')).openSetupFromEntry(page, 'record')
   }

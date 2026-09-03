@@ -202,12 +202,12 @@
   text-align: center;
 }
 
-.identity-deal__current-card strong {
+.identity-deal__current-copy > strong {
   display: block;
   font: 850 1.2rem var(--font-display);
 }
 
-.identity-deal__current-card span {
+.identity-deal__current-copy > span {
   display: block;
   margin-top: 4px;
   color: var(--text-muted);

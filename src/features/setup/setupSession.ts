@@ -1,6 +1,19 @@
 import { projectCurrentAssignments } from '../game-session/state/projectors'
 import type { GameSessionState, SetupDraft } from '../game-session/types'
 
+export function draftForActiveScript(
+  activeScriptId: string,
+  sessionScriptId: string,
+  localDraftScriptId: string | null,
+  localDraft: SetupDraft | null,
+  sessionDraft: SetupDraft | null,
+  confirmedDraft: SetupDraft | null,
+) {
+  if (localDraftScriptId === activeScriptId) return localDraft
+  if (sessionScriptId === activeScriptId) return sessionDraft ?? confirmedDraft
+  return null
+}
+
 export function createDraftFromCurrent(session: GameSessionState): SetupDraft | null {
   const currentAssignments = projectCurrentAssignments(session)
   if (!currentAssignments.length) return null
