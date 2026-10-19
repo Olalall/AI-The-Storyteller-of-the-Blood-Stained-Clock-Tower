@@ -40,6 +40,9 @@ function effectiveSettings(
   publicAccess: ResolvedAIPublicAccessPolicy,
 ) {
   if (publicAccess.mode === 'public') {
+    if (!override && isAIProviderConfigured(privateSettings)) {
+      return { settings: privateSettings, redirect: 'error' as const }
+    }
     const validation = validatePublicProviderSettings(override, publicAccess)
     if (!validation.ok || !override) {
       return { settings: privateSettings, rejection: validation.ok ? '公网 AI 需要浏览器提供完整 BYOK 配置。' : validation.message }
@@ -78,7 +81,13 @@ function effectiveSettings(
 export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
   const env = options.env ?? process.env
   const publicAccess = resolveAIPublicAccessPolicy(options.publicAccess, env)
-  const privateSettingsForRequest = () => readAIProviderPrivateSettings(publicAccess.mode === 'public' ? {} : env)
+  const invitedServerAccess = (env.BOTC_AI_ACCESS_SECRET?.trim().length ?? 0) >= 32
+  const privateSettingsForRequest = () => {
+    const settings = readAIProviderPrivateSettings(env)
+    // 公开站的固定 API 必须与受邀设备保护同时启用；其他公开部署仍只接受浏览器 BYOK。
+    return publicAccess.mode !== 'public' || invitedServerAccess && isAIProviderConfigured(settings)
+      ? settings : readAIProviderPrivateSettings({})
+  }
 
   return {
     getPublicSettings() {
@@ -114,7 +123,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
     },
 
     async liveTestProviderSettings(): Promise<AISettingsLiveTestResult> {
-      const settings = readAIProviderPrivateSettings(env)
+      const settings = privateSettingsForRequest()
       if (!settings.enabled) {
         return {
           ok: false,
