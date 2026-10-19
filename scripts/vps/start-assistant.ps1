@@ -5,7 +5,8 @@ param(
   [int]$Port = 3000,
   [string]$StaticDir = "dist",
   [string]$ArchiveDataFile = "data\archives\archives.json",
-  [string]$LogDir = "logs"
+  [string]$LogDir = "logs",
+  [string]$AISettingsFile = "C:\ProgramData\BotcStoryteller\secrets\ai-settings.dpapi"
 )
 
 $ErrorActionPreference = "Stop"
@@ -22,6 +23,8 @@ function Resolve-RequiredPath {
 }
 
 $resolvedAppDir = Resolve-RequiredPath $AppDir "AppDir"
+. (Join-Path $PSScriptRoot 'assistant-ai-settings.ps1')
+Import-AssistantAISettings $AISettingsFile
 $resolvedNodePath = Resolve-RequiredPath $NodePath "NodePath"
 $runtimePath = Resolve-RequiredPath (Join-Path $resolvedAppDir "dist-server\runtime.mjs") "Runtime"
 $resolvedLogDir = Join-Path $resolvedAppDir $LogDir
@@ -41,3 +44,4 @@ $startupLine | Out-File -LiteralPath (Join-Path $resolvedLogDir "runtime.log") -
 
 Set-Location $resolvedAppDir
 & $resolvedNodePath $runtimePath *>> (Join-Path $resolvedLogDir "runtime.log")
+exit $LASTEXITCODE

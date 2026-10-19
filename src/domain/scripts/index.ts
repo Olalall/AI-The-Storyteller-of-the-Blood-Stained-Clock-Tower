@@ -2,6 +2,9 @@ export { createScriptRegistry } from './registry'
 export type { ScriptRegistry } from './registry'
 export {
   getSmartScriptPack,
+  loadSmartScriptPack,
+  loadAllSmartScriptPacks,
+  scriptManifest,
   roleAbilityForScript,
   rolePromptForScript,
   roleResearchForAI,

@@ -144,7 +144,7 @@ export const yiYanHuanYanRoles = [
     abilityText: "每局游戏限一次，你可以在白天时公开选择一名玩家：如果他是恶魔，他死亡。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/web/icons/slayer.png",
     inputKinds: ["none"],
-  }),
+   "possibleOutcomes": ["公开声明使用每局一次能力后，若目标登记为恶魔且可以死亡，则当场死亡；未命中恶魔不造成死亡。"], "highRiskNotes": ["核对真实能力、是否已使用、当前醉毒和目标登记/免死；普通杀手不能穿透所有免死，不能套用刺客规则。"]}),
   role({
     id: "philosopher",
     name: "哲学家",

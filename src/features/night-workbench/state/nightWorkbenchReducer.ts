@@ -1,15 +1,21 @@
 import type { AIResultAdvice, NightWorkbenchState, RoleChangeReason, RoleSnapshot, WakeDraft, WakeItem } from '../types'
-import { applyAIResultAdvice, createAIResultAdvice } from './aiResultAdvice'
-import { applyDefaultOutcome, applyOutcome, emptyWakeDraft, invalidateOutcome } from './projectWakeDraft'
+import { applyAIResultAdvice, createAIResultAdvice, isCurrentAIAdvice } from './aiResultAdvice'
+import { applyDefaultOutcome, applyOutcome, emptyWakeDraft, invalidateOutcome, selectedTargetCount, targetCountChosen } from './projectWakeDraft'
 import { advanceFrom, updatePreviewDraft } from './nightWorkbenchDrafts'
 import { appendRoleChange } from './roleChanges'
 import { canConfirmDraft, canEditItem } from './workbenchGuards'
 
 export type NightWorkbenchAction =
   | { type: 'preview'; id: string }
+  | { type: 'skip-item'; id: string; reason: string }
   | { type: 'return-current' }
   | { type: 'target'; seatId: number }
+  | { type: 'target-role-choice'; index: number; seatId?: number; roleId?: string }
+  | { type: 'target-count-choice'; count: number }
   | { type: 'role-choice'; roleId: string }
+  | { type: 'second-role-choice'; roleId: string }
+  | { type: 'additional-role-choice'; index: 0 | 1; roleId: string }
+  | { type: 'storyteller-context'; value: string }
   | { type: 'outcome'; outcomeId: string }
   | { type: 'confirm'; advance: boolean }
   | { type: 'defer' }
@@ -34,6 +40,7 @@ function applyAIAdviceToState(
   advice: AIResultAdvice | null,
 ) {
   if (!advice) return { ...state, lastNotice: '当前角色暂无AI结算建议' }
+  if (!isCurrentAIAdvice(state, item, draft, advice)) return { ...state, lastNotice: 'AI建议已失效' }
   if (advice.status === 'needs_input') {
     return {
       ...state,
@@ -54,6 +61,11 @@ function applyAIAdviceToState(
 
 export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightWorkbenchAction): NightWorkbenchState {
   switch (action.type) {
+    case 'skip-item': {
+      const item = state.queue.find((entry) => entry.id === action.id)
+      if (!item || ['confirmed', 'not_applicable', 'skipped'].includes(item.progress) || state.correctionItemId || !action.reason.trim()) return state
+      return { ...state, queue: state.queue.map((entry) => entry.id === item.id ? { ...entry, progress: 'skipped' as const, reason: action.reason.trim().slice(0, 200) } : entry), revision: state.revision + 1, lastNotice: '已记录本夜不处理的原因；草稿仍保留' }
+    }
     case 'preview':
       return { ...state, previewEntryId: action.id, lastNotice: '' }
     case 'return-current': {
@@ -64,18 +76,70 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
         lastNotice: active ? `已回到${active.playerLabel}` : '已回到正在处理的角色',
       }
     }
+    case 'target-count-choice':
+      return updatePreviewDraft(state, (draft, item) => {
+        if (!canEditItem(state, item) || !item.allowedTargetCounts?.includes(action.count) || action.count === draft.targetCountChoice) return draft
+        return invalidateOutcome(item, { ...draft, targetCountChoice: action.count, targets: action.count === 0 ? [] : draft.targets.slice(-action.count) })
+      })
+    case 'target-role-choice':
+      return updatePreviewDraft(state, (draft, item) => {
+        const count = item.targetRoleChoiceCount
+        if (!count || !canEditItem(state, item) || !Number.isInteger(action.index) || action.index < 0 || action.index >= count) return draft
+        if (action.seatId !== undefined && (!Number.isInteger(action.seatId) || action.seatId < 0 || action.seatId > state.playerCount)) return draft
+        if (action.roleId !== undefined && action.roleId !== '' && !item.roleChoices?.some((role) => role.id === action.roleId)) return draft
+        const targetRoleChoices = Array.from({ length: count }, (_, index) => ({ ...(draft.targetRoleChoices?.[index] ?? { seatId: 0, roleId: '' }) }))
+        const current = targetRoleChoices[action.index]
+        const selected = { seatId: action.seatId ?? current.seatId, roleId: action.roleId ?? current.roleId }
+        if ((current.seatId === selected.seatId && current.roleId === selected.roleId) || targetRoleChoices.some((choice, index) => index !== action.index &&
+          ((selected.seatId > 0 && choice.seatId === selected.seatId) || (selected.roleId && choice.roleId === selected.roleId)))) return draft
+        targetRoleChoices[action.index] = selected
+        return invalidateOutcome(item, {
+          ...draft, targetRoleChoices, targets: targetRoleChoices.filter((choice) => choice.seatId > 0).map((choice) => choice.seatId),
+          targetCountChoice: undefined, roleChoice: '', secondRoleChoice: undefined, additionalRoleChoices: undefined,
+        })
+      })
     case 'target':
       return updatePreviewDraft(state, (draft, item) => {
+        if (item.targetRoleChoiceCount !== undefined) return draft
+        if (item.abilityPhase === 'initial' && state.seatSnapshots[action.seatId]?.status.life !== 'alive') return draft
         const exists = draft.targets.includes(action.seatId)
         const without = draft.targets.filter((id) => id !== action.seatId)
-        const targets = exists ? without : [...without, action.seatId].slice(-item.targetCount)
+        const count = selectedTargetCount(item, draft)
+        if (!targetCountChosen(item, draft) || count === 0) return draft
+        const targets = exists ? without : [...without, action.seatId].slice(-count)
         return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, targets }))
       })
     case 'role-choice':
       return updatePreviewDraft(state, (draft, item) => {
+        if (item.targetRoleChoiceCount !== undefined) return draft
         const roleChoice = draft.roleChoice === action.roleId ? '' : action.roleId
         return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, roleChoice }))
       })
+    case 'second-role-choice': {
+      const item = state.queue.find((entry) => entry.id === state.previewEntryId)
+      if (!item || (item.roleCount !== 2 && item.roleCount !== 4) || !canEditItem(state, item)) return state
+      return updatePreviewDraft(state, (draft) => applyDefaultOutcome(item, invalidateOutcome(item, {
+        ...draft, secondRoleChoice: draft.secondRoleChoice === action.roleId ? '' : action.roleId,
+      })))
+    }
+    case 'additional-role-choice': {
+      const item = state.queue.find((entry) => entry.id === state.previewEntryId)
+      if (!item || item.roleCount !== 4 || !canEditItem(state, item) || !item.roleChoices?.some((role) => role.id === action.roleId)) return state
+      return updatePreviewDraft(state, (draft) => {
+        const choices = [...(draft.additionalRoleChoices ?? ['', ''])]
+        choices[action.index] = choices[action.index] === action.roleId ? '' : action.roleId
+        return invalidateOutcome(item, { ...draft, additionalRoleChoices: choices })
+      })
+    }
+    case 'storyteller-context': {
+      const item = state.queue.find((entry) => entry.id === state.previewEntryId)
+      if (!item || !canEditItem(state, item)) return state
+      return updatePreviewDraft(state, (draft) => {
+        const value = action.value.trim().slice(0, 1000)
+        if (value === (draft.storytellerContext ?? '')) return draft
+        return invalidateOutcome(item, { ...draft, storytellerContext: value || undefined })
+      })
+    }
     case 'outcome':
       return updatePreviewDraft(state, (draft, item) => {
         if (!action.outcomeId || draft.outcomeId === action.outcomeId) {
@@ -141,7 +205,7 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
     }
     case 'resume': {
       const queue = state.queue.map((item) =>
-        item.id === state.activeCursorId && item.progress === 'deferred'
+        item.id === state.activeCursorId && ['deferred', 'skipped'].includes(item.progress)
           ? { ...item, progress: state.drafts[item.id] ? 'draft' as const : 'pending' as const }
           : item,
       )
@@ -169,6 +233,7 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       }
     }
     case 'resolve-applicability': {
+      if (state.previewEntryId !== state.activeCursorId) return state
       const queue = state.queue.map((item) =>
         item.id === state.activeCursorId
           ? {

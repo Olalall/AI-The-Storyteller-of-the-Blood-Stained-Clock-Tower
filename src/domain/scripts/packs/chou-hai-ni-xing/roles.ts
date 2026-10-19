@@ -190,8 +190,8 @@ export const chouHaiNiXingRoles = [
     abilityText: "说书人可以打破游戏规则，如果说书人被处决，善良阵营获胜，即使你已死亡。[无邪恶角色在场]",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/atheist.png",
     inputKinds: ["none"],
-    setupImpact: ["Setup bracket text applies; storyteller confirms composition, adjacency or no-evil setup before play."],
-  }),
+    setupImpact: ["开局不放入邪恶角色；移除的恶魔/爪牙位置由镇民或外来者补足。"],
+   "possibleOutcomes": ["无神论者真实在场时，处决说书人使善良获胜，即使无神论者已死；无神论者不在场而处决说书人则邪恶获胜。"], "highRiskNotes": ["说书人可模拟死亡、错误信息或角色变化，但工具不据此自动改胜负或权限；不能因没有恶魔便按普通恶魔局立即宣告善良胜，存活仅两人时善良失败。"]}),
   role({
     id: "lunatic",
     name: "疯子",
@@ -211,7 +211,7 @@ export const chouHaiNiXingRoles = [
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/mutant.png",
     inputKinds: ["none"],
     possibleOutcomes: ["Record the information or choice; storyteller confirms the final result."],
-  }),
+   "highRiskNotes": ["触发条件是尝试让他人相信自己是外来者，可能通过发言、暗示或沉默表现；是否构成疯狂及是否处决均由说书人判断，不自动处决。","该处决可发生于夜间；白天发生时仍占用当天正常处决次数，不能把它当作不影响处决的普通死亡。"]}),
   role({
     id: "politician",
     name: "政客",

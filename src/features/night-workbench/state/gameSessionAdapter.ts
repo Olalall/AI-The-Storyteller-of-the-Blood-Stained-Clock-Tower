@@ -7,13 +7,18 @@ import {
   projectNightConfirmedRecords,
 } from '../../game-session/state/projectors'
 import { nextNightSequence } from '../../game-session/state/createNextNightRun'
-import { initialNightWorkbenchState } from '../data/initialNightWorkbenchState'
+import { getActiveNightRun } from '../../game-session/state/getActiveNightRun'
 import type { NightSeatSnapshot, NightWorkbenchState, PlayerStatusSnapshot, RoleChangeReason } from '../types'
 import { storytellerSeatLabel } from '../../game-session/seatPresentation'
+import { projectNightInteraction } from './projectNightInteraction'
 
 export interface NightWorkbenchSessionBinding {
   session: GameSessionState
   dispatchSession: Dispatch<GameSessionAction>
+}
+
+export function nightContextKey(session: GameSessionState) {
+  return `${session.id}:${session.timeline.length}`
 }
 
 function legacyReason(reason: string): RoleChangeReason {
@@ -70,10 +75,9 @@ function seatSnapshotsForSession(session: GameSessionState): Record<number, Nigh
   })) as Record<number, NightSeatSnapshot>
 }
 
-export function sessionInitialNightState(binding: NightWorkbenchSessionBinding): NightWorkbenchState {
-  const runId = binding.session.activeNightRunId
-  const run = runId ? binding.session.nightRuns[runId] : undefined
-  if (!run) return initialNightWorkbenchState
+export function sessionInitialNightState(binding: NightWorkbenchSessionBinding): NightWorkbenchState | null {
+  const run = getActiveNightRun(binding.session)
+  if (!run) return null
   const segment = run.phaseSegmentId ? binding.session.phaseSegments.find((item) => item.id === run.phaseSegmentId) : undefined
   const nightLabel = segment?.label ?? `第${nextNightSequence(binding.session)}夜草稿`
   const roleChangeEvents = roleChangesForRun(binding.session, run)
@@ -84,12 +88,15 @@ export function sessionInitialNightState(binding: NightWorkbenchSessionBinding):
       changedAt: entry.createdAt,
       nightRunId: run.id,
       originNightRunId: entry.originNightRunId,
+      sourceNightActionId: entry.sourceNightActionId,
+      nightAbilityTiming: entry.nightAbilityTiming,
       phaseLabel: segment?.label ?? '本夜',
       fromRole: structuredClone(entry.fromRole),
       toRole: structuredClone(entry.toRole),
       reason: legacyReason(entry.reason),
       confirmedBy: 'storyteller' as const,
     }))
+  const seatSnapshots = seatSnapshotsForSession(binding.session)
   return {
     nightRunId: run.id,
     scriptId: run.scriptId,
@@ -97,9 +104,13 @@ export function sessionInitialNightState(binding: NightWorkbenchSessionBinding):
     nightType: run.nightType,
     playerCount: run.playerCount,
     revision: run.revision,
+    contextKey: nightContextKey(binding.session),
     knowledgeVersion: run.knowledgeVersion,
-    queue: structuredClone(run.queue),
-    seatSnapshots: seatSnapshotsForSession(binding.session),
+    queue: structuredClone(run.queue).map((item) => ({
+      ...projectNightInteraction(item, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount }),
+      status: seatSnapshots[item.seatId]?.status ?? item.status,
+    })),
+    seatSnapshots,
     activeCursorId: run.activeCursorId,
     previewEntryId: run.previewEntryId,
     drafts: structuredClone(run.drafts),
@@ -120,16 +131,19 @@ export function toNightRun(state: NightWorkbenchState, phaseSegmentId: string | 
     confirmedRecords: _confirmedRecords,
     roleChangeEvents: _roleChangeEvents,
     seatSnapshots: _seatSnapshots,
+    contextKey: _contextKey,
     ...run
   } = state
   return { ...run, id: nightRunId, phaseSegmentId }
 }
 
 /** 每次夜间交互都以单一会话命令提交；不再通过 effect 镜像一份本地权威事实。 */
-export function createNightWorkbenchCommit(state: NightWorkbenchState, binding: NightWorkbenchSessionBinding): GameSessionAction {
+export function createNightWorkbenchCommit(state: NightWorkbenchState, binding: NightWorkbenchSessionBinding): Extract<GameSessionAction, { type: 'commit-night-workbench' }> {
   const phaseSegmentId = binding.session.nightRuns[state.nightRunId]?.phaseSegmentId ?? null
   return {
     type: 'commit-night-workbench',
+    baseRevision: binding.session.nightRuns[state.nightRunId]?.revision ?? 0,
+    baseContextKey: nightContextKey(binding.session),
     nightRun: toNightRun(state, phaseSegmentId),
     records: Object.values(state.confirmedRecords).flat().map((record) => structuredClone(record)),
     roleChanges: state.roleChangeEvents.map((change) => structuredClone(change)),

@@ -25,10 +25,10 @@ export const aGrimmChorusSetupRules: readonly SetupRule[] = [
   {
     id: 'summoner-no-demon',
     roleId: 'summoner',
-    summary: '召唤师：开局无恶魔；第 3 夜选择一名玩家成为邪恶恶魔。',
+    summary: '召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。',
     knowledgeStatus: 'confirmed',
-    sourceUrls: [rolesSourceUrl, scriptSourceUrl],
-    reviewedAt,
+    sourceUrls: [rolesSourceUrl, scriptSourceUrl, 'https://wiki.bloodontheclocktower.com/Summoner'],
+    reviewedAt: '2026-10-16',
   },
   {
     id: 'damsel-minion-guess',

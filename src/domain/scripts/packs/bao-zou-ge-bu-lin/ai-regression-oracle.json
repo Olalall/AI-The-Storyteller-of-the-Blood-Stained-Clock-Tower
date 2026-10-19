@@ -1,0 +1,19 @@
+{
+  "id": "wiki02-602-goblin-executed-protected",
+  "sourceIndex": 602,
+  "title": "哥布林被处决但被代言人保命",
+  "given": "10人局，真实邪恶哥布林和魔鬼代言人均清醒健康。魔鬼代言人昨夜合法选择哥布林，保护本白天有效。哥布林今天被提名后、投票开始前向所有人清楚公开声明自己是哥布林，主持已确认有效声明。最终哥布林确实被处决，但保护使其没有死亡。没有更早结束游戏的条件。",
+  "expected": [
+    "邪恶阵营因哥布林的能力获胜；能力只要求有效当日声明并被处决，不要求死于处决。",
+    "哥布林被处决与仍然存活分别记录，不把未死亡误判成未处决。",
+    "AI只能给胜负依据和草稿，由主持确认最终结果。"
+  ],
+  "primarySources": [
+    "https://wiki.bloodontheclocktower.com/Goblin",
+    "https://wiki.bloodontheclocktower.com/Devil%27s_Advocate"
+  ],
+  "evidence": "Goblin Summary与How to Run以被处决为条件；没有附加死亡条件。魔鬼代言人的保护防死亡，不能取消已发生的处决。",
+  "scriptId": "bao-zou-ge-bu-lin",
+  "reviewedAt": "2026-10-16",
+  "realAiRun": false
+}

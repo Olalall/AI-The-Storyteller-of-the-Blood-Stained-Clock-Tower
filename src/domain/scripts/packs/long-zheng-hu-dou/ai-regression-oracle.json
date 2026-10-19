@@ -1,0 +1,20 @@
+{
+  "id": "wiki02-627-courtier-pukka-drunk",
+  "sourceIndex": 627,
+  "title": "侍臣使普卡醉酒，新旧毒链暂停",
+  "given": "10人局第三夜。普卡存活，上一个清醒健康的夜晚选择3号，使3号因普卡中毒；3号仍存活。今晚侍臣尚未使用能力、清醒健康，在普卡顺位前选择普卡，主持确认普卡从此醉酒三天三夜。普卡不知道自己醉酒，轮到它仍选择6号。没有其他毒源、死亡或保护。",
+  "expected": [
+    "普卡照常被唤醒并可选择6号，不告知普卡其醉酒。",
+    "普卡当前没有能力效果：6号不会因这次选择中毒，3号当晚不会因普卡死亡。原普卡毒在其醉酒期间无效，3号在无其他毒源时暂时健康。",
+    "保留3号是上次有效普卡目标的历史依据；普卡恢复清醒后，旧毒恢复并在适用夜晚处理死亡，不把醉酒期间6号虚假选择当作新有效毒目标。",
+    "此题只要求当前夜结论；AI不能自动写入死亡或毒醉。"
+  ],
+  "primarySources": [
+    "https://wiki.bloodontheclocktower.com/Pukka",
+    "https://wiki.bloodontheclocktower.com/Courtier"
+  ],
+  "evidence": "Pukka Summary第4/5条分别解释醉酒时新选择不产生毒，以及先前清醒目标当夜不死、恢复清醒后旧毒恢复。",
+  "scriptId": "long-zheng-hu-dou",
+  "reviewedAt": "2026-10-16",
+  "realAiRun": false
+}

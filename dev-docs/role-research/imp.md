@@ -1,14 +1,17 @@
 # 小恶魔 / Imp
 
 状态：reviewed  
-调研日期：2026-07-21  
+调研日期：2026-10-16  
 来源：
 - 官方角色数据：https://release.botc.app/resources/data/roles.json
 - 官方 Wiki：https://wiki.bloodontheclocktower.com/Imp
+- 能力时点：https://wiki.bloodontheclocktower.com/Abilities
 
 ## 能力摘要
 
 其他夜晚选择一名玩家死亡。如果小恶魔以自己的能力杀死自己，一名爪牙会变成新的小恶魔。
+
+核对保护、替死及自身状态后，死亡在小恶魔行动时生效；后续夜间角色应读取该玩家已死的状态。黎明仅公开死讯，不把真实死亡拖到黎明才结算。
 
 ## 必填输入
 

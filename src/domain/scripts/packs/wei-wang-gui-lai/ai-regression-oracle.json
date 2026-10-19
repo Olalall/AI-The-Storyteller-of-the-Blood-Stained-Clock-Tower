@@ -1,0 +1,13 @@
+{
+  "id": "wei-wang-gui-lai",
+  "status": "not-run",
+  "kind": "synthetic-local-skill-oracle",
+  "title": "维齐尔强制处决不受半数门槛限制",
+  "confirmedFacts": "12名玩家均存活的白天，今天尚未有过处决。一轮合法提名刚完成计票，只有3名玩家投票，其中一人已核实为真正的善良玩家且其票有效。存活、清醒健康并持有能力的维齐尔此刻明确要求立即处决本轮被提名者；被提名者不是维齐尔，无免死、替死、登记、相克或其他干扰。",
+  "expected": "可立即处决该被提名者并令其死亡，算当天的一次处决，随后停止当天提名/投票和处决；3票不足6票不是否定理由，也不要求超过其他候选票数。",
+  "sourceUrls": [
+    "https://wiki.bloodontheclocktower.com/Vizier"
+  ],
+  "userGameData": false,
+  "productionMutation": false
+}

@@ -147,7 +147,7 @@ describe('timeline history projection', () => {
 
     expect(entry).toMatchObject({
       canCorrect: false,
-      correctionHelp: '票型影响暂列结果；从白天工作台重新记录。',
+      correctionHelp: '从白天工作台的“票型记录与更正”更正或撤销；原票型保留。',
     })
   })
 })

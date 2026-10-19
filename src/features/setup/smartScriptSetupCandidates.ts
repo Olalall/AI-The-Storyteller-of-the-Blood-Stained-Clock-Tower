@@ -1,3 +1,4 @@
+import { boundedSetupTransferForRole, inferModifierRoleId, isMandatorySetupCountRole } from '../../domain/setup-templates/setupCountChanges'
 import type { PlayerCount, ScriptId, SetupTemplate, SetupTemplateStyle, SmartScriptPack, SmartRoleDefinition } from '../../domain/scripts'
 import { getSmartScriptPack, roleSnapshotsForScript, roleTeamByIdForScript, scriptKnowledgeVersion, smartScriptRegistry } from '../../domain/scripts'
 import { selectSetupCandidates, type RandomSource } from '../../services/setup-candidates'
@@ -6,6 +7,7 @@ import type { RoleSnapshot } from '../night-workbench/types'
 import { baseDistributionByPlayerCount } from './baseDistribution'
 import { evaluateSetupRules } from './setupRuleEvaluator'
 import { chineseDisplayName } from './setupPresentation'
+import { fitSetupSeating, setupSeatingChecks } from './setupSeatingConstraints'
 import type {
   ScriptSetupRulePack,
   SetupLegalityCheck,
@@ -66,7 +68,7 @@ function assignRolesToSeats(
     || left.seatId - right.seatId
   ))
 
-  return orderedRoles
+  const preferred = orderedRoles
     .map((role, index) => {
       const snapshot = snapshotsById.get(role.roleId)
       if (!snapshot) throw new Error(`智能板子 ${pack.scriptId} 缺少角色：${role.roleId}`)
@@ -76,6 +78,7 @@ function assignRolesToSeats(
       }
     })
     .sort((left, right) => left.seatId - right.seatId)
+  return fitSetupSeating(preferred, roleTeamByIdForScript(pack.scriptId), orderedSeats.map((seat) => seat.seatId))
 }
 
 function toSetupRuleSelections(template: SetupTemplate): SetupRuleSelection[] {
@@ -179,13 +182,9 @@ function setupRuleChoiceLabel(delta: NonNullable<SetupTemplate['setupAdjustments
   return parts.length ? parts.join('，') : '人数不变'
 }
 
-function normalizeRuleToken(value: string) {
-  return value.toLowerCase().replace(/[^a-z0-9]/g, '')
-}
-
-function inferModifierRoleId(ruleId: string, pack: SmartScriptPack) {
-  const normalizedRuleId = normalizeRuleToken(ruleId)
-  return pack.roles.find((role) => normalizedRuleId.includes(normalizeRuleToken(role.id)))?.id
+function modifierNeedsPlayerSeat(role: SmartRoleDefinition | undefined) {
+  // 小怪物没有恶魔玩家座位；传说角色也不加入玩家配板。
+  return role?.team !== 'fabled' && role?.id.replaceAll('_', '') !== 'lilmonsta'
 }
 
 export function createSetupRulePackForScript(pack: SmartScriptPack): ScriptSetupRulePack {
@@ -202,10 +201,13 @@ export function createSetupRulePackForScript(pack: SmartScriptPack): ScriptSetup
         id: adjustment.choiceId!,
         label: setupRuleChoiceLabel(adjustment.compositionDelta),
         delta: adjustment.compositionDelta,
+        boundedTransfer: boundedSetupTransferForRole(inferModifierRoleId(adjustment.ruleId, pack), adjustment.compositionDelta),
       }))
     modifierByRule.set(rule.id, {
       id: rule.id,
       roleId: rule.roleId,
+      requiresInPlay: modifierNeedsPlayerSeat(modifierRole),
+      requiresSelectionForNewSetup: isMandatorySetupCountRole(rule.roleId),
       label: modifierRole ? `${modifierRole.name}人数修正` : '角色人数修正',
       choices,
       requiresStorytellerChoice: false,
@@ -238,11 +240,14 @@ export function createSetupRulePackForScript(pack: SmartScriptPack): ScriptSetup
         id: adjustment.choiceId!,
         label: setupRuleChoiceLabel(adjustment.compositionDelta),
         delta: adjustment.compositionDelta,
+        boundedTransfer: boundedSetupTransferForRole(inferModifierRoleId(adjustment.ruleId, pack), adjustment.compositionDelta),
       }))
     if (!choices.length) continue
     modifierByRule.set(ruleId, {
       id: ruleId,
       roleId,
+      requiresInPlay: modifierNeedsPlayerSeat(role),
+      requiresSelectionForNewSetup: isMandatorySetupCountRole(roleId),
       label: role ? `${role.name}\u4eba\u6570\u4fee\u6b63` : ruleId,
       choices,
       requiresStorytellerChoice: false,
@@ -273,9 +278,10 @@ export function evaluateSmartScriptSetup(
   expectedSeatIds: readonly number[],
   setupRuleSelections: readonly SetupRuleSelection[] = [],
   repeatableRoleIds: readonly string[] = [],
+  modifierSourceRoleIds?: readonly string[],
 ): SetupLegalityReport {
   const pack = getSmartScriptPack(scriptId)
-  return evaluateSetupRules({
+  const report = evaluateSetupRules({
     assignments,
     demonBluffs,
     expectedSeatIds,
@@ -284,7 +290,11 @@ export function evaluateSmartScriptSetup(
     selections: setupRuleSelections,
     teamForRole: roleTeamByIdForScript(pack.scriptId) as Readonly<Record<string, SetupTeam>>,
     repeatableRoleIds,
+    modifierSourceRoleIds,
   })
+  // Confirmed games retain their original setup sources; new drafts must also satisfy starting seats.
+  if (modifierSourceRoleIds === undefined) report.checks.push(...setupSeatingChecks(assignments, roleTeamByIdForScript(pack.scriptId)))
+  return report
 }
 
 export function validateSmartScriptSetup(
@@ -304,6 +314,7 @@ function createCandidateFromTemplate(
   seatProfiles: readonly SetupSeatProfile[],
   expectedSeatIds: readonly number[],
   playerCount: PlayerCount,
+  rejectionReasons: string[],
 ): SetupPrototypeCandidate | null {
   const assignments = assignRolesToSeats(template.roles, seatProfiles, pack)
   const demonBluffs = normalizedDemonBluffs(template, pack)
@@ -317,7 +328,10 @@ function createCandidateFromTemplate(
     template.repeatableRoles ?? [],
   )
   const failedCheck = legalityChecks.find((check) => !check.passed && check.status !== 'review')
-  if (failedCheck) return null
+  if (failedCheck) {
+    rejectionReasons.push(failedCheck.detail ?? failedCheck.summary)
+    return null
+  }
 
   return {
     id: template.templateId,
@@ -356,13 +370,15 @@ export function createSmartScriptSetupCandidates(
     random: options.random,
   })
 
+  const rejectionReasons: string[] = []
   const visibleCandidates = candidates
-    .map(({ template }) => createCandidateFromTemplate(template, pack, seatProfiles, expectedSeatIds, playerCount))
+    .map(({ template }) => createCandidateFromTemplate(template, pack, seatProfiles, expectedSeatIds, playerCount, rejectionReasons))
     .filter((candidate): candidate is SetupPrototypeCandidate => Boolean(candidate))
     .slice(0, desiredCount)
 
   if (!visibleCandidates.length) {
-    throw new Error(`智能板子 ${pack.scriptId} / ${playerCount} 人没有可显示的合法配板候选`)
+    const reason = [...new Set(rejectionReasons)].join('；')
+    throw new Error(`智能板子 ${pack.scriptId} / ${playerCount} 人没有可显示的合法配板候选${reason ? `；${reason}` : ''}`)
   }
 
   return visibleCandidates

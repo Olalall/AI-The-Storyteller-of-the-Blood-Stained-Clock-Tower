@@ -1,0 +1,19 @@
+{
+  "id": "wiki02-830-alhadikhia-decline",
+  "sourceIndex": 830,
+  "title": "哈迪寂亚明确不发动",
+  "given": "12人局第二个及之后的夜晚，哈迪寂亚存活且清醒健康。轮到其能力时，恶魔明确选择本夜不发动，未选择任何玩家。不存在其他死亡或复活来源。",
+  "expected": [
+    "这是官方允许的完整选择；不能要求它必须补满三人。",
+    "说书人不播报哈迪寂亚或任何目标，不唤醒目标收集生死选择。",
+    "无人因此能力死亡或复活，不能泄露恶魔仍存活。",
+    "界面使用0目标“不发动”可确认；AI只给主持草稿，不自动修改生死或发消息。"
+  ],
+  "primarySources": [
+    "https://wiki.bloodontheclocktower.com/Al-Hadikhia"
+  ],
+  "evidence": "Al-Hadikhia Summary明确允许整夜不选择，此时不公告且无人因此能力死亡；与源旧中文“要选择”区别已记录。",
+  "scriptId": "pa-xing-du-shi",
+  "reviewedAt": "2026-10-16",
+  "realAiRun": false
+}

@@ -17,6 +17,26 @@ function adviceInput() {
 }
 
 describe('night settlement HTTP adapter', () => {
+  it('does not let duplicated provider warnings hide the final timing or authority reminder', async () => {
+    const warnings = ['核对原角色', '核对阵营', '核对当前状态']
+    const advice = await createNightResultAdviceAsync(adviceInput(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'https://offline.example.test', timeoutMs: 2000 },
+      fetcher: async () => jsonResponse({ accepted: true, data: { draft: { status: 'answer', recommendedOutcomeId: 'no-effect',
+        warnings, authorityWarnings: [...warnings, '身份应用后才处理新夜序', '原未发动技能必须停用'],
+      } } }),
+    })
+    expect(advice?.authorityWarnings).toEqual([...warnings, '身份应用后才处理新夜序', '原未发动技能必须停用'])
+  })
+  it('explains expired private access without changing the current night', async () => {
+    const input = adviceInput()
+    const before = JSON.stringify(input)
+    const advice = await createNightResultAdviceAsync(input, {
+      runtimeSettings: { mode: 'http', baseUrl: 'https://botc.example.test', timeoutMs: 2000 },
+      fetcher: async () => jsonResponse({ error: { code: 'AI_ACCESS_REQUIRED' } }, 401),
+    })
+    expect(advice?.authorityWarnings.join(' ')).toContain('验证访问口令')
+    expect(JSON.stringify(input)).toBe(before)
+  })
   it('uses local night advice without calling backend in local mode', async () => {
     let called = false
     const advice = await createNightResultAdviceAsync(adviceInput(), {

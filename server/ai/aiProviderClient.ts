@@ -15,7 +15,7 @@ export class AIProviderError extends Error {
   readonly code: AIProviderErrorCode
   readonly status: number
 
-  constructor(code: AIProviderErrorCode, status: number, message = code) {
+  constructor(code: AIProviderErrorCode, status: number, message: string = code) {
     super(message)
     this.name = 'AIProviderError'
     this.code = code
@@ -65,7 +65,7 @@ function contentFrom(body: unknown) {
   const candidate = body as { choices?: Array<{ message?: { content?: unknown } }> } | null
   const content = candidate?.choices?.[0]?.message?.content
   if (typeof content !== 'string' || !content.trim()) {
-    debugProviderResponse(JSON.stringify(body).slice(0, 1200))
+    debugProviderResponse('chat completion content was empty or not text')
     throw providerError('AI_PROVIDER_BAD_RESPONSE')
   }
   return content
@@ -78,13 +78,13 @@ function parseJSONContent<T>(content: string): T {
     const start = content.indexOf('{')
     const end = content.lastIndexOf('}')
     if (start < 0 || end <= start) {
-      debugProviderResponse(content)
+      debugProviderResponse('chat completion content did not contain a JSON object')
       throw providerError('AI_PROVIDER_BAD_RESPONSE')
     }
     try {
       return JSON.parse(content.slice(start, end + 1)) as T
     } catch {
-      debugProviderResponse(content)
+      debugProviderResponse('chat completion content was not valid JSON')
       throw providerError('AI_PROVIDER_BAD_RESPONSE')
     }
   }
@@ -95,12 +95,14 @@ export async function callOpenAICompatibleJSON<T>(
   messages: AIProviderChatMessage[],
 ): Promise<T> {
   const fetcher = settings.fetcher ?? fetch
+  const gemini = settings.model.toLowerCase().startsWith('gemini-')
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), Math.max(1, settings.timeoutSeconds) * 1000)
 
   try {
     const response = await fetcher(endpointFor(settings.baseUrl), {
       method: 'POST',
+      redirect: 'error',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${settings.apiKey}`,
@@ -109,19 +111,15 @@ export async function callOpenAICompatibleJSON<T>(
         model: settings.model,
         messages,
         temperature: 0.2,
-        max_tokens: 3000,
-        thinking: { type: 'disabled' },
+        max_tokens: gemini ? 6000 : 3000,
+        ...(gemini ? { reasoning_effort: 'low' } : { thinking: { type: 'disabled' } }),
         response_format: { type: 'json_object' },
       }),
       signal: controller.signal,
     })
 
     if (!response.ok) {
-      try {
-        debugProviderResponse(`HTTP ${response.status}: ${await response.clone().text()}`)
-      } catch {
-        debugProviderResponse(`HTTP ${response.status}`)
-      }
+      debugProviderResponse(`HTTP ${response.status}`)
       throw new AIProviderError(codeForStatus(response.status), response.status)
     }
     const content = contentFrom(await parseJson(response))

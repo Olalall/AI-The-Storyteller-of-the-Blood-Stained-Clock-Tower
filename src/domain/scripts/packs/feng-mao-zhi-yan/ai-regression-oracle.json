@@ -1,0 +1,50 @@
+{
+  "status": "independent-oracles-not-live-results",
+  "reviewedAt": "2026-10-18",
+  "userGameData": false,
+  "productionMutation": false,
+  "cases": [
+    {
+      "id": "B03-480-ALCHEMIST-ASSASSIN",
+      "scriptId": "feng-mao-zhi-yan",
+      "sourceIndex": 480,
+      "kind": "synthetic-borrowed-ability-rule-probe",
+      "phase": "other-night",
+      "playerCount": 12,
+      "title": "炼金可拥有已在场刺客能力，仍是善良镇民",
+      "confirmedFacts": "12人第三夜，1号是真实善良炼金术士，4号是真实邪恶刺客，二者均存活清醒健康。主持已在开局私下确认1号拥有刺客能力；1号自己的这份每局一次尚未使用。4号自己的刺客每局一次已在第二夜用过。现在1号合法使用自己的刺客能力选择7号；7号存活且受本夜仍有效的旅店老板免死保护，没有其他效果。采用当前官方炼金版本，不是原JSON‘只能不在场爪牙’旧版。借用能力的手动唤醒及主持执行已经明确提供，不声称系统自动创建过额外借用技能项。",
+      "expected": [
+        "当前Alchemist可以复制已在场Minion能力，1号仍为善良镇民/炼金，不变成邪恶刺客，也不加入邪恶互认。",
+        "每局一次属于1号自己的能力实例；4号先前用过不等于1号已用过。",
+        "健康刺客能力可越过旅店老板免死，7号死亡仅作为待主持确认的结算草稿；原始权威状态不能由AI修改。",
+        "玩家稿不泄露4号真实身份、邪恶同伴、保护或毒醉来源。"
+      ],
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Alchemist",
+        "https://wiki.bloodontheclocktower.com/Assassin",
+        "https://wiki.bloodontheclocktower.com/Innkeeper"
+      ]
+    },
+    {
+      "id": "B03-480-COURTIER-GOBLIN",
+      "scriptId": "feng-mao-zhi-yan",
+      "sourceIndex": 480,
+      "kind": "synthetic-day-execution-rule-probe",
+      "phase": "day",
+      "playerCount": 12,
+      "title": "侍臣有效醉哥布林时，声明加处决不触发胜利",
+      "confirmedFacts": "12人第三个白天，今天尚无处决。2号健康侍臣在第二夜合法使用每局一次，选择哥布林；唯一哥布林5号因此从第二夜起进入三夜三日醉酒期。侍臣现在仍存活清醒健康，持续期未结束。5号在今天被合法提名后、投票前明确公开声称自己是哥布林；该轮有效票数足够，现正式处决5号且实际死亡。其余至少5名玩家仍存活，恶魔仍活，没有免死、替死、异端、其他胜负条件或干扰。",
+      "expected": [
+        "5号处决时确实醉酒，没有哥布林能力；即使声明和处决形式完整，也不因此让邪恶获胜。",
+        "处决和死亡各留真实记录；这仍是当天的一次处决，不能恢复提名或把它当未发生。",
+        "醉酒源/持续期和身份均保留给主持，不向通用玩家稿直接揭露5号真实哥布林或侍臣导致醉酒。",
+        "AI不直接结束游戏、杀人或改状态。"
+      ],
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Courtier",
+        "https://wiki.bloodontheclocktower.com/Goblin",
+        "https://wiki.bloodontheclocktower.com/States"
+      ]
+    }
+  ]
+}

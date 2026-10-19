@@ -11,19 +11,22 @@ export function createAIResultAdvice(
   return createPrototypeNightResultAdvice({ state, item, draft })
 }
 
-export function applyAIResultAdvice(
+export function isCurrentAIAdvice(
   state: NightWorkbenchState,
   item: WakeItem,
   draft: WakeDraft,
   advice: AIResultAdvice,
 ) {
-  const valid = advice.status === 'answer' &&
-    advice.nightRunId === state.nightRunId &&
+  return advice.nightRunId === state.nightRunId &&
     advice.wakeItemId === item.id &&
     advice.contextRevision === state.revision &&
+    advice.contextKey === state.contextKey &&
     advice.sourceDraftRevision === draft.draftRevision &&
-    advice.knowledgeVersion === state.knowledgeVersion &&
-    Boolean(advice.recommendedOutcomeId)
+    advice.knowledgeVersion === state.knowledgeVersion
+}
+
+export function applyAIResultAdvice(state: NightWorkbenchState, item: WakeItem, draft: WakeDraft, advice: AIResultAdvice) {
+  const valid = advice.status === 'answer' && isCurrentAIAdvice(state, item, draft, advice) && Boolean(advice.recommendedOutcomeId)
 
   if (!valid) return null
   const next = applyAIOutcome(item, draft, advice.recommendedOutcomeId!, advice)

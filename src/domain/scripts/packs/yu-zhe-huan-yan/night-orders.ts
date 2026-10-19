@@ -1,8 +1,13 @@
 import type { NightOrderEntry } from '../../types'
 
+// Organ Grinder acts after Snake Charmer and before later Minion choices on both nights.
+// https://release.botc.app/resources/data/nightsheet.json (checked 2026-10-16)
+const organGrinderNote = '每夜唤醒街头风琴手，让其选择是否醉酒直到黄昏：点头则放置“醉酒”标记，摇头则保持清醒；由说书人在黄昏移除该标记。'
+
 export const yuZheHuanYanFirstNight: readonly NightOrderEntry[] = [
   { roleId: "poppygrower", order: 4, note: "不要让恶魔和爪牙相认。", knowledgeStatus: 'confirmed' },
   { roleId: "snakecharmer", order: 20, note: "让舞蛇人选择一名玩家。如果舞蛇人选中了恶魔：展示“你是”信息标记和恶魔角色标记。用拇指向下代表他阵营变为邪恶。在魔典中交换舞蛇人和恶魔的角色标记。让原来的舞蛇人重新入睡。唤醒原来的恶魔。对老恶魔展示“你是”信息标记和舞蛇人角色标记，并用拇指向上代表他阵营变为善良。", knowledgeStatus: 'confirmed' },
+  { roleId: 'organgrinder', order: 22, note: organGrinderNote, knowledgeStatus: 'confirmed' },
   { roleId: "fearmonger", order: 26, note: "恐惧之灵指向一名玩家，放置恐惧标记。宣布恐惧之灵选中或改变了目标。", knowledgeStatus: 'confirmed' },
   { roleId: "pixie", order: 29, note: "对小精灵展示一个在场的镇民角色。", knowledgeStatus: 'confirmed' },
   { roleId: "empath", order: 36, note: "给他展示数字手势来告诉他与他邻近的存活玩家有几人是邪恶的。", knowledgeStatus: 'confirmed' },
@@ -16,6 +21,7 @@ export const yuZheHuanYanFirstNight: readonly NightOrderEntry[] = [
 export const yuZheHuanYanOtherNight: readonly NightOrderEntry[] = [
   { roleId: "poppygrower", order: 3, note: "如果罂粟种植者死亡，安排恶魔和爪牙相认环节。", knowledgeStatus: 'confirmed' },
   { roleId: "snakecharmer", order: 12, note: "让舞蛇人选择一名玩家。如果舞蛇人选中了恶魔：展示“你是”信息标记和恶魔角色标记。用拇指向下代表他阵营变为邪恶。在魔典中交换舞蛇人和恶魔的角色标记。让原来的舞蛇人重新入睡。唤醒原来的恶魔。对老恶魔展示“你是”信息标记和舞蛇人角色标记，并用拇指向上代表他阵营变为善良。", knowledgeStatus: 'confirmed' },
+  { roleId: 'organgrinder', order: 14, note: organGrinderNote, knowledgeStatus: 'confirmed' },
   { roleId: "fearmonger", order: 18, note: "恐惧之灵指向一名玩家。如果与之前选择的不同，则更换恐惧标记并宣布恐惧之灵选中或改变了目标。", knowledgeStatus: 'confirmed' },
   { roleId: "imp", order: 24, note: "让小恶魔选择一名玩家。标记那名玩家死亡。如果小恶魔选择了自己：用一个备用的小恶魔标记替换一个存活的爪牙角色标记。让原来的小恶魔重新入睡。唤醒新的小恶魔。对他展示“你是”信息标记，和小恶魔角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "vortex", order: 31, note: "让涡流选择一名玩家。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },

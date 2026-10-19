@@ -179,8 +179,8 @@ export const zhuoYueBiFangRoles = [
     abilityText: "你拥有上个死于处决的玩家的能力。如果该玩家属于邪恶阵营，你中毒直到下个善良玩家死于处决。",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/cannibal.png",
     inputKinds: ["none"],
-    possibleOutcomes: ["Record the information or choice; storyteller confirms the final result."],
-  }),
+    possibleOutcomes: ["只有玩家因处决实际死亡，才替换上一次取得的能力；处决死者或免死玩家不更新来源。"],
+   "stateChanges": ["死于处决的玩家当时为邪恶时，食人族中毒直到下一名善良玩家因处决实际死亡；不能靠普通夜死解除该毒。"], "highRiskNotes": ["不告知食人族获得的是哪种能力；新能力来源和当前中毒分别核对，不能因显示一个角色能力就视为清醒有效。"]}),
   role({
     id: "moonchild",
     name: "月之子",
@@ -250,8 +250,8 @@ export const zhuoYueBiFangRoles = [
     abilityText: "与你邻近的两名镇民玩家会在其首次死亡时被当作仍然存活。[-1外来者]",
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/upload/202301/c_4215797694761_97f10b13.jpg",
     inputKinds: ["none"],
-    setupImpact: ["Setup bracket text applies; storyteller confirms any composition change before using the template."],
-  }),
+    setupImpact: ["开局外来者数量减少一名；沿用已确认的配板修正。"],
+   "stateChanges": ["两名受影响邻近镇民在各自首次死亡时产生“以为存活”的登记提醒；该提醒不是复活。"], "highRiskNotes": ["先核对受影响的两名镇民、各自首次死亡及赶尸人是否有效；保留实际死亡事件，不把被当作存活直接覆盖为权威复活。"]}),
   role({
     id: "mastermind",
     name: "主谋",

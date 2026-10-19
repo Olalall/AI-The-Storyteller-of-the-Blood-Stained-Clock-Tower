@@ -30,7 +30,11 @@ function roleChangeEntry(event: RoleChangeEvent): GameRecordEntry {
     kind: 'role_change',
     summary: `${event.seatId}号角色：${event.fromRole.name} → ${event.toRole.name}`,
     meta: `${roleChangeReasonLabel[event.reason]} · 说书人`,
-    details: ['当前夜序快照未自动重排'],
+    details: [event.sourceNightActionId ? '说书人已确认首夜分配，已同步更新当夜夜序'
+      : event.nightAbilityTiming === 'initial' ? '主持已确认当晚只初始化新能力，不额外攻击；原未发动项已停用'
+      : event.nightAbilityTiming === 'tonight' ? '主持已确认当晚处理新能力；原未发动项已停用'
+      : event.nightAbilityTiming === 'later' ? '主持已确认本夜不再发动新能力；原未发动项已停用'
+      : '当前夜序快照未自动重排'],
     badges: ['角色变更'],
   }
 }
@@ -56,7 +60,7 @@ export function projectGameRecordEntries(state: NightWorkbenchState): GameRecord
         kind: 'night_action',
         summary: record.snapshot.storytellerResult || `${item.seatId}号 ${item.roleName}：记录已确认`,
         meta: sourceMeta(record.snapshot),
-        details: [record.snapshot.playerChoice, record.snapshot.informationGiven && `告知：${record.snapshot.informationGiven}`].filter(Boolean) as string[],
+        details: [record.snapshot.playerChoice, record.snapshot.informationGiven && `告知：${record.snapshot.informationGiven}`, record.snapshot.storytellerContext && `说书人已核对：${record.snapshot.storytellerContext}`].filter(Boolean) as string[],
         badges,
       }
     })

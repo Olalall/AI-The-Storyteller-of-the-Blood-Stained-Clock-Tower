@@ -1,0 +1,9 @@
+{
+  "id": "yi-zhi-du-xiu-typhon-line",
+  "scriptId": "yi-zhi-du-xiu",
+  "title": "堤丰之首设置/单目标",
+  "given": "10 人、基础零外来者，选择堤丰之首且不额外修正外来者。邪恶角色为投毒者、间谍、鹰身女妖、堤丰之首。",
+  "expected": "应为6镇民0外来者3爪牙1恶魔。四个邪恶角色连续，堤丰之首两侧皆邪恶且不在连续段端点。首夜分发爪牙信息，不攻击；第二夜只选1名攻击目标。",
+  "sourceUrl": "https://wiki.bloodontheclocktower.com/Lord_of_Typhon",
+  "realAiRun": false
+}

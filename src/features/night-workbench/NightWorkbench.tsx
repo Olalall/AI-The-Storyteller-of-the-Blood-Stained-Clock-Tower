@@ -4,8 +4,10 @@ import { Button } from '../../components/ui/Button'
 import { HostNotice } from '../../components/ui/HostNotice'
 import { roleSnapshotsForScript, scriptDisplayName } from '../../domain/scripts'
 import { CurrentWakeCard } from './components/CurrentWakeCard'
+import { UnavailableNightWorkbench } from './components/UnavailableNightWorkbench'
 import { NightActionBar } from './components/NightActionBar'
 import { GameRecordSheet } from './components/GameRecordSheet'
+import { NightConfirmedHandoff } from './components/NightConfirmedHandoff'
 import { NightCloseFooter } from './components/NightCloseFooter'
 import { NightPlayerCarousel } from './components/NightPlayerCarousel'
 import { NightQueueSheet } from './components/NightQueueSheet'
@@ -14,7 +16,7 @@ import { RoleChangeSheet } from './components/RoleChangeSheet'
 import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchNotice'
 import { projectCurrentAssignments } from '../game-session/state/projectors'
 import { projectGameRecordEntries } from './state/gameRecordProjection'
-import { hasWakeDraftContent } from './state/projectWakeDraft'
+import { hasWakeDraftContent, missingWakeInputReason, targetCountChosen } from './state/projectWakeDraft'
 import { projectWakePlayerStatus } from './state/projectWakePlayerStatus'
 import { currentRoleForItem } from './state/roleChanges'
 import { useNightAIAdvice } from './state/useNightAIAdvice'
@@ -22,6 +24,8 @@ import { useNightWorkbench } from './state/useNightWorkbench'
 import type { NightWorkbenchSessionBinding } from './state/useNightWorkbench'
 import type { OutcomeResolutionHint, WakeDraft, WakeItem } from './types'
 import './night-workbench.css'
+import { canRevealNightResult } from '../../domain/scripts/nightInteractionInputs'
+import { kazaliAllocationBlocksItem } from '../game-session/state/applyKazaliAllocation'
 interface NightWorkbenchProps {
   sessionBinding: NightWorkbenchSessionBinding
   onExit: () => void
@@ -32,6 +36,7 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
   const [privateInformation, setPrivateInformation] = useState<string | null>(null)
   const workbench = useNightWorkbench(sessionBinding)
   const { loadingItemId, requestAIAdvice } = useNightAIAdvice()
+  if (!workbench) return <UnavailableNightWorkbench onExit={onExit} />
   const {
     state,
     dispatch,
@@ -46,21 +51,23 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
     isPreviewing,
     isReadOnly,
     isCorrecting,
-    canConfirm,
+    canConfirm: inputsCanConfirm,
     currentRole,
     currentRoleChange,
     previousRole,
     nextRole,
   } = workbench
   const activeItem = state.queue[activeIndex]
+  const awaitingAllocation = kazaliAllocationBlocksItem(sessionBinding.session, current.id)
+  const canConfirm = inputsCanConfirm && !awaitingAllocation
   const activePlayerStatus = projectWakePlayerStatus(sessionBinding.session, current)
   const currentAssignments = projectCurrentAssignments(sessionBinding.session)
   const resolutionHint = createResolutionHint(current, draft, activePlayerStatus, currentAssignments)
   const activeRole = currentRoleForItem(activeItem, state.roleChangeEvents)
   const recordEntries = projectGameRecordEntries(state)
-  const aiAvailable = current.outcomeOptions.length > 0
+  const aiAvailable = current.outcomeOptions.length > 0 && current.roleId !== 'marionette'
   const isAIAdviceLoading = loadingItemId === current.id
-  const canUseAI = !isPreviewing && !isReadOnly && aiAvailable && !isAIAdviceLoading
+  const canUseAI = !awaitingAllocation && !isPreviewing && !isReadOnly && aiAvailable && !isAIAdviceLoading && targetCountChosen(current, draft)
   const aiReference = draft.outputSource?.kind === 'ai'
     ? draft.outputSource
     : draft.outputSource?.kind === 'preset'
@@ -71,6 +78,7 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
       advice.status === 'needs_input' &&
       advice.wakeItemId === current.id &&
       advice.contextRevision === state.revision &&
+      advice.contextKey === state.contextKey &&
       advice.sourceDraftRevision === draft.draftRevision &&
       advice.knowledgeVersion === state.knowledgeVersion,
     )
@@ -78,19 +86,20 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
   const aiAdvice = aiReference ? state.aiAdviceLog[aiReference.adviceId] : currentInputAdvice
   const activeLabel = state.privacyShielded ? `${activeItem.seatId}号角色` : `${activeItem.seatId}号 ${activeRole.name}`
   const previewLabel = state.privacyShielded ? `${current.seatId}号角色` : `${current.seatId}号 ${currentRole.name}`
-  const canChangeRole = !isPreviewing && !isCorrecting && !(draft.updatedAt && current.progress !== 'confirmed')
+  const canChangeRole = !awaitingAllocation && !isPreviewing && !isCorrecting && !(draft.updatedAt && current.progress !== 'confirmed')
   // progress 从不会是 'draft'（reducer 只写 drafts），所以必须按草稿内容判断，
   // 否则「草稿已保留」的离开守卫永远不会出现，误触返回时说书人会以为记录丢了。
   const hasInProgressDraft = Object.entries(state.drafts).some(([itemId, item]) =>
     hasWakeDraftContent(item) &&
     state.queue.find((entry) => entry.id === itemId)?.progress !== 'confirmed',
   ) || Boolean(state.correctionItemId)
-  const canRevealInformation = !state.privacyShielded && !isPreviewing && Boolean(draft.informationGiven.trim())
+  const canRevealInformation = current.targetRoleChoiceCount === undefined && canRevealNightResult(current.roleId) && !state.privacyShielded && !isPreviewing && Boolean(draft.informationGiven.trim())
   const visibleNotice = state.lastNotice?.includes('夜序快照') ? '' : state.lastNotice
   const isSettled = (current.progress === 'confirmed' && !isCorrecting)
     || current.progress === 'deferred'
+    || current.progress === 'skipped'
     || current.progress === 'not_applicable'
-  const missingReason = current.applicability === 'needs_review'
+  const missingReason = awaitingAllocation ? '先应用首夜爪牙分配' : current.applicability === 'needs_review'
       ? '确认是否适用'
       : current.progress === 'deferred'
         ? '已暂缓'
@@ -98,16 +107,14 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
           ? '本夜不适用'
           : isReadOnly
             ? '已确认'
+            : draft.outputSource?.kind === 'ai' && draft.outputSource.contextKey !== state.contextKey
+              ? '局面已变化，请重新选择结果'
+            : canConfirm
+              ? ''
             // 顺序必须是 目标 → 角色 → 结果：有些结果选项不要求输入（如「未受影响」），
             // 先判结果会在目标还没选时提示「选结果」，而此时唯一可点的正是那个空输入选项，
             // 一按就写下一条假记录。
-            : current.targetCount > draft.targets.length
-              ? `选${current.targetLabel ?? '目标'}`
-              : current.roleChoices && !draft.roleChoice
-                ? `选${current.roleLabel ?? '角色'}`
-                : !draft.outcomeId || !draft.storytellerResult.trim()
-                  ? '选结果'
-                  : ''
+                : missingWakeInputReason(current, draft) || (!draft.outcomeId || !draft.storytellerResult.trim() ? '选结果' : '')
 
   function requestExit() {
     if (hasInProgressDraft) {
@@ -180,6 +187,7 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
         onLeave={exitAfterPrompt}
       /> : null}
       <HostNotice message={leavePromptOpen ? '' : visibleNotice} />
+      <NightConfirmedHandoff binding={sessionBinding} />
       <NightPlayerCarousel
         current={current}
         currentRole={currentRole}
@@ -195,6 +203,7 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
       />
       <div className="night-content-grid">
         <CurrentWakeCard
+          unavailableTargetSeatIds={current.abilityPhase ? Object.values(state.seatSnapshots).filter((seat) => seat.status.life !== 'alive').map((seat) => seat.seatId) : []}
           item={current}
           playerStatus={activePlayerStatus}
           draft={draft}
@@ -213,7 +222,12 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
           canRevealInformation={canRevealInformation}
           onUnshield={() => dispatch({ type: 'set-privacy', shielded: false })}
           onTarget={(seatId) => dispatch({ type: 'target', seatId })}
+          onTargetRoleChoice={(index, choice) => dispatch({ type: 'target-role-choice', index, ...choice })}
+          onTargetCountChoice={(count) => dispatch({ type: 'target-count-choice', count })}
           onRoleChoice={(roleId) => dispatch({ type: 'role-choice', roleId })}
+          onSecondRoleChoice={(roleId) => dispatch({ type: 'second-role-choice', roleId })}
+          onAdditionalRoleChoice={(index, roleId) => dispatch({ type: 'additional-role-choice', index, roleId })}
+          onStorytellerContext={(value) => dispatch({ type: 'storyteller-context', value })}
           onOutcome={(outcomeId) => dispatch({ type: 'outcome', outcomeId })}
           onUseAI={() => requestAIAdvice(state, current, draft, dispatch)}
           onChangeRole={() => setOpenPanel('role-change')}
@@ -252,16 +266,18 @@ export function NightWorkbench({ sessionBinding, onExit }: NightWorkbenchProps) 
         session={sessionBinding.session}
         dispatch={sessionBinding.dispatchSession}
         nightRunId={state.nightRunId}
-        unresolvedCount={state.queue.filter((item) => !['confirmed', 'not_applicable'].includes(item.progress)).length}
+        queue={state.queue}
+        concealed={state.privacyShielded}
+        onPreview={(id) => dispatch({ type: 'preview', id })}
+        onSkip={(id, reason) => dispatch({ type: 'skip-item', id, reason })}
         onExit={onExit}
       />
       <RoleChangeSheet
         open={openPanel === 'role-change'}
         onOpenChange={(open) => setOpenPanel(open ? 'role-change' : null)}
         item={current}
-        currentRole={currentRole}
+        binding={sessionBinding}
         roles={roleSnapshotsForScript(state.scriptId)}
-        onConfirm={(role, reason) => dispatch({ type: 'change-role', role, reason })}
       />
       <PrivateRevealOverlay
         open={privateInformation !== null}

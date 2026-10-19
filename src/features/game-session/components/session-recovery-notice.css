@@ -18,3 +18,8 @@
   .session-recovery { flex-wrap: wrap; }
   .session-recovery__actions { width: 100%; justify-content: flex-end; }
 }
+
+/* Portal sits outside app-frame, so its layout cannot depend on that container. */
+.sheet-content--save-recovery .session-recovery { display: grid; grid-template-columns: auto minmax(0, 1fr); }
+.sheet-content--save-recovery .session-recovery__actions { grid-column: 1 / -1; flex-wrap: wrap; justify-content: flex-end; }
+.sheet-content--save-recovery .session-recovery__actions label { display: flex; align-items: center; gap: var(--space-8); min-height: 44px; max-width: 100%; font-size: var(--type-meta); }

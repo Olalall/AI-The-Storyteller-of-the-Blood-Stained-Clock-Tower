@@ -22,6 +22,7 @@ function Resolve-RequiredPath {
 $resolvedAppDir = Resolve-RequiredPath $AppDir "AppDir"
 $resolvedNodePath = Resolve-RequiredPath $NodePath "NodePath"
 $startScript = Resolve-RequiredPath (Join-Path $resolvedAppDir "scripts\vps\start-assistant.ps1") "Start script"
+$healthScript = Resolve-RequiredPath (Join-Path $resolvedAppDir "scripts\vps\check-assistant-health.ps1") "Healthcheck script"
 
 $arguments = @(
   "-NoProfile",
@@ -34,23 +35,30 @@ $arguments = @(
 
 $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $arguments -WorkingDirectory $resolvedAppDir
 $trigger = New-ScheduledTaskTrigger -AtStartup
+$recoveryTrigger = New-ScheduledTaskTrigger -Once -At (Get-Date).AddMinutes(1) -RepetitionInterval (New-TimeSpan -Minutes 1)
+$recoveryTrigger.Repetition.StopAtDurationEnd = $false
 $principal = New-ScheduledTaskPrincipal -UserId "SYSTEM" -RunLevel Highest
 $settings = New-ScheduledTaskSettingsSet `
   -AllowStartIfOnBatteries `
   -DontStopIfGoingOnBatteries `
-  -ExecutionTimeLimit (New-TimeSpan -Days 30) `
+  -ExecutionTimeLimit ([TimeSpan]::Zero) `
   -MultipleInstances IgnoreNew `
-  -RestartCount 3 `
+  -RestartCount 999 `
   -RestartInterval (New-TimeSpan -Minutes 1) `
   -StartWhenAvailable
 
 Register-ScheduledTask `
   -TaskName $TaskName `
   -Action $action `
-  -Trigger $trigger `
+  -Trigger @($trigger, $recoveryTrigger) `
   -Principal $principal `
   -Settings $settings `
   -Force | Out-Null
+
+$healthArguments = "-NoProfile -ExecutionPolicy Bypass -File `"$healthScript`" -AppDir `"$resolvedAppDir`" -TaskName `"$TaskName`" -Port $Port"
+$healthAction = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $healthArguments -WorkingDirectory $resolvedAppDir
+$healthSettings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit (New-TimeSpan -Minutes 1) -MultipleInstances IgnoreNew -StartWhenAvailable
+Register-ScheduledTask -TaskName "$TaskName-healthcheck" -Action $healthAction -Trigger @($trigger, $recoveryTrigger) -Principal $principal -Settings $healthSettings -Force | Out-Null
 
 Write-Host "BOTC_ASSISTANT_TASK: registered ${TaskName}"
 Write-Host "BOTC_ASSISTANT_TASK: app ${resolvedAppDir}"

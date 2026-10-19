@@ -1,11 +1,15 @@
 import { AlertTriangle, BookOpenText, History, ShieldCheck, Sparkles } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
-import { SeatButton } from '../../../components/ui/SeatButton'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { outcomeReady } from '../state/projectWakeDraft'
 import type { AIResultAdvice, OutcomeResolutionHint, PlayerStatusSnapshot, RoleChangeEvent, WakeDraft, WakeItem } from '../types'
 import { PlayerStatusBar } from './PlayerStatusBar'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
+import { canRevealNightResult } from '../../../domain/scripts/nightInteractionInputs'
+import { NightRoleChoices } from './NightRoleChoices'
+import { NightTargetChoices } from './NightTargetChoices'
+import { NightTargetRoleChoices } from './NightTargetRoleChoices'
+import { StorytellerContextEditor } from './StorytellerContextEditor'
 
 interface CurrentWakeCardProps {
   item: WakeItem
@@ -15,6 +19,7 @@ interface CurrentWakeCardProps {
   isPreviewing: boolean
   isReadOnly: boolean
   playerCount: number
+  unavailableTargetSeatIds?: number[]
   aiAdvice?: AIResultAdvice
   resolutionHint?: OutcomeResolutionHint
   aiAvailable: boolean
@@ -26,7 +31,12 @@ interface CurrentWakeCardProps {
   canRevealInformation: boolean
   onUnshield: () => void
   onTarget: (seat: number) => void
+  onTargetRoleChoice: (index: number, choice: { seatId?: number; roleId?: string }) => void
+  onTargetCountChoice?: (count: number) => void
   onRoleChoice: (roleId: string) => void
+  onSecondRoleChoice: (roleId: string) => void
+  onAdditionalRoleChoice?: (index: 0 | 1, roleId: string) => void
+  onStorytellerContext: (value: string) => void
   onOutcome: (outcomeId: string) => void
   onUseAI: () => void
   onChangeRole: () => void
@@ -43,6 +53,7 @@ export function CurrentWakeCard({
   isPreviewing,
   isReadOnly,
   playerCount,
+  unavailableTargetSeatIds,
   aiAdvice,
   resolutionHint,
   aiAvailable,
@@ -54,7 +65,12 @@ export function CurrentWakeCard({
   canRevealInformation,
   onUnshield,
   onTarget,
+  onTargetRoleChoice,
+  onTargetCountChoice,
   onRoleChoice,
+  onSecondRoleChoice,
+  onAdditionalRoleChoice,
+  onStorytellerContext,
   onOutcome,
   onUseAI,
   onChangeRole,
@@ -92,7 +108,7 @@ export function CurrentWakeCard({
       <PlayerStatusBar
         playerLabel={item.playerLabel}
         status={playerStatus}
-        queuedRoleName={roleChange ? item.roleName : undefined}
+        queuedRoleName={roleChange && roleChange.toRole.id !== item.roleId ? item.roleName : undefined}
         canChangeRole={canChangeRole}
         onChangeRole={onChangeRole}
       />
@@ -105,8 +121,8 @@ export function CurrentWakeCard({
         ) : null}
         {item.applicability === 'needs_review' ? (
           <div className="applicability-actions">
-            <Button variant="secondary" compact onClick={() => onResolveApplicability('applicable')}>适用</Button>
-            <Button variant="ghost" compact onClick={() => onResolveApplicability('not_applicable')}>不适用</Button>
+            <Button variant="secondary" compact disabled={isPreviewing} onClick={() => onResolveApplicability('applicable')}>适用</Button>
+            <Button variant="ghost" compact disabled={isPreviewing} onClick={() => onResolveApplicability('not_applicable')}>不适用</Button>
           </div>
         ) : null}
         {item.history ? (
@@ -134,45 +150,11 @@ export function CurrentWakeCard({
           </div>
         </div>
 
-        {item.targetCount > 0 ? (
-          <fieldset disabled={formDisabled}>
-            <legend>{item.targetLabel ?? '目标'} <span>{draft.targets.length}/{item.targetCount}</span></legend>
-            <div className="seat-grid">
-              {Array.from({ length: playerCount }, (_, index) => index + 1).map((seat) => (
-                <SeatButton
-                  key={seat}
-                  seat={seat}
-                  selected={draft.targets.includes(seat)}
-                  self={seat === item.seatId}
-                  onClick={() => onTarget(seat)}
-                  aria-label={`选择${seat}号玩家`}
-                />
-              ))}
-            </div>
-          </fieldset>
-        ) : null}
-
-        {item.roleChoices ? (
-          <fieldset disabled={formDisabled}>
-            <legend className="choice-legend">
-              <span>{roleChoiceTitle(item)}</span>
-              <small>{roleChoiceHint(item)}</small>
-            </legend>
-            <div className="choice-chips">
-              {item.roleChoices.map((role) => (
-                <button
-                  key={role.id}
-                  type="button"
-                  className={draft.roleChoice === role.id ? 'choice-chip choice-chip--selected' : 'choice-chip'}
-                  onClick={() => onRoleChoice(role.id)}
-                  aria-pressed={draft.roleChoice === role.id}
-                >
-                  {role.label}
-                </button>
-              ))}
-            </div>
-          </fieldset>
-        ) : null}
+        {item.targetRoleChoiceCount !== undefined
+          ? <NightTargetRoleChoices item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onChange={onTargetRoleChoice} />
+          : <><NightTargetChoices item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onTarget={onTarget} onTargetCountChoice={onTargetCountChoice} unavailableSeatIds={unavailableTargetSeatIds} />
+            <NightRoleChoices item={item} draft={draft} disabled={formDisabled} onRoleChoice={onRoleChoice} onSecondRoleChoice={onSecondRoleChoice} onAdditionalRoleChoice={onAdditionalRoleChoice} /></>}
+        <StorytellerContextEditor key={`${item.id}:${formDisabled}:${draft.storytellerContext ?? ''}`} value={draft.storytellerContext} disabled={formDisabled} onSave={onStorytellerContext} />
 
         <fieldset disabled={formDisabled}>
           <legend className="result-legend">
@@ -233,7 +215,7 @@ export function CurrentWakeCard({
           modifiedFromAI={Boolean(modifiedFromAI)}
         />
 
-        {draft.informationGiven ? (
+        {draft.informationGiven && item.targetRoleChoiceCount === undefined && canRevealNightResult(item.roleId) ? (
           <section className="information-preview">
             <div>
               <div><strong>告知玩家</strong><StatusBadge tone="neutral">待告知</StatusBadge></div>
@@ -269,23 +251,9 @@ function ConfirmDraftPreview({
       </div>
       <p>{draft.storytellerResult}</p>
       {draft.informationGiven ? <small>告知：{draft.informationGiven}</small> : null}
+      {draft.storytellerContext ? <small>已核对事实：{draft.storytellerContext}</small> : null}
       {!isReadOnly ? <small>不自动改身份、阵营、死亡、毒醉。</small> : null}
     </section>
   )
 }
 
-function roleChoiceTitle(item: WakeItem) {
-  if (item.roleId === 'cerenovus') return '洗脑师要求声称'
-  if (item.roleId === 'gambler') return '赌徒猜测身份'
-  if (item.roleId === 'philosopher') return '哲学家获得能力'
-  if (item.roleId === 'pithag') return '麻脸巫婆变成'
-  return item.roleLabel ?? '角色'
-}
-
-function roleChoiceHint(item: WakeItem) {
-  if (item.roleId === 'cerenovus') return '仅本技能出现 · 可选善良角色'
-  if (item.roleId === 'gambler') return '仅本技能出现 · 猜错则死亡'
-  if (item.roleId === 'philosopher') return '仅本技能出现 · 获得对应能力'
-  if (item.roleId === 'pithag') return '仅本技能出现 · 改为目标角色'
-  return '本项专属选项'
-}

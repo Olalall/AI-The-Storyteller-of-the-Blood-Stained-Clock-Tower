@@ -10,6 +10,8 @@ export interface DayVoteDraft {
   threshold: number
   raisedSeatIds: number[]
   ghostVoteSeatIds: number[]
+  /** 人工票数修正，不按角色自动推断；正数加票，负数减票。 */
+  voteAdjustment?: { count: number; reason: string }
 }
 
 export type DaySkillOutcomeKind = 'no_effect' | 'applied' | 'custom'

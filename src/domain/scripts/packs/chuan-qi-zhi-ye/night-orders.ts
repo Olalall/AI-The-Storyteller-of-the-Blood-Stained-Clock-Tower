@@ -1,6 +1,10 @@
 import type { NightOrderEntry } from '../../types'
 
+// https://wiki.bloodontheclocktower.com/Organ_Grinder and official nightsheet, checked 2026-10-16.
+const organGrinderNote = '每夜唤醒街头风琴手，让其选择是否醉酒直到黄昏：点头则放置“醉酒”标记，摇头则保持清醒；由说书人在黄昏移除该标记。'
+
 export const chuanQiZhiYeFirstNight: readonly NightOrderEntry[] = [
+  { roleId: 'organgrinder', order: 22, note: organGrinderNote, knowledgeStatus: 'confirmed' },
   { roleId: "pukka", order: 28, note: "让普卡选择一名玩家。标记那名玩家中毒。", knowledgeStatus: 'confirmed' },
   { roleId: "pixie", order: 29, note: "对小精灵展示一个在场的镇民角色。", knowledgeStatus: 'confirmed' },
   { roleId: "investigator", order: 34, note: "展示那个爪牙角色标记。指向被你标记“爪牙”和“错误”的两名玩家。", knowledgeStatus: 'confirmed' },
@@ -12,6 +16,7 @@ export const chuanQiZhiYeFirstNight: readonly NightOrderEntry[] = [
 export const chuanQiZhiYeOtherNight: readonly NightOrderEntry[] = [
   { roleId: "gambler", order: 11, note: "让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "monk", order: 13, note: "让僧侣选择除自己外的一名玩家。标记那名玩家被保护。", knowledgeStatus: 'confirmed' },
+  { roleId: 'organgrinder', order: 14, note: organGrinderNote, knowledgeStatus: 'confirmed' },
   { roleId: "pithag", order: 17, note: "让麻脸巫婆选择一名玩家和一个角色。如果她选择的角色不在场：让麻脸巫婆重新入睡。唤醒她的目标玩家。对该玩家展示“你是”信息标记和他的新角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "scarletwoman", order: 20, note: "如果红唇女郎今天变成了小恶魔，对她展示“你是”信息标记，和小恶魔角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "exorcist", order: 22, note: "让驱魔人选择一名玩家，不能是上一夜他选择过的玩家。让驱魔人重新入睡。如果驱魔人选中了恶魔：唤醒恶魔。展示“该角色的能力对你生效”信息标记和驱魔人角色标记。指向驱魔人玩家。", knowledgeStatus: 'confirmed' },

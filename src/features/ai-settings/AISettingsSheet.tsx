@@ -1,139 +1,51 @@
-import { Check, FlaskConical, PlugZap, RefreshCw, RotateCcw, Save, Settings, ShieldCheck } from 'lucide-react'
+import { FlaskConical, PlugZap, RefreshCw, Settings, ShieldCheck } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
-import { StatusBadge, type BadgeTone } from '../../components/ui/StatusBadge'
-import {
-  readArchiveRuntimeSettings,
-  resetArchiveRuntimeSettings,
-  saveArchiveRuntimeSettings,
-  type ArchiveRuntimeSettings,
-} from '../../services/archive'
-import {
-  defaultAISettings,
-  readAISettings,
-  resetAISettings,
-  sanitizeAISettingsForSave,
-  saveAISettings,
-  type AISettings,
-  type AIProviderMode,
-} from '../../services/settings'
+import { StatusBadge } from '../../components/ui/StatusBadge'
+import { readAIRuntimeSettings } from '../../services/ai/aiRuntimeSettings'
 import { AssetPackSettingsSection } from './AssetPackSettingsSection'
-import { readBackendAIStatus, testBackendAIConnection, testLiveAIConnection } from './backendAIStatus'
+import { AIAccessSettings } from './AIAccessSettings'
+import { readBackendAIStatus, testBackendAIConnection, testLiveAIConnection, type BackendAIStatus } from './backendAIStatus'
 import './ai-settings.css'
-
-const modeLabels: Record<AIProviderMode, string> = {
-  off: '关闭',
-  backend: '后端代理',
-  'openai-compatible': '兼容接口',
-}
-
-type TestStatus = {
-  tone: BadgeTone
-  message: string
-}
-
-function providerTone(mode: AIProviderMode): BadgeTone {
-  return mode === 'off' ? 'neutral' : 'warning'
-}
 
 export function AISettingsSheet() {
   const [open, setOpen] = useState(false)
-  const [settings, setSettings] = useState<AISettings>(() => readAISettings())
-  const [archiveSettings, setArchiveSettings] = useState<ArchiveRuntimeSettings>(() => readArchiveRuntimeSettings())
-  const [apiKey, setApiKey] = useState('')
-  const [saved, setSaved] = useState(false)
-  const [testStatus, setTestStatus] = useState<TestStatus | null>(null)
-  const [backendStatus, setBackendStatus] = useState<TestStatus | null>(null)
+  const [runtime, setRuntime] = useState(readAIRuntimeSettings)
+  const [backendStatus, setBackendStatus] = useState<BackendAIStatus | null>(null)
+  const [testStatus, setTestStatus] = useState<BackendAIStatus | null>(null)
+  const [liveAcknowledged, setLiveAcknowledged] = useState(false)
+  const [busy, setBusy] = useState(false)
 
   useEffect(() => {
     if (!open) return
-    setSettings(readAISettings())
-    setArchiveSettings(readArchiveRuntimeSettings())
-    setApiKey('')
-    setSaved(false)
-    setTestStatus(null)
+    const currentRuntime = readAIRuntimeSettings()
+    setRuntime(currentRuntime)
     setBackendStatus(null)
-  }, [open])
-
-  useEffect(() => {
-    if (!open) return
-    if (archiveSettings.mode !== 'http') {
-      setBackendStatus({ tone: 'neutral', message: '本机模式：AI复盘使用本地草稿。' })
-      return
-    }
-
+    setTestStatus(null)
+    setLiveAcknowledged(false)
     let active = true
-    readBackendAIStatus(archiveSettings).then((status) => {
+    readBackendAIStatus(currentRuntime).then((status) => {
       if (active) setBackendStatus(status)
     })
-    return () => {
-      active = false
-    }
-  }, [archiveSettings, open])
+    return () => { active = false }
+  }, [open])
 
-  function patch(update: Partial<AISettings>) {
-    setSettings((current) => ({ ...current, ...update }))
-    setSaved(false)
+  async function refreshBackendStatus() {
+    setBusy(true)
     setTestStatus(null)
+    setLiveAcknowledged(false)
+    setBackendStatus(await readBackendAIStatus(runtime))
+    setBusy(false)
   }
 
-  async function refreshBackendStatus(nextSettings = archiveSettings) {
-    if (nextSettings.mode !== 'http') {
-      setBackendStatus({ tone: 'neutral', message: '本机模式：AI 使用本地草稿。' })
-      return
-    }
-    setBackendStatus({ tone: 'neutral', message: '正在读取后端 AI 状态…' })
-    setBackendStatus(await readBackendAIStatus(nextSettings))
-  }
-
-  async function testBackendConnection() {
-    setTestStatus(await testBackendAIConnection(archiveSettings))
-  }
-
-  function validateConfig() {
-    if (settings.mode === 'backend') {
-      void testBackendConnection()
-      return
-    }
-    if (settings.mode === 'off') {
-      setTestStatus({ tone: 'neutral', message: '当前关闭，无需测试。' })
-      return
-    }
-    if (!settings.baseUrl.trim() || !settings.model.trim()) {
-      setTestStatus({ tone: 'warning', message: '请先填写接入地址和模型名字。' })
-      return
-    }
-    if (!apiKey.trim()) {
-      setTestStatus({ tone: 'warning', message: '缺少 API KEY；保存不会保存密钥。' })
-      return
-    }
-    setTestStatus({ tone: 'success', message: '本页配置完整；API KEY 不会保存。' })
-  }
-
-  async function liveTestConnection() {
-    setTestStatus(await testLiveAIConnection(archiveSettings, settings, apiKey))
-  }
-
-  function save() {
-    saveAISettings(sanitizeAISettingsForSave(settings))
-    saveArchiveRuntimeSettings(archiveSettings)
-    const nextArchiveSettings = readArchiveRuntimeSettings()
-    setArchiveSettings(nextArchiveSettings)
-    setSettings(readAISettings())
-    setSaved(true)
-    setTestStatus((current) => current ?? { tone: 'neutral', message: '已保存非敏感设置。' })
-    void refreshBackendStatus(nextArchiveSettings)
-  }
-
-  function reset() {
-    const next = resetAISettings()
-    const nextArchive = resetArchiveRuntimeSettings()
-    setSettings(next)
-    setArchiveSettings(nextArchive)
-    setApiKey('')
-    setSaved(true)
-    setTestStatus({ tone: 'neutral', message: '已恢复默认。' })
+  async function testConnection(live: boolean) {
+    if (live && (!liveAcknowledged || backendStatus?.state !== 'ready')) return
+    setBusy(true)
+    setTestStatus({ tone: 'neutral', message: live ? '正在请求真实模型…' : '正在检查后端配置…' })
+    setTestStatus(await (live ? testLiveAIConnection(runtime) : testBackendAIConnection(runtime)))
+    if (live) setLiveAcknowledged(false)
+    setBusy(false)
   }
 
   return (
@@ -141,7 +53,7 @@ export function AISettingsSheet() {
       open={open}
       onOpenChange={setOpen}
       title="AI API 设置"
-      description="接口与素材"
+      description="查看实际配置与素材"
       presentation="page"
       contentClassName="sheet-content--ai-settings"
       trigger={
@@ -150,116 +62,51 @@ export function AISettingsSheet() {
         </button>
       }
     >
-      <form className="ai-settings-panel" onSubmit={(event) => { event.preventDefault(); save() }}>
+      <div className="ai-settings-panel">
         <section className="ai-settings-connection" aria-labelledby="ai-connection-title">
           <div className="ai-settings-connection__head">
-            <span><PlugZap aria-hidden="true" />连接配置</span>
-            <h3 id="ai-connection-title">AI API</h3>
+            <span><PlugZap aria-hidden="true" />当前调用方式</span>
+            <h3 id="ai-connection-title">{runtime.mode === 'http' ? '后端代理' : '本地候选'}</h3>
           </div>
-          <StatusBadge tone={providerTone(settings.mode)}>{settings.mode === 'off' ? '未启用' : '待接入'}</StatusBadge>
+          <StatusBadge tone={backendStatus?.tone ?? 'neutral'}>{backendStatus?.label ?? '正在读取状态'}</StatusBadge>
         </section>
 
-        <section className="ai-settings-card ai-settings-card--form" aria-labelledby="ai-form-title">
+        <section className="ai-settings-card" aria-labelledby="ai-form-title">
           <div className="ai-settings-card__heading">
-            <span>参数</span>
-            <h3 id="ai-form-title">运行配置</h3>
+            <span>实际生效配置</span>
+            <h3 id="ai-form-title">{backendStatus ? backendStatus.model ?? (backendStatus.state === 'unavailable' ? '暂时无法确认模型' : '当前未使用模型') : '正在读取模型配置'}</h3>
+          </div>
+          <p className="ai-settings-note" role="status">{backendStatus?.message ?? '正在读取当前页面使用的 AI 配置…'}</p>
+          {backendStatus?.model ? (
+            <dl className="ai-settings-effective-config">
+              <div><dt>后端请求超时</dt><dd>{backendStatus.timeoutSeconds ? `${backendStatus.timeoutSeconds} 秒` : '未提供'}</dd></div>
+              <div><dt>后端上下文上限</dt><dd>{backendStatus.contextLimit ? `${backendStatus.contextLimit} tokens` : '未提供'}</dd></div>
+            </dl>
+          ) : null}
+          <p className="ai-settings-note">模型、密钥和调用参数由服务器管理，本页只显示当前配置。配板和夜间推荐调用失败时会退回本地候选，仍需说书人确认。</p>
+
+          <div className="ai-settings-test-actions">
+            <Button type="button" variant="ghost" disabled={busy} onClick={() => { void refreshBackendStatus() }}><RefreshCw aria-hidden="true" />刷新状态</Button>
+            <Button type="button" variant="secondary" disabled={busy} onClick={() => { void testConnection(false) }}><ShieldCheck aria-hidden="true" />检查配置（不调用模型）</Button>
           </div>
 
-          <div className="ai-settings-form-grid">
-            <label>
-              <span>调用方式</span>
-              <select
-                value={settings.mode}
-                onChange={(event) => patch({ mode: event.target.value as AIProviderMode })}
-              >
-                {(['off', 'backend', 'openai-compatible'] as const).map((mode) => (
-                  <option key={mode} value={mode}>{modeLabels[mode]}</option>
-                ))}
-              </select>
-            </label>
-
-            <label>
-              <span>接入地址</span>
-              <input
-                value={settings.baseUrl}
-                onChange={(event) => patch({ baseUrl: event.target.value })}
-                placeholder="https://api.example.com/v1"
-                autoComplete="url"
-              />
-            </label>
-
-            <label>
-              <span>模型名字</span>
-              <input
-                value={settings.model}
-                onChange={(event) => patch({ model: event.target.value })}
-                placeholder={defaultAISettings.model}
-                autoComplete="off"
-              />
-            </label>
-
-            <label>
-              <span>API KEY</span>
-              <input
-                type="password"
-                value={apiKey}
-                onChange={(event) => { setApiKey(event.target.value); setSaved(false); setTestStatus(null) }}
-                placeholder="sk-..."
-                autoComplete="new-password"
-              />
-            </label>
-          </div>
-
-          <details className="ai-settings-advanced-panel">
-            <summary>高级设置</summary>
-            <div className="ai-settings-advanced" aria-label="高级参数">
-              <label>
-                <span>超时秒数</span>
-                <input
-                  type="number"
-                  min="5"
-                  max="120"
-                  value={settings.timeoutSeconds}
-                  onChange={(event) => patch({ timeoutSeconds: Number(event.target.value) })}
-                />
+          {backendStatus?.state === 'ready' ? (
+            <details className="ai-settings-advanced-panel">
+              <summary>真实连通测试</summary>
+              <p className="ai-settings-note">会向上方模型发送一次测试请求，可能产生 API 费用；不会发送当前对局。测试成功只代表模型可连接，不代表规则判断已通过验证。</p>
+              <label className="ai-settings-live-ack">
+                <input type="checkbox" checked={liveAcknowledged} disabled={busy} onChange={(event) => setLiveAcknowledged(event.target.checked)} />
+                <span>我确认发起一次真实模型请求</span>
               </label>
-              <label>
-                <span>上下文上限</span>
-                <input
-                  type="number"
-                  min="2000"
-                  max="128000"
-                  step="1000"
-                  value={settings.maxContextTokens}
-                  onChange={(event) => patch({ maxContextTokens: Number(event.target.value) })}
-                />
-              </label>
-              <label className="ai-settings-toggle">
-                <input type="checkbox" checked={settings.streaming} onChange={(event) => patch({ streaming: event.target.checked })} />
-                <span>流式返回</span>
-              </label>
-            </div>
-          </details>
-
-          <div className="ai-settings-inline-test" aria-label="接口测试">
-            <div className="ai-settings-test-actions">
-              <Button type="button" variant="ghost" onClick={() => { void refreshBackendStatus() }}><RefreshCw aria-hidden="true" />刷新状态</Button>
-              <Button type="button" variant="secondary" onClick={validateConfig}><ShieldCheck aria-hidden="true" />校验配置</Button>
-              <Button type="button" variant="secondary" onClick={liveTestConnection}><FlaskConical aria-hidden="true" />连通测试</Button>
-            </div>
-            {backendStatus && archiveSettings.mode === 'http' ? <StatusBadge tone={backendStatus.tone}>{backendStatus.message}</StatusBadge> : null}
-            {testStatus ? <StatusBadge tone={testStatus.tone}>{testStatus.message}</StatusBadge> : null}
-            {saved ? <p className="ai-settings-saved" role="status"><Check aria-hidden="true" />已保存设置</p> : null}
-          </div>
+              <Button type="button" variant="secondary" disabled={busy || !liveAcknowledged} onClick={() => { void testConnection(true) }}><FlaskConical aria-hidden="true" />测试当前模型</Button>
+            </details>
+          ) : null}
+          {testStatus ? <p className="ai-settings-note" role="status"><StatusBadge tone={testStatus.tone}>{testStatus.message}</StatusBadge></p> : null}
         </section>
 
+        {backendStatus?.accessRequired ? <AIAccessSettings runtime={runtime} authorized={backendStatus.accessAuthorized === true} onChanged={refreshBackendStatus} /> : null}
         <AssetPackSettingsSection />
-
-        <footer className="ai-settings-actions">
-          <Button type="button" variant="ghost" onClick={reset}><RotateCcw aria-hidden="true" />恢复默认</Button>
-          <Button type="submit" variant="primary"><Save aria-hidden="true" />保存设置</Button>
-        </footer>
-      </form>
+      </div>
     </Sheet>
   )
 }

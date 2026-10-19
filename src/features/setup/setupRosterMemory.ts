@@ -76,7 +76,8 @@ function canSaveRoster(session: GameSessionState) {
 
 function writeRosterMemory(memory: SetupRosterMemory) {
   if (typeof window === 'undefined') return
-  window.localStorage.setItem(setupRosterMemoryKey, JSON.stringify(memory))
+  try { window.localStorage.setItem(setupRosterMemoryKey, JSON.stringify(memory)) }
+  catch { /* 昵称记忆是便利副本，不能阻断当前局保存与导出。 */ }
 }
 
 function isRosterMemory(value: unknown): value is SetupRosterMemory {

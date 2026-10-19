@@ -71,6 +71,14 @@ Copy-RequiredPath "README.md" (Join-Path $stagePath "README.md")
 Copy-RequiredPath "THIRD_PARTY_NOTICES.md" (Join-Path $stagePath "THIRD_PARTY_NOTICES.md")
 Copy-RequiredPath "dev-docs\VPS_DEPLOYMENT_PREP.md" (Join-Path $stagePath "VPS_DEPLOYMENT_PREP.md")
 Copy-RequiredPath "scripts\vps" (Join-Path $stagePath "scripts\vps")
+New-Item -ItemType Directory -Force -Path `
+  (Join-Path $stagePath "scripts\portable"), `
+  (Join-Path $stagePath "asset-packs\characters"), `
+  (Join-Path $stagePath "asset-packs\community") | Out-Null
+Copy-RequiredPath "scripts\portable\Install-CharacterAssets.ps1" (Join-Path $stagePath "scripts\portable\Install-CharacterAssets.ps1")
+Copy-RequiredPath "scripts\portable\Install-Character-Assets.cmd" (Join-Path $stagePath "scripts\portable\Install-Character-Assets.cmd")
+Copy-RequiredPath "public\assets\characters\source-manifest.json" (Join-Path $stagePath "asset-packs\characters\source-manifest.json")
+Copy-RequiredPath "public\assets\community\source-manifest.json" (Join-Path $stagePath "asset-packs\community\source-manifest.json")
 
 $manifest = [ordered]@{
   project = "botc-storyteller-companion"
@@ -87,6 +95,9 @@ $manifest = [ordered]@{
     healthz = "/healthz"
     windowsStartScript = "scripts\vps\start-assistant.ps1"
     windowsScheduledTaskInstaller = "scripts\vps\install-windows-scheduled-task.ps1"
+    windowsHealthcheckScript = "scripts\vps\check-assistant-health.ps1"
+    windowsTunnelHealthcheckScript = "scripts\vps\check-cloudflare-tunnel.ps1"
+    windowsTunnelHealthcheckInstaller = "scripts\vps\install-cloudflare-healthcheck.ps1"
   }
 }
 $manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $stagePath "DEPLOYMENT_MANIFEST.json") -Encoding UTF8
@@ -101,13 +112,20 @@ if (Test-Path -LiteralPath $zipPath) {
 $sourcePattern = Join-Path $stagePath "*"
 Compress-Archive -Path $sourcePattern -DestinationPath $zipPath -Force
 
-$hash = Get-FileHash -LiteralPath $zipPath -Algorithm SHA256
+$sha256 = [System.Security.Cryptography.SHA256]::Create()
+$zipStream = [System.IO.File]::OpenRead($zipPath)
+try {
+  $hashValue = ([System.BitConverter]::ToString($sha256.ComputeHash($zipStream))).Replace("-", "")
+} finally {
+  $zipStream.Dispose()
+  $sha256.Dispose()
+}
 $info = Get-Item -LiteralPath $zipPath
 $result = [ordered]@{
   ok = $true
   zipPath = $zipPath
   sizeMB = [math]::Round($info.Length / 1MB, 2)
-  sha256 = $hash.Hash
+  sha256 = $hashValue
   packageDir = $stagePath
 }
 $result | ConvertTo-Json -Depth 4 | Tee-Object -FilePath (Join-Path $outputPath "latest-package.json")

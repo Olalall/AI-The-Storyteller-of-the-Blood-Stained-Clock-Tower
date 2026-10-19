@@ -3,14 +3,14 @@ import { complexRoleKnowledge, getComplexRoleKnowledge, roleKnowledgeForAI } fro
 
 describe('complex role knowledge', () => {
   it('keeps the researched complex roles in a shared index', () => {
-    expect(complexRoleKnowledge).toHaveLength(74)
+    expect(complexRoleKnowledge).toHaveLength(76)
     expect(getComplexRoleKnowledge('snakecharmer')).toMatchObject({
       title: '舞蛇人',
       riskTags: expect.arrayContaining(['identity', 'team', 'poison']),
     })
     expect(getComplexRoleKnowledge('snakecharmer')?.reminders.join(' ')).toContain('新舞蛇人中毒')
     expect(getComplexRoleKnowledge('pithag')?.reminders.join(' ')).toContain('创造新恶魔')
-    expect(getComplexRoleKnowledge('fanggu')?.reminders.join(' ')).toContain('目标变邪恶方古')
+    expect(getComplexRoleKnowledge('fanggu')?.reminders.join(' ')).toContain('目标改为邪恶方古且不死亡')
     expect(getComplexRoleKnowledge('gambler')?.aiCan.join(' ')).toContain('猜对/猜错草稿')
     expect(getComplexRoleKnowledge('nodashii')?.aiCannot.join(' ')).toContain('自动批量中毒')
     expect(getComplexRoleKnowledge('alchemist')?.requiredContext.join(' ')).toContain('获得的爪牙能力')
@@ -18,6 +18,14 @@ describe('complex role knowledge', () => {
     expect(getComplexRoleKnowledge('zombuul')?.aiCannot.join(' ')).toContain('登记死亡')
     expect(getComplexRoleKnowledge('kazali')?.reminders.join(' ')).toContain('指定哪些玩家成为哪些爪牙')
     expect(getComplexRoleKnowledge('goblin')?.aiCannot.join(' ')).toContain('自动判胜负')
+    expect(getComplexRoleKnowledge('banshee')).toMatchObject({
+      title: '报丧女妖', riskTags: expect.arrayContaining(['death', 'hidden-info']),
+      sourceDoc: 'dev-docs/role-research/banshee.md',
+    })
+    expect(getComplexRoleKnowledge('eviltwin')).toMatchObject({
+      riskTags: expect.arrayContaining(['victory', 'team']),
+      sourceDoc: 'dev-docs/role-research/eviltwin.md',
+    })
   })
 
   it('projects a bounded AI brief instead of full research notes', () => {

@@ -7,6 +7,7 @@ import { GameAIReviewPanel } from './GameAIReviewPanel'
 
 interface GameReviewPanelProps {
   archives: GameArchiveRecord[]
+  notice: string | null
   selectedArchive: GameArchiveRecord | null
   onSelectArchive: (archiveId: string) => void
   onExportArchive: (archive: GameArchiveRecord) => void
@@ -36,6 +37,7 @@ function formatArchiveDate(value: string) {
 
 export function GameReviewPanel({
   archives,
+  notice,
   selectedArchive,
   onSelectArchive,
   onExportArchive,
@@ -59,8 +61,9 @@ export function GameReviewPanel({
         className="game-review__empty"
         icon={<Archive aria-hidden="true" />}
         title="暂无历史归档"
-        description="先在“结束归档”中生成归档，之后这里可以查看任意历史对局。"
+        description="先保存本局，之后可在这里查看已保存的对局。"
       >
+        {notice ? <p className="game-end__notice" role="status">{notice}</p> : null}
         <Button variant="primary" onClick={onStartArchive}>去归档本局</Button>
       </EmptyState>
     </section>
@@ -91,7 +94,11 @@ export function GameReviewPanel({
       </div>
     </div>
     <article className="game-review__detail" aria-label="复盘内容">
+      {notice ? <p className="game-end__notice" role="status">{notice}</p> : null}
       {selectedArchive ? <>
+        <div className="game-end__actions">
+          <Button variant="secondary" onClick={() => onExportArchive(selectedArchive)}><Download aria-hidden="true" />导出这局</Button>
+        </div>
         <div className="game-review__result">
           <span>胜方</span>
           <strong>{selectedArchive.winnerLabel}</strong>
@@ -108,11 +115,12 @@ export function GameReviewPanel({
           <div><dt>处决</dt><dd>{selectedArchive.summary.executions}次</dd></div>
           <div><dt>更正</dt><dd>{selectedArchive.summary.corrections}条</dd></div>
         </dl>
-        <section className="game-review__log-section" aria-label="当局日志信息">
-          <div className="game-ai-review__section-title">
+        <GameAIReviewPanel archive={selectedArchive} />
+        <details className="game-review__log-section" key={selectedArchive.id} aria-label="当局日志信息">
+          <summary className="game-ai-review__section-title">
             <span>当局日志</span>
             <small>{selectedArchive.timeline.length}条</small>
-          </div>
+          </summary>
           <ol className="game-review__timeline">
           {selectedArchive.timeline.length ? selectedArchive.timeline.map((entry) => (
             <li key={entry.id}>
@@ -121,11 +129,7 @@ export function GameReviewPanel({
             </li>
           )) : <li><span>本局</span><strong>暂无记录</strong></li>}
           </ol>
-        </section>
-        <GameAIReviewPanel archive={selectedArchive} />
-        <div className="game-end__actions">
-          <Button variant="secondary" onClick={() => onExportArchive(selectedArchive)}><Download aria-hidden="true" />导出这局</Button>
-        </div>
+        </details>
       </> : null}
     </article>
   </section>

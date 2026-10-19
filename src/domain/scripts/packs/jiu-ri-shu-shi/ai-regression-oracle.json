@@ -1,0 +1,13 @@
+{
+  "id": "jiu-ri-shu-shi",
+  "status": "not-run",
+  "kind": "synthetic-local-skill-oracle",
+  "title": "方古成功跳转不产生第二恶魔",
+  "confirmedFacts": "本局只有一个恶魔，是存活且清醒健康的方古；整局尚未成功跳过外来者。本夜首次有效攻击一名存活的真实外来者，目标与旧方古均无免死、替死或登记干扰。存活的红唇女郎清醒健康，旧方古将死前共有至少5名非旅行者存活，使用当前方古/红唇女郎相克，无其他干扰。",
+  "expected": "外来者保持存活并变为邪恶方古，旧方古死亡；当前相克使红唇女郎保持原角色，不同时创造第二个恶魔。",
+  "sourceUrls": [
+    "https://wiki.bloodontheclocktower.com/Fang_Gu"
+  ],
+  "userGameData": false,
+  "productionMutation": false
+}

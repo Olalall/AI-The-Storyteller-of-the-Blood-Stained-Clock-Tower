@@ -1,0 +1,18 @@
+{
+  "id": "wiki02-907-vigormortis-zero-outsiders",
+  "sourceIndex": 907,
+  "title": "七人零外来者亡骨魔不凭空加镇民",
+  "given": "新局7人，基础人数分布5镇民/0外来者/1爪牙/1恶魔，选择亡骨魔。爪牙不是教父，没有其他增加或减少外来者的人数修正，没有隐含额外玩家。当前只在确认开局配板，未开夜晚。",
+  "expected": [
+    "没有外来者可移除，亡骨魔不增加镇民。合法目标仍是5镇民/0外来者/1爪牙/1恶魔，共7人。",
+    "不能算成6镇民/负1外来者，也不能凭空多出第8名玩家。",
+    "这不免除一般确认/角色存在检查；若以后同时选择教父等修正，需要按组合重新核对，不能套用无条件0修正。"
+  ],
+  "primarySources": [
+    "https://wiki.bloodontheclocktower.com/Vigormortis"
+  ],
+  "evidence": "Vigormortis How to Run开局说明：没有外来者标记可移除时，不加入镇民。新增7人第3模板将提供这一边界；10/13现成模板仍使用Imp。",
+  "scriptId": "da-cheng-xiao-zhen",
+  "reviewedAt": "2026-10-16",
+  "realAiRun": false
+}

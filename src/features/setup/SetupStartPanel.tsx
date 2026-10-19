@@ -1,7 +1,8 @@
 import { UsersRound } from 'lucide-react'
-import { useMemo, useState } from 'react'
-import { smartScriptPacks, type PlayerCount, type ScriptId } from '../../domain/scripts'
+import { useId, useMemo, useRef, useState } from 'react'
+import { scriptManifest, type PlayerCount, type ScriptId } from '../../domain/scripts'
 import { Button } from '../../components/ui/Button'
+import { Field } from '../../components/ui/Field'
 import type { PlayerExperience } from '../game-session/types'
 import {
   buildRosterForPlayerCount,
@@ -28,6 +29,12 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
   const memory = useMemo(() => loadSetupRosterMemory(), [])
   const [playerCount, setPlayerCount] = useState<PlayerCount>(12)
   const [roster, setRoster] = useState(() => buildRosterForPlayerCount(12, memory))
+  const [scriptSearch, setScriptSearch] = useState('')
+  const searchInput = useRef<HTMLInputElement>(null)
+  const searchStatusId = useId()
+  const query = scriptSearch.trim().toLowerCase()
+  const matchingScripts = scriptManifest.filter((pack) => `${pack.displayName} ${pack.scriptId}`.toLowerCase().includes(query))
+  const selectedScriptMatches = matchingScripts.some((pack) => pack.scriptId === scriptId)
   const canReuse = Boolean(memory?.seats.length)
 
   function selectPlayerCount(nextCount: PlayerCount) {
@@ -48,21 +55,35 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
       </div>
 
       <div className="setup-start__script-row">
-        <label>
-          <span>开局板子</span>
-          <select
-            aria-label="开局板子"
-            value={scriptId}
-            onChange={(event) => onScriptChange(event.target.value as ScriptId)}
-          >
-            {smartScriptPacks.map((pack) => (
-              <option key={pack.scriptId} value={pack.scriptId}>
-                {chineseDisplayName(pack.displayName)}
-              </option>
-            ))}
-          </select>
-        </label>
-        <small>开始配板后生效</small>
+        <div className="setup-start__script-search">
+          <Field label="搜索板子">
+            <input ref={searchInput} type="search" placeholder="输入中文名或英文名" value={scriptSearch} aria-describedby={searchStatusId} onChange={(event) => setScriptSearch(event.target.value)} />
+          </Field>
+          {scriptSearch ? <Button variant="ghost" onClick={() => { setScriptSearch(''); searchInput.current?.focus() }}>清除搜索</Button> : null}
+        </div>
+        <div className="setup-start__script-choice">
+          <Field label="开局板子">
+            <select
+              aria-label="开局板子"
+              aria-describedby={searchStatusId}
+              value={scriptId}
+              disabled={matchingScripts.length === 0}
+              onChange={(event) => onScriptChange(event.target.value as ScriptId)}
+            >
+              {!selectedScriptMatches ? <option value={scriptId}>当前选择：{scriptName}</option> : null}
+              {matchingScripts.map((pack) => (
+                <option key={pack.scriptId} value={pack.scriptId}>
+                  {chineseDisplayName(pack.displayName)}
+                </option>
+              ))}
+            </select>
+          </Field>
+          <small>开始配板后生效</small>
+        </div>
+        <p id={searchStatusId} className="setup-start__script-status" role="status">
+          {query ? matchingScripts.length ? `找到 ${matchingScripts.length} 个板子` : '没有匹配的板子，请换个关键词或清除搜索。' : `共 ${scriptManifest.length} 个板子`}
+          {!selectedScriptMatches ? ` · 当前选择仍为${scriptName}` : null}
+        </p>
       </div>
 
       <div className="setup-start__counts" aria-label="选择玩家人数">

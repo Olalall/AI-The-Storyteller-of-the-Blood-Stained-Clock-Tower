@@ -1,3 +1,5 @@
+import { isValidSetupCountChangeForRole, resolveSetupCountChanges } from '../../domain/setup-templates/setupCountChanges'
+import { kazaliOpeningCounts } from '../../domain/setup-templates/kazaliOpening'
 import type { SetupAssignment, SetupRuleSelection } from '../game-session/types'
 import type { RoleSnapshot } from '../night-workbench/types'
 import { emptyTeamCounts } from './baseDistribution'
@@ -20,6 +22,7 @@ interface EvaluateSetupRulesInput {
   selections?: readonly SetupRuleSelection[]
   teamForRole: Readonly<Record<string, SetupTeam>>
   repeatableRoleIds?: readonly string[]
+  modifierSourceRoleIds?: readonly string[]
 }
 
 function check(id: string, status: SetupLegalityCheck['status'], summary: string, detail?: string, source?: string): SetupLegalityCheck {
@@ -53,20 +56,13 @@ function hasOnlyAllowedDuplicateRoles(roleIds: readonly string[], repeatableRole
   return true
 }
 
-function applyChoice(counts: TeamCounts, choice: SetupRuleChoice) {
-  const next = cloneCounts(counts)
-  Object.entries(choice.delta).forEach(([team, delta]) => {
-    next[team as SetupTeam] += delta ?? 0
-  })
-  return next
-}
-
 function selectedChoice(
   rule: SetupModifierRule,
   selectionByRule: Map<string, SetupRuleSelection>,
+  hasConfirmedSourceSnapshot: boolean,
 ): { choice: SetupRuleChoice | null; check: SetupLegalityCheck | null; selected?: SetupRuleSelection } {
   const selected = selectionByRule.get(rule.id)
-  if (!selected && rule.requiresStorytellerChoice) {
+  if (!selected && (rule.requiresStorytellerChoice || (rule.requiresSelectionForNewSetup && !hasConfirmedSourceSnapshot))) {
     return {
       choice: null,
       check: check('choice-required', 'needs_choice', `缺少配板修正：${rule.label}`, '当前草稿没有带入智能配板采用的人数修正；请重新生成候选。', rule.source),
@@ -111,10 +107,12 @@ export function evaluateSetupRules({
   selections = [],
   teamForRole,
   repeatableRoleIds = [],
+  modifierSourceRoleIds,
 }: EvaluateSetupRulesInput): SetupLegalityReport {
   const roleIds = assignments.map((assignment) => assignment.role.id)
   const seatIds = assignments.map((assignment) => assignment.seatId)
   const inPlay = new Set(roleIds)
+  const modifierSources = new Set(modifierSourceRoleIds ?? roleIds)
   const actualCounts = emptyTeamCounts()
   roleIds.forEach((roleId) => {
     const team = teamForRole[roleId]
@@ -146,28 +144,42 @@ export function evaluateSetupRules({
   const selectionByRule = new Map(selections.map((selection) => [selection.ruleId, selection]))
   const activeSelections: SetupRuleSelection[] = []
   let expectedCounts = baseCounts ? cloneCounts(baseCounts) : null
+  const appliedModifiers: { rule: SetupModifierRule; choice: SetupRuleChoice }[] = []
   rulePack.modifiers.forEach((rule) => {
     const hasExplicitSelection = selectionByRule.has(rule.id)
-    if ((!inPlay.has(rule.roleId) && !hasExplicitSelection) || !expectedCounts) return
-    const result = selectedChoice(rule, selectionByRule)
+    if ((!modifierSources.has(rule.roleId) && (rule.requiresInPlay !== false || !hasExplicitSelection)) || !expectedCounts) return
+    const result = selectedChoice(rule, selectionByRule, modifierSourceRoleIds !== undefined)
     if (result.check) {
       checks.push({ ...result.check, id: `modifier-${rule.id}` })
       return
     }
     if (!result.choice || !result.selected) return
-    expectedCounts = applyChoice(expectedCounts, result.choice)
+    if (modifierSourceRoleIds === undefined && !isValidSetupCountChangeForRole(rule.roleId, result.choice.delta)) {
+      checks.push(check(`modifier-${rule.id}`, 'fail', `开局人数修正无效：${rule.label}`, '当前选项与已核对的角色人数事实不符；请重新生成候选。', rule.source))
+      return
+    }
+    appliedModifiers.push({ rule, choice: result.choice })
     activeSelections.push(result.selected)
-    checks.push({
-      id: `modifier-${rule.id}`,
-      status: 'pass',
-      passed: true,
-      summary: `${rule.label}：${result.choice.label}`,
-      detail: `目标人数：${formatCounts(expectedCounts)}`,
-      source: rule.source,
-    })
   })
 
   if (expectedCounts) {
+    const resolved = resolveSetupCountChanges(expectedCounts, appliedModifiers.map(({ choice }) => ({ delta: choice.delta, boundedTransfer: choice.boundedTransfer })))
+    expectedCounts = resolved.counts
+    const kazaliCounts = kazaliOpeningCounts(baseCounts, actualCounts, roleIds, teamForRole, modifierSourceRoleIds)
+    if (kazaliCounts) {
+      expectedCounts = kazaliCounts
+      checks.push(check('modifier-kazali-opening', 'pass', modifierSourceRoleIds === undefined
+        ? `卡扎力：无爪牙初始袋子，首夜选择 ${baseCounts.minion} 组玩家与爪牙角色`
+        : '卡扎力：保留已确认的无爪牙开局来源',
+      '外来者与镇民可由卡扎力设置调整；首夜选择不会由模板预定，身份与阵营仍须明确确认。',
+      'https://wiki.bloodontheclocktower.com/Kazali'))
+    }
+    appliedModifiers.forEach(({ rule, choice }, index) => {
+      const label = choice.boundedTransfer && resolved.effectiveDeltas[index].outsider === 0
+        ? '无可移除外来者，不增加镇民' : choice.label
+      checks.push({ id: `modifier-${rule.id}`, status: 'pass', passed: true,
+        summary: `${rule.label}：${label}`, detail: `目标人数：${formatCounts(expectedCounts!)}`, source: rule.source })
+    })
     checks.push(check(
       'team-counts',
       sameCounts(actualCounts, expectedCounts) ? 'pass' : 'fail',

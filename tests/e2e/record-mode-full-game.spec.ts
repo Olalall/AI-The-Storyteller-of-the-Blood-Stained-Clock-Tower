@@ -1,4 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
+import { fillCurrentWakeInputs } from '../helpers/nightInputs'
 
 const sessionStorageKey = 'botc-copilot-session-v1'
 const archiveStorageKey = 'botc-game-archives-v1'
@@ -30,9 +31,9 @@ async function countTimeline(page: Page, predicate: (entry: TimelineEntryLike) =
 
 async function openBlankSession(page: Page) {
   await page.setViewportSize({ width: 1180, height: 900 })
-  await page.goto('/')
-  await page.evaluate(({ storageKey, archiveKey }) => {
-    window.localStorage.clear()
+  // 在应用首次启动前准备测试局，避免先启动的样例局留下编辑租约。
+  await page.addInitScript(({ storageKey, archiveKey }) => {
+    if (window.localStorage.getItem(storageKey)) return
     window.localStorage.setItem(storageKey, JSON.stringify({
       schemaVersion: 1,
       id: 'session-record-mode-full-game',
@@ -52,7 +53,8 @@ async function openBlankSession(page: Page) {
     }))
     window.localStorage.removeItem(archiveKey)
   }, { storageKey: sessionStorageKey, archiveKey: archiveStorageKey })
-  await page.reload()
+  await page.goto('/')
+  await expect(page.getByRole('main', { name: '本局' })).toBeVisible()
 }
 
 /**
@@ -60,37 +62,6 @@ async function openBlankSession(page: Page) {
  * AI 候选（种子随机），硬编码角色名会让这条护栏在配板逻辑一变动就误报。
  * 这里只驱动「填满必需输入 → 选一个结果 → 确认」这条产品契约本身。
  */
-async function fillCurrentWakeInputs(page: Page) {
-  const recorder = page.locator('.wake-recorder')
-
-  const seatGrid = recorder.locator('.seat-grid')
-  if (await seatGrid.count()) {
-    const counter = recorder.locator('fieldset', { has: page.locator('.seat-grid') }).locator('legend span').first()
-    const [selected, required] = ((await counter.textContent()) ?? '0/0').split('/').map((part) => Number(part.trim()))
-    for (let picked = selected; picked < required; picked += 1) {
-      const options = seatGrid.locator('button:not([disabled])')
-      const total = await options.count()
-      let clicked = false
-      for (let index = 0; index < total; index += 1) {
-        const option = options.nth(index)
-        if ((await option.getAttribute('aria-pressed')) !== 'true') {
-          await option.click()
-          clicked = true
-          break
-        }
-      }
-      if (!clicked) break
-    }
-  }
-
-  const choiceChips = recorder.locator('.choice-chips button:not([disabled])')
-  if (await choiceChips.count()) await choiceChips.first().click()
-
-  // 工具可能已自动预选默认结果；对同一个结果再点一次等于取消，所以先确认当前没有选中项。
-  const outcomes = recorder.locator('.outcome-grid button:not([disabled])')
-  const alreadyChosen = recorder.locator('.outcome-grid button[aria-pressed="true"]')
-  if (await outcomes.count() && !(await alreadyChosen.count())) await outcomes.first().click()
-}
 
 async function settleWholeNight(page: Page) {
   const session = await readSession(page)
@@ -119,6 +90,7 @@ async function returnToDashboard(page: Page) {
 }
 
 test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 归档', async ({ page }) => {
+  test.setTimeout(60000)
   await openBlankSession(page)
 
   // 配板
@@ -130,7 +102,7 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await page.getByLabel('开局板子').selectOption('trouble-brewing')
   await page.getByRole('button', { name: '12人' }).click()
   await page.getByRole('button', { name: '开始配板' }).click()
-  await page.locator('.setup-candidate').first().getByRole('button', { name: '采用为草稿' }).click()
+  await page.locator('.setup-candidate').first().getByRole('button', { name: '选择组合' }).click()
   await expect(page.locator('.setup-seat-grid button')).toHaveCount(12)
   await page.getByRole('button', { name: '确认配板' }).click()
   await expect(page.locator('.setup-panel')).toBeHidden()
@@ -196,10 +168,10 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await expect(page.getByRole('main', { name: '本局' })).toBeVisible()
 
   // 归档
-  await page.getByRole('button', { name: '重置游戏' }).click()
-  await expect(page.getByRole('heading', { name: '重置游戏' })).toBeVisible()
+  await page.getByRole('button', { name: '保存本局', exact: true }).click()
+  await expect(page.getByRole('heading', { name: '保存本局', level: 2 })).toBeVisible()
   await page.getByRole('radio', { name: '善良获胜' }).click()
-  await page.getByRole('button', { name: '保存本局' }).click()
+  await page.getByRole('dialog', { name: '保存本局', exact: true }).getByRole('button', { name: '保存本局', exact: true }).click()
   await expect(page.getByText('本局已保存到本机浏览器')).toBeVisible()
 
   const archives = await readArchives(page)

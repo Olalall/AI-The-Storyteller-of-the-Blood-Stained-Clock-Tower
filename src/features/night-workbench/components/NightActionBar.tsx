@@ -58,7 +58,7 @@ export function NightActionBar({
   return <StickyActionBar>
     {missingReason && !isSettled ? <div className="action-bar__hint">还差：{missingReason}</div> : null}
     <div className="action-bar__secondary">
-      {current.progress === 'deferred' ? <Button variant="secondary" onClick={onResume}><RotateCcw aria-hidden="true" />恢复处理</Button>
+      {['deferred', 'skipped'].includes(current.progress) ? <Button variant="secondary" onClick={onResume}><RotateCcw aria-hidden="true" />恢复处理</Button>
         : current.progress === 'confirmed' && !isCorrecting ? <Button variant="secondary" onClick={onBeginCorrection}><PencilLine aria-hidden="true" />追加更正</Button>
           : <Button variant="ghost" onClick={isCorrecting ? onCancelCorrection : onDefer} disabled={isReadOnly}>{isCorrecting ? '暂不更正' : '稍后处理'}</Button>}
     </div>

@@ -201,7 +201,7 @@ export const yeMuJiangLinRoles = [
     iconPath: "https://oss.gstonegames.com/data_file/clocktower/role_icon/mutant.png",
     inputKinds: ["none"],
     possibleOutcomes: ["Record the information or choice; storyteller confirms the final result."],
-  }),
+   "highRiskNotes": ["触发条件是尝试让他人相信自己是外来者，可能通过发言、暗示或沉默表现；是否构成疯狂及是否处决均由说书人判断，不自动处决。","该处决可发生于夜间；白天发生时仍占用当天正常处决次数，不能把它当作不影响处决的普通死亡。"]}),
   role({
     id: "klutz",
     name: "呆瓜",

@@ -1,5 +1,6 @@
 ﻿import { mkdtemp, rm, readFile } from 'node:fs/promises'
 import os from 'node:os'
+import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { createPrototypeGameSession } from '../../src/features/game-session/data/createPrototypeSession'
@@ -39,6 +40,36 @@ describe('archive backend P0 handlers', () => {
     expect(await repository.list()).toEqual([])
   })
 
+  it('keeps concurrent archives and rejects different content sharing an in-flight command', async () => {
+    const handlers = createArchiveHandlers(repository)
+    const fixture = archiveFixture({ commandId: 'concurrent' })
+    const command = { commandId: fixture.commandId, sessionId: fixture.session.id, archive: fixture.archive }
+    const results = await Promise.all([
+      handlers.archiveGame(command),
+      handlers.archiveGame({ ...command, archive: { ...fixture.archive, winner: 'evil', winnerLabel: '邪恶获胜' } }),
+      handlers.archiveGame({ ...command, commandId: 'another-game' }),
+    ])
+    expect(results.slice(0, 2).filter((result) => result.accepted)).toHaveLength(1)
+    expect(results.find((result) => !result.accepted)).toMatchObject({ accepted: false, error: 'BAD_REQUEST' })
+    expect(results[2].accepted).toBe(true)
+    const saved = results[0].accepted ? results[0] : results[1]
+    if (!saved.accepted) throw new Error('archive rejected')
+    const reloaded = new JsonArchiveRepository(path.join(tempDir, 'archives.json'))
+    expect(await reloaded.list()).toHaveLength(2)
+    // 并发读操作的完成顺序不确定；各调用返回值必须与实际落盘的首次结果一致。
+    expect((await reloaded.get(saved.data.archive.id))?.winner).toBe(saved.data.archive.winner)
+  })
+
+  it('preserves unreadable archives and accepts subsequent saves once storage is repaired', async () => {
+    const filePath = path.join(tempDir, 'archives.json')
+    await writeFile(filePath, '{broken', 'utf8')
+    const fixture = archiveFixture({ commandId: 'retry' })
+    await expect(repository.save(fixture.archive)).rejects.toThrow()
+    expect(await readFile(filePath, 'utf8')).toBe('{broken')
+    await writeFile(filePath, '[]', 'utf8')
+    await expect(repository.save(fixture.archive)).resolves.toHaveLength(1)
+  })
+
   it('saves and reads a full archive record through an idempotent command id', async () => {
     const handlers = createArchiveHandlers(repository)
     const fixture = archiveFixture({ commandId: 'save-once', winner: 'good' })
@@ -51,7 +82,7 @@ describe('archive backend P0 handlers', () => {
     const second = await handlers.archiveGame({
       commandId: fixture.commandId,
       sessionId: fixture.session.id,
-      archive: { ...fixture.archive, winner: 'evil', winnerLabel: '邪恶获胜' },
+      archive: fixture.archive,
     })
 
     expect(first.accepted).toBe(true)
@@ -61,6 +92,8 @@ describe('archive backend P0 handlers', () => {
     expect(second.data.archive).toEqual(first.data.archive)
     expect(await repository.list()).toHaveLength(1)
     expect((await handlers.getArchive(first.data.archive.id))?.session.id).toBe(fixture.session.id)
+    await expect(handlers.archiveGame({ commandId: fixture.commandId, sessionId: fixture.session.id,
+      archive: { ...fixture.archive, winner: 'evil', winnerLabel: '邪恶获胜' } })).resolves.toMatchObject({ accepted: false, error: 'BAD_REQUEST' })
   })
 
   it('appends a new archive version when the same session uses a different command id', async () => {

@@ -1,0 +1,7 @@
+.storyteller-context { min-width: 0; border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-12); }
+.storyteller-context summary { min-height: 44px; align-content: center; color: var(--text-body); cursor: pointer; font-weight: 700; }
+.storyteller-context label { display: block; margin: var(--space-8) 0; color: var(--text-body); }
+.storyteller-context textarea { display: block; width: 100%; box-sizing: border-box; padding: var(--space-12); color: var(--text-body); background: var(--surface-base); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); font: inherit; resize: vertical; }
+.storyteller-context small { display: block; margin-top: var(--space-8); color: var(--text-muted); line-height: 1.5; }
+.storyteller-context__save { display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-8); margin-top: var(--space-12); }
+.storyteller-context__save span { color: var(--text-muted); font-size: var(--type-meta); }

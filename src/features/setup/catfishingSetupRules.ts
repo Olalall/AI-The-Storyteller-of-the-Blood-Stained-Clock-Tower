@@ -1,3 +1,4 @@
+import { boundedSetupTransferForRole, isMandatorySetupCountRole } from '../../domain/setup-templates/setupCountChanges'
 import { baseDistributionByPlayerCount } from './baseDistribution'
 import type { ScriptSetupRulePack } from './types'
 
@@ -52,7 +53,11 @@ export const catfishingSetupRulePack: ScriptSetupRulePack = {
       ],
       source: 'Fang Gu [+1 Outsider]',
     },
-  ],
+  ].map((rule) => ({
+    ...rule,
+    requiresSelectionForNewSetup: isMandatorySetupCountRole(rule.roleId),
+    choices: rule.choices.map((choice) => ({ ...choice, boundedTransfer: boundedSetupTransferForRole(rule.roleId, choice.delta) })),
+  })),
   /** 当前原型没有可追溯来源的 Catfishing 专项冲突，宁可提示人工核对，也不猜。 */
   conflicts: [],
   demonBluffPolicy: {

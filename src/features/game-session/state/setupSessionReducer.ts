@@ -1,9 +1,12 @@
 import type { GameSessionState } from '../types'
 import type { GameSessionAction } from './sessionActions'
+import { identityRoleChoices } from '../../identity-deal/identityProjection'
+import { projectCurrentAssignments } from './projectors'
 
 type SetupSessionActionType =
   | 'set-setup-draft'
   | 'confirm-setup'
+  | 'confirm-identity-presentation'
   | 'update-seat-nickname'
   | 'append-setup-change'
 
@@ -13,6 +16,13 @@ export function reduceSetupSession(state: GameSessionState, action: SetupSession
   switch (action.type) {
     case 'set-setup-draft':
       return { ...state, setupDraft: action.draft }
+    case 'confirm-identity-presentation': {
+      const assignments = projectCurrentAssignments(state)
+      if (!state.seats[action.seatId] || assignments.find((item) => item.seatId === action.seatId)?.role.id !== action.actualRoleId || !Number.isFinite(Date.parse(action.confirmedAt))) return state
+      const role = identityRoleChoices(state.scriptId, action.actualRoleId, assignments).find((item) => item.id === action.shownRoleId)
+      if (!role) return state
+      return { ...state, identityPresentations: { ...state.identityPresentations, [action.seatId]: { actualRoleId: action.actualRoleId, shownRole: { ...role }, confirmedAt: action.confirmedAt } } }
+    }
     case 'confirm-setup': {
       if (!state.setupDraft) return state
       const setup = {

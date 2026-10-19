@@ -38,6 +38,7 @@ interface NightActionCorrectionEditorProps {
 
 function NightActionCorrectionEditor({ entry, playerCount, onCancel, onConfirm }: NightActionCorrectionEditorProps) {
   const snapshot = entry.record.snapshot
+  const paired = Boolean(snapshot.targetRoleChoices?.length)
   const [targets, setTargets] = useState(snapshot.targets)
   const [choice, setChoice] = useState(snapshot.playerChoice)
   const [result, setResult] = useState(snapshot.storytellerResult || entry.summary)
@@ -62,11 +63,11 @@ function NightActionCorrectionEditor({ entry, playerCount, onCancel, onConfirm }
       record: {
         revision: entry.record.revision + 1,
         snapshot: {
-          ...snapshot,
-          targets,
+          ...structuredClone(snapshot),
+          targets: paired ? [...snapshot.targets] : targets,
           playerChoice: choice.trim(),
           storytellerResult: result.trim(),
-          informationGiven: information.trim(),
+          informationGiven: paired ? '' : information.trim(),
           draftRevision: snapshot.draftRevision + 1,
           updatedAt: new Date().toISOString(),
         },
@@ -79,8 +80,9 @@ function NightActionCorrectionEditor({ entry, playerCount, onCancel, onConfirm }
     <form className="timeline-correction" onSubmit={(event) => { event.preventDefault(); confirm() }}>
       <button type="button" className="timeline-history__back" onClick={onCancel}><ArrowLeft aria-hidden="true" />返回日记</button>
       <div className="timeline-correction__intro"><span>夜间行动</span><strong>原记录保留，新增一条更正。</strong></div>
-      <fieldset>
-        <legend>目标<span>可多选</span></legend>
+      {paired ? <p>玩家与爪牙配对保留原值，此处仅更正文案。需要更改配对时，从原夜间工作台追加更正。</p> : null}
+      <fieldset disabled={paired}>
+        <legend>目标<span>{paired ? '配对保持不变' : '可多选'}</span></legend>
         <div className="timeline-correction__seats">
           {Array.from({ length: playerCount }, (_value, index) => {
             const seatId = index + 1
@@ -90,7 +92,7 @@ function NightActionCorrectionEditor({ entry, playerCount, onCancel, onConfirm }
       </fieldset>
       <label>选择<textarea value={choice} maxLength={180} onChange={(event) => setChoice(event.target.value)} /></label>
       <label>结果<textarea value={result} maxLength={180} onChange={(event) => setResult(event.target.value)} /></label>
-      <label>告知<textarea value={information} maxLength={240} onChange={(event) => setInformation(event.target.value)} /></label>
+      {!paired ? <label>告知<textarea value={information} maxLength={240} onChange={(event) => setInformation(event.target.value)} /></label> : null}
       <label>更正原因<textarea required value={reason} maxLength={120} placeholder="例如：目标手势看错" onChange={(event) => setReason(event.target.value)} /></label>
       <div className="timeline-correction__actions">
         <Button type="button" variant="ghost" onClick={onCancel}>取消</Button>

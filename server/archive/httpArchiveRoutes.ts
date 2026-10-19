@@ -1,6 +1,7 @@
 import type { GameArchiveRecord, GameWinner } from '../../src/services/archive/types'
 import type { createArchiveHandlers } from './handlers'
 import type { ArchiveErrorCode, ArchiveListQuery, ReviewStyle } from './types'
+import { validArchiveDayFields } from '../../src/services/archive/archiveDayFields'
 
 type ArchiveHandlers = ReturnType<typeof createArchiveHandlers>
 
@@ -83,10 +84,10 @@ async function postArchive(handlers: ArchiveHandlers, request: Request, sessionI
   const commandId = commandIdFrom(body)
   const payload = payloadFrom(body)
   const archive = payload?.archive as GameArchiveRecord | undefined
-  if (!commandId || !archive || typeof archive !== 'object') return apiError('BAD_REQUEST', 400)
+  if (!commandId || !archive || typeof archive !== 'object' || !archive.session || !validArchiveDayFields(archive.session)) return apiError('BAD_REQUEST', 400)
 
   const result = await handlers.archiveGame({ commandId, sessionId, archive })
-  return json(result)
+  return result.accepted ? json(result) : apiError(result.error, 400)
 }
 
 async function postResetAfterArchive(handlers: ArchiveHandlers, request: Request, sessionId: string) {

@@ -1,7 +1,9 @@
 ﻿import { promises as fs } from 'node:fs'
 import path from 'node:path'
+import { randomUUID } from 'node:crypto'
 import type { GameArchiveRecord } from '../../src/services/archive/types'
 import type { ArchiveListQuery, ArchiveRepository } from './types'
+import { archiveScriptName } from '../../src/services/archive/archiveSnapshot'
 
 function normalizeArchiveRecord(value: unknown): GameArchiveRecord | null {
   if (!value || typeof value !== 'object') return null
@@ -18,7 +20,7 @@ function normalizeArchiveRecord(value: unknown): GameArchiveRecord | null {
     Array.isArray(record.timeline) &&
     Boolean(record.session)
   if (!valid) return null
-  return { ...record, schemaVersion: 1 } as GameArchiveRecord
+  return { ...record, schemaVersion: 1, scriptName: archiveScriptName(record as GameArchiveRecord) } as GameArchiveRecord
 }
 
 function sortByArchivedAt(records: GameArchiveRecord[]) {
@@ -35,6 +37,7 @@ function matchesQuery(record: GameArchiveRecord, query: ArchiveListQuery) {
 
 export class JsonArchiveRepository implements ArchiveRepository {
   private readonly filePath: string
+  private pendingWrite: Promise<void> = Promise.resolve()
 
   constructor(filePath: string) {
     this.filePath = filePath
@@ -49,11 +52,18 @@ export class JsonArchiveRepository implements ArchiveRepository {
     return (await this.readAll()).find((archive) => archive.id === archiveId) ?? null
   }
 
-  async save(record: GameArchiveRecord): Promise<GameArchiveRecord[]> {
-    const archives = await this.readAll()
-    const next = sortByArchivedAt([record, ...archives.filter((archive) => archive.id !== record.id)])
-    await this.writeAll(next)
-    return next
+  save(record: GameArchiveRecord): Promise<GameArchiveRecord[]> {
+    const write = this.pendingWrite.then(async () => {
+      const archives = await this.readAll()
+      // 同一命令先到先得；更正必须使用新的归档 ID。
+      if (archives.some((archive) => archive.id === record.id)) return archives
+      const next = sortByArchivedAt([record, ...archives])
+      await this.writeAll(next)
+      return next
+    })
+    // 本次失败仍返回给调用方，但不阻塞后续保存。
+    this.pendingWrite = write.then(() => undefined, () => undefined)
+    return write
   }
 
   private async readAll() {
@@ -70,8 +80,12 @@ export class JsonArchiveRepository implements ArchiveRepository {
 
   private async writeAll(records: GameArchiveRecord[]) {
     await fs.mkdir(path.dirname(this.filePath), { recursive: true })
-    const tempPath = `${this.filePath}.${process.pid}.${Date.now()}.tmp`
-    await fs.writeFile(tempPath, `${JSON.stringify(records, null, 2)}\n`, 'utf8')
-    await fs.rename(tempPath, this.filePath)
+    const tempPath = `${this.filePath}.${randomUUID()}.tmp`
+    try {
+      await fs.writeFile(tempPath, `${JSON.stringify(records, null, 2)}\n`, 'utf8')
+      await fs.rename(tempPath, this.filePath)
+    } finally {
+      await fs.rm(tempPath, { force: true }).catch(() => undefined)
+    }
   }
 }

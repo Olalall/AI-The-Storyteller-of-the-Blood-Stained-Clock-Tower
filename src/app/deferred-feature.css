@@ -1,0 +1,3 @@
+.deferred-feature-feedback { padding: var(--space-20); display: flex; gap: var(--space-12); flex-wrap: wrap; }
+.deferred-feature-feedback p { flex-basis: 100%; color: var(--text-muted); }
+.deferred-feature-feedback .ui-button { min-height: 44px; }

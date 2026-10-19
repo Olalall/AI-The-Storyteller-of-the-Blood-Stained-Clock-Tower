@@ -102,6 +102,29 @@ describe('archive HTTP routes', () => {
     expect(response.status).toBe(400)
     expect(((await jsonBody(response)).error as { code: string }).code).toBe('BAD_REQUEST')
   })
+  it('rejects a changed snapshot reusing a completed command instead of reporting an old save as success', async () => {
+    const data = fixture('same-command-new-content')
+    const send = (archive: typeof data.archive) => handleRequest(request(`/api/games/${data.session.id}/archive`, {
+      method: 'POST', body: JSON.stringify({ commandId: data.commandId, payload: { archive } }),
+    }))
+    expect((await send(data.archive)).status).toBe(200)
+    const response = await send({ ...data.archive, winner: 'evil', winnerLabel: '邪恶获胜' })
+    expect(response.status).toBe(400)
+    expect(((await jsonBody(response)).error as { code: string }).code).toBe('BAD_REQUEST')
+  })
+  it('rejects malformed optional vote adjustments, withdrawal flags and execution reasons at the archive boundary', async () => {
+    const data = fixture('invalid-day-fields')
+    const base = { id: 'invalid-vote', kind: 'vote_round', roundId: 'round', segmentId: 'night-3', createdAt: '2026-10-16T00:00:00Z', confirmedBy: 'storyteller', nominatorSeatId: 1, nomineeSeatId: 2, threshold: 4, raisedSeatIds: [1], ghostVoteSeatIds: [] }
+    for (const entry of [
+      { ...base, voteAdjustment: { count: 2, reason: '' } },
+      { ...base, voteAdjustment: { count: -2, reason: '不能得到负票' } },
+      { ...base, voided: 'yes' },
+      { ...base, kind: 'execution', executedSeatId: 2, exceptionReason: 123 },
+    ]) {
+      const response = await handleRequest(request(`/api/games/${data.session.id}/archive`, { method: 'POST', body: JSON.stringify({ commandId: data.commandId, payload: { archive: { ...data.archive, session: { ...data.session, timeline: [...data.session.timeline, entry] } } } }) }))
+      expect(response.status).toBe(400)
+    }
+  })
 
   it('returns ARCHIVE_NOT_FOUND for missing detail route', async () => {
     const response = await handleRequest(request('/api/archives/missing'))

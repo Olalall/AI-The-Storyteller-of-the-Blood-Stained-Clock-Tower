@@ -7,7 +7,7 @@ interface LocalizedRoleCopy {
 
 const localizedRoleCopyById: Readonly<Record<string, LocalizedRoleCopy>> = {
   chef: { ability: '首夜得知有多少对邪恶玩家相邻。' },
-  investigator: { ability: '首夜得知两名玩家中有一名是某个爪牙（或者你会得知没有爪牙在场）。' },
+  investigator: { ability: '首夜得知两名玩家中有一名是某个爪牙。' },
   washerwoman: { ability: '首夜得知两名玩家中有一名是某个镇民。' },
   librarian: { ability: '首夜得知两名玩家中有一名是某个外来者；若无外来者，可得知没有外来者。' },
   empath: { ability: '每晚得知自己两侧最近存活邻座中有几名邪恶玩家。' },

@@ -66,6 +66,7 @@ export function toggleGhostVote(draft: VoteRoundDraft, seatId: number): VoteRoun
 export function canCompleteVoteRound(draft: VoteRoundDraft) {
   return Number.isInteger(draft.threshold) &&
     draft.threshold > 0 &&
+    validVoteAdjustment(draft) &&
     draft.nominatorSeatId !== null &&
     draft.nomineeSeatId !== null
 }
@@ -74,7 +75,18 @@ export function hasVoteRoundDraftContent(draft: VoteRoundDraft) {
   return draft.nominatorSeatId !== null ||
     draft.nomineeSeatId !== null ||
     draft.raisedSeatIds.length > 0 ||
-    draft.ghostVoteSeatIds.length > 0
+    draft.ghostVoteSeatIds.length > 0 || Boolean(draft.voteAdjustment?.count || draft.voteAdjustment?.reason)
+}
+
+export function voteCount(round: Pick<VoteRoundEntry, 'raisedSeatIds' | 'voteAdjustment'>) {
+  return new Set(round.raisedSeatIds).size + (round.voteAdjustment?.count ?? 0)
+}
+
+export function validVoteAdjustment(round: Pick<VoteRoundEntry, 'raisedSeatIds' | 'voteAdjustment'>) {
+  const adjustment = round.voteAdjustment
+  return !adjustment || (Number.isInteger(adjustment.count) && Math.abs(adjustment.count) <= 30 &&
+    typeof adjustment.reason === 'string' && adjustment.reason.trim().length <= 500 &&
+    (!adjustment.count || Boolean(adjustment.reason.trim())) && voteCount(round) >= 0)
 }
 
 export function completeVoteRound(
@@ -98,6 +110,7 @@ export function completeVoteRound(
     threshold: draft.threshold,
     raisedSeatIds,
     ghostVoteSeatIds,
+    ...(draft.voteAdjustment ? { voteAdjustment: { count: draft.voteAdjustment.count, reason: draft.voteAdjustment.reason.trim() } } : {}),
     createdAt: input.createdAt,
     confirmedBy: 'storyteller',
   }

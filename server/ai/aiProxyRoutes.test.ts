@@ -4,6 +4,13 @@ import { createAIProxyHandlers } from './aiProxyHandlers'
 import { createAIProxyRoutes } from './aiProxyRoutes'
 
 const secret = 'sk-route-secret-should-not-leak'
+const configuredEnv = {
+  BOTC_AI_ENABLED: 'true',
+  BOTC_AI_PROVIDER: 'openai-compatible',
+  BOTC_AI_BASE_URL: 'https://ai.example.test/v1',
+  BOTC_AI_MODEL: 'review-model',
+  BOTC_AI_API_KEY: secret,
+}
 
 function request(pathname: string, init: RequestInit = {}) {
   return new Request(`http://127.0.0.1${pathname}`, init)
@@ -132,26 +139,25 @@ describe('AI proxy routes', () => {
     expect(body.message).toContain('未调用模型')
   })
 
-  it('can run a one-off live provider test through injected fetch without leaking the request key', async () => {
-    const fetcher: FetchLike = async (_input, init) => {
+  it.each(['', '{}', '  '])('tests only the fixed enabled server configuration with an empty request (%j)', async (requestBody) => {
+    let calls = 0
+    const fetcher: FetchLike = async (input, init) => {
+      calls++
+      expect(input).toBe('https://ai.example.test/v1/chat/completions')
+      expect(JSON.parse(String(init?.body)).model).toBe('review-model')
+      expect(init?.redirect).toBe('error')
       const headers = init?.headers as Record<string, string>
       expect(headers.Authorization).toBe(`Bearer ${secret}`)
       return new Response(JSON.stringify({
         choices: [{ message: { content: JSON.stringify({ ok: true, message: 'ready' }) } }],
       }), { status: 200, headers: { 'Content-Type': 'application/json' } })
     }
-    const route = createAIProxyRoutes(createAIProxyHandlers({ env: {}, fetcher }))
+    const route = createAIProxyRoutes(createAIProxyHandlers({ env: configuredEnv, fetcher }))
 
     const response = await route(request('/api/settings/ai/live-test', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        provider: 'openai-compatible',
-        baseUrl: 'https://ai.example.test/v1',
-        model: 'review-model',
-        apiKey: secret,
-        timeoutSeconds: 5,
-      }),
+      body: requestBody,
     }))
     const text = await response.text()
 
@@ -161,20 +167,21 @@ describe('AI proxy routes', () => {
     expect(body.ok).toBe(true)
     expect(body.code).toBe('AI_PROVIDER_READY')
     expect(body.message).toContain('JSON')
+    expect(calls).toBe(1)
   })
 
-  it('rejects live provider tests with missing fields before calling a provider', async () => {
+  it.each(['BOTC_AI_BASE_URL', 'BOTC_AI_MODEL', 'BOTC_AI_API_KEY'])('does not test an incomplete server configuration without %s', async (field) => {
     let called = false
     const fetcher: FetchLike = async () => {
       called = true
       return new Response('{}')
     }
-    const route = createAIProxyRoutes(createAIProxyHandlers({ env: {}, fetcher }))
+    const route = createAIProxyRoutes(createAIProxyHandlers({ env: { ...configuredEnv, [field]: '' }, fetcher }))
 
     const response = await route(request('/api/settings/ai/live-test', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ provider: 'openai-compatible', model: 'review-model' }),
+      body: '{}',
     }))
     const body = await jsonBody(response)
 
@@ -182,6 +189,52 @@ describe('AI proxy routes', () => {
     expect(body.ok).toBe(false)
     expect(body.code).toBe('AI_PROVIDER_UNCONFIGURED')
     expect(called).toBe(false)
+  })
+
+  it('does not call a provider when disabled even if every server credential exists', async () => {
+    let calls = 0
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: { ...configuredEnv, BOTC_AI_ENABLED: 'false' },
+      fetcher: async () => { calls++; throw new Error(secret) },
+    }))
+    const response = await route(request('/api/settings/ai/live-test', { method: 'POST', body: '{}' }))
+    expect(response.status).toBe(200)
+    const body = await jsonBody(response)
+    expect(body).toMatchObject({ ok: false, provider: 'fake', code: 'AI_PROVIDER_DISABLED' })
+    expect(JSON.stringify(body)).not.toContain(secret)
+    expect(calls).toBe(0)
+  })
+
+  it.each([
+    { provider: 'openai-compatible' },
+    { baseUrl: 'https://untrusted.example.test/v1' },
+    { model: 'untrusted-model' },
+    { apiKey: secret },
+    { timeoutSeconds: 120 },
+    { unknown: 'ignored overrides are not allowed' },
+    { provider: 'openai-compatible', baseUrl: 'https://untrusted.example.test/v1' },
+    null, [], 'string', true, 1,
+  ])('rejects any client live-test configuration or non-object body before calling a provider (%j)', async (body) => {
+    let calls = 0
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: configuredEnv, fetcher: async () => { calls++; throw new Error(secret) },
+    }))
+    const response = await route(request('/api/settings/ai/live-test', { method: 'POST', body: JSON.stringify(body) }))
+    expect(response.status).toBe(400)
+    const text = await response.text()
+    expect(text).not.toContain(secret)
+    expect(JSON.parse(text).error.code).toBe('BAD_REQUEST')
+    expect(calls).toBe(0)
+  })
+
+  it('does not expose server credentials when the configured live provider fails', async () => {
+    const route = createAIProxyRoutes(createAIProxyHandlers({
+      env: configuredEnv, fetcher: async () => { throw new Error(secret) },
+    }))
+    const response = await route(request('/api/settings/ai/live-test', { method: 'POST', body: '{}' }))
+    const text = await response.text()
+    expect(text).not.toContain(secret)
+    expect(JSON.parse(text)).toMatchObject({ ok: false, code: 'AI_PROVIDER_UNAVAILABLE' })
   })
 
   it('does not fall back to env credentials when live test JSON is malformed', async () => {
@@ -310,7 +363,7 @@ describe('AI proxy routes', () => {
     expect(called).toBe(false)
   })
 
-  it('returns local night settlement advice when provider is disabled', async () => {
+  it('asks for a manual night outcome when provider is disabled', async () => {
     const route = createRoutes({})
 
     const response = await route(request('/api/ai/night-settlement-advice', {
@@ -325,7 +378,8 @@ describe('AI proxy routes', () => {
     expect(body.accepted).toBe(true)
     expect(draft.provider).toBe('fake')
     expect(draft.draftOnly).toBe(true)
-    expect(draft.recommendedOutcomeId).toBe('correct')
+    expect(draft.status).toBe('needs_input')
+    expect(draft.recommendedOutcomeId).toBeUndefined()
   })
 
   it('can call night settlement provider through injected fetch without leaking the key', async () => {

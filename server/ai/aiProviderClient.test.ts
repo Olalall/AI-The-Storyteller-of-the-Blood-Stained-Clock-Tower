@@ -1,4 +1,5 @@
-import { describe, expect, it } from 'vitest'
+import { createServer, type Server } from 'node:http'
+import { describe, expect, it, vi } from 'vitest'
 import { AIProviderError, callOpenAICompatibleJSON, type FetchLike } from './aiProviderClient'
 
 const secret = 'sk-provider-secret-should-not-leak'
@@ -20,7 +21,28 @@ function jsonResponse(body: unknown, status = 200) {
   })
 }
 
+async function listen(server: Server) {
+  await new Promise<void>((resolve) => server.listen(0, '127.0.0.1', resolve))
+  const address = server.address()
+  if (!address || typeof address === 'string') throw new Error('Expected a local test server')
+  return `http://127.0.0.1:${address.port}`
+}
+
+async function close(server: Server) {
+  await new Promise<void>((resolve, reject) => server.close((error) => error ? reject(error) : resolve()))
+}
+
 describe('OpenAI-compatible provider client', () => {
+  it('uses Gemini compatible reasoning and enough output budget for the real truncated JSON regression', async () => {
+    const fetcher: FetchLike = async (_url, init) => {
+      const body = JSON.parse(String(init?.body))
+      expect(body).toMatchObject({ model: 'gemini-test-model', reasoning_effort: 'low', max_tokens: 6000 })
+      expect(body).not.toHaveProperty('thinking')
+      expect(JSON.stringify(body)).not.toContain(secret)
+      return jsonResponse({ choices: [{ message: { content: '{"ok":true}' } }] })
+    }
+    await expect(callOpenAICompatibleJSON({ ...settings(fetcher), model: 'gemini-test-model' }, [])).resolves.toEqual({ ok: true })
+  })
   it('parses a JSON object from a mock chat completion response', async () => {
     const fetcher: FetchLike = async (_input, init) => {
       const headers = init?.headers as Record<string, string>
@@ -28,6 +50,7 @@ describe('OpenAI-compatible provider client', () => {
       expect(requestBody.model).toBe('review-model')
       expect(requestBody.thinking).toEqual({ type: 'disabled' })
       expect(headers.Authorization).toBe(`Bearer ${secret}`)
+      expect(init?.redirect).toBe('error')
       return jsonResponse({
         choices: [{ message: { content: JSON.stringify({ ok: true, summary: '复盘草稿' }) } }],
       })
@@ -86,5 +109,55 @@ describe('OpenAI-compatible provider client', () => {
       ok: true,
       summary: 'wrapped',
     })
+  })
+
+  it.each([false, true])('never follows a provider redirect or forwards the credential (cross-origin=%s)', async (crossOrigin) => {
+    let captureRequests = 0
+    let providerRequests = 0
+    const capture = createServer((_request, response) => {
+      captureRequests++
+      response.end('{}')
+    })
+    const captureUrl = await listen(capture)
+    const provider = createServer((request, response) => {
+      if (request.url === '/capture') {
+        captureRequests++
+        response.end('{}')
+        return
+      }
+      providerRequests++
+      response.writeHead(307, { Location: crossOrigin ? `${captureUrl}/capture` : '/capture' })
+      response.end()
+    })
+    const providerUrl = await listen(provider)
+    try {
+      await expect(callOpenAICompatibleJSON({
+        ...settings(fetch), baseUrl: `${providerUrl}/v1`, timeoutSeconds: 3,
+      }, [])).rejects.toMatchObject({ code: 'AI_PROVIDER_UNAVAILABLE' })
+      expect(providerRequests).toBe(1)
+      expect(captureRequests).toBe(0)
+    } finally {
+      await Promise.all([close(provider), close(capture)])
+    }
+  })
+
+  it.each([
+    () => jsonResponse({ error: secret }, 401),
+    () => jsonResponse({ echoedKey: secret, choices: [] }),
+    () => jsonResponse({ choices: [{ message: { content: secret } }] }),
+  ])('keeps provider response text and echoed credentials out of errors and debug logs', async (response) => {
+    vi.stubEnv('BOTC_AI_DEBUG', '1')
+    const warning = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    try {
+      await callOpenAICompatibleJSON(settings(async () => response()), []).catch((error: unknown) => {
+        expect(error).toBeInstanceOf(AIProviderError)
+        expect(String(error)).not.toContain(secret)
+      })
+      expect(warning).toHaveBeenCalled()
+      expect(JSON.stringify(warning.mock.calls)).not.toContain(secret)
+    } finally {
+      vi.unstubAllEnvs()
+      warning.mockRestore()
+    }
   })
 })

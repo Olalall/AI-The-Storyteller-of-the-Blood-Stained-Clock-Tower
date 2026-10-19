@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { catfishingRoleSnapshots } from '../../night-workbench/data/catfishing'
-import { sessionInitialNightState } from '../../night-workbench/state/gameSessionAdapter'
+import { nightContextKey, sessionInitialNightState } from '../../night-workbench/state/gameSessionAdapter'
 import { emptyWakeDraft } from '../../night-workbench/state/projectWakeDraft'
 import { roleSnapshotFromWakeItem } from '../../night-workbench/state/roleChanges'
 import { createPrototypeGameSession } from '../data/createPrototypeSession'
@@ -251,6 +251,7 @@ describe('night workbench commit command', () => {
     }
     const committed = gameSessionReducer(session, {
       type: 'commit-night-workbench',
+      baseRevision: run.revision, baseContextKey: nightContextKey(session),
       nightRun: nextRun,
       records: [{
         id: 'night-commit-1',
@@ -299,6 +300,7 @@ describe('night workbench commit command', () => {
     }
     const committed = gameSessionReducer(started, {
       type: 'commit-night-workbench',
+      baseRevision: nextRun.revision, baseContextKey: nightContextKey(started),
       nightRun: nextNightRun,
       records: [{
         id: 'night-4-commit-1',
@@ -329,6 +331,7 @@ describe('night workbench commit command', () => {
 
     const changed = gameSessionReducer(session, {
       type: 'commit-night-workbench',
+      baseRevision: originalRun.revision, baseContextKey: nightContextKey(session),
       nightRun: originalRun,
       records: [],
       roleChanges: [{
@@ -350,7 +353,7 @@ describe('night workbench commit command', () => {
       kind: 'setup_changed',
       originNightRunId: originalRunId,
     })
-    expect(sessionInitialNightState({ session: changed, dispatchSession: () => undefined }).roleChangeEvents).toHaveLength(1)
+    expect(sessionInitialNightState({ session: changed, dispatchSession: () => undefined })?.roleChangeEvents).toHaveLength(1)
 
     const closed = gameSessionReducer(changed, {
       type: 'close-active-night-run',
@@ -359,7 +362,7 @@ describe('night workbench commit command', () => {
     })
     const nextNight = gameSessionReducer(closed, { type: 'start-next-night-run' })
 
-    expect(sessionInitialNightState({ session: nextNight, dispatchSession: () => undefined }).roleChangeEvents).toEqual([])
+    expect(sessionInitialNightState({ session: nextNight, dispatchSession: () => undefined })?.roleChangeEvents).toEqual([])
   })
 
   it('keeps a correction in a closed original night without creating another night', () => {
@@ -371,6 +374,7 @@ describe('night workbench commit command', () => {
 
     const corrected = gameSessionReducer(session, {
       type: 'commit-night-workbench',
+      baseRevision: run.revision, baseContextKey: nightContextKey(session),
       nightRun: run,
       records: [{
         id: 'night-correction-1',
@@ -463,3 +467,4 @@ describe('night workbench commit command', () => {
     }
   })
 })
+

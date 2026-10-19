@@ -8,11 +8,7 @@ export function findOpenSegment(state: GameSessionState, kind: PhaseKind) {
   return state.phaseSegments.find((segment) => segment.kind === kind && !segment.closedAt)
 }
 
-export function createPhaseSegment(
-  state: GameSessionState,
-  kind: PhaseKind,
-  now: string,
-): { state: GameSessionState; segment: PhaseSegment } {
+export function nextPhaseSequence(state: Pick<GameSessionState, 'phaseSegments'>, kind: PhaseKind) {
   const highestSameKind = Math.max(0, ...state.phaseSegments
     .filter((segment) => segment.kind === kind)
     .map((segment) => segment.sequence))
@@ -25,9 +21,17 @@ export function createPhaseSegment(
    * 昼夜仍可手动并存、关闭和补记；这里只保证编号不倒退。
    * 例如当前已在第3夜，首次记录白天时应落在第3天，而不是第1天。
    */
-  const sequence = kind === 'day'
+  return kind === 'day'
     ? Math.max(highestSameKind + 1, highestOtherKind)
     : Math.max(highestSameKind + 1, highestOtherKind + 1)
+}
+
+export function createPhaseSegment(
+  state: GameSessionState,
+  kind: PhaseKind,
+  now: string,
+): { state: GameSessionState; segment: PhaseSegment } {
+  const sequence = nextPhaseSequence(state, kind)
   const segment: PhaseSegment = {
     id: `${kind}-${sequence}`,
     kind,

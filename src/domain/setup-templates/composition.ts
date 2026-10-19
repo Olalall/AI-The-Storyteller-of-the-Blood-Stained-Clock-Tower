@@ -1,4 +1,6 @@
-﻿import type { PlayerCount, SetupCountedTeam, SetupTemplate, SmartScriptPack } from '../scripts'
+import { boundedSetupTransferForRole, inferModifierRoleId, isValidSetupCountChangeForRole, resolveSetupCountChanges } from './setupCountChanges'
+import type { PlayerCount, SetupCountedTeam, SetupTemplate, SmartScriptPack } from '../scripts'
+import { kazaliOpeningCounts } from './kazaliOpening'
 
 export interface TeamComposition {
   townsfolk: number
@@ -32,11 +34,16 @@ export function baseCompositionForPlayerCount(playerCount: PlayerCount): TeamCom
   return { ...baseCompositions[playerCount] }
 }
 
-export function expectedCompositionForTemplate(template: SetupTemplate): TeamComposition {
-  return template.setupAdjustments?.reduce(
-    (composition, adjustment) => applyCompositionDelta(composition, adjustment.compositionDelta),
-    baseCompositionForPlayerCount(template.playerCount),
-  ) ?? baseCompositionForPlayerCount(template.playerCount)
+export function expectedCompositionForTemplate(template: SetupTemplate, pack?: SmartScriptPack): TeamComposition {
+  const base = baseCompositionForPlayerCount(template.playerCount)
+  const kazali = pack && kazaliOpeningCounts(base, actualCompositionForTemplate(pack, template), template.roles,
+    Object.fromEntries(pack.roles.map((role) => [role.id, role.team])))
+  if (kazali) return kazali
+  const changes = (template.setupAdjustments ?? []).map((adjustment) => ({
+    delta: adjustment.compositionDelta,
+    boundedTransfer: pack ? boundedSetupTransferForRole(inferModifierRoleId(adjustment.ruleId, pack), adjustment.compositionDelta) : undefined,
+  }))
+  return resolveSetupCountChanges(base, changes).counts
 }
 
 export function actualCompositionForTemplate(pack: SmartScriptPack, template: SetupTemplate): TeamComposition {
@@ -52,9 +59,11 @@ export function actualCompositionForTemplate(pack: SmartScriptPack, template: Se
 }
 
 export function validateTemplateComposition(pack: SmartScriptPack, template: SetupTemplate): TemplateCompositionCheck {
-  const expected = expectedCompositionForTemplate(template)
+  const expected = expectedCompositionForTemplate(template, pack)
   const actual = actualCompositionForTemplate(pack, template)
-  const problems = collectProblems(expected, actual)
+  const invalidCountFacts = (template.setupAdjustments ?? []).filter((adjustment) =>
+    !isValidSetupCountChangeForRole(inferModifierRoleId(adjustment.ruleId, pack), adjustment.compositionDelta))
+  const problems = [...collectProblems(expected, actual), ...invalidCountFacts.map((adjustment) => `Invalid source-backed setup count change: ${adjustment.ruleId}`)]
 
   return {
     templateId: template.templateId,
@@ -63,15 +72,6 @@ export function validateTemplateComposition(pack: SmartScriptPack, template: Set
     actual,
     valid: problems.length === 0,
     problems,
-  }
-}
-
-function applyCompositionDelta(composition: TeamComposition, delta: Partial<Record<SetupCountedTeam, number>>) {
-  return {
-    townsfolk: composition.townsfolk + (delta.townsfolk ?? 0),
-    outsider: composition.outsider + (delta.outsider ?? 0),
-    minion: composition.minion + (delta.minion ?? 0),
-    demon: composition.demon + (delta.demon ?? 0),
   }
 }
 

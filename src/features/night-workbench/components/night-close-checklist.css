@@ -1,0 +1,13 @@
+.night-close-checklist { padding: var(--space-20); display: grid; gap: var(--space-16); }
+.night-close-checklist ul { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--space-12); }
+.night-close-checklist li { padding: var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-md); display: grid; gap: var(--space-8); overflow-wrap: anywhere; }
+.night-close-checklist li > div, .night-close-checklist__actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-8); justify-content: space-between; }
+.night-close-checklist span, .night-close-checklist p { color: var(--text-muted); }
+.night-close-checklist form, .night-close-checklist label { display: grid; gap: var(--space-8); }
+.night-close-checklist input, .night-close-checklist select { width: 100%; min-height: 44px; padding: var(--space-8); background: var(--input-bg); color: var(--text-strong); border: 1px solid var(--border-strong); border-radius: var(--radius-sm); }
+.night-close-checklist summary { min-height: 44px; padding: var(--space-12) 0; cursor: pointer; }
+.night-close-checklist .ui-button { min-height: 44px; }
+
+.night-close-checklist select { min-width: 0; max-width: 100%; }
+
+.night-close-checklist .followup-source-warning { color: var(--warning-text); }

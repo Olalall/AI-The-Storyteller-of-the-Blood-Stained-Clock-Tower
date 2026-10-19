@@ -100,6 +100,15 @@ netstat -ano | findstr LISTENING
 
 ## 验收
 
+部署包携带角色素材校验清单和安装器，但不直接分发第三方图标。Windows VPS 解压后，以交互方式确认素材来源并安装：
+
+```powershell
+cd C:\botc-storyteller-companion
+.\scripts\portable\Install-Character-Assets.cmd
+```
+
+安装器会把 718 个图标下载到 `dist\assets\characters` 并逐个核对 SHA-256；未确认素材条款时不会下载。
+
 本地同步包验收：
 
 ```powershell

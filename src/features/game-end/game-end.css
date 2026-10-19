@@ -259,25 +259,6 @@
   line-height: 1.6;
 }
 
-.game-end__confirm-line {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-10);
-  color: var(--text-muted);
-  font-weight: 800;
-}
-
-.game-end__confirm-line input {
-  width: 20px;
-  height: 20px;
-  accent-color: var(--accent);
-}
-
-.game-end__actions--end {
-  justify-content: space-between;
-}
-
 .game-end__notice {
   margin: 0;
   color: var(--accent-text);
@@ -399,9 +380,6 @@
 .game-end__finish-step + .game-end__finish-step {
   padding-top: clamp(18px, 2.2cqw, 26px);
   border-top: 1px solid var(--border);
-}
-.game-end__finish-step--danger {
-  border-top-color: rgb(180 77 72 / 26%);
 }
 .game-end__finish-content {
   display: grid;
@@ -809,7 +787,13 @@
   background: var(--surface-soft);
   font-size: var(--type-label);
   font-weight: 780;
+  overflow-wrap: anywhere;
 }
+.game-ai-review__full li strong,
+.game-ai-review__full li small { display: block; }
+.game-ai-review__full li small { color: var(--text-muted); font-size: var(--type-meta); line-height: 1.6; }
+.game-ai-review__full li strong { margin-block: var(--space-4); }
+.game-review__log-section > summary { min-height: 44px; cursor: pointer; }
 .game-ai-review__full p {
   margin: 0;
   color: var(--accent-text);

@@ -1,0 +1,13 @@
+{
+  "id": "zhui-feng-zhu-ri",
+  "status": "not-run",
+  "kind": "synthetic-local-skill-oracle",
+  "title": "教父杀人仍受茶艺师保护",
+  "confirmedFacts": "紧邻本夜的白天已有一名真实外来者实际死亡。此刻存活且清醒健康的教父使用自己的能力选择茶艺师的一名存活邻座。结算这一刀时，茶艺师仍存活、清醒健康且有能力，其两侧最近存活邻座都为善良，目标正是其中之一；没有其他攻击、能力或相克干扰。",
+  "expected": "教父可以发动，但目标受茶艺师免死而存活；不能把刺客的越过保护能力借给教父。",
+  "sourceUrls": [
+    "https://wiki.bloodontheclocktower.com/Tea_Lady"
+  ],
+  "userGameData": false,
+  "productionMutation": false
+}

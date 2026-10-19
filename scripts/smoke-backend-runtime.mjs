@@ -115,12 +115,18 @@ try {
     throw new Error('CORS preflight did not allow local dev origin')
   }
 
-  const liveTest = await json(await fetch(`${baseUrl}/api/settings/ai/live-test`, {
+  const overrideTest = await fetch(`${baseUrl}/api/settings/ai/live-test`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ provider: 'openai-compatible', model: 'review-model' }),
+  })
+  if (overrideTest.status !== 400) throw new Error('AI live test should reject client configuration overrides')
+  const liveTest = await json(await fetch(`${baseUrl}/api/settings/ai/live-test`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: '{}',
   }))
-  if (liveTest.code !== 'AI_PROVIDER_UNCONFIGURED') throw new Error('AI live test should require complete config')
+  if (liveTest.code !== 'AI_PROVIDER_DISABLED') throw new Error('AI live test should respect the disabled backend configuration')
 
   const saved = await json(await fetch(`${baseUrl}/api/games/${archive.sessionId}/archive`, {
     method: 'POST',

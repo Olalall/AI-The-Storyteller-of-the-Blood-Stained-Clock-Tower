@@ -1,4 +1,5 @@
 import type { AsyncArchiveAdapter, GameArchiveRecord } from './types'
+import { archiveScriptName } from './archiveSnapshot'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
 
@@ -81,15 +82,15 @@ export function createHttpArchiveAdapter({
   return {
     async load() {
       const body = await requestJson(fetcher, urlFor(baseUrl, '/api/archives')) as ArchiveApiListBody
-      return Array.isArray(body.archives) ? body.archives : []
+      return Array.isArray(body.archives) ? body.archives.map((archive) => ({ ...archive, scriptName: archiveScriptName(archive) })) : []
     },
 
-    async save(record) {
+    async save(record, commandId) {
       const body = await requestJson(fetcher, urlFor(baseUrl, `/api/games/${encodeURIComponent(record.sessionId)}/archive`), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          commandId: archiveCommandId(record),
+          commandId: commandId ?? archiveCommandId(record),
           payload: { archive: record },
         }),
       }) as ArchiveApiSaveBody
@@ -103,7 +104,7 @@ export function createHttpArchiveAdapter({
     async get(archiveId) {
       try {
         const body = await requestJson(fetcher, urlFor(baseUrl, `/api/archives/${encodeURIComponent(archiveId)}`)) as ArchiveApiDetailBody
-        return body.archive ?? null
+        return body.archive ? { ...body.archive, scriptName: archiveScriptName(body.archive) } : null
       } catch (error) {
         if (error instanceof ArchiveHttpError && error.code === 'ARCHIVE_NOT_FOUND') return null
         throw error

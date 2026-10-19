@@ -1,0 +1,29 @@
+{
+  "status": "independent-oracles-not-live-results",
+  "reviewedAt": "2026-10-18",
+  "userGameData": false,
+  "productionMutation": false,
+  "cases": [
+    {
+      "id": "B03-604-KAZALI-13",
+      "scriptId": "yan-bu-you-zhong",
+      "sourceIndex": 604,
+      "kind": "synthetic-first-night-allocation",
+      "phase": "first-night",
+      "playerCount": 13,
+      "title": "三组不同爪牙与当晚发动边界",
+      "confirmedFacts": "13名非旅行者，首夜开局尚未分配爪牙，13号是存活清醒健康的卡扎力，其他12名为本板善良角色；其中2号真实月之子、5号真实疯子、8号真实渔夫。魔术师不在场，没有额外相克、醉毒、登记、保护或身份变化。卡扎力按顺序选择2号→寡妇、5号→洗脑师、8号→哥布林。此刻仅确认了选择记录，还没有按下单独的应用身份命令。",
+      "expected": [
+        "三组选择的座位和爪牙均不同且都在本板，月之子/疯子的原能力不阻止设置；顺序必须保留。",
+        "AI和普通选择记录都不能当作已经完成权威换角；须由主持单独应用身份、邪恶阵营及当晚未确认夜序。",
+        "明确应用后寡妇和洗脑师按本板首夜顺序行动；被替换善良角色的未发动真实能力停止；哥布林无首夜技能项，不凭空新增。",
+        "无收件人的通用玩家稿不发送三组分配表、原身份或寡妇目标；必要私下告知每名玩家自己的新角色/阵营，首夜互认另按正常流程。"
+      ],
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Kazali",
+        "https://wiki.bloodontheclocktower.com/Abilities",
+        "https://release.botc.app/resources/data/nightsheet.json"
+      ]
+    }
+  ]
+}

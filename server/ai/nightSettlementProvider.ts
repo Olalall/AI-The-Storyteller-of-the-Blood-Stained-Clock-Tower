@@ -1,6 +1,18 @@
 import { AIProviderError, callOpenAICompatibleJSON, type FetchLike } from './aiProviderClient'
 import { buildNightSettlementProviderMessages } from './nightSettlementPromptBuilder'
 import type { AIAdviceConfidence, NightSettlementAdviceDraft, NightSettlementProviderRequest } from './types'
+import { missingKazaliTargetRoleChoices } from './kazaliTargetRoleChoices'
+
+function missingNightInputs(input: NightSettlementProviderRequest): string[] {
+  const missing = missingKazaliTargetRoleChoices(input)
+  if (input.wakeItem.abilityPhase !== 'initial') return missing
+  const seatId = input.draft.targets[0]
+  const target = input.selectedTargets?.find((selected) => selected.seatId === seatId)
+  if (input.wakeItem.roleId !== 'lleech' || input.nightType !== 'other'
+    || input.draft.targets.length !== 1 || !Number.isInteger(seatId) || seatId < 1 || seatId > input.playerCount
+    || input.selectedTargets?.length !== 1 || !target || target.status?.life !== 'alive') return [...missing, '痢蛭初始化须明确选择一名当前存活的宿主；这不是普通攻击。']
+  return missing
+}
 
 interface ProviderNightSettlementPayload {
   status?: unknown
@@ -45,12 +57,13 @@ function stringArray(value: unknown, limit: number) {
 }
 
 function readyOutcomeIds(input: NightSettlementProviderRequest) {
+  if (missingNightInputs(input).length) return []
   return input.availableOutcomes.filter((outcome) => outcome.ready).map((outcome) => outcome.id)
 }
 
 function statusRiskWarnings(input: NightSettlementProviderRequest) {
   const warnings: string[] = []
-  const { status } = input.wakeItem
+  const { status } = input.currentActor ?? input.wakeItem
   if (!status) return warnings
   if (status.life === 'dead') {
     warnings.push(`${input.wakeItem.seatId}号${input.wakeItem.roleName}当前死亡；采用结果前先核对该角色死亡后是否仍需行动。`)
@@ -76,7 +89,7 @@ function normalizeDraft(
   payload: ProviderNightSettlementPayload,
   input: NightSettlementProviderRequest,
 ): NightSettlementAdviceDraft {
-  const missing = stringArray(payload.missing, 6)
+  const missing = [...missingNightInputs(input), ...stringArray(payload.missing, 6)].slice(0, 6)
   const outcomeId = recommendedOutcomeId(payload.recommendedOutcomeId, input)
   const status = payload.status === 'answer' && outcomeId && !missing.length ? 'answer' : 'needs_input'
   const roleFacts = stringArray(payload.ruleFacts, 6)
@@ -86,6 +99,7 @@ function normalizeDraft(
     : []
   const providerWarnings = stringArray(payload.warnings, 6)
   const authorityWarnings = [
+    ...(input.wakeItem.targetRoleChoiceCount ? ['爪牙配对只是待确认选择；身份与邪恶阵营须由说书人另行应用，再核对当晚新爪牙夜序、停用被替换的原技能。整张配对表不作为玩家告知。'] : []),
     ...statusWarnings,
     ...providerWarnings,
     ...stringArray(payload.authorityWarnings, 5),
@@ -108,7 +122,7 @@ function normalizeDraft(
     missing: missing.length ? missing : status === 'needs_input' ? ['缺少可直接采用的结果候选。'] : [],
     warnings: [...statusWarnings, ...providerWarnings, ...researchWarnings].slice(0, 6),
     journalDrafts: stringArray(payload.journalDrafts, 4),
-    playerMessageDrafts: stringArray(payload.playerMessageDrafts, 4),
+    playerMessageDrafts: status === 'answer' && !input.wakeItem.targetRoleChoiceCount ? stringArray(payload.playerMessageDrafts, 4) : [],
     stateChangeDrafts: stringArray(payload.stateChangeDrafts, 5),
     authorityWarnings: authorityWarnings.length ? authorityWarnings : ['确认本项前不写日志、不改状态。'],
     disclaimer: text(payload.disclaimer, 'AI 夜间建议只是草稿，确认本项前不生效。'),
@@ -117,19 +131,19 @@ function normalizeDraft(
 
 export function fallbackNightSettlementAdviceDraft(
   input: NightSettlementProviderRequest,
-  warning = 'AI 夜间建议不可用，已使用本地结果候选。',
+  warning = 'AI 夜间建议不可用；只保留已有选择，不自动代选结果。',
 ): NightSettlementAdviceDraft {
   const readyIds = readyOutcomeIds(input)
   const preferred = input.draft.outcomeId && readyIds.includes(input.draft.outcomeId)
     ? input.draft.outcomeId
-    : readyIds[0]
+    : undefined
   return {
     provider: 'fake',
     confidence: preferred ? 'medium' : 'low',
     draftOnly: true,
     status: preferred ? 'answer' : 'needs_input',
     recommendedOutcomeId: preferred,
-    summary: preferred ? '可按当前录入生成结果草稿。' : '先补齐目标、角色或结果候选。',
+    summary: preferred ? '可按说书人已选结果保留草稿。' : '未获得可用的 AI 建议，请说书人选择本项结果。',
     ruleFacts: [
       `当前处理：${input.wakeItem.seatId}号 ${input.wakeItem.roleName}`,
       ...(input.statusFacts ?? []),
@@ -138,7 +152,7 @@ export function fallbackNightSettlementAdviceDraft(
       ...(input.roleResearch?.possibleOutcomes ?? []),
       ...(input.roleResearch?.highRiskNotes ?? []),
     ].slice(0, 6),
-    missing: preferred ? [] : ['本项还没有可直接采用的结果。'],
+    missing: preferred ? [] : missingNightInputs(input).length ? missingNightInputs(input) : ['请说书人选择本项结果；服务不可用时不会自动代选。'],
     warnings: [warning, ...statusRiskWarnings(input)].slice(0, 6),
     journalDrafts: [],
     playerMessageDrafts: [],
@@ -155,6 +169,9 @@ export function fallbackNightSettlementAdviceDraft(
 export function createOpenAICompatibleNightSettlementProvider(options: OpenAINightSettlementProviderOptions) {
   return {
     async generateNightSettlementAdvice(input: NightSettlementProviderRequest): Promise<NightSettlementProviderResult> {
+      if (missingNightInputs(input).length) {
+        return { draft: fallbackNightSettlementAdviceDraft(input, '夜间输入未通过核对；未调用模型，也未更改身份或夜序。'), warnings: ['night_inputs_incomplete', 'draft_only'] }
+      }
       const payload = await callOpenAICompatibleJSON<ProviderNightSettlementPayload>({
         baseUrl: options.baseUrl,
         model: options.model,

@@ -53,15 +53,18 @@ describe('NightWorkbench records and role changes', () => {
 
     await user.click(screen.getByRole('button', { name: '更换角色' }))
     await user.click(screen.getByRole('button', { name: '麻脸巫婆' }))
-    expect(screen.getByText('仅记录 · 不发送 · 夜序不自动调整')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: '确认改为麻脸巫婆' })).toBeDisabled()
+    await user.click(screen.getByRole('radio', { name: '当晚处理新能力' }))
     await user.click(screen.getByRole('button', { name: '确认改为麻脸巫婆' }))
 
-    expect(screen.getByText('已变更 · 原洗脑师')).toBeInTheDocument()
-    expect(screen.getByText('本夜仍按洗脑师')).toBeInTheDocument()
+    expect(screen.getByText(/10号已改为麻脸巫婆；原未发动项已停用/)).toBeInTheDocument()
+    expect(screen.queryByText('本夜仍按洗脑师')).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: '本局记录，共4条' })).toBeInTheDocument()
     await waitFor(() => {
       const state = storedState()
       expect(state.queue.find((item: { id: string }) => item.id === 'night-3-cerenovus').roleId).toBe('cerenovus')
+      expect(state.queue.find((item: { id: string }) => item.id === 'night-3-cerenovus').progress).toBe('not_applicable')
+      expect(state.queue.some((item: { seatId: number; roleId: string; progress: string }) => item.seatId === 10 && item.roleId === 'pithag' && item.progress === 'pending')).toBe(true)
       expect(state.roleChangeEvents).toHaveLength(1)
       expect(state.roleChangeEvents[0].fromRole.id).toBe('cerenovus')
       expect(state.roleChangeEvents[0].toRole.id).toBe('pithag')
@@ -70,7 +73,7 @@ describe('NightWorkbench records and role changes', () => {
     await user.click(screen.getByRole('button', { name: '本局记录，共4条' }))
     expect(screen.getByText('10号角色：洗脑师 → 麻脸巫婆')).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /10号角色：洗脑师 → 麻脸巫婆/ }))
-    expect(screen.getByText('当前夜序快照未自动重排')).toBeInTheDocument()
+    expect(screen.getByText('主持已确认当晚处理新能力；原未发动项已停用')).toBeInTheDocument()
   })
 
   it('lets the storyteller clear an accidental draft before changing role', async () => {
@@ -100,11 +103,13 @@ describe('NightWorkbench records and role changes', () => {
 
     await user.click(screen.getByRole('button', { name: '更换角色' }))
     await user.click(screen.getByRole('button', { name: '麻脸巫婆' }))
+    await user.click(screen.getByRole('radio', { name: '当晚处理新能力' }))
     await user.click(screen.getByRole('button', { name: '确认改为麻脸巫婆' }))
     expect(container.querySelector('.role-disc__change-mark')).toBeInTheDocument()
 
     await user.click(screen.getByRole('button', { name: '选择3号玩家' }))
     await user.click(screen.getByRole('button', { name: '调查员' }))
+    await user.click(screen.getByRole('button', { name: /^变更$/ }))
     await user.click(screen.getByRole('button', { name: '展示信息' }))
     await user.click(screen.getByRole('button', { name: '收起并遮蔽' }))
 

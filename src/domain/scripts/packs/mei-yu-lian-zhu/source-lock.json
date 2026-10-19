@@ -1,0 +1,241 @@
+{
+  "sourceBuild": "16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e",
+  "sourceIndex": 566,
+  "sourceUrl": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+  "embeddedJsonUrl": "https://kkovo550.github.io/clocktower-wiki/script_lib/assets/scripts-full.js",
+  "originalPath": "快速上手与角色主题竞赛剧本\\角色竞赛优胜剧本\\#魅语连珠v1.2.0.json",
+  "rawJsonByteLength": 15763,
+  "rawJsonSha256": "b684e45ffcb9df260e7bafd4a6a520350e49dac7ed83230d7702408a025075dd",
+  "author": "Luxray,Justin & sabenite",
+  "version": "v1.2.0",
+  "reviewedAt": "2026-10-16",
+  "officialRoleSnapshotSha256": "6c659354dee75cf3afdeaf6cbc750b274a87d1099cc5f68651a2114881eb85ca",
+  "officialNightSnapshotSha256": "99a2815bb31bcec3e107bf7f1c2fb305e301d317981d855704d3d954ec4c3f75",
+  "roleAliases": [
+    {
+      "rawId": "high_priestessbutton",
+      "roleId": "highpriestess",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "3cae701befe2606e90b668e2d4f9a9bb975731088a0fd97b75a822f913b2fe60",
+      "officialTeam": "townsfolk",
+      "officialName": "High Priestess",
+      "officialAbility": "Each night, learn which player the Storyteller believes you should talk to most."
+    },
+    {
+      "rawId": "librarianbutton",
+      "roleId": "librarian",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "eda96aa31d60c611a62d6c433d0ce45f7396d306e2a1ff9ae946720a3afdf93f",
+      "officialTeam": "townsfolk",
+      "officialName": "Librarian",
+      "officialAbility": "You start knowing that 1 of 2 players is a particular Outsider. (Or that zero are in play.)"
+    },
+    {
+      "rawId": "jingcaisanxuanyi111",
+      "roleId": "noble",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "2553078f2444c073bd4ff6e3a709b4da5ee37b1bb56107e3c7a738e29f4cda97",
+      "officialTeam": "townsfolk",
+      "officialName": "Noble",
+      "officialAbility": "You start knowing 3 players, 1 and only 1 of which is evil."
+    },
+    {
+      "rawId": "chefbutton",
+      "roleId": "chef",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "8fcf7be99a9c5b486d57bdbab0a8852a9dea98d3fa3adfada3c021d8838074a9",
+      "officialTeam": "townsfolk",
+      "officialName": "Chef",
+      "officialAbility": "You start knowing how many pairs of evil players there are."
+    },
+    {
+      "rawId": "pixiebutton",
+      "roleId": "pixie",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "258638d3d4f894989bc1e838b5ff903a8416ba0568f3d07be9f1856e3ec287bf",
+      "officialTeam": "townsfolk",
+      "officialName": "Pixie",
+      "officialAbility": "You start knowing 1 in-play Townsfolk. If you were mad that you were this character, you gain their ability when they die."
+    },
+    {
+      "rawId": "dreamerbutton",
+      "roleId": "dreamer",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "1f4b18cc94a5355ab7f6a81ed1d076598f802975718a543656e959fe4f60fc23",
+      "officialTeam": "townsfolk",
+      "officialName": "Dreamer",
+      "officialAbility": "Each night, choose a player (not yourself or Travellers): you learn 1 good & 1 evil character, 1 of which is correct."
+    },
+    {
+      "rawId": "empathbutton",
+      "roleId": "empath",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "d470a97846687429082ffd3679890c2abf974d8ece2f56f470895457887d42d2",
+      "officialTeam": "townsfolk",
+      "officialName": "Empath",
+      "officialAbility": "Each night, you learn how many of your 2 alive neighbors are evil."
+    },
+    {
+      "rawId": "oraclebutton",
+      "roleId": "oracle",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "194d60c95031a4b25c74e5027c24145aa5363b113b6db704050fbcd8734f7475",
+      "officialTeam": "townsfolk",
+      "officialName": "Oracle",
+      "officialAbility": "Each night*, you learn how many dead players are evil."
+    },
+    {
+      "rawId": "monkbutton",
+      "roleId": "monk",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "6b9950cc1cc9c73415a378f61016cc3bd027f571423d51a98c3126baa0fd8fd5",
+      "officialTeam": "townsfolk",
+      "officialName": "Monk",
+      "officialAbility": "Each night*, choose a player (not yourself): they are safe from the Demon tonight."
+    },
+    {
+      "rawId": "savantbutton",
+      "roleId": "savant",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "8306a7577fbb5f06b65a1d108ee8f13c729fc77d4104825c16543ce3cda00f7c",
+      "officialTeam": "townsfolk",
+      "officialName": "Savant",
+      "officialAbility": "Each day, you may visit the Storyteller to learn 2 things in private: 1 is true & 1 is false."
+    },
+    {
+      "rawId": "artistbutton",
+      "roleId": "artist",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "b2670c8ff2d4cea0b890e19e64d8a1d19b1c41cac58599d083848b86077da30d",
+      "officialTeam": "townsfolk",
+      "officialName": "Artist",
+      "officialAbility": "Once per game, during the day, privately ask the Storyteller any yes/no question."
+    },
+    {
+      "rawId": "jugglerbutton",
+      "roleId": "juggler",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "2184cd4db38346ec23a999aa622a13bad1a2b7a9e383d50fafcd1fc58e6396e0",
+      "officialTeam": "townsfolk",
+      "officialName": "Juggler",
+      "officialAbility": "On your 1st day, publicly guess up to 5 players' characters. That night, you learn how many you got correct."
+    },
+    {
+      "rawId": "cannibalbutton",
+      "roleId": "cannibal",
+      "rawTeam": "townsfolk",
+      "rawAbilitySha256": "5e36e6389187ed6f49ad45bb5170f4e0f4aeef16ca4cc857a1ef5f377c92e492",
+      "officialTeam": "townsfolk",
+      "officialName": "Cannibal",
+      "officialAbility": "You have the ability of the recently killed executee. If they are evil, you are poisoned until a good player dies by execution."
+    },
+    {
+      "rawId": "reclusebutton",
+      "roleId": "recluse",
+      "rawTeam": "outsider",
+      "rawAbilitySha256": "18b26d774b0e70811409165ea8cb0e79d0f08efb3d07ad2d91e4812451861f8f",
+      "officialTeam": "outsider",
+      "officialName": "Recluse",
+      "officialAbility": "You might register as evil & as a Minion or Demon, even if dead."
+    },
+    {
+      "rawId": "drunkbutton",
+      "roleId": "drunk",
+      "rawTeam": "outsider",
+      "rawAbilitySha256": "18b60e84cd50d768ebe227895a002cd5cdbdba9530a2cd9094469fcaa680da22",
+      "officialTeam": "outsider",
+      "officialName": "Drunk",
+      "officialAbility": "You do not know you are the Drunk. You think you are a Townsfolk character, but you are not."
+    },
+    {
+      "rawId": "mutantbutton",
+      "roleId": "mutant",
+      "rawTeam": "outsider",
+      "rawAbilitySha256": "1bf81bdf2318935b9432a796572aa62e79b532a6ba5b229a90764e14fcf8e036",
+      "officialTeam": "outsider",
+      "officialName": "Mutant",
+      "officialAbility": "If you are “mad” about being an Outsider, you might be executed."
+    },
+    {
+      "rawId": "klutzbutton",
+      "roleId": "klutz",
+      "rawTeam": "outsider",
+      "rawAbilitySha256": "82f1aa67a6f6192ad71575d3cf7201c7370b2dc6a9a42ee334f078975ec19732",
+      "officialTeam": "outsider",
+      "officialName": "Klutz",
+      "officialAbility": "When you learn that you died, publicly choose 1 alive player: if they are evil, your team loses."
+    },
+    {
+      "rawId": "spybutton",
+      "roleId": "spy",
+      "rawTeam": "minion",
+      "rawAbilitySha256": "c470b553390dcf03fc0cf31772339c897254cfe25512c894f9f60f46884ace50",
+      "officialTeam": "minion",
+      "officialName": "Spy",
+      "officialAbility": "Each night, you see the Grimoire. You might register as good & as a Townsfolk or Outsider, even if dead."
+    },
+    {
+      "rawId": "cerenovusbutton",
+      "roleId": "cerenovus",
+      "rawTeam": "minion",
+      "rawAbilitySha256": "79d6d8b7d53f8a460f3cd1f00d3086fb38468df84421279f0ba0090b02a64c2e",
+      "officialTeam": "minion",
+      "officialName": "Cerenovus",
+      "officialAbility": "Each night, choose a player & a good character: they are “mad” they are this character tomorrow, or might be executed."
+    },
+    {
+      "rawId": "marionettebutton",
+      "roleId": "marionette",
+      "rawTeam": "minion",
+      "rawAbilitySha256": "46febd99d83eb08dfe9a03d7c46e38807d76dc5e6cbe8e66f4d532feffcc815f",
+      "officialTeam": "minion",
+      "officialName": "Marionette",
+      "officialAbility": "You think you are a good character, but you are not. The Demon knows who you are. [You neighbor the Demon]"
+    },
+    {
+      "rawId": "mezephelesbutton",
+      "roleId": "mezepheles",
+      "rawTeam": "minion",
+      "rawAbilitySha256": "2cf885822d6d1c657320dd89edffe35a333e012d2169593c25993efe89d0bed3",
+      "officialTeam": "minion",
+      "officialName": "Mezepheles",
+      "officialAbility": "You start knowing a secret word. The 1st good player to say this word becomes evil that night."
+    },
+    {
+      "rawId": "vortoxbutton",
+      "roleId": "vortox",
+      "rawTeam": "demon",
+      "rawAbilitySha256": "8899c270c216826b2c6e2c8816f9e3963adb4435caa6bbe8a910102ab560c35b",
+      "officialTeam": "demon",
+      "officialName": "Vortox",
+      "officialAbility": "Each night*, choose a player: they die. Townsfolk abilities yield false info. Each day, if no-one is executed, evil wins."
+    },
+    {
+      "rawId": "legionbutton",
+      "roleId": "legion",
+      "rawTeam": "demon",
+      "rawAbilitySha256": "119ebb722267c63c2d8adbfdafd616ddf3fb6e37f654134f037d2cd49cf0830e",
+      "officialTeam": "demon",
+      "officialName": "Legion",
+      "officialAbility": "Each night*, a player might die. Executions fail if only evil voted. You register as a Minion too. [Most players are Legion]"
+    },
+    {
+      "rawId": "vigormortisbutton",
+      "roleId": "vigormortis",
+      "rawTeam": "demon",
+      "rawAbilitySha256": "7e0028eac21a809bc81fe92d4bfa81efe3c41b6b716ff087e16f7c8598ff13e8",
+      "officialTeam": "demon",
+      "officialName": "Vigormortis",
+      "officialAbility": "Each night*, choose a player: they die. Minions you kill keep their ability & poison 1 Townsfolk neighbor. [-1 Outsider]"
+    },
+    {
+      "rawId": "no_dashiibutton",
+      "roleId": "nodashii",
+      "rawTeam": "demon",
+      "rawAbilitySha256": "287b4efcebf1b7e50af459864478206c7d8237ad9362acf323c6666a4832dca1",
+      "officialTeam": "demon",
+      "officialName": "No Dashii",
+      "officialAbility": "Each night*, choose a player: they die. Your 2 Townsfolk neighbors are poisoned."
+    }
+  ]
+}

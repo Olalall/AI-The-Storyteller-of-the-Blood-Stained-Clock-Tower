@@ -139,15 +139,49 @@ describe('night settlement provider', () => {
     expect(result.draft.authorityWarnings).toContain('\u786e\u8ba4\u672c\u9879\u524d\u4e0d\u5199\u65e5\u5fd7\u3001\u4e0d\u6539\u72b6\u6001\u3002')
   })
 
-  it('falls back to a ready local outcome without writing authority', () => {
+  it('does not arbitrarily pick the first ready outcome when AI is unavailable', () => {
     const draft = fallbackNightSettlementAdviceDraft(nightInput())
 
     expect(draft.provider).toBe('fake')
-    expect(draft.status).toBe('answer')
-    expect(draft.recommendedOutcomeId).toBe('applied')
+    expect(draft.status).toBe('needs_input')
+    expect(draft.recommendedOutcomeId).toBeUndefined()
+    expect(draft.summary).toContain('请说书人选择本项结果')
+    expect(draft.missing.join(' ')).toContain('不会自动代选')
+    expect(draft.missing.join(' ')).not.toContain('补齐目标')
     expect(draft.ruleFacts.join(' ')).toContain('自动处决')
     expect(draft.ruleFacts.join(' ')).toContain('发动者：10号洗脑师')
     expect(draft.disclaimer).toContain('说书人确认')
+  })
+
+  it('retains an explicit ready storyteller choice during fallback', () => {
+    const input = nightInput()
+    input.draft.outcomeId = 'no-effect'
+    expect(fallbackNightSettlementAdviceDraft(input)).toMatchObject({ status: 'answer', recommendedOutcomeId: 'no-effect', draftOnly: true })
+    input.draft.outcomeId = 'blocked'
+    expect(fallbackNightSettlementAdviceDraft(input)).toMatchObject({ status: 'needs_input', recommendedOutcomeId: undefined })
+  })
+
+  it('clears unconditional player copy when conditions are missing', async () => {
+    const provider = createOpenAICompatibleNightSettlementProvider({
+      baseUrl: 'https://ai.example.test/v1', model: 'night-model', apiKey: secret, timeoutSeconds: 1,
+      fetcher: async () => response({ status: 'answer', recommendedOutcomeId: 'applied', missing: ['未核对在场条件'], playerMessageDrafts: ['你现在是新角色。'] }),
+    })
+    const { draft } = await provider.generateNightSettlementAdvice(nightInput())
+    expect(draft.status).toBe('needs_input')
+    expect(draft.recommendedOutcomeId).toBeUndefined()
+    expect(draft.playerMessageDrafts).toEqual([])
+  })
+
+  it('uses the current actor status rather than stale wake impairment for warnings', async () => {
+    const input = nightInput()
+    input.wakeItem.status = { life: 'alive', impairments: ['drunk'], markers: [] }
+    input.currentActor = { seatId: input.wakeItem.seatId, playerLabel: '当前玩家', roleId: input.wakeItem.roleId, roleName: input.wakeItem.roleName, status: { life: 'alive', impairments: [], markers: [] } }
+    const provider = createOpenAICompatibleNightSettlementProvider({
+      baseUrl: 'https://ai.example.test/v1', model: 'night-model', apiKey: secret, timeoutSeconds: 1,
+      fetcher: async () => response({ status: 'answer', recommendedOutcomeId: 'applied', missing: [] }),
+    })
+    const { draft } = await provider.generateNightSettlementAdvice(input)
+    expect(draft.warnings.join(' ')).not.toContain('当前醉酒')
   })
 
   it('adds deterministic warnings when the acting role is impaired', async () => {

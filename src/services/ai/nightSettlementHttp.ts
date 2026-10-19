@@ -1,15 +1,15 @@
 import {
   defaultArchiveRuntimeSettings,
-  readArchiveRuntimeSettings,
-  type ArchiveRuntimeSettings,
 } from '../archive'
-import { outcomeReady } from '../../features/night-workbench/state/projectWakeDraft'
+import { readAIRuntimeSettings, type AIRuntimeSettings } from './aiRuntimeSettings'
+import { outcomeReady, selectedTargetCount, targetRoleChoicesSatisfied } from '../../features/night-workbench/state/projectWakeDraft'
 import type { AIResultAdvice } from '../../features/night-workbench/types'
 import { localAIAdapter } from './localAIAdapter'
 import type { AIConfidence, AIProviderKind, CreateNightResultAdviceInput } from './types'
 import { roleKnowledgeForAI } from '../../domain/role-knowledge'
 import { roleResearchForAI } from '../../domain/scripts'
-import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
+import { modelRequestTimeoutMs } from './modelRequestTimeout'
+import { currentNightActorForAI, inPlayNightRoleIdsForAI, nightHistoryForAI, nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
 
 type FetchLike = (input: RequestInfo | URL, init?: RequestInit) => Promise<Response>
 
@@ -38,7 +38,7 @@ interface BackendNightSettlementResponse {
 }
 
 export interface CreateNightResultAdviceAsyncOptions {
-  runtimeSettings?: ArchiveRuntimeSettings
+  runtimeSettings?: AIRuntimeSettings
   fetcher?: FetchLike
 }
 
@@ -79,6 +79,7 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
     scriptId: state.scriptId,
     knowledgeVersion: state.knowledgeVersion,
     nightRunId: state.nightRunId,
+    nightType: state.nightType,
     phaseLabel: state.nightLabel,
     playerCount: state.playerCount,
     wakeItem: {
@@ -90,7 +91,13 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
       roleName: item.roleName,
       ability: item.ability,
       storytellerPrompt: item.storytellerPrompt,
-      targetCount: item.targetCount,
+      history: nightHistoryForAI(item),
+      targetCount: selectedTargetCount(item, draft),
+      allowedTargetCounts: item.allowedTargetCounts,
+      roleCount: item.roleCount,
+      abilityPhase: item.abilityPhase,
+      targetRoleChoiceCount: item.targetRoleChoiceCount,
+      targetRoleChoiceRoleIds: item.targetRoleChoiceCount ? item.roleChoices?.map(role => role.id) : undefined,
       targetLabel: item.targetLabel,
       roleLabel: item.roleLabel,
       status: {
@@ -102,6 +109,11 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
     draft: {
       targets: [...draft.targets],
       roleChoice: draft.roleChoice,
+      secondRoleChoice: draft.secondRoleChoice,
+      additionalRoleChoices: draft.additionalRoleChoices ? [...draft.additionalRoleChoices] : undefined,
+      targetRoleChoices: draft.targetRoleChoices?.map(choice => ({ ...choice })),
+      targetCountChoice: draft.targetCountChoice,
+      storytellerContext: draft.storytellerContext?.trim().slice(0, 1000) || undefined,
       outcomeId: draft.outcomeId,
       playerChoice: draft.playerChoice,
       draftRevision: draft.draftRevision,
@@ -109,10 +121,12 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
     availableOutcomes: item.outcomeOptions.map((outcome) => ({
       id: outcome.id,
       label: outcome.label,
-      ready: outcomeReady(outcome, item, draft),
+      ready: outcomeReady(outcome, item, draft) && targetRoleChoicesSatisfied(item, draft, state.playerCount),
       requiredInputs: outcome.requiredInputs,
     })),
-    selectedTargets,
+    selectedTargets: selectedTargets.map(target => ({ ...target, roleKnowledge: roleKnowledgeForAI(target.roleId) })),
+    currentActor: currentNightActorForAI(state, item),
+    inPlayRoleIds: inPlayNightRoleIdsForAI(state),
     statusFacts: nightStatusFactsForAI(item, selectedTargets),
     roleKnowledge: roleKnowledgeForAI(item.roleId),
     roleResearch: roleResearchForAI(state.scriptId, item.roleId),
@@ -125,18 +139,18 @@ function mapBackendDraft(
   fallback: AIResultAdvice | null,
 ): AIResultAdvice {
   const readyIds = new Set(input.item.outcomeOptions
-    .filter((outcome) => outcomeReady(outcome, input.item, input.draft))
+    .filter((outcome) => outcomeReady(outcome, input.item, input.draft) && targetRoleChoicesSatisfied(input.item, input.draft, input.state.playerCount))
     .map((outcome) => outcome.id))
   const recommended = payload.recommendedOutcomeId && readyIds.has(payload.recommendedOutcomeId)
     ? payload.recommendedOutcomeId
     : undefined
-  const status = payload.status === 'answer' && recommended ? 'answer' : 'needs_input'
+  const status = payload.status === 'answer' && recommended && !stringArray(payload.missing, 6).length ? 'answer' : 'needs_input'
   const adviceId = `${input.item.id}-ai-${input.state.revision}-${input.draft.draftRevision}-backend`
   const warningDrafts = stringArray(payload.warnings, 5)
-  const authorityWarnings = [
+  const authorityWarnings = [...new Set([
     ...warningDrafts,
     ...stringArray(payload.authorityWarnings, 5),
-  ].slice(0, 6)
+  ])].slice(0, 6)
 
   return {
     id: adviceId,
@@ -145,6 +159,7 @@ function mapBackendDraft(
     nightRunId: input.state.nightRunId,
     wakeItemId: input.item.id,
     contextRevision: input.state.revision,
+    contextKey: input.state.contextKey,
     sourceDraftRevision: input.draft.draftRevision,
     knowledgeVersion: input.state.knowledgeVersion,
     status,
@@ -156,13 +171,13 @@ function mapBackendDraft(
     missing: payload.missing?.length
       ? payload.missing
       : status === 'needs_input' ? ['先补齐本项选择。'] : [],
-    journalDrafts: stringArray(payload.journalDrafts, 4).length
+    journalDrafts: Array.isArray(payload.journalDrafts)
       ? stringArray(payload.journalDrafts, 4)
       : fallback?.journalDrafts ?? [],
-    playerMessageDrafts: stringArray(payload.playerMessageDrafts, 4).length
+    playerMessageDrafts: status !== 'answer' || input.item.targetRoleChoiceCount ? [] : Array.isArray(payload.playerMessageDrafts)
       ? stringArray(payload.playerMessageDrafts, 4)
       : fallback?.playerMessageDrafts ?? [],
-    stateChangeDrafts: stringArray(payload.stateChangeDrafts, 5).length
+    stateChangeDrafts: Array.isArray(payload.stateChangeDrafts)
       ? stringArray(payload.stateChangeDrafts, 5)
       : fallback?.stateChangeDrafts ?? [],
     authorityWarnings: authorityWarnings.length
@@ -177,13 +192,13 @@ export async function createNightResultAdviceAsync(
   options: CreateNightResultAdviceAsyncOptions = {},
 ): Promise<AIResultAdvice | null> {
   const fallback = localAIAdapter.createNightResultAdvice(input)
-  const runtimeSettings = options.runtimeSettings ?? readArchiveRuntimeSettings()
+  const runtimeSettings = options.runtimeSettings ?? readAIRuntimeSettings()
   if (runtimeSettings.mode !== 'http') return fallback
 
   try {
     const response = await fetchWithTimeout(
       options.fetcher ?? fetch,
-      runtimeSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs,
+      modelRequestTimeoutMs(runtimeSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs),
       urlFor(runtimeSettings.baseUrl || defaultArchiveRuntimeSettings.baseUrl),
       {
         method: 'POST',
@@ -191,6 +206,7 @@ export async function createNightResultAdviceAsync(
         body: JSON.stringify(requestBody(input)),
       },
     )
+    if (response.status === 401) return localAdvice(input, '请先在 AI 设置中验证访问口令；当前保留本地草稿。')
     const body = await response.json() as BackendNightSettlementResponse
     if (!response.ok || body.accepted !== true || !body.data?.draft) throw new Error('night advice failed')
     return mapBackendDraft(body.data.draft, input, fallback)

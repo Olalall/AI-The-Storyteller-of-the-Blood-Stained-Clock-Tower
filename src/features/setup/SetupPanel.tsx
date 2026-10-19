@@ -1,12 +1,13 @@
 import { ArrowLeftRight, Bot, Check, PencilLine, RefreshCw, ShieldCheck, Shuffle, Sparkles, X } from 'lucide-react'
 import { useEffect, useMemo, useState, type DragEvent } from 'react'
 import { Button } from '../../components/ui/Button'
+import { HostNotice } from '../../components/ui/HostNotice'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge } from '../../components/ui/StatusBadge'
 import { getSmartScriptPack, roleSnapshotsForScript, roleTeamByIdForScript } from '../../domain/scripts'
 import type { PlayerCount, ScriptId } from '../../domain/scripts'
 import { generateSetupCandidates, type AIContextSeat, type SetupBalanceMicroAdjustment } from '../../services/ai'
-import { isPlayerCount, saveSetupRosterMemory, type SetupRosterSeatInput } from './setupRosterMemory'
+import { isPlayerCount, type SetupRosterSeatInput } from './setupRosterMemory'
 import { projectConfirmedSetup, projectCurrentAssignments } from '../game-session/state/projectors'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState, SetupDraft } from '../game-session/types'
@@ -34,10 +35,12 @@ interface SetupPanelProps {
   dispatch: React.Dispatch<GameSessionAction>
   setupScriptId: ScriptId
   onSetupScriptChange: (scriptId: ScriptId) => void
+  notice?: string
 }
 type SeatAction = 'swap' | 'role' | 'nickname'
-export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptId, onSetupScriptChange }: SetupPanelProps) {
-  const started = Boolean(projectConfirmedSetup(session))
+export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptId, onSetupScriptChange, notice }: SetupPanelProps) {
+  const confirmedSetup = projectConfirmedSetup(session)
+  const started = Boolean(confirmedSetup)
   const activeScriptId = session.playerCount > 0 ? session.scriptId : setupScriptId
   const activeScriptPack = useMemo(() => getSmartScriptPack(activeScriptId), [activeScriptId])
   const activeScriptName = chineseDisplayName(activeScriptPack.displayName)
@@ -74,15 +77,14 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
       expectedSeatIds,
       effectiveDraft.setupRuleSelections,
       effectiveDraft.repeatableRoleIds,
+      confirmedSetup?.draft.assignments.map((assignment) => assignment.role.id),
     )
     : null
   const legality = legalityReport?.checks ?? []
   const isStaleDraft = started && (!effectiveDraft?.baseSetupId || effectiveDraft.baseSetupId !== currentSetupId)
   const canConfirm = Boolean(effectiveDraft && legalityReport && !isStaleDraft && !hasBlockingSetupIssue(legalityReport))
-  const candidateAdvice = effectiveDraft
-    ? candidates.find((candidate) => candidate.id === effectiveDraft.candidateId)?.demonBluffAdvice
-    : undefined
   const activeCandidate = effectiveDraft ? candidates.find((candidate) => candidate.id === effectiveDraft.candidateId) : undefined
+  const candidateAdvice = activeCandidate?.demonBluffAdvice
   const modifierReminders = legality.filter((check) => check.id.startsWith('modifier-'))
   const visibleChecks = legality.filter((check) => check.status === 'fail' || check.status === 'needs_choice')
   const inPlayRoleIds = new Set(effectiveDraft?.assignments.map((assignment) => assignment.role.id) ?? [])
@@ -93,7 +95,6 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
   const editorRole = seatEditor
     ? effectiveDraft?.assignments.find((assignment) => assignment.seatId === seatEditor.seatId)?.role ?? null
     : null
-  useEffect(() => { saveSetupRosterMemory(session) }, [session])
   useEffect(() => { setSelectedSeatId(null); setSwapSummary(null); setShowCandidates(false) }, [activeScriptId])
   function saveLocalDraft(nextDraft: SetupDraft | null) {
     setDraft(nextDraft); setDraftScriptId(nextDraft ? activeScriptId : null)
@@ -107,7 +108,6 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
       seats: input.seats,
     })
   }
-
   function selectCandidateDraft(candidateId: string, adjustment?: SetupBalanceMicroAdjustment) {
     const candidate = candidates.find((item) => item.id === candidateId)
     if (!candidate) return
@@ -134,7 +134,6 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     setSelectedSeatId(null)
     setSwapSummary(`已交换 ${firstSeatId}号与${secondSeatId}号角色`)
   }
-
   function selectSeat(seatId: number) {
     if (seatAction === 'role') {
       setSeatEditor({ kind: 'role', seatId })
@@ -222,8 +221,9 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
   }
 
   return (
-    <Sheet open={open} onOpenChange={onOpenChange} title="智能配板与调整" description={started ? '后续生效' : activeScriptName} contentClassName="sheet-content--setup" presentation="page">
+    <Sheet open={open} onOpenChange={onOpenChange} title="智能配板与调整" description={started ? '后续生效' : `${activeScriptName} · 确认配板后可进入夜晚。`} contentClassName="sheet-content--setup" presentation="page">
       <div className="setup-panel">
+        {notice ? <HostNotice message={notice} autoHideMs={0} /> : null}
         {session.playerCount === 0
           ? <SetupStartPanel scriptId={activeScriptId} scriptName={activeScriptName} onScriptChange={onSetupScriptChange} onStart={startSetupSession} />
           : !effectiveDraft || showCandidates ? <SetupCandidateBrowser scriptId={activeScriptId} scriptName={activeScriptName} knowledgeVersion={candidates[0]?.knowledgeVersion ?? session.knowledgeVersion} candidates={candidates} playerCount={session.playerCount} seats={adviceSeats} onUseCandidate={selectCandidateDraft} onPreviewMicroAdjustment={selectCandidateDraft} /> : <button type="button" className="setup-panel__advice-entry" onClick={() => setShowCandidates(true)}>
@@ -275,12 +275,13 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
                     <span className="setup-panel__bluff-top"><b>伪装{index + 1}</b>{advice
                       ? <StatusBadge tone="current" size="sm">建议</StatusBadge>
                       : <StatusBadge tone="neutral" size="sm">可选</StatusBadge>}</span>
-                    <select value={bluff.id} onChange={(event) => updateDemonBluff(index, event.target.value)}>
+                    <select disabled={started} value={bluff.id} onChange={(event) => updateDemonBluff(index, event.target.value)}>
                       {availableOptions.map((role) => <option value={role.id} key={role.id}>{role.name}</option>)}
                     </select>
                   </label>
                 })}
               </div>
+              {started ? <p>伪装已保存在开局记录中；本局调整不再修改这份已确认信息。</p> : null}
             </section> : null}
           </section>
           {legalityReport ? <section className="setup-panel__rule-card" aria-labelledby="setup-rule-title">

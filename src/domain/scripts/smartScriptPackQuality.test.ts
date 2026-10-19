@@ -19,6 +19,17 @@ const minimumTemplatesByCount: Record<PlayerCount, number> = {
 }
 
 describe('smart script pack quality gate', () => {
+  it.each([
+    ['一名玩家死亡或复活。', 'death'],
+    ['目标中毒，你保持清醒。', 'poison-drunk'],
+    ['他必须疯狂地声称是镇民。', 'madness'],
+    ['你与他交换角色。', 'identity'],
+    ['你变为邪恶阵营。', 'alignment'],
+    ['善良阵营立即获胜。', 'win-loss'],
+  ] as const)('does not skip Chinese high-risk rules: %s', (ability, category) => {
+    expect(isHighRiskAbility(ability)).toBe(true)
+    expect(highRiskCategories(ability)).toContain(category)
+  })
   it('keeps every registered smart script structurally complete for 7-15 player setup', () => {
     for (const pack of smartScriptPacks) {
       expect(pack.playerCounts, pack.scriptId).toEqual(allPlayerCounts)
@@ -133,9 +144,9 @@ describe('smart script pack quality gate', () => {
       }
     }
 
-    expect(missingStructuredLogic).toEqual([])
-    expect(missingCategoryLogic).toEqual([])
-    expect(garbledResearchText).toEqual([])
+    expect({ missingStructuredLogic, missingCategoryLogic, garbledResearchText }).toEqual({
+      missingStructuredLogic: [], missingCategoryLogic: [], garbledResearchText: [],
+    })
   })
 })
 
@@ -167,7 +178,7 @@ function hasOnlyAllowedDuplicateRoles(roleIds: readonly string[], repeatableRole
 }
 
 function isHighRiskAbility(abilityText: string) {
-  return /\b(poisoned|drunk|die|dies|death|dead|mad|alignment|become|becomes|swap|register|executed|win|wins|lose|loses)\b/i.test(abilityText)
+  return highRiskCategories(abilityText).length > 0 || /\bregister\b/i.test(abilityText)
 }
 
 function hasGarbledPlaceholder(research: NonNullable<SmartRoleDefinition['research']>) {
@@ -178,12 +189,12 @@ type HighRiskCategory = 'death' | 'poison-drunk' | 'madness' | 'identity' | 'ali
 
 function highRiskCategories(abilityText: string): HighRiskCategory[] {
   const categories: readonly [RegExp, HighRiskCategory][] = [
-    [/\b(die|dies|death|dead|executed|execution|kill|kills|killed)\b/i, 'death'],
-    [/\b(poisoned|poison|drunk|sober|healthy)\b/i, 'poison-drunk'],
-    [/\b(mad|madness)\b/i, 'madness'],
-    [/\b(become|becomes|swap|swaps|change character|changes character|changed character)\b/i, 'identity'],
-    [/\b(alignment|alignments|become evil|becomes evil|become good|becomes good)\b/i, 'alignment'],
-    [/\b(win|wins|lose|loses)\b/i, 'win-loss'],
+    [/\b(die|dies|death|dead|executed|execution|kill|kills|killed)\b|死亡|死去|处决|杀死|被杀|复活/i, 'death'],
+    [/\b(poisoned|poison|drunk|sober|healthy)\b|中毒|醉酒|清醒|健康/i, 'poison-drunk'],
+    [/\b(mad|madness)\b|疯狂/i, 'madness'],
+    [/\b(become|becomes|swap|swaps|change character|changes character|changed character)\b|变成|变为|角色.*(?:变|交换)|(?:改变|交换).*角色/i, 'identity'],
+    [/\b(alignment|alignments|become evil|becomes evil|become good|becomes good)\b|阵营|变成邪恶|变为邪恶|变成善良|变为善良/i, 'alignment'],
+    [/\b(win|wins|lose|loses)\b|获胜|胜利|输掉|输赢|善良赢|邪恶赢/i, 'win-loss'],
   ]
 
   return categories.flatMap(([pattern, category]) => (pattern.test(abilityText) ? [category] : []))

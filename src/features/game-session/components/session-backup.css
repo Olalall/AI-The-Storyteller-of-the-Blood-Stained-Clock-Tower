@@ -1,0 +1,7 @@
+.session-backup { display: grid; gap: var(--space-16); padding: var(--space-16); }
+.session-backup__actions { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.session-backup__file { display: grid; gap: var(--space-8); }
+.session-backup__preview { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: var(--space-8) var(--space-16); }
+.session-backup__preview dd { margin: 0; overflow-wrap: anywhere; color: var(--text-strong); }
+.session-backup__preview dt { color: var(--text-muted); }
+.session-backup__confirm { display: flex; align-items: center; gap: var(--space-8); min-height: 44px; }

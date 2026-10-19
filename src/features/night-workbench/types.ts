@@ -32,6 +32,8 @@ export type TargetKind = 'player_choice' | 'storyteller_info'
 export interface WakeRoleChoice {
   id: string
   label: string
+  /** 候选角色的善恶类型，仅用于信息表单，不代表任何玩家当前阵营。 */
+  alignment?: 'good' | 'evil'
 }
 
 export interface RoleSnapshot {
@@ -51,6 +53,8 @@ export interface RoleChangeEvent {
   nightRunId: string
   /** `null` 表示来自配板微调，只用于当前队列快照的角色提示，不写入本夜记录。 */
   originNightRunId: string | null
+  sourceNightActionId?: string
+  nightAbilityTiming?: 'tonight' | 'initial' | 'later'
   phaseLabel: string
   fromRole: RoleSnapshot
   toRole: RoleSnapshot
@@ -71,6 +75,7 @@ export interface AIAdviceReference {
   contextRevision: number
   sourceDraftRevision: number
   knowledgeVersion: string
+  contextKey?: string
 }
 
 export type DraftOutputSource = {
@@ -108,6 +113,7 @@ export interface OutcomeResolutionHint {
 }
 
 export interface WakeItem {
+  abilityPhase?: 'initial'
   id: string
   orderIndex: number
   seatId: number
@@ -124,9 +130,12 @@ export interface WakeItem {
   history?: string
   reason?: string
   targetCount: number
+  allowedTargetCounts?: number[]
   targetLabel?: string
   targetKind?: TargetKind
   roleChoices?: WakeRoleChoice[]
+  roleCount?: number
+  targetRoleChoiceCount?: number
   roleLabel?: string
   interactionVersion: string
   outcomeOptions: WakeOutcomeOption[]
@@ -142,7 +151,15 @@ export interface NightSeatSnapshot {
 
 export interface WakeDraft {
   targets: number[]
+  /** 首夜指定的玩家与爪牙；只记录选择，不直接改变身份。 */
+  targetRoleChoices?: { seatId: number; roleId: string }[]
+  targetCountChoice?: number
   roleChoice: string
+  secondRoleChoice?: string
+  /** 第三、第四个信息角色；顺序为善良、邪恶，不改变玩家身份。 */
+  additionalRoleChoices?: string[]
+  /** 说书人核对并保存的补充事实；只供草稿与AI核对，不自动改变局面。 */
+  storytellerContext?: string
   outcomeId: string
   playerChoice: string
   storytellerResult: string
@@ -159,6 +176,8 @@ export interface NightWorkbenchState {
   nightType: NightType
   playerCount: number
   revision: number
+  /** 当前会话事实版本，仅供建议校验，不作为第二份夜序状态持久化。 */
+  contextKey?: string
   knowledgeVersion: string
   queue: WakeItem[]
   /** 由 GameSession 投影出的全座位快照；仅给 AI 上下文和 UI 展示用，不持久化进 NightRun。 */

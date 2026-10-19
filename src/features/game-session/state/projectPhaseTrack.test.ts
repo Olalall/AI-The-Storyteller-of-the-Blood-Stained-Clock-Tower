@@ -7,7 +7,9 @@ import { gameSessionReducer } from './sessionReducer'
 type Session = ReturnType<typeof createPrototypeGameSession>
 
 function blank(): Session {
-  return { ...createPrototypeGameSession(), phaseSegments: [], timeline: [] }
+  const session = createPrototypeGameSession()
+  const run = session.nightRuns[session.activeNightRunId!]
+  return { ...session, phaseSegments: [], timeline: [], nightRuns: { [run.id]: { ...run, phaseSegmentId: null } } }
 }
 
 function open(session: Session, phaseKind: 'day' | 'night', createdAt: string) {

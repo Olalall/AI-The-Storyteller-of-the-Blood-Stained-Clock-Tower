@@ -1,0 +1,144 @@
+{
+  "scriptId": "feng-mao-zhi-yan",
+  "knowledgeVersion": "feng-mao-zhi-yan/clocktower-wiki index 480 / 原文未标版本 → 2026-10-18官方规则适配 / build 16ad8f7c270d",
+  "nightRunId": "feng-mao-zhi-yan-night-3",
+  "nightType": "other",
+  "phaseLabel": "第3夜",
+  "playerCount": 12,
+  "wakeItem": {
+    "id": "B03-480-HATTER-LLEECH-INITIAL-explicit-change-lleech-12",
+    "orderIndex": 6,
+    "seatId": 12,
+    "playerLabel": "12号 · 玩家12",
+    "roleId": "lleech",
+    "roleName": "痢蛭",
+    "ability": "中途获得痢蛭能力的当晚初始化：只选择一名存活宿主并核对寄生、中毒；这不是普通夜间攻击，不额外杀人。相关标记和中毒仍由主持确认。",
+    "storytellerPrompt": "中途获得痢蛭能力的当晚初始化：只选择一名存活宿主并核对寄生、中毒；这不是普通夜间攻击，不额外杀人。相关标记和中毒仍由主持确认。",
+    "targetCount": 1,
+    "abilityPhase": "initial",
+    "targetLabel": "存活宿主",
+    "status": {
+      "life": "alive",
+      "impairments": [],
+      "markers": []
+    }
+  },
+  "draft": {
+    "targets": [
+      7
+    ],
+    "roleChoice": "",
+    "storytellerContext": "当前全局第三夜。10号真实帽匠已在第二白天死亡。12号原是邪恶奥赫，今夜原奥赫的普通攻击已执行：1号厨师已死亡；随后在帽匠时点，12号选择变为本板痢蛭，主持已明确确认该换角并将本项标成新痢蛭宿主初始化 abilityPhase=initial。今夜普通恶魔攻击时点已经过去，不另有合法攻击项。12号仍为存活清醒健康的邪恶恶魔；这是其获得痢蛭能力的第一个夜晚，不是全局首夜。本项12号选存活的7号贵族作为宿主，7号现在清醒健康，没有保护、登记或其他干扰。只核对本项宿主初始化；尚未应用7号中毒。",
+    "outcomeId": "",
+    "playerChoice": "选择7号",
+    "draftRevision": 2
+  },
+  "availableOutcomes": [
+    {
+      "id": "record-initialization",
+      "label": "记录存活宿主",
+      "ready": true,
+      "requiredInputs": [
+        "targets"
+      ]
+    }
+  ],
+  "selectedTargets": [
+    {
+      "seatId": 7,
+      "playerLabel": "7号 · 玩家7",
+      "roleId": "noble",
+      "roleName": "贵族",
+      "status": {
+        "life": "alive",
+        "impairments": [],
+        "markers": []
+      }
+    }
+  ],
+  "currentActor": {
+    "seatId": 12,
+    "playerLabel": "12号 · 玩家12",
+    "roleId": "lleech",
+    "roleName": "痢蛭",
+    "status": {
+      "life": "alive",
+      "impairments": [],
+      "markers": []
+    }
+  },
+  "inPlayRoleIds": [
+    "chef",
+    "courtier",
+    "balloonist",
+    "assassin",
+    "goblin",
+    "innkeeper",
+    "noble",
+    "alchemist",
+    "seamstress",
+    "hatter",
+    "sweetheart",
+    "lleech"
+  ],
+  "statusFacts": [
+    "发动者：12号痢蛭，状态：存活",
+    "目标：7号贵族，状态：存活"
+  ],
+  "roleKnowledge": {
+    "roleId": "lleech",
+    "title": "痢蛭",
+    "riskTags": [
+      "poison",
+      "death",
+      "protection",
+      "setup"
+    ],
+    "requiredContext": [
+      "宿主玩家",
+      "宿主是否死亡",
+      "夜晚击杀目标",
+      "痢蛭自身是否醉酒中毒"
+    ],
+    "reminders": [
+      "开局选择一名宿主中毒。",
+      "痢蛭只有在宿主死亡时才死亡；宿主和痢蛭死亡都要人工核对。",
+      "痢蛭自身醉酒或中毒时免死失效（此时死亡就是死亡）且宿主暂时恢复健康；痢蛭恢复清醒健康后宿主重新中毒，若宿主已在此期间死亡则痢蛭立即死亡。"
+    ],
+    "aiCannot": [
+      "自动选择宿主",
+      "自动判定痢蛭死亡",
+      "自动杀人"
+    ]
+  },
+  "roleResearch": {
+    "roleId": "lleech",
+    "name": "痢蛭",
+    "officialName": "Lleech",
+    "knowledgeStatus": "confirmed",
+    "inputKinds": [
+      "player"
+    ],
+    "setupImpact": [],
+    "possibleOutcomes": [
+      "每晚选择一名玩家死亡。",
+      "开局选择宿主中毒。",
+      "宿主死亡时痢蛭才死亡。"
+    ],
+    "stateChanges": [
+      "宿主中毒。",
+      "可能造成夜间死亡。"
+    ],
+    "identityChanges": [],
+    "teamChanges": [],
+    "playerMessageTemplates": [],
+    "highRiskNotes": [
+      "宿主保护和恶魔死亡判定必须由说书人确认，不能自动处理。"
+    ],
+    "sourceUrls": [
+      "https://release.botc.app/resources/data/roles.json",
+      "https://botc-script-viewer.sthom.kiwi/carousel/devout-theists/devout-theists.json"
+    ],
+    "reviewedAt": "2026-07-20"
+  }
+}

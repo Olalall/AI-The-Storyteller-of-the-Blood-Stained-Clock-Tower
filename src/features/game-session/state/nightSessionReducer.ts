@@ -1,9 +1,18 @@
 import type { GameSessionState } from '../types'
 import { appendCorrection, appendPhaseEntry } from './timeline'
 import type { GameSessionAction } from './sessionActions'
+import { createNightWorkbenchCommit, nightContextKey, sessionInitialNightState } from '../../night-workbench/state/gameSessionAdapter'
+import { nightWorkbenchReducer, type NightWorkbenchAction } from '../../night-workbench/state/nightWorkbenchReducer'
+import { kazaliAllocationBlocksItem } from './applyKazaliAllocation'
+import { projectCurrentAssignments, projectCurrentPlayerStates } from './projectors'
+
+const itemIndependentActions = new Set<NightWorkbenchAction['type']>([
+  'preview', 'return-current', 'toggle-privacy', 'set-privacy', 'toggle-dim', 'skip-item', 'apply-ai-advice',
+])
 
 type NightSessionActionType =
   | 'commit-night-workbench'
+  | 'night-workbench-action'
   | 'replace-night-run'
   | 'set-active-night-run'
 
@@ -11,6 +20,23 @@ type NightSessionAction = Extract<GameSessionAction, { type: NightSessionActionT
 
 export function reduceNightSession(state: GameSessionState, action: NightSessionAction): GameSessionState {
   switch (action.type) {
+    case 'night-workbench-action': {
+      if (action.nightRunId !== state.activeNightRunId) return state
+      const run = state.nightRuns[action.nightRunId]
+      if (run?.phaseSegmentId && state.phaseSegments.find((segment) => segment.id === run.phaseSegmentId)?.closedAt) return state
+      const binding = { session: state, dispatchSession: () => {} }
+      const current = sessionInitialNightState(binding)
+      if (!current) return state
+      const targetId = action.action.type === 'skip-item' ? action.action.id : current.previewEntryId
+      if (['confirm', 'outcome', 'apply-ai-advice', 'change-role', 'skip-item', 'resolve-applicability'].includes(action.action.type)
+        && kazaliAllocationBlocksItem(state, targetId)) return {
+        ...state, nightRuns: { ...state.nightRuns, [run.id]: { ...run, lastNotice: '请先确认并应用卡扎力首夜爪牙分配，再继续当晚夜序。' } },
+      }
+      if (!itemIndependentActions.has(action.action.type) &&
+        (action.expectedWakeItemId !== current.previewEntryId || action.expectedActiveCursorId !== current.activeCursorId)) return state
+      const next = nightWorkbenchReducer(current, action.action)
+      return next === current ? state : commitNightWorkbench(state, createNightWorkbenchCommit(next, binding))
+    }
     case 'commit-night-workbench':
       return commitNightWorkbench(state, action)
     case 'replace-night-run':
@@ -31,6 +57,7 @@ function commitNightWorkbench(
 ): GameSessionState {
   const run = state.nightRuns[action.nightRun.id]
   if (!run || action.nightRun.id !== state.activeNightRunId) return state
+  if (action.baseRevision !== run.revision || action.baseContextKey !== nightContextKey(state)) return state
   if (action.roleChanges.some((change) => change.nightRunId !== run.id)) return state
 
   const queueItemById = new Map(action.nightRun.queue.map((item) => [item.id, item]))
@@ -49,14 +76,17 @@ function commitNightWorkbench(
   const knownTimelineIds = new Set(nextState.timeline.map((entry) => entry.id))
   for (const record of records) {
     if (knownTimelineIds.has(record.id)) continue
+    if (kazaliAllocationBlocksItem(state, record.wakeItemId)) return state
     const item = queueItemById.get(record.wakeItemId)
     if (!item) return state
+    if (!record.correctionOf && projectCurrentAssignments(state).find((assignment) => assignment.seatId === item.seatId)?.role.id !== item.roleId) return state
+    if (!record.correctionOf && item.abilityPhase === 'initial' && (record.snapshot.targets.length !== 1 || record.snapshot.targets.some((seat) => projectCurrentPlayerStates(state)[seat]?.life !== 'alive'))) return state
     const entry = {
       kind: 'night_action' as const,
       nightRunId: run.id,
       wakeItemId: record.wakeItemId,
       summary: record.snapshot.storytellerResult || `${item.seatId}号记录已确认`,
-      details: [record.snapshot.playerChoice, record.snapshot.informationGiven].filter(Boolean),
+      details: [record.snapshot.playerChoice, record.snapshot.informationGiven, record.snapshot.storytellerContext && `说书人已核对：${record.snapshot.storytellerContext}`].filter((value): value is string => Boolean(value)),
       record: { revision: record.revision, snapshot: structuredClone(record.snapshot) },
     }
     const appended = record.correctionOf
