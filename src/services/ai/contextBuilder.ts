@@ -10,7 +10,8 @@ import type {
 } from './types'
 import { roleKnowledgeForAI } from '../../domain/role-knowledge'
 import { roleResearchForAI } from '../../domain/scripts'
-import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
+import { selectedTargetCount } from '../../features/night-workbench/state/projectWakeDraft'
+import { currentNightActorForAI, inPlayNightRoleIdsForAI, nightHistoryForAI, nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
 
 interface BuildRequestOptions {
   contextLevel?: AIContextLevel
@@ -85,6 +86,7 @@ export function buildNightSettlementRequest({
     context: {
       scriptId: state.scriptId,
       nightRunId: state.nightRunId,
+      nightType: state.nightType,
       phaseLabel: state.nightLabel,
       playerCount: state.playerCount,
       wakeItem: {
@@ -94,7 +96,13 @@ export function buildNightSettlementRequest({
         roleId: item.roleId,
         roleName: item.roleName,
         ability: item.ability,
-        targetCount: item.targetCount,
+        history: nightHistoryForAI(item),
+        targetCount: selectedTargetCount(item, draft),
+        allowedTargetCounts: item.allowedTargetCounts,
+        roleCount: item.roleCount,
+        abilityPhase: item.abilityPhase,
+        targetRoleChoiceCount: item.targetRoleChoiceCount,
+        targetRoleChoiceRoleIds: item.targetRoleChoiceCount ? item.roleChoices?.map(role => role.id) : undefined,
         status: {
           life: item.status.life,
           impairments: [...item.status.impairments],
@@ -104,10 +112,18 @@ export function buildNightSettlementRequest({
       draft: {
         targets: [...draft.targets],
         roleChoice: draft.roleChoice,
+        secondRoleChoice: draft.secondRoleChoice,
+        additionalRoleChoices: draft.additionalRoleChoices ? [...draft.additionalRoleChoices] : undefined,
+        targetRoleChoices: draft.targetRoleChoices?.map(choice => ({ ...choice })),
+        targetCountChoice: draft.targetCountChoice,
+        playerChoice: draft.playerChoice,
+        storytellerContext: draft.storytellerContext?.trim().slice(0, 1000) || undefined,
         outcomeId: draft.outcomeId,
         draftRevision: draft.draftRevision,
       },
-      selectedTargets,
+      selectedTargets: selectedTargets.map(target => ({ ...target, roleKnowledge: roleKnowledgeForAI(target.roleId) })),
+      currentActor: currentNightActorForAI(state, item),
+      inPlayRoleIds: inPlayNightRoleIdsForAI(state),
       statusFacts: nightStatusFactsForAI(item, selectedTargets),
       roleKnowledge: roleKnowledgeForAI(item.roleId),
       roleResearch: roleResearchForAI(state.scriptId, item.roleId),

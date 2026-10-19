@@ -29,7 +29,7 @@ export function updatePreviewDraft(
 
 export function advanceFrom(state: NightWorkbenchState): NightWorkbenchState {
   const currentIndex = state.queue.findIndex((item) => item.id === state.activeCursorId)
-  const next = state.queue.slice(currentIndex + 1).find((item) => !['confirmed', 'not_applicable'].includes(item.progress))
+  const next = state.queue.slice(currentIndex + 1).find((item) => !['confirmed', 'not_applicable', 'skipped'].includes(item.progress))
   if (!next) return { ...state, lastNotice: '已到夜序末尾，请打开夜间顺序检查暂缓和待核对项' }
   return {
     ...state,

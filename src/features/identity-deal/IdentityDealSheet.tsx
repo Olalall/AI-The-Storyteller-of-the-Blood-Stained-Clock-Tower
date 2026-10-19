@@ -4,16 +4,19 @@ import { Button } from '../../components/ui/Button'
 import { RoleDisc } from '../../components/ui/RoleDisc'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge } from '../../components/ui/StatusBadge'
-import { projectConfirmedSetup, projectStorytellerSeatSummaries, type StorytellerSeatSummary } from '../game-session/state/projectors'
+import { projectConfirmedSetup, projectCurrentAssignments, projectStorytellerSeatSummaries, type StorytellerSeatSummary } from '../game-session/state/projectors'
+import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState } from '../game-session/types'
 import { loadIdentityDealReceipts, saveIdentityDealReceipts, type IdentityDealReceipts } from '../../services/identity-deal'
-import { playerFacingIdentity } from './identityProjection'
+import { identityRoleChoices, playerFacingIdentity, receiptMatchesCurrentIdentity } from './identityProjection'
+import { IdentityPresentationEditor } from './IdentityPresentationEditor'
 import './identity-deal.css'
 
 interface IdentityDealSheetProps {
   open: boolean
   onOpenChange: (open: boolean) => void
   session: GameSessionState
+  dispatch?: React.Dispatch<GameSessionAction>
 }
 
 type DealMode = 'screen' | 'cards'
@@ -27,23 +30,26 @@ function cardModeSeatLabel(received: boolean) {
   return received ? '已领取' : '未领取'
 }
 
-export function IdentityDealSheet({ open, onOpenChange, session }: IdentityDealSheetProps) {
+export function IdentityDealSheet({ open, onOpenChange, session, dispatch }: IdentityDealSheetProps) {
   const seats = useMemo(() => projectStorytellerSeatSummaries(session), [session])
   const confirmedSetup = useMemo(() => projectConfirmedSetup(session), [session])
+  const assignments = useMemo(() => projectCurrentAssignments(session), [session])
   const [mode, setMode] = useState<DealMode>('screen')
   const [selectedSeatId, setSelectedSeatId] = useState<number>(1)
   const [spotlightSeatId, setSpotlightSeatId] = useState<number | null>(null)
   const [revealed, setRevealed] = useState(false)
   const [receipts, setReceipts] = useState<IdentityDealReceipts>({})
+  const [notice, setNotice] = useState('')
   const selectedSeat = seats.find((seat) => seat.seatId === selectedSeatId) ?? seats[0] ?? null
   const spotlightSeat = spotlightSeatId ? seats.find((seat) => seat.seatId === spotlightSeatId) ?? null : null
   const selectedFacing = selectedSeat && confirmedSetup
-    ? playerFacingIdentity(session.scriptId, selectedSeat.seatId, confirmedSetup.draft.assignments)
+    ? playerFacingIdentity(session, selectedSeat.seatId)
     : { role: null, ability: '身份未确认。', privateNote: '' }
   const spotlightFacing = spotlightSeat && confirmedSetup
-    ? playerFacingIdentity(session.scriptId, spotlightSeat.seatId, confirmedSetup.draft.assignments)
+    ? playerFacingIdentity(session, spotlightSeat.seatId)
     : { role: null, ability: '身份未确认。', privateNote: '' }
-  const receivedCount = seats.filter((seat) => receipts[seat.seatId]).length
+  const isReceived = (seatId: number) => receiptMatchesCurrentIdentity(session, seatId, receipts[seatId])
+  const receivedCount = seats.filter((seat) => isReceived(seat.seatId)).length
 
   useEffect(() => {
     if (!open) return
@@ -52,8 +58,11 @@ export function IdentityDealSheet({ open, onOpenChange, session }: IdentityDealS
   }, [open, seats, session.id])
 
   function updateReceipts(nextReceipts: IdentityDealReceipts) {
-    setReceipts(nextReceipts)
-    saveIdentityDealReceipts(session.id, nextReceipts)
+    try {
+      saveIdentityDealReceipts(session.id, nextReceipts)
+      setReceipts(nextReceipts)
+      setNotice('')
+    } catch { setNotice('领取进度未保存，请保留当前页面并检查存储空间。') }
   }
 
   function markReceived(seatId: number) {
@@ -95,7 +104,7 @@ export function IdentityDealSheet({ open, onOpenChange, session }: IdentityDealS
       contentClassName="sheet-content--identity-deal"
       presentation="page"
     >
-      <div className="identity-deal">
+      <div className="identity-deal" aria-hidden={spotlightSeat ? true : undefined} inert={Boolean(spotlightSeat)}>
         <header className="identity-deal__hero">
           <div>
             <span>本局 · 发身份</span>
@@ -119,7 +128,7 @@ export function IdentityDealSheet({ open, onOpenChange, session }: IdentityDealS
             </div>
             <div className="identity-deal__seat-grid">
               {seats.map((seat) => {
-                const received = Boolean(receipts[seat.seatId])
+                const received = isReceived(seat.seatId)
                 const visibleRole = mode === 'screen' ? seat.role?.name ?? '未确认' : cardModeSeatLabel(received)
                 return <button
                   type="button"
@@ -140,8 +149,8 @@ export function IdentityDealSheet({ open, onOpenChange, session }: IdentityDealS
           <aside className="identity-deal__current" aria-label="当前领取">
             <div className="identity-deal__section-heading">
               <span>{mode === 'screen' ? '单人展示' : '实体牌'}</span>
-              <StatusBadge tone={selectedSeat && receipts[selectedSeat.seatId] ? 'success' : 'neutral'}>
-                {selectedSeat && receipts[selectedSeat.seatId] ? '已领取' : '未领取'}
+              <StatusBadge tone={selectedSeat && isReceived(selectedSeat.seatId) ? 'success' : 'neutral'}>
+                {selectedSeat && isReceived(selectedSeat.seatId) ? '已领取' : '未领取'}
               </StatusBadge>
             </div>
             <div className="identity-deal__current-card">
@@ -157,6 +166,13 @@ export function IdentityDealSheet({ open, onOpenChange, session }: IdentityDealS
                 <span>{mode === 'screen' ? selectedFacing.privateNote || '默认遮住' : '只记录领取进度'}</span>
               </div>
             </div>
+            {mode === 'screen' && selectedSeat?.role && 'requiresPresentation' in selectedFacing && selectedFacing.requiresPresentation ? <IdentityPresentationEditor
+              seatId={selectedSeat.seatId}
+              roles={identityRoleChoices(session.scriptId, selectedSeat.role.id, assignments)}
+              currentRoleId={selectedFacing.role?.id}
+              onConfirm={dispatch ? (shownRoleId) => dispatch({ type: 'confirm-identity-presentation', seatId: selectedSeat.seatId, actualRoleId: selectedSeat.role!.id, shownRoleId, confirmedAt: new Date().toISOString() }) : undefined}
+            /> : null}
+            {mode === 'screen' && !selectedFacing.role ? <p role="status">{selectedFacing.ability}</p> : null}
             {mode === 'screen' ? <Button variant="primary" disabled={!selectedFacing.role} onClick={() => selectedSeat && openSpotlight(selectedSeat.seatId)}>
               <Eye aria-hidden="true" />打开单人展示
             </Button> : <Button variant="primary" disabled={!selectedSeat} onClick={() => selectedSeat && markReceived(selectedSeat.seatId)}>
@@ -167,6 +183,7 @@ export function IdentityDealSheet({ open, onOpenChange, session }: IdentityDealS
             </Button>
           </aside>
         </div>}
+        {notice ? <p role="alert">{notice}</p> : null}
       </div>
 
       {spotlightSeat ? <div className="identity-spotlight" role="dialog" aria-modal="true" aria-label={`${spotlightSeat.seatId}号单人身份展示`}>

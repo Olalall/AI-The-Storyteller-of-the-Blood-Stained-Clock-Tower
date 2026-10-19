@@ -2,22 +2,24 @@ import { useCallback } from 'react'
 import { emptyWakeDraft } from './projectWakeDraft'
 import { currentRoleForItem, latestRoleChange } from './roleChanges'
 import {
-  createNightWorkbenchCommit,
   sessionInitialNightState,
   type NightWorkbenchSessionBinding,
 } from './gameSessionAdapter'
-import { nightWorkbenchReducer, type NightWorkbenchAction } from './nightWorkbenchReducer'
+import type { NightWorkbenchAction } from './nightWorkbenchReducer'
 import { canConfirmDraft } from './workbenchGuards'
 
 export type { NightWorkbenchSessionBinding } from './gameSessionAdapter'
 
 export function useNightWorkbench(binding: NightWorkbenchSessionBinding) {
   const state = sessionInitialNightState(binding)
+  const nightRunId = state?.nightRunId
+  const expectedWakeItemId = state?.previewEntryId
+  const expectedActiveCursorId = state?.activeCursorId
+  const dispatchSession = binding.dispatchSession
   const dispatch = useCallback((action: NightWorkbenchAction) => {
-    const nextState = nightWorkbenchReducer(state, action)
-    if (nextState === state) return
-    binding.dispatchSession(createNightWorkbenchCommit(nextState, binding))
-  }, [binding, state])
+    if (nightRunId && expectedWakeItemId && expectedActiveCursorId) dispatchSession({ type: 'night-workbench-action', nightRunId, expectedWakeItemId, expectedActiveCursorId, action })
+  }, [dispatchSession, nightRunId, expectedWakeItemId, expectedActiveCursorId])
+  if (!state) return null
 
   const previewIndex = state.queue.findIndex((item) => item.id === state.previewEntryId)
   const activeIndex = state.queue.findIndex((item) => item.id === state.activeCursorId)
@@ -29,6 +31,7 @@ export function useNightWorkbench(binding: NightWorkbenchSessionBinding) {
   const isPreviewing = state.previewEntryId !== state.activeCursorId
   const isReadOnly =
     current.progress === 'deferred' ||
+    current.progress === 'skipped' ||
     current.progress === 'not_applicable' ||
     (current.progress === 'confirmed' && state.correctionItemId !== current.id)
   const isCorrecting = state.correctionItemId === current.id

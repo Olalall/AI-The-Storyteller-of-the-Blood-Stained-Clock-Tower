@@ -49,8 +49,8 @@ export const sampleOtherNightQueueEarly: WakeItem[] = [
     roleLabel: '猜测身份',
     interactionVersion,
     outcomeOptions: [
-      { id: 'correct', label: '猜对 · 无事', requiredInputs: ['targets', 'role'], resultTemplate: '{actor}猜测{target}是{role}：正确，无事发生。', informationTemplate: '猜测正确。' },
-      { id: 'wrong', label: '猜错 · 待死亡', requiredInputs: ['targets', 'role'], resultTemplate: '{actor}猜测{target}是{role}：错误，应死亡，待确认状态。', informationTemplate: '猜测错误。' },
+      { id: 'correct', label: '猜对 · 无事', requiredInputs: ['targets', 'role'], resultTemplate: '{actor}猜测{target}是{role}：正确，无事发生。' },
+      { id: 'wrong', label: '猜错 · 待死亡', requiredInputs: ['targets', 'role'], resultTemplate: '{actor}猜测{target}是{role}：错误，应死亡，待确认状态。' },
       { id: 'no-effect', label: '未受影响', requiredInputs: ['targets', 'role'], resultTemplate: '{actor}本夜能力未影响目标，未结算死亡。' },
     ],
   },

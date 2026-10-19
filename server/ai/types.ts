@@ -36,13 +36,8 @@ export type AISettingsLiveTestCode =
   | 'AI_PROVIDER_BAD_RESPONSE'
   | 'AI_PROVIDER_UNAVAILABLE'
 
-export interface AISettingsLiveTestRequest {
-  provider?: AIProviderKind
-  baseUrl?: string
-  model?: string
-  apiKey?: string
-  timeoutSeconds?: number
-}
+/** Only an empty request is accepted; provider credentials are server managed. */
+export type AISettingsLiveTestRequest = Record<string, never>
 
 export interface AISettingsLiveTestResult {
   ok: boolean
@@ -171,6 +166,7 @@ export interface NightSettlementSelectedTargetBrief {
   playerLabel: string
   roleId: string
   roleName: string
+  roleKnowledge?: SetupAdviceRoleBrief['roleKnowledge']
   status: {
     life: string
     impairments: readonly string[]
@@ -199,6 +195,7 @@ export interface NightSettlementProviderRequest {
   scriptId: string
   knowledgeVersion: string
   nightRunId: string
+  nightType?: 'first' | 'other'
   phaseLabel: string
   playerCount: number
   wakeItem: {
@@ -210,7 +207,13 @@ export interface NightSettlementProviderRequest {
     roleName: string
     ability: string
     storytellerPrompt: string
+    history?: string
     targetCount: number
+    allowedTargetCounts?: readonly number[]
+    roleCount?: number
+    abilityPhase?: 'initial'
+    targetRoleChoiceCount?: number
+    targetRoleChoiceRoleIds?: readonly string[]
     targetLabel?: string
     roleLabel?: string
     status: {
@@ -222,12 +225,20 @@ export interface NightSettlementProviderRequest {
   draft: {
     targets: number[]
     roleChoice: string
+    secondRoleChoice?: string
+    additionalRoleChoices?: string[]
+    targetRoleChoices?: { seatId: number; roleId: string }[]
+    targetCountChoice?: number
+    storytellerContext?: string
     outcomeId: string
     playerChoice: string
     draftRevision: number
   }
   availableOutcomes: readonly NightSettlementOutcomeBrief[]
   selectedTargets?: readonly NightSettlementSelectedTargetBrief[]
+  currentActor?: NightSettlementSelectedTargetBrief
+  /** Only provided when every current actual role is known; contains no inferred player alignments. */
+  inPlayRoleIds?: readonly string[]
   statusFacts?: readonly string[]
   roleKnowledge?: {
     roleId: string

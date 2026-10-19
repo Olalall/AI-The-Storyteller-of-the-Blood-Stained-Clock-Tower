@@ -10,7 +10,7 @@ function item(overrides: Partial<ScriptQualitySummary> = {}): ScriptQualitySumma
     displayName: '可用板子',
     readiness: 'ready',
     readinessLabel: '可直接开局',
-    aiQualityLabel: 'AI建议：已核验',
+    aiQualityLabel: 'AI建议：资料齐全',
     roleStatus: { confirmed: 20, needsReview: 0, missing: 0, total: 20 },
     setupRuleStatus: { confirmed: 1, needsReview: 0, missing: 0, total: 1 },
     nightOrderStatus: { confirmed: 12, needsReview: 0, missing: 0, total: 12 },

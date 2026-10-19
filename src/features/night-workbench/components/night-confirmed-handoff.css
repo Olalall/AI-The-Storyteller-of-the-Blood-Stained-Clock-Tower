@@ -1,0 +1,4 @@
+.night-confirmed-handoff { width: min(1080px, calc(100% - var(--space-40))); margin: var(--space-12) auto; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--space-8); padding: var(--space-8) var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.night-confirmed-handoff > span { color: var(--text-muted); font-size: var(--type-label); }
+.night-confirmed-handoff .ui-button { min-height: 44px; }
+

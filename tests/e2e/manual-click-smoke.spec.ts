@@ -1,10 +1,9 @@
 import { expect, test } from '@playwright/test'
+import { fillCurrentWakeInputs } from '../helpers/nightInputs'
 
 async function reset(page: import('@playwright/test').Page) {
   await page.setViewportSize({ width: 720, height: 900 })
   await page.goto('/')
-  await page.evaluate(() => window.localStorage.clear())
-  await page.reload()
   await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
 }
 
@@ -34,16 +33,11 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   const beforeOpening = (await timeline(page)).length
   await page.getByRole('button', { name: '打开AI API设置' }).click()
   await expect(page.getByRole('heading', { name: 'AI API 设置' })).toBeVisible()
-  await page.getByLabel('调用方式').selectOption('openai-compatible')
-  await page.getByLabel('接入地址').fill('/api/ai')
-  await page.getByLabel('模型名字').fill('gpt-4.1-mini')
-  await page.getByLabel('API KEY').fill('sk-test-not-saved')
-  await page.getByRole('button', { name: '校验配置' }).click()
-  await expect(page.getByText('本页配置完整；API KEY 不会保存。')).toBeVisible()
-  await page.getByRole('button', { name: '保存设置' }).click()
-  await expect(page.getByText('已保存设置')).toBeVisible()
-  const storageAfterAISettings = await page.evaluate(() => Object.values(window.localStorage).join('\n'))
-  expect(storageAfterAISettings).not.toContain('sk-test-not-saved')
+  await expect(page.getByText('当前页面使用本地候选，未连接真实模型。')).toBeVisible()
+  await expect(page.getByLabel('模型名字')).toHaveCount(0)
+  await expect(page.getByLabel('API KEY')).toHaveCount(0)
+  await page.getByRole('button', { name: '检查配置（不调用模型）' }).click()
+  await expect(page.getByRole('button', { name: '保存设置' })).toHaveCount(0)
   await page.getByRole('button', { name: '关闭AI API 设置' }).click()
   expect((await timeline(page)).length).toBe(beforeOpening)
 
@@ -75,21 +69,29 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await expect(page.getByRole('button', { name: '进入夜晚' })).toBeVisible()
 
   const beforeNight = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'night_action').length
+  const nightBeforeEntry = await page.evaluate(() => {
+    const session = JSON.parse(localStorage.getItem('botc-copilot-session-v1')!)
+    const run = session.nightRuns[session.activeNightRunId]
+    return { label: session.phaseSegments.find((segment: { id: string }) => segment.id === run.phaseSegmentId).label, scriptId: session.scriptId }
+  })
   await page.getByRole('button', { name: '进入夜晚' }).click()
-  await expect(page.getByRole('heading', { name: /第3夜/ })).toBeVisible()
-  await page.getByRole('button', { name: '选择3号玩家' }).click()
-  await page.getByRole('button', { name: '调查员' }).click()
-  const affectedOutcome = page.getByRole('button', { name: '受到影响', exact: true })
-  if (await affectedOutcome.getAttribute('aria-pressed') !== 'true') await affectedOutcome.click()
+  await expect(page.getByRole('heading', { name: nightBeforeEntry.label, exact: true })).toBeVisible()
+  const displayedScript = await page.evaluate(() => {
+    const session = JSON.parse(localStorage.getItem('botc-copilot-session-v1')!)
+    return session.nightRuns[session.activeNightRunId].scriptId
+  })
+  expect(displayedScript).toBe(nightBeforeEntry.scriptId)
+  await fillCurrentWakeInputs(page)
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/05-night-before-confirm.png', fullPage: false })
   await page.getByRole('button', { name: '确认本项' }).click()
   await expect.poll(async () => (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'night_action').length).toBe(beforeNight + 1)
+  const confirmedSummary = (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'night_action').at(-1).summary
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
-  await expect(page.getByText('10号洗脑师选择3号成为调查员，目标受到影响。')).toBeVisible()
+  await expect(page.getByText(confirmedSummary, { exact: true })).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/06-dashboard-after-night.png', fullPage: false })
 
   await page.getByRole('button', { name: '进入白天' }).click()
-  await expect(page.getByRole('heading', { name: '第3天' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: nightBeforeEntry.label.replace('夜', '天'), exact: true })).toBeVisible()
   await page.getByRole('button', { name: '开始私聊倒计时' }).click()
   await expect(page.getByRole('button', { name: '暂停私聊倒计时' })).toBeVisible()
 

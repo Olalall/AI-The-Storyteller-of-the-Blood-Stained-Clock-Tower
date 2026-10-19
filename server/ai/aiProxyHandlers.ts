@@ -1,10 +1,9 @@
 import { AIProviderError, type FetchLike } from './aiProviderClient'
 import { isAIProviderConfigured, publicAISettingsFrom, readAIProviderPrivateSettings } from './aiProviderSettings'
-import { liveSettingsFrom, runOpenAICompatibleLiveTest } from './liveTestProvider'
+import { runOpenAICompatibleLiveTest } from './liveTestProvider'
 import { createOpenAICompatibleNightSettlementProvider, fallbackNightSettlementAdviceDraft } from './nightSettlementProvider'
 import { createOpenAICompatibleSetupAdviceProvider, fallbackSetupAdviceDraft } from './setupAdviceProvider'
 import type {
-  AISettingsLiveTestRequest,
   AISettingsLiveTestResult,
   AISettingsTestResult,
   NightSettlementAdviceDraft,
@@ -63,17 +62,17 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
       }
     },
 
-    async liveTestProviderSettings(input?: AISettingsLiveTestRequest): Promise<AISettingsLiveTestResult> {
-      const privateSettings = readAIProviderPrivateSettings(env)
-      const settings = liveSettingsFrom(input, {
-        provider: privateSettings.provider,
-        baseUrl: privateSettings.baseUrl,
-        model: privateSettings.model,
-        apiKey: privateSettings.apiKey,
-        timeoutSeconds: privateSettings.timeoutSeconds,
-      })
-
-      if (settings.provider !== 'openai-compatible' || !settings.baseUrl || !settings.model || !settings.apiKey) {
+    async liveTestProviderSettings(): Promise<AISettingsLiveTestResult> {
+      const settings = readAIProviderPrivateSettings(env)
+      if (!settings.enabled) {
+        return {
+          ok: false,
+          provider: 'fake',
+          code: 'AI_PROVIDER_DISABLED',
+          message: 'AI 未启用，未发起模型调用。',
+        }
+      }
+      if (!isAIProviderConfigured(settings)) {
         return {
           ok: false,
           provider: settings.provider,
@@ -132,10 +131,10 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
     async generateNightSettlementAdvice(input: NightSettlementProviderRequest): Promise<NightSettlementAdviceDraft> {
       const settings = readAIProviderPrivateSettings(env)
       if (!settings.enabled) {
-        return fallbackNightSettlementAdviceDraft(input, 'AI 未启用，已使用本地结果候选。')
+        return fallbackNightSettlementAdviceDraft(input, 'AI 未启用；只保留已有选择，不自动代选结果。')
       }
       if (settings.provider !== 'openai-compatible' || !isAIProviderConfigured(settings)) {
-        return fallbackNightSettlementAdviceDraft(input, 'AI 配置不完整，已使用本地结果候选。')
+        return fallbackNightSettlementAdviceDraft(input, 'AI 配置不完整；只保留已有选择，不自动代选结果。')
       }
 
       try {
@@ -149,7 +148,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
         return (await provider.generateNightSettlementAdvice(input)).draft
       } catch (error) {
         logAIProviderFailure(env, 'night-settlement-advice', error)
-        return fallbackNightSettlementAdviceDraft(input, 'AI 夜间建议失败，已使用本地结果候选。')
+        return fallbackNightSettlementAdviceDraft(input, 'AI 夜间建议失败；只保留已有选择，不自动代选结果。')
       }
     },
   }

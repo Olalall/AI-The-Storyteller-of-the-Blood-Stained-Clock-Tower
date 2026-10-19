@@ -4,6 +4,7 @@ import type { AIResultAdvice, NightWorkbenchState, WakeDraft, WakeItem } from '.
 import type { PlayerExperience } from '../../features/game-session/types'
 import type { AIRoleKnowledgeBrief } from '../../domain/role-knowledge'
 import type { AIRoleResearchBrief } from '../../domain/scripts'
+import type { GameReviewEvidence, GameReviewInterpretation } from './gameReviewEvidence'
 
 export interface GenerateSetupCandidatesInput {
   scriptId: string
@@ -38,6 +39,9 @@ export interface GameAIReviewDraft {
   source: 'local' | 'backend'
   disclaimer?: string
   warning?: string
+  keyEvents: GameReviewEvidence[]
+  interpretations: GameReviewInterpretation[]
+  missing: string[]
   evaluation: GameAIReviewEvaluation
   fullReview: {
     summary: string
@@ -107,6 +111,7 @@ export interface SetupQualityTag {
 export interface NightSettlementContext {
   scriptId: string
   nightRunId: string
+  nightType?: 'first' | 'other'
   phaseLabel: string
   playerCount: number
   wakeItem: {
@@ -116,7 +121,13 @@ export interface NightSettlementContext {
       roleId: string
       roleName: string
       ability: string
+      history?: string
       targetCount: number
+      allowedTargetCounts?: readonly number[]
+      roleCount?: number
+      abilityPhase?: 'initial'
+      targetRoleChoiceCount?: number
+      targetRoleChoiceRoleIds?: string[]
       status: {
         life: string
         impairments: string[]
@@ -126,6 +137,12 @@ export interface NightSettlementContext {
   draft: {
     targets: number[]
     roleChoice: string
+    secondRoleChoice?: string
+    additionalRoleChoices?: string[]
+    targetRoleChoices?: { seatId: number; roleId: string }[]
+    targetCountChoice?: number
+    playerChoice?: string
+    storytellerContext?: string
     outcomeId: string
     draftRevision: number
   }
@@ -134,6 +151,7 @@ export interface NightSettlementContext {
     playerLabel: string
     roleId: string
     roleName: string
+    roleKnowledge?: AIRoleKnowledgeBrief
     status: {
       life: string
       impairments: string[]
@@ -141,6 +159,8 @@ export interface NightSettlementContext {
     }
   }[]
   statusFacts: string[]
+  currentActor?: NightSettlementContext['selectedTargets'][number]
+  inPlayRoleIds?: string[]
   roleKnowledge?: AIRoleKnowledgeBrief
   roleResearch?: AIRoleResearchBrief
 }

@@ -37,6 +37,8 @@ dev-docs/script-import-work/<batch-id>/<script-id>/
 
 ```text
 src/domain/scripts/catalog.ts
+src/domain/scripts/allPacks.ts
+src/domain/scripts/*.generated.ts
 src/domain/scripts/role-copy.ts
 src/domain/role-knowledge/complexRoleKnowledge.ts
 src/features/**
@@ -183,3 +185,6 @@ npx vitest run src/domain/scripts/packs/<script-id>/index.test.ts
 ## 9. 当前建议
 
 下一批不要直接导入 132 个。先做“来源读取器 + 10-20 个候选批次”的来源锁定和角色清点。确认读取器稳定后，再并行做单板调研，最后单写入集成。
+
+
+2026-09-08 注册入口补充：完整原始 pack 的注册列表已移至 `allPacks.ts`，由集成者统一维护；修改后执行 `npm run generate:script-manifest`，生成列表、加载入口和图标投影。不要手写 `.generated.ts`；浏览器只通过按需接口读取完整资料。详见 `LOAD_PERFORMANCE.md` 第三轮。

@@ -1,0 +1,9 @@
+{
+  "id": "mu-hou-cao-kong-imp-scarletwoman",
+  "scriptId": "mu-hou-cao-kong",
+  "title": "小恶魔自杀传位",
+  "given": "10 人，6 人存活，清醒健康小恶魔用自己的能力选择自己；清醒健康红唇女郎及另一爪牙均存活。此死亡前有6人存活。",
+  "expected": "小恶魔死亡，清醒健康红唇女郎成为小恶魔，游戏继续；不能因为小恶魔死亡立刻判善良赢。确认原恶魔死亡与新恶魔身份两条记录。",
+  "sourceUrl": "https://wiki.bloodontheclocktower.com/Scarlet_Woman",
+  "realAiRun": false
+}

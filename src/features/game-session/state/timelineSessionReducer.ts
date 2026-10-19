@@ -3,7 +3,9 @@ import { assertNever } from '../../../shared/assertNever'
 import { clearRecordedDayActionDraft } from './dayActionDraft'
 import { appendCorrection, appendPhaseEntry, entryCanUsePhase } from './timeline'
 import type { GameSessionAction } from './sessionActions'
-import { canAppendHistoryCorrection } from './sessionReducerGuards'
+import { canAppendHistoryCorrection, hasDayResolution } from './sessionReducerGuards'
+import { canCompleteVoteRound } from '../../day-workbench/state/voteRound'
+import { findOpenSegment } from './phaseSegments'
 
 type TimelineSessionActionType = 'append-phase-entry' | 'append-correction'
 
@@ -14,6 +16,13 @@ export function reduceTimelineSession(state: GameSessionState, action: TimelineS
     case 'append-phase-entry': {
       if (!entryCanUsePhase(action.entry, action.phaseKind)) return state
       const entry = action.entry
+      if (entry.kind === 'vote_round') {
+        const day = findOpenSegment(state, 'day')
+        if (entry.correctionOf || entry.voided || !canCompleteVoteRound({ ...entry, segmentId: day?.id ?? 'day-pending' }) ||
+          !state.seats[entry.nominatorSeatId] || !state.seats[entry.nomineeSeatId] ||
+          entry.raisedSeatIds.some((id) => !state.seats[id]) || entry.ghostVoteSeatIds.some((id) => !state.seats[id]) ||
+          (day && hasDayResolution(state, day.id))) return state
+      }
       switch (entry.kind) {
         // 日终结果与玩家状态必须走显式领域命令，不能由通用记录入口绕过。
         case 'execution':

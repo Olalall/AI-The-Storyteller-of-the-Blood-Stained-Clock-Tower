@@ -184,7 +184,7 @@ describe('NightWorkbench', () => {
   it('generates the record from clicks and invalidates it when a selection changes', async () => {
     const user = userEvent.setup()
     render(<NightWorkbenchHarness />)
-    expect(screen.queryByRole('textbox')).not.toBeInTheDocument()
+    expect(screen.getByRole('textbox', { name: '说书人已核对的事实' })).toHaveValue('')
     await completeCurrentDraft(user)
     expect(screen.getByText('明天请疯狂地声称自己是调查员。')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: '受到影响' })).toHaveAttribute('aria-pressed', 'true')

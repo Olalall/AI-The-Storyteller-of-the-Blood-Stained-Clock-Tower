@@ -6,13 +6,14 @@ import { projectSeatActivity } from '../state/projectSeatActivity'
 import { PlayerStatusSheet } from './PlayerStatusSheet'
 
 interface PlayerStatusOverlayProps {
+  followupId?: string
   seatId: number | null
   session: GameSessionState
   dispatch: Dispatch<GameSessionAction>
   onOpenChange: (open: boolean) => void
 }
 
-export function PlayerStatusOverlay({ seatId, session, dispatch, onOpenChange }: PlayerStatusOverlayProps) {
+export function PlayerStatusOverlay({ seatId, session, dispatch, onOpenChange, followupId }: PlayerStatusOverlayProps) {
   const playerStates = projectCurrentPlayerStates(session)
   const seat = seatId === null ? undefined : session.seats[seatId]
   const playerState = seatId === null ? undefined : playerStates[seatId]
@@ -30,6 +31,7 @@ export function PlayerStatusOverlay({ seatId, session, dispatch, onOpenChange }:
     activity={projectSeatActivity(session, seat.seatId)}
     onConfirm={({ expectedBefore, after, segmentId }) => dispatch({
       type: 'confirm-player-state-change',
+      followupId,
       seatId: seat.seatId,
       expectedBefore,
       after,

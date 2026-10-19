@@ -3,6 +3,9 @@ import { projectEffectiveTimelineEntries } from '../../features/game-session/sta
 import type { GameSessionState, TimelineEntry } from '../../features/game-session/types'
 import { assertNever } from '../../shared/assertNever'
 import { localArchiveAdapter } from './localArchiveAdapter'
+import { scriptDisplayName } from '../../domain/scripts'
+import { archiveMatchesSnapshot } from './archiveSnapshot'
+import { voteCount } from '../../features/day-workbench/state/voteRound'
 import {
   winnerLabels,
   type ArchiveGameCommand,
@@ -53,8 +56,8 @@ function entrySummary(entry: TimelineEntry): string {
   switch (entry.kind) {
     case 'night_action': return entry.summary
     case 'day_action': return entry.summary
-    case 'vote_round': return `${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${entry.raisedSeatIds.length}票`
-    case 'execution': return `确认处决${entry.executedSeatId}号`
+    case 'vote_round': return `${entry.voided ? '已撤销：' : ''}${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${voteCount(entry)}票${entry.voteAdjustment ? ` · 修正${entry.voteAdjustment.count > 0 ? '+' : ''}${entry.voteAdjustment.count}：${entry.voteAdjustment.reason}` : ''}`
+    case 'execution': return `确认处决${entry.executedSeatId}号${entry.exceptionReason ? ` · 特殊处决：${entry.exceptionReason}` : ''}`
     case 'no_execution': return '确认无处决'
     case 'player_state_changed': return `${entry.seatId}号状态已更新`
     case 'setup_confirmed': return '配板已确认'
@@ -71,12 +74,13 @@ export function projectGameArchiveSession(session: GameSessionState): GameArchiv
   const alive = playerStates.filter((state) => state.life === 'alive').length
   const dead = playerStates.filter((state) => state.life === 'dead').length
   const entries = projectEffectiveTimelineEntries(session.timeline)
-  const kindCounts = countByKind(entries)
+  const activeEntries = entries.filter((entry) => entry.kind !== 'vote_round' || !entry.voided)
+  const kindCounts = countByKind(activeEntries)
   const nightCount = kindCounts.night_action ?? 0
   const dayCount = kindCounts.day_action ?? 0
   const voteCount = kindCounts.vote_round ?? 0
   const executionCount = kindCounts.execution ?? 0
-  const correctionCount = entries.filter((entry) => Boolean(entry.correctionOf)).length
+  const correctionCount = activeEntries.filter((entry) => Boolean(entry.correctionOf)).length
 
   return {
     alive,
@@ -110,13 +114,13 @@ export function createGameArchiveRecord({
     archivedAt,
     winner,
     winnerLabel: winnerLabels[winner],
-    scriptName: 'Catfishing / 瓦釜雷鸣',
+    scriptName: scriptDisplayName(session.scriptId),
     playerCount: session.playerCount,
     summary: {
       alive: projection.alive,
       dead: projection.dead,
       phases: session.phaseSegments.length,
-      records: projection.entries.length,
+      records: projection.entries.filter((entry) => entry.kind !== 'vote_round' || !entry.voided).length,
       nightActions: projection.nightCount,
       dayActions: projection.dayCount,
       votes: projection.voteCount,
@@ -157,9 +161,12 @@ export async function archiveGameAsync(command: ArchiveGameCommand): Promise<Arc
     winner: command.winner,
     archiveId: command.archiveId ?? `archive-${command.session.id}-${command.commandId}`,
   })
-  const archives = await activeAsyncArchiveAdapter.save(record)
+  const archives = await activeAsyncArchiveAdapter.save(record, command.commandId)
+  const archive = archives.find((item) => item.id === `archive-${command.session.id}-${command.commandId}`)
+    ?? archives.find((item) => item.id === record.id) ?? record
+  if (!archiveMatchesSnapshot(archive, command.session, command.winner)) throw new Error('归档内容与本次保存不一致。')
   return {
-    archive: archives.find((archive) => archive.id === record.id) ?? record,
+    archive,
     archives,
   }
 }
@@ -185,6 +192,7 @@ export function resetAfterArchive(command: ResetAfterArchiveCommand): ResetAfter
   const archive = getArchive(command.archiveId)
   if (!archive) return { ok: false, reason: 'archive_not_found' }
   if (archive.sessionId !== command.sessionId) return { ok: false, reason: 'session_mismatch' }
+  if (command.expectedSession && !archiveMatchesSnapshot(archive, command.expectedSession, command.expectedWinner)) return { ok: false, reason: 'archive_outdated' }
   return { ok: true, archiveId: archive.id }
 }
 
@@ -193,5 +201,6 @@ export async function resetAfterArchiveAsync(command: ResetAfterArchiveCommand):
   const archive = await getArchiveAsync(command.archiveId)
   if (!archive) return { ok: false, reason: 'archive_not_found' }
   if (archive.sessionId !== command.sessionId) return { ok: false, reason: 'session_mismatch' }
+  if (command.expectedSession && !archiveMatchesSnapshot(archive, command.expectedSession, command.expectedWinner)) return { ok: false, reason: 'archive_outdated' }
   return { ok: true, archiveId: archive.id }
 }

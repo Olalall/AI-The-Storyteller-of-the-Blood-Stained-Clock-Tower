@@ -63,7 +63,7 @@ describe('script quality projector', () => {
 
     expect(summary.readiness).toBe('ready')
     expect(summary.readinessLabel).toBe('可直接开局')
-    expect(summary.aiQualityLabel).toBe('AI建议：已核验')
+    expect(summary.aiQualityLabel).toBe('AI建议：资料齐全')
     expect(summary.playerCounts.missing).toEqual([])
     expect(summary.roleResearch).toEqual({ reviewed: 2, total: 2 })
     expect(summary.reviewReasons).toEqual([])

@@ -12,6 +12,10 @@ export interface NightSelectedTargetContext {
   }
 }
 
+export function nightHistoryForAI(item: WakeItem) {
+  return item.history?.trim().slice(0, 1000) || undefined
+}
+
 function latestRoleChange(state: NightWorkbenchState, seatId: number) {
   return state.roleChangeEvents.filter((event) => event.seatId === seatId).at(-1)
 }
@@ -32,7 +36,7 @@ function targetFromWakeItem(entry: WakeItem): NightSelectedTargetContext {
 
 export function selectedNightTargetsForAI(
   state: NightWorkbenchState,
-  draft: WakeDraft,
+  draft: Pick<WakeDraft, 'targets'>,
 ): NightSelectedTargetContext[] {
   const queueBySeatId = new Map(state.queue.map((entry) => [entry.seatId, entry]))
   return draft.targets
@@ -57,6 +61,16 @@ export function selectedNightTargetsForAI(
       }
     })
     .filter((entry): entry is NightSelectedTargetContext => Boolean(entry))
+}
+
+export function currentNightActorForAI(state: NightWorkbenchState, item: WakeItem) {
+  return selectedNightTargetsForAI(state, { targets: [item.seatId] })[0]
+}
+
+export function inPlayNightRoleIdsForAI(state: NightWorkbenchState) {
+  const seats = Object.keys(state.seatSnapshots).map(Number)
+  const players = selectedNightTargetsForAI(state, { targets: seats })
+  return players.length === state.playerCount ? players.map(player => player.roleId) : undefined
 }
 
 function impairmentLabel(value: string) {

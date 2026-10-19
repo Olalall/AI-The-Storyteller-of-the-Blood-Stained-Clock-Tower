@@ -1,0 +1,13 @@
+{
+  "id": "xiong-gui-nan-bian",
+  "status": "not-run",
+  "kind": "synthetic-local-skill-oracle",
+  "title": "气球驾驶员只比较相邻两夜",
+  "confirmedFacts": "气球驾驶员健康且不受涡流或错误登记影响，上夜得知镇民，本夜拟告知外来者；更早曾告知该外来者类型。",
+  "expected": "本夜类型只需不同于上一夜，不能要求四类型各一次后停止，也不能因早夜见过外来者就拒绝本夜信息。",
+  "sourceUrls": [
+    "https://wiki.bloodontheclocktower.com/Balloonist"
+  ],
+  "userGameData": false,
+  "productionMutation": false
+}

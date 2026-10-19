@@ -1,0 +1,9 @@
+{
+  "id": "mei-yu-lian-zhu-vortox-executed-alive",
+  "scriptId": "mei-yu-lian-zhu",
+  "title": "涡流处决不死",
+  "given": "10 人，清醒健康涡流在场。白天一名已经死亡的玩家被提名、达到票数并被正式处决。没有其他胜负条件触发。",
+  "expected": "白天已经发生处决，不触发涡流“无人被处决”邪恶胜利；处决与死亡分开记录。仍核对镇民信息应为假。",
+  "sourceUrl": "https://wiki.bloodontheclocktower.com/Vortox",
+  "realAiRun": false
+}

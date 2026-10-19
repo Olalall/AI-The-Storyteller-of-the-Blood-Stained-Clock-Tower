@@ -11,6 +11,7 @@
   ReviewDraftProvider,
 } from './types'
 import { generateFakeReviewDraft } from './reviewDraft'
+import { archiveMatchesSnapshot } from '../../src/services/archive/archiveSnapshot'
 
 function archiveIdForCommand(sessionId: string, commandId: string) {
   return `archive-${sessionId}-${commandId}`
@@ -33,6 +34,7 @@ export function createArchiveHandlers(repository: ArchiveRepository, options: Ar
       const archiveId = archiveIdForCommand(command.sessionId, command.commandId)
       const existing = await repository.get(archiveId)
       if (existing) {
+        if (!archiveMatchesSnapshot(existing, command.archive.session, command.archive.winner)) return { accepted: false, error: 'BAD_REQUEST', warnings: [] }
         return {
           accepted: true,
           data: {
@@ -51,9 +53,11 @@ export function createArchiveHandlers(repository: ArchiveRepository, options: Ar
         schemaVersion: 1 as const,
       }
       const archives = await repository.save(archive)
+      const saved = archives.find((record) => record.id === archiveId) ?? archive
+      if (!archiveMatchesSnapshot(saved, archive.session, archive.winner)) return { accepted: false, error: 'BAD_REQUEST', warnings: [] }
       return {
         accepted: true,
-        data: { archive, archives, resetUnlocked: true },
+        data: { archive: saved, archives, resetUnlocked: true },
         warnings: [],
       }
     },

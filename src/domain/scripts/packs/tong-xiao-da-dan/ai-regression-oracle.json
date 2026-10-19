@@ -1,0 +1,9 @@
+{
+  "id": "tong-xiao-da-dan-king-equality",
+  "scriptId": "tong-xiao-da-dan",
+  "title": "国王人数等号边界",
+  "given": "8 人局，夜间到国王顺位时4人已死、4人存活，国王存活且清醒健康，没有涡流或其他改信息效果。",
+  "expected": "达到死者等于活者，国王应得知1个存活角色；不可沿用旧JSON“必须严格大于”的条件而跳过。",
+  "sourceUrl": "https://wiki.bloodontheclocktower.com/King",
+  "realAiRun": false
+}

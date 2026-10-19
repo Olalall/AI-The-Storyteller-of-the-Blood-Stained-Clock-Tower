@@ -1,5 +1,5 @@
 import { expect, test, type Page } from '@playwright/test'
-import { smartScriptPacks } from '../../src/domain/scripts/catalog'
+import { smartScriptPacks } from '../../src/domain/scripts/allPacks'
 
 const sessionStorageKey = 'botc-copilot-session-v1'
 const archiveRuntimeSettingsStorageKey = 'botc-copilot-archive-runtime-settings-v1'
@@ -26,8 +26,8 @@ function selectedScriptIds() {
 }
 
 async function openBlankSetup(page: Page, runId: string) {
-  await page.goto('/')
-  await page.evaluate(({ storageKey, id }) => {
+  await page.addInitScript(({ storageKey, id }) => {
+    if (window.localStorage.getItem(storageKey)) return
     window.localStorage.setItem(storageKey, JSON.stringify({
       schemaVersion: 1,
       id,
@@ -46,7 +46,7 @@ async function openBlankSetup(page: Page, runId: string) {
       activeNightRunId: null,
     }))
   }, { storageKey: sessionStorageKey, id: `session-${runId}` })
-  await page.reload()
+  await page.goto('/')
   await page.getByRole('button', { name: '智能配板与调整' }).click()
   await expect(page.getByRole('heading', { name: '智能配板与调整' })).toBeVisible()
 }
@@ -65,49 +65,63 @@ async function setHttpRuntimeIfRequested(page: Page) {
 
 test.skip(process.env.BOTC_RUN_BULK_SCRIPT_SMOKE !== '1', '按需运行：npm run smoke:smart-scripts:browser')
 
-test('bulk smart scripts can be selected, drafted, confirmed and sampled in night workflow', async ({ page }) => {
+test('bulk smart scripts can be selected, drafted, confirmed and sampled in night workflow', async ({ browser }) => {
   const scriptIds = selectedScriptIds()
   const nightSampleLimit = envNumber('BOTC_BULK_NIGHT_SAMPLE_LIMIT', 12)
   test.setTimeout(Math.max(120_000, scriptIds.length * 12_000))
-  await page.setViewportSize({ width: 900, height: 900 })
+  const errors: string[] = []
 
   for (const [index, scriptId] of scriptIds.entries()) {
     await test.step(`${index + 1}/${scriptIds.length} ${scriptId}`, async () => {
-      await openBlankSetup(page, `bulk-${index}-${scriptId}`)
-      await setHttpRuntimeIfRequested(page)
+      const context = await browser.newContext({ viewport: { width: 900, height: 900 } })
+      try {
+        const page = await context.newPage()
+        page.on('pageerror', (error) => errors.push(error.message))
+        if (process.env.BOTC_BULK_USE_HTTP_AI !== '1') {
+          await page.route('**/api/ai/**', (route) => route.abort())
+          await page.route('**/api/ai-settings/live-test', (route) => route.abort())
+        }
+        await openBlankSetup(page, `bulk-${index}-${scriptId}`)
+        await setHttpRuntimeIfRequested(page)
 
-      const scriptSelect = page.getByLabel('开局板子')
-      await scriptSelect.selectOption(scriptId)
-      await expect(scriptSelect).toHaveValue(scriptId)
+        const scriptSelect = page.getByLabel('开局板子')
+        await expect(scriptSelect.locator('option')).toHaveCount(allScriptIds.length)
+        await scriptSelect.selectOption(scriptId)
+        await expect(scriptSelect).toHaveValue(scriptId)
 
-      await page.getByRole('button', { name: '12人' }).click()
-      await page.getByRole('button', { name: '开始配板' }).click()
+        await page.getByRole('button', { name: '12人' }).click()
+        await page.getByRole('button', { name: '开始配板' }).click()
 
-      await expect(page.locator('.setup-panel__candidates')).toBeVisible()
-      await expect(page.locator('.setup-candidate').first()).toBeVisible()
-      expect(await page.locator('.setup-candidate').count()).toBeGreaterThan(0)
+        await expect(page.locator('.setup-panel__candidates')).toBeVisible()
+        await expect(page.locator('.setup-candidate').first()).toBeVisible()
+        expect(await page.locator('.setup-candidate').count()).toBeGreaterThan(0)
 
-      const firstCandidate = page.locator('.setup-candidate').first()
-      await expect(firstCandidate.locator('.setup-candidate__roles li')).toHaveCount(12)
-      await firstCandidate.getByRole('button', { name: '采用为草稿' }).click()
-      await expect(page.locator('.setup-panel__draft')).toBeVisible()
-      await expect(page.locator('.setup-seat-grid button')).toHaveCount(12)
+        const firstCandidate = page.locator('.setup-candidate').first()
+        await expect(firstCandidate.locator('.setup-candidate__roles li')).toHaveCount(12)
+        await firstCandidate.getByRole('button', { name: '选择组合', exact: true }).click()
+        await expect(page.locator('.setup-panel__draft')).toBeVisible()
+        await expect(page.locator('.setup-seat-grid button')).toHaveCount(12)
 
-      const sessionAfterDraft = await page.evaluate((storageKey) => JSON.parse(window.localStorage.getItem(storageKey) ?? '{}'), sessionStorageKey)
-      expect(sessionAfterDraft.scriptId).toBe(scriptId)
-      expect(sessionAfterDraft.playerCount).toBe(12)
-      expect(Object.keys(sessionAfterDraft.seats)).toHaveLength(12)
+        const sessionAfterDraft = await page.evaluate((storageKey) => JSON.parse(window.localStorage.getItem(storageKey) ?? '{}'), sessionStorageKey)
+        expect(sessionAfterDraft.scriptId).toBe(scriptId)
+        expect(sessionAfterDraft.playerCount).toBe(12)
+        expect(Object.keys(sessionAfterDraft.seats)).toHaveLength(12)
 
-      await page.locator('.setup-panel__footer .ui-button--primary').click()
-      await expect(page.locator('.setup-panel')).toBeHidden()
-      await expect(page.getByRole('button', { name: '进入夜晚' })).toBeVisible()
+        await page.locator('.setup-panel__footer .ui-button--primary').click()
+        await expect(page.locator('.setup-panel')).toBeHidden()
+        await expect(page.getByRole('button', { name: '进入夜晚' })).toBeVisible()
 
-      if (index < nightSampleLimit) {
-        await page.getByRole('button', { name: '进入夜晚' }).click()
-        await expect(page.getByRole('region', { name: '夜间角色预览' })).toBeVisible()
-        await expect(page.getByRole('heading', { name: '本项记录' })).toBeVisible()
-        await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
+        if (index < nightSampleLimit) {
+          await page.getByRole('button', { name: '进入夜晚' }).click()
+          await expect(page.getByRole('region', { name: '夜间角色预览' })).toBeVisible()
+          await expect(page.getByRole('heading', { name: '本项记录' })).toBeVisible()
+          await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
+          await page.screenshot({ path: test.info().outputPath(`night-${scriptId}.png`), animations: 'disabled' })
+        }
+      } finally {
+        await context.close()
       }
     })
   }
+  expect(errors).toEqual([])
 })

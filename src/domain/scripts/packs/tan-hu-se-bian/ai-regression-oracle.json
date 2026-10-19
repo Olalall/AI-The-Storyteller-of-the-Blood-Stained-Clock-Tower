@@ -1,0 +1,29 @@
+{
+  "status": "independent-oracles-not-live-results",
+  "reviewedAt": "2026-10-18",
+  "userGameData": false,
+  "productionMutation": false,
+  "cases": [
+    {
+      "id": "B03-560-KAZALI-GOON",
+      "scriptId": "tan-hu-se-bian",
+      "sourceIndex": 560,
+      "kind": "synthetic-first-night-allocation",
+      "phase": "first-night",
+      "playerCount": 15,
+      "title": "莽夫不使卡扎力设置中断或改由主持接管",
+      "confirmedFacts": "15名非旅行者，首夜无预配爪牙，15号卡扎力和所有目标均存活清醒健康；3号当前为真实莽夫。卡扎力依次亲自选择3号→炸弹人、6号→洗脑师、9号→寡妇，后两名也是本板善良玩家。没有其他干扰。原作者JSON的灯神与meta仍载旧相克‘选择莽夫后剩余转化交由主持’，本次产品明确采用2026-10-18当前官方规则，不执行这个旧相克。",
+      "expected": [
+        "当前Kazali官方设置明确不受Goon等原角色能力阻止，3号成为拟定邪恶炸弹人，不因这次设置令Kazali醉酒。",
+        "后两组仍由Kazali本人选择，不能让主持、AI或随机流程接管，也不能说选择莽夫后只完成一组。",
+        "只形成待主持单独应用的三组有序映射；应用后洗脑师、寡妇当晚入队，炸弹人没有凭空生成首夜主动技能。",
+        "不把整张分配表或寡妇毒目标写进通用玩家稿。"
+      ],
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Kazali",
+        "https://wiki.bloodontheclocktower.com/Goon",
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ]
+    }
+  ]
+}

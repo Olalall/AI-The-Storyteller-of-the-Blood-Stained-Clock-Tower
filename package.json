@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "dev:backend": "npm run build:backend && node dist-server/runtime.mjs",
-    "build": "tsc -b && vite build",
+    "build": "node scripts/build/generate-script-manifest.mjs --check && tsc -b && vite build",
+    "generate:script-manifest": "node scripts/build/generate-script-manifest.mjs",
     "build:backend": "vite build --config vite.backend.config.ts",
     "lint": "oxlint",
     "preview": "vite preview",
@@ -23,7 +24,8 @@
     "smoke:smart-scripts:browser": "node scripts/run-smart-script-browser-smoke.mjs",
     "smoke:ai-night-live": "node scripts/run-real-ai-night-quality-smoke.mjs",
     "audit:public": "node scripts/public-release-audit.mjs",
-    "screenshots:github": "node scripts/generate-github-screenshots.mjs"
+    "screenshots:github": "node scripts/generate-github-screenshots.mjs",
+    "verify:auto": "node scripts/run-auto-acceptance.mjs"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.19",

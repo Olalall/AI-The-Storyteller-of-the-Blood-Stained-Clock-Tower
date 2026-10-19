@@ -1,8 +1,10 @@
 import type { GameSessionState } from '../types'
 import { createNextNightRun } from './createNextNightRun'
+import { getActiveNightRun } from './getActiveNightRun'
 import { closeOpenSegment } from './timeline'
 import { closePhaseSegment, getOrCreateOpenSegment } from './phaseSegments'
 import type { GameSessionAction } from './sessionActions'
+import { projectKazaliAllocation } from './applyKazaliAllocation'
 
 type PhaseSessionActionType =
   | 'open-phase-segment'
@@ -21,6 +23,8 @@ export function reducePhaseSession(state: GameSessionState, action: PhaseSession
     case 'start-next-night-run':
       return startNextNightRun(state)
     case 'close-open-segment': {
+      const allocation = action.phaseKind === 'night' ? projectKazaliAllocation(state) : null
+      if (allocation && !allocation.isApplied) return state
       const closed = closeOpenSegment(state, action.phaseKind, action.closedAt)
       return action.phaseKind === 'day' && closed !== state
         ? { ...closed, dayVoteDraft: null, dayActionDraft: null }
@@ -35,6 +39,8 @@ function closeActiveNightRun(
 ) {
   const run = state.nightRuns[action.nightRunId]
   if (!run || state.activeNightRunId !== run.id || !run.phaseSegmentId) return state
+  const allocation = projectKazaliAllocation(state)
+  if (allocation && !allocation.isApplied) return { ...state, nightRuns: { ...state.nightRuns, [run.id]: { ...run, lastNotice: '请先确认并应用卡扎力首夜爪牙分配，再结束本夜。' } } }
   const segment = state.phaseSegments.find((item) => item.id === run.phaseSegmentId)
   if (!segment || segment.kind !== 'night' || segment.closedAt) return state
   return closePhaseSegment(state, segment.id, action.closedAt)
@@ -45,6 +51,7 @@ function openPhaseSegment(
   state: GameSessionState,
   action: Extract<GameSessionAction, { type: 'open-phase-segment' }>,
 ) {
+  if (action.phaseKind === 'night' && !getActiveNightRun(state)) return state
   const opened = getOrCreateOpenSegment(state, action.phaseKind, action.createdAt)
   if (action.phaseKind !== 'night') return opened.state
 

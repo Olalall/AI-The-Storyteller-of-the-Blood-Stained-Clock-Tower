@@ -1,64 +1,19 @@
 import { projectStorytellerSeatSummaries } from '../../features/game-session/state/projectors'
-import { assertNever } from '../../shared/assertNever'
 import type { GameArchiveRecord } from '../archive'
 import type { GameAIPlayerReview, GameAIReviewDraft } from './types'
-
-function timelineItemsForSeat(archive: GameArchiveRecord, seatId: number) {
-  return archive.timeline.filter((entry) => entry.summary.includes(`${seatId}号`))
-}
-
-function entrySeatIds(archive: GameArchiveRecord) {
-  const idsByEntry = new Map<string, number[]>()
-  for (const entry of archive.session.timeline) {
-    const ids = new Set<number>()
-    switch (entry.kind) {
-      case 'night_action': {
-        const run = archive.session.nightRuns[entry.nightRunId]
-        const wakeItem = run?.queue.find((item) => item.id === entry.wakeItemId)
-        if (wakeItem) ids.add(wakeItem.seatId)
-        entry.record.snapshot.targets.forEach((seatId) => ids.add(seatId))
-        break
-      }
-      case 'day_action':
-        if (entry.actorSeatId) ids.add(entry.actorSeatId)
-        entry.targetSeatIds.forEach((seatId) => ids.add(seatId))
-        break
-      case 'vote_round':
-        ids.add(entry.nominatorSeatId)
-        ids.add(entry.nomineeSeatId)
-        entry.raisedSeatIds.forEach((seatId) => ids.add(seatId))
-        entry.ghostVoteSeatIds.forEach((seatId) => ids.add(seatId))
-        break
-      case 'execution':
-      case 'no_execution':
-        if (entry.executedSeatId) ids.add(entry.executedSeatId)
-        break
-      case 'player_state_changed':
-      case 'setup_changed':
-        ids.add(entry.seatId)
-        break
-      case 'setup_confirmed':
-        break
-      default:
-        // 归档可能来自更新版本；未知 kind 只是不贡献座位，不能让整份复盘失败。
-        assertNever(entry)
-        break
-    }
-    idsByEntry.set(entry.id, [...ids])
-  }
-  return idsByEntry
-}
+import { gameReviewEvidence, keyGameReviewEvidence, reviewMissingInformation } from './gameReviewEvidence'
 
 function playerActivity(archive: GameArchiveRecord) {
   const activityBySeat = new Map<number, number>()
-  for (const ids of entrySeatIds(archive).values()) {
-    ids.forEach((seatId) => activityBySeat.set(seatId, (activityBySeat.get(seatId) ?? 0) + 1))
+  const setupIds = new Set(archive.session.timeline.filter((entry) => entry.kind === 'setup_confirmed').map((entry) => entry.id))
+  for (const entry of gameReviewEvidence(archive).filter((item) => !item.superseded && !item.voided && !setupIds.has(item.recordId))) {
+    entry.seatIds.forEach((seatId) => activityBySeat.set(seatId, (activityBySeat.get(seatId) ?? 0) + 1))
   }
   return activityBySeat
 }
 
 function noteFor(activity: number) {
-  if (activity >= 5) return '日志参与度高，适合重点回看关键发言。'
+  if (activity >= 5) return '日志关联记录多，适合核对这些记录与现场语境。'
   if (activity >= 2) return '有明确行动记录，可结合现场记忆补充判断。'
   return '日志信息偏少，评分可信度较低。'
 }
@@ -67,12 +22,12 @@ function roastFor(activity: number, isAlive: boolean) {
   if (activity >= 5) return '镜头很多，锅也容易很多；复盘先查这里，基本不亏。'
   if (activity >= 2) {
     return isAlive
-      ? '有事做，但还没到改写牌局的程度，现场发言要补证。'
-      : '参与过关键回合，但退场后影响力断档，像把线索留在半路。'
+      ? '日志镜头够开个小剧场，精彩程度还得问现场。'
+      : '记录里有戏份，退场后的故事得靠大家补讲。'
   }
   return isAlive
-    ? '活是活下来了，但记录里像隐身；复盘别给太高确定性。'
-    : '日志里存在感偏低，死亡也没留下太多可追的线。'
+    ? '日志镜头少，可能只是摄影师忘了开机；先不评价表现。'
+    : '记录给的镜头不够，故事还得听本人补充。'
 }
 
 function scorePlayers(archive: GameArchiveRecord): GameAIPlayerReview[] {
@@ -83,9 +38,9 @@ function scorePlayers(archive: GameArchiveRecord): GameAIPlayerReview[] {
     const activity = activityBySeat.get(seat.seatId) ?? 0
     const survivedBonus = seat.state.life === 'alive' ? 4 : 0
     const score = Math.max(55, Math.min(92, 62 + activity * 4 + survivedBonus))
-    const keyEvents = timelineItemsForSeat(archive, seat.seatId)
+    const keyEvents = gameReviewEvidence(archive).filter((entry) => !entry.superseded && !entry.voided && entry.seatIds.includes(seat.seatId))
       .slice(0, 3)
-      .map((entry) => `${entry.phaseLabel}：${entry.summary}`)
+      .map((entry) => `${entry.phaseLabel}：${entry.fact}［${entry.recordId}］`)
 
     return {
       seatId: seat.seatId,
@@ -106,19 +61,12 @@ function gameEvaluation(archive: GameArchiveRecord) {
   const vote = summary.votes >= 3 ? '白天投票链较清晰' : '投票样本较少'
   const correction = summary.corrections > 0
     ? `出现${summary.corrections}条更正，复盘时应重点检查误操作来源。`
-    : '无更正记录，流程稳定性较好。'
+    : '没有更正记录，仍需结合现场核对。'
   return { density, vote, correction }
 }
 
-function topTimeline(archive: GameArchiveRecord) {
-  return archive.timeline
-    .filter((entry) => entry.kind !== 'setup_confirmed')
-    .slice(0, 6)
-    .map((entry) => `${entry.phaseLabel}：${entry.summary}`)
-}
-
 function fullReviewFor(archive: GameArchiveRecord) {
-  const turningPoints = topTimeline(archive)
+  const turningPoints = keyGameReviewEvidence(archive).map((entry) => `${entry.phaseLabel}：${entry.fact}［${entry.recordId}］`)
   return {
     summary: `本局共有 ${archive.summary.records} 条记录。建议先按夜晚行动、白天提名、最终处决三段回看，再用现场记忆补足发言动机。`,
     turningPoints: turningPoints.length ? turningPoints : ['暂无足够日志，建议补充说书人手工备注。'],
@@ -132,6 +80,9 @@ export function createLocalGameReviewDraft(archive: GameArchiveRecord): GameAIRe
     provider: 'fake',
     source: 'local',
     disclaimer: '本地草稿只基于已保存日志，不是客观玩家能力评分。',
+    keyEvents: keyGameReviewEvidence(archive),
+    interpretations: [],
+    missing: [...reviewMissingInformation],
     evaluation: gameEvaluation(archive),
     fullReview: fullReviewFor(archive),
     playerScores,

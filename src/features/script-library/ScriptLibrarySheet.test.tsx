@@ -24,14 +24,15 @@ describe('ScriptLibrarySheet', () => {
     expect(onSelectScript).toHaveBeenCalledWith('an-du-chen-cang')
   })
 
-  it('routes a confirmed setup through save and reset instead of changing it in place', () => {
+  it('routes a confirmed setup through reset confirmation without changing it in place', () => {
     const onRequestResetSwitch = vi.fn()
+    const onSelectScript = vi.fn()
     render(
       <ScriptLibrarySheet
         open
         onOpenChange={() => undefined}
         session={createPrototypeGameSession()}
-        onSelectScript={() => undefined}
+        onSelectScript={onSelectScript}
         onRequestResetSwitch={onRequestResetSwitch}
       />,
     )
@@ -39,8 +40,28 @@ describe('ScriptLibrarySheet', () => {
     const card = screen.getByRole('heading', { name: '暗度陈仓' }).closest('article')
     fireEvent.click(within(card as HTMLElement).getByRole('button', { name: '切换到此板子' }))
     expect(screen.getByText('当前配板已经确认')).toBeInTheDocument()
-    fireEvent.click(screen.getByRole('button', { name: '前往保存并重置' }))
-    expect(onRequestResetSwitch).toHaveBeenCalledWith('an-du-chen-cang')
+    expect(onRequestResetSwitch).not.toHaveBeenCalled()
+    fireEvent.click(screen.getByRole('button', { name: '前往重置确认' }))
+    expect(onRequestResetSwitch).toHaveBeenCalledExactlyOnceWith('an-du-chen-cang')
+    expect(onSelectScript).not.toHaveBeenCalled()
+    expect(screen.getByText('当前使用')).toBeInTheDocument()
+  })
+
+  it('cancels a confirmed board switch without requesting either a reset or a direct change', () => {
+    const onRequestResetSwitch = vi.fn()
+    const onSelectScript = vi.fn()
+    const session = createPrototypeGameSession()
+    const snapshot = JSON.stringify(session)
+    render(<ScriptLibrarySheet open onOpenChange={() => undefined} session={session} onSelectScript={onSelectScript} onRequestResetSwitch={onRequestResetSwitch} />)
+
+    const card = screen.getByRole('heading', { name: '暗度陈仓' }).closest('article')
+    fireEvent.click(within(card as HTMLElement).getByRole('button', { name: '切换到此板子' }))
+    fireEvent.click(within(screen.getByRole('dialog', { name: '确认切换板子' })).getByRole('button', { name: '取消' }))
+
+    expect(screen.queryByRole('dialog', { name: '确认切换板子' })).not.toBeInTheDocument()
+    expect(onRequestResetSwitch).not.toHaveBeenCalled()
+    expect(onSelectScript).not.toHaveBeenCalled()
+    expect(JSON.stringify(session)).toBe(snapshot)
     expect(screen.getByText('当前使用')).toBeInTheDocument()
   })
 })

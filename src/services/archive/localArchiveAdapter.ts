@@ -1,4 +1,5 @@
 import type { ArchiveAdapter, GameArchiveRecord } from './types'
+import { archiveMatchesSnapshot, archiveScriptName } from './archiveSnapshot'
 
 export const gameArchiveStorageKey = 'botc-game-archives-v1'
 
@@ -17,7 +18,7 @@ function normalizeArchiveRecord(value: unknown): GameArchiveRecord | null {
     Array.isArray(record.timeline) &&
     Boolean(record.session)
   if (!valid) return null
-  return { ...record, schemaVersion: 1 } as GameArchiveRecord
+  return { ...record, schemaVersion: 1, scriptName: archiveScriptName(record as GameArchiveRecord) } as GameArchiveRecord
 }
 
 function sortByArchivedAt(records: GameArchiveRecord[]) {
@@ -43,6 +44,8 @@ export const localArchiveAdapter: ArchiveAdapter = {
 
   save(record: GameArchiveRecord) {
     const archives = localArchiveAdapter.load()
+    const existing = archives.find((archive) => archive.id === record.id)
+    if (existing && !archiveMatchesSnapshot(existing, record.session, record.winner)) throw new Error('同一归档命令不能覆盖不同的对局内容。')
     const next = sortByArchivedAt([record, ...archives.filter((archive) => archive.id !== record.id)])
     window.localStorage.setItem(gameArchiveStorageKey, JSON.stringify(next))
     return next

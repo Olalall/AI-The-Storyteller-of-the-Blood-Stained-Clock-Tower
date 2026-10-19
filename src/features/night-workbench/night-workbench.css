@@ -513,6 +513,9 @@
 .role-change-option img { width: 42px; height: 42px; border-radius: 50%; object-fit: contain; background: #e7ddc8; }
 .role-change-option span { min-width: 0; font-size: .82rem; font-weight: 700; }
 .role-change-reasons { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.role-change-timing label { min-height: 44px; display: flex; align-items: center; gap: var(--space-8); color: var(--text-body); cursor: pointer; }
+.role-change-timing p { margin: var(--space-8) 0; color: var(--text-muted); line-height: 1.6; }
+.role-change-sheet > label select { display: block; width: 100%; min-height: 44px; margin-top: var(--space-8); background: var(--surface-soft); color: var(--text-body); border: 1px solid var(--border); border-radius: var(--radius-md); }
 .role-change-actions { position: sticky; bottom: 0; padding-top: var(--space-12); display: grid; gap: var(--space-8); background: var(--surface-panel); box-shadow: 0 -12px 20px var(--surface-panel); }
 .role-change-actions__summary { min-height: 54px; border: 1px solid var(--info-border); border-radius: var(--radius-md); padding: var(--space-8) var(--space-12); display: grid; place-items: center; gap: 2px; background: var(--info-soft); color: var(--info-text); text-align: center; }
 .role-change-actions__summary strong { display: flex; align-items: center; justify-content: center; gap: var(--space-8); }
@@ -528,18 +531,11 @@
 .action-disabled-reason { max-width: 220px; color: var(--warning-text); font-size: .72rem; text-align: right; }
 .preview-action-bar { width: 100%; display: flex; justify-content: flex-end; gap: var(--space-8); }
 .preview-action-bar .ui-button { min-width: 144px; }
-.night-close-footer, .night-close-confirm { width: min(1080px, calc(100% - clamp(var(--space-20), 4cqw, var(--space-40)))); /* 与吸底主确认区拉开 ≥96px：一夜按十几次的「确认并下一位」和一夜只按一次的「关闭本夜」    此前只隔约 20px，滚动惯性就会点错，且点错的后果是退出工作台。 */ margin: 96px auto var(--space-20); padding: var(--space-14) var(--space-16); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
+.night-close-footer { width: min(1080px, calc(100% - clamp(var(--space-20), 4cqw, var(--space-40)))); /* 与吸底主确认区拉开 ≥96px：一夜按十几次的「确认并下一位」和一夜只按一次的「关闭本夜」    此前只隔约 20px，滚动惯性就会点错，且点错的后果是退出工作台。 */ margin: 96px auto var(--space-20); padding: var(--space-14) var(--space-16); border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
 .night-close-footer > div { display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-8); }
 .night-close-footer span { color: var(--text-subtle); font-size: .7rem; font-weight: 800; letter-spacing: .08em; }
 .night-close-footer strong { color: var(--text-muted); font-size: .82rem; }
-.night-close-footer small, .night-close-confirm small { color: var(--warning-text); font-size: .72rem; font-weight: 800; }
-.night-close-confirm { border: 1px solid var(--warning-border); border-radius: var(--radius-lg); background: var(--warning-soft); }
-.night-close-confirm > div:first-child { display: flex; align-items: center; gap: var(--space-12); }
-.night-close-confirm > div:first-child > svg { flex: 0 0 auto; width: 24px; height: 24px; color: var(--warning-text); }
-.night-close-confirm strong, .night-close-confirm span, .night-close-confirm small { display: block; }
-.night-close-confirm strong { color: var(--warning-text); }
-.night-close-confirm span { margin-top: 3px; color: var(--text-muted); font-size: .76rem; }
-.night-close-confirm > div:last-child { display: flex; gap: var(--space-8); }
+.night-close-footer small { color: var(--warning-text); font-size: .72rem; font-weight: 800; }
 
 @container night-content (max-width: 860px) {
   .wake-workspace { grid-template-columns: 1fr; }
@@ -583,7 +579,7 @@
   .night-header { min-height: auto; grid-template-columns: 1fr; grid-template-areas: "title" "progress" "actions"; gap: var(--space-12); }
   .night-header__title { display: grid; grid-template-columns: 1fr auto; align-items: center; }
   .night-header__title .night-header__kicker { grid-column: 1 / -1; }
-  .night-header__title > span { display: none; }
+  .night-header__title > span { grid-column: 1 / -1; }
   .night-header__actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); justify-content: stretch; }
   .night-header__actions > * { flex: 1; }
   .night-header__actions .ui-button { width: 100%; }
@@ -606,9 +602,7 @@
   .action-bar__secondary .ui-button, .action-bar__primary .ui-button { width: 100%; min-width: 0; padding-inline: var(--space-10); }
   .preview-action-bar { grid-column: 1 / -1; grid-row: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .preview-action-bar .ui-button { width: 100%; min-width: 0; }
-  .night-close-footer, .night-close-confirm { width: calc(100% - 20px); }
-  .night-close-confirm, .night-close-confirm > div:last-child { align-items: stretch; flex-direction: column; }
-  .night-close-confirm > div:last-child .ui-button { width: 100%; }
+  .night-close-footer { width: calc(100% - 20px); }
 }
 
 @media (max-width: 520px) {

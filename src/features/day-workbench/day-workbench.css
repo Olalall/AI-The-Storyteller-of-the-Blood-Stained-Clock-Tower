@@ -268,3 +268,13 @@
   .public-timer-focus__actions { align-items: stretch; flex-direction: column; width: min(360px, 100%); }
   .public-timer-focus__actions .ui-button { width: 100%; }
 }
+.day-vote-history, .day-special-execution { grid-column: 1 / -1; }
+.day-vote-history > summary { min-height: var(--touch-min); cursor: pointer; padding: var(--space-12); }
+.day-vote-history article { padding: var(--space-12); display: grid; gap: var(--space-8); border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+.day-vote-history article > div { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.day-vote-history small { color: var(--text-muted); }
+.day-vote-correction { padding: var(--space-20); display: grid; gap: var(--space-16); min-width: 0; }
+.day-vote-adjustment { display: grid; gap: var(--space-12); margin-block: var(--space-12); }
+.day-vote-adjustment input, .day-vote-correction textarea, .day-vote-correction select { min-width: 0; width: 100%; min-height: var(--touch-min); padding: var(--space-10); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-soft); color: var(--text-strong); font: inherit; }
+.day-vote-correction textarea { min-height: 88px; resize: vertical; }
+.day-vote-correction > p { margin: 0; color: var(--text-muted); overflow-wrap: anywhere; }

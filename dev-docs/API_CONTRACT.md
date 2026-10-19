@@ -281,7 +281,7 @@ type GenerateReviewDraftRequest = {
 }
 ```
 
-P0 fake endpoint 允许空请求体，默认 `reviewStyle: 'sharp'`、`includePlayerScores: true`。
+允许空请求体，默认 `reviewStyle: 'neutral'`、`includePlayerScores: false`。页面默认只投影本地记录；说书人点击“生成 AI 解读”后才请求此接口。娱乐区使用本地既有启发式分数，展开不发请求。旧调用者显式请求评分时，fake 与真实 provider 路径均返回本地启发式分数；真实模型只生成带引用的解释，不生成评分或吐槽。
 
 ### Response
 
@@ -293,6 +293,17 @@ type AIReviewDraft = {
   model?: string
   confidence: 'low' | 'medium' | 'high'
   disclaimer: string
+  keyEvents?: {
+    recordId: string
+    phaseLabel: string
+    fact: string
+    details: string[]
+    seatIds: number[]
+    correctionOf?: string
+    superseded: boolean
+  }[]
+  interpretations?: { recordIds: string[]; explanation: string }[]
+  missing?: string[]
   gameEvaluation: {
     summary: string
     highlights: string[]
@@ -326,6 +337,9 @@ type PlayerReviewDraft = {
 - 不得修改归档快照或当前局。
 - 不生成公开排行榜。
 - provider 失败时可以回退 fake 草稿或返回结构化错误，但不能影响归档读取。
+- 事实只能由归档中说书人确认过的结构化记录投影，保留记录 ID、阶段和更正链。不能用“1号”包含匹配关联“11号”。关键事件按更正、处决、状态/身份变化等优先选取，而不是截取最早六条。
+- 模型只收到最多 12 条有来源的记录摘录（事实 600 字、最多 6 条详情各 300 字）；完整归档不截断，界面明确提示摘录不完整。解释只接受这次提供且未被更正替代的 ID，混入未知引用时丢弃整条；最多 6 条解释、每条 1200 字/6 个引用，缺失信息最多 8 条/400 字。
+- `keyEvents` / `interpretations` / `missing` 是新增兼容字段；旧响应没有引用时只保留本地记录事实，不能把旧自由文本或玩家分数当成可核对的转折依据。
 
 ## 6. AI 配板候选
 
@@ -509,16 +523,10 @@ type TestAISettingsResponse = {
 
 ### `POST /api/settings/ai/live-test`
 
-发起一次真实 OpenAI-compatible 连通测试。用于说书人手动确认接入地址、模型和 Key 是否可用；会产生一次模型请求。
+发起一次真实 OpenAI-compatible 连通测试。只测试服务器已启用且完整的既定配置；会产生一次模型请求，不保存或覆盖配置。
 
 ```ts
-type LiveTestAISettingsRequest = {
-  provider?: 'openai-compatible'
-  baseUrl?: string
-  model?: string
-  apiKey?: string
-  timeoutSeconds?: number
-}
+type LiveTestAISettingsRequest = Record<string, never> // {}，也接受空请求体
 
 type LiveTestAISettingsResponse = {
   ok: boolean
@@ -538,10 +546,11 @@ type LiveTestAISettingsResponse = {
 
 规则：
 
-- 允许请求体临时携带 `apiKey`，仅用于本次连通测试。
+- 请求体只能是 `{}` 或空白；任何字段（包括 provider、baseUrl、model、apiKey、timeoutSeconds）、数组、null 和其他非对象 JSON 均返回 `400 BAD_REQUEST`，不调用模型。
 - 响应体、错误 message、日志、localStorage、归档仍不得包含 API Key。
-- 如果请求体没有 Key，则只使用后端环境变量中的 Key。
-- 前端只允许向本机后端或 HTTPS 后端发送临时 Key。
+- provider、地址、模型、密钥和超时仅从服务器配置读取，不允许客户端覆盖。AI 关闭时即使服务器已有密钥也返回 `AI_PROVIDER_DISABLED` 且不调用；配置不完整返回 `AI_PROVIDER_UNCONFIGURED`。
+- provider 请求不跟随 HTTP 重定向，同源或跨源重定向均按失败处理；不会把带密钥请求转到非预期地址。调试日志只记错误类别/状态码，不记上游原文。
+- 当前这些 AI 路由尚无鉴权；固定付费服务器密钥前必须先决定并落实访问范围，网页按钮上的确认不构成公网调用鉴权。
 - 连通成功只表示模型接口可用；配板、夜间结算和赛后复盘仍必须由说书人点击对应按钮才会请求 AI 草稿。
 
 ### `POST /api/ai/setup-advice`
@@ -568,7 +577,7 @@ type LiveTestAISettingsResponse = {
 
 ### 禁止
 
-- 除 `POST /api/settings/ai/live-test` 的一次性测试外，API Key 不允许出现在请求体。
+- 所有浏览器到本应用的 API 请求体均不允许携带 API Key；Key 仅由服务器发往固定 provider。
 - API Key 不允许出现在响应体。
 - API Key 不允许出现在 localStorage。
 - API Key 不允许出现在导出归档。

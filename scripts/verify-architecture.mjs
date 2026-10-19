@@ -26,6 +26,7 @@ const classReferenceFile = /\.(tsx|ts|html)$/
 // 白名单要同时覆盖 server/（src 常量文件对它是错误的家）；它是 CI 策略而非运行时数据，
 // 放进 src 会为了 CI 往产物里塞一个模块；本脚本既有策略（预算表、禁用符号表）也都内联。
 const localStorageKeyAllowlist = [
+  { key: 'botc-session-before-restore-v1', owner: 'src/services/session/sessionEditLock.ts', why: '恢复前的单份回退备份，不是可写对局真源' },
   { key: 'botc-copilot-session-v1', owner: 'src/features/game-session/data/createPrototypeSession.ts', why: '当前对局唯一真值' },
   { key: 'botc-copilot-session-recovery-v1', owner: 'src/services/session/localSessionAdapter.ts', why: 'P0 批：加载失败时的原始字符串留档' },
   { key: 'botc-game-archives-v1', owner: 'src/services/archive/localArchiveAdapter.ts', why: '归档列表' },

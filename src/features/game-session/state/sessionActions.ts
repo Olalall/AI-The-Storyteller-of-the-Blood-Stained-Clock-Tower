@@ -10,16 +10,23 @@ import type {
   PlayerState,
   SetupDraft,
 } from '../types'
-import type { ConfirmedWakeRecord, RoleChangeEvent, RoleSnapshot } from '../../night-workbench/types'
+import type { ConfirmedWakeRecord, RoleChangeEvent, RoleChangeReason, RoleSnapshot } from '../../night-workbench/types'
+import type { NightWorkbenchAction } from '../../night-workbench/state/nightWorkbenchReducer'
 import type { PhaseTimelineEntryInput, TimelineAppendInput } from './timeline'
 
 export type GameSessionAction =
+  | { type: 'confirm-night-role-change'; nightRunId: string; seatId: number; expectedRoleId: string; roleId: string; timing: 'tonight' | 'initial' | 'later'; reason: RoleChangeReason; id: string; expectedContextKey: string; expectedRevision: number; confirmedAt: string }
+  | { type: 'apply-kazali-allocation'; nightRunId: string; sourceEntryId: string; expectedContextKey: string; confirmedAt: string }
+  | { type: 'add-state-followup'; id: string; sourceEntryId: string; seatId: number; note: string; createdAt: string }
+  | { type: 'dismiss-state-followup'; id: string; reason: string; at: string }
   | { type: 'set-setup-draft'; draft: SetupDraft | null }
   | { type: 'set-day-vote-draft'; draft: DayVoteDraft }
   | { type: 'clear-day-vote-draft' }
+  | { type: 'revise-vote-round'; originalEntryId: string; draft?: DayVoteDraft; voided: boolean; reason: string; input: TimelineAppendInput }
   | { type: 'set-day-action-draft'; draft: DayActionDraft }
   | { type: 'clear-day-action-draft' }
   | { type: 'confirm-setup'; id: string; confirmedAt: string }
+  | { type: 'confirm-identity-presentation'; seatId: number; actualRoleId: string; shownRoleId: string; confirmedAt: string }
   | {
     type: 'append-phase-entry'
     phaseKind: PhaseKind
@@ -41,6 +48,7 @@ export type GameSessionAction =
     daySegmentId: string
     nomineeSeatId: number
     sourceRoundId: string
+    exceptionReason?: string
     executionEntryId: string
     playerStateEntryId: string
     confirmedAt: string
@@ -59,6 +67,7 @@ export type GameSessionAction =
   }
   | {
     type: 'confirm-player-state-change'
+    followupId?: string
     seatId: number
     expectedBefore: PlayerState
     after: PlayerState
@@ -88,10 +97,13 @@ export type GameSessionAction =
      * 草稿/浏览只更新 NightRun；首次确认才会由记录创建夜晚段。
      */
     type: 'commit-night-workbench'
+    baseRevision: number
+    baseContextKey: string
     nightRun: NightRunState
     records: ConfirmedWakeRecord[]
     roleChanges: RoleChangeEvent[]
   }
+  | { type: 'night-workbench-action'; nightRunId: string; expectedWakeItemId: string; expectedActiveCursorId: string; action: NightWorkbenchAction }
   | { type: 'replace-night-run'; nightRun: NightRunState }
   | { type: 'set-active-night-run'; nightRunId: string | null }
   | { type: 'open-phase-segment'; phaseKind: PhaseKind; createdAt: string }
@@ -111,4 +123,4 @@ export type GameSessionAction =
     playerCount?: number
     seats?: readonly { seatId: number; nickname?: string; experience?: PlayerExperience | null }[]
   }
-  | { type: 'reset-session' }
+  | { type: 'reset-session'; createdAt?: string }

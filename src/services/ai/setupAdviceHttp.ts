@@ -1,8 +1,8 @@
 import {
   defaultArchiveRuntimeSettings,
-  readArchiveRuntimeSettings,
-  type ArchiveRuntimeSettings,
 } from '../archive'
+import { readAIRuntimeSettings, type AIRuntimeSettings } from './aiRuntimeSettings'
+import { modelRequestTimeoutMs } from './modelRequestTimeout'
 import type { SetupPrototypeCandidate } from '../../features/setup'
 import { roleKnowledgeForAI } from '../../domain/role-knowledge'
 import { getSmartScriptPack, roleResearchForAI } from '../../domain/scripts'
@@ -41,7 +41,7 @@ export interface CreateSetupAdviceDraftAsyncInput {
 }
 
 export interface CreateSetupAdviceDraftAsyncOptions {
-  runtimeSettings?: ArchiveRuntimeSettings
+  runtimeSettings?: AIRuntimeSettings
   fetcher?: FetchLike
 }
 
@@ -265,13 +265,13 @@ export async function createSetupAdviceDraftAsync(
   options: CreateSetupAdviceDraftAsyncOptions = {},
 ): Promise<SetupAdviceRuntimeDraft> {
   const fallback = localDraft(input)
-  const runtimeSettings = options.runtimeSettings ?? readArchiveRuntimeSettings()
+  const runtimeSettings = options.runtimeSettings ?? readAIRuntimeSettings()
   if (runtimeSettings.mode !== 'http') return fallback
 
   try {
     const response = await fetchWithTimeout(
       options.fetcher ?? fetch,
-      runtimeSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs,
+      modelRequestTimeoutMs(runtimeSettings.timeoutMs || defaultArchiveRuntimeSettings.timeoutMs),
       urlFor(runtimeSettings.baseUrl || defaultArchiveRuntimeSettings.baseUrl),
       {
         method: 'POST',
@@ -279,6 +279,7 @@ export async function createSetupAdviceDraftAsync(
         body: JSON.stringify(requestBody(input)),
       },
     )
+    if (response.status === 401) return localDraft(input, '请先在 AI 设置中验证访问口令；当前保留本地模板。')
     const body = await response.json() as SetupAdviceBackendResponse
     if (!response.ok || body.accepted !== true || !body.data?.draft) throw new Error('setup advice failed')
     return mapBackendDraft(body.data.draft, fallback)

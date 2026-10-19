@@ -53,7 +53,8 @@ function assertPlayableCandidates(
   const teamByRoleId = roleTeamByIdForScript(scriptId) as Readonly<Record<string, SetupTeam>>
   for (const candidate of candidates) {
     const inPlay = new Set(candidate.assignments.map((assignment) => assignment.role.id))
-    expect(candidate.demonBluffs.every((role) => teamByRoleId[role.id] === 'townsfolk' && !inPlay.has(role.id))).toBe(true)
+    const eligibleBluffTeams = new Set(smartScriptPacks.find((pack) => pack.scriptId === scriptId)?.demonBluffPolicy?.eligibleTeams ?? ['townsfolk', 'outsider'])
+    expect(candidate.demonBluffs.every((role) => eligibleBluffTeams.has(teamByRoleId[role.id]) && !inPlay.has(role.id))).toBe(true)
     expect(evaluateSmartScriptSetup(
       scriptId,
       candidate.assignments,

@@ -1,5 +1,6 @@
 import type { TimelineEntry, VoteRoundEntry } from '../../game-session/types'
 import { projectEffectiveTimelineEntries } from '../../game-session/state/projectTimelineHistory'
+import { voteCount } from './voteRound'
 
 export type StandingExecutionStatus = 'leading' | 'replaced' | 'tied' | 'below_threshold' | 'none'
 
@@ -29,10 +30,6 @@ function isVoteRoundEntry(entry: TimelineEntry): entry is VoteRoundEntry {
 function chronological(rounds: readonly VoteRoundEntry[]) {
   return [...rounds].sort((left, right) =>
     left.createdAt.localeCompare(right.createdAt) || left.id.localeCompare(right.id))
-}
-
-function voteCount(round: VoteRoundEntry) {
-  return new Set(round.raisedSeatIds).size
 }
 
 function higherScore(left: CandidateScore, right: CandidateScore) {
@@ -114,7 +111,7 @@ export function projectStandingExecution(
   segmentId: string,
 ): StandingExecution {
   const rounds = chronological(projectEffectiveTimelineEntries(entries).filter((entry): entry is VoteRoundEntry =>
-    isVoteRoundEntry(entry) && entry.segmentId === segmentId,
+    isVoteRoundEntry(entry) && entry.segmentId === segmentId && !entry.voided,
   ))
   const current = projectQualifiedStanding(rounds)
   if (current.status !== 'leading' || !current.nomineeSeatId) return current

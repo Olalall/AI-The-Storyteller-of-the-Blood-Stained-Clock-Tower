@@ -112,7 +112,10 @@ describe('Bad Moon Rising smart script pack', () => {
       template.setupAdjustments?.some((adjustment) => adjustment.ruleId === 'godfather-outsider'),
     )
 
-    expect(adjustedTemplates).toHaveLength(5)
+    expect(adjustedTemplates).toHaveLength(7)
+    expect(adjustedTemplates.map((template) => template.templateId).sort()).toEqual(
+      badMoonRisingSmartScriptPack.setupTemplates.filter((template) => template.roles.includes('godfather')).map((template) => template.templateId).sort(),
+    )
     expect(adjustedTemplates.every((template) => template.roles.includes('godfather'))).toBe(true)
   })
 })

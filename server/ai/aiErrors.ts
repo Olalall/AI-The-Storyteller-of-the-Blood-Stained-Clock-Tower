@@ -1,5 +1,6 @@
 ﻿export type AIProviderErrorCode =
   | 'BAD_REQUEST'
+  | 'AI_ACCESS_REQUIRED'
   | 'AI_PROVIDER_DISABLED'
   | 'AI_PROVIDER_UNCONFIGURED'
   | 'AI_PROVIDER_TIMEOUT'
@@ -17,6 +18,7 @@ export interface AIProviderApiErrorBody {
 
 const errorMessages: Record<AIProviderErrorCode, string> = {
   BAD_REQUEST: '请求字段缺失或格式错误',
+  AI_ACCESS_REQUIRED: '请先在 AI 设置中验证访问口令；验证后此设备记住 30 天。',
   AI_PROVIDER_DISABLED: 'AI provider 未启用',
   AI_PROVIDER_UNCONFIGURED: 'AI provider 配置不完整',
   AI_PROVIDER_TIMEOUT: 'AI provider 请求超时',

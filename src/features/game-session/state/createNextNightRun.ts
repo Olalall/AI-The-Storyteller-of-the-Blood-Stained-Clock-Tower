@@ -5,25 +5,25 @@ import type { OutcomeInput, PlayerStatusSnapshot, WakeItem, WakeRoleChoice } fro
 import type { GameSessionState, NightRunState, PlayerState, SetupAssignment } from '../types'
 import { projectCurrentAssignments, projectCurrentPlayerStates } from './projectors'
 import { storytellerSeatLabel } from '../seatPresentation'
+import { nextPhaseSequence } from './phaseSegments'
+import { nightInteractionInputs, nightTargetCountForRole } from '../../../domain/scripts/nightInteractionInputs'
+import { projectNightInteraction } from '../../night-workbench/state/projectNightInteraction'
+import { playerFacingIdentity } from '../../identity-deal/identityProjection'
 
 export function nextNightSequence(session: GameSessionState) {
-  return Math.max(0, ...session.phaseSegments
-    .filter((segment) => segment.kind === 'night')
-    .map((segment) => segment.sequence)) + 1
+  return nextPhaseSequence(session, 'night')
 }
 
 /**
- * 当前仅为 Catfishing 12 人样例生成“其他夜”队列快照。
- * 它按已确认的身份投影填入座位，不根据角色结果自动改状态或裁定技能。
+ * 按剧本首夜/后续夜表和已确认身份生成新夜序，已有夜序不重建。
+ * 角色交互只描述录入表单，不根据结果自动修改状态或裁定技能。
  */
 export function createNextNightRun(session: GameSessionState): NightRunState | null {
   const sequence = nextNightSequence(session)
   const id = nextNightRunId(session, sequence)
   const assignments = projectCurrentAssignments(session)
   const playerStates = projectCurrentPlayerStates(session)
-  const queue = session.scriptId === 'catfishing'
-    ? createOtherNightQueue(session, assignments, playerStates, id)
-    : createSmartScriptNightQueue(session, assignments, playerStates, id, sequence)
+  const queue = createSmartScriptNightQueue(session, assignments, playerStates, id, sequence)
   if (!queue.length) return null
 
   return {
@@ -46,7 +46,7 @@ export function createNextNightRun(session: GameSessionState): NightRunState | n
   }
 }
 
-function createSmartScriptNightQueue(
+export function createSmartScriptNightQueue(
   session: GameSessionState,
   assignments: SetupAssignment[],
   playerStates: Record<number, PlayerState>,
@@ -56,16 +56,33 @@ function createSmartScriptNightQueue(
   const pack = getSmartScriptPack(session.scriptId)
   const orders = sequence === 1 ? pack.nightOrders.firstNight : pack.nightOrders.otherNight
   const roleById = new Map(pack.roles.map((role) => [role.id, role]))
-  const assignmentByRole = new Map(assignments.map((assignment) => [assignment.role.id, assignment]))
-
-  return orders.flatMap((order) => {
-    const assignment = assignmentByRole.get(order.roleId)
+  const queue = orders.flatMap((order) => {
     const role = roleById.get(order.roleId)
-    const playerState = assignment ? playerStates[assignment.seatId] : undefined
-    if (!assignment || !role || !playerState) return []
-    return [createSmartWakeItem({ session, assignment, playerState, role, order, runId })]
+    if (!role) return []
+    return assignments.filter((assignment) => assignment.role.id === order.roleId).flatMap((assignment) => {
+      const playerState = playerStates[assignment.seatId]
+      return playerState ? [createSmartWakeItem({ session, assignment, playerState, role, order, runId, isFirstNight: sequence === 1 })] : []
+    })
   })
-    .map((item, index) => ({ ...item, orderIndex: index + 1 }))
+  for (const assignment of assignments.filter((entry) => entry.role.id === 'marionette')) {
+    const shown = playerFacingIdentity(session, assignment.seatId).role
+    const role = shown && roleById.get(shown.id)
+    const order = role && orders.find((entry) => entry.roleId === role.id)
+    const playerState = playerStates[assignment.seatId]
+    if (!role || !shown || !order || !playerState) continue
+    const prompt = `按对外身份“${shown.name}”的时点假装唤醒和反馈。原善良能力不生效，不执行其毒醉、死亡或身份效果，也不展示提线木偶身份。`
+    queue.push({
+      ...createSmartWakeItem({ session, assignment: { ...assignment, role: shown }, playerState, role, order, runId, isFirstNight: sequence === 1 }),
+      id: `${runId}-marionette-pretend-${shown.id}-${assignment.seatId}`,
+      roleId: 'marionette', roleName: `提线木偶（假装${shown.name}）`, roleInitial: assignment.role.initial, iconPath: assignment.role.iconPath,
+      ability: prompt, storytellerPrompt: prompt, reason: prompt,
+      targetCount: 0, targetRoleChoiceCount: undefined, allowedTargetCounts: undefined, targetKind: undefined,
+      targetLabel: undefined, roleCount: undefined, roleChoices: undefined, roleLabel: undefined,
+      interactionVersion: 'marionette/pretend-v1',
+      outcomeOptions: [{ id: 'record', label: '已完成假装流程', requiredInputs: [], resultTemplate: `{actor}按对外身份“${shown.name}”完成假装流程，原善良技能无真实效果。` }],
+    })
+  }
+  return queue.sort((a, b) => a.orderIndex - b.orderIndex || a.seatId - b.seatId).map((item, index) => ({ ...item, orderIndex: index + 1 }))
 }
 
 function createSmartWakeItem(input: {
@@ -75,12 +92,16 @@ function createSmartWakeItem(input: {
   role: SmartRoleDefinition
   order: NightOrderEntry
   runId: string
+  isFirstNight: boolean
 }): WakeItem {
-  const { session, assignment, playerState, role, order, runId } = input
-  const roleChoices = createRoleChoices(session.scriptId, role.inputKinds)
-  const targetCount = targetCountFor(role.inputKinds)
+  const { session, assignment, playerState, role, order, runId, isFirstNight } = input
+  const template = session.scriptId === 'catfishing' ? sampleOtherNightQueue.find((item) => item.roleId === role.id) : undefined
+  const firstNightRoleCount = isFirstNight ? nightInteractionInputs[role.id]?.firstNightRoleCount : undefined
+  const roleChoices = firstNightRoleCount === 0 ? undefined
+    : template?.roleChoices ? structuredClone(template.roleChoices) : createRoleChoices(session.scriptId, role.inputKinds)
+  const targetCount = template?.targetCount ?? nightTargetCountForRole(role, isFirstNight)
   const dead = playerState.life === 'dead'
-  return {
+  return projectNightInteraction({
     id: `${runId}-${role.id}-${assignment.seatId}`,
     orderIndex: order.order,
     seatId: assignment.seatId,
@@ -92,25 +113,19 @@ function createSmartWakeItem(input: {
     roleInitial: assignment.role.initial,
     iconPath: assignment.role.iconPath,
     ability: roleAbilityForScript(session.scriptId, role.id),
-    storytellerPrompt: order.note ?? rolePromptForScript(session.scriptId, role.id),
+    storytellerPrompt: template?.storytellerPrompt ?? order.note ?? rolePromptForScript(session.scriptId, role.id),
     progress: 'pending',
     applicability: dead ? 'needs_review' : 'applicable',
     status: toWakeStatus(playerState),
     reason: dead ? '玩家已死亡；请说书人核对是否需要唤醒。' : undefined,
     targetCount,
-    targetLabel: targetCount > 1 ? '玩家' : targetCount === 1 ? '目标' : undefined,
-    targetKind: targetCount > 0 ? 'player_choice' : undefined,
+    targetLabel: template?.targetLabel ?? (targetCount > 1 ? '玩家' : targetCount === 1 ? '目标' : undefined),
+    targetKind: template?.targetKind ?? (targetCount > 0 ? 'player_choice' : undefined),
     roleChoices,
-    roleLabel: roleChoices ? '角色' : undefined,
-    interactionVersion: `${session.scriptId}/generic-night-v1`,
-    outcomeOptions: createGenericOutcomeOptions(targetCount, Boolean(roleChoices)),
-  }
-}
-
-function targetCountFor(inputKinds: readonly AbilityInputKind[]) {
-  if (inputKinds.includes('players')) return 2
-  if (inputKinds.includes('player')) return 1
-  return 0
+    roleLabel: roleChoices ? template?.roleLabel ?? '角色' : undefined,
+    interactionVersion: template?.interactionVersion ?? `${session.scriptId}/generic-night-v1`,
+    outcomeOptions: template ? structuredClone(template.outcomeOptions) : createGenericOutcomeOptions(targetCount, Boolean(roleChoices)),
+  }, session.scriptId, { nightType: isFirstNight ? 'first' : 'other', playerCount: session.playerCount })
 }
 
 function createRoleChoices(scriptId: string, inputKinds: readonly AbilityInputKind[]): WakeRoleChoice[] | undefined {
@@ -145,47 +160,6 @@ function createGenericOutcomeOptions(targetCount: number, needsRole: boolean) {
       resultTemplate: '{actor}本夜不发动。',
     },
   ]
-}
-
-function createOtherNightQueue(
-  session: GameSessionState,
-  assignments: SetupAssignment[],
-  playerStates: Record<number, PlayerState>,
-  runId: string,
-) {
-  const assignmentsByRole = new Map<string, SetupAssignment[]>()
-  for (const assignment of assignments) {
-    assignmentsByRole.set(assignment.role.id, [...(assignmentsByRole.get(assignment.role.id) ?? []), assignment])
-  }
-
-  const queue: WakeItem[] = []
-  for (const template of sampleOtherNightQueue) {
-    const matches = assignmentsByRole.get(template.roleId) ?? []
-    for (const assignment of matches) {
-      const playerState = playerStates[assignment.seatId]
-      if (!playerState) continue
-      const dead = playerState.life === 'dead'
-      queue.push({
-        ...structuredClone(template),
-        id: `${runId}-${assignment.role.id}-${assignment.seatId}`,
-        orderIndex: queue.length + 1,
-        seatId: assignment.seatId,
-        playerLabel: session.seats[assignment.seatId]
-          ? storytellerSeatLabel(session.seats[assignment.seatId])
-          : `${assignment.seatId}号`,
-        roleId: assignment.role.id,
-        roleName: assignment.role.name,
-        roleInitial: assignment.role.initial,
-        iconPath: assignment.role.iconPath,
-        progress: 'pending',
-        applicability: dead ? 'needs_review' : 'applicable',
-        status: toWakeStatus(playerState),
-        history: undefined,
-        reason: dead ? '玩家已死亡；请说书人核对是否需要唤醒。' : undefined,
-      })
-    }
-  }
-  return queue
 }
 
 function nextNightRunId(session: GameSessionState, sequence: number) {

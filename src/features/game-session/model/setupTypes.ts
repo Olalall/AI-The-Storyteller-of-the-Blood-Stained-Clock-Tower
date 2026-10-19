@@ -82,10 +82,13 @@ export interface SetupChangedEntry extends TimelineBase {
    * 该字段只控制夜间只读投影，不改变角色变更对后续工作台快照的影响。
    */
   originNightRunId: string | null
+  /** 由说书人应用的首夜分配来源；只追加事件，不改写来源快照。 */
+  sourceNightActionId?: string
+  nightAbilityTiming?: 'tonight' | 'initial' | 'later'
   seatId: number
   fromRole: RoleSnapshot
   toRole: RoleSnapshot
   reason: string
-  /** 只影响这次调整之后新建的工作台，不回写已建夜序快照。 */
+  /** 旧记录兼容字段；当夜安排由显式命令确认并另存 nightAbilityTiming。 */
   effectiveFrom: 'future_workbenches'
 }

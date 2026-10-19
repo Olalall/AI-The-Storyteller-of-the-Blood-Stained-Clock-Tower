@@ -12,6 +12,9 @@ export interface VoteRoundEntry extends TimelineBase {
   threshold: number
   raisedSeatIds: number[]
   ghostVoteSeatIds: number[]
+  voteAdjustment?: { count: number; reason: string }
+  /** 撤销也追加同一条更正链，原票型始终保留。 */
+  voided?: boolean
 }
 
 export interface ExecutionEntry extends TimelineBase {
@@ -23,6 +26,8 @@ export interface ExecutionEntry extends TimelineBase {
    * 省略时按 true 解读，兼容此字段之前的历史归档。
    */
   causedDeath?: boolean
+  /** 说书人显式确认的特殊处决依据；省略表示普通票面处决。 */
+  exceptionReason?: string
 }
 
 export type TimelineEntry =

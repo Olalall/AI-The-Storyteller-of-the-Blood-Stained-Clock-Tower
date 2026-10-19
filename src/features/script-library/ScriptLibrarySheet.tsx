@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge } from '../../components/ui/StatusBadge'
-import { scriptDisplayName, smartScriptPacks } from '../../domain/scripts'
+import { scriptDisplayName, scriptManifest } from '../../domain/scripts'
 import type { ScriptId } from '../../domain/scripts'
 import { projectConfirmedSetup } from '../game-session/state/projectors'
 import type { GameSessionState } from '../game-session/types'
@@ -24,18 +24,16 @@ interface ScriptLibrarySheetProps {
 export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript, onRequestResetSwitch }: ScriptLibrarySheetProps) {
   const [pendingScriptId, setPendingScriptId] = useState<ScriptId | null>(null)
   const setupConfirmed = Boolean(projectConfirmedSetup(session))
-  const pendingScript = smartScriptPacks.find((pack) => pack.scriptId === pendingScriptId)
+  const pendingScript = scriptManifest.find((pack) => pack.scriptId === pendingScriptId)
 
   function confirmDirectSwitch() {
     if (!pendingScriptId || setupConfirmed) return
-    onOpenChange(false)
     onSelectScript(pendingScriptId)
     setPendingScriptId(null)
   }
 
   function continueWithReset() {
     if (!pendingScriptId || !setupConfirmed) return
-    onOpenChange(false)
     onRequestResetSwitch(pendingScriptId)
     setPendingScriptId(null)
   }
@@ -63,7 +61,7 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
             <div><span>板子</span><h3 id="available-script-title">选择板子</h3></div>
           </div>
           <div className="script-library__scripts">
-            {smartScriptPacks.map((pack) => {
+            {scriptManifest.map((pack) => {
               return (
                 <article className="script-library__script-card" key={pack.scriptId}>
                   <div>
@@ -101,13 +99,13 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
           </div>
           <ul>
             <li>目标板子将成为新配板的唯一角色来源。</li>
-            <li>{setupConfirmed ? '先保存并重置本局，再在新局使用目标板子。' : '切换后仍需由说书人检查并确认配板。'}</li>
+            <li>{setupConfirmed ? '确认重置后会自动留档，再在新局使用目标板子。' : '切换后仍需由说书人检查并确认配板。'}</li>
             <li>身份、阵营和胜负不会由系统自动裁定。</li>
           </ul>
           <div className="script-switch-confirm__actions">
             <Button variant="ghost" onClick={() => setPendingScriptId(null)}>取消</Button>
             {setupConfirmed
-              ? <Button variant="primary" onClick={continueWithReset}>前往保存并重置</Button>
+              ? <Button variant="primary" onClick={continueWithReset}>前往重置确认</Button>
               : <Button variant="primary" onClick={confirmDirectSwitch}>确认切换</Button>}
           </div>
         </div>

@@ -1,0 +1,13 @@
+{
+  "id": "hua-wai-zhi-min",
+  "status": "not-run",
+  "kind": "synthetic-local-skill-oracle",
+  "title": "风琴手当夜自醉后的投票",
+  "confirmedFacts": "健康街头风琴手在本夜明确选择自己醉酒直到下个黄昏，白天尚未到下个黄昏，无其他来源或相克。",
+  "expected": "本人仍处在自醉持续期，闭眼和秘密计票效果失效，白天按通常睁眼投票；不能称风琴手因自醉而自动清除自己的自醉。",
+  "sourceUrls": [
+    "https://wiki.bloodontheclocktower.com/Organ_Grinder"
+  ],
+  "userGameData": false,
+  "productionMutation": false
+}

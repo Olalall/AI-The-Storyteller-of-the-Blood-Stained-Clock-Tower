@@ -1,4 +1,5 @@
 import {
+  createEmptyGameSession,
   createPrototypeGameSession,
   createPrototypeGameSessionFromLegacyNight,
   gameSessionStorageKey,
@@ -21,13 +22,15 @@ export interface SessionRecoveryRecord {
   reason: 'parse-error' | 'invalid'
   byteLength: number
   raw: string
+  persisted?: boolean
 }
 
-export type SessionLoadOutcome =
+export type SessionLoadOutcome = { baseline: string | null } & (
   | { kind: 'restored'; session: GameSessionState }
   | { kind: 'migrated'; session: GameSessionState }
   | { kind: 'fresh'; session: GameSessionState }
   | { kind: 'unreadable'; session: GameSessionState; recovery: SessionRecoveryRecord }
+)
 
 /**
  * 只校验读取所必需的骨架，且接受 schemaVersion ≥ 1 与任何未知字段：
@@ -135,8 +138,8 @@ function isLegacyNightWorkbenchState(value: unknown): value is NightWorkbenchSta
 }
 
 /**
- * 读不出的存档必须先备份再放弃：调用方在拿到新对局后会立刻把它写回主键，
- * 原文若不先挪走就会被永久覆盖。备份只保留最近一次，避免无限增长。
+ * 先尝试为原文留档；失败仍完整交给恢复界面。不可读时禁止自动写主键，
+ * 只有用户显式确认且恢复副本写入成功后才可新建。副本只保留最近一次。
  */
 function backupUnreadableSession(raw: string, reason: SessionRecoveryRecord['reason']) {
   const record: SessionRecoveryRecord = {
@@ -147,10 +150,10 @@ function backupUnreadableSession(raw: string, reason: SessionRecoveryRecord['rea
   }
   try {
     window.localStorage.setItem(sessionRecoveryStorageKey, JSON.stringify(record))
-    return record
+    return { ...record, persisted: true }
   } catch {
-    // 备份本身失败（多为配额耗尽）时仍要让上层知道原文读不出，只是没能留档。
-    return { ...record, raw: '' }
+    // 配额不足时原文仍留在主键；恢复界面必须能导出完整原文。
+    return { ...record, persisted: false }
   }
 }
 
@@ -159,22 +162,24 @@ export function loadGameSessionOutcome(): SessionLoadOutcome {
   try {
     stored = window.localStorage.getItem(gameSessionStorageKey)
   } catch {
-    return { kind: 'fresh', session: createPrototypeGameSession() }
+    return { kind: 'fresh', session: createPrototypeGameSession(), baseline: null }
   }
 
   if (stored) {
     try {
       const parsed: unknown = JSON.parse(stored)
-      if (isSession(parsed)) return { kind: 'restored', session: normalizeSession(parsed) }
+      if (isSession(parsed)) return { kind: 'restored', session: normalizeSession(parsed), baseline: stored }
       return {
         kind: 'unreadable',
-        session: createPrototypeGameSession(),
+        session: createEmptyGameSession(),
+        baseline: stored,
         recovery: backupUnreadableSession(stored, 'invalid'),
       }
     } catch {
       return {
         kind: 'unreadable',
-        session: createPrototypeGameSession(),
+        session: createEmptyGameSession(),
+        baseline: stored,
         recovery: backupUnreadableSession(stored, 'parse-error'),
       }
     }
@@ -186,16 +191,17 @@ export function loadGameSessionOutcome(): SessionLoadOutcome {
       const legacyParsed: unknown = JSON.parse(legacyStored)
       if (isLegacyNightWorkbenchState(legacyParsed)) {
         const migrated = createPrototypeGameSessionFromLegacyNight(legacyParsed)
-        window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(migrated))
+        const baseline = JSON.stringify(migrated)
+        window.localStorage.setItem(gameSessionStorageKey, baseline)
         window.localStorage.removeItem(legacyNightWorkbenchStorageKey)
-        return { kind: 'migrated', session: migrated }
+        return { kind: 'migrated', session: migrated, baseline }
       }
     }
   } catch {
     // 旧夜间快照读不出不影响开新局；它不是权威存档，且既有约定是不删除无效旧快照。
   }
 
-  return { kind: 'fresh', session: createPrototypeGameSession() }
+  return { kind: 'fresh', session: createPrototypeGameSession(), baseline: stored }
 }
 
 export function loadGameSession(): GameSessionState {

@@ -389,7 +389,7 @@ test('journal keeps vote records read-only and directs the storyteller back to t
   await page.getByRole('button', { name: '日记' }).click()
   await page.getByRole('button', { name: /查看投票记录：1号提名4号 · 6票/ }).click()
 
-  await expect(page.getByText('票型影响暂列结果；从白天工作台重新记录。')).toBeVisible()
+  await expect(page.getByText('从白天工作台的“票型记录与更正”更正或撤销；原票型保留。')).toBeVisible()
   await expect(page.getByRole('button', { name: '回白天改票型' })).toBeVisible()
   await expect(page.getByLabel('更正原因')).toHaveCount(0)
   await expect(page.getByRole('button', { name: '确认追加' })).toHaveCount(0)

@@ -1,25 +1,36 @@
 import type { createAIProxyHandlers } from './aiProxyHandlers'
 import { aiApiError, json } from './aiErrors'
 import { isNightSettlementRequest, isSetupAdviceRequest } from './aiRequestValidators'
-import type { AISettingsLiveTestRequest } from './types'
+import { createAIAccessGuard } from './aiAccess'
 
 export type AIProxyHandlers = ReturnType<typeof createAIProxyHandlers>
 
-export function createAIProxyRoutes(handlers: AIProxyHandlers) {
+export function createAIProxyRoutes(handlers: AIProxyHandlers, options: { env?: NodeJS.ProcessEnv } = {}) {
+  const access = createAIAccessGuard(options.env)
   return async function handleAIProxyRequest(request: Request): Promise<Response> {
     const url = new URL(request.url)
 
+    if (url.pathname === '/api/settings/ai/access') return access.handle(request)
     if (request.method === 'GET' && url.pathname === '/api/settings/ai') {
-      return json({ settings: handlers.getPublicSettings() })
+      const response = json({ settings: handlers.getPublicSettings(), access: access.status(request) })
+      response.headers.set('Cache-Control', 'no-store')
+      return response
     }
     if (request.method === 'POST' && url.pathname === '/api/settings/ai/test') {
       return json(handlers.testProviderSettings())
     }
+    if (request.method === 'POST' && (url.pathname.startsWith('/api/ai/') || url.pathname === '/api/settings/ai/live-test')) {
+      const denied = access.protect(request)
+      if (denied) return denied
+    }
     if (request.method === 'POST' && url.pathname === '/api/settings/ai/live-test') {
       try {
         const text = await request.text()
-        const body = text.trim() ? JSON.parse(text) as AISettingsLiveTestRequest : undefined
-        return json(await handlers.liveTestProviderSettings(body))
+        const body: unknown = text.trim() ? JSON.parse(text) : {}
+        if (!body || typeof body !== 'object' || Array.isArray(body) || Object.keys(body).length) {
+          return aiApiError('BAD_REQUEST', 400)
+        }
+        return json(await handlers.liveTestProviderSettings())
       } catch {
         return aiApiError('BAD_REQUEST', 400)
       }

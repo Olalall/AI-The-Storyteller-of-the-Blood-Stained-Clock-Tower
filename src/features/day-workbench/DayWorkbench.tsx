@@ -1,15 +1,16 @@
-import { ArrowLeft, Check, Gavel, Hand, SunMedium, X } from 'lucide-react'
+import { ArrowLeft, Check, Gavel, SunMedium, X } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
-import { Field } from '../../components/ui/Field'
-import { SeatButton } from '../../components/ui/SeatButton'
 import { StatusBadge } from '../../components/ui/StatusBadge'
 import { projectCurrentPlayerStates } from '../game-session/state/projectors'
 import { dayActionDraftContentKinds } from '../game-session/state/dayActionDraft'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState } from '../game-session/types'
-import { completeVoteRound, createVoteRoundDraft, executionThresholdForAliveCount, hasVoteRoundDraftContent, setVoteNominator, setVoteNominee, toggleGhostVote, toggleRaisedVote, type VoteRoundDraft } from './state/voteRound'
+import { completeVoteRound, createVoteRoundDraft, executionThresholdForAliveCount, hasVoteRoundDraftContent, type VoteRoundDraft } from './state/voteRound'
+import { DayVoteEditor } from './components/DayVoteEditor'
+import { DayVoteHistory } from './components/DayVoteHistory'
+import { SpecialExecution } from './components/SpecialExecution'
 import { projectStandingExecution } from './state/voteStanding'
 import { DayTimer } from './components/DayTimer'
 import { DayRecordSheet } from './components/DayRecordSheet'
@@ -22,7 +23,6 @@ interface DayWorkbenchProps {
   onExit: () => void
 }
 
-type NominationTarget = 'nominator' | 'nominee'
 type PendingResolution =
   | { kind: 'execution'; seatId: number; segmentId: string; sourceRoundId: string; causesDeath: boolean }
   | { kind: 'no_execution'; segmentId: string }
@@ -72,18 +72,15 @@ function leaveNoticeCopy(hasVoteDraft: boolean, dayActionKinds: readonly ('skill
 }
 
 export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
-  const [nominationTarget, setNominationTarget] = useState<NominationTarget>('nominator')
   const [pendingResolution, setPendingResolution] = useState<PendingResolution | null>(null)
   const [pendingDayClose, setPendingDayClose] = useState<PendingDayClose | null>(null)
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
   const draft = voteDraftForSession(session)
   const playerStates = projectCurrentPlayerStates(session)
-  const aliveCount = Object.values(playerStates).filter((state) => state.life === 'alive').length
-  const suggestedThreshold = executionThresholdForAliveCount(aliveCount)
   const openDay = session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)
   const dayEntries = useMemo(() => session.timeline.filter((entry) => entry.kind === 'vote_round'), [session.timeline])
   const standing = openDay ? projectStandingExecution(dayEntries, openDay.id) : { status: 'none' as const }
-  const roundNumber = dayEntries.filter((entry) => entry.segmentId === openDay?.id).length + 1
+  const roundNumber = dayEntries.filter((entry) => entry.segmentId === openDay?.id && !entry.correctionOf).length + 1
   const dayResolution = openDay
     ? [...session.timeline].filter((entry) => entry.segmentId === openDay.id && (entry.kind === 'execution' || entry.kind === 'no_execution')).at(-1)
     : undefined
@@ -92,21 +89,11 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
   const dayActionKinds = dayActionDraftContentKinds(session.dayActionDraft)
   const hasUnrecordedDayAction = dayActionKinds.length > 0
   const leaveNotice = leaveNoticeCopy(hasUnrecordedVote, dayActionKinds)
-  const selectedVotes = new Set(draft.raisedSeatIds)
-  const ghostVotes = new Set(draft.ghostVoteSeatIds)
-  const nominationReady = draft.nominatorSeatId !== null && draft.nomineeSeatId !== null
   const roundStatus = draft.nominatorSeatId === null
     ? '待选提名人'
     : draft.nomineeSeatId === null
       ? '待选被提名人'
       : `${draft.nominatorSeatId}号提名 ${draft.nomineeSeatId}号`
-
-  function selectNominationSeat(seatId: number) {
-    if (dayLocked) return
-    updateDraft((current) => nominationTarget === 'nominator'
-      ? setVoteNominator(current, seatId)
-      : setVoteNominee(current, seatId))
-  }
 
   function updateDraft(update: VoteRoundDraft | ((current: VoteRoundDraft) => VoteRoundDraft)) {
     const next = typeof update === 'function' ? update(draft) : update
@@ -116,7 +103,7 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
   function completeRound() {
     if (dayLocked) return
     const entry = completeVoteRound(draft, {
-      id: `vote-round-${Date.now()}`,
+      id: `vote-round-${crypto.randomUUID()}`,
       roundId: `round-${roundNumber}`,
       createdAt: new Date().toISOString(),
     })
@@ -128,7 +115,6 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
       entry: input,
       input: { id: entry.id, createdAt: entry.createdAt },
     })
-    setNominationTarget('nominator')
   }
 
   function confirmResolution() {
@@ -216,51 +202,7 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
           <DayRecordSheet session={session} dispatch={dispatch} />
         </section>
 
-        <Card className="day-card--nomination" eyebrow="步骤 1" eyebrowTone="info" title="选择提名" titleId="nomination-title" aria-labelledby="nomination-title">
-          <div className="day-selection-tabs" role="tablist" aria-label="选择提名对象">
-            <button type="button" disabled={dayLocked} role="tab" aria-selected={nominationTarget === 'nominator'} className={nominationTarget === 'nominator' ? 'is-active' : ''} onClick={() => setNominationTarget('nominator')}>提名人 · {draft.nominatorSeatId ? `${draft.nominatorSeatId}号` : '未选'}</button>
-            <button type="button" disabled={dayLocked} role="tab" aria-selected={nominationTarget === 'nominee'} className={nominationTarget === 'nominee' ? 'is-active' : ''} onClick={() => setNominationTarget('nominee')}>被提名人 · {draft.nomineeSeatId ? `${draft.nomineeSeatId}号` : '未选'}</button>
-          </div>
-          <div className="day-seat-grid" aria-label="提名座位">
-            {Array.from({ length: session.playerCount }, (_value, index) => {
-              const seatId = index + 1
-              return <SeatButton key={seatId} seat={seatId} disabled={dayLocked} selected={seatId === (nominationTarget === 'nominator' ? draft.nominatorSeatId : draft.nomineeSeatId)} dead={playerStates[seatId]?.life === 'dead'} onClick={() => selectNominationSeat(seatId)} aria-label={`选择${seatId}号为${nominationTarget === 'nominator' ? '提名人' : '被提名人'}`} />
-            })}
-          </div>
-        </Card>
-
-        <Card
-          className="day-card--vote"
-          eyebrow="步骤 2"
-          eyebrowTone="info"
-          title="记录举手"
-          titleId="vote-title"
-          aria-labelledby="vote-title"
-          actions={<Field
-            className="day-threshold"
-            label="处决门槛"
-            hint={`存活${aliveCount}人 · 建议${suggestedThreshold}`}
-            title={`存活 ${aliveCount} 人，建议门槛 ${suggestedThreshold}（存活人数的一半，向上取整）`}
-          >
-            <input type="number" disabled={dayLocked} min="1" max={session.playerCount} value={draft.threshold} onChange={(event) => updateDraft((current) => ({ ...current, threshold: Number(event.target.value) || 0 }))} />
-          </Field>}
-        >
-          <p className={nominationReady ? 'day-vote-target' : 'day-vote-target is-pending'}>{nominationReady ? `${draft.nominatorSeatId}号提名 ${draft.nomineeSeatId}号` : '先选择提名双方'}</p>
-          <div className="day-vote-grid" aria-label="本轮举手票">
-            {Array.from({ length: session.playerCount }, (_value, index) => {
-              const seatId = index + 1
-              const dead = playerStates[seatId]?.life === 'dead'
-              return <div className="day-vote-seat" key={seatId}>
-                <SeatButton seat={seatId} disabled={dayLocked} selected={selectedVotes.has(seatId)} dead={dead} onClick={() => updateDraft((current) => toggleRaisedVote(current, seatId))} aria-label={`${selectedVotes.has(seatId) ? '取消' : '记录'}${seatId}号举手`} />
-                {dead && selectedVotes.has(seatId) ? <button type="button" disabled={dayLocked} className={ghostVotes.has(seatId) ? 'day-ghost-vote is-active' : 'day-ghost-vote'} onClick={() => updateDraft((current) => toggleGhostVote(current, seatId))}>{ghostVotes.has(seatId) ? '死亡票' : '标死亡票'}</button> : null}
-              </div>
-            })}
-          </div>
-          <div className="day-vote-summary" aria-label={`举手${draft.raisedSeatIds.length}票，死亡票${draft.ghostVoteSeatIds.length}张，处决门槛${draft.threshold || '未设置'}`}><span>举手<strong>{draft.raisedSeatIds.length}</strong></span><span>死亡票<strong>{draft.ghostVoteSeatIds.length}</strong></span><span>门槛<strong>{draft.threshold || '—'}</strong></span></div>
-          <Button variant="primary" onClick={completeRound} disabled={dayLocked || !nominationReady || draft.threshold < 1}><Hand aria-hidden="true" />记录本轮票型</Button>
-          {!nominationReady ? <p className="day-disabled-reason">先选择提名双方</p> : null}
-        </Card>
-
+        <DayVoteEditor key={roundNumber} draft={draft} playerCount={session.playerCount} playerStates={playerStates} disabled={dayLocked} onChange={updateDraft} onRecord={completeRound} onCancel={() => dispatch({ type: 'clear-day-vote-draft' })} />
         <Card
           className="day-card--standing"
           eyebrow="本日票面"
@@ -276,6 +218,9 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
             {(standing.status === 'leading' || standing.status === 'replaced') ? <Button variant="danger" disabled={Boolean(pendingResolution || hasUnrecordedVote)} onClick={() => setPendingResolution({ kind: 'execution', seatId: standing.nomineeSeatId!, segmentId: openDay.id, sourceRoundId: standing.sourceRoundId!, causesDeath: playerStates[standing.nomineeSeatId!]?.life === 'alive' })}><Gavel aria-hidden="true" />记录处决{standing.nomineeSeatId}号</Button> : null}
           </div> : null}
         </Card>
+
+        <SpecialExecution session={session} dispatch={dispatch} disabled={dayLocked} />
+        <DayVoteHistory session={session} dispatch={dispatch} disabled={Boolean(pendingResolution || pendingDayClose)} />
 
         {pendingResolution ? <section className="day-resolution-confirm" aria-live="polite">
           <div>{pendingResolution.kind === 'execution' ? <Gavel aria-hidden="true" /> : <Check aria-hidden="true" />}<div><strong>{pendingResolution.kind === 'execution' ? `确认处决${pendingResolution.seatId}号？` : '确认无处决？'}</strong><span>{pendingResolution.kind === 'execution' ? (playerStates[pendingResolution.seatId]?.life === 'dead' ? '该玩家已死亡：只记录处决事实，占用今天的处决机会。' : pendingResolution.causesDeath ? '将追加死亡状态与日终记录；不会进入夜晚。' : '只记录处决事实，不改变存活状态（弄臣、魔鬼代言人等）。') : '将追加无处决记录；不会改变玩家状态。'}</span></div></div>
@@ -301,3 +246,4 @@ export function DayWorkbench({ session, dispatch, onExit }: DayWorkbenchProps) {
     </main>
   )
 }
+

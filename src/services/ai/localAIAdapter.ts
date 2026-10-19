@@ -1,5 +1,5 @@
 import { createSmartScriptSetupCandidates } from '../../features/setup'
-import { applyOutcome, outcomeReady } from '../../features/night-workbench/state/projectWakeDraft'
+import { applyOutcome, missingWakeInputReason, outcomeReady, roleInputsSatisfied, selectedTargetCount, targetCountChosen, targetRoleChoicesSatisfied } from '../../features/night-workbench/state/projectWakeDraft'
 import type { AIAdapter, CreateNightResultAdviceInput } from './types'
 import { getPrototypeAIResultTemplate } from './prototypeNightAdvice'
 import { getComplexRoleKnowledge, type ComplexRoleKnowledge, type RoleKnowledgeRiskTag } from '../../domain/role-knowledge'
@@ -16,7 +16,7 @@ function projectedAdviceDrafts({ item, draft, outcomeId, roleKnowledge, roleRese
 }) {
   const projected = outcomeId ? applyOutcome(item, draft, outcomeId) : draft
   const journalDrafts = projected.storytellerResult ? [projected.storytellerResult] : []
-  const playerMessageDrafts = projected.informationGiven ? [projected.informationGiven] : []
+  const playerMessageDrafts = !item.targetRoleChoiceCount && projected.informationGiven ? [projected.informationGiven] : []
   const stateChangeDrafts = [
     ...(roleKnowledge ? stateChangeDraftsFor(roleKnowledge) : []),
     ...(roleResearch ? researchStateChangeDraftsFor(roleResearch) : []),
@@ -70,9 +70,7 @@ function inferNightOutcome(input: CreateNightResultAdviceInput) {
   const actorImpaired = item.status.impairments.includes('poisoned') || item.status.impairments.includes('drunk')
   if (actorImpaired && readyOutcomeId(input, 'no-effect')) return 'no-effect'
 
-  const targetSeatId = draft.targets[0]
-  const target = targetSeatId ? state.seatSnapshots[targetSeatId] : undefined
-  const targetRoleId = target?.role?.id
+  const targetRoleId = selectedNightTargetsForAI(state, draft)[0]?.roleId
   if (!targetRoleId) return undefined
 
   if (item.roleId === 'gambler' && draft.roleChoice) {
@@ -90,9 +88,9 @@ function inferNightOutcome(input: CreateNightResultAdviceInput) {
   }
 
   if (item.roleId === 'pithag' && draft.roleChoice) {
-    const currentRoleIds = new Set(Object.values(state.seatSnapshots)
-      .map((seat) => seat.role?.id)
-      .filter((roleId): roleId is string => Boolean(roleId)))
+    const currentRoleIds = new Set(selectedNightTargetsForAI(state, {
+      ...draft, targets: Object.keys(state.seatSnapshots).map(Number),
+    }).map((seat) => seat.roleId))
     return readyOutcomeId(input, currentRoleIds.has(draft.roleChoice) ? 'already-in-play' : 'changed')
   }
 
@@ -118,10 +116,14 @@ function createNightResultAdvice({ state, item, draft }: CreateNightResultAdvice
   if (!template) return null
 
   const option = item.outcomeOptions.find((candidate) => candidate.id === template.recommendedOutcomeId)
-  const missing = [
-    option?.requiredInputs.includes('targets') && draft.targets.length !== item.targetCount ? `缺少${item.targetLabel ?? '目标'}` : '',
-    option?.requiredInputs.includes('role') && !draft.roleChoice ? `缺少${item.roleLabel ?? '角色'}` : '',
-  ].filter(Boolean)
+  const missing = option && !outcomeReady(option, item, draft) ? [
+    !targetCountChosen(item, draft) ? '选择本次目标人数'
+      : draft.targets.length !== selectedTargetCount(item, draft) ? `缺少${item.targetLabel ?? '目标'}` : '',
+    !roleInputsSatisfied(item, draft) ? `缺少${item.roleCount === 4 ? '两善两恶四个不同角色' : item.roleCount === 2 ? '一善一恶两个角色' : item.roleLabel ?? '角色'}` : '',
+  ].filter(Boolean) : []
+  if (option && !outcomeReady(option, item, draft) && !missing.length) missing.push(missingWakeInputReason(item, draft) || '请核对本项输入。')
+  const pairedInputsValid = targetRoleChoicesSatisfied(item, draft, state.playerCount)
+  if (!pairedInputsValid && !missing.length) missing.push('请核对每组玩家与爪牙，以及本局座位范围。')
   const adviceId = `${item.id}-ai-${state.revision}-${draft.draftRevision}`
   const projected = projectedAdviceDrafts({ item, draft, outcomeId: option?.id, roleKnowledge, roleResearch })
 
@@ -132,10 +134,11 @@ function createNightResultAdvice({ state, item, draft }: CreateNightResultAdvice
     nightRunId: state.nightRunId,
     wakeItemId: item.id,
     contextRevision: state.revision,
+    contextKey: state.contextKey,
     sourceDraftRevision: draft.draftRevision,
     knowledgeVersion: state.knowledgeVersion,
     status: missing.length || !option ? 'needs_input' as const : 'answer' as const,
-    recommendedOutcomeId: option?.id,
+    recommendedOutcomeId: pairedInputsValid ? option?.id : undefined,
     summary: roleKnowledge
       ? `${template.summary} ${roleKnowledge.reminders[0] ?? '复杂角色只给提醒，不自动结算。'}`
       : roleResearch?.highRiskNotes[0]

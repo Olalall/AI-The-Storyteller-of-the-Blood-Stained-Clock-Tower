@@ -50,3 +50,6 @@ public/assets/community/*
 !public/assets/community/README.md
 !public/assets/community/source-manifest.json
 data/
+
+# Generated local acceptance builds, reports and test snapshots
+.codex-artifacts/auto-acceptance/

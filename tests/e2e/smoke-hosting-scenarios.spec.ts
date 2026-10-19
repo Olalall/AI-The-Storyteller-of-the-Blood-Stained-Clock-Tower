@@ -3,9 +3,9 @@
 const sessionStorageKey = 'botc-copilot-session-v1'
 
 async function openBlankSetup(page: Page, runId: string) {
-  await page.goto('/')
-  await page.evaluate(({ storageKey, id }) => {
-    window.localStorage.clear()
+  // 在应用首次启动前准备测试局，避免先启动的样例局留下编辑租约。
+  await page.addInitScript(({ storageKey, id }) => {
+    if (window.localStorage.getItem(storageKey)) return
     window.localStorage.setItem(storageKey, JSON.stringify({
       schemaVersion: 1,
       id,
@@ -24,7 +24,8 @@ async function openBlankSetup(page: Page, runId: string) {
       activeNightRunId: null,
     }))
   }, { storageKey: sessionStorageKey, id: `session-${runId}` })
-  await page.reload()
+  await page.goto('/')
+  await expect(page.getByRole('main', { name: '本局' })).toBeVisible()
   const setupHeading = page.getByRole('heading', { name: '智能配板与调整' })
   if (!(await setupHeading.isVisible().catch(() => false))) {
     await page.getByRole('button', { name: '智能配板与调整' }).click()
@@ -39,7 +40,7 @@ async function createConfirmedSetup(page: Page, input: { scriptId: string; playe
   await expect(page.locator('.setup-candidate')).toHaveCount(3)
   const firstCandidate = page.locator('.setup-candidate').first()
   await expect(firstCandidate.locator('.setup-candidate__roles li')).toHaveCount(input.playerCount)
-  await firstCandidate.getByRole('button', { name: '采用为草稿' }).click()
+  await firstCandidate.getByRole('button', { name: '选择组合', exact: true }).click()
   await expect(page.locator('.setup-seat-grid button')).toHaveCount(input.playerCount)
   await page.locator('.setup-panel__footer .ui-button--primary').click()
   await expect(page.locator('.setup-panel')).toBeHidden()
@@ -89,8 +90,7 @@ test('hosting scenario B: 7人开局后夜序只投影在场角色，状态由�
   await page.getByRole('button', { name: '中毒' }).click()
   await page.getByRole('button', { name: '确认状态' }).click()
 
-  const finalSession = await readSession(page)
-  expect(finalSession.timeline.some((entry: { kind: string; seatId?: number }) => entry.kind === 'player_state_changed' && entry.seatId === 1)).toBe(true)
+  await expect.poll(async () => (await readSession(page)).timeline.some((entry: { kind: string; seatId?: number }) => entry.kind === 'player_state_changed' && entry.seatId === 1)).toBe(true)
 })
 
 test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两轮白天投票', async ({ page }) => {
@@ -129,8 +129,8 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   }
   await page.getByRole('button', { name: '记录本轮票型' }).click()
 
+  await expect.poll(async () => (await readSession(page)).timeline.filter((entry: { kind: string }) => entry.kind === 'vote_round').length).toBe(2)
   const session = await readSession(page)
-  expect(session.timeline.filter((entry: { kind: string }) => entry.kind === 'vote_round')).toHaveLength(2)
   expect(session.dayVoteDraft.raisedSeatIds).toHaveLength(0)
 
   await returnDashboard(page)

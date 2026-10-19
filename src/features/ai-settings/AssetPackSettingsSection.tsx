@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge, type BadgeTone } from '../../components/ui/StatusBadge'
-import { smartScriptPacks, type SmartScriptPack } from '../../domain/scripts'
+import type { SmartScriptPack } from '../../domain/scripts'
 import {
   checkCharacterAssetAvailability,
   projectCharacterAssetPack,
@@ -11,6 +11,7 @@ import {
   type AssetFetch,
   type CharacterAssetAvailability,
 } from '../../services/assets/assetPackService'
+import { scriptAssetProjection } from '../../domain/scripts/scriptAssets.generated'
 import installerUrl from '../../../scripts/portable/Install-CharacterAssets.ps1?url'
 
 interface AssetPackSettingsSectionProps {
@@ -26,7 +27,7 @@ const statusCopy: Record<AssetAvailabilityStatus, { tone: BadgeTone; label: stri
 }
 
 export function AssetPackSettingsSection({
-  packs = smartScriptPacks,
+  packs,
   fetcher,
 }: AssetPackSettingsSectionProps) {
   const [guideOpen, setGuideOpen] = useState(false)
@@ -34,7 +35,7 @@ export function AssetPackSettingsSection({
   const [downloaded, setDownloaded] = useState(false)
   const [availability, setAvailability] = useState<CharacterAssetAvailability | null>(null)
   const [status, setStatus] = useState<AssetAvailabilityStatus>('checking')
-  const projection = useMemo(() => projectCharacterAssetPack(packs), [packs])
+  const projection = useMemo(() => packs ? projectCharacterAssetPack(packs) : scriptAssetProjection, [packs])
 
   async function refresh() {
     setStatus('checking')

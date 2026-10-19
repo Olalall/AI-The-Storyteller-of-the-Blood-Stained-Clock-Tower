@@ -4,6 +4,7 @@ import { createPrototypeGameSession } from '../data/createPrototypeSession'
 import { projectCurrentPlayerStates } from './projectors'
 import { gameSessionReducer } from './sessionReducer'
 import type { GameSessionState, PlayerState } from '../types'
+import { nightContextKey } from '../../night-workbench/state/gameSessionAdapter'
 
 function cleanTwelveSeatSession(): GameSessionState {
   const prototype = createPrototypeGameSession()
@@ -79,6 +80,7 @@ describe('12人结构化流程回归', () => {
     }
     const committed = gameSessionReducer(initial, {
       type: 'commit-night-workbench',
+      baseRevision: run.revision, baseContextKey: nightContextKey(initial),
       nightRun: {
         ...run,
         queue: run.queue.map((item) => item.id === wakeItem.id ? { ...item, progress: 'confirmed' as const } : item),
@@ -148,3 +150,4 @@ describe('12人结构化流程回归', () => {
     expect(closedDay.phaseSegments.some((segment) => segment.id === 'night-2')).toBe(false)
   })
 })
+

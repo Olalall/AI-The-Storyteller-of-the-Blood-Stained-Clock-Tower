@@ -99,4 +99,19 @@ describe('archive service HTTP loop', () => {
     expect(await getArchiveAsync(result.archive.id)).toEqual(result.archive)
     expect(window.localStorage.getItem(gameArchiveStorageKey)).toContain(result.archive.id)
   })
+
+  it('saves changed content under a new command, while retrying the same snapshot remains idempotent', async () => {
+    const repository = new JsonArchiveRepository(path.join(tempDir, 'versions.json'))
+    setAsyncArchiveAdapter(createHttpArchiveAdapter({ fetcher: createRouteFetcher(createArchiveHttpRoutes(createArchiveHandlers(repository))) }))
+    const session = createPrototypeGameSession()
+    const first = await archiveGameAsync({ commandId: 'first', session, winner: 'good' })
+    const changed = { ...session, seats: { ...session.seats, 1: { ...session.seats[1], nickname: '新快照' } } }
+    const next = await archiveGameAsync({ commandId: 'second', archiveId: first.archive.id, session: changed, winner: 'evil' })
+    const retry = await archiveGameAsync({ commandId: 'second', archiveId: next.archive.id, session: changed, winner: 'evil' })
+    expect(next.archive.id).not.toBe(first.archive.id)
+    expect(next.archive.session).toEqual(changed)
+    expect(retry.archive).toEqual(next.archive)
+    expect(await repository.list()).toHaveLength(2)
+    await expect(resetAfterArchiveAsync({ commandId: 'reset-old', sessionId: session.id, archiveId: first.archive.id, confirmReset: true, expectedSession: changed, expectedWinner: 'evil' })).resolves.toMatchObject({ ok: false, reason: 'archive_outdated' })
+  })
 })

@@ -1,5 +1,7 @@
 ﻿import type { GameArchiveRecord, GameWinner } from '../../src/services/archive/types'
 
+import type { GameReviewEvidence, GameReviewInterpretation } from '../../src/services/ai/gameReviewEvidence'
+
 export interface ArchiveListQuery {
   dateFrom?: string
   dateTo?: string
@@ -72,6 +74,9 @@ export interface AIReviewDraft {
   provider: 'fake' | 'openai-compatible'
   confidence: 'low' | 'medium' | 'high'
   disclaimer: string
+  keyEvents?: GameReviewEvidence[]
+  interpretations?: GameReviewInterpretation[]
+  missing?: string[]
   gameEvaluation: {
     summary: string
     highlights: string[]

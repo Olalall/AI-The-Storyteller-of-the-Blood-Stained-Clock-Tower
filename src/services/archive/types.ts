@@ -74,7 +74,7 @@ export interface ArchiveAdapter {
 
 export interface AsyncArchiveAdapter {
   load(): Promise<GameArchiveRecord[]>
-  save(record: GameArchiveRecord): Promise<GameArchiveRecord[]>
+  save(record: GameArchiveRecord, commandId?: string): Promise<GameArchiveRecord[]>
   get(archiveId: string): Promise<GameArchiveRecord | null>
 }
 
@@ -83,8 +83,10 @@ export interface ResetAfterArchiveCommand {
   sessionId: string
   archiveId: string
   confirmReset: boolean
+  expectedSession?: GameSessionState
+  expectedWinner?: GameWinner
 }
 
 export type ResetAfterArchiveResult =
   | { ok: true; archiveId: string }
-  | { ok: false; reason: 'archive_not_found' | 'session_mismatch' | 'reset_not_confirmed' }
+  | { ok: false; reason: 'archive_not_found' | 'session_mismatch' | 'reset_not_confirmed' | 'archive_outdated' }

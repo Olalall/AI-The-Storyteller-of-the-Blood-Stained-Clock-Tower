@@ -12,6 +12,7 @@ interface SheetProps {
   contentClassName?: string
   presentation?: 'sheet' | 'page'
   layer?: 'default' | 'nested'
+  dismissible?: boolean
 }
 
 export function Sheet({
@@ -23,10 +24,11 @@ export function Sheet({
   contentClassName = '',
   presentation = 'sheet',
   layer = 'default',
+  dismissible = true,
   children,
 }: PropsWithChildren<SheetProps>) {
   return (
-    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+    <Dialog.Root open={open} onOpenChange={(next) => { if (next || dismissible) onOpenChange(next) }}>
       {trigger ? <Dialog.Trigger asChild>{trigger}</Dialog.Trigger> : null}
       <Dialog.Portal>
         <Dialog.Overlay className={`sheet-overlay sheet-overlay--${layer}`} />
@@ -36,9 +38,9 @@ export function Sheet({
               <Dialog.Title>{title}</Dialog.Title>
               <Dialog.Description>{description}</Dialog.Description>
             </div>
-            <Dialog.Close className="sheet-close" aria-label={`关闭${title}`}>
+            {dismissible ? <Dialog.Close className="sheet-close" aria-label={`关闭${title}`}>
               <X aria-hidden="true" />
-            </Dialog.Close>
+            </Dialog.Close> : null}
           </header>
           <div className="sheet-body">{children}</div>
         </Dialog.Content>

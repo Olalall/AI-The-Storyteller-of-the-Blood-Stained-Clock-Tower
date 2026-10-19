@@ -10,11 +10,15 @@ export function confirmPlayerStateChange(
   if (!state.seats[action.seatId] || hasTimelineId(state, action.entryId)) return state
   if (action.segmentId !== null && !state.phaseSegments.some((segment) => segment.id === action.segmentId && !segment.closedAt)) return state
 
+  const followup = action.followupId ? state.stateFollowups?.find((task) => task.id === action.followupId && !task.resolution && task.seatId === action.seatId) : undefined
+  if (action.followupId && !followup) return state
+
   const before = projectCurrentPlayerStates(state)[action.seatId]
   if (!before || !samePlayerState(before, action.expectedBefore) || samePlayerState(before, action.after)) return state
 
   return {
     ...state,
+    ...(followup ? { stateFollowups: state.stateFollowups?.map((task) => task.id === followup.id ? { ...task, resolution: { kind: 'applied' as const, at: action.confirmedAt, reason: action.reason, entryId: action.entryId } } : task) } : {}),
     timeline: [...state.timeline, {
       id: action.entryId,
       kind: 'player_state_changed' as const,

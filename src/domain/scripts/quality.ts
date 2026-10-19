@@ -243,7 +243,7 @@ function readinessText(readiness: ScriptReadiness) {
 }
 
 function aiQualityText(readiness: ScriptReadiness) {
-  if (readiness === 'ready') return 'AI建议：已核验'
+  if (readiness === 'ready') return 'AI建议：资料齐全'
   if (readiness === 'review') return 'AI建议：需人工核对'
   return 'AI建议：仅作提示'
 }

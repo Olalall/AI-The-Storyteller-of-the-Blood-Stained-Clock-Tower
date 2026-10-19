@@ -253,6 +253,23 @@
   color: var(--accent-text);
 }
 
+.identity-deal__identity-choice {
+  display: grid;
+  gap: var(--space-12);
+}
+
+.identity-deal__identity-choice label { display: grid; gap: var(--space-8); }
+.identity-deal__identity-choice select {
+  min-height: var(--touch-min);
+  max-width: 100%;
+  background: var(--input-bg);
+  color: var(--text-body);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.identity-deal[aria-hidden="true"] { visibility: hidden; }
+
 .identity-spotlight {
   position: fixed;
   inset: 0;
@@ -262,7 +279,7 @@
   place-items: center;
   background:
     radial-gradient(circle at 50% 36%, rgb(224 177 93 / 12%), transparent 38%),
-    rgb(2 5 8 / 96%);
+    var(--surface-base);
 }
 
 .identity-spotlight__card {

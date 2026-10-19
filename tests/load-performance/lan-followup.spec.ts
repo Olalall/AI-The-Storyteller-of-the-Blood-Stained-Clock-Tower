@@ -1,0 +1,36 @@
+import { expect, test } from '@playwright/test'
+const key = 'botc-copilot-session-v1'
+for (const width of [390, 820]) test(`followups work without secure-context UUID API ${width}`, async ({ page }) => {
+  await page.setViewportSize({ width, height: 900 })
+  if (!process.env.BOTC_DEVICE_URL) await page.addInitScript(() => Object.defineProperty(window.crypto, 'randomUUID', { value: undefined }))
+  const errors: string[] = []
+  page.on('pageerror', (error) => errors.push(error.message))
+  await page.goto('/')
+  await expect(page.locator('.dashboard')).toBeVisible()
+  await expect.poll(() => page.evaluate((key) => localStorage.getItem(key), key)).not.toBeNull()
+  expect(await page.evaluate(() => typeof crypto.randomUUID)).toBe('undefined')
+  if (process.env.BOTC_DEVICE_URL) expect(await page.evaluate(() => isSecureContext)).toBe(false)
+  const read = () => page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), key)
+  const before = await read()
+  const source = before.timeline.find((entry: { kind: string }) => entry.kind === 'night_action')
+  expect(source).toBeTruthy()
+  await page.getByRole('button', { name: /^状态待办/ }).click()
+  const dialog = page.getByRole('dialog', { name: '状态待办', exact: true })
+  for (const seatId of [1, 2]) {
+    await dialog.getByText('添加状态待办', { exact: true }).click()
+    await dialog.getByLabel('已确认记录').selectOption(source.id)
+    await dialog.getByLabel('待处理玩家').selectOption(String(seatId))
+    await dialog.getByLabel('待办内容').fill(`局域网核对 ${seatId}`)
+    await dialog.getByRole('button', { name: '确认添加待办', exact: true }).click()
+    await expect.poll(async () => (await read()).stateFollowups?.length).toBe(seatId)
+  }
+  const saved = await read()
+  expect(new Set(saved.stateFollowups.map((task: { id: string }) => task.id)).size).toBe(2)
+  expect(saved.timeline).toEqual(before.timeline)
+  expect(saved.initialPlayerStates).toEqual(before.initialPlayerStates)
+  await dialog.getByRole('button', { name: '关闭状态待办' }).click()
+  await page.reload()
+  await expect(page.locator('.dashboard')).toBeVisible()
+  expect(await read()).toEqual(saved)
+  expect(errors).toEqual([])
+})

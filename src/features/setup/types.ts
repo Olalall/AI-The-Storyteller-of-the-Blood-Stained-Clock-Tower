@@ -1,3 +1,4 @@
+import type { SetupBoundedTransfer } from '../../domain/setup-templates/setupCountChanges'
 import type {
   DemonBluffAdvice,
   PlayerExperience,
@@ -30,14 +31,19 @@ export interface SetupRuleChoice {
   id: string
   label: string
   delta: Partial<TeamCounts>
+  boundedTransfer?: SetupBoundedTransfer
 }
 
 export interface SetupModifierRule {
   id: string
   roleId: string
+  /** 传说角色不占玩家座位，但其已确认的开局修正仍可生效。 */
+  requiresInPlay?: boolean
   label: string
   choices: readonly SetupRuleChoice[]
   requiresStorytellerChoice: boolean
+  /** New drafts only; confirmed source snapshots retain their prior required-selection contract. */
+  requiresSelectionForNewSetup?: boolean
   source: string
 }
 

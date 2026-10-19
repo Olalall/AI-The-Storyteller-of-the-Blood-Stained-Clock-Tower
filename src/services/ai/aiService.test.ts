@@ -26,7 +26,7 @@ describe('ai service prototype adapter', () => {
 
   it('creates night result advice without mutating the draft or queue', () => {
     const item = initialNightWorkbenchState.queue.find((entry) => entry.id === 'night-3-cerenovus')!
-    const draft = { ...emptyWakeDraft(), targets: [4], roleChoice: 'madness' }
+    const draft = { ...emptyWakeDraft(), targets: [4], roleChoice: item.roleChoices![0].id }
 
     const advice = createNightResultAdvice({ state: initialNightWorkbenchState, item, draft })
 

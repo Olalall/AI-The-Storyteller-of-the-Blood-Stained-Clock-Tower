@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import { catfishingRoleSnapshots } from '../../night-workbench/data/catfishing'
 import {
   initialNightWorkbenchState,
@@ -11,6 +11,59 @@ import { clearSessionRecovery, loadGameSessionOutcome, readSessionRecovery } fro
 
 describe('loadGameSession', () => {
   beforeEach(() => window.localStorage.clear())
+  afterEach(() => vi.restoreAllMocks())
+
+  it('returns the exact bytes parsed as its baseline before applying legacy normalization', () => {
+    const legacy = { ...createPrototypeGameSession(), dayActionDraft: undefined }
+    const raw = JSON.stringify(legacy, null, 2)
+    localStorage.setItem(gameSessionStorageKey, raw)
+    const outcome = loadGameSessionOutcome()
+    expect(outcome.kind).toBe('restored')
+    expect(outcome.baseline).toBe(raw)
+    expect(outcome.session.dayActionDraft).toBeNull()
+    expect(JSON.stringify(outcome.session)).not.toBe(raw)
+    expect(localStorage.getItem(gameSessionStorageKey)).toBe(raw)
+  })
+
+  it('does not pair the parsed old session with a newer save written immediately after the read', () => {
+    const original = createPrototypeGameSession()
+    const raw = JSON.stringify(original)
+    const newer = JSON.stringify({ ...original, id: 'other-tab-newer-session' })
+    localStorage.setItem(gameSessionStorageKey, raw)
+    const getItem = Storage.prototype.getItem
+    let replaced = false
+    vi.spyOn(Storage.prototype, 'getItem').mockImplementation(function (this: Storage, key) {
+      const value = getItem.call(this, key)
+      if (key === gameSessionStorageKey && !replaced) {
+        replaced = true
+        localStorage.setItem(gameSessionStorageKey, newer)
+      }
+      return value
+    })
+    const outcome = loadGameSessionOutcome()
+    expect(outcome.session.id).toBe(original.id)
+    expect(outcome.baseline).toBe(raw)
+    expect(localStorage.getItem(gameSessionStorageKey)).toBe(newer)
+  })
+
+  it.each([null, ''])('keeps an empty-storage baseline of %s without creating a current save', (raw) => {
+    if (raw !== null) localStorage.setItem(gameSessionStorageKey, raw)
+    const outcome = loadGameSessionOutcome()
+    expect(outcome.kind).toBe('fresh')
+    expect(outcome.baseline).toBe(raw)
+    expect(localStorage.getItem(gameSessionStorageKey)).toBe(raw)
+  })
+
+  it('does not adopt an unknown current save as baseline after a failed read', () => {
+    const raw = JSON.stringify(createPrototypeGameSession())
+    localStorage.setItem(gameSessionStorageKey, raw)
+    const getItem = vi.spyOn(Storage.prototype, 'getItem').mockImplementationOnce(() => { throw new DOMException('Denied', 'SecurityError') })
+    const outcome = loadGameSessionOutcome()
+    getItem.mockRestore()
+    expect(outcome.kind).toBe('fresh')
+    expect(outcome.baseline).toBeNull()
+    expect(localStorage.getItem(gameSessionStorageKey)).toBe(raw)
+  })
 
   it('migrates a complete v5 night snapshot to the v1 session once', () => {
     const legacy = structuredClone(initialNightWorkbenchState)
@@ -53,7 +106,8 @@ describe('loadGameSession', () => {
     }]
     window.localStorage.setItem(legacyNightWorkbenchStorageKey, JSON.stringify(legacy))
 
-    const session = loadGameSession()
+    const outcome = loadGameSessionOutcome()
+    const session = outcome.session
     const migratedRecords = session.timeline.filter((entry) => entry.kind === 'night_action')
     const correction = migratedRecords.find((entry) => entry.id === correctionId)
 
@@ -67,6 +121,8 @@ describe('loadGameSession', () => {
       effectiveFrom: 'future_workbenches',
     })
     expect(window.localStorage.getItem(gameSessionStorageKey)).not.toBeNull()
+    expect(outcome.kind).toBe('migrated')
+    expect(outcome.baseline).toBe(window.localStorage.getItem(gameSessionStorageKey))
     expect(window.localStorage.getItem(legacyNightWorkbenchStorageKey)).toBeNull()
   })
 
@@ -179,6 +235,7 @@ describe('loadGameSession', () => {
     const outcome = loadGameSessionOutcome()
 
     expect(outcome.kind).toBe('unreadable')
+    expect(outcome.baseline).toBe('{"id":"half-written"')
     const recovery = readSessionRecovery()
     expect(recovery?.reason).toBe('parse-error')
     expect(recovery?.raw).toBe('{"id":"half-written"')
@@ -190,6 +247,7 @@ describe('loadGameSession', () => {
     const outcome = loadGameSessionOutcome()
 
     expect(outcome.kind).toBe('unreadable')
+    expect(outcome.baseline).toBe(JSON.stringify({ schemaVersion: 1, id: 'no-timeline' }))
     const recovery = readSessionRecovery()
     expect(recovery?.reason).toBe('invalid')
     expect(JSON.parse(recovery!.raw)).toMatchObject({ id: 'no-timeline' })
@@ -200,7 +258,7 @@ describe('loadGameSession', () => {
     window.localStorage.setItem(gameSessionStorageKey, original)
 
     const outcome = loadGameSessionOutcome()
-    // 复现真实时序：useGameSession 会立刻把回退用的新对局写回主键。
+    // 模拟已留档后显式新建；恢复副本不能随主键替换而消失。
     window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(outcome.session))
 
     expect(readSessionRecovery()?.raw).toBe(original)

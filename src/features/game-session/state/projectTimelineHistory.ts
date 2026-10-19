@@ -1,6 +1,7 @@
 import type { GameSessionState, TimelineEntry } from '../types'
 import { assertNever } from '../../../shared/assertNever'
 import { formatDaySkillDetails, formatDaySkillSummary } from '../daySkillPresentation'
+import { voteCount } from '../../day-workbench/state/voteRound'
 
 export type TimelineHistoryCategory =
   | 'night_action'
@@ -135,11 +136,12 @@ function historyFields(session: GameSessionState, entry: TimelineEntry): Timelin
     case 'vote_round':
       return {
         category: 'vote_round' as const,
-        summary: `${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${entry.raisedSeatIds.length}票`,
+        summary: `${entry.voided ? '已撤销：' : ''}${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${voteCount(entry)}票`,
         details: [
           `门槛：${entry.threshold}票`,
           `举手：${entry.raisedSeatIds.length ? `${entry.raisedSeatIds.join('、')}号` : '0票'}`,
           entry.ghostVoteSeatIds.length ? `死亡票：${entry.ghostVoteSeatIds.join('、')}号` : '',
+          entry.voteAdjustment ? `手工票数修正：${entry.voteAdjustment.count > 0 ? '+' : ''}${entry.voteAdjustment.count}；原因：${entry.voteAdjustment.reason}` : '',
         ].filter(Boolean),
         seatIds: uniqueSeatIds([entry.nominatorSeatId, entry.nomineeSeatId, ...entry.raisedSeatIds, ...entry.ghostVoteSeatIds]),
       }
@@ -147,7 +149,8 @@ function historyFields(session: GameSessionState, entry: TimelineEntry): Timelin
       return {
         category: 'execution' as const,
         summary: `确认处决${entry.executedSeatId}号`,
-        details: ['玩家状态会由专用日终记录同步'],
+        details: [entry.causedDeath === false ? '本次处决未造成死亡' : '处决与死亡分别记录，请核对玩家状态',
+          ...(entry.exceptionReason ? [`特殊处决原因：${entry.exceptionReason}`] : [])],
         seatIds: uniqueSeatIds([entry.executedSeatId]),
       }
     case 'no_execution':
@@ -167,7 +170,7 @@ function correctionHelp(entry: TimelineEntry, isSuperseded: boolean) {
     case 'day_action':
       return undefined
     case 'vote_round':
-      return '票型影响暂列结果；从白天工作台重新记录。'
+      return '从白天工作台的“票型记录与更正”更正或撤销；原票型保留。'
     case 'player_state_changed':
       return '状态影响当前局面；从玩家状态板追加状态记录。'
     case 'execution':

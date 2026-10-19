@@ -33,6 +33,7 @@ export function ScriptQualityPanel({ report, currentScriptId }: ScriptQualityPan
         </div>
         <p>开局门槛 / AI建议 / 复核进度</p>
       </div>
+      <p className="script-quality__filter-summary">资料齐全表示已整理技能和夜序，不代表所有复杂交互都经实局验证；AI 建议仍需说书人确认。</p>
 
       <div className="script-quality__metrics" aria-label="智能板子统计">
         <Metric label="已导入" value={report.totals.scripts} />
@@ -61,7 +62,7 @@ export function ScriptQualityPanel({ report, currentScriptId }: ScriptQualityPan
       </div>
 
       <p className="script-quality__filter-summary" aria-live="polite">
-        {filter === 'all' ? '按优先级显示：本局板子 → 暂缓 → 待核对 → 已核验。' : `当前显示 ${filteredItems.length} 个板子。`}
+        {filter === 'all' ? '按优先级显示：本局板子 → 暂缓 → 待核对 → 资料齐全。' : `当前显示 ${filteredItems.length} 个板子。`}
       </p>
 
       {filter === 'review' || filter === 'blocked' ? (

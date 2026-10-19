@@ -48,6 +48,11 @@ function nightAdvice(request: Extract<AIContractRequest, { kind: 'night_settleme
   const { draft, roleKnowledge, roleResearch, wakeItem } = request.context
   const missing = [
     wakeItem.targetCount > draft.targets.length ? '目标未选完' : '',
+    wakeItem.targetRoleChoiceCount && (draft.targetRoleChoices?.length !== wakeItem.targetRoleChoiceCount
+      || draft.targetRoleChoices.some(choice => !choice.seatId || !wakeItem.targetRoleChoiceRoleIds?.includes(choice.roleId))
+      || new Set(draft.targetRoleChoices.map(choice => choice.seatId)).size !== wakeItem.targetRoleChoiceCount
+      || new Set(draft.targetRoleChoices.map(choice => choice.roleId)).size !== wakeItem.targetRoleChoiceCount)
+      ? '请补齐不同玩家与本板不同爪牙角色的逐项配对' : '',
   ].filter(Boolean)
   const roleFacts = [
     'AI 只能给出技能结果草稿，不能直接改变玩家状态或日志。',
