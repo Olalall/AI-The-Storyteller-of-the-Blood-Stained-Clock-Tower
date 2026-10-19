@@ -1,5 +1,5 @@
 import { createScriptRegistry } from './registry'
-import { resolveCharacterIconPath } from './roleIconPaths'
+import { normalizeImportedPack } from './normalizeImportedPack'
 import type { SmartScriptPack } from './types'
 
 /** Loaded knowledge cache only. It never contains or modifies game state. */
@@ -8,7 +8,7 @@ export function createPackLoader(ids: readonly string[], loaders: Record<string,
   const registry = createScriptRegistry()
   const pending = new Map<string, Promise<SmartScriptPack>>()
   function register(pack: SmartScriptPack) {
-    const normalized = { ...pack, roles: pack.roles.map((role) => ({ ...role, iconPath: resolveCharacterIconPath(role) })) }
+    const normalized = normalizeImportedPack(pack)
     registry.register(normalized)
     packs.push(normalized)
     packs.sort((a, b) => ids.indexOf(a.scriptId) - ids.indexOf(b.scriptId))

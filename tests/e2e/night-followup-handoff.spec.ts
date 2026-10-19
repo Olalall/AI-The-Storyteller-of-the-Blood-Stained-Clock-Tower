@@ -1,3 +1,4 @@
+import { createPrototypeGameSession } from '../../src/features/game-session/data/createPrototypeSession'
 import { expect, test, type Page } from '@playwright/test'
 const key = 'botc-copilot-session-v1'
 async function read(page: Page) { return page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), key) }
@@ -8,16 +9,13 @@ for (const width of [390, 1440]) {
     const errors: string[] = []
     page.on('pageerror', (error) => errors.push(error.message))
     await page.goto('/')
-    await page.evaluate(async (key) => {
-      const path = '/src/features/game-session/data/createPrototypeSession.ts'
-      const module = await import(/* @vite-ignore */ path)
-      const session = module.createPrototypeGameSession()
+    await page.evaluate(({ key, session }) => {
       session.nightRuns[session.activeNightRunId].privacyShielded = false
       const original = session.timeline.find((entry: { kind: string }) => entry.kind === 'night_action')
       session.timeline.push({ ...original, id: 'correction-one', correctionOf: original.id, summary: '第一次更正：改为使用能力', record: { ...original.record, revision: 2 } }, { ...original, id: 'correction-two', correctionOf: 'correction-one', summary: '第二次更正：本夜无需改变状态', record: { ...original.record, revision: 3, snapshot: { ...original.record.snapshot, storytellerResult: '核对后本夜无需改变状态' } } })
       session.stateFollowups = [{ id: 'pending-old', sourceEntryId: original.id, seatId: 1, note: '旧记录的待办', createdAt: '2026-09-08T00:00:00Z' }, { id: 'completed-old', sourceEntryId: original.id, seatId: 2, note: '已处理的旧待办', createdAt: '2026-09-08T00:00:00Z', resolution: { kind: 'dismissed', reason: '已核对', at: '2026-09-08T00:01:00Z' } }]
       localStorage.setItem(key, JSON.stringify(session))
-    }, key)
+    }, { key, session: createPrototypeGameSession() })
     await page.reload()
     await page.getByRole('button', { name: '进入夜晚' }).click()
     const before = await read(page)

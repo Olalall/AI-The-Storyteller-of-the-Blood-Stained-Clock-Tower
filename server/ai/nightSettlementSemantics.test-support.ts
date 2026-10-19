@@ -46,7 +46,7 @@ export const nightSemanticCases = definitions.map((definition) => ({
 // 仅供离线正反例与显式授权的真实回归使用，不参与生产结算或自动修改状态。
 export function auditNightAdvice(caseId: NightSemanticCaseId, value: unknown): string[] {
   const draft = value && typeof value === 'object' ? value as Record<string, unknown> : {}
-  const strings = (key: string): string[] => Array.isArray(draft[key]) ? draft[key].filter((entry): entry is string => typeof entry === 'string') : []
+  const strings = (key: string): string[] => Array.isArray(draft[key]) ? draft[key].map((entry: unknown) => typeof entry === 'string' ? entry : key === 'stateChangeDrafts' && entry && typeof entry === 'object' && 'text' in entry ? String(entry.text) : '').filter(Boolean) : []
   const text = ['summary', 'ruleFacts', 'warnings', 'journalDrafts', 'stateChangeDrafts', 'authorityWarnings']
     .flatMap((key) => typeof draft[key] === 'string' ? [draft[key] as string] : strings(key)).join('\n')
   const players = strings('playerMessageDrafts')

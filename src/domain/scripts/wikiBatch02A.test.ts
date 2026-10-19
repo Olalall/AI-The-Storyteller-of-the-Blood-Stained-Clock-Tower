@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { describe, expect, it } from 'vitest'
 import { createSmartScriptSetupCandidates, evaluateSmartScriptSetup } from '../../features/setup/smartScriptSetupCandidates'
-import { cardinalitySession } from '../../features/night-workbench/state/nightCardinality.test-support'
+import { cardinalitySession, nextCardinalityNight } from '../../features/night-workbench/state/nightCardinality.test-support'
 import { actNight, projected } from '../../features/night-workbench/state/nightInformation.test-support'
 import { emptyWakeDraft } from '../../features/night-workbench/state/projectWakeDraft'
 import { canConfirmDraft } from '../../features/night-workbench/state/workbenchGuards'
@@ -173,9 +173,10 @@ describe('clocktower-wiki batch 02 A source, candidates and real night inputs', 
     expect(session.timeline).toEqual(authority)
   })
 
-  it.each(['zhui-feng-zhu-ri', 'wei-wang-gui-lai'])('%s Po modes remain explicit and never auto-apply attacks', (scriptId) => {
-    let session = cardinalitySession(scriptId, 'po', 7, true)
+  it.each(['zhui-feng-zhu-ri', 'wei-wang-gui-lai'])('%s missing-history Po modes remain explicit and never auto-apply attacks', (scriptId) => {
+    let session = nextCardinalityNight(cardinalitySession(scriptId, 'po', 7, true), 'po')
     const authority = projectCurrentPlayerStates(session)
+    expect(current(session).item.historicalContext?.status).toBe('missing')
     expect(current(session).item.allowedTargetCounts).toEqual([0, 1, 3])
     for (const size of [0, 1, 3]) {
       session = actNight(session, { type: 'target-count-choice', count: size })

@@ -38,7 +38,7 @@ for (const width of [390, 1440]) {
     expect((await read(page)).nightRuns).toEqual({})
     expect((await read(page)).timeline).toEqual([])
 
-    await setup.locator('.setup-candidate').first().getByRole('button', { name: '选择组合', exact: true }).click()
+    await setup.locator('.setup-candidate').first().getByRole('button', { name: '选择这套配板', exact: true }).click()
     await setup.getByRole('button', { name: '确认配板', exact: true }).click()
     await expect(setup).toBeHidden()
     await page.getByRole('button', { name: '进入夜晚', exact: true }).click()
@@ -51,7 +51,7 @@ for (const width of [390, 1440]) {
     expect(run.playerCount).toBe(7)
     expect(run.queue.length).toBeGreaterThan(0)
     const setupEntry = session.timeline.find((entry: { kind: string }) => entry.kind === 'setup_confirmed')
-    for (const item of run.queue) {
+    for (const item of run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep)) {
       expect(setupEntry.setup.draft.assignments.find((assignment: { seatId: number }) => assignment.seatId === item.seatId)?.role.id).toBe(item.roleId)
     }
     expect(session.timeline).toHaveLength(1)

@@ -1,3 +1,4 @@
+import { normalizeRoleId } from '../../../domain/scripts'
 import type { GameSessionState } from '../types'
 import { appendCorrection, appendPhaseEntry } from './timeline'
 import type { GameSessionAction } from './sessionActions'
@@ -9,6 +10,7 @@ import { projectCurrentAssignments, projectCurrentPlayerStates } from './project
 const itemIndependentActions = new Set<NightWorkbenchAction['type']>([
   'preview', 'return-current', 'toggle-privacy', 'set-privacy', 'toggle-dim', 'skip-item', 'apply-ai-advice',
 ])
+import { wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
 
 type NightSessionActionType =
   | 'commit-night-workbench'
@@ -67,9 +69,11 @@ function commitNightWorkbench(
     ...state.timeline.filter((entry) => entry.kind === 'night_action' && entry.nightRunId === run.id).map((entry) => entry.id),
     ...records.map((record) => record.id),
   ])
-  if (records.some((record) =>
+  const existingRecordIds = new Set(state.timeline.filter((entry) => entry.kind === 'night_action').map((entry) => entry.id))
+  if (records.some((record) => !existingRecordIds.has(record.id) && (
     !queueItemById.has(record.wakeItemId) ||
-    (record.correctionOf !== undefined && !knownRecordIds.has(record.correctionOf)))) return state
+    !wakeTargetsStructurallyValid(queueItemById.get(record.wakeItemId)!, record.snapshot, state.playerCount) ||
+    (record.correctionOf !== undefined && !knownRecordIds.has(record.correctionOf))))) return state
 
   let nextState = state
   let phaseSegmentId = run.phaseSegmentId
@@ -79,12 +83,14 @@ function commitNightWorkbench(
     if (kazaliAllocationBlocksItem(state, record.wakeItemId)) return state
     const item = queueItemById.get(record.wakeItemId)
     if (!item) return state
-    if (!record.correctionOf && projectCurrentAssignments(state).find((assignment) => assignment.seatId === item.seatId)?.role.id !== item.roleId) return state
+    if (!record.correctionOf && !item.systemStep && normalizeRoleId(projectCurrentAssignments(state).find((assignment) => assignment.seatId === item.seatId)?.role.id ?? '') !== normalizeRoleId(item.roleId)) return state
     if (!record.correctionOf && item.abilityPhase === 'initial' && (record.snapshot.targets.length !== 1 || record.snapshot.targets.some((seat) => projectCurrentPlayerStates(state)[seat]?.life !== 'alive'))) return state
     const entry = {
       kind: 'night_action' as const,
       nightRunId: run.id,
       wakeItemId: record.wakeItemId,
+      actorSeatId: item.seatId,
+      roleId: item.roleId,
       summary: record.snapshot.storytellerResult || `${item.seatId}号记录已确认`,
       details: [record.snapshot.playerChoice, record.snapshot.informationGiven, record.snapshot.storytellerContext && `说书人已核对：${record.snapshot.storytellerContext}`].filter((value): value is string => Boolean(value)),
       record: { revision: record.revision, snapshot: structuredClone(record.snapshot) },

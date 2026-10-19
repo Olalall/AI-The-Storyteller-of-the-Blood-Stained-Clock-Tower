@@ -1,0 +1,197 @@
+.session-entry {
+  min-height: 100dvh;
+  display: grid;
+  place-items: start center;
+  padding: var(--space-24);
+  background: var(--surface-base);
+}
+
+.session-entry__card {
+  width: min(680px, 100%);
+  display: grid;
+  gap: var(--space-20);
+  padding: var(--space-32);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-panel);
+}
+
+.session-entry__topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-12);
+}
+
+.session-entry__eyebrow,
+.session-entry__step-label {
+  color: var(--accent-text);
+  font-size: var(--type-meta);
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+
+.session-entry__install-intro,
+.session-entry__setup-guide {
+  display: grid;
+  gap: var(--space-16);
+  text-align: left;
+}
+
+.session-entry h1,
+.session-entry h2,
+.session-entry p {
+  margin: 0;
+}
+
+.session-entry h1 {
+  font: 800 var(--type-page-title) var(--font-display);
+  color: var(--text-strong);
+}
+
+.session-entry h2 {
+  font: 800 var(--type-section) var(--font-display);
+  color: var(--text-strong);
+}
+
+.session-entry p {
+  color: var(--text-muted);
+  font-size: var(--type-body);
+  line-height: var(--line-body);
+}
+
+.session-entry__install-intro > .ui-button {
+  justify-self: start;
+}
+
+.session-entry__install-intro > small {
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
+.session-entry__launch {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-20);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--surface-soft) 86%, var(--accent-soft));
+}
+
+.session-entry__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  margin-top: var(--space-8);
+}
+
+.session-entry__actions .ui-button--primary {
+  min-height: 52px;
+  min-width: 168px;
+}
+
+.session-entry__mode-summary {
+  min-height: 64px;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-12);
+  padding: var(--space-12) var(--space-16);
+  border: 1px solid var(--info-border);
+  border-radius: var(--radius-lg);
+  background: var(--info-soft);
+}
+
+.session-entry__mode-summary > svg {
+  width: 20px;
+  color: var(--info-text);
+}
+
+.session-entry__mode-summary > span {
+  display: grid;
+  gap: 2px;
+}
+
+.session-entry__mode-summary small {
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
+.session-entry__mode-summary strong {
+  color: var(--text-strong);
+  font-size: var(--type-label);
+}
+
+.session-entry__learning {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-12);
+}
+
+.session-entry__learning {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.session-entry__learning > p {
+  font-size: var(--type-meta);
+}
+
+.session-entry__guide-trigger {
+  width: 100%;
+  justify-content: flex-start;
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.session-entry__install-help {
+  border-top: 1px solid var(--border);
+  padding-top: var(--space-8);
+}
+
+.session-entry__install-help summary {
+  min-height: var(--touch-min);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  color: var(--text-muted);
+  font-size: var(--type-label);
+  font-weight: 750;
+  cursor: pointer;
+  list-style: none;
+}
+
+.session-entry__install-help summary::-webkit-details-marker { display: none; }
+.session-entry__install-help summary:focus-visible,
+.session-entry__guide-trigger:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.session-entry__install-help summary svg { width: 18px; transition: transform 160ms ease; }
+.session-entry__install-help[open] summary svg { transform: rotate(180deg); }
+
+.session-entry__install-help .pwa-install-card { margin-top: var(--space-8); }
+.session-entry__install-help > .ui-button { margin-top: var(--space-8); }
+
+@media (max-width: 520px) {
+  .session-entry {
+    padding-top: calc(var(--space-12) + env(safe-area-inset-top));
+    padding-right: calc(var(--space-12) + env(safe-area-inset-right));
+    padding-bottom: calc(var(--space-12) + env(safe-area-inset-bottom));
+    padding-left: calc(var(--space-12) + env(safe-area-inset-left));
+  }
+  .session-entry__card { gap: var(--space-14); padding: var(--space-18); }
+  .session-entry__setup-guide { gap: var(--space-12); }
+  .session-entry h1 { font-size: clamp(1.75rem, 9vw, 2.4rem); }
+  .session-entry__launch { padding: var(--space-16); }
+  .session-entry__actions { display: grid; }
+  .session-entry__actions .ui-button { width: 100%; }
+  .session-entry__install-intro > .ui-button { width: 100%; }
+  .session-entry__mode-summary { grid-template-columns: auto minmax(0, 1fr); }
+  .session-entry__mode-summary > .ui-button { grid-column: 2; justify-self: start; }
+}
+
+@media (max-width: 320px) {
+  .session-entry__card { padding: var(--space-16); }
+  .session-entry__topline { align-items: flex-start; }
+  .session-entry__mode-summary { grid-template-columns: minmax(0, 1fr); }
+  .session-entry__mode-summary > svg { display: none; }
+  .session-entry__mode-summary > .ui-button { grid-column: 1; }
+}

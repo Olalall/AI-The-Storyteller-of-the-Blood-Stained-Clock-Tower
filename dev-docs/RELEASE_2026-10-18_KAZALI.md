@@ -15,7 +15,7 @@
 
 - 专项真实 reducer 回归覆盖全部 11 板、人数边界、完整配对与显式应用、更正、失去能力、当晚顺序、旧数据不改写、备份恢复和木偶首后夜假装流程。
 - Playwright：7 / 10 / 13 / 15 人，390 / 1440px，共 8 条分配→应用→新爪牙当晚确认→刷新流程；另两条木偶真假流程，合计 **10 / 10 通过**。测试使用隔离新局，不替换用户网页中的原局。
-- 真实 `gemini-test-model`：6 个局部规则场景，合计 8 次请求、39,752 tokens；原始第 002 条保密泛化、第 004 条木偶假装流程遗漏均保留，修正提示后用 007 / 008 实际复测。不是六局完整自主对局。[逐字段审阅](../.tmp/kazali-live-20261018/REVIEW.md)、[封存账本](../.tmp/kazali-live-20261018/BUDGET_CLOSED.json)。
+- 真实 `test-model`：6 个局部规则场景，合计 8 次请求、39,752 tokens；原始第 002 条保密泛化、第 004 条木偶假装流程遗漏均保留，修正提示后用 007 / 008 实际复测。不是六局完整自主对局。[逐字段审阅](../.tmp/kazali-live-20261018/REVIEW.md)、[封存账本](../.tmp/kazali-live-20261018/BUDGET_CLOSED.json)。
 - 第 007 条状态建议中仍有一句已然语气，其所属列表为待单独应用的目标状态；身份／阵营和夜序实际更新仅由结构化选择与说书人的独立命令决定，AI 文本不执行变化。原始内容未被归一化偷偷改写。
 - 后端编译及 HTTP 冒烟通过：归档、读取、健康、AI 默认关闭／配置边界均正常，没有调用真实模型。
 
@@ -32,11 +32,11 @@
 
 ## 上线与数据保留
 
-- 目标仍是 `SERVER_INSTANCE_ID / ap-shanghai / C:\botc-storyteller-companion`，[公网 BOTC](https://botc.example.com/) 已加载冻结新版本。仅切换 `dist` / `dist-server`，Node 1012 → 4376，成功启动一次，没有回滚；368 个分块精确回执通过，没有重传或复用旧分块。
+- 目标仍是 `SERVER_INSTANCE_ID / ap-shanghai / C:\example\botc`，[公网 BOTC](https://botc.example.com) 已加载冻结新版本。仅切换 `dist` / `dist-server`，Node 1012 → 4376，成功启动一次，没有回滚；368 个分块精确回执通过，没有重传或复用旧分块。
 - 维护窗口保留最新完整 data 与已鉴权旧版。`data/asset-packs/characters.json` 560 字节、SHA256 `011FA63E699DEF6B389C99B774E144FF3EC01B0A26BFDD54535A7567BF61BCB0` 不变；745 个已有资源逐字节保留。DPAPI 密文、ACL、HMAC、API、启动脚本、巡检及三个任务定义不变。回退只允许本批 `previous` 的鉴权旧程序，不能写回旧 data。
 - 公网 16 个入口 JS/CSS 共 897,442 字节，与冻结文件一致；另核 11 个受影响板子与 NightWorkbench、AI 两个延迟资源，共 13 个文件，全匹配。实际 IAB 已加载新入口 `/assets/index-DK6j-a61.js`。
 - 真实 IAB 正式导出的原局前后 **8,876 字节完全相同**，SHA256 `79CB7DF305C3A14C63DD1C051F820CEB5382B27EAAE71B0660B3663B0EA44BFF`；仍是欲盖弥彰、12 人、3 条时间线，没有切换测试局或覆盖恢复。原局页面保留打开。
-- 同一内存 Cookie 在应用切换前后仍获授权；没有把 Cookie 写入磁盘或调用模型。固定模型仍为 `gemini-test-model`，匿名付费请求先返回 401。
+- 同一内存 Cookie 在应用切换前后仍获授权；没有把 Cookie 写入磁盘或调用模型。固定模型仍为 `test-model`，匿名付费请求先返回 401。
 - 自然巡检第一轮：应用 UTC 06:35:23.176、隧道 06:35:58.980；第二轮：应用 06:37:23.205、隧道 06:36:59.104。每项严格晚于本次启动，第二轮也各自晚于第一轮；全部 `healthy / failureCount=0`，始终 Node 4376、Cloudflared 2716、4 连接，没有巡检补重启。Cloudflare 和操作系统均未重启。
 - 主任务 LastResult `2147946720` 是既有 IgnoreNew 重复触发拒绝，未伪报成 0；两项巡检任务均 Ready / LastResult 0。首次后验的启动宽限和切换前旧巡检记录没有计作健康两轮。
 

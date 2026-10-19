@@ -1,6 +1,6 @@
 # 2026-10-16 复杂局 AI 回归与事件复盘
 
-目标为现有 [BOTC 网站](https://botc.example.com/)，腾讯上海实例 `SERVER_INSTANCE_ID`，运行目录 `C:\botc-storyteller-companion`，监听 `127.0.0.1:3000`。本文接续同日的[前一批部署](RELEASE_2026-10-16.md)。
+目标为现有 [BOTC 网站](https://botc.example.com)，腾讯上海实例 `SERVER_INSTANCE_ID`，运行目录 `C:\example\botc`，监听 `127.0.0.1:3000`。本文接续同日的[前一批部署](RELEASE_2026-10-16.md)。
 
 ## 本次变化
 
@@ -37,7 +37,7 @@
 - 三个原任务均启用，任务 XML 和运维脚本哈希未变。主任务仍为 Running；周期重复触发的结果需结合 PID 和 HTTP 判断，不能当作进程退出，沿用前批部署记录的说明。
 - 服务器原有 `asset-packs/characters.json` 仍为 560 字节，SHA-256 `011FA63E699DEF6B389C99B774E144FF3EC01B0A26BFDD54535A7567BF61BCB0`。切换前数据备份已校验哈希及 JSON 可读性，部署后哈希一致。
 
-旧程序、数据备份与任务 XML：`C:\botc-storyteller-companion-deploy\releases\release-20261016-ai-review\previous`。远端同级保留 `deployment-result.json`、`postcheck.json`；本机[最终机器检查](../.tmp/release-20261016-ai-review/final-verification.json)包含本地/公网测试统计、部署与巡检取样，原始浏览器报告和日志在同目录。
+旧程序、数据备份与任务 XML：`C:\example\botc-deploy\releases\release-20261016-ai-review\previous`。远端同级保留 `deployment-result.json`、`postcheck.json`；本机[最终机器检查](../.tmp/release-20261016-ai-review/final-verification.json)包含本地/公网测试统计、部署与巡检取样，原始浏览器报告和日志在同目录。
 
 回滚只恢复 `dist/`、`dist-server/`，保留发布后新增业务数据。先暂停主任务及两项巡检，备份现行代码，再还原 previous 中的两个程序目录，恢复原任务并检查健康；不要直接覆盖当前 data 或改动 Cloudflared 配置。本次没有触发线上回滚，没有再次重启整机或注入服务故障。
 

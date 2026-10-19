@@ -1,0 +1,59 @@
+/* 补录建议卡。它盖在画布上方而不是塞进抽屉：核对是一段有起点有终点的活，
+   期间说书人要的是这一串卡片，不是环。 */
+.backfill-panel {
+  margin: 0 var(--space-12) var(--space-8);
+  padding: var(--space-12);
+  border: 1px solid var(--warning-border);
+  border-radius: var(--radius-lg);
+  background: var(--surface-panel);
+  box-shadow: var(--shadow-sm);
+}
+
+.backfill-panel__head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.backfill-panel__title {
+  flex: 1 1 auto;
+  margin: 0;
+  color: var(--text-strong);
+  font-size: var(--type-label);
+  font-weight: 800;
+}
+
+.backfill-panel__cards {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  max-height: 46dvh;
+  overflow-y: auto;
+}
+
+.backfill-panel__card {
+  padding: var(--space-10);
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.backfill-panel__card[data-danger='true'] { border-color: var(--danger-border); }
+
+.backfill-panel__message {
+  flex: 1 1 240px;
+  margin: 0;
+  color: var(--text-body);
+  font-size: var(--type-label);
+  line-height: var(--line-body);
+}
+
+.backfill-panel__actions { flex: none; display: flex; gap: var(--space-6); }

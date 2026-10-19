@@ -150,7 +150,7 @@ describe('night core safety regression', () => {
     expect(state.revision).toBe(beforeState.revision)
     expect(state.contextKey).not.toBe(beforeState.contextKey)
     state.drafts[current.id] = draft
-    const next = nightWorkbenchReducer(state, { type: 'apply-ai-advice', advice: beforeAdvice })
+    const next = nightWorkbenchReducer(state, { at: '2026-10-19T00:00:00.000Z', type: 'apply-ai-advice', advice: beforeAdvice })
     expect(next.drafts[current.id]).toEqual(draft)
     expect(next.lastNotice).toContain('失效')
     expect(createNightResultAdvice({ state, item: current, draft })?.recommendedOutcomeId).toBe('no-effect')
@@ -189,7 +189,7 @@ describe('night core safety regression', () => {
     expect(read().queue.find((item: { id: string }) => item.id === activeId).progress).toBe('pending')
     expect(read().queue.find((item: { id: string }) => item.id === preview.id).applicability).toBe('needs_review')
     const state = sessionInitialNightState({ session: initial, dispatchSession: () => {} })!
-    expect(nightWorkbenchReducer(state, { type: 'resolve-applicability', value: 'not_applicable' })).toBe(state)
+    expect(nightWorkbenchReducer(state, { at: '2026-10-19T00:00:00.000Z', type: 'resolve-applicability', value: 'not_applicable' })).toBe(state)
   })
 
   it('records all three Al-Hadikhia targets in their chosen order', () => {
@@ -213,7 +213,7 @@ describe('night core safety regression', () => {
     let state = sessionInitialNightState({ session, dispatchSession: () => {} })!
     expect(state.queue.find((entry) => entry.id === item.id)?.targetCount).toBe(3)
     expect(JSON.stringify(session)).toBe(legacy)
-    for (const seatId of [1, 2, 3]) state = nightWorkbenchReducer(state, { type: 'target', seatId })
+    for (const seatId of [1, 2, 3]) state = nightWorkbenchReducer(state, { at: '2026-10-19T00:00:00.000Z', type: 'target', seatId })
     expect(state.drafts[item.id].targets).toEqual([1, 2, 3])
   })
 
@@ -238,8 +238,8 @@ describe('night core safety regression', () => {
     const session = cleanActiveSession()
     const binding = { session, dispatchSession: () => {} }
     const projected = sessionInitialNightState(binding)!
-    const oldCommit = createNightWorkbenchCommit(nightWorkbenchReducer(projected, { type: 'target', seatId: 4 }), binding)
-    const edited = gameSessionReducer(session, { type: 'night-workbench-action', nightRunId: projected.nightRunId, expectedWakeItemId: projected.previewEntryId, expectedActiveCursorId: projected.activeCursorId, action: { type: 'target', seatId: 3 } })
+    const oldCommit = createNightWorkbenchCommit(nightWorkbenchReducer(projected, { at: '2026-10-19T00:00:00.000Z', type: 'target', seatId: 4 }), binding)
+    const edited = gameSessionReducer(session, { type: 'night-workbench-action', nightRunId: projected.nightRunId, expectedWakeItemId: projected.previewEntryId, expectedActiveCursorId: projected.activeCursorId, action: { at: '2026-10-19T00:00:00.000Z', type: 'target', seatId: 3 } })
     expect(gameSessionReducer(edited, oldCommit)).toBe(edited)
     const before = projectCurrentPlayerStates(session)[6]
     const poisoned = gameSessionReducer(session, {
@@ -253,7 +253,7 @@ describe('night core safety regression', () => {
     expect(gameSessionReducer(anotherSession, oldCommit)).toBe(anotherSession)
     const newContext = sessionInitialNightState({ session: anotherSession, dispatchSession: () => {} })!
     const oldAdvice = createNightResultAdvice({ state: projected, item: projected.queue.find((entry) => entry.id === projected.activeCursorId)!, draft: projected.drafts[projected.activeCursorId] })!
-    expect(nightWorkbenchReducer(newContext, { type: 'apply-ai-advice', advice: oldAdvice }).lastNotice).toContain('失效')
+    expect(nightWorkbenchReducer(newContext, { at: '2026-10-19T00:00:00.000Z', type: 'apply-ai-advice', advice: oldAdvice }).lastNotice).toContain('失效')
   })
 
   it('keeps an adopted AI draft but requires a new storyteller choice after the authoritative context changes', () => {
@@ -261,7 +261,7 @@ describe('night core safety regression', () => {
     const initial = sessionInitialNightState({ session, dispatchSession: () => {} })!
     const item = initial.queue.find((entry) => entry.id === initial.activeCursorId)!
     const advice = createNightResultAdvice({ state: initial, item, draft: initial.drafts[item.id] })!
-    const adopted = gameSessionReducer(session, { type: 'night-workbench-action', nightRunId: initial.nightRunId, expectedWakeItemId: item.id, expectedActiveCursorId: item.id, action: { type: 'apply-ai-advice', advice } })
+    const adopted = gameSessionReducer(session, { type: 'night-workbench-action', nightRunId: initial.nightRunId, expectedWakeItemId: item.id, expectedActiveCursorId: item.id, action: { at: '2026-10-19T00:00:00.000Z', type: 'apply-ai-advice', advice } })
     const ready = sessionInitialNightState({ session: adopted, dispatchSession: () => {} })!
     expect(canConfirmDraft(ready, ready.queue.find((entry) => entry.id === item.id)!, ready.drafts[item.id])).toBe(true)
     expect(adopted.nightRuns[initial.nightRunId]).not.toHaveProperty('contextKey')
@@ -274,14 +274,14 @@ describe('night core safety regression', () => {
     const stale = sessionInitialNightState({ session: changed, dispatchSession: () => {} })!
     expect(stale.drafts[item.id]).toEqual(ready.drafts[item.id])
     expect(canConfirmDraft(stale, stale.queue.find((entry) => entry.id === item.id)!, stale.drafts[item.id])).toBe(false)
-    const unconfirmed = gameSessionReducer(changed, { type: 'night-workbench-action', nightRunId: initial.nightRunId, expectedWakeItemId: item.id, expectedActiveCursorId: item.id, action: { type: 'confirm', advance: true } })
+    const unconfirmed = gameSessionReducer(changed, { type: 'night-workbench-action', nightRunId: initial.nightRunId, expectedWakeItemId: item.id, expectedActiveCursorId: item.id, action: { at: '2026-10-19T00:00:00.000Z', type: 'confirm', advance: true } })
     expect(unconfirmed.timeline).toBe(changed.timeline)
     expect(unconfirmed.nightRuns[initial.nightRunId].activeCursorId).toBe(item.id)
-    const manual = gameSessionReducer(unconfirmed, { type: 'night-workbench-action', nightRunId: initial.nightRunId, expectedWakeItemId: item.id, expectedActiveCursorId: item.id, action: { type: 'outcome', outcomeId: 'no-effect' } })
+    const manual = gameSessionReducer(unconfirmed, { type: 'night-workbench-action', nightRunId: initial.nightRunId, expectedWakeItemId: item.id, expectedActiveCursorId: item.id, action: { at: '2026-10-19T00:00:00.000Z', type: 'outcome', outcomeId: 'no-effect' } })
     const manualState = sessionInitialNightState({ session: manual, dispatchSession: () => {} })!
     expect(manualState.drafts[item.id].outputSource).toMatchObject({ kind: 'preset', modifiedFromAI: { adviceId: advice.adviceId } })
     expect(canConfirmDraft(manualState, manualState.queue.find((entry) => entry.id === item.id)!, manualState.drafts[item.id])).toBe(true)
-    const confirmed = gameSessionReducer(manual, { type: 'night-workbench-action', nightRunId: initial.nightRunId, expectedWakeItemId: item.id, expectedActiveCursorId: item.id, action: { type: 'confirm', advance: false } })
+    const confirmed = gameSessionReducer(manual, { type: 'night-workbench-action', nightRunId: initial.nightRunId, expectedWakeItemId: item.id, expectedActiveCursorId: item.id, action: { at: '2026-10-19T00:00:00.000Z', type: 'confirm', advance: false } })
     expect(confirmed.timeline).toHaveLength(changed.timeline.length + 1)
     expect(parseSessionBackup(JSON.stringify(confirmed))).toEqual(confirmed)
   })
@@ -293,8 +293,25 @@ describe('night core safety regression', () => {
     expect(JSON.stringify(session)).toBe(before)
     const closed = gameSessionReducer(session, { type: 'close-active-night-run', nightRunId: session.activeNightRunId!, closedAt: '2026-10-16T00:00:00Z' })
     const run = session.nightRuns[session.activeNightRunId!]
-    expect(gameSessionReducer(closed, { type: 'night-workbench-action', nightRunId: run.id, expectedWakeItemId: run.previewEntryId, expectedActiveCursorId: run.activeCursorId, action: { type: 'target', seatId: 4 } })).toBe(closed)
+    expect(gameSessionReducer(closed, { type: 'night-workbench-action', nightRunId: run.id, expectedWakeItemId: run.previewEntryId, expectedActiveCursorId: run.activeCursorId, action: { at: '2026-10-19T00:00:00.000Z', type: 'target', seatId: 4 } })).toBe(closed)
   })
 })
 
 
+
+
+it('does not revalidate an already-saved night record against newer input metadata when editing the next item', () => {
+  const session = createPrototypeGameSession()
+  const run = session.nightRuns[session.activeNightRunId!]
+  const saved = session.timeline.find((entry) => entry.kind === 'night_action' && entry.record.snapshot.targets.length > 0)!
+  if (saved.kind !== 'night_action') throw new Error('fixture needs a saved target')
+  const historical = run.queue.find((item) => item.id === saved.wakeItemId)!
+  historical.targetCount = 0
+  const binding = { session, dispatchSession: () => {} }
+  const state = sessionInitialNightState(binding)!
+  const before = structuredClone(session.timeline)
+  const next = gameSessionReducer(session, { type: 'night-workbench-action', nightRunId: run.id, expectedWakeItemId: state.previewEntryId, expectedActiveCursorId: state.activeCursorId, action: { type: 'target', seatId: 4, at: '2026-10-19T00:00:00Z' } })
+  expect(next).not.toBe(session)
+  expect(next.nightRuns[run.id].drafts[state.previewEntryId].targets).toEqual([4])
+  expect(next.timeline).toEqual(before)
+})

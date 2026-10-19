@@ -96,8 +96,29 @@ export function appendCorrection(
    */
   if (state.timeline.some((item) => item.correctionOf === original.id)) return null
 
+  let correctionEntry = entry
+  if (entry.kind === 'night_action' && original.kind === 'night_action') {
+    let source: NightActionEntry | undefined = original
+    let actorSeatId = entry.actorSeatId ?? original.actorSeatId
+    let roleId = entry.roleId ?? original.roleId
+    const originalQueueItem = state.nightRuns[original.nightRunId]?.queue.find((item) => item.id === original.wakeItemId)
+    actorSeatId ??= originalQueueItem?.seatId
+    roleId ??= originalQueueItem?.roleId
+    while ((!actorSeatId || !roleId) && source.correctionOf) {
+      const previous = state.timeline.find((item) => item.id === source?.correctionOf)
+      if (!previous || previous.kind !== 'night_action') break
+      source = previous
+      const previousQueueItem = state.nightRuns[previous.nightRunId]?.queue.find((item) => item.id === previous.wakeItemId)
+      actorSeatId ??= previous.actorSeatId
+      actorSeatId ??= previousQueueItem?.seatId
+      roleId ??= previous.roleId
+      roleId ??= previousQueueItem?.roleId
+    }
+    correctionEntry = { ...entry, actorSeatId, roleId }
+  }
+
   const timelineEntry: TimelineEntry = {
-    ...entry,
+    ...correctionEntry,
     id: input.id,
     segmentId: original.segmentId,
     createdAt: input.createdAt,

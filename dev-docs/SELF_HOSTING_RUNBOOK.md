@@ -5,11 +5,12 @@
 
 本文给本机运行或自用 VPS 部署使用。它不是 SaaS 方案，也不授权恢复玩家端、官方魔典同步器或自动规则引擎。
 
-## 最近一次部署：2026-10-16
+## 最近一次已验证部署
 
-20 项核心玩法与数据保护修复已部署到 `https://botc.example.com/`，现有浏览器对局逐字节一致、服务器数据哈希不变。1,019 项单测、53 项生产构建浏览器场景、24 项公网场景通过；[本批逐项修复、产物、备份与回滚记录](RELEASE_2026-10-16_CORE_FIXES.md)已保存。同日[复杂局 AI 与事件复盘](RELEASE_2026-10-16_AI_REVIEW.md)、[夜间错局与 AI 设置](RELEASE_2026-10-16.md)保留历史记录。
+手机与跨浏览器的编辑保护已完成部署；测试、数据保留与范围限制见 [2026-10-19 发布记录](RELEASE_2026-10-19_CROSS_BROWSER_EDITOR.md)。本文只保留可复用部署步骤，个人域名、API 上游地址、云实例、私有配置和机器路径均不进入公开仓库。
 
-本次使用私有 GitHub 运行包和腾讯 TAT，保留 `C:\botc-storyteller-companion`、`127.0.0.1:3000`、原任务和巡检脚本。切换前暂停三个任务并保留旧程序及数据，健康检查失败时回滚；旧哈希资源与现有图片保留。不要直接向运行目录执行下面旧同步脚本的 `Expand-Archive -Force`，它本身不提供这些保护。
+公开分享模式是部署者显式开启的独立模式，并不代表当前受邀设备站点已经开放匿名付费 AI。
+
 
 ## 一句话结论
 
@@ -44,6 +45,57 @@ OpenAI-compatible AI provider（Key 只放后端环境变量）
 - 让 AI 自动修改身份、阵营、死亡、毒醉、处决或胜负。
 - 把新工具部署进 `C:\botc-mvp` 等旧 V2.5 目录。
 - 一边部署一边顺手改 nginx、数据库、官方魔典同步或玩家端。
+
+## 运行模式
+
+### 默认：本机 / 自用模式
+
+不设置 `BOTC_PUBLIC_ACCESS_MODE`，或显式设为 `false`，保持现有行为：
+
+```powershell
+$env:BOTC_PUBLIC_ACCESS_MODE='false'
+$env:BOTC_BACKEND_HOST='127.0.0.1'
+$env:BOTC_BACKEND_PORT='8787'
+npm run dev:backend
+```
+
+该模式面向本机或已经由外层认证保护的自用 VPS。归档、恢复和服务器 AI 接口按原有合同工作。它不应被当作匿名公网服务直接暴露。
+
+### 公开分享模式
+
+要匿名分享静态页面和 PWA，必须显式启用：
+
+```powershell
+$env:BOTC_PUBLIC_ACCESS_MODE='true'
+$env:BOTC_PUBLIC_AI_ALLOWED_HOSTS='api.example.com,api2.example.com'
+$env:BOTC_BACKEND_HOST='127.0.0.1'
+$env:BOTC_BACKEND_PORT='3000'
+node dist-server\runtime.mjs
+```
+
+公开模式应形成以下边界：
+
+| 能力 | 匿名公开 | 说明 |
+| --- | --- | --- |
+| 静态页面、PWA、Service Worker | 是 | 通过 HTTPS 反向代理提供 |
+| `GET /healthz` | 是 | 只用于简单存活检查 |
+| 浏览器本机对局、本机归档、导出恢复 | 是 | 数据留在每位用户自己的浏览器，不依赖 VPS 私有 API |
+| `/api/archives*` | 否 | 可能包含完整对局和真实身份，不向匿名用户开放 |
+| `/api/recovery/*` | 否 | 半局快照属于私有数据，不向匿名用户开放 |
+| 使用 VPS 环境变量 Key 的 AI | 否 | 防止服务器额度被匿名消耗 |
+| 用户自带 Key（BYOK）AI | 可选 | 仅限 `BOTC_PUBLIC_AI_ALLOWED_HOSTS` 中的 HTTPS 主机，并受服务端频率与请求大小限制 |
+
+`BOTC_PUBLIC_AI_ALLOWED_HOSTS` 留空时，公开模式不提供真实 AI 代理，普通用户仍可使用本机模板、夜序、技能提示、投票、日志和离线功能。设置白名单时只写 provider 主机名，不写协议、路径、Key 或任何 VPS 地址，例如：
+
+```powershell
+$env:BOTC_PUBLIC_AI_ALLOWED_HOSTS='api.example.com'
+```
+
+公开 BYOK 请求必须同时提交完整的 HTTPS 地址、模型和用户自己的 Key；缺少任一项都会拒绝，绝不会逐字段回退到 VPS 配置。AI 请求体上限为 1 MiB、同一 runtime 可见来源地址每分钟最多 10 次 AI 请求；其他 `/api/` 请求体上限为 5 MiB、每分钟最多 30 次。白名单、限流和请求大小限制是后端安全边界，不能用 CORS、未公开网址或前端隐藏按钮代替。
+
+当前限流故意不信任客户端可伪造的 `X-Forwarded-For`，只使用 runtime 连接看到的地址。通过 nginx 等反向代理时，所有公网请求通常会显示成同一个代理地址，因此会共享限额。这不会放宽安全边界，但可能较早触发 429；正式开放 BYOK 前要按真实代理拓扑做压力验收，不能擅自改成信任任意转发头。
+
+重要：隐藏公网地址不是安全措施。知道网址的人可以转发，自动扫描也可能发现服务；即使 GitHub 不写 VPS 地址，也必须保留上述后端限制。
 
 ## 本机运行
 
@@ -128,10 +180,10 @@ package 输出位置：
 Windows VPS 推荐：
 
 ```text
-C:\botc-storyteller-companion
-C:\botc-storyteller-companion-deploy
-C:\botc-storyteller-companion\logs
-C:\botc-storyteller-companion\data\archives\archives.json
+C:\example\botc
+C:\example\botc-deploy
+C:\example\botc\logs
+C:\example\botc\data\archives\archives.json
 ```
 
 Linux VPS 推荐：
@@ -162,8 +214,8 @@ npm run sync:vps -- -PlanOnly
 $env:BOTC_ASSISTANT_DEPLOY_HOST='<VPS_HOST>'
 $env:BOTC_ASSISTANT_DEPLOY_USER='Administrator'
 $env:BOTC_ASSISTANT_SSH_PORT='22'
-$env:BOTC_ASSISTANT_REMOTE_DIR='C:\botc-storyteller-companion'
-$env:BOTC_ASSISTANT_STAGING_DIR='C:\botc-storyteller-companion-deploy'
+$env:BOTC_ASSISTANT_REMOTE_DIR='C:\example\botc'
+$env:BOTC_ASSISTANT_STAGING_DIR='C:\example\botc-deploy'
 $env:BOTC_ASSISTANT_BACKEND_PORT='3000'
 ```
 
@@ -180,9 +232,9 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts/sync-to-vps.ps1 
 进入部署目录：
 
 ```powershell
-cd C:\botc-storyteller-companion
+cd C:\example\botc
 npm ci --omit=dev --no-fund
-$env:BOTC_BACKEND_HOST='0.0.0.0'
+$env:BOTC_BACKEND_HOST='127.0.0.1'
 $env:BOTC_BACKEND_PORT='3000'
 $env:BOTC_STATIC_DIR='dist'
 $env:BOTC_ARCHIVE_DATA_FILE='data\archives\archives.json'
@@ -193,8 +245,11 @@ node dist-server\runtime.mjs
 
 ```powershell
 curl.exe http://127.0.0.1:3000/healthz
-curl.exe http://<VPS_IP>:3000/healthz
 ```
+
+公网访问应由同机的带认证反向代理转发到 `127.0.0.1:3000`。不要直接把 `/api/archives`、`/api/recovery` 或 AI 接口暴露给公网；只有已经完成防火墙和反向代理保护时，才显式使用启动脚本的 `-AllowPublicBind`。
+
+如果启用了 `BOTC_PUBLIC_ACCESS_MODE=true`，反向代理可以匿名转发静态页面、PWA 和 `/healthz`；runtime 仍应绑定 `127.0.0.1`，由后端公开模式拒绝私有归档、恢复和 VPS Key AI。不要因为启用公开模式就开放 runtime 监听端口。
 
 期望返回包含：
 
@@ -217,8 +272,8 @@ scripts/vps/check-assistant-health.ps1
 Windows VPS 注册开机自启计划任务：
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\botc-storyteller-companion\scripts\vps\install-windows-scheduled-task.ps1 `
-  -AppDir 'C:\botc-storyteller-companion' `
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File C:\example\botc\scripts\vps\install-windows-scheduled-task.ps1 `
+  -AppDir 'C:\example\botc' `
   -NodePath 'C:\nodejs\node.exe' `
   -Port 3000 `
   -StartNow
@@ -254,9 +309,9 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .tmp\healthcheck-selfche
 
 ```powershell
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File scripts\vps\install-cloudflare-healthcheck.ps1 `
-  -AppDir 'C:\botc-storyteller-companion' `
+  -AppDir 'C:\example\botc' `
   -TaskName 'botc-storyteller-backend' `
-  -PublicUrl 'https://botc.example.com/' `
+  -PublicUrl 'https://botc.example.com' `
   -Port 3000
 ```
 
@@ -280,7 +335,7 @@ powershell.exe -NoProfile -ExecutionPolicy Bypass -File .tmp\tunnel-selfcheck-10
 
 BOTC 主任务在开机后出现 118 → 100/200 的同实例启动事件，启动进程 PID 2124 与 Node 6020 的父进程一致；Node 在 11:41:30 创建。Cloudflared 在 11:41:25 创建、11:41:27 由 SCM 7036 记录进入运行状态；本轮没有人工启动，也没有 BOTC 或隧道巡检恢复记录，可确认两者开机自启生效。两项巡检同样有开机触发记录，后续各成功完成六次；最终均为健康、失败计数为零。
 
-重启后观察约五分钟，Node 和 Cloudflared 的 PID 及创建时间保持不变，四条隧道连接在线。本机与公网首页、健康接口均通过，浏览器刷新后页面显示正常；三个任务定义、部署脚本及现有数据文件哈希与重启前一致。见[重启演练结果](../.tmp/reboot-drill-20261016-0338/final-verification.json)，原始事件和取样时间线保存在同目录。服务器记录位于 `C:\botc-storyteller-companion-deploy\recovery-20261016\reboot-20261016T034002Z`。该轮仅覆盖正常软重启；后续强制关机演练如下。
+重启后观察约五分钟，Node 和 Cloudflared 的 PID 及创建时间保持不变，四条隧道连接在线。本机与公网首页、健康接口均通过，浏览器刷新后页面显示正常；三个任务定义、部署脚本及现有数据文件哈希与重启前一致。见[重启演练结果](../.tmp/reboot-drill-20261016-0338/final-verification.json)，原始事件和取样时间线保存在同目录。服务器记录位于 `C:\example\botc-deploy\recovery-20261016\reboot-20261016T034002Z`。该轮仅覆盖正常软重启；后续强制关机演练如下。
 
 2026-10-16 强制关机再开机演练已通过，同样针对实例 `SERVER_INSTANCE_ID`。关机前复制了现有 `data/` 文件，核对原文件与备份 SHA-256 一致，并确认 JSON 可解析。北京时间 11:58:20 发出 `StopInstances`、`StopType=HARD` 请求，11:58:50 独立确认实例为 `STOPPED` 且对应本次请求，然后单独调用 `StartInstances` 开机。Windows 本次开机时间为 11:58:55，系统记录了 Kernel-Power 41 和 EventLog 6008，佐证非正常关机。
 
@@ -288,7 +343,7 @@ BOTC 主任务由 118 开机事件触发，同实例 200 事件中的进程 PID 
 
 开机后观察约六分钟，两个进程的 PID 和创建时间保持不变；本机及公网首页和健康接口均通过，四条隧道连接在线，浏览器刷新正常。BOTC 本机巡检成功完成七次，隧道巡检成功完成六次，失败计数均为零。三个任务定义及部署脚本哈希未变。现有服务器数据文件集合、大小、SHA-256 与关机前一致，JSON 仍可解析，数据备份哈希也通过。见[强制关机演练结果](../.tmp/hard-power-cycle-20261016-0356/final-verification.json)，同目录保留关机请求、停稳确认、开机请求、系统事件及公网取样记录。
 
-本轮数据备份和服务器记录位于 `C:\botc-storyteller-companion-deploy\recovery-20261016\hard-power-cycle-20261016T035710Z`，数据副本在其 `data-backup/` 子目录。数据结论覆盖服务器现有文件，本轮未模拟业务文件写入中断或物理磁盘损坏。
+本轮数据备份和服务器记录位于 `C:\example\botc-deploy\recovery-20261016\hard-power-cycle-20261016T035710Z`，数据副本在其 `data-backup/` 子目录。数据结论覆盖服务器现有文件，本轮未模拟业务文件写入中断或物理磁盘损坏。
 
 在管理员终端开启任务事件日志，并设为 32 MiB 循环覆盖：
 
@@ -302,7 +357,8 @@ Linux：当前只记录建议，用 systemd 托管 `node dist-server/runtime.mjs
 
 共同要求：
 
-- 直接暴露后端端口时使用 `BOTC_BACKEND_HOST=0.0.0.0`；当前 Cloudflare Tunnel 部署保持 `127.0.0.1`，由隧道转发，不必暴露后端端口。
+- 默认保持 `BOTC_BACKEND_HOST=127.0.0.1`，由反向代理负责公网入口；不要为了“能访问”直接把 runtime 绑定到 `0.0.0.0`。
+
 - 把日志写到部署目录下的 `logs/`，不要写到仓库源码目录。
 - 把 AI Key 写进服务环境变量或服务器 secret，不写进启动脚本模板。
 
@@ -322,7 +378,7 @@ $env:BOTC_AI_TIMEOUT_MS='30000'
 $env:BOTC_AI_MAX_CONTEXT_TOKENS='12000'
 ```
 
-前端页面只保存非敏感配置；真实 Key 只由后端读取。配置说明见 `AI_RUNTIME_STARTUP.md`。
+前端页面可在用户明确保存后把 BYOK 配置写入当前浏览器的 `localStorage`；这不等于上传 GitHub 或写入 VPS。公共电脑和不可信浏览器扩展环境不应保存真实 Key。VPS 自有 Key 仍只由后端环境变量读取。配置说明见 `AI_RUNTIME_STARTUP.md`。
 
 ## 数据备份
 
@@ -375,16 +431,16 @@ npm run sync:vps -- -Execute
 
 6. 远端安装生产依赖并重启服务。
 
-7. 验证：
+7. 在 VPS 本机验证：
 
 ```powershell
-curl.exe http://<VPS_IP>:3000/healthz
+curl.exe http://127.0.0.1:3000/healthz
 ```
 
-8. 打开浏览器验证：
+8. 通过已配置的 HTTPS 反向代理地址打开浏览器验证；不要把真实域名或 IP 写回仓库文档。
 
 ```text
-http://<VPS_IP>:3000/
+https://your-public-host.example/
 ```
 
 ## 回滚
@@ -401,7 +457,7 @@ http://<VPS_IP>:3000/
 
 | 现象 | 先查什么 | 常见原因 |
 | --- | --- | --- |
-| 页面打不开 | `curl /healthz`、端口监听、防火墙 | 服务没启动、端口未开放、host 不是 `0.0.0.0` |
+| 页面打不开 | `curl /healthz`、端口监听、反向代理 | 服务没启动、代理未转发、后端地址或端口不一致 |
 | 重启后服务没起来 | `Get-ScheduledTask botc-storyteller-backend`、`logs/runtime.log` | 计划任务没注册、Node 路径不对、runtime 文件缺失 |
 | 前端打开但归档失败 | 后端地址设置、`/api/archives` 响应 | 前端仍指向本地、后端没启动、CORS/反代错误 |
 | AI 显示不可用 | `/api/settings/ai`、环境变量 | `BOTC_AI_ENABLED=false` 或缺 Key/model/baseUrl |
@@ -421,6 +477,7 @@ http://<VPS_IP>:3000/
 - 能保存一局归档并刷新后仍可查看。
 - AI 未配置时，手动主持流程仍可用。
 - 如果启用真实 AI，必须手动点一次真实连通测试。
+- 如果启用公开分享模式，匿名请求必须只能访问静态/PWA、`/healthz` 和经过白名单限制的可选 BYOK；私有归档、恢复和 VPS Key AI 必须返回拒绝。
 - 旧 V2.5 访问路径不受影响。
 
 ## 相关文档

@@ -21,7 +21,7 @@ export const wenWuShuangQuanOtherNightOrder: readonly NightOrderEntry[] = [
   { roleId: "gambler", order: 4, note: "让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "pithag", order: 5, note: "让麻脸巫婆选择一名玩家和一个角色。如果她选择的角色不在场：让麻脸巫婆重新入睡。唤醒她的目标玩家。对该玩家展示“你是”信息标记和他的新角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "lunatic", order: 6, note: "做任何需要做的事情来模拟一位恶魔的行动。让疯子重新入睡。唤醒恶魔。对恶魔展示疯子角色标记，并指向疯子玩家，随后是疯子的攻击目标。", knowledgeStatus: 'confirmed' },
-  { roleId: "lycanthrope", order: 7, note: "半兽人指向一名存活玩家：如果那名玩家善良，则立刻死去且今夜不会再有玩家死亡。", knowledgeStatus: 'confirmed' },
+  { roleId: "lycanthrope", order: 7, note: "半兽人指向一名存活玩家：如果那名玩家善良，则立刻死去且当晚只有恶魔不会造成死亡，其他来源仍可造成死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "imp", order: 8, note: "让小恶魔选择一名玩家。标记那名玩家死亡。如果小恶魔选择了自己：用一个备用的小恶魔标记替换一个存活的爪牙角色标记。让原来的小恶魔重新入睡。唤醒新的小恶魔。对他展示“你是”信息标记，和小恶魔角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "pukka", order: 9, note: "让普卡选择一名玩家。标记那名玩家中毒。【圆】上一个因普卡中毒的玩家死亡，随后恢复健康。", knowledgeStatus: 'confirmed' },
   { roleId: "shabaloth", order: 10, note: "上一夜被沙巴洛斯选择且当前已死亡的玩家之一可能被反刍，如果被反刍，标记那名玩家被复活。让沙巴洛斯选择两名玩家。标记这两名玩家死亡。", knowledgeStatus: 'confirmed' },
@@ -31,6 +31,6 @@ export const wenWuShuangQuanOtherNightOrder: readonly NightOrderEntry[] = [
   { roleId: "acrobat", order: 14, note: "如果杂技演员左右两侧最近的存活善良玩家之一中毒或醉酒，杂技演员死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "barber", order: 15, note: "如果理发师今天死亡了，唤醒恶魔并展示“该角色的效果对你生效”信息标记和理发师角色标记。如果恶魔选择了两名玩家，将这两名玩家分别独自唤醒。对他们展示“你是”信息标记和他们的新角色标记。", knowledgeStatus: 'confirmed' },
   { roleId: "professor", order: 16, note: "教授可以选择一名死亡玩家。如果他这么做了，标记教授失去能力，然后如果那名玩家是镇民，标记那名玩家被复活。之后的夜晚无需再唤醒教授。", knowledgeStatus: 'confirmed' },
-  { roleId: "balloonist", order: 17, note: "选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", knowledgeStatus: 'confirmed' },
+  { roleId: "balloonist", order: 17, note: "选择一名角色类型与上一夜所示玩家不同的玩家，指给气球驾驶员；记录本夜所示玩家，供下一夜核对。", knowledgeStatus: 'confirmed' },
   { roleId: "mathematician", order: 18, note: "给他展示数字手势来告诉他从上个黎明到数学家醒来前有多少玩家的角色能力受他人影响而未正常生效。", knowledgeStatus: 'confirmed' },
 ]

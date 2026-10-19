@@ -29,7 +29,7 @@
 .day-timer-settings small { min-height: 16px; color: var(--warning-text); font-size: var(--type-meta); }
 .day-timer-settings__error { margin: -8px 0 0; color: var(--danger-text); font-size: var(--type-label); font-weight: 700; }
 .day-timer-settings > .ui-button { width: 100%; }
-.day-workbench__content { width: min(1060px, calc(100% - 32px)); margin: 0 auto; padding: var(--space-24) 0 48px; display: grid; grid-template-columns: minmax(310px, .9fr) minmax(380px, 1.2fr); gap: var(--space-16); }
+.day-workbench__content { width: min(1060px, calc(100% - 32px)); margin: 0 auto; padding: var(--space-24) 0 48px; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--space-16); }
 .day-round-context { grid-column: 1 / -1; min-height: 52px; padding: 0 var(--space-16); border: 1px solid var(--info-border); border-radius: var(--radius-md); background: linear-gradient(90deg, var(--info-soft), transparent 72%); display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
 .day-round-context > div { min-width: 0; display: flex; align-items: baseline; gap: var(--space-12); }
 .day-round-context span { color: var(--info-text); font-size: var(--type-label); font-weight: 800; letter-spacing: .08em; }
@@ -278,3 +278,26 @@
 .day-vote-adjustment input, .day-vote-correction textarea, .day-vote-correction select { min-width: 0; width: 100%; min-height: var(--touch-min); padding: var(--space-10); border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface-soft); color: var(--text-strong); font: inherit; }
 .day-vote-correction textarea { min-height: 88px; resize: vertical; }
 .day-vote-correction > p { margin: 0; color: var(--text-muted); overflow-wrap: anywhere; }
+
+/* 白天步骤序列：同一时刻只展开一步，其余折成可点摘要条。 */
+.day-step-row { width: 100%; min-height: var(--touch-min); padding: 0 var(--space-14); display: flex; align-items: center; gap: var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-md); background: var(--surface-soft); color: var(--text-muted); font: 700 var(--type-label) var(--font-body); text-align: left; cursor: pointer; }
+.day-step-row:hover:not(:disabled) { border-color: var(--accent-border); color: var(--text-body); }
+.day-step-row:disabled { opacity: .55; cursor: not-allowed; }
+.day-step-row__index { flex: none; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; border: 1px solid var(--border-strong); font-size: var(--type-meta); }
+.day-step-row.is-done .day-step-row__index { border-color: var(--success-border); color: var(--success-text); }
+.day-step-row.is-done .day-step-row__index svg { width: 13px; }
+.day-step-row__title { flex: none; color: var(--text-strong); font-weight: 800; }
+.day-step-row__summary { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.day-step-row__pencil { flex: none; width: 14px; color: var(--text-subtle); }
+
+.day-action-bar { width: min(1060px, 100%); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-12); }
+.day-action-bar__hint { min-width: 0; color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; }
+.day-action-bar__pair { display: flex; gap: var(--space-8); }
+
+.day-workbench > .sticky-action-bar { margin-top: auto; }
+.day-action-bar__pair { flex-wrap: wrap; justify-content: flex-end; }
+@container (max-width: 560px) {
+  .day-action-bar { align-items: stretch; flex-direction: column; }
+  .day-action-bar__pair { display: grid; grid-template-columns: repeat(auto-fit, minmax(136px, 1fr)); }
+  .day-action-bar__pair .ui-button { min-width: 0; width: 100%; }
+}

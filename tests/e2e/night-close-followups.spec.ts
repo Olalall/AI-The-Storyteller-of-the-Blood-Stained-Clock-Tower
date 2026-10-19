@@ -1,3 +1,4 @@
+import { createPrototypeGameSession } from '../../src/features/game-session/data/createPrototypeSession'
 import { expect, test, type Page } from '@playwright/test'
 
 const key = 'botc-copilot-session-v1'
@@ -9,13 +10,10 @@ for (const width of [390, 1440]) {
     const errors: string[] = []
     page.on('pageerror', (error) => errors.push(error.message))
     await page.goto('/')
-    await page.evaluate(async (key) => {
-      const path = '/src/features/game-session/data/createPrototypeSession.ts'
-      const module = await import(/* @vite-ignore */ path)
-      const session = module.createPrototypeGameSession()
+    await page.evaluate(({ key, session }) => {
       session.nightRuns[session.activeNightRunId].privacyShielded = false
       localStorage.setItem(key, JSON.stringify(session))
-    }, key)
+    }, { key, session: createPrototypeGameSession() })
     await page.reload()
     await page.getByRole('button', { name: '进入夜晚' }).click()
     const baseline = await read(page)

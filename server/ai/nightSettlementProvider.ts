@@ -1,5 +1,7 @@
 import { AIProviderError, callOpenAICompatibleJSON, type FetchLike } from './aiProviderClient'
 import { buildNightSettlementProviderMessages } from './nightSettlementPromptBuilder'
+import { normalizeStateChangeDrafts, seatIdsInRequest } from './nightStateChangeDraft'
+import { unknownSeatGap, unknownSeatQuestion } from './nightUnknownSeats'
 import type { AIAdviceConfidence, NightSettlementAdviceDraft, NightSettlementProviderRequest } from './types'
 import { missingKazaliTargetRoleChoices } from './kazaliTargetRoleChoices'
 
@@ -40,6 +42,7 @@ export interface OpenAINightSettlementProviderOptions {
   apiKey: string
   timeoutSeconds: number
   fetcher?: FetchLike
+  redirect?: RequestRedirect
 }
 
 function confidenceFrom(value: unknown): AIAdviceConfidence {
@@ -59,6 +62,38 @@ function stringArray(value: unknown, limit: number) {
 function readyOutcomeIds(input: NightSettlementProviderRequest) {
   if (missingNightInputs(input).length) return []
   return input.availableOutcomes.filter((outcome) => outcome.ready).map((outcome) => outcome.id)
+}
+
+function canonicalRoleId(roleId: string) {
+  return roleId.replace(/[_-]/g, '')
+}
+
+function actorImpaired(input: NightSettlementProviderRequest) {
+  return Boolean(input.wakeItem.status?.impairments.includes('poisoned') || input.wakeItem.status?.impairments.includes('drunk'))
+}
+
+function historicalTargetMissing(input: NightSettlementProviderRequest) {
+  const missing: string[] = []
+  if (input.wakeItem.previousTargetRequired && !input.wakeItem.previousTargets?.length) {
+    missing.push('缺少上一夜已确认目标，不能核对连续选择限制。')
+  }
+  if (input.wakeItem.previousTargetRequired && input.draft.targets.some((seatId) => input.wakeItem.previousTargets?.includes(seatId))) {
+    missing.push('本夜目标与上一夜已确认目标重复，请改选后再生成建议。')
+  }
+  if (input.wakeItem.historicalContext?.status === 'missing') {
+    missing.push(input.wakeItem.historicalContext.summary)
+  }
+  if (input.draft.registration?.value && input.wakeItem.forbiddenRegistrationValues?.includes(input.draft.registration.value)) {
+    missing.push('本夜登记值违反已确认历史限制，请改选登记或先记录醉酒/中毒等例外状态。')
+  }
+  if (canonicalRoleId(input.wakeItem.roleId) === 'balloonist' &&
+    !actorImpaired(input) &&
+    input.wakeItem.previousRegistration?.kind === 'role_type' &&
+    input.draft.registration?.kind === 'role_type' &&
+    input.wakeItem.previousRegistration.value === input.draft.registration.value) {
+    missing.push('气球驾驶员健康时，本夜展示类型不能与上一夜相同；请改选展示类型或先记录醉酒/中毒状态。')
+  }
+  return missing
 }
 
 function statusRiskWarnings(input: NightSettlementProviderRequest) {
@@ -89,7 +124,8 @@ function normalizeDraft(
   payload: ProviderNightSettlementPayload,
   input: NightSettlementProviderRequest,
 ): NightSettlementAdviceDraft {
-  const missing = [...missingNightInputs(input), ...stringArray(payload.missing, 6)].slice(0, 6)
+  const gap = unknownSeatGap(input)
+  const missing = [...missingNightInputs(input), ...historicalTargetMissing(input), ...(gap.length ? [unknownSeatQuestion(gap)] : []), ...stringArray(payload.missing, 6)].slice(0, 6)
   const outcomeId = recommendedOutcomeId(payload.recommendedOutcomeId, input)
   const status = payload.status === 'answer' && outcomeId && !missing.length ? 'answer' : 'needs_input'
   const roleFacts = stringArray(payload.ruleFacts, 6)
@@ -123,7 +159,7 @@ function normalizeDraft(
     warnings: [...statusWarnings, ...providerWarnings, ...researchWarnings].slice(0, 6),
     journalDrafts: stringArray(payload.journalDrafts, 4),
     playerMessageDrafts: status === 'answer' && !input.wakeItem.targetRoleChoiceCount ? stringArray(payload.playerMessageDrafts, 4) : [],
-    stateChangeDrafts: stringArray(payload.stateChangeDrafts, 5),
+    stateChangeDrafts: normalizeStateChangeDrafts(payload.stateChangeDrafts, seatIdsInRequest(input)),
     authorityWarnings: authorityWarnings.length ? authorityWarnings : ['确认本项前不写日志、不改状态。'],
     disclaimer: text(payload.disclaimer, 'AI 夜间建议只是草稿，确认本项前不生效。'),
   }
@@ -134,7 +170,7 @@ export function fallbackNightSettlementAdviceDraft(
   warning = 'AI 夜间建议不可用；只保留已有选择，不自动代选结果。',
 ): NightSettlementAdviceDraft {
   const readyIds = readyOutcomeIds(input)
-  const preferred = input.draft.outcomeId && readyIds.includes(input.draft.outcomeId)
+  const preferred = !missingNightInputs(input).length && !historicalTargetMissing(input).length && !unknownSeatGap(input).length && input.draft.outcomeId && readyIds.includes(input.draft.outcomeId)
     ? input.draft.outcomeId
     : undefined
   return {
@@ -178,6 +214,7 @@ export function createOpenAICompatibleNightSettlementProvider(options: OpenAINig
         apiKey: options.apiKey,
         timeoutSeconds: options.timeoutSeconds,
         fetcher: options.fetcher,
+        redirect: options.redirect,
       }, buildNightSettlementProviderMessages(input))
       const draft = normalizeDraft(payload, input)
       if (draft.status === 'answer' && !draft.recommendedOutcomeId) {

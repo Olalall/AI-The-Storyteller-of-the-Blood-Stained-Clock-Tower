@@ -5,6 +5,13 @@ import { createSmartScriptSetupCandidates } from '../../setup/smartScriptSetupCa
 import { createSetupDraftFromCandidate } from '../../setup/setupDraft'
 import { actNight, projected } from './nightInformation.test-support'
 
+function phaseClock(session: ReturnType<typeof createSmartScriptSetupSession>) {
+  let timestamp = Math.max(Date.parse('2026-10-16T10:00:00.000Z'),
+    ...session.phaseSegments.flatMap((segment) => [Date.parse(segment.createdAt), Date.parse(segment.closedAt ?? segment.createdAt)]),
+    ...session.timeline.map((entry) => Date.parse(entry.createdAt)))
+  return () => new Date(++timestamp).toISOString()
+}
+
 /** Real registered setup templates and phase reducers; no injected queue or model. */
 export function cardinalitySession(scriptId: string, roleId: string, playerCount: number, otherNight = false) {
   const at = '2026-10-16T10:00:00.000Z'
@@ -19,13 +26,33 @@ export function cardinalitySession(scriptId: string, roleId: string, playerCount
   if (otherNight) {
     session = gameSessionReducer(session, { type: 'open-phase-segment', phaseKind: 'night', createdAt: at })
     for (const item of projected(session).queue) session = actNight(session, { type: 'skip-item', id: item.id, reason: '隔离回归不执行首夜技能。' })
-    session = gameSessionReducer(session, { type: 'close-active-night-run', nightRunId: session.activeNightRunId!, closedAt: at })
-    session = gameSessionReducer(session, { type: 'open-phase-segment', phaseKind: 'day', createdAt: at })
-    session = gameSessionReducer(session, { type: 'confirm-day-no-execution', daySegmentId: session.phaseSegments.at(-1)!.id, entryId: 'cardinality-no-execution', confirmedAt: at })
-    session = gameSessionReducer(session, { type: 'close-open-segment', phaseKind: 'day', closedAt: at })
+    const nextAt = phaseClock(session)
+    session = gameSessionReducer(session, { type: 'close-active-night-run', nightRunId: session.activeNightRunId!, closedAt: nextAt() })
+    session = gameSessionReducer(session, { type: 'open-phase-segment', phaseKind: 'day', createdAt: nextAt() })
+    session = gameSessionReducer(session, { type: 'confirm-day-no-execution', daySegmentId: session.phaseSegments.at(-1)!.id, entryId: 'cardinality-no-execution', confirmedAt: nextAt() })
+    session = gameSessionReducer(session, { type: 'close-open-segment', phaseKind: 'day', closedAt: nextAt() })
     session = gameSessionReducer(session, { type: 'start-next-night-run' })
   }
   const item = projected(session).queue.find((entry) => entry.roleId === roleId)
   if (!item) throw new Error(`Missing production wake: ${scriptId}/${roleId}`)
+  return actNight(actNight(session, { type: 'preview', id: item.id }), { type: 'activate-preview' })
+}
+
+/** Complete actual phase commands while keeping every confirmed record and run reference. */
+export function nextCardinalityNight(session: ReturnType<typeof cardinalitySession>, roleId: string) {
+  const nextAt = phaseClock(session)
+  session = gameSessionReducer(session, { type: 'open-phase-segment', phaseKind: 'night', createdAt: nextAt() })
+  for (const item of projected(session).queue) {
+    if (!['confirmed', 'skipped', 'not_applicable'].includes(item.progress)) {
+      session = actNight(session, { type: 'skip-item', id: item.id, reason: '隔离回归不执行其他技能。' })
+    }
+  }
+  const previousRunId = session.activeNightRunId!
+  session = gameSessionReducer(session, { type: 'close-active-night-run', nightRunId: previousRunId, closedAt: nextAt() })
+  session = gameSessionReducer(session, { type: 'open-phase-segment', phaseKind: 'day', createdAt: nextAt() })
+  session = gameSessionReducer(session, { type: 'confirm-day-no-execution', daySegmentId: session.phaseSegments.at(-1)!.id, entryId: `${previousRunId}-no-execution`, confirmedAt: nextAt() })
+  session = gameSessionReducer(session, { type: 'close-open-segment', phaseKind: 'day', closedAt: nextAt() })
+  session = gameSessionReducer(session, { type: 'start-next-night-run' })
+  const item = projected(session).queue.find((entry) => entry.roleId === roleId)!
   return actNight(actNight(session, { type: 'preview', id: item.id }), { type: 'activate-preview' })
 }

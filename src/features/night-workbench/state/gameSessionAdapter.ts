@@ -11,6 +11,8 @@ import { getActiveNightRun } from '../../game-session/state/getActiveNightRun'
 import type { NightSeatSnapshot, NightWorkbenchState, PlayerStatusSnapshot, RoleChangeReason } from '../types'
 import { storytellerSeatLabel } from '../../game-session/seatPresentation'
 import { projectNightInteraction } from './projectNightInteraction'
+import { refreshNightRunHistoricalContext } from '../../game-session/state/nightHistoricalContext'
+import { hasForbiddenRegistration, hasWakeDraftContent, invalidateOutcome, wakeTargetsStructurallyValid } from './projectWakeDraft'
 
 export interface NightWorkbenchSessionBinding {
   session: GameSessionState
@@ -75,6 +77,39 @@ function seatSnapshotsForSession(session: GameSessionState): Record<number, Nigh
   })) as Record<number, NightSeatSnapshot>
 }
 
+function wakeContractFingerprint(item: NightWorkbenchState['queue'][number]) {
+  return JSON.stringify({
+    targetCount: item.targetCount,
+    minimumTargetCount: item.minimumTargetCount,
+    allowedTargetCounts: item.allowedTargetCounts,
+    roleCount: item.roleCount,
+    targetRoleChoiceCount: item.targetRoleChoiceCount,
+    previousRegistration: item.previousRegistration,
+    forbiddenRegistrationValues: item.forbiddenRegistrationValues,
+    previousTargets: item.previousTargets,
+    forbiddenTargetSeatIds: item.forbiddenTargetSeatIds,
+    previousTargetRequired: item.previousTargetRequired,
+    historicalContext: item.historicalContext,
+    outcomeIds: item.outcomeOptions.map((option) => option.id),
+  })
+}
+
+function refreshDraftsForQueue(session: GameSessionState, run: NightRunState, queue: NightWorkbenchState['queue']) {
+  const originalById = new Map(run.queue.map((item) => [item.id, item]))
+  const queueById = new Map(queue.map((item) => [item.id, item]))
+  return Object.fromEntries(Object.entries(run.drafts).flatMap(([itemId, draft]) => {
+    const item = queueById.get(itemId)
+    if (!item || item.progress === 'confirmed' && run.correctionItemId !== itemId) return [[itemId, structuredClone(draft)]]
+    const original = originalById.get(itemId)
+    const invalidCountChoice = draft.targetCountChoice !== undefined && !item.allowedTargetCounts?.includes(draft.targetCountChoice)
+    const currentDraft = invalidCountChoice ? { ...draft, targetCountChoice: undefined } : draft
+    const contractChanged = invalidCountChoice || !original || wakeContractFingerprint(original) !== wakeContractFingerprint(item)
+      || !wakeTargetsStructurallyValid(item, draft, session.playerCount) || hasForbiddenRegistration(item, draft)
+    const nextDraft = contractChanged && currentDraft.outcomeId ? invalidateOutcome(item, currentDraft) : currentDraft
+    return hasWakeDraftContent(nextDraft) ? [[itemId, structuredClone(nextDraft)]] : []
+  }))
+}
+
 export function sessionInitialNightState(binding: NightWorkbenchSessionBinding): NightWorkbenchState | null {
   const run = getActiveNightRun(binding.session)
   if (!run) return null
@@ -97,6 +132,11 @@ export function sessionInitialNightState(binding: NightWorkbenchSessionBinding):
       confirmedBy: 'storyteller' as const,
     }))
   const seatSnapshots = seatSnapshotsForSession(binding.session)
+  const projectedRun = { ...run, queue: structuredClone(run.queue).map((item) => ({
+    ...projectNightInteraction(item, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount }),
+    status: seatSnapshots[item.seatId]?.status ?? item.status,
+  })) }
+  const queue = refreshNightRunHistoricalContext(binding.session, projectedRun)
   return {
     nightRunId: run.id,
     scriptId: run.scriptId,
@@ -106,14 +146,11 @@ export function sessionInitialNightState(binding: NightWorkbenchSessionBinding):
     revision: run.revision,
     contextKey: nightContextKey(binding.session),
     knowledgeVersion: run.knowledgeVersion,
-    queue: structuredClone(run.queue).map((item) => ({
-      ...projectNightInteraction(item, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount }),
-      status: seatSnapshots[item.seatId]?.status ?? item.status,
-    })),
+    queue,
     seatSnapshots,
     activeCursorId: run.activeCursorId,
     previewEntryId: run.previewEntryId,
-    drafts: structuredClone(run.drafts),
+    drafts: refreshDraftsForQueue(binding.session, run, queue),
     privacyShielded: run.privacyShielded,
     dimmed: run.dimmed,
     aiAdviceLog: structuredClone(run.aiAdviceLog),

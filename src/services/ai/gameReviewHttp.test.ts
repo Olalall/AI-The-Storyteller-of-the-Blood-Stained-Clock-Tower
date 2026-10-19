@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPrototypeGameSession } from '../../features/game-session/data/createPrototypeSession'
 import { createGameArchiveRecord } from '../archive'
+import { defaultAISettings, saveAISettings } from '../settings'
 import { createGameReviewDraftAsync } from './gameReviewHttp'
 import { createLocalGameReviewDraft } from './gameReviewProjection'
 
@@ -64,6 +65,22 @@ describe('game review HTTP adapter', () => {
     expect(draft.interpretations).toHaveLength(1)
     expect(draft.interpretations[0].recordIds).toEqual([validId])
     expect(draft.missing).toContain('缺少现场发言')
+  })
+
+  it('does not let legacy browser API settings override the fixed review provider', async () => {
+    saveAISettings({ ...defaultAISettings, mode: 'openai-compatible', baseUrl: 'https://old-provider.example.test/v1', model: 'old-model', apiKey: 'synthetic-legacy-key' })
+    let sent: Record<string, unknown> | undefined
+    await createGameReviewDraftAsync(archiveFixture(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_url, init) => {
+        sent = JSON.parse(String(init?.body)) as Record<string, unknown>
+        return jsonResponse({ accepted: true, data: { draft: {} } })
+      },
+    })
+    expect(sent).toBeDefined()
+    expect(sent).not.toHaveProperty('providerSettings')
+    expect(JSON.stringify(sent)).not.toContain('synthetic-legacy-key')
+    expect(JSON.stringify(sent)).not.toContain('old-provider.example.test')
   })
 
   it('falls back to local drafts when the backend review route fails', async () => {

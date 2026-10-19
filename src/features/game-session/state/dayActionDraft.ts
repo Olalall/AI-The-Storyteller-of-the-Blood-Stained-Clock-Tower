@@ -8,6 +8,7 @@ export function createDayActionSkillDraft(): DayActionSkillDraft {
     claimedRoleId: '',
     targetSeatIds: [],
     targetActualRoleIds: {},
+    targetAlignments: {},
     outcomeKind: null,
     outcomeNote: '',
   }
@@ -31,6 +32,7 @@ export function cloneDayActionDraft(draft: DayActionDraft): DayActionDraft {
       ...draft.skill,
       targetSeatIds: [...draft.skill.targetSeatIds],
       targetActualRoleIds: { ...draft.skill.targetActualRoleIds },
+      targetAlignments: { ...(draft.skill.targetAlignments ?? {}) },
     },
     publicEvent: {
       ...draft.publicEvent,
@@ -63,6 +65,7 @@ export function dayActionDraftContentKinds(draft: DayActionDraft | null | undefi
     Boolean(skill.claimedRoleId) ||
     skill.targetSeatIds.length > 0 ||
     Object.keys(skill.targetActualRoleIds).length > 0 ||
+    Object.keys(skill.targetAlignments ?? {}).length > 0 ||
     skill.outcomeKind !== null ||
     Boolean(skill.outcomeNote.trim())
   const hasPublicEvent = publicEvent.targetSeatIds.length > 0 || Boolean(publicEvent.note.trim())

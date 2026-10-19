@@ -92,8 +92,8 @@ describe('actual Crawling City Snake Charmer private copy', () => {
     expect(normalized.status).toBe('answer')
     expect(normalized.playerMessageDrafts).toEqual(raw.playerMessageDrafts)
     expect(playerPoisonLeaks(normalized)).toEqual([])
-    expect(normalized.stateChangeDrafts).toEqual(raw.stateChangeDrafts)
-    expect(normalized.stateChangeDrafts.join(' ')).toContain('中毒')
+    expect(normalized.stateChangeDrafts.map(draft => draft.text)).toEqual(raw.stateChangeDrafts)
+    expect(normalized.stateChangeDrafts.map(draft => draft.text).join(' ')).toContain('中毒')
   })
 
   it('retains the old research-template leak as a rejected raw and normalized negative example', async () => {
@@ -104,6 +104,6 @@ describe('actual Crawling City Snake Charmer private copy', () => {
     const normalized = await throughProvider(input, raw)
     expect(normalized.playerMessageDrafts).toEqual(raw.playerMessageDrafts)
     expect(playerPoisonLeaks(normalized)).toEqual([oldTemplate])
-    expect(normalized.stateChangeDrafts).toEqual(raw.stateChangeDrafts)
+    expect(normalized.stateChangeDrafts.map(draft => draft.text)).toEqual(raw.stateChangeDrafts)
   })
 })

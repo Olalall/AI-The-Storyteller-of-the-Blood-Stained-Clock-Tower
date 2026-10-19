@@ -1,5 +1,6 @@
 import type { AIAdviceReference, WakeDraft, WakeItem, WakeOutcomeOption } from '../types'
 import { canRevealNightResult } from '../../../domain/scripts/nightInteractionInputs'
+import { bluffLabels, systemStepBluffs, systemStepChecks, systemStepMissingReason } from './systemSteps'
 
 const unresolvedToken = /\{[a-z]+\}/i
 
@@ -65,32 +66,99 @@ export function roleInputsSatisfied(item: WakeItem, draft: WakeDraft) {
   return Boolean(first?.alignment && second?.alignment && first.alignment !== second.alignment)
 }
 
+export function selectedRegistrationLabel(item: WakeItem, draft: WakeDraft) {
+  return item.registrationSpec?.choices.find((choice) => choice.id === draft.registration?.value)?.label ?? ''
+}
+
+export function hasForbiddenRegistration(item: WakeItem, draft: WakeDraft) {
+  return Boolean(draft.registration?.value && item.forbiddenRegistrationValues?.includes(draft.registration.value))
+}
+
 export function projectPlayerChoice(item: WakeItem, draft: WakeDraft) {
+  if (item.systemStep) {
+    const checked = systemStepChecks(draft)
+    const done = item.systemStep.checks.filter((check) => checked.includes(check.id)).map((check) => check.label)
+    const bluffs = bluffLabels(item.systemStep, draft)
+    return [
+      done.length ? `已确认：${done.join('、')}` : '',
+      bluffs ? `不在场善良角色：${bluffs}` : '',
+    ].filter(Boolean).join(' · ')
+  }
+
   if (item.targetRoleChoiceCount !== undefined) return targetRoleText(item, draft)
   const targets = targetText(draft.targets)
   const role = selectedRoleLabel(item, draft)
+  const registration = selectedRegistrationLabel(item, draft)
   const parts: string[] = []
 
   if (item.allowedTargetCounts && targetCountChosen(item, draft)) parts.push(`本次选择${selectedTargetCount(item, draft)}名玩家`)
 
   if (targets) parts.push(item.targetKind === 'storyteller_info' ? `告知${targets}` : `选择${targets}`)
   if (role) parts.push(`${item.roleLabel ?? '角色'}：${role}`)
+  if (registration) parts.push(`${item.registrationSpec?.label ?? '登记'}：${registration}`)
 
   return parts.join(' · ')
+}
+
+export function wakeTargetRange(item: WakeItem) {
+  return {
+    minimum: item.minimumTargetCount ?? item.targetCount,
+    maximum: item.targetCount,
+  }
+}
+
+export function wakeTargetsValid(item: WakeItem, draft: WakeDraft, playerCount?: number) {
+  const { minimum, maximum } = item.allowedTargetCounts && targetCountChosen(item, draft)
+    ? { minimum: selectedTargetCount(item, draft), maximum: selectedTargetCount(item, draft) }
+    : wakeTargetRange(item)
+  if (minimum < 0 || maximum < 0 || minimum > maximum) return false
+  return draft.targets.length >= minimum && wakeTargetsStructurallyValid(item, draft, playerCount)
+}
+
+export function wakeTargetsStructurallyValid(item: WakeItem, draft: WakeDraft, playerCount?: number) {
+  const { minimum, maximum } = item.allowedTargetCounts && targetCountChosen(item, draft)
+    ? { minimum: selectedTargetCount(item, draft), maximum: selectedTargetCount(item, draft) }
+    : wakeTargetRange(item)
+  if (minimum < 0 || maximum < 0 || minimum > maximum) return false
+  if (draft.targets.length > maximum) return false
+  const uniqueTargets = new Set(draft.targets)
+  if (uniqueTargets.size !== draft.targets.length) return false
+  return draft.targets.every((seatId) =>
+    Number.isInteger(seatId) &&
+    seatId > 0 &&
+    (playerCount === undefined || seatId <= playerCount) &&
+    !item.forbiddenTargetSeatIds?.includes(seatId),
+  )
+}
+
+export function wakeTargetsSatisfyRequiredInput(item: WakeItem, draft: WakeDraft) {
+  if (!wakeTargetsValid(item, draft)) return false
+  if (item.targetCount <= 0) return false
+  return draft.targets.length > 0
+}
+
+function wakeTargetsReadyForOutcome(option: WakeOutcomeOption, item: WakeItem, draft: WakeDraft) {
+  if (!wakeTargetsValid(item, draft)) return false
+  if (option.targetCounts?.length) return option.targetCounts.includes(draft.targets.length)
+  if (item.allowedTargetCounts && targetCountChosen(item, draft)) return draft.targets.length === selectedTargetCount(item, draft)
+  return wakeTargetsSatisfyRequiredInput(item, draft)
 }
 
 function renderTemplate(template: string, item: WakeItem, draft: WakeDraft) {
   const targets = item.allowedTargetCounts && draft.targetCountChoice === 0 ? '不选择玩家' : targetText(draft.targets)
   const role = selectedRoleLabel(item, draft)
+  const registration = selectedRegistrationLabel(item, draft)
   const values: Record<string, string> = {
-    actor: `${item.seatId}号${item.roleName}`,
+    actor: item.systemStep ? item.roleName : `${item.seatId}号${item.roleName}`,
     target: targets,
     targets,
     role,
     targetRoles: targetRoleText(item, draft),
+    registration,
+    bluffs: item.systemStep ? bluffLabels(item.systemStep, draft) : '',
   }
 
-  return template.replace(/\{(actor|target|targets|role|targetRoles)\}/g, (_, key: string) => values[key] ?? '')
+  return template.replace(/\{(actor|target|targets|role|targetRoles|registration|bluffs)\}/g, (_, key: string) => values[key] ?? '')
 }
 
 /**
@@ -100,11 +168,17 @@ function renderTemplate(template: string, item: WakeItem, draft: WakeDraft) {
  * 明确“不发动”的 hold/skip 由 outcomeReady 单独处理，不能要求虚构目标或能力。
  */
 export function wakeInputsSatisfied(item: WakeItem, draft: WakeDraft) {
-  if (!targetCountChosen(item, draft) || draft.targets.length !== selectedTargetCount(item, draft)) return false
+  if (item.systemStep && systemStepMissingReason(item, draft)) return false
+  if (!targetCountChosen(item, draft) || !wakeTargetsValid(item, draft)) return false
+  if (item.registrationSpec && !selectedRegistrationLabel(item, draft)) return false
+  if (hasForbiddenRegistration(item, draft)) return false
   return roleInputsSatisfied(item, draft)
 }
 
 export function missingWakeInputReason(item: WakeItem, draft: WakeDraft) {
+  if (item.systemStep) return systemStepMissingReason(item, draft)
+  if (item.registrationSpec && !selectedRegistrationLabel(item, draft)) return `选${item.registrationSpec.label}`
+  if (hasForbiddenRegistration(item, draft)) return '核对本夜登记类型'
   if (item.targetRoleChoiceCount !== undefined && !targetRoleChoicesSatisfied(item, draft)) return `补齐${item.targetRoleChoiceCount}组玩家与爪牙，玩家和角色不可重复`
   if (!targetCountChosen(item, draft)) return '选择本次目标人数'
   if (selectedTargetCount(item, draft) > draft.targets.length) return `选${item.targetLabel ?? '目标'}`
@@ -117,7 +191,7 @@ export function outcomeReady(option: WakeOutcomeOption, item: WakeItem, draft: W
   if (item.targetRoleChoiceCount !== undefined && !targetRoleChoicesSatisfied(item, draft)) return false
   if (!isNoActionOutcome(option) && !wakeInputsSatisfied(item, draft)) return false
   return option.requiredInputs.every((input) => {
-    if (input === 'targets') return draft.targets.length === selectedTargetCount(item, draft)
+    if (input === 'targets') return wakeTargetsReadyForOutcome(option, item, draft)
     return roleInputsSatisfied(item, draft)
   })
 }
@@ -129,6 +203,9 @@ function isNoActionOutcome(option: WakeOutcomeOption) {
 /** 草稿是否已被动过。progress 上没有 'draft' 这个状态，判「有没有未确认的编辑」只能看内容。 */
 export function hasWakeDraftContent(draft: WakeDraft) {
   return draft.targets.length > 0 ||
+    systemStepChecks(draft).length > 0 ||
+    systemStepBluffs(draft).length > 0 ||
+    Boolean(draft.registration) ||
     Boolean(draft.targetRoleChoices?.some((choice) => choice.seatId > 0 || choice.roleId)) ||
     draft.targetCountChoice !== undefined ||
     Boolean(draft.roleChoice) ||

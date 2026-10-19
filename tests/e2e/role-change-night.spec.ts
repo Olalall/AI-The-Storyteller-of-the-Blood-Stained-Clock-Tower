@@ -89,9 +89,10 @@ for (const width of [390, 1440]) {
     await expect(page.locator('.wake-facts')).toContainText('主持已确认当晚处理新获得的能力')
     await page.getByRole('button', { name: '已记录', exact: true }).click()
     await page.getByRole('button', { name: '确认本项', exact: true }).click()
+    await expect.poll(async () => (await saved(page)).timeline.findLast((entry) => entry.kind === 'night_action')?.wakeItemId).toBe(addition.id)
     const final = await saved(page), record = final.timeline.findLast((entry) => entry.kind === 'night_action')
     expect(record?.kind === 'night_action' ? record.wakeItemId : '').toBe(addition.id)
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
     await page.screenshot({ path: info.outputPath('savant-to-mathematician.png'), animations: 'disabled' })
     await page.reload()
     expect((await saved(page)).timeline).toEqual(final.timeline)
@@ -114,7 +115,7 @@ for (const width of [390, 1440]) {
     expect(changed.initialPlayerStates).toEqual(recorded.initialPlayerStates)
     expect(changed.timeline.filter((entry) => entry.kind === 'player_state_changed')).toEqual(recorded.timeline.filter((entry) => entry.kind === 'player_state_changed'))
     await expect(page.getByText(/方古跳转不能额外攻击一次/)).toHaveCount(0) // The confirmation sheet has closed.
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
     await page.screenshot({ path: info.outputPath('fang-gu-later.png'), animations: 'disabled' })
     await page.reload()
     expect((await saved(page)).timeline).toEqual(changed.timeline)
@@ -131,19 +132,20 @@ for (const width of [390, 1440]) {
     const firstRunId = Object.keys(before.nightRuns)[0]
     expect(changed.nightRuns[firstRunId]).toEqual(before.nightRuns[firstRunId])
     await focusByUI(page, 1, '厨师')
-    await expect(page.locator('.wake-facts')).toContainText('首夜得知有多少对邪恶玩家相邻')
+    await expect(page.locator('.wake-facts')).toContainText('在你的首个夜晚，你会得知场上邻座的邪恶玩家有多少对。')
     // The generic number-information UI currently stores host-confirmed detail as context.
     await page.getByText('补充已核对事实（可选）', { exact: true }).click()
     await page.getByRole('textbox', { name: '说书人已核对的事实', exact: true }).fill('主持已核对新厨师今晚的信息为1对，已私下告知本人。')
     await page.getByRole('button', { name: '保存补充事实', exact: true }).click()
     await page.getByRole('button', { name: '已记录', exact: true }).click()
     await page.getByRole('button', { name: '确认本项', exact: true }).click()
+    await expect.poll(async () => (await saved(page)).timeline.findLast((entry) => entry.kind === 'night_action')?.kind).toBe('night_action')
     const final = await saved(page)
     expect(final.timeline.findLast((entry) => entry.kind === 'night_action')?.kind).toBe('night_action')
     const last = final.timeline.findLast((entry) => entry.kind === 'night_action')!
     if (last.kind === 'night_action') expect(last.record.snapshot.storytellerContext).toContain('新厨师今晚的信息为1对')
     expect(final.initialPlayerStates).toEqual(before.initialPlayerStates)
-    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
+    await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
     await page.screenshot({ path: info.outputPath('new-chef-on-later-night.png'), animations: 'disabled' })
   })
 }

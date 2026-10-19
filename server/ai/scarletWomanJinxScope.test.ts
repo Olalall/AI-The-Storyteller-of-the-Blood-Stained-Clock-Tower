@@ -126,7 +126,7 @@ async function throughProvider(input: NightSettlementProviderRequest, answer: ob
   const result = await provider.generateNightSettlementAdvice(input)
   expect(input).toEqual(before)
   expect(fetches).toBe(1)
-  return result.draft
+  return { ...result.draft, stateChangeDrafts: result.draft.stateChangeDrafts.map(draft => draft.text) }
 }
 
 describe('Scarlet Woman basic trigger and named-jinx scope', () => {

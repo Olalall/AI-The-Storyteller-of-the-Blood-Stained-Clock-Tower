@@ -7,9 +7,18 @@ import { readAIRuntimeSettings } from '../../services/ai/aiRuntimeSettings'
 import { AssetPackSettingsSection } from './AssetPackSettingsSection'
 import { AIAccessSettings } from './AIAccessSettings'
 import { readBackendAIStatus, testBackendAIConnection, testLiveAIConnection, type BackendAIStatus } from './backendAIStatus'
+import type { GameSessionState } from '../game-session/types'
+import { SessionBackupSection } from './SessionBackupSection'
+import { PWAInstallCard } from '../pwa/PWAInstallCard'
 import './ai-settings.css'
 
-export function AISettingsSheet() {
+interface AISettingsSheetProps {
+  session?: GameSessionState
+  onImportSession?: (session: GameSessionState) => void
+  triggerLabel?: string
+}
+
+export function AISettingsSheet({ session, onImportSession, triggerLabel }: AISettingsSheetProps = {}) {
   const [open, setOpen] = useState(false)
   const [runtime, setRuntime] = useState(readAIRuntimeSettings)
   const [backendStatus, setBackendStatus] = useState<BackendAIStatus | null>(null)
@@ -57,8 +66,8 @@ export function AISettingsSheet() {
       presentation="page"
       contentClassName="sheet-content--ai-settings"
       trigger={
-        <button type="button" className="dashboard__settings-trigger" aria-label="打开AI API设置">
-          <Settings aria-hidden="true" />
+        <button type="button" className="dashboard__settings-trigger" aria-label={triggerLabel ?? "打开AI API设置"}>
+          <Settings aria-hidden="true" />{triggerLabel ? <span>{triggerLabel}</span> : null}
         </button>
       }
     >
@@ -105,6 +114,8 @@ export function AISettingsSheet() {
         </section>
 
         {backendStatus?.accessRequired ? <AIAccessSettings runtime={runtime} authorized={backendStatus.accessAuthorized === true} onChanged={refreshBackendStatus} /> : null}
+        {session && onImportSession ? <SessionBackupSection session={session} onImportSession={onImportSession} /> : null}
+        <PWAInstallCard compact />
         <AssetPackSettingsSection />
       </div>
     </Sheet>

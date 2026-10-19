@@ -99,7 +99,7 @@ describe('Lleech-only initial ability phase after a later-night Hatter change', 
     let { after } = withInitial()
     after = readyForHost(after, 1)
     const oldState = projected(after), item = initial(after)
-    const localConfirmed = nightWorkbenchReducer(oldState, { type: 'confirm', advance: false })
+    const localConfirmed = nightWorkbenchReducer(oldState, { at: '2026-10-19T00:00:00.000Z', type: 'confirm', advance: false })
     expect(localConfirmed.confirmedRecords[item.id]).toHaveLength(1)
     const host = projectCurrentPlayerStates(after)[1]
     after = gameSessionReducer(after, { type: 'confirm-player-state-change', seatId: 1, expectedBefore: host, after: { ...host, life: 'dead' },
@@ -130,7 +130,7 @@ describe('Lleech-only initial ability phase after a later-night Hatter change', 
   it('rejects an empty or multiple-host direct commit even when all supplied seats are alive', () => {
     let { after } = withInitial()
     after = readyForHost(after, 1)
-    const local = nightWorkbenchReducer(projected(after), { type: 'confirm', advance: false }), item = initial(after)
+    const local = nightWorkbenchReducer(projected(after), { at: '2026-10-19T00:00:00.000Z', type: 'confirm', advance: false }), item = initial(after)
     for (const targets of [[], [1, 2], [1, 1]]) {
       const commit = createNightWorkbenchCommit(local, { session: after, dispatchSession: () => {} })
       commit.records = commit.records.map((record) => record.wakeItemId === item.id ? { ...record, snapshot: { ...record.snapshot, targets } } : record)

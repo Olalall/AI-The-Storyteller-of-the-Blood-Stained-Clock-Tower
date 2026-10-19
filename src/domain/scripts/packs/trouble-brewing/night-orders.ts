@@ -23,7 +23,7 @@ export const troubleBrewingFirstNightOrder = order([
   { roleId: "chef", sourceOrder: 55 },
   { roleId: "empath", sourceOrder: 56 },
   { roleId: "fortuneteller", sourceOrder: 57 },
-  { roleId: "butler", sourceOrder: 58 },
+  { roleId: "butler", sourceOrder: 58, note: "让管家选择一名玩家。标记那名玩家为他的主人。提醒：流放表决不受主人限制，管家可自由参与表决。" },
   { roleId: "spy", sourceOrder: 72 },
 ])
 
@@ -38,6 +38,6 @@ export const troubleBrewingOtherNightOrder = order([
   { roleId: "empath", sourceOrder: 76 },
   { roleId: "fortuneteller", sourceOrder: 77 },
   { roleId: "undertaker", sourceOrder: 78 },
-  { roleId: "butler", sourceOrder: 91 },
+  { roleId: "butler", sourceOrder: 91, note: "让管家选择一名玩家。标记那名玩家为他的主人。提醒：流放表决不受主人限制，管家可自由参与表决。" },
   { roleId: "spy", sourceOrder: 92 },
 ])

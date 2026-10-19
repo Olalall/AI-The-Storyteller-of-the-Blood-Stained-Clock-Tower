@@ -25,6 +25,7 @@ export interface OpenAISetupAdviceProviderOptions {
   apiKey: string
   timeoutSeconds: number
   fetcher?: FetchLike
+  redirect?: RequestRedirect
 }
 
 function confidenceFrom(value: unknown): AIAdviceConfidence {
@@ -80,7 +81,7 @@ function normalizeMicroAdjustments(value: unknown, input: SetupAdviceProviderReq
     const outRole = candidate?.roles.find((role) => role.roleId === replaceOutRoleId)
     const inRole = rolePoolById.get(replaceInRoleId)
     if (!candidate || !outRole || !inRole || replaceOutRoleId === replaceInRoleId) return []
-    if (inRole.team === 'traveler' || inRole.team === 'fabled') return []
+    if (inRole.team === 'traveler' || inRole.team === 'fabled' || inRole.team === 'loric') return []
     return [{
       candidateId,
       candidateTitle: candidate.title,
@@ -251,6 +252,7 @@ export function createOpenAICompatibleSetupAdviceProvider(options: OpenAISetupAd
         apiKey: options.apiKey,
         timeoutSeconds: options.timeoutSeconds,
         fetcher: options.fetcher,
+        redirect: options.redirect,
       }, buildSetupAdviceProviderMessages(input))
       const draft = normalizeDraft(payload, input)
       if (!draft.recommendedCandidateIds.length) {

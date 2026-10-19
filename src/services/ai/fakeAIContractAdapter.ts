@@ -46,8 +46,9 @@ function setupAdvice(request: Extract<AIContractRequest, { kind: 'setup_advice' 
 
 function nightAdvice(request: Extract<AIContractRequest, { kind: 'night_settlement' }>): AIContractResponse<NightSettlementDraft> {
   const { draft, roleKnowledge, roleResearch, wakeItem } = request.context
+  const minimumTargetCount = wakeItem.minimumTargetCount ?? wakeItem.targetCount
   const missing = [
-    wakeItem.targetCount > draft.targets.length ? '目标未选完' : '',
+    minimumTargetCount > draft.targets.length ? '目标未选完' : '',
     wakeItem.targetRoleChoiceCount && (draft.targetRoleChoices?.length !== wakeItem.targetRoleChoiceCount
       || draft.targetRoleChoices.some(choice => !choice.seatId || !wakeItem.targetRoleChoiceRoleIds?.includes(choice.roleId))
       || new Set(draft.targetRoleChoices.map(choice => choice.seatId)).size !== wakeItem.targetRoleChoiceCount

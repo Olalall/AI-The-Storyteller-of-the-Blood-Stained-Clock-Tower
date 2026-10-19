@@ -1,5 +1,28 @@
+import { unknownSeatGap, unknownSeatQuestion } from './nightUnknownSeats'
 import type { AIProviderChatMessage, NightSettlementProviderRequest } from './types'
 import { kazaliMinionRoleIds } from './kazaliTargetRoleChoices'
+
+/**
+ * 「未列出等于未知，不是正常」分支。
+ *
+ * 不加这一段时，模型看到的是一份没有缺口标记的输入，默认读法是「没提到的座位都正常」——
+ * 那正好是最危险的一种默认：一个中毒了但工具没记的座位，会被当成健康座位参与推理，
+ * 而结论看起来和信息齐全时一模一样。
+ */
+function contextGapConstraints(input: NightSettlementProviderRequest): string[] {
+  const gap = unknownSeatGap(input)
+  if (!gap.length) {
+    return input.contextLevel === 'standard'
+      ? ['input.contextLevel = standard：工具里全部座位的身份都已录入，本次输入的座位状态可以当作完整局面使用']
+      : []
+  }
+  return [
+    `input.contextLevel = minimal：工具只知道部分座位的身份，${gap.join('、')} 号座位的身份工具里没有`,
+    '未在输入中列出的座位状态一律视为**未知**，不得视为正常、健康、存活或未中毒',
+    `本次必须返回 needs_input，并在 missing 里点名这些座位：${unknownSeatQuestion(gap)}`,
+    '不要因为缺信息就给一个「保守的」结果草稿——保守的错误结论和自信的错误结论一样会被采用',
+  ]
+}
 
 export function buildNightSettlementProviderMessages(input: NightSettlementProviderRequest): AIProviderChatMessage[] {
   return [
@@ -10,6 +33,11 @@ export function buildNightSettlementProviderMessages(input: NightSettlementProvi
         '你只能基于输入里的当前唤醒项、当前草稿和可选结果，生成结算建议草稿。',
         '你不能修改玩家身份、阵营、存活、毒醉、日志、昼夜或夜序。',
         '如果缺少目标、角色、实际身份、秘密选择或结算的关键条件/历史，不要编造；返回 needs_input 和 missing。表单 ready 不等于规则条件已经核实。',
+          '如果缺少目标、角色、实际身份或关键历史，不要编造；返回 needs_input 和 missing。',
+          'input.wakeItem.previousRegistration 是上一夜已确认登记；input.draft.registration 是本夜说书人明确登记。不得从角色默认类型倒推或覆盖。',
+          'input.wakeItem.forbiddenRegistrationValues 是本夜规则禁止的登记值；draft.registration 命中时必须返回 needs_input。',
+          'input.wakeItem.previousTargets 是紧邻上一夜已确认目标；previousTargetRequired=true 且缺失时必须返回 needs_input。',
+          'input.wakeItem.historicalContext 是角色专用的已确认历史投影；status=missing 时必须返回 needs_input，seatIds 只能作为候选，不得自动执行死亡、中毒或复活。',
         'recommendedOutcomeId 必须来自 ready=true 的 availableOutcomes；没有可选结果时不要返回 recommendedOutcomeId。',
         'input.roleResearch 是导入智能板子时人工复核过的角色规则摘要；它优先于模型记忆。',
         'input.selectedTargets[].roleKnowledge 如存在，是目标角色的已复核共享规则；涉及目标的死亡触发、保命或额外投票/提名时同样优先于模型记忆，不能只核对发动者能力。',
@@ -34,7 +62,15 @@ export function buildNightSettlementProviderMessages(input: NightSettlementProvi
           warnings: ['string'],
           journalDrafts: ['string'],
           playerMessageDrafts: ['string'],
-          stateChangeDrafts: ['string'],
+          stateChangeDrafts: [{
+            text: 'string，必填，给说书人看的一句人话',
+            seatId: 'number，可选，必须是本次输入里出现过的座位号',
+            change: {
+              field: 'life | poisoned | drunk | marker',
+              to: 'life 用 alive|dead；poisoned/drunk 用 true|false；marker 用 add|remove',
+              markerLabel: 'string，field 为 marker 时必填，其它 field 一律不要带',
+            },
+          }],
           authorityWarnings: ['string'],
           disclaimer: 'string',
         },
@@ -81,6 +117,11 @@ export function buildNightSettlementProviderMessages(input: NightSettlementProvi
           '条件式换角的必要在场条件未核实时，必须 needs_input，不能一边要求核对一边给出“你现在是新角色”的无条件玩家稿',
           '角色和阵营相互独立：换角不自动改阵营；互换阵营只互换双方当前阵营。未知当前阵营时只写“互换现有阵营”并追问，不按镇民/恶魔类型硬赋善恶或生成具体善恶告知',
           '额外提名/投票权必须分别写清每天可发起多少次提名、每一轮提名可投几票、是否消耗普通死亡票，以及是否适用于他人发起的提名；玩家稿与状态标记都使用完整单位，不能合并简写或退回普通玩家次数',
+          'journalDrafts 只写“本项如何记录”；playerMessageDrafts 只写“可以给玩家看的私密信息”；stateChangeDrafts 只写“需要另行确认的状态/身份/阵营/死亡变化”；authorityWarnings 只写“为什么不能直接当权威结果”',
+          'stateChangeDrafts 的每一条最多对应一个座位的一个字段；需要改两个字段就写两条，不要在一条里塞多个改动',
+          'stateChangeDrafts 里不确定座位或不确定字段时，只写 text，不要写 seatId 和 change；写错一个座位号比不写代价大得多',
+          'stateChangeDrafts 只是给说书人看的建议，说书人不点确认就什么都不会发生；不要写成“已改为”“已标记”',
+          ...contextGapConstraints(input),
           '不要猜测未提供的隐藏身份、阵营或历史；缺信息时优先返回 needs_input',
           'journalDrafts 和 playerMessageDrafts 必须与 recommendedOutcomeId 的语义一致，不得扩写成权威结果',
           '优先指出缺失信息，其次给出可采用的结果草稿',

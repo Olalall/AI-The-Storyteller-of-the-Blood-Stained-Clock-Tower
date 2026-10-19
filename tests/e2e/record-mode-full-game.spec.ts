@@ -102,7 +102,7 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await page.getByLabel('开局板子').selectOption('trouble-brewing')
   await page.getByRole('button', { name: '12人' }).click()
   await page.getByRole('button', { name: '开始配板' }).click()
-  await page.locator('.setup-candidate').first().getByRole('button', { name: '选择组合' }).click()
+  await page.locator('.setup-candidate').first().getByRole('button', { name: '选择这套配板' }).click()
   await expect(page.locator('.setup-seat-grid button')).toHaveCount(12)
   await page.getByRole('button', { name: '确认配板' }).click()
   await expect(page.locator('.setup-panel')).toBeHidden()
@@ -133,6 +133,7 @@ test('纯记录模式主干：配板 → 首夜 → 白天投票 → 次夜 → 
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: /被提名人/ }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }

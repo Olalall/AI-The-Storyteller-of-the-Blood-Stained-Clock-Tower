@@ -1,8 +1,10 @@
+import { loadDemoSessionFromEntry } from './helpers/entry-onboarding'
 import { expect, test, type Page } from '@playwright/test'
 
 const key = 'botc-copilot-session-v1'
 async function ready(page: Page) {
   await page.goto('/')
+  await loadDemoSessionFromEntry(page)
   await expect.poll(() => page.evaluate((k) => localStorage.getItem(k), key)).not.toBeNull()
 }
 async function read(page: Page) { return page.evaluate((k) => JSON.parse(localStorage.getItem(k)!), key) }

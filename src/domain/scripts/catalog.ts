@@ -10,28 +10,8 @@ export function scriptDisplayName(scriptId: ScriptId) {
 }
 
 const setupTeams = new Set<RoleTeam>(['townsfolk', 'outsider', 'minion', 'demon'])
-const roleIdAliases: Readonly<Record<RoleId, RoleId>> = {
-  snake_charmer: 'snakecharmer',
-  pit_hag: 'pithag',
-  poppy_grower: 'poppygrower',
-  fang_gu: 'fanggu',
-  scarlet_woman: 'scarletwoman',
-  tea_lady: 'tealady',
-  fortune_teller: 'fortuneteller',
-  undertaker: 'undertaker',
-  devils_advocate: 'devilsadvocate',
-  devil_s_advocate: 'devilsadvocate',
-  bounty_hunter: 'bountyhunter',
-  town_crier: 'towncrier',
-  evil_twin: 'eviltwin',
-  'pit-hag': 'pithag',
-  lil_monsta: 'lilmonsta',
-  bone_collector: 'bonecollector',
-  no_dashii: 'nodashii',
-  al_hadikhia: 'alhadikhia',
-  spirit_of_ivory: 'spiritofivory',
-  high_priestess: 'highpriestess',
-}
+import { normalizeRoleId } from './roleId'
+export { normalizeRoleId } from './roleId'
 
 export function scriptKnowledgeVersion(pack: SmartScriptPack) {
   return `${pack.scriptId}/${pack.source.version ?? pack.source.contentHash}`
@@ -55,12 +35,12 @@ export function roleSnapshotsForScript(scriptId: ScriptId) {
 }
 
 export function roleTeamByIdForScript(scriptId: ScriptId) {
-  return Object.fromEntries(setupRolesForScript(scriptId).map((role) => [role.id, role.team]))
+  return Object.fromEntries(setupRolesForScript(scriptId).flatMap((role) => [[role.id, role.team], [normalizeRoleId(role.id), role.team]]))
 }
 
 export function roleAbilityForScript(scriptId: ScriptId, roleId: string) {
   const role = findRoleForScript(scriptId, roleId)
-  return role ? localizedRoleAbility(role) : '角色能力待接入知识库。'
+  return role ? localizedRoleAbility(role) : '未找到角色资料；请先补齐项目中的角色说明。'
 }
 
 export function rolePromptForScript(scriptId: ScriptId, roleId: string) {
@@ -77,22 +57,34 @@ export function roleResearchForAI(scriptId: ScriptId, roleId: RoleId): AIRoleRes
     name: role.name,
     officialName: role.officialName,
     knowledgeStatus: role.knowledgeStatus,
+    sourceKind: role.sourceKind,
     inputKinds: role.inputKinds.slice(0, 4),
     setupImpact: role.research.setupImpact.slice(0, 3),
-    possibleOutcomes: role.research.possibleOutcomes.slice(0, 5),
-    stateChanges: role.research.stateChanges.slice(0, 4),
-    identityChanges: role.research.identityChanges.slice(0, 4),
-    teamChanges: role.research.teamChanges.slice(0, 4),
-    playerMessageTemplates: role.research.playerMessageTemplates.slice(0, 4),
-    highRiskNotes: role.research.highRiskNotes.slice(0, 5),
+    possibleOutcomes: cleanRoleResearchItems(role.research.possibleOutcomes).slice(0, 5),
+    stateChanges: cleanRoleResearchItems(role.research.stateChanges).slice(0, 4),
+    identityChanges: cleanRoleResearchItems(role.research.identityChanges).slice(0, 4),
+    teamChanges: cleanRoleResearchItems(role.research.teamChanges).slice(0, 4),
+    playerMessageTemplates: cleanRoleResearchItems(role.research.playerMessageTemplates).slice(0, 4),
+    highRiskNotes: cleanRoleResearchItems(role.research.highRiskNotes).slice(0, 5),
     sourceUrls: role.research.sourceUrls.slice(0, 4),
     reviewedAt: role.research.reviewedAt,
   }
 }
 
 function findRoleForScript(scriptId: ScriptId, roleId: RoleId) {
-  const canonicalRoleId = roleIdAliases[roleId] ?? roleId
+  const canonicalRoleId = normalizeRoleId(roleId)
   return getSmartScriptPack(scriptId).roles.find((candidate) => (
-    candidate.id === roleId || candidate.id === canonicalRoleId
+    candidate.id === roleId || candidate.id === canonicalRoleId || normalizeRoleId(candidate.id) === canonicalRoleId
   ))
+}
+
+const genericResearchPlaceholders = new Set([
+  'Apply source ability only as an AI/ST-confirmed suggestion.',
+  'Use source night reminder to record choices, results and player-facing information.',
+])
+
+function cleanRoleResearchItems(items: readonly string[]) {
+  return items.filter((item) => !genericResearchPlaceholders.has(item)).map((item) => item
+    .replace('AI only drafts reminders; storyteller confirms before changing authority state.', 'AI 只生成记录和提示草稿；改变权威状态前必须由说书人确认。')
+    .replace('Do not auto-apply this role result; storyteller confirms before writing authority state.', '不要自动应用该角色结果；写入权威状态前必须由说书人确认。'))
 }

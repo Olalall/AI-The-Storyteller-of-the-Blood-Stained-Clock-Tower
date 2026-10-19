@@ -6,7 +6,7 @@ import type { AIResultAdvice } from '../types'
 import { emptyWakeDraft, outcomeReady, roleInputsSatisfied, selectedTargetCount } from './projectWakeDraft'
 import { canConfirmDraft } from './workbenchGuards'
 import { actNight, projected } from './nightInformation.test-support'
-import { cardinalitySession } from './nightCardinality.test-support'
+import { cardinalitySession, nextCardinalityNight } from './nightCardinality.test-support'
 
 function current(session: ReturnType<typeof cardinalitySession>) {
   const state = projected(session), item = state.queue.find(x => x.id === state.activeCursorId)!
@@ -43,10 +43,12 @@ describe('registered script night input cardinalities', () => {
     for (const seatId of targets) expect(current(session).draft.storytellerResult).toContain(`${seatId}号`)
   })
 
-  it.each([['bad-moon-rising', 8], ['bao-yue-chu-sheng', 10], ['wei-ni-du-zun', 7]] as const)('%s Po explicitly records zero, one or three targets without inferring charge', (script, count) => {
-    let session = cardinalitySession(script, 'po', count, true)
+  it.each([['bad-moon-rising', 8], ['bao-yue-chu-sheng', 10], ['wei-ni-du-zun', 7]] as const)('%s Po with missing history explicitly records zero, one or three targets without inferring charge', (script, count) => {
+    let session = nextCardinalityNight(cardinalitySession(script, 'po', count, true), 'po')
     const authority = projectCurrentPlayerStates(session)
+    expect(current(session).item.historicalContext?.status).toBe('missing')
     expect(current(session).item.allowedTargetCounts).toEqual([0, 1, 3])
+    expect(current(session).item.aiAdviceEnabled).toBe(false)
     session = actNight(session, { type: 'outcome', outcomeId: 'record' })
     expect(current(session).draft.outcomeId).toBe('')
     for (const size of [0, 1, 3]) {
@@ -62,13 +64,13 @@ describe('registered script night input cardinalities', () => {
     expect(projectCurrentPlayerStates(session)).toEqual(authority)
   })
 
-  it('changing Po mode invalidates adopted/in-flight AI and persists the explicit zero choice', () => {
+  it('Po rejects matching or in-flight AI decisions and persists the explicitly chosen zero mode', () => {
     let session = cardinalitySession('bad-moon-rising', 'po', 8, true)
     session = actNight(session, { type: 'target-count-choice', count: 1 })
     session = actNight(session, { type: 'target', seatId: 2 })
     const old = held(session)
     session = actNight(session, { type: 'apply-ai-advice', advice: old })
-    expect(current(session).draft.outputSource?.kind).toBe('ai')
+    expect(current(session).draft.outputSource?.kind).not.toBe('ai')
     session = actNight(session, { type: 'target-count-choice', count: 0 })
     session = actNight(session, { type: 'apply-ai-advice', advice: old })
     expect(projected(session).lastNotice).toBe('AI建议已失效')

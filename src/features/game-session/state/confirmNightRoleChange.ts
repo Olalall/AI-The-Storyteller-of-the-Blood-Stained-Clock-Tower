@@ -4,6 +4,7 @@ import { nightContextKey } from '../../night-workbench/state/gameSessionAdapter'
 import { roleChangeReasonLabel } from '../../night-workbench/state/roleChanges'
 import type { GameSessionState, SetupChangedEntry } from '../types'
 import { createSmartScriptNightQueue } from './createNextNightRun'
+import { mergeFirstNightSystemSteps } from './firstNightSystemSteps'
 import { projectConfirmedSetup, projectCurrentAssignments, projectCurrentPlayerStates } from './projectors'
 import type { GameSessionAction } from './sessionActions'
 import { projectKazaliAllocation } from './applyKazaliAllocation'
@@ -67,14 +68,26 @@ export function confirmNightRoleChange(session: GameSessionState, action: Extrac
   const next = { ...session, timeline: [...session.timeline, entry] }
   const additions = action.timing !== 'later' ? changedRoleNightItems(next, action.seatId, toRole.id, action.id, action.timing) : []
   if (action.timing !== 'later' && !additions.length) return session
-  const queue: WakeItem[] = run.queue.map((item) => item.seatId !== action.seatId || item.progress === 'confirmed'
-    ? item : { ...item, progress: 'not_applicable', applicability: 'not_applicable', reason: '主持已确认角色变化，原能力不再发动；原草稿保留。' })
+  const currentAssignments = projectCurrentAssignments(next)
+  const queue: WakeItem[] = run.queue.map((item) => {
+    if (item.progress === 'confirmed') return item
+    // 通知卡锚定接收人，不能只按座位停用：来源角色已失去能力时也要停止通知。
+    const sourceRoleId = item.systemStep?.kind === 'audience_notice' ? item.roleId.replace(/^system-audience-/, '') : null
+    const sourceRemoved = sourceRoleId === fromRole.id && !currentAssignments.some((assignment) => assignment.role.id === sourceRoleId)
+    if (!sourceRemoved && (item.systemStep || item.seatId !== action.seatId)) return item
+    return { ...item, progress: 'not_applicable', applicability: 'not_applicable', reason: '主持已确认角色变化，原能力不再发动；原草稿保留。' }
+  })
   const orders = getSmartScriptPack(session.scriptId).nightOrders[run.nightType === 'first' ? 'firstNight' : 'otherNight']
   const order = new Map(orders.map((item) => [item.roleId, item.order]))
   for (const item of additions) {
+    if (item.systemStep?.kind === 'audience_notice') {
+      const merged = mergeFirstNightSystemSteps(queue, [item])
+      queue.splice(0, queue.length, ...merged)
+      continue
+    }
     const rank = item.abilityPhase === 'initial' ? undefined : order.get(item.roleId)
     const index = rank === undefined ? queue.findIndex((known) => known.id === run.activeCursorId) + 1
-      : queue.findIndex((known) => (order.get(known.roleId) ?? Infinity) > rank)
+      : queue.findIndex((known) => (order.get(known.systemStep?.kind === 'audience_notice' ? known.roleId.replace(/^system-audience-/, '') : known.roleId) ?? Infinity) > rank)
     queue.splice(index < 0 ? queue.length : index, 0, { ...item,
       reason: `${item.reason ? `${item.reason} ` : ''}主持已确认当晚处理新获得的能力；核对时点、旧持续效果及使用次数。`,
     })

@@ -3,25 +3,8 @@ import path from 'node:path'
 import { randomUUID } from 'node:crypto'
 import type { GameArchiveRecord } from '../../src/services/archive/types'
 import type { ArchiveListQuery, ArchiveRepository } from './types'
+import { hydrateArchiveAnnotations } from '../../src/services/archive/archiveMigration'
 import { archiveScriptName } from '../../src/services/archive/archiveSnapshot'
-
-function normalizeArchiveRecord(value: unknown): GameArchiveRecord | null {
-  if (!value || typeof value !== 'object') return null
-  const record = value as Partial<GameArchiveRecord>
-  const valid = (record.schemaVersion === 1 || record.schemaVersion === undefined) &&
-    typeof record.id === 'string' &&
-    typeof record.sessionId === 'string' &&
-    typeof record.archivedAt === 'string' &&
-    typeof record.winner === 'string' &&
-    typeof record.winnerLabel === 'string' &&
-    typeof record.scriptName === 'string' &&
-    typeof record.playerCount === 'number' &&
-    Boolean(record.summary) &&
-    Array.isArray(record.timeline) &&
-    Boolean(record.session)
-  if (!valid) return null
-  return { ...record, schemaVersion: 1, scriptName: archiveScriptName(record as GameArchiveRecord) } as GameArchiveRecord
-}
 
 function sortByArchivedAt(records: GameArchiveRecord[]) {
   return records.sort((left, right) => right.archivedAt.localeCompare(left.archivedAt))
@@ -71,7 +54,7 @@ export class JsonArchiveRepository implements ArchiveRepository {
       const text = await fs.readFile(this.filePath, 'utf8')
       const parsed: unknown = JSON.parse(text)
       if (!Array.isArray(parsed)) return []
-      return sortByArchivedAt(parsed.map(normalizeArchiveRecord).filter((record): record is GameArchiveRecord => Boolean(record)))
+      return sortByArchivedAt(parsed.map(hydrateArchiveAnnotations).filter((record): record is GameArchiveRecord => Boolean(record)).map(record => ({ ...record, scriptName: archiveScriptName(record) })))
     } catch (error) {
       if (typeof error === 'object' && error && 'code' in error && error.code === 'ENOENT') return []
       throw error

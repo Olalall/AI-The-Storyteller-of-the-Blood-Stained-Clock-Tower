@@ -1,11 +1,18 @@
 import type { AIResultAdvice, NightWorkbenchState, RoleChangeReason, RoleSnapshot, WakeDraft, WakeItem } from '../types'
-import { applyAIResultAdvice, createAIResultAdvice, isCurrentAIAdvice } from './aiResultAdvice'
+import { applyAIResultAdvice, isCurrentAIAdvice } from './aiResultAdvice'
 import { applyDefaultOutcome, applyOutcome, emptyWakeDraft, invalidateOutcome, selectedTargetCount, targetCountChosen } from './projectWakeDraft'
 import { advanceFrom, updatePreviewDraft } from './nightWorkbenchDrafts'
 import { appendRoleChange } from './roleChanges'
 import { canConfirmDraft, canEditItem } from './workbenchGuards'
 
-export type NightWorkbenchAction =
+/**
+ * 组件只描述「做什么」，不带时间。
+ *
+ * 时间戳从 reducer 里搬出去是为了让 reducer 重新变回纯函数：原先 confirm / 草稿更新 / 换角
+ * 三处直接调 `new Date()`，同一组 (state, action) 每次跑出来的结果都不一样，
+ * 归档没法忠实回放，而不变量单测又恰好建立在「reducer 是纯函数」这个前提上。
+ */
+export type NightWorkbenchIntent =
   | { type: 'preview'; id: string }
   | { type: 'skip-item'; id: string; reason: string }
   | { type: 'return-current' }
@@ -16,6 +23,9 @@ export type NightWorkbenchAction =
   | { type: 'second-role-choice'; roleId: string }
   | { type: 'additional-role-choice'; index: 0 | 1; roleId: string }
   | { type: 'storyteller-context'; value: string }
+  | { type: 'registration-choice'; value: string }
+  | { type: 'system-check'; checkId: string }
+  | { type: 'system-bluff'; roleId: string }
   | { type: 'outcome'; outcomeId: string }
   | { type: 'confirm'; advance: boolean }
   | { type: 'defer' }
@@ -28,16 +38,25 @@ export type NightWorkbenchAction =
   | { type: 'toggle-privacy' }
   | { type: 'set-privacy'; shielded: boolean }
   | { type: 'toggle-dim' }
-  | { type: 'use-ai-result' }
   | { type: 'apply-ai-advice'; advice: AIResultAdvice | null }
   | { type: 'change-role'; role: RoleSnapshot; reason: RoleChangeReason }
   | { type: 'clear-draft' }
+
+/**
+ * reducer 的输入：意图 + 调用方生成的时间戳。
+ *
+ * `at` 挂在所有 action 上而不是只挂需要写时间的那几条，是刻意的：只要有一条 action 不带 `at`，
+ * 下一个在它里面加时间字段的人就会顺手写 `new Date()`，纯函数保证在那一刻悄悄失效。
+ * 回放时把归档里记下来的 `at` 原样传回来，就能得到与当初逐字节相同的结果。
+ */
+export type NightWorkbenchAction = NightWorkbenchIntent & { at: string }
 
 function applyAIAdviceToState(
   state: NightWorkbenchState,
   item: WakeItem,
   draft: WakeDraft,
   advice: AIResultAdvice | null,
+  at: string,
 ) {
   if (!advice) return { ...state, lastNotice: '当前角色暂无AI结算建议' }
   if (!isCurrentAIAdvice(state, item, draft, advice)) return { ...state, lastNotice: 'AI建议已失效' }
@@ -50,12 +69,12 @@ function applyAIAdviceToState(
   }
   const appliedDraft = applyAIResultAdvice(state, item, draft, advice)
   if (!appliedDraft) return { ...state, lastNotice: 'AI建议已失效' }
-  const next = updatePreviewDraft(state, () => appliedDraft)
+  const next = updatePreviewDraft(state, at, () => appliedDraft)
   if (next === state) return state
   return {
     ...next,
     aiAdviceLog: { ...state.aiAdviceLog, [advice.id]: advice },
-    lastNotice: 'AI建议已填入草稿，等待确认本项',
+    lastNotice: 'AI建议已填入草稿，等待说书人确认',
   }
 }
 
@@ -77,12 +96,12 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       }
     }
     case 'target-count-choice':
-      return updatePreviewDraft(state, (draft, item) => {
+      return updatePreviewDraft(state, action.at, (draft, item) => {
         if (!canEditItem(state, item) || !item.allowedTargetCounts?.includes(action.count) || action.count === draft.targetCountChoice) return draft
         return invalidateOutcome(item, { ...draft, targetCountChoice: action.count, targets: action.count === 0 ? [] : draft.targets.slice(-action.count) })
       })
     case 'target-role-choice':
-      return updatePreviewDraft(state, (draft, item) => {
+      return updatePreviewDraft(state, action.at, (draft, item) => {
         const count = item.targetRoleChoiceCount
         if (!count || !canEditItem(state, item) || !Number.isInteger(action.index) || action.index < 0 || action.index >= count) return draft
         if (action.seatId !== undefined && (!Number.isInteger(action.seatId) || action.seatId < 0 || action.seatId > state.playerCount)) return draft
@@ -98,8 +117,12 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
           targetCountChoice: undefined, roleChoice: '', secondRoleChoice: undefined, additionalRoleChoices: undefined,
         })
       })
-    case 'target':
-      return updatePreviewDraft(state, (draft, item) => {
+    case 'target': {
+      if (!Number.isInteger(action.seatId) || action.seatId < 1 || action.seatId > state.playerCount) return state
+      const current = state.queue.find((item) => item.id === state.previewEntryId)
+      if (!current || !canEditItem(state, current)) return state
+      if (current.forbiddenTargetSeatIds?.includes(action.seatId) && !state.drafts[current.id]?.targets.includes(action.seatId)) return { ...state, lastNotice: `${action.seatId}号是上一夜目标，本夜不能重复选择` }
+      return updatePreviewDraft(state, action.at, (draft, item) => {
         if (item.targetRoleChoiceCount !== undefined) return draft
         if (item.abilityPhase === 'initial' && state.seatSnapshots[action.seatId]?.status.life !== 'alive') return draft
         const exists = draft.targets.includes(action.seatId)
@@ -107,10 +130,11 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
         const count = selectedTargetCount(item, draft)
         if (!targetCountChosen(item, draft) || count === 0) return draft
         const targets = exists ? without : [...without, action.seatId].slice(-count)
-        return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, targets }))
+        return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, targets, registration: undefined }))
       })
+    }
     case 'role-choice':
-      return updatePreviewDraft(state, (draft, item) => {
+      return updatePreviewDraft(state, action.at, (draft, item) => {
         if (item.targetRoleChoiceCount !== undefined) return draft
         const roleChoice = draft.roleChoice === action.roleId ? '' : action.roleId
         return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, roleChoice }))
@@ -118,14 +142,14 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
     case 'second-role-choice': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
       if (!item || (item.roleCount !== 2 && item.roleCount !== 4) || !canEditItem(state, item)) return state
-      return updatePreviewDraft(state, (draft) => applyDefaultOutcome(item, invalidateOutcome(item, {
+      return updatePreviewDraft(state, action.at, (draft) => applyDefaultOutcome(item, invalidateOutcome(item, {
         ...draft, secondRoleChoice: draft.secondRoleChoice === action.roleId ? '' : action.roleId,
       })))
     }
     case 'additional-role-choice': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
       if (!item || item.roleCount !== 4 || !canEditItem(state, item) || !item.roleChoices?.some((role) => role.id === action.roleId)) return state
-      return updatePreviewDraft(state, (draft) => {
+      return updatePreviewDraft(state, action.at, (draft) => {
         const choices = [...(draft.additionalRoleChoices ?? ['', ''])]
         choices[action.index] = choices[action.index] === action.roleId ? '' : action.roleId
         return invalidateOutcome(item, { ...draft, additionalRoleChoices: choices })
@@ -134,14 +158,48 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
     case 'storyteller-context': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
       if (!item || !canEditItem(state, item)) return state
-      return updatePreviewDraft(state, (draft) => {
+      return updatePreviewDraft(state, action.at, (draft) => {
         const value = action.value.trim().slice(0, 1000)
         if (value === (draft.storytellerContext ?? '')) return draft
         return invalidateOutcome(item, { ...draft, storytellerContext: value || undefined })
       })
     }
+    case 'registration-choice':
+      if (state.queue.find((item) => item.id === state.previewEntryId)?.forbiddenRegistrationValues?.includes(action.value as NonNullable<WakeDraft['registration']>['value'])
+        && state.drafts[state.previewEntryId]?.registration?.value !== action.value) {
+        return { ...state, lastNotice: '本夜登记不能与上一夜展示类型相同；如因醉酒或中毒需要例外，请改为人工记录。' }
+      }
+      return updatePreviewDraft(state, action.at, (draft, item) => {
+        const spec = item.registrationSpec
+        const seatId = draft.targets[0]
+        const choice = spec?.choices.find((candidate) => candidate.id === action.value)
+        if (!spec || !seatId || !choice) return draft
+        const registration = draft.registration?.value === choice.id
+          ? undefined
+          : { kind: spec.kind, seatId, value: choice.id as NonNullable<WakeDraft['registration']>['value'] }
+        return applyDefaultOutcome(item, invalidateOutcome(item, { ...draft, registration }))
+      })
+    case 'system-check':
+      return updatePreviewDraft(state, action.at, (draft, item) => {
+        if (!item.systemStep?.checks.some((check) => check.id === action.checkId)) return draft
+        const checked = draft.systemChecks ?? []
+        const systemChecks = checked.includes(action.checkId)
+          ? checked.filter((id) => id !== action.checkId)
+          : [...checked, action.checkId]
+        return invalidateOutcome(item, { ...draft, systemChecks })
+      })
+    case 'system-bluff':
+      return updatePreviewDraft(state, action.at, (draft, item) => {
+        const bluffCount = item.systemStep?.bluffCount ?? 0
+        if (!bluffCount || !item.systemStep?.bluffChoices?.some((choice) => choice.id === action.roleId)) return draft
+        const selected = draft.bluffRoleIds ?? []
+        const bluffRoleIds = selected.includes(action.roleId)
+          ? selected.filter((id) => id !== action.roleId)
+          : [...selected, action.roleId].slice(-bluffCount)
+        return invalidateOutcome(item, { ...draft, bluffRoleIds })
+      })
     case 'outcome':
-      return updatePreviewDraft(state, (draft, item) => {
+      return updatePreviewDraft(state, action.at, (draft, item) => {
         if (!action.outcomeId || draft.outcomeId === action.outcomeId) {
           return {
             ...draft,
@@ -165,7 +223,7 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
         id: `${state.activeCursorId}-record-${recordRevision}`,
         wakeItemId: state.activeCursorId,
         revision: recordRevision,
-        confirmedAt: new Date().toISOString(),
+        confirmedAt: action.at,
         correctionOf: state.correctionItemId ? previous?.id : undefined,
         snapshot: structuredClone(draft),
       }
@@ -183,7 +241,8 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       return action.advance ? advanceFrom(confirmedState) : confirmedState
     }
     case 'defer': {
-      if (state.previewEntryId !== state.activeCursorId) return state
+      const item = state.queue.find((entry) => entry.id === state.activeCursorId)
+      if (!item || !canEditItem(state, item)) return state
       const queue = state.queue.map((item) =>
         item.id === state.activeCursorId
           ? { ...item, progress: 'deferred' as const, reason: item.reason ?? '说书人选择稍后处理' }
@@ -252,27 +311,21 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       return state.privacyShielded === action.shielded ? state : { ...state, privacyShielded: action.shielded }
     case 'toggle-dim':
       return { ...state, dimmed: !state.dimmed }
-    case 'use-ai-result': {
-      const item = state.queue.find((entry) => entry.id === state.previewEntryId)
-      if (!item || !canEditItem(state, item)) return state
-      const draft = state.drafts[item.id] ?? emptyWakeDraft()
-      const advice = createAIResultAdvice(state, item, draft)
-      return applyAIAdviceToState(state, item, draft, advice)
-    }
     case 'apply-ai-advice': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
       if (!item || !canEditItem(state, item)) return state
       const draft = state.drafts[item.id] ?? emptyWakeDraft()
-      return applyAIAdviceToState(state, item, draft, action.advice)
+      return applyAIAdviceToState(state, item, draft, action.advice, action.at)
     }
     case 'change-role': {
       if (state.previewEntryId !== state.activeCursorId || state.correctionItemId) return state
       const item = state.queue.find((entry) => entry.id === state.activeCursorId)
       const draft = state.drafts[state.activeCursorId]
+      if (item?.systemStep) return { ...state, lastNotice: '系统步骤没有角色可换' }
       if (!item || (draft?.updatedAt && item.progress !== 'confirmed')) {
         return { ...state, lastNotice: '请先完成或清空当前草稿，再更换角色' }
       }
-      return appendRoleChange(state, item, action.role, action.reason)
+      return appendRoleChange(state, item, action.role, action.reason, action.at)
     }
     case 'clear-draft': {
       if (state.previewEntryId !== state.activeCursorId || state.correctionItemId) return state

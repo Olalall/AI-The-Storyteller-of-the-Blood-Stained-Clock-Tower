@@ -11,10 +11,11 @@ import { projectCurrentAssignments, projectCurrentPlayerStates } from './project
 import { gameSessionReducer } from './sessionReducer'
 
 const at = '2026-10-18T00:00:00.000Z'
-function sessionFor(scriptId = 'one-in-one-out', count = 13) {
+function sessionFor(scriptId = 'one-in-one-out', count = 13, includeDamsel = false) {
   let session = createSmartScriptSetupSession(scriptId, at, { playerCount: count })
   const pack = getSmartScriptPack(scriptId), roles = roleSnapshotsForScript(scriptId)
   const good = pack.roles.filter((role) => role.team === 'townsfolk' || role.team === 'outsider').slice(0, count - 1)
+  if (includeDamsel) good[good.length - 1] = pack.roles.find((role) => role.id === 'damsel')!
   const roleIds = [...good.map((role) => role.id), 'kazali']
   session = gameSessionReducer(session, { type: 'set-setup-draft', draft: {
     candidateId: 'kazali-night-transaction', revision: 1, updatedAt: at,
@@ -51,7 +52,7 @@ describe('Kazali explicitly applies first-night roles and the same-night queue',
     expect(projectCurrentPlayerStates(session)).toEqual(statuses)
     expect(session.timeline.filter((entry) => entry.kind === 'night_action')).toEqual(records)
     const run = projected(session)
-    const live = run.queue.filter((item) => item.progress !== 'not_applicable')
+    const live = run.queue.filter((item) => item.progress !== 'not_applicable' && !item.systemStep)
     expect(live.filter((item) => ['poisoner', 'harpy', 'spy'].includes(item.roleId)).map((item) => item.roleId)).toEqual(['poisoner', 'harpy', 'spy'])
     const sourceOrder = getSmartScriptPack(session.scriptId).nightOrders.firstNight
     expect(live.map((item) => sourceOrder.find((order) => order.roleId === item.roleId)!.order)).toEqual(live.map((item) => sourceOrder.find((order) => order.roleId === item.roleId)!.order).toSorted((a, b) => a - b))
@@ -59,7 +60,8 @@ describe('Kazali explicitly applies first-night roles and the same-night queue',
       const replaced = run.queue.find((item) => item.seatId === assignment.seatId && item.roleId === assignment.role.id)
       if (replaced) expect(replaced.progress).toBe('not_applicable')
     }
-    expect(run.queue.find((item) => item.id === run.activeCursorId)?.roleId).toBe('poisoner')
+    const poisoner = live.find((item) => item.roleId === 'poisoner')!
+    session = actNight(actNight(session, { type: 'preview', id: poisoner.id }), { type: 'activate-preview' })
     session = actNight(session, { type: 'target', seatId: 4 })
     session = actNight(session, { type: 'outcome', outcomeId: 'record' })
     session = actNight(session, { type: 'confirm', advance: false })
@@ -121,4 +123,103 @@ describe('Kazali explicitly applies first-night roles and the same-night queue',
     expect(projected(session).queue.find((item) => item.roleId === 'poisoner' && item.seatId === 1)?.progress).toBe('not_applicable')
     expect(projected(session).queue.find((item) => item.roleId === 'steward' && item.seatId === 1)?.progress).toBe('pending')
   })
+})
+
+
+it('builds first-night information from the applied Kazali roster, then refreshes it after a correction', () => {
+  let session = recordPairs(sessionFor())
+  expect(projected(session).queue.some((item) => item.systemStep)).toBe(false)
+  session = apply(session)
+  const first = projected(session).queue.find((item) => item.systemStep?.kind === 'minion_info')!
+  const demon = projected(session).queue.find((item) => item.systemStep?.kind === 'demon_info')!
+  expect(first.systemStep!.minionLabels.map((label) => Number(label.match(/^\d+/)?.[0]))).toEqual([1, 2, 3])
+  const kazali = projected(session).queue.find((item) => item.roleId === 'kazali')!
+  const poisoner = projected(session).queue.find((item) => item.roleId === 'poisoner')!
+  expect(first.orderIndex).toBeGreaterThan(kazali.orderIndex)
+  expect(demon.orderIndex).toBeGreaterThan(first.orderIndex)
+  expect(demon.orderIndex).toBeLessThan(poisoner.orderIndex)
+  session = actNight(actNight(session, { type: 'preview', id: first.id }), { type: 'activate-preview' })
+  session = actNight(session, { type: 'system-check', checkId: 'pointed-demon' })
+  session = actNight(session, { type: 'outcome', outcomeId: 'given' })
+  session = actNight(session, { type: 'confirm', advance: false })
+  const confirmed = session.timeline.find((entry) => entry.kind === 'night_action' && entry.wakeItemId === first.id)!
+  expect(confirmed).toBeDefined()
+  session = focusKazali(session)
+  session = actNight(session, { type: 'begin-correction' })
+  session = actNight(session, { type: 'target-role-choice', index: 0, seatId: 4 })
+  session = actNight(actNight(session, { type: 'outcome', outcomeId: 'record' }), { type: 'confirm', advance: false })
+  session = apply(session)
+  const refreshed = projected(session).queue.find((item) => item.systemStep?.kind === 'minion_info' && item.progress === 'pending')!
+  expect(refreshed.id).not.toBe(first.id)
+  expect(refreshed.systemStep!.minionLabels.map((label) => Number(label.match(/^\d+/)?.[0]))).toEqual([2, 3, 4])
+  expect(session.timeline.find((entry) => entry.id === confirmed.id)).toEqual(confirmed)
+  expect(parseSessionBackup(JSON.stringify(session))).toEqual(session)
+})
+
+
+it('refreshes Damsel recipients after Kazali allocation and leaves its notice after Minion abilities', () => {
+  let session = sessionFor('punchy', 10, true)
+  const oldNotice = projected(session).queue.find((item) => item.systemStep?.kind === 'audience_notice')!
+  expect(oldNotice.systemStep!.recipientLabels).toEqual([])
+  session = apply(recordPairs(session, [{ seatId: 1, roleId: 'harpy' }, { seatId: 2, roleId: 'cerenovus' }]))
+  const run = projected(session)
+  const notice = run.queue.find((item) => item.systemStep?.kind === 'audience_notice' && item.progress === 'pending')!
+  expect(notice.systemStep!.recipientLabels!.map((label) => Number(label.match(/^\d+/)?.[0]))).toEqual([1, 2])
+  expect(notice.id).not.toBe(oldNotice.id)
+  expect(run.queue.find((item) => item.id === oldNotice.id)?.progress).toBe('not_applicable')
+  for (const roleId of ['harpy', 'cerenovus']) {
+    expect(notice.orderIndex).toBeGreaterThan(run.queue.find((item) => item.roleId === roleId)!.orderIndex)
+  }
+  expect(parseSessionBackup(JSON.stringify(session))).toEqual(session)
+})
+
+
+it('stops the Damsel notice when Kazali replaces the Damsel herself', () => {
+  let session = sessionFor('punchy', 10, true)
+  const damsel = projectCurrentAssignments(session).find((assignment) => assignment.role.id === 'damsel')!
+  const original = projected(session).queue.find((item) => item.systemStep?.kind === 'audience_notice')!
+  session = apply(recordPairs(session, [{ seatId: damsel.seatId, roleId: 'harpy' }, { seatId: 2, roleId: 'cerenovus' }]))
+  expect(projected(session).queue.find((item) => item.id === original.id)?.progress).toBe('not_applicable')
+  expect(projected(session).queue.filter((item) => item.systemStep?.kind === 'audience_notice' && item.progress !== 'not_applicable')).toEqual([])
+  expect(parseSessionBackup(JSON.stringify(session))).toEqual(session)
+})
+
+it('keeps confirmed Damsel delivery immutable while corrected allocation creates a fresh recipient notice', () => {
+  let session = apply(recordPairs(sessionFor('punchy', 10, true), [{ seatId: 1, roleId: 'harpy' }, { seatId: 2, roleId: 'cerenovus' }]))
+  const first = projected(session).queue.find((item) => item.systemStep?.kind === 'audience_notice' && item.progress === 'pending')!
+  session = actNight(actNight(session, { type: 'preview', id: first.id }), { type: 'activate-preview' })
+  for (const check of first.systemStep!.checks) session = actNight(session, { type: 'system-check', checkId: check.id })
+  session = actNight(actNight(session, { type: 'outcome', outcomeId: 'given' }), { type: 'confirm', advance: false })
+  const beforeItem = structuredClone(projected(session).queue.find((item) => item.id === first.id))
+  const record = structuredClone(session.timeline.find((entry) => entry.kind === 'night_action' && entry.wakeItemId === first.id))
+  expect(record).toBeDefined()
+  session = focusKazali(session)
+  session = actNight(session, { type: 'begin-correction' })
+  session = actNight(session, { type: 'target-role-choice', index: 0, seatId: 3 })
+  session = actNight(actNight(session, { type: 'outcome', outcomeId: 'record' }), { type: 'confirm', advance: false })
+  session = apply(session)
+  const refreshed = projected(session).queue.find((item) => item.systemStep?.kind === 'audience_notice' && item.progress === 'pending')!
+  expect(refreshed.id).not.toBe(first.id)
+  expect(refreshed.systemStep!.recipientLabels!.map((label) => Number(label.match(/^\d+/)?.[0]))).toEqual([2, 3])
+  expect(projected(session).queue.find((item) => item.id === first.id)).toMatchObject({ ...beforeItem, orderIndex: expect.any(Number) })
+  expect(session.timeline.find((entry) => entry.id === record!.id)).toEqual(record)
+  expect(parseSessionBackup(JSON.stringify(session))).toEqual(session)
+})
+
+it('uses the complete current Minion roster when Damsel is gained and stops the pending notice when she changes again', () => {
+  let session = apply(recordPairs(sessionFor('punchy', 10), [{ seatId: 1, roleId: 'harpy' }, { seatId: 2, roleId: 'cerenovus' }]))
+  const change = (roleId: string, id: string, timing: 'tonight' | 'later') => {
+    const run = projected(session)
+    return gameSessionReducer(session, { type: 'confirm-night-role-change', nightRunId: run.nightRunId, expectedRevision: run.revision,
+      expectedContextKey: nightContextKey(session), seatId: 3, expectedRoleId: projectCurrentAssignments(session).find((assignment) => assignment.seatId === 3)!.role.id,
+      roleId, id, timing, reason: 'gameplay', confirmedAt: new Date(Date.now() + 2000).toISOString() })
+  }
+  session = change('damsel', 'gain-damsel', 'tonight')
+  const notice = projected(session).queue.find((item) => item.systemStep?.kind === 'audience_notice' && item.progress === 'pending')!
+  expect(notice).toBeDefined()
+  expect(notice.systemStep!.recipientLabels!.map((label) => Number(label.match(/^\d+/)?.[0]))).toEqual([1, 2])
+  for (const roleId of ['harpy', 'cerenovus']) expect(notice.orderIndex).toBeGreaterThan(projected(session).queue.find((item) => item.roleId === roleId)!.orderIndex)
+  session = change('savant', 'lose-damsel', 'later')
+  expect(projected(session).queue.find((item) => item.id === notice.id)?.progress).toBe('not_applicable')
+  expect(parseSessionBackup(JSON.stringify(session))).toEqual(session)
 })

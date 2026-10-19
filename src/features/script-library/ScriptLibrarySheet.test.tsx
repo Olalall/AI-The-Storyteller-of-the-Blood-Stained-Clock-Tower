@@ -4,6 +4,22 @@ import { createEmptyGameSession, createPrototypeGameSession } from '../game-sess
 import { ScriptLibrarySheet } from './ScriptLibrarySheet'
 
 describe('ScriptLibrarySheet', () => {
+  it('filters lazy catalog metadata without changing the current game or starting a reset', () => {
+    const session = createPrototypeGameSession()
+    const before = JSON.stringify(session)
+    const onSelectScript = vi.fn()
+    const onRequestResetSwitch = vi.fn()
+    render(<ScriptLibrarySheet open onOpenChange={() => undefined} session={session} onSelectScript={onSelectScript} onRequestResetSwitch={onRequestResetSwitch} />)
+    const search = screen.getByRole('searchbox', { name: '搜索板子' })
+    fireEvent.change(search, { target: { value: 'AN-DU-CHEN-CANG' } })
+    expect(screen.getByRole('heading', { name: '暗度陈仓' })).toBeVisible()
+    expect(screen.getByText('找到 1 个板子')).toBeVisible()
+    fireEvent.change(search, { target: { value: '没有这块板子' } })
+    expect(screen.getByText('没有找到匹配的板子，换一个名称或 ID 试试。')).toBeVisible()
+    expect(onSelectScript).not.toHaveBeenCalled()
+    expect(onRequestResetSwitch).not.toHaveBeenCalled()
+    expect(JSON.stringify(session)).toBe(before)
+  })
   it('allows choosing a board before setup is confirmed', () => {
     const onSelectScript = vi.fn()
     render(

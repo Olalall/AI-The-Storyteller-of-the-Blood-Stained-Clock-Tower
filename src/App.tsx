@@ -20,9 +20,12 @@ import { scriptDisplayName, type ScriptId } from './domain/scripts'
 import type { GameSessionState } from './features/game-session/types'
 import type { GameEndMode } from './features/game-end/GameEndSheet'
 import { HostNotice } from './components/ui/HostNotice'
+import { PWAInstallProvider } from './features/pwa/PWAInstallProvider'
+import { PWAStatusNotices } from './features/pwa/PWAStatusNotices'
 type View = 'dashboard' | 'night' | 'day' | 'timer'
 
 function App() {
+  const { session, dispatch, resetSession, saveFailed, saving, retrySave, editorStatus, restoreSession, reopenLatest, recovery, startAfterRecovery } = useGameSession()
   const [view, setView] = useState<View>('dashboard')
   const [setupOpen, setSetupOpen] = useState(false)
   const [identityDealOpen, setIdentityDealOpen] = useState(false)
@@ -32,9 +35,8 @@ function App() {
   const [scriptLibraryOpen, setScriptLibraryOpen] = useState(false)
   const [tutorialOpen, setTutorialOpen] = useState(false)
   const [nextScriptAfterReset, setNextScriptAfterReset] = useState<ScriptId | null>(null)
-  const [setupScriptId, setSetupScriptId] = useState<ScriptId>('catfishing')
+  const [setupScriptId, setSetupScriptId] = useState<ScriptId>(session.scriptId)
   const [playerStatusSeatId, setPlayerStatusSeatId] = useState<number | null>(null)
-  const { session, dispatch, resetSession, saveFailed, retrySave, editorStatus, restoreSession, reopenLatest, recovery, startAfterRecovery } = useGameSession()
   const scriptRequest = useScriptRequest(session)
   const nightBinding = useMemo(() => ({ session, dispatchSession: dispatch }), [session, dispatch])
   const phaseEntry = usePhaseEntry(session, dispatch, () => { if (session.playerCount > 0) setSetupScriptId(session.scriptId); setSetupOpen(true) }, setView)
@@ -72,7 +74,7 @@ function App() {
   }
 
   return (
-    <DiscussionTimerProvider key={session.id} sessionId={session.id}>
+    <PWAInstallProvider><DiscussionTimerProvider key={session.id} sessionId={session.id}>
       <AppFrame
         notice={<>{!setupOpen && session.playerCount === 0 && resetNotice ? <HostNotice message={resetNotice} autoHideMs={0} /> : null}{scriptRequest.feedback}{!setupOpen ? phaseEntry.feedback : null}<SessionRecoveryNotice recovery={recovery} onStart={startAfterRecovery} canStart={editorStatus === 'ready'} />{!recovery ? <SessionEditorNotice status={editorStatus} session={session} onReopen={reopenLatest} /> : null}{saveFailed && editorStatus === 'ready' ? <SessionSaveNotice session={session} onRetry={retrySave} /> : null}</>}
         rail={view === 'night' || view === 'day' ? <SessionRail session={session} onOpenPlayerStatus={setPlayerStatusSeatId} /> : undefined}
@@ -80,7 +82,7 @@ function App() {
           <PhaseTrack
             nodes={projectPhaseTrack(session)}
             actions={(
-              <PhaseUtilityActions dispatch={dispatch} session={session} onRestore={restoreSession} tutorialOpen={tutorialOpen} onTutorialOpenChange={setTutorialOpen}
+              <PhaseUtilityActions dispatch={dispatch} session={session} onRestore={async (next) => { await restoreSession(next); setSetupScriptId(next.scriptId) }} tutorialOpen={tutorialOpen} onTutorialOpenChange={setTutorialOpen}
                 onOpenReview={() => { setGameEndMode('review'); setGameEndOpen(true) }}
                 onOpenSave={() => { setGameEndMode('save'); setGameEndOpen(true) }}
                 onOpenReset={() => { setGameEndMode('reset'); setGameEndOpen(true) }} />
@@ -88,6 +90,7 @@ function App() {
           />
         )}
       >
+        <PWAStatusNotices hasStarted={session.playerCount > 0} canReload={editorStatus === 'ready' && !saveFailed && !saving && !recovery} />
         {view === 'dashboard' ? <Dashboard session={session} dispatch={dispatch} onEnterNight={phaseEntry.enterNight} onEnterDay={phaseEntry.enterDay} onOpenTimer={() => setView('timer')} onOpenSetup={() => setSetupOpen(true)} onOpenIdentityDeal={() => setIdentityDealOpen(true)} onOpenScriptLibrary={() => setScriptLibraryOpen(true)} onOpenPlayerStatus={setPlayerStatusSeatId} /> : null}
         {view === 'night' ? <NightWorkbench sessionBinding={nightBinding} onExit={() => setView('dashboard')} /> : null}
         {view === 'day' ? <DayWorkbench session={session} dispatch={dispatch} onExit={() => setView('dashboard')} /> : null}
@@ -101,7 +104,7 @@ function App() {
           onRequestResetSwitch={(id) => { void scriptRequest.run(id, () => { setScriptLibraryOpen(false); setNextScriptAfterReset(id); setGameEndMode('reset'); setGameEndOpen(true) }, '返回选板') }} />
         <PlayerStatusOverlay seatId={playerStatusSeatId} session={session} dispatch={dispatch} onOpenChange={(open) => { if (!open) setPlayerStatusSeatId(null) }} />
       </AppFrame>
-    </DiscussionTimerProvider>
+    </DiscussionTimerProvider></PWAInstallProvider>
   )
 }
 

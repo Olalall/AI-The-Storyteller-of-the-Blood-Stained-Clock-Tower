@@ -6,13 +6,15 @@ export type PlayerCount = 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15
 
 export type KnowledgeStatus = 'confirmed' | 'needs-review' | 'missing'
 
-export type RoleTeam = 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'traveler' | 'fabled'
+export type RoleSourceKind = 'official-catalog' | 'community-or-custom'
+
+export type RoleTeam = 'townsfolk' | 'outsider' | 'minion' | 'demon' | 'traveler' | 'fabled' | 'loric'
 
 export type SetupCountedTeam = 'townsfolk' | 'outsider' | 'minion' | 'demon'
 
 export type SetupTemplateStyle = 'balanced' | 'chaos' | 'beginner' | 'long-game' | 'bluff-heavy'
 
-export type AbilityInputKind = 'none' | 'player' | 'players' | 'role' | 'number' | 'text'
+export type AbilityInputKind = 'none' | 'player' | 'players' | 'role' | 'number' | 'text' | 'boolean'
 
 export interface ScriptSource {
   author?: string
@@ -31,6 +33,7 @@ export interface SmartRoleDefinition {
   iconPath?: string
   inputKinds: readonly AbilityInputKind[]
   knowledgeStatus: KnowledgeStatus
+  sourceKind?: RoleSourceKind
   research?: RoleResearchMetadata
 }
 
@@ -52,6 +55,7 @@ export interface AIRoleResearchBrief {
   name: string
   officialName?: string
   knowledgeStatus: KnowledgeStatus
+  sourceKind?: RoleSourceKind
   inputKinds: readonly AbilityInputKind[]
   setupImpact: readonly string[]
   possibleOutcomes: readonly string[]
@@ -69,6 +73,19 @@ export interface NightOrderEntry {
   order: number
   note?: string
   knowledgeStatus: KnowledgeStatus
+  /** 非角色本人接收的夜间通知；运行时据此生成系统步骤，不把角色持有者误当成唤醒对象。 */
+  delivery?: NightOrderDelivery
+}
+
+export interface NightOrderDelivery {
+  kind: 'audience_notice'
+  audience: {
+    team: 'minion' | 'demon'
+    excludeRoleIds?: readonly RoleId[]
+  }
+  mode: 'sequential' | 'together'
+  infoToken: string
+  sensitive: boolean
 }
 
 export interface SetupTemplate {

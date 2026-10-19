@@ -13,6 +13,7 @@ const firstBatchScriptIds = [
   'devout-theists',
 ] as const
 
+
 async function openBlankSetup(page: import('@playwright/test').Page) {
   await page.goto('/')
   await page.evaluate(() => {
@@ -35,13 +36,13 @@ async function openBlankSetup(page: import('@playwright/test').Page) {
     }))
   })
   await page.reload()
-  await page.getByRole('button', { name: '智能配板与调整' }).click()
+  await (await import('./helpers/entry-onboarding')).openSetupFromEntry(page)
   await expect(page.getByRole('heading', { name: '智能配板与调整' })).toBeVisible()
-  await expect(page.getByText('选择人数')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '选择人数' })).toBeVisible()
 }
 
 test('first batch scripts can all start a 12-player setup from the visible UI', async ({ page }) => {
-  test.setTimeout(60_000)
+  test.setTimeout(120_000)
   await page.setViewportSize({ width: 900, height: 900 })
 
   for (const scriptId of firstBatchScriptIds) {

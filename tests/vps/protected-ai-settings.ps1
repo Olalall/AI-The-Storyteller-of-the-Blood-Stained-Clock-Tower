@@ -10,7 +10,7 @@ New-Item -ItemType Directory -Path $scratch -Force | Out-Null
 Set-AssistantPrivateAcl $scratch -Directory
 $path = Join-Path $scratch 'secrets\ai-settings.dpapi'
 $fakeApi = 'FAKE-ONLY-API-CREDENTIAL'
-$valid = @{BOTC_AI_ENABLED='true';BOTC_AI_PROVIDER='openai-compatible';BOTC_AI_BASE_URL='https://provider.example.test/v1';BOTC_AI_MODEL='gemini-test-model';BOTC_AI_API_KEY=$fakeApi;BOTC_AI_ACCESS_SECRET=('S'*40);BOTC_AI_PUBLIC_ORIGIN='https://botc.example.test';BOTC_AI_TIMEOUT_MS='90000';BOTC_AI_MAX_CONTEXT_TOKENS='12000'}
+$valid = @{BOTC_AI_ENABLED='true';BOTC_AI_PROVIDER='openai-compatible';BOTC_AI_BASE_URL='https://provider.example.test/v1';BOTC_AI_MODEL='test-model';BOTC_AI_API_KEY=$fakeApi;BOTC_AI_ACCESS_SECRET=('S'*40);BOTC_AI_PUBLIC_ORIGIN='https://botc.example.test';BOTC_AI_TIMEOUT_MS='90000';BOTC_AI_MAX_CONTEXT_TOKENS='12000'}
 $checks = 0
 function Expect-Rejected([scriptblock]$Action) {
   $rejected = $false

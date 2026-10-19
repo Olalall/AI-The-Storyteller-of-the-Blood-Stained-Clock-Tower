@@ -1,7 +1,7 @@
 import type { SmartRoleDefinition } from './types'
 
 // 这里只描述记录表单，不执行技能；来源为对应角色官方规则。
-export const nightInteractionInputs: Readonly<Record<string, { targetCount?: number; firstNightTargetCount?: number; otherNightTargetCount?: number; allowedTargetCounts?: number[]; roleCount?: number; firstNightRoleCount?: number; targetKind?: 'storyteller_info'; revealResult?: boolean; midgameInitialization?: { label: string; prompt: string; resultTemplate: string }; choiceResults?: readonly { id: string; label: string }[] }>> = {
+export const nightInteractionInputs: Readonly<Record<string, { targetCount?: number; aiAdviceEnabled?: boolean; firstNightTargetCount?: number; otherNightTargetCount?: number; allowedTargetCounts?: number[]; roleCount?: number; firstNightRoleCount?: number; targetKind?: 'storyteller_info'; revealResult?: boolean; midgameInitialization?: { label: string; prompt: string; resultTemplate: string }; choiceResults?: readonly { id: string; label: string }[] }>> = {
   // https://wiki.bloodontheclocktower.com/Librarian
   librarian: { targetCount: 2, targetKind: 'storyteller_info' },
   // https://wiki.bloodontheclocktower.com/Investigator
@@ -14,7 +14,7 @@ export const nightInteractionInputs: Readonly<Record<string, { targetCount?: num
   // https://wiki.bloodontheclocktower.com/Gambler
   gambler: { revealResult: false },
   // https://wiki.bloodontheclocktower.com/Po — 模式由主持核实，不自动推算蓄力。
-  po: { targetCount: 1, allowedTargetCounts: [0, 1, 3] },
+  po: { targetCount: 1, allowedTargetCounts: [0, 1, 3], aiAdviceEnabled: false },
   // https://wiki.bloodontheclocktower.com/Shabaloth
   shabaloth: { targetCount: 2 },
   // https://wiki.bloodontheclocktower.com/Noble

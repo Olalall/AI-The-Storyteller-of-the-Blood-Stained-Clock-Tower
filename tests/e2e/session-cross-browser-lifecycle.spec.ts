@@ -157,7 +157,10 @@ test('真实后退前进与返回旧文档不覆盖接手页新内容，记录�
   const second = await context.newPage()
   await second.goto('/')
   await expect(second.getByRole('dialog', { name: '编辑保护', exact: true })).toBeVisible()
-  await page.goto('/favicon.svg?lifecycle-parked')
+  // A different origin keeps the real PWA navigation fallback from serving the app at the parked URL.
+  const parked = new URL('/favicon.svg?lifecycle-parked', baseURL)
+  parked.hostname = 'localhost'
+  await page.goto(parked.href)
   await ready(second)
   const latest = await changeOneState(second, info, checks.raw)
   await page.goBack({ waitUntil: 'commit' })

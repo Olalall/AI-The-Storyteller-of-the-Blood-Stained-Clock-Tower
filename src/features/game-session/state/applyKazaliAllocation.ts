@@ -4,6 +4,7 @@ import { projectNightInteraction } from '../../night-workbench/state/projectNigh
 import { targetRoleChoicesSatisfied } from '../../night-workbench/state/projectWakeDraft'
 import type { RoleSnapshot, WakeItem } from '../../night-workbench/types'
 import type { GameSessionState, SetupChangedEntry } from '../types'
+import { createFirstNightSystemSteps, mergeFirstNightSystemSteps } from './firstNightSystemSteps'
 import { createSmartScriptNightQueue } from './createNextNightRun'
 import { projectConfirmedSetup, projectCurrentAssignments, projectCurrentPlayerStates, projectNightConfirmedRecords } from './projectors'
 import type { GameSessionAction } from './sessionActions'
@@ -70,11 +71,14 @@ export function applyKazaliAllocation(session: GameSessionState, action: Extract
       } } }
     }
   }
-  const fresh = createSmartScriptNightQueue(next, projectCurrentAssignments(next), projectCurrentPlayerStates(next), plan.run.id, 1)
+  const assignments = projectCurrentAssignments(next), playerStates = projectCurrentPlayerStates(next)
+  const fresh = mergeFirstNightSystemSteps(createSmartScriptNightQueue(next, assignments, playerStates, plan.run.id, 1),
+    createFirstNightSystemSteps(next, assignments, playerStates, plan.run.id))
   const freshById = new Map(fresh.map((item) => [item.id, item]))
   const affected = new Set(plan.changes.map((change) => change.seatId))
   const records = projectNightConfirmedRecords(next, plan.run.id)
   const queue: WakeItem[] = plan.run.queue.map((item) => {
+    if (item.systemStep && !freshById.has(item.id)) return item.progress === 'confirmed' ? item : { ...item, progress: 'not_applicable', applicability: 'not_applicable', reason: replacedReason }
     if (!affected.has(item.seatId) || item.id === plan.item.id) return item
     if (freshById.has(item.id)) {
       return item.reason === replacedReason && !records[item.id]?.length ? freshById.get(item.id)! : item
@@ -86,9 +90,11 @@ export function applyKazaliAllocation(session: GameSessionState, action: Extract
   queue.push(...fresh.filter((item) => !oldIds.has(item.id)))
   const order = new Map(getSmartScriptPack(session.scriptId).nightOrders.firstNight.map((item) => [item.roleId, item.order]))
   const position = (item: WakeItem) => order.get(item.interactionVersion === 'marionette/pretend-v1'
-    ? next.identityPresentations?.[item.seatId]?.shownRole.id ?? '' : item.roleId) ?? Infinity
+    ? next.identityPresentations?.[item.seatId]?.shownRole.id ?? ''
+    : item.systemStep?.kind === 'audience_notice' ? item.roleId.replace(/^system-audience-/, '') : item.roleId) ?? Infinity
   queue.sort((a, b) => position(a) - position(b) || a.seatId - b.seatId)
-  const ordered = queue.map((item, index) => ({ ...item, orderIndex: index + 1 }))
+  const ordered = mergeFirstNightSystemSteps(queue.filter((item) => !item.systemStep), queue.filter((item) => Boolean(item.systemStep)))
+    .map((item, index) => ({ ...item, orderIndex: index + 1 }))
   const active = ordered.find((item) => ['pending', 'draft'].includes(item.progress) && item.applicability !== 'not_applicable') ?? ordered.find((item) => item.id === plan.item.id)!
   return { ...next, nightRuns: { ...next.nightRuns, [plan.run.id]: {
     ...plan.run, queue: ordered, activeCursorId: active.id, previewEntryId: active.id,

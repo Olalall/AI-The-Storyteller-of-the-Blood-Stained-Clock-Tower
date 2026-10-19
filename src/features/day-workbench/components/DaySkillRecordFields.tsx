@@ -42,7 +42,8 @@ export function DaySkillRecordFields({ session, draft, onChange, actionPrefix = 
   function toggleTarget(seatId: number) {
     if (draft.targetSeatIds.includes(seatId)) {
       const { [seatId]: _removed, ...targetActualRoleIds } = draft.targetActualRoleIds
-      onChange({ ...draft, targetSeatIds: draft.targetSeatIds.filter((item) => item !== seatId), targetActualRoleIds })
+      const { [seatId]: _alignment, ...targetAlignments } = draft.targetAlignments ?? {}
+      onChange({ ...draft, targetSeatIds: draft.targetSeatIds.filter((item) => item !== seatId), targetActualRoleIds, targetAlignments })
       return
     }
     onChange({
@@ -90,6 +91,21 @@ export function DaySkillRecordFields({ session, draft, onChange, actionPrefix = 
           roles={roleOptions}
           onChange={(roleId) => onChange({ ...draft, targetActualRoleIds: { ...draft.targetActualRoleIds, [seatId]: roleId } })}
         />)}
+        {draft.abilityRoleId === 'moonchild' ? draft.targetSeatIds.map((seatId) => <fieldset key={`alignment-${seatId}`}>
+          <legend>{seatId}号选择时阵营</legend>
+          <div className="day-skill-fields__outcomes" role="group" aria-label={`${seatId}号选择时阵营`}>
+            {(['good', 'evil'] as const).map((alignment) => <button
+              type="button"
+              key={alignment}
+              className={draft.targetAlignments?.[seatId] === alignment ? 'is-active' : ''}
+              aria-pressed={draft.targetAlignments?.[seatId] === alignment}
+              onClick={() => onChange({
+                ...draft,
+                targetAlignments: { ...(draft.targetAlignments ?? {}), [seatId]: alignment },
+              })}
+            >{alignment === 'good' ? '善良' : '邪恶'}</button>)}
+          </div>
+        </fieldset>) : null}
       </div> : null}
     </fieldset>
 

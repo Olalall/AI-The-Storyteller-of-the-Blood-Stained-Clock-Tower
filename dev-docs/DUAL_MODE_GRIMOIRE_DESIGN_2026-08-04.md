@@ -8,6 +8,24 @@
 
 ---
 
+
+> ### ⚠ 本文件有 33 处正文被截断
+>
+> 本文件是由 `data/wiki-ground-truth/compare/dualmode-design.json` 汇编而成的，
+> 汇编时对长字段做了硬截断：**表格单元格约 190 字符、类型定义约 1100 字符即断**，
+> 且第三节落点表的 `why` 与 `conflictRisk` 两列整列丢失。
+>
+> 断点全部落在句子中间，读起来只像是话没说完——已经造成的实际后果包括：
+> `GrimoireOp` 在本文件里少了 4 个变体、夜态 core 的方案只剩「留在抽屉 hal」。
+>
+> **动手前先读这两份恢复文件，它们与本文件冲突时以它们为准：**
+> - [GRIMOIRE_DESIGN_RECOVERED_PASSAGES.md](GRIMOIRE_DESIGN_RECOVERED_PASSAGES.md) —— 全部 33 处逐字恢复
+> - [GRIMOIRE_FOLDED_FEATURES_FULL.md](GRIMOIRE_FOLDED_FEATURES_FULL.md) —— 第三节落点表 14 条完整版（含丢失的两列）
+>
+> 另：**第八节「评审裁决的 12 处冲突」凌驾于前七节**。前文被裁决否掉的内容（如 `AIGrimoireProposal`、
+> `GrimoireSettings`、`SessionSurfaceMode`）正文仍在，但一律不实现。
+
+
 ## 〇、两条最重要的裁决
 
 ### 裁决 1：电子魔典不是规则引擎（这是整个设计的护身符）
@@ -984,6 +1002,60 @@ ui-design-system.md:34 写着「角色 PNG 与圆形 Token 只保留给 RoleDisc
 
 ## 魔典四批
 
+## 实施状态（截至 2026-08-06）
+
+分支 `fix/wiki-ground-truth-audit`。1265 单测 + 35 e2e 绿（Node 24 与 26 各跑一遍），
+`verify-architecture.mjs` exit 0，`audit:public` 通过，oxlint 零警告。
+
+### 已完成
+
+**G1 只读魔典**：布局求解、GrimoireSeat、GrimoireCanvas、三级遮蔽（模型 + 运行时控制）、
+窄屏网格退化、hostingMode 出处元数据 + 架构守门、首次引导卡、降级交接卡与可抄清单、
+完整度双维度提示条、**core 五种相位内容 + 夜序双 Disc**、**抽屉宿主与页面注册表**。
+
+**耐久性闸门（G2 准入）**：快照轮转、启动崩溃恢复询问、多标签页单实例锁、
+体积基线（300 次操作 20.6KB）、**导出本局 JSON 常驻可达**、**相位关闭本地快照**、
+**后端 recovery 命名空间（独立存储与路由，与归档隔离并有专门测试）**。
+
+**G2 数据模型**：ReminderToken 就地放宽（sourceRoleId + placedInSegmentId）、
+GrimoireOp 十三变体、PlayerStateChangedEntry 四个可选字段并已真正落盘、
+**一次手势一条记录的不变量**（字段子集 + 值一致 + 非空改动三重校验）、
+**不变量测试 B**（除专用 action 外无人能改玩家状态）。
+
+**守门与发布闸门**：9 条反规则引擎检查已实现 6 条（含裁决 10 的禁用标识符表），
+audit:public 三条新检查（data URI 超 2KB、清单字段完整性、botc.games 资源 URL），
+并修好了它在无 ripgrep 环境下直接抛堆栈的老问题。
+
+**文档**：PRODUCT_VISION 八节改写含新增「主视图模式合同」、
+ABILITY_SETTLEMENT_BOUNDARY 三节、AI_AUTHORITY_BOUNDARY 十节、
+architecture-guardrails 九条检查表、GRIMOIRE_MODE_BOUNDARY 七条边界。
+
+### 未完成
+
+- **六个全屏页尚未真正进抽屉**。宿主与注册表就绪，但六页的根都是 Radix
+  `Dialog.Portal`，portal 出去后抽屉的高度与 inert 全部失效、overlay 铺满视口把环糊掉。
+  需要先给 Sheet 加内联呈现分支；SetupPanel 现 316/320 行，脱壳时要同批拆文件。
+- **画布尚未接进主流程**。GrimoireCanvas / GrimoireCore 全部就绪但无人渲染；
+  core 五个相位的数据源（night/timer/vote/dusk/dawn）也还没人喂。
+  模式切换入口按裁决 7 应落在 core 顶行的本局信息浮层，浮层本身未做。
+- **G2 写入层**：SeatActionBar、草稿/确认两段式、HostNotice 全局化与 3.5 秒撤销、
+  补录建议卡、删除标记二段摩擦。其中撤销有一处硬阻断需先解决：
+  `sessionReducerGuards.ts` 只允许 night_action / day_action 走更正链，
+  player_state_changed 的更正会被静默吞掉——撤销会「看起来成功」而实际什么都没发生。
+- **G3 全部**。另有一处需先裁决：44px 死亡票 chip 与 satelliteChipSize 28px 上限冲突，
+  硬塞会与相邻座位重叠、违反 G1 验收④。
+- **G4**：文档明确允许永不做。
+
+### 本轮发现的既存问题
+
+1. 本文件有 33 处正文被截断（见 GRIMOIRE_DESIGN_RECOVERED_PASSAGES.md）。
+2. 测试套件在 Node ≥ 26 上 55 条全红，原因是 Node 的实验性全局 localStorage
+   顶掉了 jsdom 那份。已在 src/test/setup.ts 修好。
+3. `audit:public` 在没有 ripgrep 的机器上直接抛 ENOENT 堆栈，既没扫描也没有可读的
+   失败信息——而调用者很容易把「崩了」当成「没扫出问题」。已加 Node 兜底。
+
+---
+
 ### G1 只读魔典（约 2–3 周）——环作为观察面，零写入
 内容：features/grimoire 目录 + GrimoireSeat（包 RoleDisc）+ 椭圆布局纯函数（含 pitch 判据与四档尺寸）+ core（五种相位内容、Town Info、夜序双 Disc）+ 三档抽屉（六个全屏页原样换容器）+ 三级遮蔽 + 窄屏网格退化 + hostingMode/hostingModeHistory + 首次引导卡「你的魔典放在哪里」+ 降级交接卡 + 完整度提示条（含 seatsWithRole 为 0 的分支）。
 关键约束：本批画布内不得出现任何 dispatch，全部状态编辑仍走既有 PlayerStatusSheet。
@@ -1102,7 +1174,7 @@ ui-design-system.md:34 写着「角色 PNG 与圆形 Token 只保留给 RoleDisc
 - 局中座位数变化：旅行者可随时加入/离场，而环的角度是 f(index, count)，人数一变整圈重排。现有 GameSessionState.seats 是 Record 且 playerCount 是顶层字段，没有任何一份说明中途增减座位怎么做、会不会打乱既有 timeline 的 seatId 引用。这也是 G4 旅行者批的真正前置。
 - 存储容量与归档体积：before/after 全量快照乘以魔典高频手势的增长只有定性描述没有数字。需要实测一局 12 人 × 300 次操作的 JSON 大小，与 localStorage 5MB 配额、快照轮转份数一起算总账，据此决定 privateNote 是否只存标志位、markers 是否需要增量。
 - 功能开关与回滚：没有任何一份提到 feature flag。降级交接卡覆盖了主动切换，但没覆盖「魔典视图渲染崩溃」这种情况。建议 ErrorBoundary 包住画布，崩溃时自动降级为纯记录并给回执。
-- 窄屏下模式的语义：UX 明确 <720 逻辑宽时两种模式收敛为同一个东西，但首次引导卡仍会问「你的魔典放在哪里」。缺一条规则：窄屏是否隐藏该问题，以及在窄屏上选了魔典模式后换到平板会发生什么。
+- ~~窄屏下模式的语义~~ **已裁决（G1 实施时）**：窄屏照问，不隐藏。这张卡问的是「桌上有没有实体魔典」——那是物理世界的事实，与屏幕宽度无关。隐藏它会让 hostingMode 静默取默认值，等说书人换到平板上，就会看见一张自己从没同意过的电子魔典。窄屏只在卡片下方补一句「这台设备画不下座位环，会排成列表；换到平板上会自动变回环」。换设备时不做任何迁移动作：hostingMode 是出处元数据，退化的是渲染而不是这局的性质，这也正是它被禁止成为行为分支的原因。
 - 只读态的组合爆炸：UI_REDESIGN_PLAN 第三批已记录 isPreviewing / isReadOnly / isCorrecting 三布尔叠加会爆炸并要求先收敛成 mode 枚举，魔典再叠 replay 态、deal 态、遮蔽三级、草稿态，组合数进一步上升，但没有任何一份给出统一的状态枚举设计。这应在 G1 之前定好，否则 G3 的回看态会成为最难写的一块。
 - AI standard 上下文的成本与隐私：模式切换提出 coverage 为 full 时下发完整 seats 数组，但没估算 token 增量与费用影响，也没说明这同时是一个隐私选择（把完整魔典发给第三方模型）。缺一条「完整局面上传需用户显式开启」的决定。
 - 纯记录模式的回归保护：三份都提到纯记录模式不得腐化，但只有边界提了一条 e2e。缺具体定义：这条 e2e 覆盖哪些步骤、跑在 npm run check 的哪个位置、耗时预算多少（Playwright 全流程在业余项目的本地 check 里可能过慢，需决定是否只在 CI 跑）。

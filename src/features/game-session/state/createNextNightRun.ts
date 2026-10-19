@@ -1,5 +1,5 @@
 import { sampleOtherNightQueue } from '../../night-workbench/data/catfishing'
-import { getSmartScriptPack, roleAbilityForScript, rolePromptForScript, roleSnapshotsForScript } from '../../../domain/scripts'
+import { getSmartScriptPack, normalizeRoleId, roleAbilityForScript, rolePromptForScript, roleSnapshotsForScript } from '../../../domain/scripts'
 import type { AbilityInputKind, NightOrderEntry, SmartRoleDefinition } from '../../../domain/scripts'
 import type { OutcomeInput, PlayerStatusSnapshot, WakeItem, WakeRoleChoice } from '../../night-workbench/types'
 import type { GameSessionState, NightRunState, PlayerState, SetupAssignment } from '../types'
@@ -8,6 +8,9 @@ import { storytellerSeatLabel } from '../seatPresentation'
 import { nextPhaseSequence } from './phaseSegments'
 import { nightInteractionInputs, nightTargetCountForRole } from '../../../domain/scripts/nightInteractionInputs'
 import { projectNightInteraction } from '../../night-workbench/state/projectNightInteraction'
+import { targetContractFor, createRoleSpecificOutcomeOptions } from './nightWakeContract'
+import { applyWakeHistoricalContext } from './nightHistoricalContext'
+import { createAudienceNoticeItem, createFirstNightSystemSteps, mergeFirstNightSystemSteps } from './firstNightSystemSteps'
 import { playerFacingIdentity } from '../../identity-deal/identityProjection'
 
 export function nextNightSequence(session: GameSessionState) {
@@ -23,7 +26,10 @@ export function createNextNightRun(session: GameSessionState): NightRunState | n
   const id = nextNightRunId(session, sequence)
   const assignments = projectCurrentAssignments(session)
   const playerStates = projectCurrentPlayerStates(session)
-  const queue = createSmartScriptNightQueue(session, assignments, playerStates, id, sequence)
+  const roles = createSmartScriptNightQueue(session, assignments, playerStates, id, sequence)
+  const queue = (sequence === 1 && session.scriptId !== 'catfishing'
+    ? mergeFirstNightSystemSteps(roles, createFirstNightSystemSteps(session, assignments, playerStates, id)) : roles)
+    .map((item, index) => ({ ...item, orderIndex: index + 1 }))
   if (!queue.length) return null
 
   return {
@@ -55,18 +61,22 @@ export function createSmartScriptNightQueue(
 ) {
   const pack = getSmartScriptPack(session.scriptId)
   const orders = sequence === 1 ? pack.nightOrders.firstNight : pack.nightOrders.otherNight
-  const roleById = new Map(pack.roles.map((role) => [role.id, role]))
+  const roleById = new Map(pack.roles.map((role) => [normalizeRoleId(role.id), role]))
   const queue = orders.flatMap((order) => {
-    const role = roleById.get(order.roleId)
+    const role = roleById.get(normalizeRoleId(order.roleId))
     if (!role) return []
-    return assignments.filter((assignment) => assignment.role.id === order.roleId).flatMap((assignment) => {
+    const roleAssignments = assignments.filter((assignment) => normalizeRoleId(assignment.role.id) === normalizeRoleId(order.roleId))
+    if (order.delivery?.kind === 'audience_notice') {
+      return roleAssignments.length ? [createAudienceNoticeItem({ session, assignments: projectCurrentAssignments(session), playerStates, sourceAssignments: roleAssignments, role, order, runId })] : []
+    }
+    return roleAssignments.flatMap((assignment) => {
       const playerState = playerStates[assignment.seatId]
       return playerState ? [createSmartWakeItem({ session, assignment, playerState, role, order, runId, isFirstNight: sequence === 1 })] : []
     })
   })
-  for (const assignment of assignments.filter((entry) => entry.role.id === 'marionette')) {
+  for (const assignment of assignments.filter((entry) => normalizeRoleId(entry.role.id) === 'marionette')) {
     const shown = playerFacingIdentity(session, assignment.seatId).role
-    const role = shown && roleById.get(shown.id)
+    const role = shown && roleById.get(normalizeRoleId(shown.id))
     const order = role && orders.find((entry) => entry.roleId === role.id)
     const playerState = playerStates[assignment.seatId]
     if (!role || !shown || !order || !playerState) continue
@@ -99,9 +109,14 @@ function createSmartWakeItem(input: {
   const firstNightRoleCount = isFirstNight ? nightInteractionInputs[role.id]?.firstNightRoleCount : undefined
   const roleChoices = firstNightRoleCount === 0 ? undefined
     : template?.roleChoices ? structuredClone(template.roleChoices) : createRoleChoices(session.scriptId, role.inputKinds)
-  const targetCount = template?.targetCount ?? nightTargetCountForRole(role, isFirstNight)
+  const contract = targetContractFor(role, session.playerCount, roleAbilityForScript(session.scriptId, role.id))
+  const explicit = nightInteractionInputs[role.id]
+  const targetCount = template?.targetCount ?? (explicit ? nightTargetCountForRole(role, isFirstNight) : contract.targetCount)
+  const genericOptions = createGenericOutcomeOptions(targetCount, Boolean(roleChoices))
+  const specificOptions = createRoleSpecificOutcomeOptions(role.id, contract, Boolean(roleChoices))
+  const outcomes = specificOptions ? [...specificOptions, ...genericOptions.filter((option) => !specificOptions.some((known) => known.id === option.id) && (option.id === 'skip' || !specificOptions.some((known) => known.targetCounts?.length)))] : genericOptions
   const dead = playerState.life === 'dead'
-  return projectNightInteraction({
+  return applyWakeHistoricalContext(session, projectNightInteraction({
     id: `${runId}-${role.id}-${assignment.seatId}`,
     orderIndex: order.order,
     seatId: assignment.seatId,
@@ -119,13 +134,14 @@ function createSmartWakeItem(input: {
     status: toWakeStatus(playerState),
     reason: dead ? '玩家已死亡；请说书人核对是否需要唤醒。' : undefined,
     targetCount,
-    targetLabel: template?.targetLabel ?? (targetCount > 1 ? '玩家' : targetCount === 1 ? '目标' : undefined),
+    minimumTargetCount: explicit ? undefined : contract.minimumTargetCount,
+    targetLabel: template?.targetLabel ?? contract.targetLabel ?? (targetCount > 1 ? '玩家' : targetCount === 1 ? '目标' : undefined),
     targetKind: template?.targetKind ?? (targetCount > 0 ? 'player_choice' : undefined),
     roleChoices,
     roleLabel: roleChoices ? template?.roleLabel ?? '角色' : undefined,
     interactionVersion: template?.interactionVersion ?? `${session.scriptId}/generic-night-v1`,
-    outcomeOptions: template ? structuredClone(template.outcomeOptions) : createGenericOutcomeOptions(targetCount, Boolean(roleChoices)),
-  }, session.scriptId, { nightType: isFirstNight ? 'first' : 'other', playerCount: session.playerCount })
+    outcomeOptions: template ? structuredClone(template.outcomeOptions) : outcomes,
+  }, session.scriptId, { nightType: isFirstNight ? 'first' : 'other', playerCount: session.playerCount }), isFirstNight ? 1 : nextNightSequence(session))
 }
 
 function createRoleChoices(scriptId: string, inputKinds: readonly AbilityInputKind[]): WakeRoleChoice[] | undefined {

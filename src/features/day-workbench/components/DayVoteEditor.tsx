@@ -12,12 +12,14 @@ interface Props {
   playerCount: number
   playerStates: Record<number, PlayerState>
   disabled?: boolean
+  /** 工作台分步展示时复用独立的 NominationStep；更正弹层仍完整展示。 */
+  showNomination?: boolean
   onChange: (update: (current: VoteRoundDraft) => VoteRoundDraft) => void
   onRecord?: () => void
   onCancel?: () => void
 }
 
-export function DayVoteEditor({ draft, playerCount, playerStates, disabled = false, onChange, onRecord, onCancel }: Props) {
+export function DayVoteEditor({ draft, playerCount, playerStates, disabled = false, showNomination = true, onChange, onRecord, onCancel }: Props) {
   const [target, setTarget] = useState<'nominator' | 'nominee'>('nominator')
   const id = useId()
   const aliveCount = Object.values(playerStates).filter((state) => state.life === 'alive').length
@@ -25,7 +27,7 @@ export function DayVoteEditor({ draft, playerCount, playerStates, disabled = fal
   const ghostVotes = new Set(draft.ghostVoteSeatIds)
   const ready = draft.nominatorSeatId !== null && draft.nomineeSeatId !== null
   return <>
-    <Card className="day-card--nomination" eyebrow="步骤 1" eyebrowTone="info" title="选择提名" titleId={`${id}-nomination`} aria-labelledby={`${id}-nomination`}>
+    {showNomination ? <Card className="day-card--nomination" eyebrow="步骤 1" eyebrowTone="info" title="选择提名" titleId={`${id}-nomination`} aria-labelledby={`${id}-nomination`}>
       <div className="day-selection-tabs" role="tablist" aria-label="选择提名对象">
         <button type="button" disabled={disabled} role="tab" aria-selected={target === 'nominator'} className={target === 'nominator' ? 'is-active' : ''} onClick={() => setTarget('nominator')}>提名人 · {draft.nominatorSeatId ? `${draft.nominatorSeatId}号` : '未选'}</button>
         <button type="button" disabled={disabled} role="tab" aria-selected={target === 'nominee'} className={target === 'nominee' ? 'is-active' : ''} onClick={() => setTarget('nominee')}>被提名人 · {draft.nomineeSeatId ? `${draft.nomineeSeatId}号` : '未选'}</button>
@@ -37,7 +39,7 @@ export function DayVoteEditor({ draft, playerCount, playerStates, disabled = fal
           aria-label={`选择${seatId}号为${target === 'nominator' ? '提名人' : '被提名人'}`} />)}
       </div>
       {onCancel ? <Button variant="ghost" disabled={disabled || !hasVoteRoundDraftContent(draft)} onClick={() => { setTarget('nominator'); onCancel() }}>取消本轮提名</Button> : null}
-    </Card>
+    </Card> : null}
     <Card className="day-card--vote" eyebrow="步骤 2" eyebrowTone="info" title="记录举手" titleId={`${id}-vote`} aria-labelledby={`${id}-vote`}
       actions={<Field className="day-threshold" label="处决门槛" hint={`存活${aliveCount}人 · 建议${Math.max(1, Math.ceil(aliveCount / 2))}`}>
         <input type="number" disabled={disabled} min="1" max={playerCount} value={draft.threshold} onChange={(event) => onChange((current) => ({ ...current, threshold: Number(event.target.value) || 0 }))} />

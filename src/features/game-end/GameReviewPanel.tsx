@@ -2,12 +2,12 @@ import { Archive, Download } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { EmptyState } from '../../components/ui/EmptyState'
-import type { GameArchiveRecord } from '../../services/archive'
+import { archiveHostingTag, archiveLifeSummary, type GameArchiveRecord } from '../../services/archive'
 import { GameAIReviewPanel } from './GameAIReviewPanel'
 
 interface GameReviewPanelProps {
   archives: GameArchiveRecord[]
-  notice: string | null
+  notice?: string | null
   selectedArchive: GameArchiveRecord | null
   onSelectArchive: (archiveId: string) => void
   onExportArchive: (archive: GameArchiveRecord) => void
@@ -35,9 +35,33 @@ function formatArchiveDate(value: string) {
   })
 }
 
+function ArchiveHostingLine({ archive }: { archive: GameArchiveRecord }) {
+  const tag = archiveHostingTag(archive)
+  const life = archiveLifeSummary(archive)
+
+  return <>
+    <div className="game-review__hosting" aria-label="本局主持模式">
+      <span>主持模式</span>
+      <strong>{tag.label}</strong>
+      {tag.detail ? <small>{tag.detail}</small> : null}
+    </div>
+    <div className="game-end__stats game-end__stats--compact">
+      <div><span>玩家</span><strong>{archive.playerCount}</strong></div>
+      <div><span>记录</span><strong>{archive.summary.records}</strong></div>
+      <div><span>存活</span><strong>{life.aliveLabel}</strong></div>
+      <div><span>死亡</span><strong>{life.deadLabel}</strong></div>
+    </div>
+    {life.recorded ? null : (
+      <p className="game-review__unrecorded" role="note">
+        这局没有在工具里录过状态变更 —— 生死以说书人当时的实体魔典为准，不是「无人死亡」。
+      </p>
+    )}
+  </>
+}
+
 export function GameReviewPanel({
   archives,
-  notice,
+  notice = null,
   selectedArchive,
   onSelectArchive,
   onExportArchive,
@@ -103,15 +127,11 @@ export function GameReviewPanel({
           <span>胜方</span>
           <strong>{selectedArchive.winnerLabel}</strong>
         </div>
-        <div className="game-end__stats game-end__stats--compact">
-          <div><span>玩家</span><strong>{selectedArchive.playerCount}</strong></div>
-          <div><span>记录</span><strong>{selectedArchive.summary.records}</strong></div>
-          <div><span>死亡</span><strong>{selectedArchive.summary.dead}</strong></div>
-          <div><span>投票</span><strong>{selectedArchive.summary.votes}</strong></div>
-        </div>
+        <ArchiveHostingLine archive={selectedArchive} />
         <dl className="game-review__metrics">
           <div><dt>夜晚</dt><dd>{selectedArchive.summary.nightActions}条</dd></div>
           <div><dt>白天</dt><dd>{selectedArchive.summary.dayActions}条</dd></div>
+          <div><dt>投票</dt><dd>{selectedArchive.summary.votes}轮</dd></div>
           <div><dt>处决</dt><dd>{selectedArchive.summary.executions}次</dd></div>
           <div><dt>更正</dt><dd>{selectedArchive.summary.corrections}条</dd></div>
         </dl>

@@ -1,4 +1,4 @@
-param(
+﻿param(
   [string]$OutputDir = ".tmp-vps-sync",
   [switch]$SkipBuild,
   [switch]$SkipChecks
@@ -22,6 +22,18 @@ function Run {
   & $FilePath @Arguments
   if ($LASTEXITCODE -ne 0) {
     throw "Command failed with exit code ${LASTEXITCODE}: $FilePath $($Arguments -join ' ')"
+  }
+}
+
+function Get-Sha256 {
+  param([string]$Path)
+  $stream = [System.IO.File]::OpenRead($Path)
+  $sha256 = [System.Security.Cryptography.SHA256]::Create()
+  try {
+    return ([System.BitConverter]::ToString($sha256.ComputeHash($stream))).Replace("-", "")
+  } finally {
+    $sha256.Dispose()
+    $stream.Dispose()
   }
 }
 
@@ -84,7 +96,6 @@ $manifest = [ordered]@{
   project = "botc-storyteller-companion"
   product = "钟楼说书人副驾驶"
   createdAt = (Get-Date).ToString("o")
-  sourcePath = $root
   defaultBackendPort = 8787
   defaultRemoteDir = "C:\botc-storyteller-companion"
   defaultStagingDir = "C:\botc-storyteller-companion-deploy"
@@ -98,6 +109,7 @@ $manifest = [ordered]@{
     windowsHealthcheckScript = "scripts\vps\check-assistant-health.ps1"
     windowsTunnelHealthcheckScript = "scripts\vps\check-cloudflare-tunnel.ps1"
     windowsTunnelHealthcheckInstaller = "scripts\vps\install-cloudflare-healthcheck.ps1"
+    windowsCharacterAssetInstaller = "scripts\portable\Install-CharacterAssets.ps1"
   }
 }
 $manifest | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath (Join-Path $stagePath "DEPLOYMENT_MANIFEST.json") -Encoding UTF8
@@ -112,20 +124,12 @@ if (Test-Path -LiteralPath $zipPath) {
 $sourcePattern = Join-Path $stagePath "*"
 Compress-Archive -Path $sourcePattern -DestinationPath $zipPath -Force
 
-$sha256 = [System.Security.Cryptography.SHA256]::Create()
-$zipStream = [System.IO.File]::OpenRead($zipPath)
-try {
-  $hashValue = ([System.BitConverter]::ToString($sha256.ComputeHash($zipStream))).Replace("-", "")
-} finally {
-  $zipStream.Dispose()
-  $sha256.Dispose()
-}
 $info = Get-Item -LiteralPath $zipPath
 $result = [ordered]@{
   ok = $true
   zipPath = $zipPath
   sizeMB = [math]::Round($info.Length / 1MB, 2)
-  sha256 = $hashValue
+  sha256 = Get-Sha256 $zipPath
   packageDir = $stagePath
 }
 $result | ConvertTo-Json -Depth 4 | Tee-Object -FilePath (Join-Path $outputPath "latest-package.json")

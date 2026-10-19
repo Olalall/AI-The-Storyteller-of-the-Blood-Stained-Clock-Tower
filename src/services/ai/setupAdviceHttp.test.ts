@@ -1,5 +1,6 @@
-import { describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it } from 'vitest'
 import type { SetupPrototypeCandidate } from '../../features/setup'
+import { defaultAISettings, saveAISettings } from '../settings'
 import { createSetupAdviceDraftAsync, type CreateSetupAdviceDraftAsyncInput } from './setupAdviceHttp'
 
 function candidates(): SetupPrototypeCandidate[] {
@@ -65,6 +66,8 @@ function jsonResponse(body: unknown, status = 200) {
 }
 
 describe('setup advice HTTP adapter', () => {
+  beforeEach(() => window.localStorage.clear())
+
   it('uses local setup advice without calling backend in local mode', async () => {
     let called = false
     const draft = await createSetupAdviceDraftAsync(inputFixture(), {
@@ -90,6 +93,8 @@ describe('setup advice HTTP adapter', () => {
         expect(serializedBody).toContain('setup-a')
         expect(serializedBody).toContain('rolePool')
         expect(serializedBody).toContain('abilityText')
+        expect(serializedBody).toContain('首夜得知两名玩家中有一名是某个爪牙')
+        expect(serializedBody).not.toContain('You start knowing that 1 of 2 players is a particular Minion')
         expect(serializedBody).toContain('roleKnowledge')
         expect(serializedBody).toContain('roleResearch')
         expect(serializedBody).toContain('舞蛇人')
@@ -138,6 +143,35 @@ describe('setup advice HTTP adapter', () => {
     expect(draft.balanceSummary[0]).toContain('信息量')
     expect(draft.qualityTags[0]).toMatchObject({ candidateId: 'setup-b', label: '高反转' })
     expect(draft.microAdjustments[0]).toMatchObject({ candidateId: 'setup-b', replaceInRoleId: 'dreamer' })
+  })
+
+  it('does not let legacy browser API settings override the fixed server provider', async () => {
+    saveAISettings({ ...defaultAISettings, mode: 'openai-compatible', baseUrl: 'https://old-provider.example.test/v1', model: 'old-model', apiKey: 'synthetic-legacy-key' })
+    let sent: Record<string, unknown> | undefined
+    await createSetupAdviceDraftAsync(inputFixture(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_url, init) => {
+        sent = JSON.parse(String(init?.body)) as Record<string, unknown>
+        return jsonResponse({ accepted: true, data: { draft: { provider: 'openai-compatible' } } })
+      },
+    })
+    expect(sent).toBeDefined()
+    expect(sent).not.toHaveProperty('providerSettings')
+    expect(JSON.stringify(sent)).not.toContain('synthetic-legacy-key')
+    expect(JSON.stringify(sent)).not.toContain('old-provider.example.test')
+  })
+
+  it('does not send a saved key to an insecure backend URL', async () => {
+    saveAISettings({ ...defaultAISettings, mode: 'openai-compatible', apiKey: 'test-key-persisted-locally' })
+
+    await createSetupAdviceDraftAsync(inputFixture(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://example.test:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const body = JSON.parse(String(init?.body)) as Record<string, unknown>
+        expect(body.providerSettings).toBeUndefined()
+        return jsonResponse({ accepted: true, data: { draft: { provider: 'fake' } } })
+      },
+    })
   })
 
   it('falls back to local setup advice when backend route fails', async () => {

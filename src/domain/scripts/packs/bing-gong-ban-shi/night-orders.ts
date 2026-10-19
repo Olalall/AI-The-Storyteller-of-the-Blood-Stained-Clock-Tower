@@ -28,7 +28,7 @@ export const bingGongBanShiOtherNightOrder: readonly NightOrderEntry[] = [
   { roleId: "nichen", order: 7, note: "如果逆臣或标记了“不共戴天”的玩家死于处决，唤醒两者之中的另一名玩家，告诉他变为邪恶阵营。", knowledgeStatus: 'confirmed' },
   { roleId: "lunatic", order: 8, note: "做任何需要做的事情来模拟一位恶魔的行动。让疯子重新入睡。唤醒恶魔。对恶魔展示疯子角色标记，并指向疯子玩家，随后是疯子的攻击目标。", knowledgeStatus: 'confirmed' },
   { roleId: "imp", order: 9, note: "让小恶魔选择一名玩家。标记那名玩家死亡。如果小恶魔选择了自己：用一个备用的小恶魔标记替换一个存活的爪牙角色标记。让原来的小恶魔重新入睡。唤醒新的小恶魔。对他展示“你是”信息标记，和小恶魔角色标记。", knowledgeStatus: 'confirmed' },
-  { roleId: "alhadikhia", order: 10, note: "哈迪寂亚选择三名玩家。对所有人宣告第一位玩家，然后唤醒他并让他秘密选择活着还是死去。依次对第二第三位玩家如此做。如果三名玩家都选择活着，他们都死去。", knowledgeStatus: 'confirmed' },
+  { roleId: "alhadikhia", order: 10, note: "哈迪寂亚可以不选择；若选择三名玩家，依次公开目标并让其秘密选择生死。每次选择立即结算；若三次结算后三人全部存活，则三人全部死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "taowu", order: 11, note: "（清清自编）让梼杌选择一名玩家。标记那名玩家死亡。如果梼杌选择了自己，在一名存活且具有能力的爪牙身边放置“失去能力”标记。", knowledgeStatus: 'confirmed' },
   { roleId: "qiongqi", order: 12, note: "（清清自编）让穷奇选择一名玩家。如果白天没有外来者死亡，标记该玩家死亡。如果白天有外来者死亡，标记该玩家“视为存活”。说书人选择一名玩家，那名玩家死亡。", knowledgeStatus: 'confirmed' },
   { roleId: "godfather", order: 13, note: "如果有外来者在今天白天死亡，让教父选择一名玩家。标记那名玩家死亡。", knowledgeStatus: 'confirmed' },

@@ -3,7 +3,7 @@ import { assertNever } from '../../../shared/assertNever'
 import { clearRecordedDayActionDraft } from './dayActionDraft'
 import { appendCorrection, appendPhaseEntry, entryCanUsePhase } from './timeline'
 import type { GameSessionAction } from './sessionActions'
-import { canAppendHistoryCorrection, hasDayResolution } from './sessionReducerGuards'
+import { canAppendHistoryCorrection, canAppendNightActionEntry, hasDayResolution } from './sessionReducerGuards'
 import { canCompleteVoteRound } from '../../day-workbench/state/voteRound'
 import { findOpenSegment } from './phaseSegments'
 
@@ -30,6 +30,8 @@ export function reduceTimelineSession(state: GameSessionState, action: TimelineS
         case 'player_state_changed':
           return state
         case 'night_action':
+          if (!canAppendNightActionEntry(state, entry)) return state
+          break
         case 'day_action':
         case 'vote_round':
           break
