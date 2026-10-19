@@ -28,7 +28,7 @@ export function parseSessionBackup(raw: string): GameSessionState {
     const queueIds = new Set(run.queue.map((item) => item.id))
     if (key !== run.id || (run.phaseSegmentId !== null && !phases.has(run.phaseSegmentId)) || queueIds.size !== run.queue.length ||
       [run.activeCursorId, run.previewEntryId, run.correctionItemId].some((id) => id && !queueIds.has(id)) ||
-      run.queue.some((item) => !validSeat(item.seatId)) || Object.keys(run.drafts).some((id) => !queueIds.has(id))) throw new Error('备份中的夜序、光标或草稿引用不完整。')
+      run.queue.some((item) => !validSeat(item.seatId) && !(item.seatId === 0 && item.systemStep?.kind === 'audience_notice' && item.systemStep.recipientLabels?.length === 0)) || Object.keys(run.drafts).some((id) => !queueIds.has(id))) throw new Error('备份中的夜序、光标或草稿引用不完整。')
     if (Object.values(run.drafts).some((draft) => draft.targetRoleChoices?.some((choice) => choice.seatId !== 0 && !validSeat(choice.seatId)))) throw new Error('备份中的爪牙分配引用了不存在的座位。')
   }
   for (const entry of session.timeline) {

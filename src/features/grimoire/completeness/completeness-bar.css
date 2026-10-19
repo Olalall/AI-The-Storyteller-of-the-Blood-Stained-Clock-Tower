@@ -1,0 +1,54 @@
+.completeness-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-8) var(--space-10);
+  margin: 0;
+  padding: var(--space-8) var(--space-12);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+  color: var(--text-body);
+  font-size: var(--type-meta);
+}
+
+.completeness-bar__icon {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.completeness-bar__message {
+  flex: 1 1 12rem;
+  min-width: 0;
+  margin: 0;
+}
+
+.completeness-bar__detail {
+  color: inherit;
+  font-weight: 600;
+}
+
+/* 「不再提示」推到右端：它与旁边两个键的后果不在一个量级，不能挨着排成一排等宽键。 */
+.completeness-bar__action--silence {
+  margin-inline-start: auto;
+  color: var(--text-muted);
+}
+
+.completeness-bar--warning {
+  background: var(--warning-soft);
+  border-color: var(--warning-border);
+  color: var(--warning-text);
+}
+
+.completeness-bar--info {
+  background: var(--info-soft);
+  border-color: var(--info-border);
+  color: var(--info-text);
+}
+
+.completeness-bar--success {
+  background: var(--success-soft);
+  border-color: var(--success-border);
+  color: var(--success-text);
+}

@@ -1,6 +1,6 @@
 # 固定私有 AI 与六板规则复测（2026-10-16）
 
-用户授权长期使用既有渠道的 `gemini-test-model`，仅本人和受邀者首次验证后使用；本轮新复现的问题一并修复、补回归、真实复测后上线，保留现有对局与数据。不提交或推送源码，部署以当前包含既有修改的工作目录为准。本轮代码和固定私有 AI 已上线。
+用户授权长期使用既有渠道的 `test-model`，仅本人和受邀者首次验证后使用；本轮新复现的问题一并修复、补回归、真实复测后上线，保留现有对局与数据。不提交或推送源码，部署以当前包含既有修改的工作目录为准。本轮代码和固定私有 AI 已上线。
 
 ## 本轮变化
 
@@ -40,13 +40,13 @@
 
 ### 实际上线
 
-- VPS 保持 `SERVER_INSTANCE_ID` / `ap-shanghai`、`C:\botc-storyteller-companion`、Node `C:\nodejs\node.exe`，只监听 `127.0.0.1:3000`。Cloudflare 隧道与三项任务定义不变。
+- VPS 保持 `SERVER_INSTANCE_ID` / `ap-shanghai`、`C:\example\botc`、Node `C:\nodejs\node.exe`，只监听 `127.0.0.1:3000`。Cloudflare 隧道与三项任务定义不变。
 - 私有 GitHub 直连下载异常缓慢，取消原下载并保留 360,448 字节的部分文件。经已认证的腾讯云 TAT 管理通道传输 234 个 24KiB 块，全部验长/验哈希；重组 `runtime-from-chunks.zip` 后完整 SHA-256 与已审包相同，再做路径安全检查和解压。没有使用第三方下载代理或另开公网端口。完整/坏块重组模拟 2 项及部署/回滚 5 项复验通过。
 - 代码切换于 `2026-10-16T11:26:07Z` 完成，Node 从 1876 换为 1380。新访问保护路由在未配置阶段返回 503，AI 保持 off/fake/noKey；关闭态检查通过后才进入私有配置阶段。stage invocation `inv-wa014eg3e7`、deploy `inv-ta0154g9sw`、关闭态检查 `inv-wa015xgrp2`。
-- 旧程序、data 和任务定义保存在 `C:\botc-storyteller-companion-deploy\releases\release-20261016-fixed-api\previous`。本轮只成套更新 `start-assistant.ps1` 与 `assistant-ai-settings.ps1`；其他运维脚本和旧静态资源保留。服务器现有 `data/asset-packs/characters.json` 560 字节，SHA-256 `011FA63E699DEF6B389C99B774E144FF3EC01B0A26BFDD54535A7567BF61BCB0` 未变。
+- 旧程序、data 和任务定义保存在 `C:\example\botc-deploy\releases\release-20261016-fixed-api\previous`。本轮只成套更新 `start-assistant.ps1` 与 `assistant-ai-settings.ps1`；其他运维脚本和旧静态资源保留。服务器现有 `data/asset-packs/characters.json` 560 字节，SHA-256 `011FA63E699DEF6B389C99B774E144FF3EC01B0A26BFDD54535A7567BF61BCB0` 未变。
 - 公网首页除 Cloudflare 自动加入的统计脚本外，与当前构建一致；16 个入口资源共 858,138 字节逐字节一致，首页/healthz 正常，隧道仍 4 条连接。该检查没有模型调用。
 
-- 加密配置于 `inv-wa01830es6` 安装到发布目录外的 `C:\ProgramData\BotcStoryteller\secrets\ai-settings.dpapi`。受控启用 `inv-wa018s02qh` 于 `2026-10-16T11:30:02Z` 将 Node 从 1380 换为 1376；随后持久性检查 `inv-ta019k0ria` 于 `11:30:54Z` 换为 4528。两次均通过已有启动任务读取配置，模型为 `gemini-test-model`、后端超时 90 秒、上下文展示预算 12000，访问保护开启。未执行整台 Windows 重启。
+- 加密配置于 `inv-wa01830es6` 安装到发布目录外的 `C:\ProgramData\BotcStoryteller\secrets\ai-settings.dpapi`。受控启用 `inv-wa018s02qh` 于 `2026-10-16T11:30:02Z` 将 Node 从 1380 换为 1376；随后持久性检查 `inv-ta019k0ria` 于 `11:30:54Z` 换为 4528。两次均通过已有启动任务读取配置，模型为 `test-model`、后端超时 90 秒、上下文展示预算 12000，访问保护开启。未执行整台 Windows 重启。
 - 真实公网核验通过：匿名付费请求 401、错误口令 401、跨站请求 403、客户端覆盖服务地址 400。验证 cookie 含 Secure、HttpOnly、SameSite=Strict，第一次签发的 cookie 在第二次后端启动后仍有效。恰好一次不带用户对局的真实连通请求成功，返回 `AI_PROVIDER_READY`，没有重试；该次与前述 57 次隔离诊断分开计数。验证 cookie 未写入磁盘。证据 `ops-enabled-verification.json`、`ops-ai-activation.json`、`ops-persistence-restart.json`。
 - 实际公网设置页在 390px 和 1440px 两项浏览器检查均通过，读取真实配置，付费接口禁止外发；截图显示固定 Gemini 和首次访问验证。实际用户 IAB 页面也已刷新到该配置，未代填访问口令。口令文件在仓库外的 `LOCAL_PATH`，用户在“AI API 设置”验证一次即可记住设备 30 天，API Key 不进入浏览器。
 - 两次后端启动后再次通过真实网页导出原对局：欲盖弥彰、12 人、3 条记录，完整 8,876 字节与升级前逐字节相同，SHA-256 `79CB7DF305C3A14C63DD1C051F820CEB5382B27EAAE71B0660B3663B0EA44BFF`。证据 `browser-before-final.json`、`browser-after-final.json`、`browser-final-preservation.json`；没有导入、清空或迁移当前局。

@@ -1,6 +1,6 @@
 # 2026-10-16 真实 AI 模拟后续修复与发布
 
-状态：本地、真实AI与公网验收完成，2026-10-16 18:02（北京时间）已部署。目标为现有 `https://botc.example.com/`、腾讯上海 `SERVER_INSTANCE_ID`、`C:\botc-storyteller-companion`，不触及旧 `C:\botc-mvp`。
+状态：本地、真实AI与公网验收完成，2026-10-16 18:02（北京时间）已部署。目标为现有 `https://botc.example.com`、腾讯上海 `SERVER_INSTANCE_ID`、`C:\example\botc`，不触及旧 `C:\botc-mvp`。
 
 本次使用当前本地未提交工作区打包，不推送源代码，不重置或清理既有改动。上一轮模拟与失败证据保留在 [原模拟报告](REAL_AI_GAME_SIMULATION_2026-10-16.md)。
 
@@ -44,7 +44,7 @@
 
 最终包：`botc-ai-followups-runtime-20261016.zip`，4,596,877字节，SHA-256 `76B24AE5FAC78DF116C9A5ED530F75E522843195BB7FF42D0C2D41BD91892E67`；本地解压启动及16个入口JS/CSS检查通过。私有仓库draft release ID `414799145`、asset `646903154`，不推送源代码；短期asset下载地址只交给已授权VPS，没有把GitHub API token传入TAT。
 
-服务器实际切换时间为北京时间18:01:57.779至18:02:00.259，部署成功且未触发回滚。新入口SHA-256为`817E29BD414C7A2CA85278D9DBB9502C706C28C0A7EC5972E612E77525844E0E`。旧程序、数据和任务XML保留于`C:\botc-storyteller-companion-deploy\releases\release-20261016-ai-followups\previous`，可按本次`ops-rollback.ps1`恢复程序；回滚也保留当前数据。
+服务器实际切换时间为北京时间18:01:57.779至18:02:00.259，部署成功且未触发回滚。新入口SHA-256为`817E29BD414C7A2CA85278D9DBB9502C706C28C0A7EC5972E612E77525844E0E`。旧程序、数据和任务XML保留于`C:\example\botc-deploy\releases\release-20261016-ai-followups\previous`，可按本次`ops-rollback.ps1`恢复程序；回滚也保留当前数据。
 
 服务器部署前后数据文件集合、大小与哈希一致，三个任务定义及运维脚本未变。公网首页（剔除已知Cloudflare分析脚本）及16个入口JS/CSS共849,755字节与最终构建一致。18:04:07只读稳定检查确认Node仍为本次启动PID1876、没有再次重启；Cloudflared保持原PID2716、自动启动且四条连接正常；本机和隧道巡检均healthy、failureCount=0，生产AI仍off/fake、无密钥。证据为`ops-deployment.json`、`ops-server-postcheck.json`、`ops-public-verification.json`、`ops-stable-state.json`，执行详情见`ops-deployment-report.md`。
 

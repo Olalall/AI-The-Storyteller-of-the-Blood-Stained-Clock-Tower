@@ -1,3 +1,4 @@
+import { sessionContextLevel, nightContextLevel } from './aiContextLevel'
 import type { GameArchiveRecord } from '../archive'
 import type { GameSessionState } from '../../features/game-session/types'
 import type { NightWorkbenchState, WakeDraft, WakeItem } from '../../features/night-workbench/types'
@@ -14,6 +15,10 @@ import { selectedTargetCount } from '../../features/night-workbench/state/projec
 import { currentNightActorForAI, inPlayNightRoleIdsForAI, nightHistoryForAI, nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
 
 interface BuildRequestOptions {
+  /**
+   * 只给测试和将来的显式降级用。缺省一律由 coverage 推导——写死 'minimal' 是这个字段
+   * 过去只存在于类型里的原因：三个 build 函数都填同一个常量，收信的一端自然没有理由去读。
+   */
   contextLevel?: AIContextLevel
   createdAt?: string
 }
@@ -54,7 +59,7 @@ export function buildSetupAdviceRequest(
   return {
     requestId: requestId('ai-setup', createdAt),
     kind: 'setup_advice',
-    contextLevel: options.contextLevel ?? 'minimal',
+    contextLevel: options.contextLevel ?? sessionContextLevel(session),
     createdAt,
     knowledgeVersion: session.knowledgeVersion,
     question: '根据当前人数和玩家经验，给出配板候选排序和提醒。',
@@ -71,7 +76,7 @@ export function buildNightSettlementRequest({
   state,
   item,
   draft,
-  contextLevel = 'minimal',
+  contextLevel,
   createdAt,
 }: BuildNightSettlementRequestOptions): NightSettlementRequest {
   const timestamp = createdAtOrNow(createdAt)
@@ -79,7 +84,7 @@ export function buildNightSettlementRequest({
   return {
     requestId: requestId(`ai-night-${item.id}`, timestamp),
     kind: 'night_settlement',
-    contextLevel,
+    contextLevel: contextLevel ?? nightContextLevel(state),
     createdAt: timestamp,
     knowledgeVersion: state.knowledgeVersion,
     question: '根据当前唤醒项和说书人已录入选择，给出技能结果草稿。',
@@ -98,6 +103,7 @@ export function buildNightSettlementRequest({
         ability: item.ability,
         history: nightHistoryForAI(item),
         targetCount: selectedTargetCount(item, draft),
+        minimumTargetCount: item.minimumTargetCount,
         allowedTargetCounts: item.allowedTargetCounts,
         roleCount: item.roleCount,
         abilityPhase: item.abilityPhase,
@@ -108,6 +114,12 @@ export function buildNightSettlementRequest({
           impairments: [...item.status.impairments],
           markers: item.status.markers.map((marker) => marker.label),
         },
+        previousRegistration: item.previousRegistration ? { ...item.previousRegistration } : undefined,
+        forbiddenRegistrationValues: item.forbiddenRegistrationValues ? [...item.forbiddenRegistrationValues] : undefined,
+        previousTargets: item.previousTargets ? [...item.previousTargets] : undefined,
+        forbiddenTargetSeatIds: item.forbiddenTargetSeatIds ? [...item.forbiddenTargetSeatIds] : undefined,
+        previousTargetRequired: item.previousTargetRequired,
+        historicalContext: item.historicalContext ? structuredClone(item.historicalContext) : undefined,
       },
       draft: {
         targets: [...draft.targets],
@@ -120,6 +132,7 @@ export function buildNightSettlementRequest({
         storytellerContext: draft.storytellerContext?.trim().slice(0, 1000) || undefined,
         outcomeId: draft.outcomeId,
         draftRevision: draft.draftRevision,
+        registration: draft.registration ? { ...draft.registration } : undefined,
       },
       selectedTargets: selectedTargets.map(target => ({ ...target, roleKnowledge: roleKnowledgeForAI(target.roleId) })),
       currentActor: currentNightActorForAI(state, item),
@@ -139,7 +152,7 @@ export function buildReviewDraftRequest(
   return {
     requestId: requestId(`ai-review-${archive.id}`, createdAt),
     kind: 'review_draft',
-    contextLevel: options.contextLevel ?? 'minimal',
+    contextLevel: options.contextLevel ?? sessionContextLevel(archive.session),
     createdAt,
     knowledgeVersion: archive.session.knowledgeVersion,
     question: '基于归档摘要生成赛后复盘草稿。',

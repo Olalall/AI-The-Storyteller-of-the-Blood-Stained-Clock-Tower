@@ -2,9 +2,10 @@ import { act, renderHook, waitFor } from '@testing-library/react'
 import { afterEach, beforeEach, expect, it, vi } from 'vitest'
 import { gameSessionStorageKey } from '../../../services/session'
 import { beforeRestoreStorageKey, SessionConflictError, SessionEditLock } from '../../../services/session/sessionEditLock'
+import { createPrototypeGameSession } from '../data/createPrototypeSession'
 import { useGameSession } from './useGameSession'
 
-beforeEach(() => window.localStorage.clear())
+beforeEach(() => { window.localStorage.clear(); window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(createPrototypeGameSession())) })
 afterEach(() => vi.restoreAllMocks())
 
 it('retains the latest session on storage failure and retries without replaying actions', async () => {

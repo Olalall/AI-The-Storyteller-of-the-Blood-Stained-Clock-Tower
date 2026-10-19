@@ -3,7 +3,7 @@ import { createSmartScriptSetupSession } from '../../game-session/data/createPro
 import { gameSessionReducer } from '../../game-session/state/sessionReducer'
 import type { GameSessionState } from '../../game-session/types'
 import { sessionInitialNightState } from './gameSessionAdapter'
-import type { NightWorkbenchAction } from './nightWorkbenchReducer'
+import type { NightWorkbenchIntent } from './nightWorkbenchReducer'
 
 export function informationSession(roleId = 'dreamer') {
   const roles = ['general', 'empath', 'dreamer', 'chef', 'investigator', 'banshee', 'librarian', 'fisherman', 'seamstress', 'drunk', 'barber', 'poisoner', 'harpy', 'spy', 'alhadikhia']
@@ -27,7 +27,7 @@ export function projected(session: GameSessionState) {
   return sessionInitialNightState({ session, dispatchSession: () => {} })!
 }
 
-export function actNight(session: GameSessionState, action: NightWorkbenchAction) {
+export function actNight(session: GameSessionState, action: NightWorkbenchIntent) {
   const state = projected(session)
-  return gameSessionReducer(session, { type: 'night-workbench-action', nightRunId: state.nightRunId, expectedWakeItemId: state.previewEntryId, expectedActiveCursorId: state.activeCursorId, action })
+  return gameSessionReducer(session, { type: 'night-workbench-action', nightRunId: state.nightRunId, expectedWakeItemId: state.previewEntryId, expectedActiveCursorId: state.activeCursorId, action: { ...action, at: new Date().toISOString() } })
 }

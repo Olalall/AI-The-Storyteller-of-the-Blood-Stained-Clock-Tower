@@ -1,0 +1,40 @@
+.downgrade-handoff__lede {
+  margin: 0;
+  color: var(--text-body);
+  font-size: var(--type-meta);
+  line-height: var(--line-body);
+}
+
+.downgrade-handoff__list {
+  display: grid;
+  gap: var(--space-8);
+  margin: 0;
+  padding: var(--space-12) var(--space-14);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-soft);
+}
+
+.downgrade-handoff__list > div {
+  display: grid;
+  grid-template-columns: minmax(88px, auto) 1fr;
+  gap: var(--space-12);
+  font-size: var(--type-meta);
+}
+
+.downgrade-handoff__list dt {
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+.downgrade-handoff__list dd {
+  margin: 0;
+  color: var(--text-strong);
+}
+
+.downgrade-handoff__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  align-items: center;
+}

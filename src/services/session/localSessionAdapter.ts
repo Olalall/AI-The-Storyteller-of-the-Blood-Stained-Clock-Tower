@@ -1,6 +1,6 @@
+import { shouldSnapshot, writeSnapshot } from './snapshotRotation'
 import {
   createEmptyGameSession,
-  createPrototypeGameSession,
   createPrototypeGameSessionFromLegacyNight,
   gameSessionStorageKey,
 } from '../../features/game-session/data/createPrototypeSession'
@@ -162,7 +162,7 @@ export function loadGameSessionOutcome(): SessionLoadOutcome {
   try {
     stored = window.localStorage.getItem(gameSessionStorageKey)
   } catch {
-    return { kind: 'fresh', session: createPrototypeGameSession(), baseline: null }
+    return { kind: 'fresh', session: createEmptyGameSession(), baseline: null }
   }
 
   if (stored) {
@@ -201,7 +201,7 @@ export function loadGameSessionOutcome(): SessionLoadOutcome {
     // 旧夜间快照读不出不影响开新局；它不是权威存档，且既有约定是不删除无效旧快照。
   }
 
-  return { kind: 'fresh', session: createPrototypeGameSession(), baseline: stored }
+  return { kind: 'fresh', session: createEmptyGameSession(), baseline: stored }
 }
 
 export function loadGameSession(): GameSessionState {
@@ -237,8 +237,22 @@ export function clearSessionRecovery() {
 
 export function persistGameSession(state: GameSessionState) {
   window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(state))
+  const now = Date.now()
+  if (shouldSnapshot('interval', now)) writeSnapshot(state, 'interval', new Date(now).toISOString())
 }
 
 export function resetGameSession() {
   window.localStorage.removeItem(gameSessionStorageKey)
+}
+
+/** 破坏性操作前先留一份；返回 false 时调用方不得继续执行不可逆替换。 */
+export function snapshotBeforeDestructiveChange(
+  state: GameSessionState,
+  reason: 'destructive' | 'import' = 'destructive',
+) {
+  return writeSnapshot(state, reason, new Date().toISOString())
+}
+
+export function snapshotOnPhaseClose(state: GameSessionState) {
+  writeSnapshot(state, 'phase-close', new Date().toISOString())
 }

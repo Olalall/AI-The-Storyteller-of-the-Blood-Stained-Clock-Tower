@@ -1,7 +1,7 @@
 ﻿# AI Provider 接入设计（10.9 前置）
 
-状态：**设计收口 / 待用户确认**。  
-本文件只冻结真实 AI provider 的接入方案，不授权真实模型调用，不保存 API Key，不新增 SDK。
+状态：**历史设计基线；2026-08-10 已按用户要求修订 Key 保存方式**。
+本文件保留原方案取舍；当前实现仍走后端代理，但兼容接口模式允许把 Key 保存到当前浏览器 localStorage，并随正式草稿请求发送给本机或 HTTPS 后端。Key 不进入 GitHub、归档、日志、响应或模型 prompt。
 
 ## 1. 当前结论
 
@@ -24,7 +24,7 @@
 | 接入形态 | 后端代理 | API Key 不进入前端，便于 VPS 部署和统一失败处理。 |
 | Provider 协议 | OpenAI-compatible 优先 | 可兼容多家模型服务，避免一开始绑定单一 SDK。 |
 | SDK | 暂不新增 | 第一版用后端 `fetch` 即可，减少依赖和供应链风险。 |
-| API Key | 只放后端环境变量或后端 secret 文件 | 禁止 localStorage、前端配置、导出归档携带 key。 |
+| API Key | 推荐后端环境变量；兼容接口模式也支持当前浏览器本地保存 | 不进入 GitHub、归档、日志、响应或模型 prompt；共享设备仍推荐后端环境变量。 |
 | 默认状态 | 关闭真实 AI，fake/local 可用 | AI 不可用时游戏仍能继续。 |
 | 首个真实 AI 功能 | 赛后复盘 | 风险最低，AI 错误不会影响当局进行。 |
 | 后续顺序 | AI 配板 → 夜间结算建议 | 夜间结算影响最大，必须最后接。 |
@@ -33,10 +33,9 @@
 
 ## 3. 不做事项
 
-10.9 设计和第一版真实 AI 接入都不做：
+原 10.9 设计和第一版接入曾不做以下事项；其中“前端保存 API Key”已由 2026-08-10 的用户要求改为支持，但其余边界仍有效：
 
-- 不做前端保存 API Key。
-- 不把 API Key 放进 localStorage、sessionStorage、归档、日志或导出文件。
+- 不把 API Key 放进 sessionStorage、归档、日志或导出文件。
 - 不新增数据库、ORM、账号系统、WebSocket。
 - 不做玩家端 / 玩家收件箱。
 - 不做官方魔典同步器。
@@ -202,7 +201,7 @@ type AIContextLevel = 'minimal' | 'standard' | 'full-session'
 - fake fallback 不修改权威状态。
 - context builder 不包含完整 session、timeline、localStorage、API Key。
 - 赛后复盘真实 provider 失败时，归档详情仍可打开。
-- UI 保存设置时，localStorage 不包含 API Key。
+- UI 保存设置时，API Key 只在当前浏览器 localStorage 中存在；它不进入记录段、归档、日志、响应或模型 prompt。
 - `npm run test:server`、`npm run smoke:backend`、`npm run check` 通过。
 
 ## 11. 需要用户确认的问题

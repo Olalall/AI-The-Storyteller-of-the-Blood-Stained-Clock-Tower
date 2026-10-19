@@ -1,8 +1,8 @@
 # 2026-10-16 核心玩法 20 项修复与部署
 
-20 项问题（13 项 P1、7 项 P2）均已修复并部署到 [BOTC 网站](https://botc.example.com/)。修复按[原审计](../.tmp/core-audit-20261016/CORE_GAMEPLAY_AUDIT.md)的优先级完成，逐项源码和正式回归见下方对照表。
+20 项问题（13 项 P1、7 项 P2）均已修复并部署到 [BOTC 网站](https://botc.example.com)。修复按[原审计](../.tmp/core-audit-20261016/CORE_GAMEPLAY_AUDIT.md)的优先级完成，逐项源码和正式回归见下方对照表。
 
-目标为腾讯上海实例 `SERVER_INSTANCE_ID`，运行目录 `C:\botc-storyteller-companion`，继续监听 `127.0.0.1:3000`。没有提交或推送源代码，发布包从用户授权的本地未提交工作区构建。
+目标为腾讯上海实例 `SERVER_INSTANCE_ID`，运行目录 `C:\example\botc`，继续监听 `127.0.0.1:3000`。没有提交或推送源代码，发布包从用户授权的本地未提交工作区构建。
 
 ## 验收结果
 
@@ -28,7 +28,7 @@
 
 - 日常浏览器升级前后均通过应用自带按钮导出当前对局。两份文件逐字节一致，共 8,876 字节，SHA-256 `79CB7DF305C3A14C63DD1C051F820CEB5382B27EAAE71B0660B3663B0EA44BFF`；保留“欲盖弥彰”、12 个座位、3 条记录和原始全部字段。刷新时旧编辑租约短暂阻止写入，正常自动解除；没有绕过保护、导入或重置对局。
 - 服务器原文件集合、大小和哈希与部署前一致。`data/asset-packs/characters.json` 仍为 560 字节，SHA-256 `011FA63E699DEF6B389C99B774E144FF3EC01B0A26BFDD54535A7567BF61BCB0`。停写期间备份后核对哈希和 JSON 可读性，之后仅替换程序目录。
-- 旧程序、数据备份和任务 XML 位于 `C:\botc-storyteller-companion-deploy\releases\release-20261016-core-fixes\previous`。同级保留部署和验收结果；现有 `data/`、`.env`、Cloudflared 服务与路由、开机自启和巡检配置保留。旧哈希资源继续可读，降低已打开页面加载旧分块失败的风险。
+- 旧程序、数据备份和任务 XML 位于 `C:\example\botc-deploy\releases\release-20261016-core-fixes\previous`。同级保留部署和验收结果；现有 `data/`、`.env`、Cloudflared 服务与路由、开机自启和巡检配置保留。旧哈希资源继续可读，降低已打开页面加载旧分块失败的风险。
 
 回滚只恢复 previous 中的 `dist/`、`dist-server/`，保留发布后新增数据。暂停主任务及两项巡检、留存当前程序后还原两个程序目录，再恢复任务并检查本机与公网健康。不要用旧 data 覆盖当前 data，不改 Cloudflared 凭据。线上本次没有触发回滚、整机重启或故障注入。
 

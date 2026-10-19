@@ -1,4 +1,4 @@
-import { AlertTriangle, Repeat2 } from 'lucide-react'
+import { AlertTriangle, Repeat2, Search } from 'lucide-react'
 import { useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
@@ -23,6 +23,9 @@ interface ScriptLibrarySheetProps {
  */
 export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript, onRequestResetSwitch }: ScriptLibrarySheetProps) {
   const [pendingScriptId, setPendingScriptId] = useState<ScriptId | null>(null)
+  const [query, setQuery] = useState('')
+  const normalizedQuery = query.trim().toLocaleLowerCase('zh-CN')
+  const filteredScripts = scriptManifest.filter((pack) => `${pack.displayName} ${pack.scriptId}`.toLocaleLowerCase('zh-CN').includes(normalizedQuery))
   const setupConfirmed = Boolean(projectConfirmedSetup(session))
   const pendingScript = scriptManifest.find((pack) => pack.scriptId === pendingScriptId)
 
@@ -60,8 +63,13 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
           <div className="script-library__section-heading">
             <div><span>板子</span><h3 id="available-script-title">选择板子</h3></div>
           </div>
+          <label className="script-library__search">
+            <span>搜索板子</span>
+            <span className="script-library__search-control"><Search aria-hidden="true" /><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder="名称或 ID" autoComplete="off" /></span>
+          </label>
+          <p className="script-library__result-count" aria-live="polite">{normalizedQuery ? `找到 ${filteredScripts.length} 个板子` : `共 ${scriptManifest.length} 个板子`}</p>
           <div className="script-library__scripts">
-            {scriptManifest.map((pack) => {
+            {filteredScripts.map((pack) => {
               return (
                 <article className="script-library__script-card" key={pack.scriptId}>
                   <div>
@@ -75,6 +83,7 @@ export function ScriptLibrarySheet({ open, onOpenChange, session, onSelectScript
                 </article>
               )
             })}
+            {filteredScripts.length === 0 ? <p role="status">没有找到匹配的板子，换一个名称或 ID 试试。</p> : null}
           </div>
         </section>
       </div>

@@ -31,7 +31,7 @@ export function NightTargetChoices({ item, draft, disabled, playerCount, onTarge
       <div className="seat-grid">
         {Array.from({ length: playerCount }, (_, index) => index + 1).map((seat) => <SeatButton
           key={seat} seat={seat} selected={draft.targets.includes(seat)} self={seat === item.seatId}
-          disabled={unavailableSeatIds.includes(seat)} dead={unavailableSeatIds.includes(seat)}
+          disabled={unavailableSeatIds.includes(seat) || Boolean(item.forbiddenTargetSeatIds?.includes(seat) && !draft.targets.includes(seat))} dead={unavailableSeatIds.includes(seat)}
           onClick={() => onTarget(seat)} aria-label={`选择${seat}号玩家`}
         />)}
       </div>

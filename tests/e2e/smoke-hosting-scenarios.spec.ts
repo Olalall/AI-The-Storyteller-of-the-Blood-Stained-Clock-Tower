@@ -40,7 +40,7 @@ async function createConfirmedSetup(page: Page, input: { scriptId: string; playe
   await expect(page.locator('.setup-candidate')).toHaveCount(3)
   const firstCandidate = page.locator('.setup-candidate').first()
   await expect(firstCandidate.locator('.setup-candidate__roles li')).toHaveCount(input.playerCount)
-  await firstCandidate.getByRole('button', { name: '选择组合', exact: true }).click()
+  await firstCandidate.getByRole('button', { name: '选择这套配板', exact: true }).click()
   await expect(page.locator('.setup-seat-grid button')).toHaveCount(input.playerCount)
   await page.locator('.setup-panel__footer .ui-button--primary').click()
   await expect(page.locator('.setup-panel')).toBeHidden()
@@ -63,6 +63,26 @@ async function returnDashboard(page: Page) {
   await expect(page.locator('.dashboard')).toBeVisible()
 }
 
+type HostingNightRun = { queue: Array<{ orderIndex: number; seatId: number; roleName: string; systemStep?: unknown; outcomeOptions: unknown[]; roleId: string; aiAdviceEnabled?: boolean }> }
+
+async function verifyRoleControls(page: Page, run: HostingNightRun) {
+  const role = run.queue.find((item) => !item.systemStep && item.outcomeOptions.length > 0 && item.roleId !== 'marionette' && item.aiAdviceEnabled !== false)
+  expect(role).toBeTruthy()
+  await page.getByRole('button', { name: '夜间顺序', exact: true }).click()
+  await page.getByRole('button', { name: `预览夜序第${role!.orderIndex}项：${role!.seatId}号${role!.roleName}`, exact: true }).click()
+  await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
+}
+
+async function verifySystemAndRoleControls(page: Page, run: HostingNightRun) {
+  // 前置技能可能早于系统通知；按实际夜序定位系统项，不能给通知步骤编造 AI 结果。
+  const system = run.queue.find((item) => item.systemStep)
+  expect(system).toBeTruthy()
+  await page.getByRole('button', { name: '夜间顺序', exact: true }).click()
+  await page.getByRole('button', { name: `预览夜序第${system!.orderIndex}项：${system!.roleName}`, exact: true }).click()
+  await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toHaveCount(0)
+  await verifyRoleControls(page, run)
+}
+
 test('hosting scenario B: 7人开局后夜序只投影在场角色，状态由确认写入', async ({ page }) => {
   await page.setViewportSize({ width: 760, height: 900 })
   await openBlankSetup(page, 'scenario-b-7')
@@ -74,15 +94,16 @@ test('hosting scenario B: 7人开局后夜序只投影在场角色，状态由�
 
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
-  await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
-
   const nightSession = await readSession(page)
   const run = nightSession.nightRuns[nightSession.activeNightRunId]
+  await verifySystemAndRoleControls(page, run)
   const setupEntry = nightSession.timeline.find((entry: { kind: string }) => entry.kind === 'setup_confirmed')
   const inPlayRoleBySeat = new Map(setupEntry.setup.draft.assignments.map((assignment: { seatId: number; role: { id: string } }) => [assignment.seatId, assignment.role.id]))
   expect(run.queue.length).toBeGreaterThan(0)
-  expect(run.queue.every((item: { seatId: number; roleId: string }) => inPlayRoleBySeat.get(item.seatId) === item.roleId)).toBe(true)
-  expect(run.queue.every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 7)).toBe(true)
+  const playerItems = run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep)
+  expect(playerItems.length).toBeGreaterThan(0)
+  expect(playerItems.every((item: { seatId: number; roleId: string }) => inPlayRoleBySeat.get(item.seatId) === item.roleId)).toBe(true)
+  expect(playerItems.every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 7)).toBe(true)
 
   await returnDashboard(page)
   await page.getByRole('button', { name: /查看1号/ }).click()
@@ -101,11 +122,11 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
   await expect(page.locator('.carousel-current')).toBeVisible()
-  await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
   const nightSession = await readSession(page)
   const run = nightSession.nightRuns[nightSession.activeNightRunId]
+  await verifySystemAndRoleControls(page, run)
   expect(run.queue.length).toBeGreaterThan(0)
-  expect(run.queue.every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 15)).toBe(true)
+  expect(run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep).every((item: { seatId: number }) => item.seatId >= 1 && item.seatId <= 15)).toBe(true)
 
   await returnDashboard(page)
   await page.getByRole('button', { name: '进入白天' }).click()
@@ -115,15 +136,18 @@ test('hosting scenario C: 15人大局可确认配板、进入夜晚并记录两�
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: /被提名人/ }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6, 7, 8]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
   await page.getByRole('button', { name: '记录本轮票型' }).click()
   await expect(page.getByText('4号暂列')).toBeVisible()
 
+  await page.getByRole('button', { name: '开始下一轮提名', exact: true }).click()
   await page.getByRole('button', { name: '选择2号为提名人' }).click()
   await page.getByRole('tab', { name: /被提名人/ }).click()
   await page.getByRole('button', { name: '选择5号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
   for (const seatId of [1, 2, 3, 4]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
@@ -149,5 +173,6 @@ test('hosting scenario D: 缺少角色图标时仍可开局并进入夜序', asy
   await createConfirmedSetup(page, { scriptId: 'catfishing', playerCount: 12 })
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.locator('.night-workbench')).toBeVisible()
-  await expect(page.getByRole('button', { name: /AI推荐|重新推荐|推荐中/ })).toBeVisible()
+  const session = await readSession(page)
+  await verifyRoleControls(page, session.nightRuns[session.activeNightRunId])
 })

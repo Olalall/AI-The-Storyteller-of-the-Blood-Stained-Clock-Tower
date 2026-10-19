@@ -91,7 +91,7 @@ describe('official setup and night metadata followups', () => {
       for (const anchor of ['cerenovus', 'pithag', 'pukka', 'fearmonger']) {
         if (ids.includes(anchor)) expect(index).toBeLessThan(ids.indexOf(anchor))
       }
-      expect(entries[index].note).toContain('醉酒直到黄昏')
+      expect(entries[index].note).toContain('醉酒直到下个黄昏')
     }
 
     const opening = candidates(scriptId, 13)

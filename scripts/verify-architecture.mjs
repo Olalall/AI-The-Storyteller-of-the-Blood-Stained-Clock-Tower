@@ -39,6 +39,11 @@ const localStorageKeyAllowlist = [
   { key: 'botc-copilot-day-timer-v1', owner: 'src/services/timer/localDiscussionTimerAdapter.ts', why: '历史遗留，只读迁移' },
   { key: 'botc-copilot-day-timer-v2', owner: 'src/services/timer/localDiscussionTimerAdapter.ts', why: '历史遗留，只读迁移' },
   { key: 'botc-copilot-night-prototype-v5', owner: 'src/features/night-workbench/data/initialNightWorkbenchState.ts', why: '历史遗留，加载时一次性迁移后删除' },
+  { key: 'botc-copilot-session-snapshot-v1', owner: 'src/services/session/snapshotRotation.ts', why: '耐久性闸门：快照槽前缀，实际 key 追加槽号' },
+  { key: 'botc-copilot-session-snapshot-v1-index', owner: 'src/services/session/snapshotRotation.ts', why: '耐久性闸门：快照索引。它不是第二份真值，主副本始终权威' },
+  { key: 'botc-copilot-session-lock-v1', owner: 'src/services/session/instanceLock.ts', why: '耐久性闸门：单实例锁，防第二个标签页整份覆盖存档' },
+  { key: 'botc-copilot-grimoire-prompts-v1', owner: 'src/services/settings/grimoirePromptPreferences.ts', why: '完整度提示条的「不再提示」等一次性提示的记忆。纯 UI 偏好，不参与任何对局判定' },
+  { key: 'botc-copilot-hosting-preferences-v1', owner: 'src/services/settings/hostingPreferences.ts', why: '新局默认模式偏好。只是初值来源，运行时真值永远是 session.hostingMode' },
 ]
 const allowedStorageKeys = new Set(localStorageKeyAllowlist.map((entry) => entry.key))
 
@@ -168,10 +173,12 @@ function declarationValues(source, property) {
 const rules = [
   {
     id: 'legacy-engine-symbols',
-    docSection: '「架构守护：verify-architecture.mjs 现状盘点」要求 2（范围扩到 src|server）',
+    docSection: '「架构守护」要求 2（范围扩到 src|server）；裁决 10 追加胜负判定类标识符',
     applies: (file) => /^(src|server)\/.*\.(ts|tsx)$/.test(file),
     detect: (line) => {
-      const matched = /PhaseCoordinator|RuleAutomation|AutonomousGameRunner|AbilityEngine/.exec(line)
+      // 后五个来自裁决 10：三条阈值算式采纳但只许出现在渲染路径。
+      // 这些名字一旦作为函数存在，就说明有人把「谁赢了」从说书人的裁定变成了工具的计算。
+      const matched = /PhaseCoordinator|RuleAutomation|AutonomousGameRunner|AbilityEngine|computeWinner|checkVictory|evaluateWinCondition|isGameOver|recomputeOnTheBlock/.exec(line)
       return matched ? `出现旧规则引擎符号 ${matched[0]}` : null
     },
     fix: '删除该符号；若只是说明性文字，改写措辞或在该行加 `// arch-allow: legacy-engine-symbols <原因>`。',
@@ -213,6 +220,40 @@ const rules = [
     fix: 'AI 结果只能由组件层取到后作为 action payload 传进 reducer（参考 nightWorkbenchReducer 的 apply-ai-advice），state 目录不得反向依赖 services/ai。',
   },
   {
+    id: 'hosting-preferences-not-runtime',
+    docSection: '「模式归属：每局冻结 + 全局默认」：运行时任何地方读模式都只读 session.hostingMode，不读偏好',
+    // 偏好文件自身、它的测试、以及 App 层建局处除外。
+    applies: (file) => /^src\/.*\.(ts|tsx)$/.test(file)
+      && !/^src\/services\/settings\/hostingPreferences\./.test(file)
+      && !/^src\/app\//.test(file),
+    detect: (line, { file }) => {
+      const specifier = importSpecifierOf(line)
+      if (!specifier) return null
+      const target = resolveSpecifier(file, specifier) ?? specifier
+      if (!/hostingPreferences/.test(target)) return null
+      return '这里 import 了 hostingPreferences——偏好只是新局初值来源，读它做运行时判断会让「这一局是什么模式」出现第二个真相源'
+    },
+    fix: '运行时读模式一律用 session.hostingMode。需要默认值时，让 App 层在建局那一次把它作为参数传下来。',
+  },
+  {
+    id: 'hosting-mode-not-behavioural',
+    docSection: '「模式字段的归属（作者已拍板）」：记录它发生过，但永不让它成为分支条件',
+    applies: (file) => /^src\/features\/[^/]+\/state\/.*\.(ts|tsx)$/.test(file) && !/\.test\./.test(file),
+    detect: (line) => {
+      // 说明性文字必须能写出这个字段名——否则规则会逼着作者不去解释它为什么存在。
+      if (/^\s*(\/\/|\/\*|\*)/.test(line)) return null
+      // 查的是「读」，不是「字段名出现」：
+      //   写入 `hostingMode: action.mode` 是留痕，它就发生在唯一的写入点里；
+      //   读取 `state.hostingMode` 才是模式即将变成分支条件的那一步。
+      // History 单独放行：归档要按时间轴回放模式变更，那是展示不是分支。
+      const readsField = /[.?]\s*hostingMode\b(?!History)/.test(line)
+      const destructures = /\b(?:const|let|var)\s*\{[^}]*\bhostingMode\b(?!History)/.test(line)
+      if (!readsField && !destructures) return null
+      return 'state 目录读取了 hostingMode——模式一旦成为行为分支，两套数据模型就会长出来'
+    },
+    fix: 'hostingMode 只是出处元数据。视图层可按它选渲染组件，归档/复盘与 AI 上下文可读它做展示，但 reducer 一律不得读；需要差异化行为时请把差异做成显式 action 或 props。',
+  },
+  {
     id: 'pack-no-session-state',
     docSection: '「为魔典模式新增的 9 条反规则引擎自动检查」P0-2：角色包必须是纯数据',
     applies: (file) => /^src\/domain\/(scripts\/packs|role-knowledge)\/.*\.(ts|tsx)$/.test(file),
@@ -227,6 +268,53 @@ const rules = [
       return null
     },
     fix: '角色包与角色知识必须是纯数据/纯函数：需要局面信息时由调用方投影成入参传入，不得反向依赖 GameSessionState。',
+  },
+  {
+    id: 'reminder-no-effect-fields',
+    docSection: '「为魔典模式新增的 9 条反规则引擎自动检查」P1-4：标记不得携带效果',
+    // 只查类型定义处。业务代码里出现 onDeath 这类名字未必是标记字段，查了会淹没在误报里。
+    applies: (file) => /^src\/features\/(night-workbench|game-session|grimoire)\/(types|model\/.*)\.ts$/.test(file),
+    detect: (line, { file, lines, index }) => {
+      // 只在 ReminderToken / ManualStatusMarker / 标记相关 interface 体内检查。
+      const openedAt = lines.slice(0, index + 1).reverse()
+        .findIndex((candidate) => /\b(interface|type)\s+\w*(Reminder|Marker|Token)\w*\b/.test(candidate))
+      if (openedAt === -1) return null
+      const declarationLine = index - openedAt
+      const body = lines.slice(declarationLine, index + 1).join('\n')
+      // 简单的花括号配平：出了这个 interface 就不再算数。
+      const depth = (body.match(/\{/g) ?? []).length - (body.match(/\}/g) ?? []).length
+      if (depth <= 0) return null
+      const offender = /^\s*(effect|effects|appliesTo|modifies|onNight|onDeath|resolve|trigger)\s*\??\s*:/.exec(line)
+      if (!offender) return null
+      void file
+      return `标记类型上出现了效果字段 ${offender[1]}——标记只能是贴纸：一个 seatId + 一段文本 + 一个来源角色`
+    },
+    fix: '提示标记不承载任何效果。放置标记不得改变任何其它座位的字段；需要表达效果时，那是说书人的一次显式状态变更，走 confirm-player-state-change。',
+  },
+  {
+    id: 'grimoire-no-phase-dispatch',
+    docSection: '「守住的边界（二）」判据：魔典组件树中不得出现 dispatch 相位类 action',
+    applies: (file) => /^src\/features\/grimoire\/.*\.(ts|tsx)$/.test(file) && !/\.test\./.test(file),
+    detect: (line) => {
+      if (/^\s*(\/\/|\/\*|\*)/.test(line)) return null
+      const phaseAction = /'(open-phase-segment|close-open-segment|start-next-night-run|close-active-night-run|confirm-day-execution|confirm-day-no-execution)'/.exec(line)
+      if (!phaseAction) return null
+      return `魔典组件树里出现了相位类 action「${phaseAction[1]}」——相位推进的唯一门是黄昏/黎明/收尾交接卡`
+    },
+    fix: '魔典视图上的任何座位操作、标记操作、夜序操作都不推进相位。需要推进时，把动作交回交接卡。',
+  },
+  {
+    id: 'no-derived-values-in-actions',
+    docSection: '「魔典模式的越界判别」2：派生值入库',
+    applies: (file) => /^src\/features\/[^/]+\/state\/.*\.(ts|tsx)$/.test(file) && !/\.test\./.test(file),
+    detect: (line) => {
+      if (/^\s*(\/\/|\/\*|\*)/.test(line)) return null
+      // 只查 action 类型声明上的字段名：这些值渲染时随便算，一旦进 payload 就成了第二真值。
+      const offender = /^\s*(majority|aliveCount|isDemonDead|evilRemaining|isGameOver)\s*\??\s*:/.exec(line)
+      if (!offender) return null
+      return `action/state 上出现派生值 ${offender[1]}——它可以在 render 里算，但存进去就会与投影结果漂移`
+    },
+    fix: '存活数、票数多数、恶魔是否已死这类值只能在渲染时由投影算出来，不得作为 action payload 或持久化字段。',
   },
   {
     id: 'css-undefined-var',
@@ -334,7 +422,7 @@ function checkLineRules(file, lines, context = {}) {
   const usedExemptions = new Set()
   for (const rule of applicable) {
     lines.forEach((line, index) => {
-      const detail = rule.detect(line, { ...context, file, index })
+      const detail = rule.detect(line, { ...context, file, index, lines })
       if (!detail) return
       const exemption = readExemption(line) ?? readExemption(lines[index - 1])
       if (exemption && exemption.id === rule.id) {

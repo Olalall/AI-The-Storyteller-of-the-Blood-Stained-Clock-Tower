@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { initialNightWorkbenchState } from '../../features/night-workbench/data/initialNightWorkbenchState'
 import { emptyWakeDraft } from '../../features/night-workbench/state/projectWakeDraft'
+import { defaultAISettings, saveAISettings } from '../settings'
 import { createNightResultAdviceAsync } from './nightSettlementHttp'
 
 function jsonResponse(body: unknown, status = 200) {
@@ -107,6 +108,58 @@ describe('night settlement HTTP adapter', () => {
     expect(advice?.authorityWarnings).toEqual(['先核对发动者状态。', '确认本项前不写日志。'])
   })
 
+  it('does not let legacy browser API settings override the fixed night provider', async () => {
+    saveAISettings({ ...defaultAISettings, mode: 'openai-compatible', baseUrl: 'https://old-provider.example.test/v1', model: 'old-model', apiKey: 'synthetic-legacy-key' })
+    let sent: Record<string, unknown> | undefined
+    await createNightResultAdviceAsync(adviceInput(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_url, init) => {
+        sent = JSON.parse(String(init?.body)) as Record<string, unknown>
+        return jsonResponse({ accepted: true, data: { draft: { status: 'needs_input' } } })
+      },
+    })
+    expect(sent).toBeDefined()
+    expect(sent).not.toHaveProperty('providerSettings')
+    expect(JSON.stringify(sent)).not.toContain('synthetic-legacy-key')
+    expect(JSON.stringify(sent)).not.toContain('old-provider.example.test')
+  })
+
+  it('puts confirmed previous registration and current storyteller registration on the wire', async () => {
+    const base = adviceInput()
+    const input = {
+      ...base,
+      item: {
+        ...base.item,
+        previousRegistration: { kind: 'role_type' as const, seatId: 4, value: 'outsider' as const },
+        forbiddenRegistrationValues: ['outsider' as const],
+        previousTargets: [4],
+        forbiddenTargetSeatIds: [4],
+        previousTargetRequired: true,
+        minimumTargetCount: 0,
+        historicalContext: { kind: 'pukka_poison' as const, status: 'ready' as const, seatIds: [4], summary: '4号为旧毒候选。' },
+      },
+      draft: {
+        ...base.draft,
+        registration: { kind: 'role_type' as const, seatId: 3, value: 'minion' as const },
+      },
+    }
+    await createNightResultAdviceAsync(input, {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_url, init) => {
+        const payload = JSON.parse(String(init?.body)) as { wakeItem: { previousRegistration?: unknown; forbiddenRegistrationValues?: string[]; previousTargets?: number[]; forbiddenTargetSeatIds?: number[]; previousTargetRequired?: boolean; minimumTargetCount?: number; historicalContext?: unknown }; draft: { registration?: unknown } }
+        expect(payload.wakeItem.previousRegistration).toEqual(input.item.previousRegistration)
+        expect(payload.wakeItem.forbiddenRegistrationValues).toEqual(['outsider'])
+        expect(payload.wakeItem.previousTargets).toEqual([4])
+        expect(payload.wakeItem.forbiddenTargetSeatIds).toEqual([4])
+        expect(payload.wakeItem.previousTargetRequired).toBe(true)
+        expect(payload.wakeItem.minimumTargetCount).toBe(0)
+        expect(payload.wakeItem.historicalContext).toEqual(input.item.historicalContext)
+        expect(payload.draft.registration).toEqual(input.draft.registration)
+        return jsonResponse({ accepted: true, data: { draft: { status: 'needs_input', missing: ['仅验证请求。'] } } })
+      },
+    })
+  })
+
   it('sends selected target context from all seats, not only the night queue', async () => {
     const input = {
       ...adviceInput(),
@@ -169,6 +222,100 @@ describe('night settlement HTTP adapter', () => {
     expect(advice?.status).toBe('needs_input')
     expect(advice?.recommendedOutcomeId).toBeUndefined()
     expect(advice?.missing).toContain('先补齐本项选择。')
+  })
+
+  /*
+   * contextLevel 只有上了网线才叫接通。
+   * 违反的后果：build 函数里的推导单测从 minimal 变 standard 全绿，而后端收到的请求体
+   * 里根本没有这个字段——线上一个字节都不会变。
+   */
+  it('puts the derived context level and the unknown seats on the wire', async () => {
+    const partial = {
+      ...adviceInput(),
+      state: {
+        ...initialNightWorkbenchState,
+        seatSnapshots: {
+          ...initialNightWorkbenchState.seatSnapshots,
+          4: { ...initialNightWorkbenchState.seatSnapshots[4], role: null },
+        },
+      },
+    }
+
+    await createNightResultAdviceAsync(partial, {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const payload = JSON.parse(String(init?.body)) as { contextLevel?: string; unknownSeatIds?: number[] }
+        expect(payload.contextLevel).toBe('minimal')
+        expect(payload.unknownSeatIds).toEqual([4])
+        return jsonResponse({ accepted: true, data: { draft: { status: 'needs_input', missing: ['先补录4号身份。'] } } })
+      },
+    })
+
+    await createNightResultAdviceAsync(adviceInput(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const payload = JSON.parse(String(init?.body)) as { contextLevel?: string; unknownSeatIds?: number[] }
+        expect(payload.contextLevel).toBe('standard')
+        expect(payload.unknownSeatIds).toEqual([])
+        return jsonResponse({ accepted: true, data: { draft: { status: 'needs_input', missing: [] } } })
+      },
+    })
+  })
+
+  /*
+   * 结构化建议只在座位号真的出现在本次请求里时才保留结构。
+   * 违反的后果：一条「给 7 号加中毒」会带着可点的落盘按钮送到说书人面前，
+   * 而 7 号这一步根本没被提到——按钮点下去写的是一次凭空的状态变更。
+   */
+  it('keeps structured state-change drafts only for seats in this request', async () => {
+    const input = adviceInput()
+    input.item.historicalContext = {
+      kind: 'pukka_poison', status: 'ready', seatIds: [4], summary: '4号为旧毒候选。',
+    }
+    const advice = await createNightResultAdviceAsync(input, {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async () => jsonResponse({
+        accepted: true,
+        data: {
+          draft: {
+            status: 'answer',
+            recommendedOutcomeId: 'applied',
+            summary: '草稿。',
+            stateChangeDrafts: [
+              { text: '给3号加中毒', seatId: 3, change: { field: 'poisoned', to: 'true' } },
+              { text: '4号死亡候选', seatId: 4, change: { field: 'life', to: 'dead' } },
+              { text: '给7号加中毒', seatId: 7, change: { field: 'poisoned', to: 'true' } },
+              '涉及疯狂：不判断玩家是否破疯狂。',
+            ],
+          },
+        },
+      }),
+    })
+
+    expect(advice?.stateChangeDrafts).toEqual([
+      { text: '给3号加中毒', seatId: 3, change: { field: 'poisoned', to: 'true' } },
+      { text: '4号死亡候选', seatId: 4, change: { field: 'life', to: 'dead' } },
+      { text: '涉及疯狂：不判断玩家是否破疯狂。' },
+    ])
+  })
+
+  /*
+   * 后端一条状态建议都没给时回退到本地草稿，而本地草稿只有纯文本。
+   * 这条钉的是「两套形状并存」那个缺陷：回退回来的东西必须仍然是 AIStateChangeDraft。
+   */
+  it('falls back to text-only local drafts, keeping one shape end to end', async () => {
+    const advice = await createNightResultAdviceAsync(adviceInput(), {
+      runtimeSettings: { mode: 'http', baseUrl: 'http://127.0.0.1:8787', timeoutMs: 2000 },
+      fetcher: async () => jsonResponse({
+        accepted: true,
+        data: { draft: { status: 'answer', recommendedOutcomeId: 'applied', summary: '草稿。' } },
+      }),
+    })
+
+    expect(advice?.stateChangeDrafts.length).toBeGreaterThan(0)
+    expect(advice?.stateChangeDrafts.every((draft) => (
+      typeof draft.text === 'string' && draft.seatId === undefined && draft.change === undefined
+    ))).toBe(true)
   })
 
   it('falls back to local advice when backend route fails', async () => {

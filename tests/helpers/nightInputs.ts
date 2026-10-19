@@ -4,6 +4,14 @@ export async function fillCurrentWakeInputs(page: Page, touch = false) {
   const press = (locator: Locator) => touch ? locator.tap() : locator.click()
   const recorder = page.locator('.wake-recorder')
 
+  for (const check of await recorder.locator('.system-step-checks input[type=checkbox]').all()) if (!await check.isChecked()) await check.check()
+  const bluffField = recorder.locator('fieldset').filter({ has: page.getByText('不在场善良角色', { exact: true }) })
+  if (await bluffField.count()) {
+    const text = await bluffField.locator('legend small').innerText()
+    const [selected, required] = text.split(' · ')[0].split('/').map(Number)
+    for (let picked = selected; picked < required; picked++) await press(bluffField.locator('button[aria-pressed=false]').first())
+  }
+
   const seatGrid = recorder.locator('.seat-grid')
   if (await seatGrid.count()) {
     const counter = recorder.locator('fieldset', { has: page.locator('.seat-grid') }).locator('legend span').first()

@@ -1,4 +1,7 @@
 ﻿import { expect, test, type Page } from '@playwright/test'
+import { scriptManifest } from '../../src/domain/scripts'
+
+import { enterDashboardPhase, openDashboardTools } from './helpers/dashboard-tools'
 
 const layouts = [
   { name: 'split-720', width: 720, height: 900, rail: false },
@@ -6,10 +9,28 @@ const layouts = [
   { name: 'pc-1440', width: 1440, height: 900, rail: true },
 ]
 
+
+/** 主持台是默认视图；首页（配板/发身份/玩家状态等）现在是轨道右端「本局」打开的档案层。 */
+
+
+
+/** 默认落地是空对局的入口界面；依赖中局夹具的用例需要显式载入示例。 */
+async function loadDemoSession(page: Page) {
+  const { loadDemoSessionFromEntry } = await import('./helpers/entry-onboarding')
+  await loadDemoSessionFromEntry(page)
+}
+
+async function openArchive(page: import('@playwright/test').Page) {
+  const back = page.getByRole('button', { name: '本局', exact: true })
+  if (await back.isVisible().catch(() => false)) await back.click()
+  await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+}
+
 async function reset(page: Page) {
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSession(page)
 }
 
 async function expectNoOverflow(page: Page) {
@@ -21,11 +42,12 @@ test('three responsive shells keep the dashboard and workbenches inside the view
   for (const layout of layouts) {
     await page.setViewportSize({ width: layout.width, height: layout.height })
     await reset(page)
-    await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+    await openArchive(page)
     await expectNoOverflow(page)
     await page.screenshot({ path: `artifacts/screenshots/${layout.name}-dashboard-shell.png` })
 
-    await page.getByRole('button', { name: '进入夜晚' }).click()
+    await openArchive(page)
+    await enterDashboardPhase(page, '夜晚')
     await expect(page.getByRole('heading', { name: /第3夜/ })).toBeVisible()
     if (layout.rail) await expect(page.getByLabel('本局速览')).toBeVisible()
     else await expect(page.getByLabel('本局速览')).toBeHidden()
@@ -37,7 +59,8 @@ test('three responsive shells keep the dashboard and workbenches inside the view
 test('Pad rail appears automatically without product navigation controls', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 768 })
   await reset(page)
-  await page.getByRole('button', { name: '进入白天' }).click()
+  await openArchive(page)
+  await enterDashboardPhase(page, '白天')
   await expect(page.getByLabel('本局速览')).toBeVisible()
   await expect(page.getByLabel('原型页面')).toHaveCount(0)
   await expect(page.getByText('前端原型')).toHaveCount(0)
@@ -48,7 +71,8 @@ test('Pad rail appears automatically without product navigation controls', async
 test('Pad rail opens the shared player status page without writing until confirmation', async ({ page }) => {
   await page.setViewportSize({ width: 1024, height: 768 })
   await reset(page)
-  await page.getByRole('button', { name: '进入夜晚' }).click()
+  await openArchive(page)
+  await enterDashboardPhase(page, '夜晚')
   const before = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)
 
   const railSeat = page.getByRole('button', { name: /查看1号/ })
@@ -71,8 +95,13 @@ test('Pad rail opens the shared player status page without writing until confirm
 test('compact dashboard cards project role, nickname and status without changing the session', async ({ page }) => {
   await page.setViewportSize({ width: 498, height: 974 })
   await reset(page)
-  await expect(page.getByRole('navigation', { name: '主持阶段' }).getByText('第3夜', { exact: true })).toBeVisible()
+  // 「当前阶段」卡已被常驻阶段轨道取代。
+  await expect(page.getByRole('navigation', { name: '主持阶段' }).locator('.ui-phase-node--open')).toContainText('第3夜')
+  await openArchive(page)
   await expect(page.getByText('12人 · 存活12 · 死亡0')).toBeVisible()
+  await expect(page.getByRole('button', { name: /倒计时/ })).toBeVisible()
+  expect((await page.getByRole('button', { name: /倒计时/ }).boundingBox())!.height).toBeGreaterThanOrEqual(44)
+  await openDashboardTools(page)
   await expect(page.getByRole('button', { name: /倒计时/ })).toBeVisible()
   await expect(page.getByText('私聊 15分 → 公聊 10分')).not.toBeVisible()
   await expect(page.getByRole('button', { name: '主持资料', exact: true })).toBeVisible()
@@ -92,7 +121,9 @@ test('compact dashboard cards project role, nickname and status without changing
   await page.getByRole('button', { name: '切换板子' }).click()
   await expect(page.getByRole('heading', { name: '切换板子' })).toBeVisible()
   await expect(page.getByText('当前对局')).toBeVisible()
-  await expect(page.getByRole('button', { name: '切换到此板子' }).first()).toBeVisible()
+  await expect(page.getByRole('heading', { name: '选择板子', exact: true })).toBeVisible()
+  await expect(page.locator('.script-library__script-card')).toHaveCount(scriptManifest.length)
+  await expect(page.getByRole('searchbox', { name: '搜索板子', exact: true })).toBeVisible()
   await page.getByRole('button', { name: '关闭切换板子' }).click()
   const after = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline.length)
   expect(after).toBe(before)
@@ -101,6 +132,8 @@ test('compact dashboard cards project role, nickname and status without changing
 test('setup distinguishes replacement, nickname editing, and seat swapping', async ({ page }) => {
   await page.setViewportSize({ width: 720, height: 900 })
   await reset(page)
+  await openArchive(page)
+  await openDashboardTools(page)
   await page.getByRole('button', { name: '智能配板与调整' }).click()
   const setupPage = page.getByRole('dialog')
   await expect(setupPage).toHaveAttribute('data-presentation', 'page')

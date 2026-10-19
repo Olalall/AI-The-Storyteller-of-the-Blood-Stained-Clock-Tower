@@ -229,9 +229,9 @@ describe('explicit same-night character changes: acceptance draft', () => {
     const oldDemon = projected(session).queue.find((item) => item.roleId === 'vortox')!
     session = focus(session, oldDemon.id)
     let local = projected(session)
-    local = nightWorkbenchReducer(local, { type: 'target', seatId: 2 })
-    local = nightWorkbenchReducer(local, { type: 'outcome', outcomeId: 'record' })
-    local = nightWorkbenchReducer(local, { type: 'confirm', advance: false })
+    local = nightWorkbenchReducer(local, { at: '2026-10-19T00:00:00.000Z', type: 'target', seatId: 2 })
+    local = nightWorkbenchReducer(local, { at: '2026-10-19T00:00:00.000Z', type: 'outcome', outcomeId: 'record' })
+    local = nightWorkbenchReducer(local, { at: '2026-10-19T00:00:00.000Z', type: 'confirm', advance: false })
     expect(Object.values(local.confirmedRecords).flat()).toHaveLength(1)
     const after = gameSessionReducer(session, command(session, 12, 'snakecharmer', 'old-demon-stopped', 'later'))
     const staleCommit = createNightWorkbenchCommit(local, { session: after, dispatchSession: () => {} })

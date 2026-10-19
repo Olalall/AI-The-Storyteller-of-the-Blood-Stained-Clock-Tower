@@ -11,9 +11,12 @@ import { canConfirmDraft } from '../../features/night-workbench/state/workbenchG
 import { nightContextKey } from '../../features/night-workbench/state/gameSessionAdapter'
 import { projectKazaliAllocation } from '../../features/game-session/state/applyKazaliAllocation'
 import { gameSessionReducer } from '../../features/game-session/state/sessionReducer'
-import { projectCurrentAssignments } from '../../features/game-session/state/projectors'
+import { projectCurrentAssignments, projectCurrentPlayerStates } from '../../features/game-session/state/projectors'
 import { validateTemplateComposition } from '../setup-templates/composition'
 import { smartScriptRegistry } from './catalog'
+import { getSmartScriptPack } from './index'
+import officialNightSheet from '../../features/night-workbench/data/official/nightsheet.json' with { type: 'json' }
+import { parseSessionBackup } from '../../services/session/sessionBackup'
 import { smartScriptPacks } from './allPacks'
 import { buildScriptQualitySummary } from './quality'
 import { fengMaoZhiYanSmartScriptPack } from './packs/feng-mao-zhi-yan'
@@ -173,10 +176,53 @@ describe('clocktower-wiki batch 03 source, actual setup candidates and night inp
     const minions = new Set(pack.roles.filter((role) => role.team === 'minion').map((role) => role.id))
     expect(projectCurrentAssignments(session).filter((assignment) => minions.has(assignment.role.id))).toHaveLength(count < 10 ? 1 : count < 13 ? 2 : 3)
     const live = projected(session).queue.filter((item) => item.progress !== 'not_applicable')
-    const order = live.map((item) => pack.nightOrders.firstNight.find((entry) => entry.roleId === item.roleId)!.order)
+    // 知识包的来源快照在上面单独锁定；实际队列用加载后的官方相对夜序，系统信息有独立槽位。
+    const roleWakes = live.filter((item) => !item.systemStep)
+    const productionOrders = getSmartScriptPack(id).nightOrders.firstNight
+    const order = roleWakes.map((item) => productionOrders.find((entry) => entry.roleId === item.roleId)!.order)
     expect(order).toEqual([...order].sort((a,b) => a-b))
+    const officialPosition = new Map(officialNightSheet.firstNight.map((roleId, index) => [roleId, index]))
+    const fullOrder = live.map((item) => officialPosition.get(item.roleId === 'system-minion-info' ? 'minioninfo'
+      : item.roleId === 'system-demon-info' ? 'demoninfo' : item.roleId)!)
+    expect(fullOrder.every(Number.isInteger)).toBe(true)
+    expect(fullOrder).toEqual([...fullOrder].sort((a,b) => a-b))
+    expect(live.filter((item) => item.systemStep).map((item) => item.systemStep!.kind)).toEqual(['minion_info', 'demon_info'])
     const currentAssignments = projectCurrentAssignments(session)
-    for (const item of live) expect(currentAssignments.find((assignment) => assignment.seatId === item.seatId)?.role.id).toBe(item.roleId)
+    for (const item of roleWakes) expect(currentAssignments.find((assignment) => assignment.seatId === item.seatId)?.role.id).toBe(item.roleId)
+    const changes = currentAssignments.flatMap((assignment) => {
+      const fromRole = original.find((prior) => prior.seatId === assignment.seatId)!.role
+      return fromRole.id === assignment.role.id ? [] : [{ seatId: assignment.seatId, fromRole, toRole: assignment.role }]
+    })
+    const statuses = projectCurrentPlayerStates(session)
+    for (const change of changes) {
+      const oldItem = projected(session).queue.find((item) => !item.systemStep && item.seatId === change.seatId && item.roleId === change.fromRole.id)
+      if (oldItem) {
+        expect(oldItem).toMatchObject({ progress: 'not_applicable', applicability: 'not_applicable' })
+        session = actNight(actNight(session, { type: 'preview', id: oldItem.id }), { type: 'activate-preview' })
+        const before = structuredClone(session.timeline)
+        session = actNight(actNight(session, { type: 'outcome', outcomeId: 'record' }), { type: 'confirm', advance: false })
+        expect(session.timeline).toEqual(before)
+      }
+      const newItem = projected(session).queue.find((item) => !item.systemStep && item.seatId === change.seatId && item.roleId === change.toRole.id)!
+      if (!productionOrders.some((entry) => entry.roleId === change.toRole.id)) {
+        expect(newItem).toBeUndefined() // 被动或仅白天发动的爪牙不虚构首夜唤醒。
+        continue
+      }
+      expect(newItem).toBeDefined()
+      session = actNight(actNight(session, { type: 'preview', id: newItem.id }), { type: 'activate-preview' })
+      for (const target of Object.keys(session.seats).map(Number).filter((seat) => seat !== newItem.seatId).slice(0, newItem.targetCount)) {
+        session = actNight(session, { type: 'target', seatId: target })
+      }
+      if (newItem.roleChoices?.length) session = actNight(session, { type: 'role-choice', roleId: newItem.roleChoices[0].id })
+      session = actNight(session, { type: 'storyteller-context', value: '隔离回归由主持确认技能录入；不自动修改状态。' })
+      session = actNight(session, { type: 'outcome', outcomeId: 'record' })
+      expect(canConfirmDraft(current(session).state, current(session).item, current(session).draft)).toBe(true)
+      session = actNight(session, { type: 'confirm', advance: false })
+      expect(projected(session).queue.find((item) => item.id === newItem.id)?.progress).toBe('confirmed')
+      expect(session.timeline.some((entry) => entry.kind === 'night_action' && entry.wakeItemId === newItem.id)).toBe(true)
+    }
+    expect(projectCurrentPlayerStates(session)).toEqual(statuses)
+    expect(parseSessionBackup(JSON.stringify(session))).toEqual(session)
   })
 
   it.each([

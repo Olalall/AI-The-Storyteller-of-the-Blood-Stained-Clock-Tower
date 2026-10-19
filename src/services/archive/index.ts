@@ -1,5 +1,7 @@
 export * from './archiveService'
 export * from './archiveRuntimeSettings'
+export * from './archiveHosting'
+export * from './archiveMigration'
 export * from './httpArchiveAdapter'
 export * from './types'
 export { gameArchiveStorageKey } from './localArchiveAdapter'

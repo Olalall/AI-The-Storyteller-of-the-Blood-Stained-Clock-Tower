@@ -25,6 +25,13 @@ describe('kuMuFengChunSmartScriptPack', () => {
     expect(kuMuFengChunSmartScriptPack.nightOrders.firstNight.map((entry) => entry.roleId)).toContain('shugenja')
     expect(kuMuFengChunSmartScriptPack.nightOrders.otherNight.map((entry) => entry.roleId)).toContain('pithag')
     expect(kuMuFengChunSmartScriptPack.nightOrders.otherNight.map((entry) => entry.roleId)).toContain('banshee')
+    expect(kuMuFengChunSmartScriptPack.nightOrders.otherNight
+      .map((entry) => entry.roleId)
+      .filter((id) => ['barber', 'banshee', 'ravenkeeper'].includes(id))).toEqual([
+        'barber',
+        'banshee',
+        'ravenkeeper',
+      ])
   })
 
   it('provides verified setup templates for all 7-15 player counts', () => {

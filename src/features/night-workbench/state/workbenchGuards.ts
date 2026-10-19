@@ -1,5 +1,5 @@
 import type { NightWorkbenchState, WakeDraft, WakeItem } from '../types'
-import { outcomeReady, targetRoleChoicesSatisfied } from './projectWakeDraft'
+import { outcomeReady, targetRoleChoicesSatisfied, wakeTargetsStructurallyValid } from './projectWakeDraft'
 import { currentRoleForItem } from './roleChanges'
 
 export function canEditItem(state: NightWorkbenchState, item: WakeItem) {
@@ -18,6 +18,7 @@ export function canConfirmDraft(state: NightWorkbenchState, item: WakeItem, draf
   if (draft.outputSource?.kind === 'ai' && draft.outputSource.contextKey !== state.contextKey) return false
   const selectedOutcome = item.outcomeOptions.find((option) => option.id === draft.outcomeId)
   return canEditItem(state, item) && Boolean(
+    wakeTargetsStructurallyValid(item, draft, state.playerCount) &&
     selectedOutcome &&
     outcomeReady(selectedOutcome, item, draft) &&
     draft.outputSource?.templateId === selectedOutcome.id &&

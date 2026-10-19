@@ -1,8 +1,10 @@
-﻿import { expect, test } from '@playwright/test'
+import { loadDemoSessionFromEntry } from './helpers/entry-onboarding'
+import { expect, test } from '@playwright/test'
 
 test('game end prototype saves an archive and opens AI historical review', async ({ page }) => {
   await page.setViewportSize({ width: 1180, height: 900 })
   await page.goto('/')
+  await loadDemoSessionFromEntry(page)
 
   await page.getByRole('button', { name: '保存本局', exact: true }).click()
   await expect(page.locator('.game-end')).toBeVisible()
@@ -77,7 +79,7 @@ test('game end prototype saves an archive and opens AI historical review', async
 
   await expect(page.locator('.setup-panel__candidates')).toBeVisible()
   await expect(page.locator('.setup-candidate')).toHaveCount(3)
-  await page.locator('.setup-candidate').first().getByRole('button', { name: '选择组合', exact: true }).click()
+  await page.locator('.setup-candidate').first().getByRole('button', { name: '选择这套配板', exact: true }).click()
   await expect(page.locator('.setup-panel__draft')).toBeVisible()
   await page.getByRole('button', { name: '确认配板', exact: true }).click()
   await expect(page.locator('.setup-panel')).toBeHidden()
@@ -96,5 +98,5 @@ test('game end prototype saves an archive and opens AI historical review', async
   const roleBySeat = new Map(setupEntry.setup.draft.assignments.map((assignment: { seatId: number; role: { id: string } }) => [assignment.seatId, assignment.role.id]))
   expect(run.phaseSegmentId).toBe(nightState.phaseSegments.find((segment: { kind: string }) => segment.kind === 'night').id)
   expect(run.queue.length).toBeGreaterThan(0)
-  expect(run.queue.every((item: { seatId: number; roleId: string }) => roleBySeat.get(item.seatId) === item.roleId)).toBe(true)
+  expect(run.queue.filter((item: { systemStep?: unknown }) => !item.systemStep).every((item: { seatId: number; roleId: string }) => roleBySeat.get(item.seatId) === item.roleId)).toBe(true)
 })

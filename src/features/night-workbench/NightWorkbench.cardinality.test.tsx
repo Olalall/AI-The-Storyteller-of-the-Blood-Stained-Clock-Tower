@@ -4,12 +4,13 @@ import { useReducer } from 'react'
 import { describe, expect, it } from 'vitest'
 import { gameSessionReducer } from '../game-session/state/sessionReducer'
 import { NightWorkbench } from './NightWorkbench'
-import { cardinalitySession } from './state/nightCardinality.test-support'
-import { projected } from './state/nightInformation.test-support'
+import { cardinalitySession, nextCardinalityNight } from './state/nightCardinality.test-support'
+import { actNight, projected } from './state/nightInformation.test-support'
 
 describe('night cardinality UI', () => {
-  it('requires the host to choose Po mode and keeps three ordered choices before changing to zero', async () => {
-    let latest = cardinalitySession('bad-moon-rising', 'po', 8, true)
+  it('requires the host to verify missing Po history and keeps three ordered choices before changing to zero', async () => {
+    let latest = nextCardinalityNight(cardinalitySession('bad-moon-rising', 'po', 8, true), 'po')
+    const before = structuredClone(latest)
     function Harness() {
       const [session, dispatchSession] = useReducer(gameSessionReducer, latest)
       latest = session
@@ -17,7 +18,7 @@ describe('night cardinality UI', () => {
     }
     render(<Harness />)
     const user = userEvent.setup()
-    expect(screen.getByRole('button', { name: 'AI推荐' })).toBeDisabled()
+    expect(screen.queryByRole('button', { name: 'AI推荐' })).toBeNull()
     expect(screen.queryByRole('button', { name: '选择1号玩家' })).toBeNull()
     await user.click(screen.getByRole('button', { name: '选择3名玩家' }))
     for (const seat of [1, 2, 3]) await user.click(screen.getByRole('button', { name: new RegExp(`^选择${seat}号玩家`) }))
@@ -30,6 +31,36 @@ describe('night cardinality UI', () => {
     await user.click(screen.getByRole('button', { name: '记录结果' }))
     expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
     expect(screen.getByText(/珀记录：不选择玩家/)).toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'AI推荐' })).toBeNull()
+    expect(latest.initialPlayerStates).toEqual(before.initialPlayerStates)
+    expect(latest.timeline).toEqual(before.timeline)
+  })
+
+  it('shows only three ordered targets after a confirmed charge and cannot reuse generic zero or one modes', async () => {
+    let latest = cardinalitySession('bad-moon-rising', 'po', 8, true)
+    latest = actNight(latest, { type: 'target-count-choice', count: 0 })
+    latest = actNight(latest, { type: 'outcome', outcomeId: 'po-charge' })
+    latest = actNight(latest, { type: 'confirm', advance: false })
+    latest = nextCardinalityNight(latest, 'po')
+    const before = structuredClone(latest)
+    function Harness() {
+      const [session, dispatchSession] = useReducer(gameSessionReducer, latest)
+      latest = session
+      return <NightWorkbench sessionBinding={{ session, dispatchSession }} onExit={() => {}} />
+    }
+    render(<Harness />)
+    const user = userEvent.setup()
+    expect(screen.queryByRole('button', { name: /^(不选目标|选择1名玩家|选择3名玩家|记录结果|AI推荐)$/ })).toBeNull()
+    expect(screen.getAllByText('上一次实际选择为无人：本夜必须依次选择三名玩家。').length).toBeGreaterThan(0)
+    for (const seat of [3, 1]) await user.click(screen.getByRole('button', { name: new RegExp(`^选择${seat}号玩家`) }))
+    expect(screen.getByRole('button', { name: '记录三名目标' })).toBeDisabled()
+    await user.click(screen.getByRole('button', { name: /^选择2号玩家/ }))
+    await user.click(screen.getByRole('button', { name: '记录三名目标' }))
+    const state = projected(latest)
+    expect(state.drafts[state.activeCursorId].targets).toEqual([3, 1, 2])
+    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    expect(latest.timeline).toEqual(before.timeline)
+    expect(latest.initialPlayerStates).toEqual(before.initialPlayerStates)
   })
 
   it('keeps every Noble information seat visibly selected', async () => {

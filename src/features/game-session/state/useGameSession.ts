@@ -110,7 +110,7 @@ export function useGameSession() {
   }, [saving, saveFailed, editorStatus])
 
   const dispatch = useCallback((action: GameSessionAction) => {
-    if (!pageHidden.current && !initial.recovery && editorStatus === 'ready' && !restoring.current && action.type !== 'reset-session') {
+    if (!pageHidden.current && !initial.recovery && editorStatus === 'ready' && !restoring.current && action.type !== 'reset-session' && action.type !== 'replace-session') {
       dispatchedVersion.current += 1
       reduce(action)
     }
@@ -180,5 +180,5 @@ export function useGameSession() {
       throw new Error('原存档尚未替换。请先导出原文，并释放浏览器存储空间后重试留档。')
     }
   }
-  return { session, dispatch, saveFailed, retrySave, editorStatus, resetSession, restoreSession, reopenLatest, recovery: initial.recovery, startAfterRecovery }
+  return { session, dispatch, saveFailed, saving, retrySave, editorStatus, resetSession, restoreSession, reopenLatest, recovery: initial.recovery, startAfterRecovery }
 }

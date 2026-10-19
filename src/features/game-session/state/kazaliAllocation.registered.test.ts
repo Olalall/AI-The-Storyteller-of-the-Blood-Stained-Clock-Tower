@@ -91,7 +91,7 @@ describe('all eleven registered Kazali scripts use the real first-night allocati
       expect(newWakes).toHaveLength(firstIds.includes(pair.roleId) ? 1 : 0)
       if (newWakes.length) expect(newWakes[0].progress).toBe('pending')
     }
-    const activeOrder = run.queue.filter((item) => item.progress !== 'not_applicable').map((item) => firstIds.indexOf(item.interactionVersion === 'marionette/pretend-v1'
+    const activeOrder = run.queue.filter((item) => item.progress !== 'not_applicable' && !item.systemStep).map((item) => firstIds.indexOf(item.interactionVersion === 'marionette/pretend-v1'
       ? session.identityPresentations![item.seatId].shownRole.id : item.roleId))
     expect(activeOrder).toEqual(activeOrder.toSorted((left, right) => left - right))
     expect(session.timeline.filter((entry) => entry.kind === 'setup_changed' && entry.sourceNightActionId === source.id)).toHaveLength(required)

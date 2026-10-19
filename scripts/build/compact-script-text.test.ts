@@ -7,6 +7,8 @@ import ts from 'typescript'
 import { scriptManifest } from '../../src/domain/scripts/scriptManifest.generated'
 import { scriptAssetProjection } from '../../src/domain/scripts/scriptAssets.generated'
 import { projectCharacterAssetPack } from '../../src/services/assets/assetPackService'
+import { normalizeImportedPack } from '../../src/domain/scripts/normalizeImportedPack'
+import type { SmartScriptPack } from '../../src/domain/scripts/types'
 import { smartScriptPacks } from '../../src/domain/scripts/catalog'
 import { compactScriptText, createScriptTextPool, renderScriptTextPool, scriptTextModule } from './compact-script-text'
 
@@ -52,7 +54,8 @@ test('every registered production pack retains all data after text pooling', () 
     cache.set(file, exports)
     return exports
   }
-  const actual = load(resolve('src/domain/scripts/allPacks.ts')).smartScriptPacks
+  const pooled = load(resolve('src/domain/scripts/allPacks.ts')).smartScriptPacks as SmartScriptPack[]
+  const actual = pooled.map(normalizeImportedPack)
   expect(smartScriptPacks).toHaveLength(scriptManifest.length)
   expect(JSON.parse(JSON.stringify(actual))).toEqual(JSON.parse(JSON.stringify(smartScriptPacks)))
 }, 30_000)

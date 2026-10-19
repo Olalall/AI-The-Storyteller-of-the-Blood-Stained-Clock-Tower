@@ -1,0 +1,42 @@
+.dawn-handoff { width: min(760px, 100%); margin: 0 auto; display: grid; gap: var(--space-16); }
+.dawn-handoff__card { display: grid; gap: var(--space-16); }
+.dawn-handoff .ui-card__header { margin-bottom: 0; }
+
+.dawn-handoff__guard { margin: 0; display: flex; align-items: center; gap: var(--space-8); min-height: 38px; padding: 0 var(--space-12); border: 1px solid var(--info-border); border-radius: var(--radius-md); background: var(--info-soft); color: var(--info-text); font-size: var(--type-label); font-weight: 800; letter-spacing: .04em; }
+.dawn-handoff__guard svg { width: 16px; height: 16px; flex: 0 0 auto; }
+
+.dawn-handoff__groups { display: grid; gap: var(--space-12); }
+.dawn-handoff__group { display: grid; grid-template-columns: 56px minmax(0, 1fr); align-items: start; gap: var(--space-12); }
+.dawn-handoff__group-title { margin: var(--space-8) 0 0; color: var(--text-muted); font: 800 var(--type-label)/1 var(--font-body); letter-spacing: .12em; }
+.dawn-handoff__list { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--space-8); }
+.dawn-handoff__change { min-height: var(--touch-min); display: flex; align-items: baseline; flex-wrap: wrap; gap: var(--space-8); }
+/* 播报行是给说书人抬眼就能念出来的，所以用页面标题级字号，不缩到正文。 */
+.dawn-handoff__seat { color: var(--text-strong); font: 900 var(--type-page-title)/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.dawn-handoff__seat-unit { margin-left: -4px; color: var(--text-muted); font-size: var(--type-body); font-weight: 800; }
+.dawn-handoff__nickname { min-width: 0; color: var(--text-body); font: 800 var(--type-section)/1.2 var(--font-display); overflow-wrap: anywhere; }
+.dawn-handoff__none { margin: var(--space-8) 0 0; color: var(--text-muted); font-size: var(--type-body); font-weight: 700; }
+
+.dawn-handoff__hint { padding: var(--space-12); display: flex; align-items: center; flex-wrap: wrap; gap: var(--space-12); border: 1px solid var(--warning-border); border-radius: var(--radius-md); background: var(--warning-soft); }
+.dawn-handoff__hint > svg { width: 20px; height: 20px; flex: 0 0 auto; color: var(--warning-text); }
+.dawn-handoff__hint-text { min-width: 200px; flex: 1 1 260px; display: grid; gap: var(--space-4); }
+.dawn-handoff__hint-text strong { color: var(--warning-text); font-size: var(--type-body); font-weight: 800; line-height: var(--line-body); }
+.dawn-handoff__hint-text span { color: var(--text-muted); font-size: var(--type-label); line-height: var(--line-body); }
+
+.dawn-handoff__wait { margin: 0; position: relative; display: flex; align-items: center; gap: var(--space-8); color: var(--text-subtle); font-size: var(--type-label); font-weight: 700; }
+.dawn-handoff__wait svg { width: 16px; height: 16px; flex: 0 0 auto; }
+/* 只读缓冲条：纯装饰，不倒计时、不禁用任何按钮。 */
+.dawn-handoff__wait-bar { flex: 1 1 60px; height: 3px; border-radius: var(--radius-pill); background: var(--surface-hover); overflow: hidden; }
+.dawn-handoff__wait-bar::after { content: ''; display: block; height: 100%; border-radius: var(--radius-pill); background: var(--info-border); animation: dawn-handoff-wait 8s linear forwards; }
+@keyframes dawn-handoff-wait { from { width: 0; } to { width: 100%; } }
+
+.dawn-handoff__bar-note { min-width: 0; color: var(--text-muted); font-size: var(--type-label); font-weight: 800; }
+.dawn-handoff .sticky-action-bar .ui-button--primary { min-height: 52px; }
+
+@media (max-width: 560px) {
+  .dawn-handoff__group { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
+  .dawn-handoff__group-title { margin-top: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dawn-handoff__wait-bar::after { animation: none; width: 100%; }
+}

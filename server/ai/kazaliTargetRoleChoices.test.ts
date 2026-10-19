@@ -54,7 +54,7 @@ describe('Kazali AI paired-choice boundary', () => {
     ['legacy first-night form', (request: NightSettlementProviderRequest) => { delete request.wakeItem.targetRoleChoiceCount; delete request.draft.targetRoleChoices }],
   ] as const)('does not let ready flags or a model bypass %s', async (_name, mutate) => {
     const request = input(); mutate(request)
-    expect(isNightSettlementRequest(request)).toBe(true)
+    expect(isNightSettlementRequest(request)).toBe(!['duplicate player', 'out of range'].includes(_name))
     const before = structuredClone(request)
     let calls = 0
     const provider = createOpenAICompatibleNightSettlementProvider({ baseUrl: 'https://offline.example.test/v1', apiKey: 'offline-only', model: 'offline-only', timeoutSeconds: 1,

@@ -1,10 +1,28 @@
+import { loadDemoSessionFromEntry } from './helpers/entry-onboarding'
 import { expect, test } from '@playwright/test'
+import { createPrototypeGameSession } from '../../src/features/game-session/data/createPrototypeSession'
 
-async function resetToDashboard(page: import('@playwright/test').Page) {
+async function resetToDashboard(page: import('@playwright/test').Page, legalOpening = false) {
   await page.setViewportSize({ width: 720, height: 900 })
+  if (legalOpening) {
+    const session = createPrototypeGameSession()
+    const opening = session.timeline.find((entry) => entry.kind === 'setup_confirmed')
+    if (!opening || opening.kind !== 'setup_confirmed') throw new Error('Missing synthetic opening fixture')
+    opening.setup.draft.setupRuleSelections = [
+      { ruleId: 'balloonist-outsider', choiceId: 'no-extra-outsider' },
+      { ruleId: 'fanggu-outsider', choiceId: 'add-outsider' },
+    ]
+    await page.addInitScript((fixture) => {
+      if (!localStorage.getItem('botc-copilot-session-v1')) localStorage.setItem('botc-copilot-session-v1', JSON.stringify(fixture))
+    }, session)
+    await page.goto('/')
+    await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
+    return
+  }
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSessionFromEntry(page)
   await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
 }
 
@@ -43,8 +61,9 @@ test('dashboard keeps day and night as peer entries and only records day facts a
   await expect(page.getByRole('button', { name: '进入白天' })).toBeVisible()
   await expect(page.getByText('暂列处决', { exact: true })).toHaveCount(0)
   await expect(page.getByRole('navigation', { name: '主持阶段' }).getByText('第3夜', { exact: true })).toBeVisible()
-  await expect(page.getByText('继续记录 · 第3夜')).toBeVisible()
-  await expect(page.getByText('首次确认后建立记录')).toBeVisible()
+  await expect(page.getByRole('button', { name: '进入夜晚' })).toContainText('第3夜')
+  const beforeDay = await page.evaluate(() => JSON.parse(localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
+  expect(beforeDay.phaseSegments.some((segment: { kind: string }) => segment.kind === 'day')).toBe(false)
   await expect(page.getByRole('button', { name: /倒计时/ })).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/split-720-dashboard.png', fullPage: true })
 
@@ -68,6 +87,7 @@ test('dashboard keeps day and night as peer entries and only records day facts a
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
@@ -91,8 +111,8 @@ test('dashboard keeps day and night as peer entries and only records day facts a
 
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
   await expect(page.getByText(/存活11 · 死亡1/)).toBeVisible()
-  await expect(page.getByText('继续记录 · 第3夜')).toBeVisible()
-  await expect(page.getByText('继续记录 · 第3天')).toBeVisible()
+  await expect(page.getByRole('button', { name: '进入夜晚' })).toContainText('第3夜')
+  await expect(page.getByRole('button', { name: '进入白天' })).toContainText('第3天')
 })
 
 test('opening script stays local to the host and does not create a game record', async ({ page }) => {
@@ -116,20 +136,29 @@ test('opening script stays local to the host and does not create a game record',
   await expect(page.getByText('请确认座位，准备开始。')).toHaveCount(0)
 })
 
-test('setup candidates stay drafts until the storyteller confirms a future-only adjustment', async ({ page }) => {
-  await resetToDashboard(page)
+test('incompatible candidates stay drafts and compatible seat adjustments only affect future nights', async ({ page }) => {
+  await resetToDashboard(page, true)
+  const beforeAdjustment = await page.evaluate(() => JSON.parse(localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
   await page.getByRole('button', { name: '智能配板与调整' }).click()
 
   await expect(page.getByRole('heading', { name: '智能配板与调整' })).toBeVisible()
-  await expect(page.getByText('AI配板建议')).toBeVisible()
+  await expect(page.locator('.setup-panel__advice-entry')).toContainText('智能配板')
   await page.locator('.setup-panel__advice-entry').click()
-  await expect(page.getByText('AI建议')).toBeVisible()
-  await expect(page.getByText('角色组合')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '选择配板方案' })).toBeVisible()
+  await expect(page.locator('.setup-candidate')).toHaveCount(3)
+  const beforeDraft = await page.evaluate(() => JSON.parse(localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline)
   await page.screenshot({ path: 'artifacts/screenshots/split-720-setup.png' })
   await expect(page.getByText('候选、草稿与确认配板分开。')).toHaveCount(0)
-  await page.locator('.setup-candidate').filter({ hasText: '全员参与' }).getByRole('button', { name: '采用为草稿' }).click()
+  await page.locator('.setup-candidate').filter({ has: page.getByRole('heading', { name: '瓦釜雷鸣 · 均衡', exact: true }) }).getByRole('button', { name: '选择这套配板' }).click()
+  await expect(page.getByRole('button', { name: '确认调整' })).toBeDisabled()
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline)).toEqual(beforeDraft)
+  await page.getByRole('button', { name: '关闭智能配板与调整' }).click()
+  await page.reload()
+  await page.getByRole('button', { name: '智能配板与调整' }).click()
   await swapFirstTwoDraftSeats(page)
   await dragThirdSeatToFourth(page)
+  await page.locator('.setup-seat-grid button').nth(9).click()
+  await page.locator('.setup-seat-grid button').nth(10).click()
   await page.screenshot({ path: 'artifacts/screenshots/split-720-setup-card-swap.png', fullPage: true })
   await expect(page.getByRole('dialog')).toHaveAttribute('data-presentation', 'page')
   await page.getByRole('heading', { name: '人数修正' }).scrollIntoViewIfNeeded()
@@ -139,6 +168,7 @@ test('setup candidates stay drafts until the storyteller confirms a future-only 
   await page.getByRole('heading', { name: '伪装建议' }).scrollIntoViewIfNeeded()
   await page.screenshot({ path: 'artifacts/screenshots/split-720-setup-bluff-grid.png' })
   await page.screenshot({ path: 'artifacts/screenshots/split-720-setup-draft-rules.png', fullPage: true })
+  expect(await page.evaluate(() => JSON.parse(localStorage.getItem('botc-copilot-session-v1') ?? '{}').timeline)).toEqual(beforeDraft)
   await expect(page.getByRole('button', { name: '确认调整' })).toBeEnabled()
   await page.getByRole('button', { name: '确认调整' }).click()
 
@@ -146,6 +176,10 @@ test('setup candidates stay drafts until the storyteller confirms a future-only 
     const state = JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}')
     return state.timeline.filter((entry: { kind: string }) => entry.kind === 'setup_changed').length
   })).toBeGreaterThan(0)
+  const afterAdjustment = await page.evaluate(() => JSON.parse(localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
+  expect(afterAdjustment.nightRuns).toEqual(beforeAdjustment.nightRuns)
+  expect(afterAdjustment.timeline.slice(0, beforeAdjustment.timeline.length)).toEqual(beforeAdjustment.timeline)
+  expect(afterAdjustment.timeline.slice(beforeAdjustment.timeline.length).every((entry: { kind: string }) => entry.kind === 'setup_changed')).toBe(true)
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await expect(page.getByText('本夜仍按洗脑师')).toBeVisible()
 })
@@ -166,7 +200,7 @@ test('a confirmed night result reaches the dashboard timeline without changing p
 
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
   await expect(page.getByText('10号洗脑师选择3号成为调查员，目标受到影响。')).toBeVisible()
-  await expect(page.getByText('继续记录 · 第3夜')).toBeVisible()
+  await expect(page.getByRole('button', { name: '进入夜晚' })).toContainText('第3夜')
 })
 
 test('ending a night returns to the dashboard and the next confirmed action starts a separate night', async ({ page }) => {
@@ -177,6 +211,7 @@ test('ending a night returns to the dashboard and the next confirmed action star
   await page.getByRole('button', { name: '确认关闭' }).click()
   await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
 
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('botc-copilot-session-v1') ?? '{}').phaseSegments.find((segment: { id: string }) => segment.id === 'night-3')?.closedAt)).toBeTruthy()
   const afterClose = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
   expect(afterClose.phaseSegments.find((segment: { id: string }) => segment.id === 'night-3').closedAt).toBeTruthy()
   expect(afterClose.phaseSegments.some((segment: { id: string }) => segment.id === 'night-4')).toBe(false)
@@ -199,6 +234,8 @@ test('the next night record does not include a role change confirmed in the prev
   await page.getByRole('button', { name: '进入夜晚' }).click()
   await page.getByRole('button', { name: '更换角色' }).click()
   await page.getByRole('button', { name: '麻脸巫婆' }).click()
+  await expect(page.getByRole('button', { name: '确认改为麻脸巫婆' })).toBeDisabled()
+  await page.getByRole('radio', { name: '当晚处理新能力' }).check()
   await page.getByRole('button', { name: '确认改为麻脸巫婆' }).click()
   await expect(page.getByRole('button', { name: '本局记录，共4条' })).toBeVisible()
 
@@ -247,6 +284,7 @@ test('an unrecorded vote survives returning to the dashboard and must be explici
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
   await page.getByRole('button', { name: '记录1号举手' }).click()
 
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
@@ -254,6 +292,8 @@ test('an unrecorded vote survives returning to the dashboard and must be explici
   await page.getByRole('button', { name: '返回本局', exact: true }).last().click()
   await page.reload()
   await page.getByRole('button', { name: '进入白天' }).click()
+  await expect(page.getByRole('button', { name: '回到步骤1：提名' })).toContainText('1号提名 4号')
+  await page.getByRole('button', { name: '回到步骤1：提名' }).click()
   await expect(page.getByRole('tab', { name: '提名人 · 1号' })).toBeVisible()
   await expect(page.getByRole('tab', { name: '被提名人 · 4号' })).toBeVisible()
 
@@ -261,6 +301,7 @@ test('an unrecorded vote survives returning to the dashboard and must be explici
   await expect(page.getByText('本轮票型已暂存')).toBeVisible()
   await page.getByRole('button', { name: '清空并结束' }).click()
 
+  await expect.poll(() => page.evaluate(() => JSON.parse(localStorage.getItem('botc-copilot-session-v1') ?? '{}').dayVoteDraft)).toBeNull()
   const state = await page.evaluate(() => JSON.parse(window.localStorage.getItem('botc-copilot-session-v1') ?? '{}'))
   expect(state.dayVoteDraft).toBeNull()
   expect(state.timeline.some((entry: { kind: string }) => entry.kind === 'vote_round')).toBe(false)
@@ -304,6 +345,7 @@ test('day timer stays touchable in a narrow split view', async ({ page }) => {
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSessionFromEntry(page)
   await page.getByRole('button', { name: '进入白天' }).click()
 
   const timer = page.getByRole('timer', { name: '白天节奏计时' })
@@ -381,6 +423,7 @@ test('journal keeps vote records read-only and directs the storyteller back to t
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
@@ -403,6 +446,7 @@ test('journal filters stay touchable in a narrow split view', async ({ page }) =
   await page.goto('/')
   await page.evaluate(() => window.localStorage.clear())
   await page.reload()
+  await loadDemoSessionFromEntry(page)
   await page.getByRole('button', { name: '日记' }).click()
   await expect(page.getByRole('dialog', { name: '日记' })).toBeVisible()
 

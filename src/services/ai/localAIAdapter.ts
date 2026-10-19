@@ -5,6 +5,7 @@ import { getPrototypeAIResultTemplate } from './prototypeNightAdvice'
 import { getComplexRoleKnowledge, type ComplexRoleKnowledge, type RoleKnowledgeRiskTag } from '../../domain/role-knowledge'
 import { roleResearchForAI, roleTeamByIdForScript, type AIRoleResearchBrief } from '../../domain/scripts'
 import { nightStatusFactsForAI, selectedNightTargetsForAI } from './nightTargetContext'
+import { textStateChangeDrafts } from './aiStateChangeDraft'
 import { createLocalGameReviewDraft } from './gameReviewProjection'
 
 function projectedAdviceDrafts({ item, draft, outcomeId, roleKnowledge, roleResearch }: {
@@ -20,13 +21,13 @@ function projectedAdviceDrafts({ item, draft, outcomeId, roleKnowledge, roleRese
   const stateChangeDrafts = [
     ...(roleKnowledge ? stateChangeDraftsFor(roleKnowledge) : []),
     ...(roleResearch ? researchStateChangeDraftsFor(roleResearch) : []),
-  ].slice(0, 5)
+  ]
   const authorityWarnings = [
-    '采用建议只会填入本项草稿；确认本项前不写日志、不改状态。',
+    '采用建议只会填入本项草稿；说书人确认前不写日志、不改状态。',
     ...(roleKnowledge?.aiCannot.slice(0, 3).map((item) => `AI不能${item}`) ?? []),
   ]
 
-  return { journalDrafts, playerMessageDrafts, stateChangeDrafts, authorityWarnings }
+  return { journalDrafts, playerMessageDrafts, stateChangeDrafts: textStateChangeDrafts(stateChangeDrafts), authorityWarnings }
 }
 
 function stateChangeDraftsFor(roleKnowledge: ComplexRoleKnowledge) {

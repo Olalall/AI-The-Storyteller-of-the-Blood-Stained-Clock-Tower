@@ -27,6 +27,6 @@ export const chouHaiNiXingOtherNightOrder: readonly NightOrderEntry[] = [
   { roleId: "dreamer", order: 7, note: "让筑梦师指向一名玩家。对他展示善良和邪恶的角色标记各一个，其中一个是属于该玩家的角色。", knowledgeStatus: 'confirmed' },
   { roleId: "towncrier", order: 8, note: "对他点头或摇头示意今天白天是否有爪牙发起过提名。", knowledgeStatus: 'confirmed' },
   { roleId: "seamstress", order: 9, note: "女裁缝可以选择除自己以外的两名玩家。如果她这么做了，对她点头或摇头示意这两名玩家是否为同一阵营，随后标记女裁缝失去能力。之后的夜晚无需再唤醒女裁缝。", knowledgeStatus: 'confirmed' },
-  { roleId: "balloonist", order: 10, note: "选择一种尚未被气球驾驶员知晓的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。如果所有类型均已被知晓或无该种类型，气球驾驶员不会醒来。", knowledgeStatus: 'confirmed' },
+  { roleId: "balloonist", order: 10, note: "选择一名角色类型与上一夜所示玩家不同的玩家，指给气球驾驶员；记录本夜所示玩家，供下一夜核对。", knowledgeStatus: 'confirmed' },
   { roleId: "leviathan", order: 11, note: "将利维坦的标记转换到下一天。", knowledgeStatus: 'confirmed' },
 ]

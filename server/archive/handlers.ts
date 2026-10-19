@@ -1,4 +1,4 @@
-﻿import type {
+import type {
   ArchiveGameCommand,
   ArchiveGameData,
   ArchiveCommandResult,
@@ -10,6 +10,7 @@
   ReviewDraftData,
   ReviewDraftProvider,
 } from './types'
+import type { AIProviderOverrideRequest } from '../ai/types'
 import { generateFakeReviewDraft } from './reviewDraft'
 import { archiveMatchesSnapshot } from '../../src/services/archive/archiveSnapshot'
 
@@ -19,6 +20,7 @@ function archiveIdForCommand(sessionId: string, commandId: string) {
 
 interface ArchiveHandlerOptions {
   reviewDraftProvider?: ReviewDraftProvider
+  reviewDraftProviderForRequest?: (settings: AIProviderOverrideRequest) => ReviewDraftProvider | undefined
 }
 
 function providerFailureWarning(error: unknown) {
@@ -85,9 +87,12 @@ export function createArchiveHandlers(repository: ArchiveRepository, options: Ar
     async generateReviewDraft(command: GenerateReviewDraftCommand): Promise<ArchiveCommandResult<ReviewDraftData>> {
       const archive = await repository.get(command.archiveId)
       if (!archive) return { accepted: false, error: 'ARCHIVE_NOT_FOUND', warnings: [] }
-      if (options.reviewDraftProvider) {
+      const provider = command.providerSettings
+        ? options.reviewDraftProviderForRequest?.(command.providerSettings)
+        : options.reviewDraftProvider
+      if (provider) {
         try {
-          const result = await options.reviewDraftProvider.generateReviewDraft(archive, {
+          const result = await provider.generateReviewDraft(archive, {
             reviewStyle: command.reviewStyle,
             includePlayerScores: command.includePlayerScores,
           })

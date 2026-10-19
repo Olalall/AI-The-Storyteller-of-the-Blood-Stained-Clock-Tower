@@ -2,6 +2,10 @@
 
 ## 状态
 
+本文件保留下方 P0 历史接口与后续补充；当前上线流程优先遵守固定服务器 AI、受邀设备授权、追加更正和原子存档约束。公开分享是显式开启的独立模式，不能把它的 BYOK 合同混入固定服务器 AI。
+
+本文件保留下方 P0 历史接口与后续补充；当前上线流程优先遵守固定服务器 AI、受邀设备授权、追加更正和原子存档约束。公开分享是显式开启的独立模式，不能把它的 BYOK 合同混入固定服务器 AI。
+
 当前文件是 P0 最小闭环的可测试合同。归档最小闭环正在按无人推进计划逐步实现；本文仍不授权真实 AI、VPS、玩家端或官方魔典同步。
 
 P0 后端只做：
@@ -270,7 +274,7 @@ type ResetAfterArchiveResponse = CommandResult<{
 
 用途：基于归档日志生成 AI 复盘草稿。
 
-P0 先使用 fake endpoint；10.9 接入后可通过注入式 provider 生成 `openai-compatible` 形状草稿，但默认 runtime 仍不发起真实网络调用。
+后端默认仍可使用 fake fallback；配置了环境变量或请求携带浏览器保存的兼容接口配置时，runtime 会通过后端代理生成 `openai-compatible` 形状草稿。
 
 ### Request
 
@@ -278,6 +282,13 @@ P0 先使用 fake endpoint；10.9 接入后可通过注入式 provider 生成 `o
 type GenerateReviewDraftRequest = {
   reviewStyle?: 'neutral' | 'sharp'
   includePlayerScores?: boolean
+  providerSettings?: {
+    provider: 'openai-compatible'
+    baseUrl: string
+    model: string
+    apiKey: string
+    timeoutSeconds?: number
+  }
 }
 ```
 
@@ -458,9 +469,9 @@ type AIContractResponse<TDraft> = {
 - AI 合同测试必须覆盖 setup advice、night settlement advice 和 review draft。
 - 真实 provider 只能在后端 HTTP 模式下、由说书人点击对应 AI 按钮后触发；AI 返回仍是草稿。
 
-## 7. AI 设置（10.9.1 脱敏后端设置 / 10.9-live 一次性连通测试）
+## 7. AI 设置（后端配置 / 浏览器保存配置 / 手动连通测试）
 
-10.9.1 实现后端公开脱敏配置和配置检查；`10.9-live` 只增加一次性真实连通测试入口。两者都不保存 API Key，不新增 SDK，不把 AI 结果写入权威状态。
+后端公开脱敏配置和配置检查；前端兼容接口模式允许保存当前浏览器配置并在用户触发 AI 草稿时交给后端代理；真实连通测试仍是手动触发，不新增 SDK，不把 AI 结果写入权威状态。
 
 后端从环境变量读取敏感配置：
 
@@ -551,6 +562,7 @@ type LiveTestAISettingsResponse = {
 - provider、地址、模型、密钥和超时仅从服务器配置读取，不允许客户端覆盖。AI 关闭时即使服务器已有密钥也返回 `AI_PROVIDER_DISABLED` 且不调用；配置不完整返回 `AI_PROVIDER_UNCONFIGURED`。
 - provider 请求不跟随 HTTP 重定向，同源或跨源重定向均按失败处理；不会把带密钥请求转到非预期地址。调试日志只记错误类别/状态码，不记上游原文。
 - 当前这些 AI 路由尚无鉴权；固定付费服务器密钥前必须先决定并落实访问范围，网页按钮上的确认不构成公网调用鉴权。
+
 - 连通成功只表示模型接口可用；配板、夜间结算和赛后复盘仍必须由说书人点击对应按钮才会请求 AI 草稿。
 
 ### `POST /api/ai/setup-advice`
@@ -559,7 +571,7 @@ type LiveTestAISettingsResponse = {
 
 规则：
 
-- 请求体不得包含 API Key。
+- 可选 `providerSettings` 携带当前浏览器保存的兼容接口配置；没有该字段时使用后端环境变量。
 - AI 只能返回已有候选 ID 的排序。
 - 不新增角色组合，不确认身份，不写日志。
 - provider 失败时前端回退本地模板顺序。
@@ -570,7 +582,7 @@ type LiveTestAISettingsResponse = {
 
 规则：
 
-- 请求体只包含当前唤醒项、当前草稿、可选结果和知识版本。
+- 请求体包含当前唤醒项、当前草稿、可选结果、知识版本，以及可选的浏览器保存 provider 配置。
 - AI 只能推荐当前 `availableOutcomes` 中 `ready=true` 的 `outcomeId`。
 - 返回未知或未就绪结果必须降级为 `needs_input`。
 - 不自动改身份、阵营、死亡、中毒、醉酒、日志或夜序光标。
@@ -578,15 +590,15 @@ type LiveTestAISettingsResponse = {
 ### 禁止
 
 - 所有浏览器到本应用的 API 请求体均不允许携带 API Key；Key 仅由服务器发往固定 provider。
+
 - API Key 不允许出现在响应体。
-- API Key 不允许出现在 localStorage。
 - API Key 不允许出现在导出归档。
 - API Key 不允许出现在日志和错误 message。
 
 ### 后置项
 
-- `POST /api/settings/ai` 保存非敏感配置仍后置；10.9.1 不提供前端保存入口。
-- 真实 provider 网络连通性只允许走 `POST /api/settings/ai/live-test`，且必须由说书人手动点击。
+- 前端保存入口只写当前浏览器 localStorage；后端不保存前端 override，关闭或清除浏览器设置即可移除。
+- 真实 provider 网络连通性仍必须由说书人手动点击，正式 AI 草稿请求也只在用户触发对应功能时发起。
 - `streamEnabled` 与兼容接口直连模式仍后置；10.9.1 不做流式返回和浏览器直连。
 
 ## 8. 原型功能状态矩阵

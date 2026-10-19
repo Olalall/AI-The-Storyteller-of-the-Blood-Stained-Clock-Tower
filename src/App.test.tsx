@@ -118,6 +118,19 @@ describe('App phase entry feedback', () => {
   })
 })
 
+describe('empty saved script', () => {
+  it('opens the persisted board when a blank saved game enters the night setup', async () => {
+    window.localStorage.clear()
+    const session = { ...createEmptyGameSession(), scriptId: 'trouble-brewing' }
+    localStorage.setItem(gameSessionStorageKey, JSON.stringify(session))
+    render(<App />)
+    await userEvent.setup().click(await screen.findByRole('button', { name: '进入夜晚' }))
+    const setup = await screen.findByRole('dialog', { name: '智能配板与调整' })
+    expect(within(setup).getByLabelText('开局板子')).toHaveValue('trouble-brewing')
+    expect(storedSession()).toEqual(session)
+  })
+})
+
 describe('App game reset flow', () => {
   beforeEach(() => window.localStorage.clear())
 
@@ -215,7 +228,7 @@ describe('App game reset flow', () => {
       expect(session.phaseSegments).toEqual([])
       expect(session.seats[1]).toMatchObject({ nickname: '上一局1号', experience: 'veteran' })
     })
-    expect(screen.getByText('角色组合')).toBeInTheDocument()
+    expect(await screen.findByRole('list', { name: /角色组合/ })).toBeInTheDocument()
   })
 
   it('keeps a requested board switch explicit and applies it only after confirmed archive and reset', async () => {

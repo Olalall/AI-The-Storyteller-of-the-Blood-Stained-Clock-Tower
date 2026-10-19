@@ -153,6 +153,7 @@
   border: 1px solid #92846d;
   box-shadow: 0 4px 14px rgb(0 0 0 / 24%);
 }
+.role-disc--tiny { --disc-size: 40px; box-shadow: 0 3px 10px rgb(0 0 0 / 20%); }
 .role-disc--small { --disc-size: 58px; }
 .role-disc--large { --disc-size: clamp(112px, 13cqw, 140px); }
 .role-disc--active { border-width: 2px; border-color: var(--accent-strong); box-shadow: 0 0 18px rgb(224 177 93 / 14%), 0 7px 22px rgb(0 0 0 / 28%); }
@@ -209,21 +210,54 @@
   animation: none;
 }
 .sheet-header { padding: var(--space-20) var(--space-20) var(--space-16); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; gap: var(--space-16); }
+.sheet-header > div { min-width: 0; }
 .sheet-header h2 { margin: 0; font: 800 1.5rem/1.2 var(--font-display); }
 .sheet-header p { margin: 6px 0 0; color: var(--text-muted); font-size: var(--type-label); }
-.sheet-close { width: var(--touch-min); height: var(--touch-min); border: 1px solid var(--border); border-radius: 50%; background: var(--surface-soft); color: var(--text-muted); display: grid; place-items: center; cursor: pointer; }
+.sheet-close { width: var(--touch-min); height: var(--touch-min); flex: 0 0 auto; border: 1px solid var(--border); border-radius: 50%; background: var(--surface-soft); color: var(--text-muted); display: grid; place-items: center; cursor: pointer; }
 .sheet-close:hover { color: var(--text-strong); border-color: var(--border-strong); }
 .sheet-close:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .sheet-body { min-height: 0; overflow: auto; overscroll-behavior: contain; }
 .sheet-content--record, .sheet-content--role-change { width: min(440px, calc(100vw - 32px)); }
 .sheet-content--page.sheet-content--record, .sheet-content--page.sheet-content--role-change, .sheet-content--page.sheet-content--player-status, .sheet-content--page.sheet-content--timeline-history { width: 100vw; }
 
+/*
+ * 内联呈现：同一张页就地长在宿主（魔典工作抽屉）的 DOM 里。
+ * 这里只解除「浮在视口上」那一层——定位、层级、宽度、投影、入场动画；
+ * 页内部的排版仍然走 .sheet-content--page 那套规则，因为抽屉 full 档的尺寸
+ * 本来就定义为「等于 presentation=page」，这正是「只换容器」的字面意思。
+ *
+ * 选择器写成两个类（0,2,0）不是笔误：features 侧存在
+ * .sheet-content--setup:not(.sheet-content--page) 这类同为 0,1,0 的宽度规则，
+ * @media(max-width:560px) 里也有一条 .sheet-content { position 相关 }。
+ * 单类选择器与它们同分，谁赢取决于 CSS 文件的打包顺序——那不是可以依赖的东西。
+ */
+.sheet-content.sheet-content--inline {
+  position: static;
+  inset: auto;
+  z-index: auto;
+  width: auto;
+  max-width: 100%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  animation: none;
+  overflow: visible;
+}
+
+/*
+ * 滚动交还给宿主。页自己再当滚动容器的话，抽屉里会出现两条滚动条，
+ * 而页内那些 position: sticky 的底栏会粘在一个永远滚不动的盒子上（等于不粘）。
+ */
+.sheet-content.sheet-content--inline > .sheet-body {
+  overflow: visible;
+}
+
 .sticky-action-bar {
   position: sticky;
   bottom: 0;
   z-index: 12;
   min-height: 76px;
-  padding: var(--space-12) max(var(--space-16), env(safe-area-inset-right)) calc(var(--space-12) + env(safe-area-inset-bottom)) max(var(--space-16), env(safe-area-inset-left));
+  padding: var(--space-12) calc(var(--space-16) + env(safe-area-inset-right)) calc(var(--space-12) + env(safe-area-inset-bottom)) calc(var(--space-16) + env(safe-area-inset-left));
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -238,7 +272,20 @@
 
 @media (max-width: 560px) {
   .sheet-content { inset: 0; width: 100vw; border-radius: 0; border: 0; }
+  .sheet-content:not(.sheet-content--inline) > .sheet-header {
+    padding-top: calc(var(--space-20) + env(safe-area-inset-top));
+    padding-right: calc(var(--space-20) + env(safe-area-inset-right));
+    padding-left: calc(var(--space-20) + env(safe-area-inset-left));
+  }
+  .sheet-content:not(.sheet-content--inline) > .sheet-body {
+    scroll-padding-bottom: calc(var(--space-20) + env(safe-area-inset-bottom));
+  }
   .sticky-action-bar { flex-wrap: wrap; }
+}
+
+@media (max-width: 320px) {
+  .sticky-action-bar { align-items: stretch; }
+  .sticky-action-bar .ui-button { flex: 1 1 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -251,10 +298,16 @@
   margin: 0 auto;
   max-height: 0;
   overflow: hidden;
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
   transition: max-height 180ms ease, margin 180ms ease;
 }
 .ui-host-notice.is-visible { max-height: 96px; margin-block: var(--space-8); }
+/* 动作被撤下时焦点会被送到这层容器上（见 HostNotice），所以它得有可见的落点。 */
+.ui-host-notice:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
 .ui-host-notice__text {
+  flex: 1 1 auto;
   min-height: 38px;
   padding: 7px var(--space-16);
   display: flex;
@@ -267,6 +320,8 @@
   font-size: var(--type-label);
   font-weight: 700;
 }
+/* 即时动作（3.5 秒撤销）在 live region 之外，不参与播报，也不随文本一起被重读。 */
+.ui-host-notice__action { flex: none; display: flex; align-items: center; }
 @media (prefers-reduced-motion: reduce) { .ui-host-notice { transition: none; } }
 
 /* 常驻阶段轨道：全局唯一，48px 吸顶；状态用文字+形状+颜色三重表达。 */
@@ -283,6 +338,7 @@
   border-bottom: 1px solid var(--border);
   background: rgb(10 14 19 / 92%);
   backdrop-filter: blur(6px);
+  overflow-x: clip;
 }
 .ui-phase-track__nodes { flex: 1 1 auto; min-width: 0; margin: 0; padding: 0; list-style: none; display: flex; align-items: center; gap: var(--space-8); overflow-x: auto; scrollbar-width: none; }
 .ui-phase-track__nodes::-webkit-scrollbar { display: none; }
@@ -316,10 +372,16 @@
 .ui-phase-node--done .ui-phase-node__dot { background: currentColor; }
 .ui-phase-node--open { color: var(--accent-text); background: var(--accent-soft); }
 .ui-phase-node--open .ui-phase-node__dot { background: currentColor; box-shadow: 0 0 0 3px var(--accent-soft); }
-.ui-phase-node--suggest { color: var(--info-text); background: var(--info-soft); }
-.ui-phase-node--idle { color: var(--text-subtle); opacity: .7; }
+.ui-phase-node--suggest { color: var(--info-text); border: 1px dashed var(--info-border); }
+.ui-phase-node--idle { color: var(--text-muted); }
 
 @container app-frame (max-width: 560px) {
+  .ui-phase-track { padding-block: var(--space-4); flex-direction: column; align-items: stretch; gap: var(--space-4); }
+  .ui-phase-track__nodes,
+  .ui-phase-track__actions { width: 100%; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+  .ui-phase-track__actions { flex: 1 1 auto; }
+  .ui-phase-track__actions .ui-button { flex: 0 0 auto; white-space: nowrap; }
+  .ui-phase-track__actions::-webkit-scrollbar { display: none; }
   .ui-phase-node__label { font-size: var(--type-meta); }
   .ui-phase-node { padding: 0 6px; }
   .ui-phase-track { padding-inline: var(--space-8); gap: var(--space-4); flex-wrap: wrap; }

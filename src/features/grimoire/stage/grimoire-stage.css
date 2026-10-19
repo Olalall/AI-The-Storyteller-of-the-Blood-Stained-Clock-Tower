@@ -1,0 +1,98 @@
+/*
+ * 魔典舞台的排布。
+ *
+ * 抽屉是 position: fixed 的，不参与这里的 flex 流，所以舞台必须自己按抽屉的
+ * **当前**高度留白——写死 peek 的 96px 曾让 half 档盖住 12 个座位里的 8 个，
+ * 而下半弧上坐着一半的人。full 档不留：那一档本来就是页面接管整屏。
+ */
+.grimoire-stage {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-12) var(--space-12) var(--drawer-reserve, 96px);
+}
+
+/* 三档留白与 detents.ts 的 heightCssFor 一一对应。full 不留白：那一档本来就是页面接管整屏。 */
+.grimoire-stage[data-drawer='peek'] { --drawer-reserve: 96px; }
+.grimoire-stage[data-drawer='half'] { --drawer-reserve: clamp(240px, 38dvh, calc(100dvh - 48px)); }
+.grimoire-stage[data-drawer='full'] { --drawer-reserve: 0px; }
+
+.grimoire-shield-bar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-8);
+}
+
+/* L0 下抽屉里托管的整页（角色名、恶魔的三张伪装）**不进 DOM**，
+   这一行是它留下的唯一痕迹。视觉遮住挡不住截屏、屏读器和 devtools。 */
+.grimoire-stage__drawer-blackout {
+  margin: 0;
+  padding: var(--space-24) var(--space-16);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--type-label);
+}
+
+/* 揭示进度：按住时从左往右填，松手即归零。它是「还要按多久」的唯一反馈。
+   默认 0 写在这里而不是只靠 var() 兜底：没按住时这一格必须是空的，
+   而 invalid at computed-value time 会让整条声明塌回初始值，那时填充宽度是未定义的。 */
+.grimoire-shield-bar__reveal {
+  --reveal-progress: 0;
+
+  position: relative;
+  overflow: hidden;
+  touch-action: none;
+}
+
+.grimoire-shield-bar__reveal::after {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: calc(var(--reveal-progress, 0) * 100%);
+  background: var(--info-soft);
+  pointer-events: none;
+}
+
+.session-info__facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4) var(--space-12);
+  margin: 0 0 var(--space-16);
+}
+
+.session-info__facts > div {
+  display: contents;
+}
+
+.session-info__facts dt {
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
+.session-info__facts dd {
+  margin: 0;
+  color: var(--text-strong);
+}
+
+.session-info__tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  margin-bottom: var(--space-8);
+}
+
+.session-info__guard {
+  margin: 0 0 var(--space-16);
+  color: var(--text-muted);
+  font-size: var(--type-meta);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grimoire-shield-bar__reveal::after {
+    transition: none;
+  }
+}

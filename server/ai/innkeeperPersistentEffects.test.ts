@@ -49,7 +49,7 @@ async function throughProvider(input: NightSettlementProviderRequest, answer: ob
     } })
   const result = await provider.generateNightSettlementAdvice(input)
   expect(input).toEqual(before)
-  return result.draft
+  return { ...result.draft, stateChangeDrafts: result.draft.stateChangeDrafts.map(draft => draft.text) }
 }
 
 describe('Innkeeper persistent effects and bounded local advice', () => {

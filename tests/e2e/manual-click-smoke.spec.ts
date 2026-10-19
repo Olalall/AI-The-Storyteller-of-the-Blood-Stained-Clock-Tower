@@ -1,8 +1,19 @@
 import { expect, test } from '@playwright/test'
 import { fillCurrentWakeInputs } from '../helpers/nightInputs'
+import { createPrototypeGameSession } from '../../src/features/game-session/data/createPrototypeSession'
 
 async function reset(page: import('@playwright/test').Page) {
   await page.setViewportSize({ width: 720, height: 900 })
+  const session = createPrototypeGameSession()
+  const opening = session.timeline.find((entry) => entry.kind === 'setup_confirmed')
+  if (!opening || opening.kind !== 'setup_confirmed') throw new Error('Missing synthetic opening fixture')
+  opening.setup.draft.setupRuleSelections = [
+    { ruleId: 'balloonist-outsider', choiceId: 'no-extra-outsider' },
+    { ruleId: 'fanggu-outsider', choiceId: 'add-outsider' },
+  ]
+  await page.addInitScript((fixture) => {
+    if (!localStorage.getItem('botc-copilot-session-v1')) localStorage.setItem('botc-copilot-session-v1', JSON.stringify(fixture))
+  }, session)
   await page.goto('/')
   await expect(page.getByRole('heading', { name: /瓦釜雷鸣/ })).toBeVisible()
 }
@@ -57,9 +68,15 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByRole('button', { name: '智能配板与调整' }).click()
   await expect(page.getByRole('heading', { name: '智能配板与调整' })).toBeVisible()
   await page.locator('.setup-panel__advice-entry').click()
-  await expect(page.getByText('角色组合')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '选择配板方案' })).toBeVisible()
+  await expect(page.locator('.setup-candidate')).toHaveCount(3)
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/03-setup-advice.png', fullPage: false })
-  await page.locator('.setup-candidate').first().getByRole('button', { name: '选择组合' }).click()
+  await page.locator('.setup-candidate').filter({ has: page.getByRole('heading', { name: '瓦釜雷鸣 · 均衡', exact: true }) }).getByRole('button', { name: '选择这套配板' }).click()
+  await expect(page.getByRole('button', { name: '确认调整' })).toBeDisabled()
+  expect((await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'setup_changed').length).toBe(beforeSetup)
+  await page.getByRole('button', { name: '关闭智能配板与调整' }).click()
+  await page.reload()
+  await page.getByRole('button', { name: '智能配板与调整' }).click()
   await swapFirstTwoDraftSeats(page)
   await page.getByRole('button', { name: '确认调整' }).click()
   await expect.poll(async () => (await timeline(page)).filter((entry: { kind: string }) => entry.kind === 'setup_changed').length).toBeGreaterThan(beforeSetup)
@@ -109,6 +126,7 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await page.getByRole('button', { name: '选择1号为提名人' }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: '选择4号为被提名人' }).click()
+  await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
   for (const seatId of [1, 2, 3, 4, 5, 6]) {
     await page.getByRole('button', { name: `记录${seatId}号举手` }).click()
   }
@@ -137,6 +155,6 @@ test('manual click smoke: host can run setup, night, day, execution, status and 
   await expect(page.getByRole('dialog', { name: '日记' })).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/11-journal-open.png', fullPage: false })
   await page.getByRole('button', { name: /查看投票记录/ }).first().click()
-  await expect(page.getByText('票型影响暂列结果；从白天工作台重新记录。')).toBeVisible()
+  await expect(page.getByText('从白天工作台的“票型记录与更正”更正或撤销；原票型保留。')).toBeVisible()
   await page.screenshot({ path: 'artifacts/screenshots/manual-click-smoke-2026-07-16/12-journal-vote-detail.png', fullPage: false })
 })

@@ -28,6 +28,8 @@ describe('AI settings reflect the effective runtime', () => {
     const fetchSpy = vi.spyOn(window, 'fetch')
     openSettings()
     await screen.findByText('当前页面使用本地候选，未连接真实模型。')
+    expect(screen.getByText('下载安装到手机/平板')).toBeVisible()
+    expect(screen.getByText(/浏览器菜单/)).toBeVisible()
     expect(screen.queryByLabelText('模型名字')).not.toBeInTheDocument()
     expect(screen.queryByLabelText('API KEY')).not.toBeInTheDocument()
     expect(screen.queryByText('流式返回')).not.toBeInTheDocument()

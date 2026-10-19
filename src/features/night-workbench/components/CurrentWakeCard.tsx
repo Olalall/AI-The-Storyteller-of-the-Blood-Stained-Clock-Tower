@@ -9,6 +9,12 @@ import { canRevealNightResult } from '../../../domain/scripts/nightInteractionIn
 import { NightRoleChoices } from './NightRoleChoices'
 import { NightTargetChoices } from './NightTargetChoices'
 import { NightTargetRoleChoices } from './NightTargetRoleChoices'
+import { SystemStepFields, SystemStepRoster } from './SystemStepPanel'
+import { WakeRegistrationFields } from './WakeRegistrationFields'
+import { NightTargetEcho } from './NightTargetEcho'
+import { DayFactsBar } from './DayFactsBar'
+import { shouldShowDayFacts } from '../../game-session/state/projectDayFacts'
+import type { DayFacts } from '../../game-session/state/projectDayFacts'
 import { StorytellerContextEditor } from './StorytellerContextEditor'
 
 interface CurrentWakeCardProps {
@@ -18,6 +24,11 @@ interface CurrentWakeCardProps {
   concealed: boolean
   isPreviewing: boolean
   isReadOnly: boolean
+  targetsOnRing?: boolean
+  dayFacts?: DayFacts | null
+  onRegistrationChoice?: (value: string) => void
+  onSystemCheck?: (checkId: string) => void
+  onSystemBluff?: (roleId: string) => void
   playerCount: number
   unavailableTargetSeatIds?: number[]
   aiAdvice?: AIResultAdvice
@@ -52,6 +63,11 @@ export function CurrentWakeCard({
   concealed,
   isPreviewing,
   isReadOnly,
+  targetsOnRing,
+  dayFacts,
+  onRegistrationChoice,
+  onSystemCheck,
+  onSystemBluff,
   playerCount,
   unavailableTargetSeatIds,
   aiAdvice,
@@ -105,15 +121,15 @@ export function CurrentWakeCard({
 
   return (
     <section className="wake-workspace">
-      <PlayerStatusBar
+      {!item.systemStep ? <PlayerStatusBar
         playerLabel={item.playerLabel}
         status={playerStatus}
         queuedRoleName={roleChange && roleChange.toRole.id !== item.roleId ? item.roleName : undefined}
         canChangeRole={canChangeRole}
         onChangeRole={onChangeRole}
-      />
+      /> : null}
       <div className="wake-facts">
-        <div className="section-kicker"><BookOpenText aria-hidden="true" />{roleChange ? `角色能力 · ${item.roleName}` : '角色能力'}</div>
+        <div className="section-kicker"><BookOpenText aria-hidden="true" />{item.systemStep ? `步骤说明 · ${item.roleName}` : roleChange ? `角色能力 · ${item.roleName}` : '角色能力'}</div>
         <p>{item.ability}</p>
         {item.applicability === 'needs_review' ? <StatusBadge tone="warning">需要核对</StatusBadge> : null}
         {item.reason ? (
@@ -125,6 +141,8 @@ export function CurrentWakeCard({
             <Button variant="ghost" compact disabled={isPreviewing} onClick={() => onResolveApplicability('not_applicable')}>不适用</Button>
           </div>
         ) : null}
+        {item.systemStep ? <><SystemStepRoster step={item.systemStep} /><p>出示信息标记：{item.systemStep.infoTokens.map((token) => `「${token}」`).join('、')}</p></> : null}
+        {shouldShowDayFacts(item.roleId, concealed, dayFacts) ? <DayFactsBar facts={dayFacts} /> : null}
         {item.history ? (
           <details className="wake-history">
             <summary><History aria-hidden="true" />上次记录</summary>
@@ -150,9 +168,12 @@ export function CurrentWakeCard({
           </div>
         </div>
 
+        {item.systemStep ? <SystemStepFields step={item.systemStep} draft={draft} disabled={formDisabled} onToggleCheck={(id) => onSystemCheck?.(id)} onToggleBluff={(id) => onSystemBluff?.(id)} /> : null}
+        {item.registrationSpec ? <WakeRegistrationFields spec={item.registrationSpec} draft={draft} forbiddenValues={item.forbiddenRegistrationValues} disabled={formDisabled} onChange={(value) => onRegistrationChoice?.(value)} /> : null}
+        {targetsOnRing && item.targetCount > 0 && item.targetRoleChoiceCount === undefined ? <NightTargetEcho playerCount={playerCount} selfSeatId={item.seatId} targetLabel={item.targetLabel ?? '目标'} targetCount={item.targetCount} targets={draft.targets} forbiddenSeatIds={item.forbiddenTargetSeatIds} disabled={formDisabled} onTarget={onTarget} /> : null}
         {item.targetRoleChoiceCount !== undefined
           ? <NightTargetRoleChoices item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onChange={onTargetRoleChoice} />
-          : <><NightTargetChoices item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onTarget={onTarget} onTargetCountChoice={onTargetCountChoice} unavailableSeatIds={unavailableTargetSeatIds} />
+          : <>{!targetsOnRing ? <NightTargetChoices item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onTarget={onTarget} onTargetCountChoice={onTargetCountChoice} unavailableSeatIds={unavailableTargetSeatIds} /> : null}
             <NightRoleChoices item={item} draft={draft} disabled={formDisabled} onRoleChoice={onRoleChoice} onSecondRoleChoice={onSecondRoleChoice} onAdditionalRoleChoice={onAdditionalRoleChoice} /></>}
         <StorytellerContextEditor key={`${item.id}:${formDisabled}:${draft.storytellerContext ?? ''}`} value={draft.storytellerContext} disabled={formDisabled} onSave={onStorytellerContext} />
 
@@ -213,6 +234,7 @@ export function CurrentWakeCard({
           resolutionHint={resolutionHint}
           resolutionOutcomeLabel={resolutionOutcomeLabel}
           modifiedFromAI={Boolean(modifiedFromAI)}
+          readOnly={formDisabled}
         />
 
         {draft.informationGiven && item.targetRoleChoiceCount === undefined && canRevealNightResult(item.roleId) ? (

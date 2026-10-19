@@ -47,7 +47,7 @@
 
 生产`dist`浏览器验收覆盖21个独立测试。首轮18项通过、3项因测试夹具或断言错误失败；修正断言后，这3项复测全部通过。修正只涉及测试，没有因此改动产品代码或生产构建。
 
-真实模型完成7个合成局部场景，7/7通过，全部上游HTTP200，使用同渠道`gemini-test-model`，29,237输入+6,207输出=35,444 tokens，未发送用户原局。root独立读取raw/规范化/前端三层，断言核心文本保持一致、`draftOnly`及输入不变。预算在7/8关闭，余1次未使用；不是7局完整自主游戏。
+真实模型完成7个合成局部场景，7/7通过，全部上游HTTP200，使用同渠道`test-model`，29,237输入+6,207输出=35,444 tokens，未发送用户原局。root独立读取raw/规范化/前端三层，断言核心文本保持一致、`draftOnly`及输入不变。预算在7/8关闭，余1次未使用；不是7局完整自主游戏。
 
 覆盖13人三组卡扎力、15人莽夫旧相克、炼金借用刺客穿透旅店保护、有效醉酒哥布林被处决、驱魔阻止方古而不抑制独立教父、方古按真实酒鬼类型跳转及红唇相克、帽匠后新痢蛭只初始化活宿主。003是主持已经手动赋予借用能力后的规则探针；004在真实合成投票/处决后通过夜间接口复核局部规则；005只确认驱魔结果和教父可独立行动，没有声称完整裁定教父目标死亡；595两题复用既有板。见[真实AI审阅](script-import-work/wiki-batch-03/REAL_AI_REVIEW.md)与`.tmp/wiki-batch-03-live-20261018/root-review.json`。
 
@@ -55,7 +55,7 @@
 
 唯一部署包为`botc-wiki-batch03-runtime-20261018-final.zip`，10,271,224字节，SHA256 `36F954E276548266EC17C39BB27805A2A3C1D04791A83EA7DDC2F84C5093D283`。冻结src/server/dist/dist-server共3218文件，部署后再次逐项核对未变；独立解包smoke通过静态入口、匿名401、跨本地重启的假cookie与零上游检查。实际私有Key和访问口令扫描均为0匹配。省略719张可选图片，其余部署字节保持，服务器已有资源全部保留。包清单与源清单分别记录原始文件SHA，不混用canonical JSON SHA。
 
-腾讯云上海实例`SERVER_INSTANCE_ID`于UTC10:30:33.535开始切换、10:30:38.889完成，Node4376→3088，只成功启动一次应用，未回滚；Cloudflared2716和系统未重启。418块逐块长度/hash回执全部通过，无重传。维护窗口先备份最新完整data、当前已鉴权程序、ops和任务定义，仅切换dist/dist-server。回退目录为`C:\botc-storyteller-companion-deploy\releases\release-20261018-wiki-batch-03\previous`，回退只恢复程序，不能拿旧data覆盖当前数据。
+腾讯云上海实例`SERVER_INSTANCE_ID`于UTC10:30:33.535开始切换、10:30:38.889完成，Node4376→3088，只成功启动一次应用，未回滚；Cloudflared2716和系统未重启。418块逐块长度/hash回执全部通过，无重传。维护窗口先备份最新完整data、当前已鉴权程序、ops和任务定义，仅切换dist/dist-server。回退目录为`C:\example\botc-deploy\releases\release-20261018-wiki-batch-03\previous`，回退只恢复程序，不能拿旧data覆盖当前数据。
 
 数据与配置保留验收：完整服务器data文件集仍为`asset-packs/characters.json`，560字节，SHA256 `011FA63E699DEF6B389C99B774E144FF3EC01B0A26BFDD54535A7567BF61BCB0`；本次切换前909个旧资源逐字节保留。DPAPI密文、ACL、安全启动pair、六个ops文件和三个任务定义均未变。固定Gemini、90秒超时、30天设备凭据保持，匿名付费接口仍为401。独立RAM helper以同一个cookie跨新旧进程保持授权，cookie未输出或落盘；用户当前IAB在切换前本来就是待验证状态，没有把它描述成已有授权。
 

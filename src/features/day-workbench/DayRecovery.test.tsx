@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { useState } from 'react'
 import { fireEvent, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -26,9 +26,12 @@ function Harness({ initial = fixture(), refuse = false }: { initial?: GameSessio
   return <DiscussionTimerProvider sessionId={state.id}><DayWorkbench session={state} dispatch={(action) => { if (!refuse) setState((current) => gameSessionReducer(current, action)) }} onExit={() => undefined} /></DiscussionTimerProvider>
 }
 async function vote(user: ReturnType<typeof userEvent.setup>, nominator: number, nominee: number, votes: number) {
+  const nextRound = screen.queryByRole('button', { name: '开始下一轮提名' })
+  if (nextRound) await user.click(nextRound)
   await user.click(screen.getByRole('button', { name: `选择${nominator}号为提名人` }))
   await user.click(screen.getByRole('tab', { name: '被提名人 · 未选' }))
   await user.click(screen.getByRole('button', { name: `选择${nominee}号为被提名人` }))
+  await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
   for (let seat = 1; seat <= votes; seat++) fireEvent.click(screen.getByRole('button', { name: `记录${seat}号举手` }))
   await user.click(screen.getByRole('button', { name: '记录本轮票型' }))
 }
@@ -68,6 +71,8 @@ describe('day correction and manual resolution recovery', () => {
     render(<Harness />)
     await vote(user, 1, 4, 6)
     const before = JSON.stringify(latest.timeline)
+    const nextRound = screen.queryByRole('button', { name: '开始下一轮提名' })
+    if (nextRound) await user.click(nextRound)
     await user.click(screen.getByRole('button', { name: '选择2号为提名人' }))
     expect(screen.getByRole('button', { name: '记录处决4号' })).toBeDisabled()
     await user.click(screen.getByRole('button', { name: '取消本轮提名' }))
@@ -101,9 +106,12 @@ describe('day correction and manual resolution recovery', () => {
     const initial = fixture()
     for (let seat = 7; seat <= 12; seat++) initial.initialPlayerStates[seat].life = 'dead'
     render(<Harness initial={initial} />)
+    const nextRound = screen.queryByRole('button', { name: '开始下一轮提名' })
+    if (nextRound) await user.click(nextRound)
     await user.click(screen.getByRole('button', { name: '选择2号为提名人' }))
     await user.click(screen.getByRole('tab', { name: '被提名人 · 未选' }))
     await user.click(screen.getByRole('button', { name: '选择4号为被提名人' }))
+    await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
     for (const seat of [1, 2]) await user.click(screen.getByRole('button', { name: `记录${seat}号举手` }))
     await user.click(screen.getByLabelText('手工修正票数'))
     fireEvent.change(screen.getByLabelText('票数修正', { exact: true }), { target: { value: '1' } })
@@ -128,3 +136,55 @@ describe('day correction and manual resolution recovery', () => {
   })
 })
 
+
+
+describe('day stepper retains deployed adjudication controls', () => {
+  it('keeps ghost votes and a reasoned tally correction while revisiting nomination, without changing life', async () => {
+    const user = userEvent.setup()
+    const initial = fixture()
+    initial.initialPlayerStates[7].life = 'dead'
+    render(<Harness initial={initial} />)
+    const before = projectCurrentPlayerStates(latest)
+    await user.click(screen.getByRole('button', { name: '选择1号为提名人' }))
+    await user.click(screen.getByRole('tab', { name: '被提名人 · 未选' }))
+    await user.click(screen.getByRole('button', { name: '选择4号为被提名人' }))
+    await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
+    await user.click(screen.getByRole('button', { name: '记录7号举手（已死亡）' }))
+    await user.click(screen.getByRole('button', { name: '标死亡票' }))
+    await user.click(screen.getByLabelText('手工修正票数'))
+    fireEvent.change(screen.getByLabelText('票数修正', { exact: true }), { target: { value: '1' } })
+    expect(screen.getByRole('button', { name: '记录本轮票型' })).toBeDisabled()
+    fireEvent.change(screen.getByLabelText('票数修正原因'), { target: { value: '说书人核实特殊票数' } })
+    await user.click(screen.getByRole('button', { name: '回到步骤1：提名' }))
+    expect(latest.timeline).toEqual([])
+    await user.click(screen.getByRole('button', { name: '下一步：记录举手' }))
+    expect(screen.getByRole('button', { name: '取消7号举手（已死亡）' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: '死亡票' })).toHaveClass('is-active')
+    expect(screen.getByLabelText('票数修正原因')).toHaveValue('说书人核实特殊票数')
+    await user.click(screen.getByRole('button', { name: '记录本轮票型' }))
+    expect(latest.timeline[0]).toMatchObject({ kind: 'vote_round', raisedSeatIds: [7], ghostVoteSeatIds: [7], voteAdjustment: { count: 1, reason: '说书人核实特殊票数' } })
+    expect(projectCurrentPlayerStates(latest)).toEqual(before)
+  })
+
+  it('records a protected execution only after confirmation, then closes locally without starting night or uploading', async () => {
+    const user = userEvent.setup()
+    const network = vi.spyOn(globalThis, 'fetch')
+    try {
+      render(<Harness />)
+      await vote(user, 1, 4, 6)
+      const before = projectCurrentPlayerStates(latest)
+      await user.click(screen.getByRole('button', { name: '记录处决4号' }))
+      expect(latest.timeline.some((entry) => entry.kind === 'execution')).toBe(false)
+      expect(screen.getByRole('button', { name: '回到步骤1：提名' })).toBeDisabled()
+      await user.click(screen.getByLabelText('本次处决造成死亡'))
+      await user.click(screen.getByRole('button', { name: '确认记录' }))
+      expect(latest.timeline.at(-1)).toMatchObject({ kind: 'execution', executedSeatId: 4, causedDeath: false })
+      expect(projectCurrentPlayerStates(latest)).toEqual(before)
+      await user.click(screen.getByRole('button', { name: '结束今天' }))
+      await user.click(screen.getByRole('button', { name: '确认结束' }))
+      expect(latest.phaseSegments[0].closedAt).toBeTruthy()
+      expect(latest.phaseSegments.some((segment) => segment.kind === 'night')).toBe(false)
+      expect(network).not.toHaveBeenCalled()
+    } finally { network.mockRestore() }
+  })
+})

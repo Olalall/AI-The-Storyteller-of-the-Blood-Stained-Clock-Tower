@@ -1,10 +1,14 @@
+import { loadDemoSessionFromEntry } from './helpers/entry-onboarding'
 import { expect, test, type Page } from '@playwright/test'
 const key = 'botc-copilot-session-v1'
 async function read(page: Page) { return page.evaluate((key) => JSON.parse(localStorage.getItem(key)!), key) }
 async function vote(page: Page, nominator: number, nominee: number, count: number) {
+  const nextRound = page.getByRole('button', { name: '开始下一轮提名', exact: true })
+  if (await nextRound.isVisible()) await nextRound.click()
   await page.getByRole('button', { name: `选择${nominator}号为提名人` }).click()
   await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
   await page.getByRole('button', { name: `选择${nominee}号为被提名人` }).click()
+  await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
   for (let seat = 1; seat <= count; seat++) await page.getByRole('button', { name: `记录${seat}号举手` }).click()
   await page.getByRole('button', { name: '记录本轮票型', exact: true }).click()
 }
@@ -15,10 +19,13 @@ for (const width of [390, 1440]) {
     const errors: string[] = []
     page.on('pageerror', (error) => errors.push(error.message))
     await page.goto('/')
+    await loadDemoSessionFromEntry(page)
     await expect.poll(async () => (await read(page))?.playerCount).toBeGreaterThan(0)
     await page.evaluate((key) => {
       const session = JSON.parse(localStorage.getItem(key)!)
-      session.timeline = []
+      session.timeline = session.timeline.filter((entry: { kind: string }) => entry.kind === 'setup_confirmed')
+      session.nightRuns = {}
+      session.activeNightRunId = null
       session.phaseSegments = [{ id: 'day-1', kind: 'day', sequence: 1, label: '第1天', createdAt: '2026-10-16T00:00:00Z' }]
       session.dayVoteDraft = null
       session.dayActionDraft = null
@@ -46,16 +53,19 @@ for (const width of [390, 1440]) {
     await cancellation.getByLabel('撤销原因').fill('确认这一轮无效')
     await cancellation.getByRole('button', { name: '确认撤销票型' }).click()
     await expect(cancellation).toBeHidden()
+    await page.getByRole('button', { name: '开始下一轮提名', exact: true }).click()
     await page.getByRole('button', { name: '选择3号为提名人' }).click()
     await expect(page.getByRole('button', { name: '记录处决5号', exact: true })).toBeDisabled()
     await page.getByRole('button', { name: '取消本轮提名', exact: true }).click()
     await expect(page.getByRole('button', { name: '记录处决5号', exact: true })).toBeEnabled()
     const afterCancel = await read(page)
     expect(afterCancel.phaseSegments[0].closedAt).toBeUndefined()
-    expect(afterCancel.timeline).toHaveLength(4)
+    expect(afterCancel.timeline).toHaveLength(5)
+    await page.getByRole('button', { name: '开始下一轮提名', exact: true }).click()
     await page.getByRole('button', { name: '选择3号为提名人' }).click()
     await page.getByRole('tab', { name: '被提名人 · 未选' }).click()
     await page.getByRole('button', { name: '选择6号为被提名人' }).click()
+    await page.getByRole('button', { name: '下一步：记录举手', exact: true }).click()
     for (const seat of [1, 2]) await page.getByRole('button', { name: `记录${seat}号举手` }).click()
     await page.getByLabel('手工修正票数', { exact: true }).check()
     await page.getByLabel('票数修正', { exact: true }).fill('1')
@@ -71,7 +81,7 @@ for (const width of [390, 1440]) {
     await special.getByRole('button', { name: '确认特殊处决' }).click()
     await expect(special).toBeHidden()
     const final = await read(page)
-    expect(final.timeline[0].raisedSeatIds).toHaveLength(8)
+    expect(final.timeline.find((entry: { kind: string }) => entry.kind === 'vote_round').raisedSeatIds).toHaveLength(8)
     expect(final.timeline.find((entry) => entry.correctionReason === '核对现场实际6票').raisedSeatIds).toHaveLength(6)
     expect(final.timeline.find((entry) => entry.voided).correctionReason).toBe('确认这一轮无效')
     expect(final.timeline.find((entry) => entry.voteAdjustment)?.voteAdjustment).toEqual({ count: 1, reason: '主持确认1号双票，额外加1' })
