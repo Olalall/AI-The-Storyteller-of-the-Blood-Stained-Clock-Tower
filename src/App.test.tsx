@@ -27,7 +27,7 @@ describe('App night entry', () => {
     const session = createSmartScriptSetupSession('trouble-brewing')
     window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(session))
     render(<App />)
-    fireEvent.click(screen.getByRole('button', { name: '进入夜晚' }))
+    await userEvent.setup().click(screen.getByRole('button', { name: '进入夜晚' }))
 
     expect(await screen.findByText('请先确认本局配板，再进入夜晚。')).toBeInTheDocument()
     expect(await screen.findByRole('heading', { name: '智能配板与调整' })).toBeInTheDocument()
@@ -76,6 +76,36 @@ describe('App night entry', () => {
 describe('App phase entry feedback', () => {
   beforeEach(() => window.localStorage.clear())
 
+  it('returns to the saved game after day close and opens the next day only on a new explicit entry', async () => {
+    const session = gameSessionReducer(createPrototypeGameSession(), { type: 'open-phase-segment', phaseKind: 'day', createdAt: '2026-10-20T01:00:00Z' })
+    localStorage.setItem(gameSessionStorageKey, JSON.stringify(session))
+    render(<App />)
+    const user = userEvent.setup()
+    await user.click(screen.getByRole('button', { name: /进入白天/ }))
+    await screen.findByRole('heading', { name: '第3天' })
+    await user.click(screen.getByRole('button', { name: '结束今天' }))
+    await user.click(screen.getByRole('button', { name: '取消' }))
+    expect(screen.getByRole('heading', { name: '第3天' })).toBeVisible()
+    expect(storedSession().phaseSegments).toEqual(session.phaseSegments)
+    await user.click(screen.getByRole('button', { name: '结束今天' }))
+    await user.click(screen.getByRole('button', { name: '确认结束' }))
+
+    expect(await screen.findByRole('main', { name: '本局' })).toBeVisible()
+    expect(screen.getByText('第3天已结束，记录已保留；未开始夜晚。')).toBeVisible()
+    expect(screen.queryByRole('button', { name: '选择1号为提名人' })).not.toBeInTheDocument()
+    const closed = storedSession()
+    expect(closed.phaseSegments).toHaveLength(session.phaseSegments.length)
+    expect(closed.phaseSegments.find((segment) => segment.kind === 'day')?.closedAt).toBeTruthy()
+    expect(closed.timeline).toEqual(session.timeline)
+    expect(closed.initialPlayerStates).toEqual(session.initialPlayerStates)
+    expect(closed.nightRuns).toEqual(session.nightRuns)
+
+    await user.click(screen.getByRole('button', { name: /进入白天/ }))
+    expect(await screen.findByRole('heading', { name: '第4天' })).toBeVisible()
+    expect(screen.queryByText('第3天已结束，记录已保留；未开始夜晚。')).not.toBeInTheDocument()
+    expect(storedSession().phaseSegments.filter((segment) => segment.kind === 'day')).toHaveLength(2)
+  })
+
   it.each(['白天', '夜晚'] as const)('keeps an empty game unchanged and explains the %s setup redirect inside the open panel', async (phase) => {
     const session = createEmptyGameSession()
     localStorage.setItem(gameSessionStorageKey, JSON.stringify(session))
@@ -115,7 +145,7 @@ describe('App phase entry feedback', () => {
     const reset = await screen.findByRole('dialog', { name: '重置游戏' })
     expect(within(reset).getByRole('button', { name: '暂不重置' })).toBeInTheDocument()
     expect(within(reset).queryByText('完成后进入“暗度陈仓”的新局配板。')).not.toBeInTheDocument()
-  })
+  }, 10_000) // 完整剧本库的多弹窗流程在并发 jsdom 回归中需要额外预算。
 })
 
 describe('empty saved script', () => {

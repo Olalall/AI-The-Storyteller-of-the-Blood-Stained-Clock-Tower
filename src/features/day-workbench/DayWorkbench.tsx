@@ -4,6 +4,7 @@ import { Button } from '../../components/ui/Button'
 import { Card } from '../../components/ui/Card'
 import { StatusBadge } from '../../components/ui/StatusBadge'
 import { StickyActionBar } from '../../components/ui/StickyActionBar'
+import { HostNotice } from '../../components/ui/HostNotice'
 import { projectCurrentPlayerStates } from '../game-session/state/projectors'
 import { dayActionDraftContentKinds } from '../game-session/state/dayActionDraft'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
@@ -44,13 +45,14 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   const activeStep = stepOverride ?? suggested
   const playerStates = projectCurrentPlayerStates(session)
   const openDay = session.phaseSegments.find((segment) => segment.kind === 'day' && !segment.closedAt)
+  const closedDay = !openDay ? session.phaseSegments.filter((segment) => segment.kind === 'day').at(-1) : undefined
   const dayEntries = useMemo(() => session.timeline.filter((entry) => entry.kind === 'vote_round'), [session.timeline])
   const standing = openDay ? projectStandingExecution(dayEntries, openDay.id) : { status: 'none' as const }
   const roundNumber = dayEntries.filter((entry) => entry.segmentId === openDay?.id && !entry.correctionOf).length + 1
   const dayResolution = openDay
     ? [...session.timeline].filter((entry) => entry.segmentId === openDay.id && (entry.kind === 'execution' || entry.kind === 'no_execution')).at(-1)
     : undefined
-  const dayLocked = Boolean(pendingResolution || pendingDayClose || dayResolution)
+  const dayLocked = Boolean(pendingResolution || pendingDayClose || dayResolution || closedDay)
   const dayActionKinds = dayActionDraftContentKinds(session.dayActionDraft)
   const hasUnrecordedDayAction = dayActionKinds.length > 0
   const leaveNotice = leaveNoticeCopy(hasUnrecordedVote, dayActionKinds)
@@ -156,6 +158,12 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
     setLeavePromptOpen(false)
     onExit()
   }
+
+  if (closedDay) return <main className="day-workbench">
+    <Button variant="ghost" onClick={onExit}><ArrowLeft aria-hidden="true" />返回本局</Button>
+    <HostNotice message={`${closedDay.label}已结束，记录已保留。请返回本局，再按现场进度进入夜晚或白天。`} autoHideMs={0} />
+    <DayVoteHistory session={session} dispatch={dispatch} disabled={false} />
+  </main>
 
   return (
     <main className="day-workbench">

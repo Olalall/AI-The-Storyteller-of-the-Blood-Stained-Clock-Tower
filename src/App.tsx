@@ -39,7 +39,7 @@ function App() {
   const [playerStatusSeatId, setPlayerStatusSeatId] = useState<number | null>(null)
   const scriptRequest = useScriptRequest(session)
   const nightBinding = useMemo(() => ({ session, dispatchSession: dispatch }), [session, dispatch])
-  const phaseEntry = usePhaseEntry(session, dispatch, () => { if (session.playerCount > 0) setSetupScriptId(session.scriptId); setSetupOpen(true) }, setView)
+  const phaseEntry = usePhaseEntry(session, dispatch, () => { if (session.playerCount > 0) setSetupScriptId(session.scriptId); setSetupOpen(true) }, setView, view, editorStatus === 'ready' && !recovery)
 
   async function resetGame(expectedSession: GameSessionState) {
     await resetSession(expectedSession)

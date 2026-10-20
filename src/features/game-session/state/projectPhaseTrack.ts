@@ -76,8 +76,9 @@ export function projectPhaseTrack(
     if (!hasVote) status.vote = 'suggest'
     else if (!hasResolution) status.execution = 'suggest'
   } else if (anyDay || anyNight) {
-    // 没有开放段：下一步是进入下一个黄昏。
-    status.dusk = 'suggest'
+    // 关闭夜晚后先交接到黎明；只有最近结束的是白天才建议下一个黄昏。
+    const latest = session.phaseSegments.at(-1)
+    status[latest?.kind === 'night' ? 'dawn' : 'dusk'] = 'suggest'
   }
 
   // 交接卡所在的那一节由主持台说了算：它是真的停在那里，不是推测。

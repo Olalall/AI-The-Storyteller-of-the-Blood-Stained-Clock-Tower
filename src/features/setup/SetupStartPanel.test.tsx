@@ -4,6 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { scriptManifest, type ScriptId } from '../../domain/scripts'
 import { SetupStartPanel } from './SetupStartPanel'
 import { chineseDisplayName } from './setupPresentation'
+import { setupRosterMemoryKey } from './setupRosterMemory'
 
 function renderStartPanel() {
   const onScriptChange = vi.fn()
@@ -19,6 +20,42 @@ function renderStartPanel() {
 
 describe('SetupStartPanel script search', () => {
   beforeEach(() => window.localStorage.clear())
+
+  it('keeps typed names and experience when the selected player count is clicked again', () => {
+    renderStartPanel()
+    fireEvent.change(screen.getByRole('textbox', { name: '1号昵称' }), { target: { value: '新填昵称' } })
+    fireEvent.change(screen.getByRole('combobox', { name: '1号经验' }), { target: { value: 'new' } })
+    fireEvent.click(screen.getByRole('button', { name: '12人' }))
+    expect(screen.getByRole('textbox', { name: '1号昵称' })).toHaveValue('新填昵称')
+    expect(screen.getByRole('combobox', { name: '1号经验' })).toHaveValue('new')
+  })
+
+  it('retains temporarily hidden seat drafts across 12 to 7 to 15 and submits only the selected seats', () => {
+    const { onStart } = renderStartPanel()
+    fireEvent.change(screen.getByRole('textbox', { name: '1号昵称' }), { target: { value: '保留一号' } })
+    fireEvent.change(screen.getByRole('textbox', { name: '12号昵称' }), { target: { value: '暂时隐藏' } })
+    fireEvent.change(screen.getByRole('combobox', { name: '12号经验' }), { target: { value: 'veteran' } })
+    fireEvent.click(screen.getByRole('button', { name: '7人' }))
+    expect(screen.getByRole('textbox', { name: '1号昵称' })).toHaveValue('保留一号')
+    expect(screen.queryByRole('textbox', { name: '12号昵称' })).not.toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: '开始配板' }))
+    expect(onStart.mock.calls[0][0].seats).toHaveLength(7)
+    fireEvent.click(screen.getByRole('button', { name: '15人' }))
+    expect(screen.getByRole('textbox', { name: '12号昵称' })).toHaveValue('暂时隐藏')
+    expect(screen.getByRole('combobox', { name: '12号经验' })).toHaveValue('veteran')
+    expect(screen.getByRole('textbox', { name: '15号昵称' })).toHaveValue('玩家15')
+  })
+
+  it('replaces current drafts with remembered names only when reuse is explicitly clicked', () => {
+    window.localStorage.setItem(setupRosterMemoryKey, JSON.stringify({ scriptId: 'catfishing', playerCount: 12, savedAt: '2026-10-20T00:00:00Z', seats: [{ seatId: 1, nickname: '历史昵称', experience: 'veteran' }] }))
+    renderStartPanel()
+    fireEvent.change(screen.getByRole('textbox', { name: '1号昵称' }), { target: { value: '本轮输入' } })
+    fireEvent.click(screen.getByRole('button', { name: '7人' }))
+    expect(screen.getByRole('textbox', { name: '1号昵称' })).toHaveValue('本轮输入')
+    fireEvent.click(screen.getByRole('button', { name: '复用昵称' }))
+    expect(screen.getByRole('textbox', { name: '1号昵称' })).toHaveValue('历史昵称')
+    expect(screen.getByRole('combobox', { name: '1号经验' })).toHaveValue('veteran')
+  })
 
   it('lists the full catalog and filters Chinese names without changing the chosen script', () => {
     const { search, select, onScriptChange, onStart } = renderStartPanel()
