@@ -89,12 +89,32 @@ describe('projectPhaseTrack', () => {
     expect(JSON.stringify(session)).toBe(snapshot)
   })
 
-  it('falls back to suggesting the next dusk once every segment is closed', () => {
+  it('suggests dawn after closing the first night without opening day or returning to dusk', () => {
     const withNight = open(blank(), 'night', '2026-08-04T20:00:00.000Z')
     const closed = closeOpenSegment(withNight, 'night', '2026-08-04T20:30:00.000Z')
 
     expect(statusOf(closed, 'night')).toBe('done')
-    expect(statusOf(closed, 'dusk')).toBe('suggest')
+    expect(statusOf(closed, 'dawn')).toBe('suggest')
+    expect(statusOf(closed, 'dusk')).toBe('done')
+    expect(closed.phaseSegments.filter((segment) => segment.kind === 'day')).toEqual([])
+  })
+
+  it('suggests dusk after closing a day and dawn again after the following night', () => {
+    const night = closeOpenSegment(open(blank(), 'night', '2026-08-04T20:00:00.000Z'), 'night', '2026-08-04T20:30:00.000Z')
+    const day = closeOpenSegment(open(night, 'day', '2026-08-04T21:00:00.000Z'), 'day', '2026-08-04T21:30:00.000Z')
+    expect(statusOf(day, 'dusk')).toBe('suggest')
+    expect(statusOf(day, 'dawn')).toBe('done')
+    const nextNight = closeOpenSegment(open(day, 'night', '2026-08-05T20:00:00.000Z'), 'night', '2026-08-05T20:30:00.000Z')
+    expect(statusOf(nextNight, 'dawn')).toBe('suggest')
+    expect(statusOf(nextNight, 'dusk')).toBe('done')
+  })
+
+  it('uses appended phase order when a device clock moves backward', () => {
+    const night = closeOpenSegment(open(blank(), 'night', '2026-08-05T20:00:00.000Z'), 'night', '2026-08-05T20:30:00.000Z')
+    const day = closeOpenSegment(open(night, 'day', '2026-08-04T21:00:00.000Z'), 'day', '2026-08-04T21:30:00.000Z')
+    expect(statusOf(day, 'dusk')).toBe('suggest')
+    const nextNight = closeOpenSegment(open(day, 'night', '2026-08-03T20:00:00.000Z'), 'night', '2026-08-03T20:30:00.000Z')
+    expect(statusOf(nextNight, 'dawn')).toBe('suggest')
   })
 })
 
@@ -104,7 +124,7 @@ describe('交接卡所在节点由主持台指定', () => {
     const withNight = open(blank(), 'night', '2026-08-04T20:00:00.000Z')
     const closed = closeOpenSegment(withNight, 'night', '2026-08-04T20:30:00.000Z')
 
-    expect(statusOf(closed, 'dusk')).toBe('suggest')
+    expect(statusOf(closed, 'dawn')).toBe('suggest')
 
     const onDawn = projectPhaseTrack(closed, 'dawn')
     expect(onDawn.find((node) => node.id === 'dawn')?.status).toBe('open')

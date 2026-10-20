@@ -268,12 +268,10 @@
   border-radius: var(--radius-md);
 }
 
-.identity-deal[aria-hidden="true"] { visibility: hidden; }
+.sheet-content--identity-private > .sheet-body { flex: 1; display: flex; }
 
 .identity-spotlight {
-  position: fixed;
-  inset: 0;
-  z-index: 90;
+  flex: 1;
   padding: max(24px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
   display: grid;
   place-items: center;
@@ -284,7 +282,7 @@
 
 .identity-spotlight__card {
   width: min(920px, 100%);
-  min-height: calc(100dvh - 48px);
+  min-height: min(720px, calc(100dvh - 190px));
   padding: clamp(var(--space-18), 4vw, var(--space-40));
   display: grid;
   grid-template-rows: auto minmax(0, 1fr) auto;

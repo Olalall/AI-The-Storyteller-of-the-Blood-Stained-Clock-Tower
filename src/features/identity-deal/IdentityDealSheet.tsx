@@ -37,6 +37,7 @@ export function IdentityDealSheet({ open, onOpenChange, session, dispatch }: Ide
   const [mode, setMode] = useState<DealMode>('screen')
   const [selectedSeatId, setSelectedSeatId] = useState<number>(1)
   const [spotlightSeatId, setSpotlightSeatId] = useState<number | null>(null)
+  const [handoff, setHandoff] = useState(false)
   const [revealed, setRevealed] = useState(false)
   const [receipts, setReceipts] = useState<IdentityDealReceipts>({})
   const [notice, setNotice] = useState('')
@@ -76,6 +77,7 @@ export function IdentityDealSheet({ open, onOpenChange, session, dispatch }: Ide
   }
 
   function openSpotlight(seatId: number) {
+    setHandoff(false)
     setSpotlightSeatId(seatId)
     setRevealed(false)
   }
@@ -83,15 +85,15 @@ export function IdentityDealSheet({ open, onOpenChange, session, dispatch }: Ide
   function closeSpotlight() {
     setSpotlightSeatId(null)
     setRevealed(false)
+    setHandoff(true)
   }
 
   function handleOpenChange(nextOpen: boolean) {
-    if (!nextOpen) closeSpotlight()
+    if (!nextOpen && (spotlightSeat || handoff)) return
     onOpenChange(nextOpen)
   }
 
   function switchMode(nextMode: DealMode) {
-    closeSpotlight()
     setMode(nextMode)
   }
 
@@ -103,8 +105,9 @@ export function IdentityDealSheet({ open, onOpenChange, session, dispatch }: Ide
       description="屏幕领取 · 实体抽牌"
       contentClassName="sheet-content--identity-deal"
       presentation="page"
+      dismissible={!spotlightSeat && !handoff}
     >
-      <div className="identity-deal" aria-hidden={spotlightSeat ? true : undefined} inert={Boolean(spotlightSeat)}>
+      {!spotlightSeat && !handoff ? <div className="identity-deal">
         <header className="identity-deal__hero">
           <div>
             <span>本局 · 发身份</span>
@@ -184,9 +187,10 @@ export function IdentityDealSheet({ open, onOpenChange, session, dispatch }: Ide
           </aside>
         </div>}
         {notice ? <p role="alert">{notice}</p> : null}
-      </div>
+      </div> : null}
 
-      {spotlightSeat ? <div className="identity-spotlight" role="dialog" aria-modal="true" aria-label={`${spotlightSeat.seatId}号单人身份展示`}>
+      {spotlightSeat ? <Sheet open onOpenChange={(nextOpen) => { if (!nextOpen) closeSpotlight() }} title={`${spotlightSeat.seatId}号单人身份展示`} description="只展示当前座位。退出后先遮蔽身份，再将设备交还说书人。" presentation="page" layer="nested" contentClassName="sheet-content--identity-private">
+        <div className="identity-spotlight">
         <div className="identity-spotlight__card">
           <header>
             <span>{seatTitle(spotlightSeat)}</span>
@@ -219,7 +223,20 @@ export function IdentityDealSheet({ open, onOpenChange, session, dispatch }: Ide
             </Button>
           </footer>
         </div>
-      </div> : null}
+        </div>
+      </Sheet> : null}
+
+      {handoff ? <Sheet open onOpenChange={() => undefined} title="请交还设备给说书人" description="本次身份展示已结束，所有身份已遮住。" presentation="page" layer="nested" dismissible={false} contentClassName="sheet-content--identity-private">
+        <div className="identity-spotlight identity-spotlight--handoff">
+          <section className="identity-spotlight__shield">
+            <EyeOff aria-hidden="true" />
+            <strong>身份已遮住</strong>
+            <p>请将设备交还说书人，再继续发身份。</p>
+            {notice ? <p role="alert">{notice}</p> : null}
+            <Button variant="primary" onClick={() => setHandoff(false)}>说书人继续发身份</Button>
+          </section>
+        </div>
+      </Sheet> : null}
     </Sheet>
   )
 }
