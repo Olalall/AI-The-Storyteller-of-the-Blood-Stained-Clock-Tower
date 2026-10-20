@@ -28,7 +28,7 @@ const experienceLabels: Record<PlayerExperience, string> = {
 export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart }: SetupStartPanelProps) {
   const memory = useMemo(() => loadSetupRosterMemory(), [])
   const [playerCount, setPlayerCount] = useState<PlayerCount>(12)
-  const [roster, setRoster] = useState(() => buildRosterForPlayerCount(12, memory))
+  const [roster, setRoster] = useState(() => buildRosterForPlayerCount(15, memory))
   const [scriptSearch, setScriptSearch] = useState('')
   const searchInput = useRef<HTMLInputElement>(null)
   const searchStatusId = useId()
@@ -39,7 +39,6 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
 
   function selectPlayerCount(nextCount: PlayerCount) {
     setPlayerCount(nextCount)
-    setRoster(buildRosterForPlayerCount(nextCount, memory))
   }
 
   function updateSeat(seatId: number, patch: Partial<SetupRosterSeatInput>) {
@@ -105,13 +104,13 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
           <span>玩家</span>
           <strong>{playerCount}个座位</strong>
         </div>
-        <Button variant="ghost" compact disabled={!canReuse} onClick={() => setRoster(buildRosterForPlayerCount(playerCount, memory))}>
+        <Button variant="ghost" compact disabled={!canReuse} onClick={() => setRoster(buildRosterForPlayerCount(15, memory))}>
           复用昵称
         </Button>
       </div>
 
       <div className="setup-start__roster" role="list" aria-label="新局玩家昵称和经验">
-        {roster.map((seat) => (
+        {roster.slice(0, playerCount).map((seat) => (
           <div key={seat.seatId} role="listitem" className="setup-start__seat-row">
             <span>{seat.seatId}号</span>
             <input
@@ -131,7 +130,7 @@ export function SetupStartPanel({ scriptId, scriptName, onScriptChange, onStart 
       </div>
 
       <div className="setup-start__footer">
-        <Button variant="primary" onClick={() => onStart({ playerCount, seats: roster })}>开始配板</Button>
+        <Button variant="primary" onClick={() => onStart({ playerCount, seats: roster.slice(0, playerCount) })}>开始配板</Button>
       </div>
     </section>
   )
