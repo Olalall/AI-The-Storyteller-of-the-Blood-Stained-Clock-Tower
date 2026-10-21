@@ -54,6 +54,12 @@ describe('normalizeStateChangeDrafts', () => {
     ])
   })
 
+  it.each([true, false])('does not turn boolean poisoned.to=%s into an actionable string value', (to) => {
+    expect(normalizeStateChangeDrafts([
+      { text: '3号中毒状态待核对', seatId: 3, change: { field: 'poisoned', to } },
+    ], seats)).toEqual([{ text: '3号中毒状态待核对', seatId: 3 }])
+  })
+
   /*
    * marker 必须带 label，其它字段一律不许带 label。
    * 违反的后果：`{field:'life', markerLabel:'红鲱鱼'}` 这种串了字段的输出会被当成

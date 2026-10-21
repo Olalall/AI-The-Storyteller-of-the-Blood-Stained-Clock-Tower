@@ -4,9 +4,20 @@ import { projectNightResultContract } from '../../game-session/state/nightWakeCo
 import type { NightType, WakeItem } from '../types'
 
 /** 只修正表单元数据；不重排旧夜序，也不重算已确认记录。 */
-export function projectNightInteraction(item: WakeItem, scriptId: string, night?: { nightType: NightType; playerCount: number }): WakeItem {
+export function projectNightInteraction(item: WakeItem, scriptId: string, night?: { nightType: NightType; playerCount: number; status?: WakeItem['status'] }): WakeItem {
   item = projectNightResultContract(item, night?.playerCount)
   const roleId = normalizeRoleId(item.roleId)
+  if (roleId === 'farmer' && item.progress !== 'confirmed') {
+    const statusChanged = night?.status && (item.status.life !== night.status.life
+      || [...item.status.impairments].sort().join(',') !== [...night.status.impairments].sort().join(','))
+    if (item.interactionVersion !== 'farmer/trigger-review-v1' || statusChanged) item = {
+      ...item, interactionVersion: 'farmer/trigger-review-v1', applicability: 'needs_review',
+      // A previous not-applicable decision also needs a fresh review after the actor's state changes.
+      progress: item.progress === 'not_applicable' ? 'pending' : item.progress,
+      status: night?.status ?? item.status,
+      reason: '请先核对农夫触发：当夜死亡、能力有效，并由说书人确认一名存活善良玩家继任；涉及特殊相克时另行核对。确认适用只解锁录入，不会自动更改角色。',
+    }
+  }
   if (item.abilityPhase === 'initial' && night) night = { ...night, nightType: 'first' }
   if (roleId === 'marionette' && night?.nightType === 'first' && item.interactionVersion !== 'marionette/pretend-v1') return {
     ...item, targetCount: 0, roleCount: undefined, roleChoices: undefined, targetKind: undefined,

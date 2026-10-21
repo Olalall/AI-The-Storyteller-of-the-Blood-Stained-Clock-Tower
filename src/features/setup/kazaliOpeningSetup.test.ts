@@ -93,7 +93,7 @@ describe('Kazali opening bag and confirmed-source compatibility', () => {
     expect(checked).toBe(24)
   })
   it('audits all registered packs through composition and actual candidate validation', () => {
-    expect(smartScriptPacks).toHaveLength(138)
+    expect(smartScriptPacks).toHaveLength(148)
     for (const currentPack of smartScriptPacks) {
       for (const template of currentPack.setupTemplates) expect(validateTemplateComposition(currentPack, template).problems, template.templateId).toEqual([])
       for (const count of currentPack.playerCounts) {

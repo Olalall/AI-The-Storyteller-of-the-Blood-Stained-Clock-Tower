@@ -4,6 +4,8 @@ import type { PhaseTimelineEntryInput } from './timeline'
 import { formalNightRecordValid, targetRoleChoicesSatisfied, wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
 import { refreshNightRunHistoricalContext } from './nightHistoricalContext'
 import { projectNightInteraction } from '../../night-workbench/state/projectNightInteraction'
+import { normalizeRoleId } from '../../../domain/scripts'
+import { projectCurrentPlayerStates } from './projectors'
 
 export function hasDayResolution(state: GameSessionState, segmentId: string) {
   return state.timeline.some((entry) =>
@@ -40,7 +42,7 @@ export function canAppendHistoryCorrection(
       const updated = action.entry.kind === 'night_action' ? action.entry.record.snapshot.targetRoleChoices?.[index] : undefined
       return updated?.seatId !== pair.seatId || updated?.roleId !== pair.roleId
     }))) return false
-    return canAppendNightActionEntry(state, action.entry)
+    return canAppendNightActionEntry(state, action.entry, true)
   }
 
   return original.kind === 'day_action' && action.entry.kind === 'day_action' && original.category === action.entry.category
@@ -49,12 +51,20 @@ export function canAppendHistoryCorrection(
 export function canAppendNightActionEntry(
   state: GameSessionState,
   entry: Extract<PhaseTimelineEntryInput, { kind: 'night_action' }>,
+  confirmedHistoryCorrection = false,
 ) {
   const run = state.nightRuns[entry.nightRunId]
+  const states = projectCurrentPlayerStates(state)
   const item = run
-    ? refreshNightRunHistoricalContext(state, { ...run, queue: run.queue.map((candidate) => projectNightInteraction(candidate, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount })) }).find((candidate) => candidate.id === entry.wakeItemId)
+    ? refreshNightRunHistoricalContext(state, { ...run, queue: run.queue.map((candidate) => {
+      const current = states[candidate.seatId]
+      return projectNightInteraction(candidate, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount,
+        status: current ? { life: current.life, impairments: [...(current.poisoned ? ['poisoned' as const] : []), ...(current.drunk ? ['drunk' as const] : [])], markers: current.markers } : undefined })
+    }) }).find((candidate) => candidate.id === entry.wakeItemId)
     : undefined
   return Boolean(item
+    && (normalizeRoleId(item.roleId) !== 'farmer' || confirmedHistoryCorrection
+      || item.interactionVersion === 'farmer/trigger-review-v1' && item.applicability === 'applicable')
     && formalNightRecordValid(item, entry.record.snapshot)
     && wakeTargetsStructurallyValid(item, entry.record.snapshot, state.playerCount)
     && targetRoleChoicesSatisfied(item, entry.record.snapshot, state.playerCount))

@@ -1,0 +1,405 @@
+[
+  {
+    "name": "由头来过",
+    "author": "荷西",
+    "id": "_meta",
+    "logo":"https://patchwiki.biligame.com/images/jbzlbwgwjcygf/3/33/oqjh0uyygmu0ow8dixlc5j6xt6u8h54.png"
+  },
+  {
+    "id": "1_youtoulaiguo",
+    "name": "钟表匠",
+    "team": "townsfolk",
+    "ability": "在你的首个夜晚，你会得知恶魔与爪牙之间最近的距离。（邻座的玩家距离为1）",
+    "firstNightReminder": "唤醒钟表匠，对他用手势比划数字来告知他恶魔与爪牙之间的最近距离。",
+    "firstNight": 3500,
+    "otherNight": 0,
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/9/9b/lw696aar95irnuwh7dze4ysam48awm8.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "2_youtoulaiguo",
+    "name": "贵族",
+    "team": "townsfolk",
+    "ability": "在你的首个夜晚，你会得知三名玩家：其中有且只有一名玩家是邪恶的。",
+    "firstNightReminder": "唤醒贵族，对他指向三名玩家。这三名玩家中有且仅有一名是邪恶玩家。",
+    "firstNight": 3700,
+    "otherNight": 0,
+    "reminders": [
+      "得知"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/5/56/4cvv6gx6js190zpjqm110ps4j6bl587.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "3_youtoulaiguo",
+    "name": "占卜师",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你要选择两名玩家：你会得知他们之中是否有恶魔。会有一名善良玩家始终被你的能力当作“恶魔”（干扰项）。",
+    "firstNightReminder": "唤醒占卜师，让他选择两名玩家。以点头或摇头告知他是否选中了恶魔。",
+    "firstNight": 3400,
+    "otherNightReminder": "唤醒占卜师，让他选择两名玩家。以点头或摇头告知他是否选中了恶魔。",
+    "otherNight": 13,
+    "reminders": [
+      "干扰项"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/9/91/04je4dg5ituw4nymx4f0x0b80p6gntg.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "4_youtoulaiguo",
+    "name": "侍女",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你要选择除你以外的两名存活的玩家：你会得知他们中有几人在当晚因其自身能力而被唤醒。",
+    "firstNightReminder": "唤醒侍女，让她选择两名除自己以外的存活玩家。用手势比划数字来告知她这些玩家中因自己能力而唤醒的玩家数量。",
+    "firstNight": 4200,
+    "otherNightReminder": "唤醒侍女，让她选择两名除自己以外的存活玩家。用手势比划数字来告知她这些玩家中因自己能力而唤醒的玩家数量。",
+    "otherNight": 19,
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/4/48/0d9uthaidhlal5rz0zjx2tvzzrviqdo.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "5_youtoulaiguo",
+    "name": "气球驾驶员",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你会得知一名与上个夜晚得知的玩家角色类型不同的玩家。[+0~1外来者]",
+    "firstNightReminder": "唤醒气球驾驶员，对他指向一名玩家。",
+    "firstNight": 3800,
+    "otherNightReminder": "唤醒气球驾驶员，对他指向一名玩家，这名玩家与之前气球驾驶员得知过的玩家属于不同的角色类型。",
+    "otherNight": 16,
+    "reminders": [
+      "得知"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/8/84/7a2ofp66u0ovh8x1lcvsd63qixll6oo.png"
+    ],
+    "setup": true
+  },
+  {
+    "id": "6_youtoulaiguo",
+    "name": "村夫",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你要选择一名玩家：你会得知他的阵营。[+0~2村夫，复数村夫中有一人醉酒]",
+    "firstNightReminder": "唤醒村夫，让他指向一名玩家，用手势告诉他那名玩家的阵营。",
+    "firstNight": 3900,
+    "otherNightReminder": "唤醒村夫，让他指向一名玩家，用手势告诉他那名玩家的阵营。",
+    "otherNight": 17,
+    "reminders": [
+      "醉酒"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/7/72/gyk4euf2w6acfyevvmeke03zvv8r1ln.png"
+    ],
+    "setup": true
+  },
+  {
+    "id": "7_youtoulaiguo",
+    "name": "送葬者",
+    "team": "townsfolk",
+    "ability": "每个夜晚*，你会得知今天白天死于处决的玩家的角色。",
+    "firstNight": 0,
+    "otherNightReminder": "如果今天白天有玩家死于处决，唤醒送葬者，对他展示那名玩家的角色标记。",
+    "otherNight": 14,
+    "reminders": [
+      "死于今日"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/6/6b/oxwrfoe7ilg4aljmz431kq1ig7exwm1.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "8_youtoulaiguo",
+    "name": "赌徒",
+    "team": "townsfolk",
+    "ability": "每个夜晚*，你要选择一名玩家并猜测该玩家的角色：如果你猜错了，你会死亡。",
+    "firstNight": 0,
+    "otherNightReminder": "唤醒赌徒，让他进行猜测。如果猜测错误，他死亡。",
+    "otherNight": 2,
+    "reminders": [
+      "死亡"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/0/0a/55q4nfyb9gftn9jiujtt49ti2qa33h6.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "9_youtoulaiguo",
+    "name": "女裁缝",
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在夜晚时，你可以选择（除你以外）的两名玩家：你会得知他们是否为同一阵营。",
+    "firstNightReminder": "唤醒女裁缝，她可以摇头不使用能力，或选择除自己以外的两名玩家。以点头或摇头告知她选择的玩家是否为同一阵营。",
+    "firstNight": 3600,
+    "otherNightReminder": "如果女裁缝未曾使用能力，唤醒女裁缝，她可以摇头不使用能力，或选择除自己以外的两名玩家。以点头或摇头告知她选择的玩家是否为同一阵营。",
+    "otherNight": 15,
+    "reminders": [
+      "失去能力"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/aa/0khyidxxipwitzqjs9iryheur62zkrj.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "10_youtoulaiguo",
+    "name": "守夜人",
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在夜晚时，你可以选择一名玩家：他会得知你是守夜人。",
+    "firstNightReminder": "唤醒守夜人，他可以摇头不使用能力，或选择一名玩家。如果守夜人选择了玩家，则在守夜人入睡后通知那名玩家谁是守夜人。",
+    "firstNight": 4000,
+    "otherNightReminder": "如果守夜人未曾使用能力，唤醒守夜人，他可以摇头不使用能力，或选择一名玩家。如果守夜人选择了玩家，则在守夜人入睡后通知那名玩家谁是守夜人。",
+    "otherNight": 18,
+    "reminders": [
+      "失去能力"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/c/cb/73bu8y1ghivk16k7frn80upymp06h2t.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "11_youtoulaiguo",
+    "name": "公主",
+    "team": "townsfolk",
+    "ability": "在你的首个白天，如果你提名并处决了一名玩家，当晚恶魔不会造成死亡。",
+    "firstNight": 0,
+    "otherNightReminder": "如果公主在今天白天提名并处决了一名玩家，当晚恶魔不会造成死亡。",
+    "otherNight": 5,
+    "reminders": [
+      "不会死亡"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/b/b5/rdpsq1wjpsq66ah5y3f4p2wyuzl8wuk.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "12_youtoulaiguo",
+    "name": "茶艺师",
+    "team": "townsfolk",
+    "ability": "如果与你邻近的两名存活的玩家是善良的，他们不会死亡。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "reminders": [
+      "不会死亡"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/a4/t8h7diw8bpav612k1e3t62b10hlbizz.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "13_youtoulaiguo",
+    "name": "贤者",
+    "team": "townsfolk",
+    "ability": "如果恶魔杀死了你，在当晚你会被唤醒并得知两名玩家，其中一名是杀死你的那个恶魔。",
+    "firstNight": 0,
+    "otherNightReminder": "如果贤者被恶魔杀死，唤醒贤者，对他指向两名玩家。其中之一是杀死贤者的恶魔。",
+    "otherNight": 12,
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/9/90/ijn6f8qa0qv7sb3g6cd28u5h38mlm3l.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "14_youtoulaiguo",
+    "name": "酒鬼",
+    "team": "outsider",
+    "ability": "你不知道你是酒鬼。你以为你是一个镇民角色，但其实你不是。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "remindersGlobal": [
+      "是酒鬼"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/f/f2/1cqow962ds6jp9x5rz84qwgpstkyurs.png"
+    ],
+    "setup": true
+  },
+  {
+    "id": "15_youtoulaiguo",
+    "name": "月之子",
+    "team": "outsider",
+    "ability": "当你得知你死亡时，你要公开选择一名存活的玩家。如果他是善良的，在当晚他会死亡。",
+    "firstNight": 0,
+    "otherNightReminder": "如果月之子在今天白天的时候使用自己的能力选择了一名善良玩家，那名玩家死亡。",
+    "otherNight": 11,
+    "reminders": [
+      "死亡"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/3/3c/hulwpl4c71z09ixgyg3dlkeega2a3an.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "16_youtoulaiguo",
+    "name": "食人魔",
+    "team": "outsider",
+    "ability": "在你的首个夜晚，你要选择除你以外的一名玩家：你转变为他的阵营，即使你已醉酒或中毒，但你不知道你转变后的阵营。",
+    "firstNightReminder": "唤醒食人魔，让他选择一名玩家。如果他选择了邪恶玩家，将他的角色标记在魔典中倒置以表示他转变为邪恶阵营。",
+    "firstNight": 4100,
+    "otherNight": 0,
+    "reminders": [
+      "挚友"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/7/73/pgakqxxr1gostnluw2xkp4cnudn3z7a.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "17_youtoulaiguo",
+    "name": "呆瓜",
+    "team": "outsider",
+    "ability": "当你得知你死亡时，你要公开选择一名存活的玩家：如果他是邪恶的，你的阵营落败。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/ee/7ba2sxxygegbc9ac1snt65mt5gmuz5d.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "18_youtoulaiguo",
+    "name": "红唇女郎",
+    "team": "minion",
+    "ability": "如果大于等于五名玩家存活时（旅行者不计算在内）恶魔死亡，你变成那个恶魔。",
+    "firstNight": 0,
+    "otherNightReminder": "如果红唇女郎的能力曾被触发，唤醒她并告知她变成了哪个恶魔角色。",
+    "otherNight": 4,
+    "remindersGlobal": [
+      "是恶魔"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/9/9a/39mexl68b71eyydru1jkze79qhwlfib.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "19_youtoulaiguo",
+    "name": "魔鬼代言人",
+    "team": "minion",
+    "ability": "每个夜晚，你要选择一名存活的玩家（与上个夜晚不同）：如果明天白天他被处决，他不会死亡。",
+    "firstNightReminder": "唤醒魔鬼代言人，让他选择一名玩家，那名玩家处决不死。",
+    "firstNight": 3300,
+    "otherNightReminder": "唤醒魔鬼代言人，让他选择一名与上一晚不同的玩家，那名玩家处决不死。",
+    "otherNight": 3,
+    "reminders": [
+      "处决不死"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/2/2f/fbxp1pzgxjfs4vsrb0l30otb078m84e.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "20_youtoulaiguo",
+    "name": "投毒者",
+    "team": "minion",
+    "ability": "每个夜晚，你要选择一名玩家：他在当晚和明天白天中毒。",
+    "firstNightReminder": "唤醒投毒者，让他选择一名玩家，那名玩家中毒。",
+    "firstNight": 3100,
+    "otherNightReminder": "唤醒投毒者，让他选择一名玩家，那名玩家中毒。",
+    "otherNight": 1,
+    "reminders": [
+      "中毒"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/3/33/6wspdicyxe9hh221v9aodnk8umbdtsq.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "21_youtoulaiguo",
+    "name": "教父",
+    "team": "minion",
+    "ability": "在你的首个夜晚，你会得知有哪些外来者角色在场。如果有外来者在白天死亡，你会在当晚被唤醒并且你要选择一名玩家：他死亡。[-1或+1外来者]",
+    "firstNightReminder": "唤醒教父，对他展示外来者角色标记，告诉他有哪些外来者在场。",
+    "firstNight": 3200,
+    "otherNightReminder": "如果今天白天有外来者死亡，唤醒教父，让他攻击一名玩家。",
+    "otherNight": 10,
+    "reminders": [
+      "死于今日",
+      "死亡"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/a8/cp4tivyy734ut9fus8od0zub508qx8y.png"
+    ],
+    "setup": true
+  },
+  {
+    "id": "22_youtoulaiguo",
+    "name": "珀",
+    "team": "demon",
+    "ability": "每个夜晚*，你可以选择一名玩家：他死亡。如果你上次选择时没有选择任何玩家，当晚你要选择三名玩家：他们死亡。",
+    "firstNight": 0,
+    "otherNightReminder": "唤醒珀，他可以攻击一名玩家或不进行攻击，如果他上一次选择了不进行攻击，则此次必须攻击三名玩家。",
+    "otherNight": 7,
+    "reminders": [
+      "攻击三次",
+      "死亡"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/6/67/rvx8mxa2s5jb9qiqzoubch8vfjr87hz.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "23_youtoulaiguo",
+    "name": "小恶魔",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。如果你以这种方式自杀，一名爪牙会变成小恶魔。",
+    "firstNight": 0,
+    "otherNightReminder": "唤醒小恶魔，让他攻击一名玩家。如果他成功自杀，则在他入睡后通知一名爪牙角色变化。",
+    "otherNight": 6,
+    "reminders": [
+      "死亡"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/0/03/1trck24gi8o05kklsg93al4co09nakb.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "24_youtoulaiguo",
+    "name": "涡流",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。镇民玩家的能力都会产生错误信息。如果白天没人被处决，邪恶阵营获胜。",
+    "firstNight": 0,
+    "otherNightReminder": "唤醒涡流，让他攻击一名玩家。",
+    "otherNight": 9,
+    "reminders": [
+      "死亡"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/e7/5weznbb3b9dr7j9bep7syuyfqyl5t6h.png"
+    ],
+    "setup": false
+  },
+  {
+    "id": "25_youtoulaiguo",
+    "name": "诺·达鲺",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。与你邻近的两名镇民中毒。",
+    "firstNight": 0,
+    "otherNightReminder": "唤醒诺-达鲺，让他攻击一名玩家。",
+    "otherNight": 8,
+    "reminders": [
+      "死亡",
+      "中毒"
+    ],
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/8/8c/tuqiff39a278vl7zgiu1z9hki1b5gni.png"
+    ],
+    "setup": false
+  }
+]

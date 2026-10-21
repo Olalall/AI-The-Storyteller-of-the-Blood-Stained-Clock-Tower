@@ -1,0 +1,1365 @@
+{
+  "scriptId": "bu-zhi-zhi-zheng",
+  "displayName": "不蛭之症",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+    "author": "Flyingludicolo",
+    "version": "原文未标作者版本；当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:1ef5e50f76db692f5825673f9a2221af1e41e49b74bf8f7fca6b043b78faa7e6",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "exorcist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pacifist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "soldier",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "klutz",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "baron",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "spy",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "eviltwin",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-1",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "seamstress",
+        "philosopher",
+        "savant",
+        "pacifist",
+        "soldier",
+        "pithag",
+        "lleech"
+      ],
+      "bluffs": [
+        "librarian",
+        "snakecharmer",
+        "dreamer"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-2",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "pacifist",
+        "soldier",
+        "mayor",
+        "klutz",
+        "puzzlemaster",
+        "baron",
+        "lleech"
+      ],
+      "bluffs": [
+        "dreamer",
+        "undertaker",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-3",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 7,
+      "style": "bluff-heavy",
+      "roles": [
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "monk",
+        "spy",
+        "lleech"
+      ],
+      "bluffs": [
+        "towncrier",
+        "exorcist",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-4",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "philosopher",
+        "savant",
+        "pacifist",
+        "klutz",
+        "puzzlemaster",
+        "recluse",
+        "baron",
+        "lleech"
+      ],
+      "bluffs": [
+        "librarian",
+        "snakecharmer",
+        "dreamer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-5",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "soldier",
+        "mayor",
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "puzzlemaster",
+        "spy",
+        "lleech"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-6",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "savant",
+        "pacifist",
+        "soldier",
+        "mayor",
+        "librarian",
+        "puzzlemaster",
+        "recluse",
+        "spy",
+        "lleech"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "dreamer",
+        "undertaker"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-7",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "mayor",
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "recluse",
+        "saint",
+        "eviltwin",
+        "lleech"
+      ],
+      "bluffs": [
+        "monk",
+        "towncrier",
+        "exorcist"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-8",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "pacifist",
+        "soldier",
+        "mayor",
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "eviltwin",
+        "pithag",
+        "lleech"
+      ],
+      "bluffs": [
+        "monk",
+        "towncrier",
+        "exorcist"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-9",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "monk",
+        "saint",
+        "sweetheart",
+        "pithag",
+        "baron",
+        "lleech"
+      ],
+      "bluffs": [
+        "towncrier",
+        "exorcist",
+        "seamstress"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-10",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 10,
+      "style": "bluff-heavy",
+      "roles": [
+        "undertaker",
+        "monk",
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "sweetheart",
+        "klutz",
+        "baron",
+        "spy",
+        "lleech"
+      ],
+      "bluffs": [
+        "philosopher",
+        "savant",
+        "pacifist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-11",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "soldier",
+        "mayor",
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "saint",
+        "sweetheart",
+        "klutz",
+        "pithag",
+        "baron",
+        "lleech"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-12",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "monk",
+        "towncrier",
+        "sweetheart",
+        "klutz",
+        "puzzlemaster",
+        "baron",
+        "spy",
+        "lleech"
+      ],
+      "bluffs": [
+        "exorcist",
+        "seamstress",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-13",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "mayor",
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "sweetheart",
+        "klutz",
+        "puzzlemaster",
+        "recluse",
+        "baron",
+        "spy",
+        "lleech"
+      ],
+      "bluffs": [
+        "monk",
+        "towncrier",
+        "exorcist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-14",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "dreamer",
+        "undertaker",
+        "monk",
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "philosopher",
+        "klutz",
+        "puzzlemaster",
+        "spy",
+        "eviltwin",
+        "lleech"
+      ],
+      "bluffs": [
+        "savant",
+        "pacifist",
+        "soldier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-15",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 12,
+      "style": "bluff-heavy",
+      "roles": [
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "philosopher",
+        "savant",
+        "pacifist",
+        "soldier",
+        "puzzlemaster",
+        "recluse",
+        "eviltwin",
+        "pithag",
+        "lleech"
+      ],
+      "bluffs": [
+        "monk",
+        "mayor",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-16",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "monk",
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "philosopher",
+        "spy",
+        "eviltwin",
+        "pithag",
+        "lleech"
+      ],
+      "bluffs": [
+        "savant",
+        "pacifist",
+        "soldier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-17",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "undertaker",
+        "monk",
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "philosopher",
+        "savant",
+        "puzzlemaster",
+        "recluse",
+        "eviltwin",
+        "pithag",
+        "baron",
+        "lleech"
+      ],
+      "bluffs": [
+        "dreamer",
+        "pacifist",
+        "soldier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-18",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "monk",
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "puzzlemaster",
+        "recluse",
+        "saint",
+        "eviltwin",
+        "pithag",
+        "baron",
+        "lleech"
+      ],
+      "bluffs": [
+        "librarian",
+        "philosopher",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-19",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "monk",
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "philosopher",
+        "savant",
+        "pacifist",
+        "recluse",
+        "saint",
+        "sweetheart",
+        "pithag",
+        "baron",
+        "spy",
+        "lleech"
+      ],
+      "bluffs": [
+        "dreamer",
+        "undertaker",
+        "soldier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-20",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "dreamer",
+        "undertaker",
+        "monk",
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "philosopher",
+        "recluse",
+        "saint",
+        "sweetheart",
+        "klutz",
+        "pithag",
+        "baron",
+        "spy",
+        "lleech"
+      ],
+      "bluffs": [
+        "librarian",
+        "snakecharmer",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-21",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "towncrier",
+        "exorcist",
+        "seamstress",
+        "philosopher",
+        "savant",
+        "pacifist",
+        "soldier",
+        "saint",
+        "sweetheart",
+        "klutz",
+        "puzzlemaster",
+        "baron",
+        "spy",
+        "eviltwin",
+        "lleech"
+      ],
+      "bluffs": [
+        "dreamer",
+        "undertaker",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "bu-zhi-zhi-zheng-candidate-22",
+      "scriptId": "bu-zhi-zhi-zheng",
+      "playerCount": 15,
+      "style": "bluff-heavy",
+      "roles": [
+        "philosopher",
+        "savant",
+        "pacifist",
+        "soldier",
+        "mayor",
+        "librarian",
+        "snakecharmer",
+        "dreamer",
+        "undertaker",
+        "sweetheart",
+        "klutz",
+        "spy",
+        "eviltwin",
+        "pithag",
+        "lleech"
+      ],
+      "bluffs": [
+        "monk",
+        "towncrier",
+        "exorcist"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "host-confirmation-boundary",
+      "summary": "仅生成主持候选；身份、阵营、生死、毒醉、投票和胜负由说书人确认。角色变化、额外能力与死亡触发按本局事实另行记录。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "librarian-high-risk",
+      "roleId": "librarian",
+      "summary": "Information can be affected by poison/drunk or registration.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20284_77324.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "snakecharmer-manual-boundary",
+      "roleId": "snakecharmer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21050_74806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "dreamer-high-risk",
+      "roleId": "dreamer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "undertaker-high-risk",
+      "roleId": "undertaker",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "monk-high-risk",
+      "roleId": "monk",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "towncrier-high-risk",
+      "roleId": "towncrier",
+      "summary": "Nomination history and registration are checked by ST.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20001_77217.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "exorcist-high-risk",
+      "roleId": "exorcist",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "seamstress-manual-boundary",
+      "roleId": "seamstress",
+      "summary": "每局游戏限一次，在夜晚时，你可以选择除你以外的两名玩家：你会得知他们是否为同一阵营。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "philosopher-setup",
+      "roleId": "philosopher",
+      "summary": "May drunk an existing holder of the selected good role.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "savant-manual-boundary",
+      "roleId": "savant",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pacifist-manual-boundary",
+      "roleId": "pacifist",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "soldier-high-risk",
+      "roleId": "soldier",
+      "summary": "Protection impact is ST-confirmed.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20001_77217.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mayor-high-risk",
+      "roleId": "mayor",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21229_95005.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "recluse-high-risk",
+      "roleId": "recluse",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "saint-risk-1",
+      "roleId": "saint",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "sweetheart-high-risk",
+      "roleId": "sweetheart",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "klutz-high-risk",
+      "roleId": "klutz",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "puzzlemaster-manual-boundary",
+      "roleId": "puzzlemaster",
+      "summary": "一名玩家醉酒，即使你已死亡。每局游戏限一次，你可以猜测谁是那个醉酒的玩家，如果猜对了，你会得知谁是恶魔，但如果猜错了，你会得知错误的“谁是恶魔”信息。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "baron-setup-count",
+      "roleId": "baron",
+      "summary": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Baron"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "spy-manual-boundary",
+      "roleId": "spy",
+      "summary": "每个夜晚，你能查看魔典。你可能会被当作善良阵营、镇民角色或外来者角色，即使你已死亡。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "eviltwin-high-risk",
+      "roleId": "eviltwin",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21227_64421.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-manual-boundary",
+      "roleId": "pithag",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "lleech-high-risk",
+      "roleId": "lleech",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20723_51891.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "lleech-host-and-change",
+      "summary": "首夜先确认痢蛭存活宿主与中毒，后夜攻击另录。宿主、痢蛭毒醉及死亡关系由主持核对；麻脸或舞蛇产生新痢蛭时单独处理初始化，不补第二刀。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "execution-is-not-death",
+      "summary": "和平主义者可能防止处决死亡，圣徒和送葬者按实际处决死亡核对，不能只凭处决标记宣告胜负或信息。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 14。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 31。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 37。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "eviltwin",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 41。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 53。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 61。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 62。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "spy",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 72。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 11。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 23。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "monk",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 24。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 29。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "exorcist",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 36。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 52。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 61。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 78。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 79。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 81。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 83。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "spy",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 92。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      }
+    ]
+  },
+  "demonBluffPolicy": {
+    "count": 3,
+    "eligibleTeams": [
+      "townsfolk",
+      "outsider"
+    ],
+    "requireNotInPlay": true,
+    "summary": "三枚不在场善良角色伪装；酒鬼对外身份及额外借用能力另由主持私下确认。"
+  },
+  "roleDefinitionHashes": {
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "exorcist": "sha256:8af78315af9ed40d46f59a081ce0127480a0d8f4f0af13a013970b7af64ba6da",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "pacifist": "sha256:469225591f3a9499dbb2da61566dd13fb776cb2d67b045271c2614797f98f099",
+    "soldier": "sha256:e24f9025b8c74c0b5fae6536a74ffd2845b311d4a2f60272a3950476946fd523",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "klutz": "sha256:3c7f19f518ebf523ae77562a799ff7a27fc20b0ec3d8c0e1d05bb733ada471fd",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "baron": "sha256:890d34be482a8e93a73c160430757fc5f236aa26654d8734a5419df15b645493",
+    "spy": "sha256:77894cd65fb49bffc53307f3e96f39b8581734ae64e3b9a2afcc4cbb5cbb8f82",
+    "eviltwin": "sha256:75dc9503eee2fe674c64e39ecfb9c45d818a6fff40767c0de8d36cc8c7297dd6",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b"
+  }
+}
