@@ -33,3 +33,23 @@ src/domain/scripts/packs/huan-shou-qi-jing/source.json -text
 src/domain/scripts/packs/wu-xian-bo-yi/source.json -text
 src/domain/scripts/packs/du-xian-man-yan/source.json -text
 src/domain/scripts/packs/shu-xue-jia-sha-ren-shi-jian/source.json -text
+# Raw upstream JSON is pinned byte-for-byte, including authored whitespace.
+src/domain/scripts/packs/wiki-e1677e64744d2bb5/source.json -text -whitespace
+src/domain/scripts/packs/wiki-4a8f7390981cb0e9/source.json -text -whitespace
+src/domain/scripts/packs/wiki-95b384783bb4b3d9/source.json -text -whitespace
+src/domain/scripts/packs/wiki-6ae3cc3d56a76434/source.json -text -whitespace
+src/domain/scripts/packs/wiki-5b28e06eb2955d8e/source.json -text -whitespace
+src/domain/scripts/packs/wiki-ea99f23804d8c9bb/source.json -text -whitespace
+src/domain/scripts/packs/wiki-1eb0363e35dbd723/source.json -text -whitespace
+src/domain/scripts/packs/wiki-53b4df41d5a1079a/source.json -text -whitespace
+src/domain/scripts/packs/wiki-e89d6f6239a18c76/source.json -text -whitespace
+src/domain/scripts/packs/wiki-66ad0a0f1a38dee6/source.json -text -whitespace
+src/domain/scripts/packs/wiki-2c821085e5df4b96/source.json -text -whitespace
+src/domain/scripts/packs/wiki-2e9bc84322f79c96/source.json -text -whitespace
+src/domain/scripts/packs/wiki-adbaf66494661865/source.json -text -whitespace
+src/domain/scripts/packs/wiki-6533660425b7a18b/source.json -text -whitespace
+src/domain/scripts/packs/wiki-e7f9d2e70b75b11d/source.json -text -whitespace
+src/domain/scripts/packs/wiki-b3845a927a7b48d1/source.json -text -whitespace
+src/domain/scripts/packs/wiki-9b83b6c53857fcf0/source.json -text -whitespace
+src/domain/scripts/packs/wiki-ebf387f6f8945e24/source.json -text -whitespace
+src/domain/scripts/packs/wiki-208842d7c4a589ad/source.json -text -whitespace

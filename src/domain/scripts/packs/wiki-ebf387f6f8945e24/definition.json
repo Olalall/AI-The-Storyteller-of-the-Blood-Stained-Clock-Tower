@@ -1,0 +1,1149 @@
+{
+  "scriptId": "wiki-ebf387f6f8945e24",
+  "displayName": "章鱼博士",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Bambi and FMJason",
+    "version": "库记录915 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:ebf387f6f8945e24c19b2c78ae5849a43a514123126501389b16131f10fd3d61",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "steward",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "mathematician",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "juggler",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "ravenkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "goon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-1",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "nodashii",
+        "philosopher",
+        "juggler",
+        "savant",
+        "cannibal",
+        "ravenkeeper"
+      ],
+      "bluffs": [
+        "librarian",
+        "steward",
+        "empath"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-2",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "nodashii",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "steward",
+        "empath"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "mathematician",
+        "oracle"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-3",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "godfather",
+        "nodashii",
+        "steward",
+        "empath",
+        "monk",
+        "chambermaid",
+        "recluse"
+      ],
+      "bluffs": [
+        "oracle",
+        "philosopher",
+        "juggler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-4",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "nodashii",
+        "juggler",
+        "savant",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "drunk"
+      ],
+      "bluffs": [
+        "steward",
+        "empath",
+        "monk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-5",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "nodashii",
+        "ravenkeeper",
+        "librarian",
+        "steward",
+        "empath",
+        "recluse",
+        "goon"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "mathematician",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-6",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "nodashii",
+        "savant",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "recluse",
+        "goon",
+        "mutant"
+      ],
+      "bluffs": [
+        "steward",
+        "empath",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-7",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "nodashii",
+        "librarian",
+        "steward",
+        "empath",
+        "monk",
+        "chambermaid",
+        "goon",
+        "mutant"
+      ],
+      "bluffs": [
+        "oracle",
+        "philosopher",
+        "juggler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-8",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "marionette",
+        "nodashii",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "steward",
+        "empath",
+        "monk",
+        "chambermaid"
+      ],
+      "bluffs": [
+        "mathematician",
+        "oracle",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-9",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "scarletwoman",
+        "nodashii",
+        "steward",
+        "empath",
+        "monk",
+        "chambermaid",
+        "mathematician",
+        "oracle",
+        "philosopher"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-10",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "cerenovus",
+        "nodashii",
+        "philosopher",
+        "juggler",
+        "savant",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "recluse"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "mathematician",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-11",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "scarletwoman",
+        "nodashii",
+        "ravenkeeper",
+        "librarian",
+        "steward",
+        "empath",
+        "monk",
+        "chambermaid",
+        "mathematician",
+        "mutant"
+      ],
+      "bluffs": [
+        "oracle",
+        "philosopher",
+        "juggler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-12",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "godfather",
+        "nodashii",
+        "empath",
+        "monk",
+        "chambermaid",
+        "mathematician",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "savant"
+      ],
+      "bluffs": [
+        "steward",
+        "cannibal",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-13",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "godfather",
+        "nodashii",
+        "librarian",
+        "steward",
+        "empath",
+        "monk",
+        "chambermaid",
+        "mathematician",
+        "oracle",
+        "philosopher",
+        "drunk"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "cannibal"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-14",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "cerenovus",
+        "nodashii",
+        "monk",
+        "chambermaid",
+        "mathematician",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "recluse",
+        "goon",
+        "mutant"
+      ],
+      "bluffs": [
+        "steward",
+        "empath",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-15",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "cerenovus",
+        "marionette",
+        "nodashii",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "savant",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "goon",
+        "mutant"
+      ],
+      "bluffs": [
+        "monk",
+        "chambermaid",
+        "mathematician"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-16",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "cerenovus",
+        "marionette",
+        "nodashii",
+        "steward",
+        "empath",
+        "monk",
+        "chambermaid",
+        "mathematician",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "recluse"
+      ],
+      "bluffs": [
+        "librarian",
+        "savant",
+        "cannibal"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-17",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "marionette",
+        "scarletwoman",
+        "nodashii",
+        "chambermaid",
+        "mathematician",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "savant",
+        "cannibal",
+        "ravenkeeper",
+        "librarian"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-18",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "marionette",
+        "scarletwoman",
+        "nodashii",
+        "empath",
+        "monk",
+        "chambermaid",
+        "mathematician",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "savant",
+        "cannibal",
+        "goon"
+      ],
+      "bluffs": [
+        "librarian",
+        "steward",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-19",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "scarletwoman",
+        "godfather",
+        "nodashii",
+        "mathematician",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "savant",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "mutant",
+        "drunk"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "chambermaid"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-20",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "scarletwoman",
+        "godfather",
+        "nodashii",
+        "monk",
+        "chambermaid",
+        "mathematician",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "savant",
+        "cannibal",
+        "mutant",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "librarian",
+        "steward",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-21",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "godfather",
+        "cerenovus",
+        "nodashii",
+        "oracle",
+        "philosopher",
+        "juggler",
+        "savant",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "steward",
+        "empath",
+        "monk",
+        "drunk"
+      ],
+      "bluffs": [
+        "mathematician",
+        "recluse",
+        "goon"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ebf387f6f8945e24-candidate-22",
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "godfather",
+        "cerenovus",
+        "marionette",
+        "nodashii",
+        "savant",
+        "cannibal",
+        "ravenkeeper",
+        "librarian",
+        "steward",
+        "empath",
+        "monk",
+        "chambermaid",
+        "recluse",
+        "goon",
+        "mutant"
+      ],
+      "bluffs": [
+        "philosopher",
+        "juggler",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "godfather-outsider",
+      "roleId": "godfather",
+      "summary": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "cannibal-juggler-jinx",
+      "roleId": "cannibal",
+      "summary": "If the Juggler guesses on their first day and dies by execution, tonight the living Cannibal learns how many guesses the Juggler got correct.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-chambermaid-jinx",
+      "roleId": "mathematician",
+      "summary": "The Chambermaid can detect if the Mathematician will wake tonight.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-drunk-jinx",
+      "roleId": "mathematician",
+      "summary": "The Mathematician learns if the Drunk’s ability yielded false info or failed to work properly.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-marionette-jinx",
+      "roleId": "mathematician",
+      "summary": "The Mathematician learns if the Marionette’s ability yielded false info or failed to work properly.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "steward",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "ravenkeeper",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "juggler",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "steward": "sha256:fbf26cf36a81721eccd8500f0a30bba3464ac17c74baa71769b870a1f0dd6e65",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "mathematician": "sha256:f1262386ef8bd2783d644dc5240ea8e3fe2ee414a55b3cc3b86f9aee91cd027d",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "juggler": "sha256:bbcea5b0d8167d59a0145880a0c448f02ff7ae87da08cf8f4f747b02220395b7",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "ravenkeeper": "sha256:6e3311f80393bc0e63bc13ad33ad354fec889729ba26aed45dbcc23dde876bf3",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "goon": "sha256:20785befe683a597aa8e6ea54bbe8473a93c9db400b21a3f40b73c0821949343",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874"
+  }
+}

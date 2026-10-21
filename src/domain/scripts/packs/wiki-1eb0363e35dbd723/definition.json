@@ -1,0 +1,1067 @@
+{
+  "scriptId": "wiki-1eb0363e35dbd723",
+  "displayName": "限定冒险",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Lyfey",
+    "version": "库记录565 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:1eb0363e35dbd723aa044018f7e324c8ff77f3174d6244a896e563ce62bb4d1d",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "shugenja",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "innkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "acrobat",
+      "sourceId": "shi-san-hang",
+      "sourceVersion": "sha256:4537cee40664d86345fa1b20af1858768df3be233db1d41081e184dece91f0e5"
+    },
+    {
+      "id": "professor",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "gossip",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "ravenkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "virgin",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "goon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "xaan",
+      "sourceId": "quick-maths",
+      "sourceVersion": "sha256:2960bb5ebba764e8cc812500a4cba1c759ef6817859e836db7121f4b89e4ae03"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "organgrinder",
+      "sourceId": "yu-zhe-huan-yan",
+      "sourceVersion": "sha256:4571db2ca9cfb548f5357a82e87a05a7c29b128678d43d4be427aa444b897e06"
+    },
+    {
+      "id": "boffin",
+      "sourceId": "xin-kou-ci-huang",
+      "sourceVersion": "sha256:4397c0506ab8e254b135a0610c1b096a8304925c86694e953514adf67ab1cd69"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "shabaloth",
+      "sourceId": "xin-ren-shi-lian",
+      "sourceVersion": "sha256:f603b4fa9757330b5f9865fa87dfacc7435232fc17f5804638ac1c31571f1d75"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-1",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "ojo",
+        "professor",
+        "fisherman",
+        "gossip",
+        "ravenkeeper",
+        "virgin"
+      ],
+      "bluffs": [
+        "shugenja",
+        "pixie",
+        "dreamer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-2",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "ojo",
+        "ravenkeeper",
+        "virgin",
+        "shugenja",
+        "pixie",
+        "dreamer"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "towncrier",
+        "acrobat"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-3",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "assassin",
+        "pukka",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "towncrier"
+      ],
+      "bluffs": [
+        "professor",
+        "fisherman",
+        "gossip"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-4",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "pukka",
+        "fisherman",
+        "gossip",
+        "ravenkeeper",
+        "virgin",
+        "shugenja",
+        "goon"
+      ],
+      "bluffs": [
+        "pixie",
+        "dreamer",
+        "undertaker"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-5",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "pukka",
+        "virgin",
+        "shugenja",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "barber"
+      ],
+      "bluffs": [
+        "towncrier",
+        "acrobat",
+        "professor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-6",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "assassin",
+        "shabaloth",
+        "gossip",
+        "ravenkeeper",
+        "virgin",
+        "shugenja",
+        "pixie",
+        "barber",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "dreamer",
+        "undertaker",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-7",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "shabaloth",
+        "shugenja",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "plaguedoctor",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "acrobat",
+        "professor",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-8",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "boffin",
+        "vigormortis",
+        "ravenkeeper",
+        "virgin",
+        "shugenja",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "innkeeper"
+      ],
+      "bluffs": [
+        "towncrier",
+        "acrobat",
+        "professor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-9",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "xaan",
+        "vigormortis",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "professor"
+      ],
+      "bluffs": [
+        "fisherman",
+        "gossip",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-10",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "xaan",
+        "assassin",
+        "ojo",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip",
+        "ravenkeeper"
+      ],
+      "bluffs": [
+        "dreamer",
+        "undertaker",
+        "virgin"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-11",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "xaan",
+        "ojo",
+        "virgin",
+        "shugenja",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "acrobat",
+        "professor",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-12",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "assassin",
+        "ojo",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "goon"
+      ],
+      "bluffs": [
+        "pixie",
+        "gossip",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-13",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "assassin",
+        "pukka",
+        "shugenja",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "goon",
+        "barber"
+      ],
+      "bluffs": [
+        "professor",
+        "fisherman",
+        "gossip"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-14",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "organgrinder",
+        "pukka",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip",
+        "barber",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "pixie",
+        "dreamer",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-15",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "organgrinder",
+        "boffin",
+        "shabaloth",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip",
+        "ravenkeeper",
+        "virgin",
+        "shugenja",
+        "plaguedoctor",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "undertaker",
+        "innkeeper",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-16",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "assassin",
+        "organgrinder",
+        "boffin",
+        "shabaloth",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip"
+      ],
+      "bluffs": [
+        "shugenja",
+        "ravenkeeper",
+        "virgin"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-17",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "boffin",
+        "xaan",
+        "shabaloth",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip",
+        "ravenkeeper",
+        "virgin",
+        "shugenja"
+      ],
+      "bluffs": [
+        "dreamer",
+        "undertaker",
+        "goon"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-18",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "boffin",
+        "xaan",
+        "vigormortis",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip",
+        "ravenkeeper",
+        "virgin"
+      ],
+      "bluffs": [
+        "shugenja",
+        "pixie",
+        "goon"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-19",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "xaan",
+        "assassin",
+        "vigormortis",
+        "towncrier",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip",
+        "ravenkeeper",
+        "virgin",
+        "shugenja",
+        "pixie",
+        "dreamer"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "goon",
+        "barber"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-20",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "xaan",
+        "assassin",
+        "ojo",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip",
+        "ravenkeeper",
+        "virgin",
+        "puzzlemaster",
+        "goon"
+      ],
+      "bluffs": [
+        "shugenja",
+        "pixie",
+        "dreamer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-21",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "assassin",
+        "organgrinder",
+        "ojo",
+        "acrobat",
+        "professor",
+        "fisherman",
+        "gossip",
+        "ravenkeeper",
+        "virgin",
+        "shugenja",
+        "pixie",
+        "dreamer",
+        "goon",
+        "barber"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "towncrier",
+        "plaguedoctor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-1eb0363e35dbd723-candidate-22",
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "assassin",
+        "organgrinder",
+        "boffin",
+        "pukka",
+        "gossip",
+        "ravenkeeper",
+        "virgin",
+        "shugenja",
+        "pixie",
+        "dreamer",
+        "undertaker",
+        "innkeeper",
+        "towncrier",
+        "barber",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "fisherman",
+        "goon",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "boffin-goon-jinx",
+      "roleId": "boffin",
+      "summary": "If the Demon has the Goon ability, they can’t turn good due to this ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "boffin",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "organgrinder",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "shugenja",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "xaan",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "innkeeper",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "acrobat",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "organgrinder",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "shabaloth",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "gossip",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "barber",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "plaguedoctor",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "professor",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "ravenkeeper",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "shugenja": "sha256:20e3ef86b6aeed76cf4588bbf6b856480cd1fff5ece0e97b8e42928b98439fc0",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "innkeeper": "sha256:d08a610a685471cf44a7ee19977c4a5466152b3d8d42c7a48a0a9d1b874b3304",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "acrobat": "sha256:dda6616445f1f1a0ee1fd5374a83adef8ca4ba32fb4a2632530215327ab68b76",
+    "professor": "sha256:cbdc498da0f27c428a4948a992597bd601eb3784c0e773a67c70ef64e3bfe306",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "gossip": "sha256:c1ee906e8b2abcc4e4c51c9d0f88c968a0ab63432ee6297545f02b62a1befa65",
+    "ravenkeeper": "sha256:6e3311f80393bc0e63bc13ad33ad354fec889729ba26aed45dbcc23dde876bf3",
+    "virgin": "sha256:06096e9d4874b45d7b7599b6375d9ef6cd018269f62900eef30f3221befb5df4",
+    "goon": "sha256:20785befe683a597aa8e6ea54bbe8473a93c9db400b21a3f40b73c0821949343",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "plaguedoctor": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "xaan": "sha256:7759915ed1083035085b10cd8dab84caff67297c023ee33a0d34cc38f2d540ba",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "organgrinder": "sha256:43f5b78821dc3e71057d941acb9706533394a99a1ced945c9e1330eab9c65615",
+    "boffin": "sha256:0b07b44dbe0af2138554093d66008429cd4f7e220d119cae090a2370add30696",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e",
+    "shabaloth": "sha256:72cfe55151d22cac00dbaabe9b0f12618fbd8d36147c40b47355cafa531508b1",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5"
+  }
+}

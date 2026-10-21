@@ -2512,5 +2512,309 @@ export const scriptManifest: readonly Pick<SmartScriptPack, 'scriptId' | 'displa
       15
     ],
     "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-e1677e64744d2bb5",
+    "displayName": "恶魔迷城",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-4a8f7390981cb0e9",
+    "displayName": "叱诧风云",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-95b384783bb4b3d9",
+    "displayName": "无限恩赐",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-6ae3cc3d56a76434",
+    "displayName": "党同伐异",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-5b28e06eb2955d8e",
+    "displayName": "地狱将至",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-ea99f23804d8c9bb",
+    "displayName": "好奇猴乔治",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-1eb0363e35dbd723",
+    "displayName": "限定冒险",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-53b4df41d5a1079a",
+    "displayName": "嗤之以鼻",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-e89d6f6239a18c76",
+    "displayName": "异星复仇",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-66ad0a0f1a38dee6",
+    "displayName": "红分蓝缕",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-2c821085e5df4b96",
+    "displayName": "失控古神",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-2e9bc84322f79c96",
+    "displayName": "醉窥死生",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-adbaf66494661865",
+    "displayName": "雾尽鸦鸣-皮卡麒",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-6533660425b7a18b",
+    "displayName": "懿海迷漩",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-e7f9d2e70b75b11d",
+    "displayName": "失之交臂",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-b3845a927a7b48d1",
+    "displayName": "只若初见",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-9b83b6c53857fcf0",
+    "displayName": "善意谎言",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-ebf387f6f8945e24",
+    "displayName": "章鱼博士",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-208842d7c4a589ad",
+    "displayName": "苦尽甘来",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
   }
 ]

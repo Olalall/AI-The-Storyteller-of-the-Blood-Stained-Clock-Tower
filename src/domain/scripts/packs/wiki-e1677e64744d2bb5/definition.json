@@ -1,0 +1,1310 @@
+{
+  "scriptId": "wiki-e1677e64744d2bb5",
+  "displayName": "恶魔迷城",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Cosmo",
+    "version": "库记录12 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:e1677e64744d2bb508cea5d7ed9b527bd02e839c0dbf879967d04dd41578374c",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "shugenja",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "highpriestess",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "general",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "preacher",
+      "sourceId": "hide-and-seek",
+      "sourceVersion": "sha256:d50e711952349f51adc87356c2a3a1e29991bc131b906a5c49a795fd50f9c823"
+    },
+    {
+      "id": "innkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "flowergirl",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "courtier",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "huntsman",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "nightwatchman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "goon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "widow",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-1",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "widow",
+        "fanggu",
+        "oracle",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "damsel"
+      ],
+      "bluffs": [
+        "shugenja",
+        "pixie",
+        "highpriestess"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-2",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "fanggu",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "pixie",
+        "highpriestess"
+      ],
+      "bluffs": [
+        "preacher",
+        "innkeeper",
+        "flowergirl"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-3",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "cerenovus",
+        "pukka",
+        "pixie",
+        "highpriestess",
+        "general",
+        "preacher",
+        "innkeeper"
+      ],
+      "bluffs": [
+        "oracle",
+        "courtier",
+        "nightwatchman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-4",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "pukka",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "pixie"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "general",
+        "preacher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-5",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "pukka",
+        "farmer",
+        "shugenja",
+        "pixie",
+        "highpriestess",
+        "general",
+        "goon"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "flowergirl",
+        "oracle"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-6",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "vortox",
+        "nightwatchman",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "pixie",
+        "goon",
+        "mutant"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "general",
+        "preacher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-7",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "vortox",
+        "shugenja",
+        "pixie",
+        "highpriestess",
+        "general",
+        "preacher",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "oracle",
+        "courtier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-8",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "widow",
+        "imp",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "pixie",
+        "highpriestess",
+        "general",
+        "preacher"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "flowergirl",
+        "oracle"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-9",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "widow",
+        "godfather",
+        "imp",
+        "pixie",
+        "highpriestess",
+        "general",
+        "preacher",
+        "innkeeper",
+        "flowergirl",
+        "damsel"
+      ],
+      "bluffs": [
+        "oracle",
+        "courtier",
+        "nightwatchman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-10",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "vigormortis",
+        "oracle",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "pixie"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "flowergirl",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-11",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "widow",
+        "godfather",
+        "vigormortis",
+        "farmer",
+        "shugenja",
+        "pixie",
+        "highpriestess",
+        "general",
+        "preacher",
+        "innkeeper",
+        "damsel"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "oracle",
+        "courtier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-12",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "cerenovus",
+        "vigormortis",
+        "highpriestess",
+        "general",
+        "preacher",
+        "innkeeper",
+        "flowergirl",
+        "oracle",
+        "courtier",
+        "nightwatchman"
+      ],
+      "bluffs": [
+        "pixie",
+        "fisherman",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-13",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "cerenovus",
+        "fanggu",
+        "shugenja",
+        "pixie",
+        "highpriestess",
+        "general",
+        "preacher",
+        "innkeeper",
+        "flowergirl",
+        "drunk",
+        "goon"
+      ],
+      "bluffs": [
+        "oracle",
+        "courtier",
+        "nightwatchman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-14",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "fanggu",
+        "general",
+        "preacher",
+        "innkeeper",
+        "flowergirl",
+        "oracle",
+        "courtier",
+        "goon",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "pixie",
+        "highpriestess",
+        "nightwatchman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-15",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "widow",
+        "pukka",
+        "flowergirl",
+        "oracle",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "general",
+        "preacher",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-16",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "widow",
+        "pukka",
+        "pixie",
+        "highpriestess",
+        "general",
+        "preacher",
+        "innkeeper",
+        "flowergirl",
+        "oracle",
+        "courtier",
+        "nightwatchman"
+      ],
+      "bluffs": [
+        "shugenja",
+        "fisherman",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-17",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 13,
+      "style": "chaos",
+      "roles": [
+        "widow",
+        "godfather",
+        "cerenovus",
+        "vortox",
+        "oracle",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "pixie",
+        "highpriestess",
+        "damsel"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "flowergirl",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-18",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "widow",
+        "godfather",
+        "vortox",
+        "highpriestess",
+        "general",
+        "preacher",
+        "innkeeper",
+        "flowergirl",
+        "oracle",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "farmer"
+      ],
+      "bluffs": [
+        "shugenja",
+        "pixie",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-19",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "widow",
+        "godfather",
+        "cerenovus",
+        "vortox",
+        "innkeeper",
+        "flowergirl",
+        "oracle",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "general",
+        "preacher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-20",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "widow",
+        "godfather",
+        "cerenovus",
+        "imp",
+        "general",
+        "preacher",
+        "innkeeper",
+        "flowergirl",
+        "oracle",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "damsel",
+        "drunk",
+        "goon"
+      ],
+      "bluffs": [
+        "shugenja",
+        "pixie",
+        "highpriestess"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-21",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "cerenovus",
+        "pithag",
+        "imp",
+        "flowergirl",
+        "oracle",
+        "courtier",
+        "nightwatchman",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "pixie",
+        "highpriestess",
+        "general",
+        "drunk"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "goon",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e1677e64744d2bb5-candidate-22",
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "widow",
+        "vigormortis",
+        "nightwatchman",
+        "fisherman",
+        "farmer",
+        "shugenja",
+        "pixie",
+        "highpriestess",
+        "general",
+        "preacher",
+        "innkeeper",
+        "flowergirl",
+        "goon"
+      ],
+      "bluffs": [
+        "drunk",
+        "mutant",
+        "damsel"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "fanggu-outsider",
+      "roleId": "fanggu",
+      "summary": "Fang Gu: setup adds 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "godfather-outsider",
+      "roleId": "godfather",
+      "summary": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "pithag-damsel-jinx",
+      "roleId": "pithag",
+      "summary": "If a Pit-Hag creates a Damsel, the Storyteller chooses which player it is.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-goon-jinx",
+      "roleId": "pithag",
+      "summary": "If the Pit-Hag turns an evil player into the Goon, they can't turn good due to their own ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "widow-damsel-jinx",
+      "roleId": "widow",
+      "summary": "If the Widow is (or has been) in play, the Damsel is poisoned.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "preacher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "widow",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "courtier",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "shugenja",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "preacher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "courtier",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "innkeeper",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "flowergirl",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "shugenja": "sha256:20e3ef86b6aeed76cf4588bbf6b856480cd1fff5ece0e97b8e42928b98439fc0",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "highpriestess": "sha256:8494609fb30ae75114cd2a18e0053104c012cad339d6a9fe9964cd3554176c07",
+    "general": "sha256:fd1842203e0740d67a0126b7f4a7e2fcdaa670d5251cc4f8690d72d4a1d8933c",
+    "preacher": "sha256:3be7c2bf8f30817fc6c3d59c16eabd81a69e7758670f36d84f194baf638dd266",
+    "innkeeper": "sha256:d08a610a685471cf44a7ee19977c4a5466152b3d8d42c7a48a0a9d1b874b3304",
+    "flowergirl": "sha256:c0e4f2a93f2dc792eaf2ff9b0b5f7b6c07eb912e57d0106248aaa39972414f61",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "courtier": "sha256:85d105485cb1dc4ba656cc02fbc0e9d7c330cdaf59e31824aa867a63344c9f15",
+    "huntsman": "sha256:b0f38948ef04be8e1ddd284a4a44af8aa2ca936d3ae8eded18291db8c89e63f4",
+    "nightwatchman": "sha256:9abb4633d92f6cce99fb53748bb1020e8e0a12e98274df257a2bc16cf75bac19",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "goon": "sha256:20785befe683a597aa8e6ea54bbe8473a93c9db400b21a3f40b73c0821949343",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "widow": "sha256:836cc4e1fdf47586df7e6f3065c6d80a671dd89bd1ed1c1a1661503e7945667a",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f"
+  }
+}
