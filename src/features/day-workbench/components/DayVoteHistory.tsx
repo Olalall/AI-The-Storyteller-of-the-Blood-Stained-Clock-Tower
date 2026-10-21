@@ -5,7 +5,7 @@ import { Field } from '../../../components/ui/Field'
 import type { GameSessionState, VoteRoundEntry } from '../../game-session/types'
 import type { GameSessionAction } from '../../game-session/state/sessionReducer'
 import { projectEffectiveTimelineEntries } from '../../game-session/state/projectTimelineHistory'
-import { projectCurrentPlayerStates } from '../../game-session/state/projectors'
+import { canRecordGhostVotes, votePlayerStates } from '../state/ghostVotes'
 import { canCompleteVoteRound, voteCount, type VoteRoundDraft } from '../state/voteRound'
 import { DayVoteEditor } from './DayVoteEditor'
 
@@ -41,10 +41,10 @@ export function DayVoteHistory({ session, dispatch, disabled }: { session: GameS
     <Sheet open={Boolean(editing)} onOpenChange={(open) => { if (!open) setEditing(null) }} title={editing?.voided ? '撤销票型' : '更正票型'} description="原记录保留；会更新有效票面，不改已确认的处决或玩家状态。" presentation="page">
       {editing && draft ? <div className="day-vote-correction">
         <p>原记录：{editing.entry.nominatorSeatId}号提名{editing.entry.nomineeSeatId}号 · {voteCount(editing.entry)}票［{editing.entry.id}］</p>
-        {!editing.voided ? <DayVoteEditor draft={draft} playerCount={session.playerCount} playerStates={projectCurrentPlayerStates(session)} onChange={(update) => setDraft((current) => current ? update(current) : current)} /> : null}
+        {!editing.voided ? <DayVoteEditor draft={draft} playerCount={session.playerCount} playerStates={votePlayerStates(session, editing.entry.id)} session={session} originalEntryId={editing.entry.id} onChange={(update) => setDraft((current) => current ? update(current) : current)} /> : null}
         <Field label={editing.voided ? '撤销原因' : '更正原因'}><textarea maxLength={500} value={reason} onChange={(event) => setReason(event.target.value)} /></Field>
         {submittedId ? <p role="status">尚未写入；请检查编辑权或记录是否已有新版本，输入已保留。</p> : null}
-        <Button variant={editing.voided ? 'danger' : 'primary'} disabled={disabled || !reason.trim() || (!editing.voided && !canCompleteVoteRound(draft))} onClick={confirm}>{editing.voided ? '确认撤销票型' : '确认更正票型'}</Button>
+        <Button variant={editing.voided ? 'danger' : 'primary'} disabled={disabled || !reason.trim() || (!editing.voided && (!canCompleteVoteRound(draft) || !canRecordGhostVotes(session, draft, editing.entry.id)))} onClick={confirm}>{editing.voided ? '确认撤销票型' : '确认更正票型'}</Button>
       </div> : null}
     </Sheet>
   </details>

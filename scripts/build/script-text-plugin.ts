@@ -5,7 +5,7 @@ import { compactScriptText, createScriptTextPool, renderScriptTextPool, scriptTe
 
 /** Build-only compression generated from the actual packs, never a second knowledge source. */
 export function scriptTextPlugin(): Plugin {
-  let root = ''
+  let roots: string[] = []
   let pool = new Map<string, string>()
   const files = new Set<string>()
   const normalized = (path: string) => path.replaceAll('\\', '/')
@@ -13,12 +13,12 @@ export function scriptTextPlugin(): Plugin {
     name: 'botc-compact-script-text',
     apply: 'build',
     enforce: 'pre',
-    configResolved(config) { root = resolve(config.root, 'src/domain/scripts/packs') },
+    configResolved(config) { roots = ['packs', 'role-library'].map((directory) => resolve(config.root, 'src/domain/scripts', directory)) },
     async buildStart() {
       files.clear()
-      const names = (await readdir(root, { recursive: true })).filter((name) => name.endsWith('.ts') && !name.endsWith('.test.ts')).sort()
-      const sources = await Promise.all(names.map(async (name) => {
-        const file = resolve(root, name)
+      const paths = (await Promise.all(roots.map(async (root) => (await readdir(root, { recursive: true }))
+        .filter((name) => name.endsWith('.ts') && !name.endsWith('.test.ts')).sort().map((name) => resolve(root, name))))).flat()
+      const sources = await Promise.all(paths.map(async (file) => {
         files.add(normalized(file))
         this.addWatchFile(file)
         return readFile(file, 'utf8')

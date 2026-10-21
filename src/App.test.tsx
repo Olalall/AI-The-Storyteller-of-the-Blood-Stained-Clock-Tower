@@ -76,6 +76,36 @@ describe('App night entry', () => {
 describe('App phase entry feedback', () => {
   beforeEach(() => window.localStorage.clear())
 
+  it('opens the current journal separately from a previously saved archive', async () => {
+    const current = createPrototypeGameSession()
+    const archived = { ...current, id: 'previous-game' }
+    localStorage.setItem(gameSessionStorageKey, JSON.stringify(current))
+    localStorage.setItem(gameArchiveStorageKey, JSON.stringify([{ id: 'previous-archive', sessionId: archived.id, session: archived, archivedAt: '2026-10-20T00:00:00Z', winner: 'good', winnerLabel: '善良获胜', scriptName: '上次归档', playerCount: 12, schemaVersion: 2, timeline: [], summary: { alive: 12, dead: 0, phases: 0, records: 0, nightActions: 0, dayActions: 0, votes: 0, executions: 0, corrections: 0 } }]))
+    render(<App />)
+    const user = userEvent.setup()
+    await user.click(screen.getByRole('button', { name: '本局记录' }))
+    expect(await screen.findByRole('dialog', { name: '日记' })).toBeVisible()
+    expect(screen.queryByRole('dialog', { name: '历史复盘' })).not.toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: '关闭日记' }))
+    await user.click(screen.getByRole('button', { name: '历史复盘' }))
+    expect(await screen.findByRole('dialog', { name: '历史复盘' })).toBeVisible()
+    expect(storedSession()).toEqual(current)
+  })
+
+  it.each(['夜晚', '白天'])('opens the current journal from the %s workbench without archiving or altering records', async (phase) => {
+    const session = createPrototypeGameSession()
+    localStorage.setItem(gameSessionStorageKey, JSON.stringify(session))
+    render(<App />)
+    const user = userEvent.setup()
+    await user.click(screen.getByRole('button', { name: new RegExp(`进入${phase}`) }))
+    await screen.findByRole('heading', { name: phase === '夜晚' ? '第3夜' : '第3天' })
+    const before = storedSession()
+    await user.click(screen.getByRole('button', { name: '本局记录' }))
+    expect(await screen.findByRole('dialog', { name: '日记' })).toBeVisible()
+    expect(storedSession()).toEqual(before)
+    expect(storedArchives()).toEqual([])
+  })
+
   it('returns to the saved game after day close and opens the next day only on a new explicit entry', async () => {
     const session = gameSessionReducer(createPrototypeGameSession(), { type: 'open-phase-segment', phaseKind: 'day', createdAt: '2026-10-20T01:00:00Z' })
     localStorage.setItem(gameSessionStorageKey, JSON.stringify(session))

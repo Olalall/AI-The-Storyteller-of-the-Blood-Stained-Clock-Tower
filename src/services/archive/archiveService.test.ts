@@ -29,6 +29,15 @@ describe('archive service command boundary', () => {
     expect(() => archiveGame({ ...command, winner: 'evil' })).toThrow('不能覆盖不同的对局内容')
   })
 
+  it('counts a withdrawn vote as a correction while retaining its audit chain', () => {
+    const session = createPrototypeGameSession()
+    const vote = { id: 'vote', kind: 'vote_round' as const, segmentId: 'night-3', createdAt: '2026-10-21T01:00:00Z', confirmedBy: 'storyteller' as const, roundId: 'round', nominatorSeatId: 1, nomineeSeatId: 2, threshold: 4, raisedSeatIds: [1], ghostVoteSeatIds: [] }
+    session.timeline = [vote, { ...vote, id: 'void', createdAt: '2026-10-21T02:00:00Z', correctionOf: vote.id, correctionReason: '重复死亡票', voided: true }]
+    const archive = createGameArchiveRecord({ session, winner: 'undecided' })
+    expect(archive.summary).toMatchObject({ votes: 0, records: 0, corrections: 1 })
+    expect(archive.session.timeline).toEqual(session.timeline)
+  })
+
   it('allows reset only when the archive exists and belongs to the current session', () => {
     const session = createPrototypeGameSession()
     const { archive } = archiveGame({

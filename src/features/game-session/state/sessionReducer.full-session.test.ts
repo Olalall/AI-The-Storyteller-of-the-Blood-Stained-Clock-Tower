@@ -56,7 +56,7 @@ function appendVote(session: GameSessionState, round: number, nomineeSeatId: num
     entry: {
       kind: 'vote_round',
       roundId: `round-${round}`,
-      nominatorSeatId: round,
+      nominatorSeatId: round + 8,
       nomineeSeatId,
       threshold: 6,
       raisedSeatIds,
@@ -120,10 +120,10 @@ describe('12人结构化流程回归', () => {
       entry: { kind: 'day_action', category: 'public_event', actorSeatId: null, targetSeatIds: [6], summary: '公开事件：6号公开声明', details: [] },
       input: { id: 'day-1-event', createdAt: '2026-07-14T01:00:30.000Z' },
     })
-    const vote1 = appendVote(withEvent, 1, 4, [1, 2, 3, 4, 5, 6])
+    const vote1 = appendVote(withEvent, 1, 4, [1, 3, 4, 5, 6, 7])
     const vote2 = appendVote(vote1, 2, 5, [1, 2, 3, 4, 5, 6, 7], [2])
-    const vote3 = appendVote(vote2, 3, 6, [1, 2, 3, 4, 5, 6, 7])
-    const vote4 = appendVote(vote3, 4, 8, [1, 2, 3, 4, 5, 6, 7, 8])
+    const vote3 = appendVote(vote2, 3, 6, [1, 3, 4, 5, 6, 7, 8])
+    const vote4 = appendVote(vote3, 4, 8, [1, 3, 4, 5, 6, 7, 8, 9])
     const resolved = gameSessionReducer(vote4, {
       type: 'confirm-day-execution',
       daySegmentId: 'day-1',

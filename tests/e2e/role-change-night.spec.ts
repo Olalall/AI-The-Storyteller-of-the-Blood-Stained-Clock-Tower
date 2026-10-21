@@ -12,6 +12,11 @@ const key = 'botc-copilot-session-v1', at = '2026-10-18T00:00:00.000Z'
 async function saved(page: Page): Promise<GameSessionState> {
   return page.evaluate((storageKey) => JSON.parse(localStorage.getItem(storageKey)!), key)
 }
+async function ready(page: Page) {
+  // Observe the first app write rather than clicking before the editor lease is ready.
+  await expect.poll(() => page.evaluate(() => (window as unknown as { roleChangeWritesForTest: number }).roleChangeWritesForTest), { timeout: 15000 }).toBeGreaterThan(0)
+  await expect(page.getByRole('dialog', { name: '编辑保护', exact: true })).toHaveCount(0)
+}
 
 function nextNight(input: GameSessionState) {
   let session = gameSessionReducer(input, { type: 'open-phase-segment', phaseKind: 'night', createdAt: at })
@@ -47,8 +52,15 @@ async function prepare(page: Page, mode: 'pit-hag' | 'fang-gu' | 'chef') {
   await page.route('**/api/ai/**', (route) => route.abort())
   await page.addInitScript(({ storageKey, seed }) => {
     if (!localStorage.getItem(storageKey)) localStorage.setItem(storageKey, JSON.stringify(seed))
+    Object.assign(window, { roleChangeWritesForTest: 0 })
+    const setItem = Storage.prototype.setItem
+    Storage.prototype.setItem = function (key, value) {
+      setItem.call(this, key, value)
+      if (this === localStorage && key === storageKey) (window as unknown as { roleChangeWritesForTest: number }).roleChangeWritesForTest++
+    }
   }, { storageKey: key, seed: session })
   await page.goto('/')
+  await ready(page)
   await page.getByRole('button', { name: /^进入夜晚/ }).click()
   await expect(page.getByRole('button', { name: '更换角色', exact: true })).toBeVisible()
   return session
@@ -63,6 +75,7 @@ async function changeByUI(page: Page, seatId: number, name: string, timing: 'ton
   await dialog.getByRole('radio', { name: timing === 'tonight' ? '当晚处理新能力' : '本夜不再发动新能力', exact: true }).check()
   await dialog.getByRole('button', { name: `确认改为${name}`, exact: true }).click()
   await expect(dialog).toHaveCount(0)
+  await expect.poll(async () => projectCurrentAssignments(await saved(page)).find((entry) => entry.seatId === seatId)?.role.name).toBe(name)
 }
 
 async function focusByUI(page: Page, seatId: number, roleName: string) {
@@ -87,7 +100,8 @@ for (const width of [390, 1440]) {
     expect(changed.initialPlayerStates).toEqual(before.initialPlayerStates)
     await focusByUI(page, 2, '数学家')
     await expect(page.locator('.wake-facts')).toContainText('主持已确认当晚处理新获得的能力')
-    await page.getByRole('button', { name: '已记录', exact: true }).click()
+    await page.getByRole('textbox', { name: '正式告知数字', exact: true }).fill('0')
+    await page.getByRole('button', { name: '记录正式告知', exact: true }).click()
     await page.getByRole('button', { name: '确认本项', exact: true }).click()
     await expect.poll(async () => (await saved(page)).timeline.findLast((entry) => entry.kind === 'night_action')?.wakeItemId).toBe(addition.id)
     const final = await saved(page), record = final.timeline.findLast((entry) => entry.kind === 'night_action')
@@ -95,6 +109,7 @@ for (const width of [390, 1440]) {
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
     await page.screenshot({ path: info.outputPath('savant-to-mathematician.png'), animations: 'disabled' })
     await page.reload()
+    await ready(page)
     expect((await saved(page)).timeline).toEqual(final.timeline)
   })
 
@@ -103,7 +118,7 @@ for (const width of [390, 1440]) {
     await prepare(page, 'fang-gu')
     await focusByUI(page, 12, '方古')
     await page.getByRole('button', { name: '选择8号玩家', exact: true }).click()
-    await page.getByRole('button', { name: '记录结果', exact: true }).click()
+    await page.getByRole('button', { name: '普通击杀候选', exact: true }).click()
     await page.getByRole('button', { name: '确认本项', exact: true }).click()
     const recorded = await saved(page)
     await changeByUI(page, 8, '方古', 'later')
@@ -118,6 +133,7 @@ for (const width of [390, 1440]) {
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
     await page.screenshot({ path: info.outputPath('fang-gu-later.png'), animations: 'disabled' })
     await page.reload()
+    await ready(page)
     expect((await saved(page)).timeline).toEqual(changed.timeline)
   })
 
@@ -133,17 +149,19 @@ for (const width of [390, 1440]) {
     expect(changed.nightRuns[firstRunId]).toEqual(before.nightRuns[firstRunId])
     await focusByUI(page, 1, '厨师')
     await expect(page.locator('.wake-facts')).toContainText('在你的首个夜晚，你会得知场上邻座的邪恶玩家有多少对。')
-    // The generic number-information UI currently stores host-confirmed detail as context.
+    // Supplemental reasoning and the formal number must both survive the role change.
     await page.getByText('补充已核对事实（可选）', { exact: true }).click()
     await page.getByRole('textbox', { name: '说书人已核对的事实', exact: true }).fill('主持已核对新厨师今晚的信息为1对，已私下告知本人。')
     await page.getByRole('button', { name: '保存补充事实', exact: true }).click()
-    await page.getByRole('button', { name: '已记录', exact: true }).click()
+    await page.getByRole('textbox', { name: '正式告知数字', exact: true }).fill('1')
+    await page.getByRole('button', { name: '记录正式告知', exact: true }).click()
     await page.getByRole('button', { name: '确认本项', exact: true }).click()
     await expect.poll(async () => (await saved(page)).timeline.findLast((entry) => entry.kind === 'night_action')?.kind).toBe('night_action')
     const final = await saved(page)
     expect(final.timeline.findLast((entry) => entry.kind === 'night_action')?.kind).toBe('night_action')
     const last = final.timeline.findLast((entry) => entry.kind === 'night_action')!
     if (last.kind === 'night_action') expect(last.record.snapshot.storytellerContext).toContain('新厨师今晚的信息为1对')
+    if (last.kind === 'night_action') expect(last.record.snapshot.informationGiven).toBe('1')
     expect(final.initialPlayerStates).toEqual(before.initialPlayerStates)
     await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width)
     await page.screenshot({ path: info.outputPath('new-chef-on-later-night.png'), animations: 'disabled' })

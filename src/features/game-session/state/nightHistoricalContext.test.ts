@@ -131,6 +131,57 @@ function sessionWithDayHistory(entries: DayActionEntry[]): GameSessionState {
 }
 
 describe('跨夜目标投影', () => {
+  it('does not demand a Moonchild day choice before any death trigger', () => {
+    const session = sessionWithDayHistory([])
+    const before = structuredClone(session)
+    const projected = applyWakeHistoricalContext(session, complexItem('moonchild'), 3)
+    expect(projected.historicalContext).toMatchObject({ kind: 'moonchild_choice', status: 'clear', seatIds: [] })
+    expect(projected.history).toContain('无需白天选择')
+    expect(projected.outcomeOptions.map((option) => option.id)).toEqual(['no-death-candidate'])
+    expect(session).toEqual(before)
+  })
+
+  it('still flags a dead Moonchild with a missing choice for manual review', () => {
+    const wake = { ...complexItem('moonchild'), status: { life: 'dead' as const, impairments: [], markers: [] } }
+    const projected = applyWakeHistoricalContext(sessionWithDayHistory([]), wake, 3)
+    expect(projected.historicalContext?.status).toBe('missing')
+    expect(projected.outcomeOptions.map((option) => option.id)).toEqual(['manual-review'])
+  })
+
+  it('does not conceal a recorded Moonchild death trigger merely because the actor is alive again', () => {
+    const session = sessionWithDayHistory([])
+    const before = { life: 'alive' as const, poisoned: false, drunk: false, markers: [] }
+    session.timeline.push({ id: 'moonchild-death', kind: 'player_state_changed', segmentId: 'day-2', createdAt: AT,
+      confirmedBy: 'storyteller', seatId: 2, before, after: { ...before, life: 'dead' }, reason: '主持确认死亡' })
+    expect(applyWakeHistoricalContext(session, complexItem('moonchild'), 3).historicalContext?.status).toBe('missing')
+  })
+
+  it('reprojects unused once-per-game hints without accumulating duplicate text', () => {
+    const session = sessionWithHistory([])
+    const once = applyWakeHistoricalContext(session, complexItem('professor'), 3)
+    expect(applyWakeHistoricalContext(session, once, 3)).toEqual(once)
+  })
+
+  it('restores the real input contract after an earlier Professor use is corrected to no action', () => {
+    const used = { ...nightEntry('professor-used-then-corrected', 4), roleId: 'professor',
+      record: { revision: 1, snapshot: { ...emptyWakeDraft(), targets: [4], outcomeId: 'record', storytellerResult: '教授使用能力' } } }
+    const session = sessionWithHistory([used])
+    session.scriptId = 'bad-moon-rising'
+    const restricted = applyWakeHistoricalContext(session, complexItem('professor'), 3)
+    expect(restricted.outcomeOptions[0].id).toBe('already-used')
+    const before = structuredClone(used)
+    session.timeline.push({ ...used, id: 'professor-use-corrected', correctionOf: used.id,
+      createdAt: '2026-08-07T00:02:00.000Z', record: { revision: 2, snapshot: { ...emptyWakeDraft(), outcomeId: 'skip', storytellerResult: '更正为未发动' } } })
+    const restored = applyWakeHistoricalContext(session, restricted, 3)
+    expect(restored).toMatchObject({ id: restricted.id, targetCount: 1, applicability: 'applicable' })
+    expect(restored.previousTargets).toBeUndefined()
+    expect(restored.aiAdviceEnabled).not.toBe(false)
+    expect(restored.outcomeOptions.some((option) => option.id === 'record' && option.requiredInputs.includes('targets'))).toBe(true)
+    expect(restored.outcomeOptions.some((option) => option.id === 'already-used')).toBe(false)
+    expect(applyWakeHistoricalContext(session, restored, 3)).toEqual(restored)
+    expect(session.timeline.find((entry) => entry.id === used.id)).toEqual(before)
+  })
+
   it('forbids a healthy Balloonist from recording the same shown type as last night', () => {
     const projected = applyWakeHistoricalContext(sessionWithHistory([
       balloonistEntry('outsider'),

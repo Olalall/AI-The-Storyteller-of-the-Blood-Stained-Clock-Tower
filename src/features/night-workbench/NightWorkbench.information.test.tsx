@@ -9,6 +9,53 @@ import { informationSession, projected } from './state/nightInformation.test-sup
 import { parseSessionBackup } from '../../services/session/sessionBackup'
 
 describe('night information UI', () => {
+  it('records no outsiders as a formal Librarian answer without inventing targets or a role', async () => {
+    let latest = informationSession('librarian')
+    function Harness() {
+      const [session, dispatchSession] = useReducer(gameSessionReducer, latest)
+      latest = session
+      return <NightWorkbench sessionBinding={{ session, dispatchSession }} onExit={() => {}} />
+    }
+    const user = userEvent.setup()
+    render(<Harness />)
+    await user.click(screen.getByRole('button', { name: '没有外来者' }))
+    expect(screen.getByRole('button', { name: '确认本项' })).toBeEnabled()
+    await user.click(screen.getByRole('button', { name: '确认本项' }))
+    const state = projected(latest)
+    expect(state.confirmedRecords[state.activeCursorId][0].snapshot).toMatchObject({ targets: [], roleChoice: '', informationGiven: '没有外来者。' })
+  })
+
+  it('requires a legal formal number on the current wake card and persists the explicit answer after reload', async () => {
+    let latest = informationSession('empath')
+    function Harness() {
+      const [session, dispatchSession] = useReducer(gameSessionReducer, latest)
+      latest = session
+      return <NightWorkbench sessionBinding={{ session, dispatchSession }} onExit={() => {}} />
+    }
+    const user = userEvent.setup()
+    const view = render(<Harness />)
+    const field = screen.getByRole('textbox', { name: '正式告知数字' })
+    expect(screen.getByRole('button', { name: '记录正式告知' })).toBeDisabled()
+    await user.type(field, '3')
+    expect(screen.getByRole('alert')).toHaveTextContent('请输入0-2的整数')
+    expect(screen.getByRole('button', { name: '记录正式告知' })).toBeDisabled()
+    await user.clear(field)
+    await user.type(field, '0')
+    await user.click(screen.getByRole('button', { name: '记录正式告知' }))
+    await user.click(screen.getByRole('button', { name: '记录正式告知' }))
+    expect(field).toHaveValue('0')
+    expect(screen.getByRole('button', { name: '确认本项' })).toBeDisabled()
+    await user.click(screen.getByRole('button', { name: '记录正式告知' }))
+    await user.click(screen.getByRole('button', { name: '确认本项' }))
+    expect(screen.getByRole('textbox', { name: '正式告知数字' })).toBeDisabled()
+    view.unmount()
+    latest = parseSessionBackup(JSON.stringify(latest))
+    render(<Harness />)
+    expect(screen.getByRole('textbox', { name: '正式告知数字' })).toHaveValue('0')
+    const state = projected(latest)
+    expect(state.confirmedRecords[state.activeCursorId][0].snapshot.informationGiven).toBe('0')
+  })
+
   it('keeps both information seats selected on the real workbench', async () => {
     let latest = informationSession('librarian')
     function Harness() {

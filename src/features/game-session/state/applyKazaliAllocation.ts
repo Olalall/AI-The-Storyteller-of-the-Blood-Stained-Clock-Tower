@@ -89,7 +89,7 @@ export function applyKazaliAllocation(session: GameSessionState, action: Extract
   const oldIds = new Set(queue.map((item) => item.id))
   queue.push(...fresh.filter((item) => !oldIds.has(item.id)))
   const order = new Map(getSmartScriptPack(session.scriptId).nightOrders.firstNight.map((item) => [item.roleId, item.order]))
-  const position = (item: WakeItem) => order.get(item.interactionVersion === 'marionette/pretend-v1'
+  const position = (item: WakeItem) => order.get(item.interactionVersion === 'marionette/pretend-v1' || item.interactionVersion.startsWith('drunk/pretend-')
     ? next.identityPresentations?.[item.seatId]?.shownRole.id ?? ''
     : item.systemStep?.kind === 'audience_notice' ? item.roleId.replace(/^system-audience-/, '') : item.roleId) ?? Infinity
   queue.sort((a, b) => position(a) - position(b) || a.seatId - b.seatId)

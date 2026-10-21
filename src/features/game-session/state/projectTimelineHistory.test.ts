@@ -8,6 +8,17 @@ import {
 } from './projectTimelineHistory'
 
 describe('timeline history projection', () => {
+  it.each(['tonight', 'initial', 'later'] as const)('attributes a %s role change to its original night and describes the confirmed timing', (timing) => {
+    const session = createPrototypeGameSession()
+    const run = Object.values(session.nightRuns)[0]
+    const roles = session.scriptRoles!
+    const change = { id: 'change-tonight', kind: 'setup_changed' as const, segmentId: null, createdAt: '2026-10-21T01:00:00Z', confirmedBy: 'storyteller' as const,
+      baseSetupId: 'setup', originNightRunId: run.id, nightAbilityTiming: timing, seatId: 1, fromRole: roles[0], toRole: roles[1], reason: '当夜显式调整', effectiveFrom: 'future_workbenches' as const }
+    const history = projectTimelineHistory({ ...session, timeline: [...session.timeline, change] }).find((entry) => entry.id === change.id)!
+    expect(history.phaseLabel).toBe(session.phaseSegments.find((segment) => segment.id === run.phaseSegmentId)?.label)
+    expect(history.details).toContain(timing === 'later' ? '身份立即更新，本夜不再发动新能力' : timing === 'initial' ? '身份立即更新，本夜仅处理新角色初始化' : '身份立即更新，新能力按本夜夜序处理')
+    expect(history.details).not.toContain('从后续工作台起生效')
+  })
   it('keeps the audit chain while current projections use only the newest correction', () => {
     const session = createPrototypeGameSession()
     const original = session.timeline.find((entry): entry is NightActionEntry => entry.kind === 'night_action')
