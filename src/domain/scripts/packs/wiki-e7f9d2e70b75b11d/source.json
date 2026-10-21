@@ -1,0 +1,329 @@
+[
+  {
+    "id": "_meta",
+    "name": "失之交臂",
+    "author": "小巷",
+    "logo": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/3/3f/6y8j91c1cwydogjgpcrtbtofortjoch.png",
+    "almanac": "有问题联系SE谢谢喵~"
+  },
+  {
+    "id": "_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/0/05/a5613uupc0bffr0sg9egfotdaofup1e.png",
+    "firstNightReminder": "唤醒调查员，对他指向两名玩家，并展示一个爪牙角色标记。这两名玩家其中之一是这个爪牙。",
+    "reminders": [
+      "爪牙",
+      "错误"
+    ],
+    "name": "调查员",
+    "team": "townsfolk",
+    "ability": "在你的首个夜晚，你会得知两名玩家和一个爪牙角色：这两名玩家之一是该角色（或者你会得知没有爪牙在场）。",
+    "firstNight": 22000
+  },
+  {
+    "id": "1_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/b/b5/hsyches6mycnt4uyofz8uwqw1y06r0o.png",
+    "reminders": [
+      "失去能力"
+    ],
+    "name": "猎手",
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，你可以在白天时公开选择一名玩家：如果他是恶魔，他死亡。"
+  },
+  {
+    "id": "2_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/7/79/8rd5mfvpkzq4i73sctbzjyrvthr082g.png",
+    "name": "镇长",
+    "team": "townsfolk",
+    "ability": "如果只有三名玩家存活且白天没有人被处决，你的阵营获胜。如果你在夜晚死亡，可能会有一名其他玩家代替你死亡。"
+  },
+  {
+    "id": "3_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/ed/5u0zlyh58gvbif2oan8qv9yhsta5lnh.png",
+    "firstNightReminder": "唤醒哲学家，他可以摇头不使用能力，或选择获得角色列表上的一个善良角色的能力。",
+    "otherNightReminder": "如果哲学家未曾使用能力，唤醒哲学家，他可以摇头不使用能力，或选择获得角色列表上的一个善良角色的能力。",
+    "reminders": [
+      "醉酒"
+    ],
+    "remindersGlobal": [
+      "是哲学家"
+    ],
+    "name": "哲学家",
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在夜晚时，你可以选择一个善良角色：你获得该角色的能力。如果这个角色在场，他醉酒。",
+    "firstNight": 11,
+    "otherNight": 2
+  },
+  {
+    "id": "4_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/9/9c/5u4qpg1fv4x7nfx0b632914v9hoq6vf.png",
+    "reminders": [
+      "失去能力"
+    ],
+    "name": "艺术家",
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在白天时，你可以私下询问说书人一个是非问题，你会得知该问题的答案。"
+  },
+  {
+    "id": "5_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/6/6a/9r3z8m0fen1nqr4u8vfx35rzei7ekp2.png",
+    "firstNightReminder": "唤醒小精灵，对他展示一个在场镇民角色标记。",
+    "reminders": [
+      "疯狂",
+      "获得能力"
+    ],
+    "name": "小精灵",
+    "team": "townsfolk",
+    "ability": "在你的首个夜晚，你会得知一个在场的镇民角色。如果你“疯狂”地证明你是该角色，当他死亡时你获得该角色的能力。",
+    "firstNight": 20000
+  },
+  {
+    "id": "6_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/6/6f/oi460mqpnxwd7zgyboe78patdo8amc5.png",
+    "firstNightReminder": "唤醒传教士，让他选择一名玩家。如果他选中了爪牙，该爪牙失去能力。在传教士入睡后通知该爪牙被传教士选中。",
+    "otherNightReminder": "唤醒传教士，让他选择一名玩家。如果他选中了爪牙，该爪牙失去能力。在传教士入睡后通知该爪牙被传教士选中。",
+    "reminders": [
+      "失去能力"
+    ],
+    "name": "传教士",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你要选择一名玩家：如果你选中了爪牙，他会得知被传教士选中。所有被你选中的爪牙失去能力。",
+    "firstNight": 16000,
+    "otherNight": 4
+  },
+  {
+    "id": "7_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/b/b6/1x6scjlmb7i1o7javesgbdnzed10rtk.png",
+    "firstNightReminder": "如果异教领袖的阵营发生了变化，将他唤醒并通知他最新阵营。",
+    "otherNightReminder": "如果异教领袖的阵营发生了变化，将他唤醒并通知他最新阵营。",
+    "name": "异教领袖",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你会转变为与你邻近的一名存活的玩家的阵营。每个白天，你可以提议所有玩家加入你的教派，如果所有善良玩家同意加入，你的阵营获胜。",
+    "firstNight": 23000,
+    "otherNight": 10
+  },
+  {
+    "id": "8_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/5/57/qrlls4zem4zblwft8qbp5ribzis1o5p.png",
+    "firstNightReminder": "唤醒巡山人，他可以摇头不使用能力，或选择一名玩家。如果巡山人选中了落难少女，则在巡山人入睡后通知落难少女角色变化。",
+    "otherNightReminder": "如果巡山人未曾使用能力，唤醒巡山人，他可以摇头不使用能力，或选择一名玩家。如果巡山人选中了落难少女，则在巡山人入睡后通知落难少女角色变化。",
+    "reminders": [
+      "失去能力"
+    ],
+    "setup": true,
+    "name": "巡山人",
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在夜晚时，你可以选择一名存活的玩家：如果你选中了落难少女，她会变成一个不在场的镇民角色。[+落难少女]",
+    "firstNight": 21000,
+    "otherNight": 9
+  },
+  {
+    "id": "9_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/0/00/aw2v4g3sluzne7vz7flvlbkqon1cgmk.png",
+    "firstNightReminder": "唤醒炼金术士，对他展示他获得的能力所对应的爪牙角色标记。",
+    "remindersGlobal": [
+      "是炼金术士"
+    ],
+    "setup": true,
+    "name": "炼金术士",
+    "team": "townsfolk",
+    "ability": "你拥有一个爪牙角色的能力。当你使用能力时，说书人可能会要求你更换选择。",
+    "firstNight": 12
+  },
+  {
+    "id": "10_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/a5/q0n6shhup6csob706816ux2tvvedvyf.png",
+    "firstNightReminder": "如果魔术师在场，则需要对爪牙信息环节和恶魔信息环节的相关内容进行调整。",
+    "name": "魔术师",
+    "team": "townsfolk",
+    "ability": "恶魔会以为你是爪牙。爪牙会以为你是恶魔。",
+    "firstNight": 14
+  },
+  {
+    "id": "11_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/6/6e/f49ozgdcvrsmvd6x7cuz7xui4yafy8n.png",
+    "firstNightReminder": "如果罂粟种植者在场，跳过今晚的爪牙信息和恶魔信息环节。",
+    "otherNightReminder": "如果罂粟种植者死于白天，插入执行爪牙信息和恶魔信息（不包含恶魔伪装）流程。如果罂粟种植者死于夜晚，则在当前玩家行动结束后立即执行相关流程。",
+    "reminders": [
+      "唤醒邪恶"
+    ],
+    "name": "罂粟种植者",
+    "team": "townsfolk",
+    "ability": "爪牙和恶魔互相不认识。如果你死亡，当晚他们会互相认识。",
+    "firstNight": 13,
+    "otherNight": 3
+  },
+  {
+    "id": "12_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/b/bf/0wf6zizpzk61n1txjo233fembq7utl3.png",
+    "name": "戏法师",
+    "team": "townsfolk",
+    "ability": "'每个白天，你可以公开进行一次谁是爪牙，谁是恶魔的猜测。如果你猜对，善良阵营获胜。"
+  },
+  {
+    "id": "13_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/ac/mrlvexpiy2a8gedva2hapgce6zk57if.png",
+    "name": "圣徒",
+    "team": "outsider",
+    "ability": "如果你死于处决，你的阵营落败。"
+  },
+  {
+    "id": "14_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/ee/7ba2sxxygegbc9ac1snt65mt5gmuz5d.png",
+    "name": "呆瓜",
+    "team": "outsider",
+    "ability": "当你得知你死亡时，你要公开选择一名存活的玩家：如果他是邪恶的，你的阵营落败。"
+  },
+  {
+    "id": "15_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/c/c5/l8pmkc49xrhmk0yrlw6h419k2wnoetf.png",
+    "name": "异端分子",
+    "team": "outsider",
+    "ability": "对调胜负结果，即使你已死亡。"
+  },
+  {
+    "id": "16_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/7/78/plh5dvc0wcrn429ff19lk6xoenw9bbr.png",
+    "firstNightReminder": "如果落难少女在场，对爪牙展示落难少女角色标记。",
+    "reminders": [
+      "已被猜测"
+    ],
+    "name": "落难少女",
+    "team": "outsider",
+    "ability": "所有爪牙都知道落难少女在场。每局游戏限一次，任意爪牙可以公开猜测你是落难少女，如果猜对，你的阵营落败。",
+    "firstNight": 2500
+  },
+  {
+    "id": "17_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/a1/gk7ybmowkkwp8b4m512yuo9ux370oqo.png",
+    "name": "主谋",
+    "team": "minion",
+    "ability": "如果恶魔因为死于处决而因此导致游戏结束时，再额外进行一个夜晚和一个白天。在那个白天如果有玩家被处决，他的阵营落败。"
+  },
+  {
+    "id": "18_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/ed/8qaa5aewt5cibvvxqyzr8ny7ohqyktz.png",
+    "firstNightReminder": "分别独自唤醒镜像双子和对立双子，告知他们由于镜像双子能力而得知的信息。",
+    "reminders": [
+      "对立双子"
+    ],
+    "name": "镜像双子",
+    "team": "minion",
+    "ability": "你与一名对立阵营的玩家互相知道对方是什么角色。如果其中善良玩家被处决，邪恶阵营获胜。如果你们都存活，善良阵营无法获胜。",
+    "firstNight": 18000
+  },
+  {
+    "id": "19_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/5/5e/mli7gcqjj99764xroey5tjb9n29h7e5.png",
+    "firstNightReminder": "唤醒恐惧之灵，让他选择一名玩家，随后通知所有玩家恐惧之灵选择了一名玩家。",
+    "otherNightReminder": "唤醒恐惧之灵，让他选择一名玩家，随后如果恐惧之灵的目标发生了变更，通知所有玩家恐惧之灵选择了一名玩家。",
+    "reminders": [
+      "恐惧"
+    ],
+    "name": "恐惧之灵",
+    "team": "minion",
+    "ability": "每个夜晚，你要选择一名玩家：如果你提名他且他被处决，他的阵营落败。当你首次选择或更换目标时，所有玩家都会得知你选择了新的玩家。",
+    "firstNight": 19000,
+    "otherNight": 5
+  },
+  {
+    "id": "20_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/c/c9/kh5wed6rg4r03mlw7uxqdgwuvnxp99s.png",
+    "reminders": [
+      "已宣称"
+    ],
+    "name": "哥布林",
+    "team": "minion",
+    "ability": "如果你在被提名后公开声明自己是哥布林且在那个白天被处决，你的阵营获胜。"
+  },
+  {
+    "id": "21_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/3/3a/3bzh51psxnf95lld35qn6wywp4aduor.png",
+    "otherNightReminder": "唤醒亡骨魔，让他攻击一名玩家。",
+    "reminders": [
+      "死亡",
+      "保留能力",
+      "中毒"
+    ],
+    "setup": true,
+    "name": "亡骨魔",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。被你杀死的爪牙保留他的能力，且与他邻近的两名镇民之一中毒。[-1外来者]",
+    "otherNight": 7
+  },
+  {
+    "id": "22_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/e7/5weznbb3b9dr7j9bep7syuyfqyl5t6h.png",
+    "otherNightReminder": "唤醒涡流，让他攻击一名玩家。",
+    "reminders": [
+      "死亡"
+    ],
+    "name": "涡流",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。镇民玩家的能力都会产生错误信息。如果白天没人被处决，邪恶阵营获胜。",
+    "otherNight": 6
+  },
+  {
+    "id": "23_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/e7/i3bse7nern4raiqwjpmzrpzjfa0vrq4.png",
+    "firstNightReminder": "唤醒痢蛭，让他选择一名玩家以寄生。",
+    "otherNightReminder": "唤醒痢蛭，让他攻击一名玩家。",
+    "reminders": [
+      "中毒",
+      "死亡"
+    ],
+    "name": "痢蛭",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。在你的首个夜晚，你要选择一名存活的玩家：他中毒，只有当他处于死亡状态时你才会立即死亡。",
+    "firstNight": 17000,
+    "otherNight": 8
+  },
+  {
+    "id": "24_shizhijiaobi",
+    "image": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/ae/jou215mb5upugu5977xxrvq8tze7g75.png",
+    "firstNightReminder": "如果利维坦在场，告知所有人利维坦在场，现在是第一个白天。",
+    "otherNightReminder": "如果利维坦在场，告知所有人利维坦在场，现在是第几个白天。（如果玩家一致同意，则无需在已经知晓利维坦在场的前提下在其他夜晚执行此项操作。）",
+    "reminders": [
+      "第一天",
+      "第二天",
+      "第三天",
+      "第四天",
+      "第五天",
+      "善良被处决"
+    ],
+    "name": "利维坦",
+    "team": "demon",
+    "ability": "如果多于一名善良玩家被处决，邪恶阵营获胜。所有玩家都知道利维坦在场。在第五个白天结束时，邪恶阵营获胜。",
+    "firstNight": 24000,
+    "otherNight": 11
+  },
+  {
+    "id": "25_shizhijiaobi",
+    "name": "猎手&痢蛭",
+    "team": "a jinxed",
+    "ability": "如果猎手选择了痢蛭的宿主，则宿主会死亡。"
+  },
+  {
+    "id": "26_shizhijiaobi",
+    "name": "炼金术士&主谋",
+    "team": "a jinxed",
+    "ability": "如果炼金术士本应该获得主谋的能力，那么他不会拥有该能力并改为主谋一定不在场。"
+  },
+  {
+    "id": "27_shizhijiaobi",
+    "name": "异端分子&痢蛭",
+    "team": "a jinxed",
+    "ability": "如果痢蛭选择异端分子作为宿主，痢蛭死亡时异端分子仍然中毒。"
+  },
+  {
+    "id": "28_shizhijiaobi",
+    "name": "痢蛭&主谋",
+    "team": "a jinxed",
+    "ability": "如果主谋存活且痢蛭的宿主被处决，痢蛭存活但失去能力，并会在下一天的黄昏时死亡。"
+  },
+  {
+    "id": "29_shizhijiaobi",
+    "name": "利维坦&镇长",
+    "team": "a jinxed",
+    "ability": "如果利维坦在场，镇长存活且第五条没有处决发生，则善良阵营获胜。"
+  }
+]

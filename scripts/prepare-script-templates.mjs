@@ -1,13 +1,14 @@
 import { minimumTemplates, prepareScriptPack } from './prepare-script-pack.mjs'
 
 const rotate = (items, seed) => items.length ? [...items.slice(seed % items.length), ...items.slice(0, seed % items.length)] : []
+export const ordinaryTemplateExcludedRoles = new Set(['kazali', 'summoner', 'lordoftyphon', 'legion', 'lilmonsta'])
 
 /** Reuse confirmed count choices; the existing domain validator remains authoritative. */
 export function fillTemplateGaps(input, context) {
   const initial = prepareScriptPack({ ...input, setupTemplates: input.setupTemplates ?? [] }, context)
   const pack = context.createReferencedScriptPack(initial.definition, context.library)
   // shortcut: ordinary one-demon setups only; special openings need a reviewed template.
-  if (pack.roles.some((role) => ['kazali', 'summoner', 'lordoftyphon', 'legion', 'lilmonsta'].includes(role.id))) return initial
+  if (pack.roles.some((role) => ordinaryTemplateExcludedRoles.has(role.id))) return initial
   const { inferModifierRoleId, isMandatorySetupCountRole } = context.load(context.module('src/domain/setup-templates/setupCountChanges.ts'))
   const { expectedCompositionForTemplate } = context.load(context.module('src/domain/setup-templates/composition.ts'))
   const choices = new Map()

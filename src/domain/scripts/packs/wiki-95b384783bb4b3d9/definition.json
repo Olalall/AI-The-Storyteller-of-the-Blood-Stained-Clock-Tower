@@ -1,0 +1,1143 @@
+{
+  "scriptId": "wiki-95b384783bb4b3d9",
+  "displayName": "无限恩赐",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "TPX",
+    "version": "库记录520 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:95b384783bb4b3d91260b9636c0c4197c0004b56896932ea28883b6f31b40085",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "investigator",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "nightwatchman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "minstrel",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "xaan",
+      "sourceId": "quick-maths",
+      "sourceVersion": "sha256:2960bb5ebba764e8cc812500a4cba1c759ef6817859e836db7121f4b89e4ae03"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "boffin",
+      "sourceId": "xin-kou-ci-huang",
+      "sourceVersion": "sha256:4397c0506ab8e254b135a0610c1b096a8304925c86694e953514adf67ab1cd69"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-1",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "vigormortis",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian"
+      ],
+      "bluffs": [
+        "investigator",
+        "dreamer",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-2",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "vigormortis",
+        "farmer",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "oracle"
+      ],
+      "bluffs": [
+        "philosopher",
+        "nightwatchman",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-3",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "boffin",
+        "ojo",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "nightwatchman"
+      ],
+      "bluffs": [
+        "fisherman",
+        "minstrel",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-4",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "ojo",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian",
+        "investigator",
+        "recluse"
+      ],
+      "bluffs": [
+        "dreamer",
+        "oracle",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-5",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "ojo",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "mutant"
+      ],
+      "bluffs": [
+        "nightwatchman",
+        "fisherman",
+        "minstrel"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-6",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "imp",
+        "cannibal",
+        "farmer",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "mutant",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "oracle",
+        "seamstress",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-7",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "imp",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "nightwatchman",
+        "fisherman",
+        "minstrel"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-8",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "poisoner",
+        "vigormortis",
+        "farmer",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "philosopher"
+      ],
+      "bluffs": [
+        "nightwatchman",
+        "fisherman",
+        "minstrel"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-9",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "vigormortis",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel"
+      ],
+      "bluffs": [
+        "investigator",
+        "cannibal",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-10",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "marionette",
+        "ojo",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian"
+      ],
+      "bluffs": [
+        "oracle",
+        "seamstress",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-11",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "ojo",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "fisherman",
+        "minstrel",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-12",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "marionette",
+        "ojo",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "recluse"
+      ],
+      "bluffs": [
+        "investigator",
+        "dreamer",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-13",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "marionette",
+        "imp",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "librarian",
+        "minstrel",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-14",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "boffin",
+        "imp",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "mutant",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "investigator",
+        "dreamer",
+        "oracle"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-15",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "boffin",
+        "xaan",
+        "vigormortis",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "nightwatchman",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-16",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "boffin",
+        "xaan",
+        "vigormortis",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer"
+      ],
+      "bluffs": [
+        "librarian",
+        "investigator",
+        "recluse"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-17",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "xaan",
+        "poisoner",
+        "vigormortis",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian",
+        "investigator",
+        "dreamer"
+      ],
+      "bluffs": [
+        "seamstress",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-18",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "xaan",
+        "poisoner",
+        "ojo",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "investigator",
+        "dreamer",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-19",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "poisoner",
+        "scarletwoman",
+        "ojo",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "philosopher",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-20",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "poisoner",
+        "scarletwoman",
+        "imp",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian",
+        "investigator",
+        "plaguedoctor",
+        "recluse"
+      ],
+      "bluffs": [
+        "dreamer",
+        "oracle",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-21",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "marionette",
+        "imp",
+        "fisherman",
+        "minstrel",
+        "cannibal",
+        "farmer",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "nightwatchman",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-95b384783bb4b3d9-candidate-22",
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "marionette",
+        "boffin",
+        "vigormortis",
+        "farmer",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "oracle",
+        "seamstress",
+        "philosopher",
+        "nightwatchman",
+        "fisherman",
+        "minstrel",
+        "mutant"
+      ],
+      "bluffs": [
+        "sweetheart",
+        "plaguedoctor",
+        "cannibal"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "marionette-balloonist-jinx",
+      "roleId": "marionette",
+      "summary": "If the Marionette thinks that they are the Balloonist, an Outsider might have been added during setup.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-marionette-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Marionette ability, one of the Demon's good neighbors becomes the Marionette.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-scarletwoman-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Scarlet Woman ability, a Minion gains it, and learns this.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "boffin",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "investigator",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "plaguedoctor",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "investigator": "sha256:216861593841d940f8eabf4c34556454bef623f59b59f8eb3ac38ec86f90154a",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "nightwatchman": "sha256:9abb4633d92f6cce99fb53748bb1020e8e0a12e98274df257a2bc16cf75bac19",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "minstrel": "sha256:069a4084e7355e04e5981d782f82e370c35f729496adf7ff5f5dc83f5a378fbb",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "plaguedoctor": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+    "xaan": "sha256:7759915ed1083035085b10cd8dab84caff67297c023ee33a0d34cc38f2d540ba",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "boffin": "sha256:0b07b44dbe0af2138554093d66008429cd4f7e220d119cae090a2370add30696",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5"
+  }
+}

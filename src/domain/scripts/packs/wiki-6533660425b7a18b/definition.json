@@ -1,0 +1,1137 @@
+{
+  "scriptId": "wiki-6533660425b7a18b",
+  "displayName": "懿海迷漩",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "fbb",
+    "version": "库记录612 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:6533660425b7a18b49ab412da043801e1c63703c74ef0205e6a01f3d24a8b173",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mathematician",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "grandmother",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "flowergirl",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "sage",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "goon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "golem",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "widow",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "mezepheles",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sentinel",
+      "sourceId": "ye-ban-kuang-huan",
+      "sourceVersion": "sha256:f512be8087e3f0b2caa971adc8d9b789cc96315f4c8bffef44423380107b3077"
+    },
+    {
+      "id": "spiritofivory",
+      "sourceId": "punchy",
+      "sourceVersion": "sha256:2db376682e56699246b43b787ae0f3ddef03ab3c28f678e0373fc35b08b0036c"
+    },
+    {
+      "id": "thief",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "judge",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "bonecollector",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "barista",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "harlot",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-1",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "mezepheles",
+        "ojo",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "sailor",
+        "philosopher"
+      ],
+      "bluffs": [
+        "seamstress",
+        "mathematician",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-2",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "ojo",
+        "sailor",
+        "philosopher",
+        "seamstress",
+        "mathematician",
+        "savant"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "noble",
+        "grandmother"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-3",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "widow",
+        "vortox",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "noble"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "flowergirl",
+        "sage"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-4",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "vortox",
+        "flowergirl",
+        "sage",
+        "sailor",
+        "philosopher",
+        "seamstress",
+        "barber"
+      ],
+      "bluffs": [
+        "mathematician",
+        "savant",
+        "undertaker"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-5",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "widow",
+        "vortox",
+        "philosopher",
+        "seamstress",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "noble",
+        "grandmother",
+        "chambermaid"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-6",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "widow",
+        "nodashii",
+        "sage",
+        "sailor",
+        "philosopher",
+        "seamstress",
+        "mathematician",
+        "puzzlemaster",
+        "goon"
+      ],
+      "bluffs": [
+        "savant",
+        "undertaker",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-7",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "nodashii",
+        "seamstress",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "goon",
+        "golem"
+      ],
+      "bluffs": [
+        "grandmother",
+        "chambermaid",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-8",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "mezepheles",
+        "lleech",
+        "sailor",
+        "philosopher",
+        "seamstress",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "snakecharmer"
+      ],
+      "bluffs": [
+        "noble",
+        "grandmother",
+        "chambermaid"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-9",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "mezepheles",
+        "scarletwoman",
+        "lleech",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "chambermaid"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "sage",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-10",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "widow",
+        "ojo",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "sailor"
+      ],
+      "bluffs": [
+        "savant",
+        "undertaker",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-11",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "mezepheles",
+        "scarletwoman",
+        "ojo",
+        "philosopher",
+        "seamstress",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "golem"
+      ],
+      "bluffs": [
+        "grandmother",
+        "chambermaid",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-12",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "widow",
+        "ojo",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "barber"
+      ],
+      "bluffs": [
+        "mathematician",
+        "sage",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-13",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "widow",
+        "vortox",
+        "seamstress",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "barber",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "flowergirl",
+        "sage"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-14",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "widow",
+        "pithag",
+        "vortox",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "puzzlemaster",
+        "goon"
+      ],
+      "bluffs": [
+        "mathematician",
+        "savant",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-15",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "mezepheles",
+        "nodashii",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "sailor",
+        "philosopher",
+        "seamstress",
+        "goon",
+        "golem"
+      ],
+      "bluffs": [
+        "undertaker",
+        "snakecharmer",
+        "noble"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-16",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "widow",
+        "pithag",
+        "mezepheles",
+        "nodashii",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage"
+      ],
+      "bluffs": [
+        "seamstress",
+        "sailor",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-17",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "mezepheles",
+        "scarletwoman",
+        "nodashii",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "sailor",
+        "philosopher",
+        "seamstress"
+      ],
+      "bluffs": [
+        "savant",
+        "undertaker",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-18",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "mezepheles",
+        "scarletwoman",
+        "lleech",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "sailor",
+        "goon"
+      ],
+      "bluffs": [
+        "seamstress",
+        "mathematician",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-19",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "mezepheles",
+        "scarletwoman",
+        "widow",
+        "lleech",
+        "noble",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "sailor",
+        "philosopher",
+        "seamstress",
+        "mathematician",
+        "golem"
+      ],
+      "bluffs": [
+        "undertaker",
+        "snakecharmer",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-20",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "mezepheles",
+        "scarletwoman",
+        "widow",
+        "ojo",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "sailor",
+        "philosopher",
+        "golem",
+        "barber"
+      ],
+      "bluffs": [
+        "seamstress",
+        "mathematician",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-21",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "widow",
+        "pithag",
+        "ojo",
+        "grandmother",
+        "chambermaid",
+        "flowergirl",
+        "sage",
+        "sailor",
+        "philosopher",
+        "seamstress",
+        "mathematician",
+        "savant",
+        "barber",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "noble",
+        "goon"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6533660425b7a18b-candidate-22",
+      "scriptId": "wiki-6533660425b7a18b",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "widow",
+        "pithag",
+        "mezepheles",
+        "vortox",
+        "sage",
+        "sailor",
+        "philosopher",
+        "seamstress",
+        "mathematician",
+        "savant",
+        "undertaker",
+        "snakecharmer",
+        "noble",
+        "puzzlemaster",
+        "goon"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "barber",
+        "golem"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "mathematician-chambermaid-jinx",
+      "roleId": "mathematician",
+      "summary": "The Chambermaid can detect if the Mathematician will wake tonight.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-goon-jinx",
+      "roleId": "pithag",
+      "summary": "If the Pit-Hag turns an evil player into the Goon, they can't turn good due to their own ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "barista",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "thief",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "widow",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "mezepheles",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "barista",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "thief",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "harlot",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "bonecollector",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "mezepheles",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "barber",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sage",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "flowergirl",
+        "order": 20,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 21,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 22,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 23,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "mathematician": "sha256:f1262386ef8bd2783d644dc5240ea8e3fe2ee414a55b3cc3b86f9aee91cd027d",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "grandmother": "sha256:ddae6200635dbe4275d6b9398d8a0dc528897b43686e7fb9599fec3f6961e069",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "flowergirl": "sha256:c0e4f2a93f2dc792eaf2ff9b0b5f7b6c07eb912e57d0106248aaa39972414f61",
+    "sage": "sha256:e7fa6d07a5450bd0623d4092b8df4e576bcdfb08e9117b33cffb5081cd926515",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "goon": "sha256:20785befe683a597aa8e6ea54bbe8473a93c9db400b21a3f40b73c0821949343",
+    "golem": "sha256:578b6fd4850920a915174ff1654c6958a61d659931e4419c2f9ae2a56dbd8349",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "widow": "sha256:836cc4e1fdf47586df7e6f3065c6d80a671dd89bd1ed1c1a1661503e7945667a",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "mezepheles": "sha256:cfdd0f530537870686bd4d684258354b643a7379db1a99d5e52ebbd569c04774",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5",
+    "sentinel": "sha256:a02bfd466fa02b66325d40171c617f0adb7a5c3d70d8d476bd00727b6002c261",
+    "spiritofivory": "sha256:75c15683c6c2afaa2ce01ff65deb67aad5cf0ca2689a426dce73c8b5b49e8dd3",
+    "thief": "sha256:d5176f3348db35b7c792818fd1989c4cc24c7508d5bb6e849a53461872343743",
+    "judge": "sha256:a213ecfafb2d4660267c57fc4e28a613a79c163990a9438d11dd6385c7c8cc16",
+    "bonecollector": "sha256:9664e9b0d8128352eb01f5961308fd14ffa20ecf35af759b4797d670cf3b88f4",
+    "barista": "sha256:034c65e4f9caf7aec12ce5e0fb34a4c0979843fe56015fc2a7f3981fccf0a83f",
+    "harlot": "sha256:710408224974e879701ae8d073fb6803c2232feca07cbbd1d3317974663930c3",
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46"
+  }
+}
