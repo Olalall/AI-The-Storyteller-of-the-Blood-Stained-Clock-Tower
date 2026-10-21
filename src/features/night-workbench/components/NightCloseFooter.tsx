@@ -5,6 +5,7 @@ import type { GameSessionAction } from '../../game-session/state/sessionReducer'
 import type { GameSessionState } from '../../game-session/types'
 import type { WakeItem } from '../types'
 import './night-close-checklist.css'
+import { wakeShortLabel } from '../state/systemSteps'
 
 interface NightCloseFooterProps {
   session: GameSessionState
@@ -27,7 +28,7 @@ export function NightCloseFooter({ session, dispatch, nightRunId, queue, conceal
   const unresolved = queue.filter((item) => !['confirmed', 'not_applicable', 'skipped'].includes(item.progress))
   const pendingStateCount = (session.stateFollowups ?? []).filter((task) => !task.resolution).length
   const skipped = queue.filter((item) => item.progress === 'skipped')
-  const label = (item: WakeItem) => concealed ? `${item.seatId}号角色` : `${item.seatId}号 ${item.roleName}`
+  const label = (item: WakeItem) => item.seatId === 0 || item.interactionVersion === 'legion/collective-night-v1' ? wakeShortLabel(item, concealed) : concealed ? `${item.seatId}号角色` : `${item.seatId}号 ${item.roleName}`
   function preview(id: string) {
     setConfirming(false)
     setSkipId(null)
@@ -45,14 +46,14 @@ export function NightCloseFooter({ session, dispatch, nightRunId, queue, conceal
         <strong>{unresolved.length ? `还有${unresolved.length}项未处理` : '夜序已检查完毕'}</strong>
         <ul aria-label="未处理夜序">{unresolved.map((item) => <li key={item.id}>
           <div><strong>{label(item)}</strong><span>{item.progress === 'deferred' ? '已暂缓' : item.applicability === 'needs_review' ? '待核对' : '待处理'}</span></div>
-          <div><Button variant="secondary" onClick={() => preview(item.id)}>查看{item.seatId}号</Button><Button variant="ghost" disabled={Boolean(run.correctionItemId)} onClick={() => { setSkipId(item.id); setReason('') }}>本夜不处理</Button></div>
+          <div><Button variant="secondary" onClick={() => preview(item.id)}>查看{wakeShortLabel(item, concealed)}</Button><Button variant="ghost" disabled={Boolean(run.correctionItemId)} onClick={() => { setSkipId(item.id); setReason('') }}>本夜不处理</Button></div>
           {skipId === item.id ? <form onSubmit={(event) => { event.preventDefault(); if (reason.trim()) { onSkip(item.id, reason); setSkipId(null); setReason('') } }}>
             <label>不处理原因<input value={reason} maxLength={200} onChange={(event) => setReason(event.target.value)} /></label>
             <Button type="submit" variant="secondary" disabled={!reason.trim() || concealed}>确认不处理</Button>
             {concealed ? <small>请先退出遮蔽，再确认不处理。</small> : null}
           </form> : null}
         </li>)}</ul>
-        {skipped.length ? <details><summary>本夜不处理 {skipped.length} 项</summary><ul>{skipped.map((item) => <li key={item.id}><strong>{label(item)}</strong><span>{concealed ? '原因已隐藏' : item.reason}</span><Button variant="ghost" onClick={() => preview(item.id)}>查看{item.seatId}号</Button></li>)}</ul></details> : null}
+        {skipped.length ? <details><summary>本夜不处理 {skipped.length} 项</summary><ul>{skipped.map((item) => <li key={item.id}><strong>{label(item)}</strong><span>{concealed ? '原因已隐藏' : item.reason}</span><Button variant="ghost" onClick={() => preview(item.id)}>查看{wakeShortLabel(item, concealed)}</Button></li>)}</ul></details> : null}
         {unresolved.length ? <p>可返回继续处理；直接关闭会保留以上未处理状态。</p> : null}
         <div className="night-close-checklist__actions"><Button variant="ghost" onClick={() => setConfirming(false)}>取消</Button><Button variant="danger" disabled={Boolean(skipId)} onClick={() => { dispatch({ type: 'close-active-night-run', nightRunId, closedAt: new Date().toISOString() }); onExit() }}>确认关闭</Button></div>
       </div>

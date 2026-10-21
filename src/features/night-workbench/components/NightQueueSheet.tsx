@@ -44,7 +44,7 @@ export function NightQueueSheet({
     roleInitial: item.roleInitial,
     iconPath: item.iconPath,
     seatId: item.seatId,
-    playerLabel: item.playerLabel,
+    playerLabel: concealed && item.interactionVersion === 'legion/collective-night-v1' ? '处理信息已遮蔽' : item.playerLabel,
     history: item.history,
     progress: item.progress,
     applicability: item.applicability,

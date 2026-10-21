@@ -48,7 +48,7 @@ export function createReferencedScriptPack(definition: ReferencedScriptDefinitio
   }
   for (const template of definition.setupTemplates) {
     if (template.scriptId !== definition.scriptId || !definition.playerCounts.includes(template.playerCount)
-      || template.roles.length !== template.playerCount || template.bluffs.length !== 3
+      || template.roles.length !== template.playerCount
       || [...template.roles, ...template.bluffs].some((id) => !ids.has(normalizeRoleId(id)))) {
       throw new Error('配板模板必须属于当前板子、人数正确且只引用板内角色。')
     }

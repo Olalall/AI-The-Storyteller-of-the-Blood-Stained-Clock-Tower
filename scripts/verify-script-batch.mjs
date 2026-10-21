@@ -9,12 +9,13 @@ export function verifyPreparedScript(prepared, context) {
   const { createSetupDraftFromCandidate } = load('src/features/setup/setupDraft.ts')
   const { gameSessionReducer } = load('src/features/game-session/state/sessionReducer.ts')
   const { createSmartScriptNightQueue } = load('src/features/game-session/state/createNextNightRun.ts')
+  const { lilMonstaOpeningSelected } = load('src/domain/setup-templates/lilMonstaOpening.ts')
   const definition = prepared.definition
   const pack = context.normalizeImportedPack(context.createReferencedScriptPack({ ...definition,
     knowledgeStatus: 'confirmed', setupTemplates: definition.setupTemplates.map((template) => ({ ...template, verified: true })),
   }, context.library))
   smartScriptRegistry.register(pack)
-  const groups = [], contracts = new Map(), coveredRoles = new Set()
+  const groups = [], contracts = new Map(), coveredRoles = new Set(), nonSeatedRoles = new Set()
   let candidateCount = 0, nightQueueCount = 0
   for (const count of definition.playerCounts) {
     const at = '2026-10-21T00:00:00.000Z'
@@ -34,13 +35,16 @@ export function verifyPreparedScript(prepared, context) {
         const queue = createSmartScriptNightQueue(confirmed, candidate.assignments, confirmed.initialPlayerStates, `intake-night-${sequence}`, sequence)
         const orders = sequence === 1 ? pack.nightOrders.firstNight : pack.nightOrders.otherNight
         const expectedRoles = [...orders].sort((a, b) => a.order - b.order).flatMap((order) => {
+          if (order.roleId === 'lilmonsta' && lilMonstaOpeningSelected(pack, candidate.setupRuleSelections ?? [])) return sequence === 1 ? ['lilmonsta'] : ['lilmonsta', 'lilmonsta']
           const actors = candidate.assignments.filter((entry) => entry.role.id === order.roleId)
+          if (order.roleId === 'legion' && actors.length) return ['legion']
           return order.delivery?.kind === 'audience_notice' ? actors.length ? [order.roleId] : [] : actors.map(() => order.roleId)
         })
         const actualRoles = queue.filter((item) => !item.id.includes('-pretend-')).map((item) =>
           item.systemStep?.kind === 'audience_notice' ? item.roleId.replace(/^system-audience-/, '') : item.roleId)
         if (JSON.stringify(actualRoles) !== JSON.stringify(expectedRoles)) throw new Error('生产夜序与已声明夜表不一致：' + JSON.stringify({ actualRoles, expectedRoles }))
         for (const item of queue) {
+          if (item.lilMonstaStep) nonSeatedRoles.add(item.roleId)
           const { id: _id, playerLabel: _label, seatId: _seat, orderIndex: _order, ...contract } = item
           const signature = createHash('sha256').update(JSON.stringify({ nightType: sequence === 1 ? 'first' : 'other', count, contract })).digest('hex')
           contracts.set(signature, { signature, roleId: item.roleId, nightType: sequence === 1 ? 'first' : 'other', playerCount: count,
@@ -54,5 +58,5 @@ export function verifyPreparedScript(prepared, context) {
   }
   return { candidateCount, nightQueueCount, groups, wakeContracts: [...contracts.values()],
     rolesOutsideGeneratedTemplates: pack.roles.filter((role) => ['townsfolk', 'outsider', 'minion', 'demon'].includes(role.team)
-      && !coveredRoles.has(role.id)).map((role) => role.id) }
+      && !coveredRoles.has(role.id) && !nonSeatedRoles.has(role.id)).map((role) => role.id) }
 }

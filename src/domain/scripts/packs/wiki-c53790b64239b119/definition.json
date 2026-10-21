@@ -1,0 +1,1296 @@
+{
+  "scriptId": "wiki-c53790b64239b119",
+  "displayName": "凶鸟戏画",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "edders from Patterseddtv",
+    "version": "库记录512 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:c53790b64239b119cf07c474ca81be7d42b57f3628c5208daafeba0337509f62",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "investigator",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "chef",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "juggler",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "artist",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "soldier",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "ravenkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "goon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "harpy",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "witch",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "baron",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "boomdandy",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "zombuul",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "legion",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-1",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "artist",
+        "philosopher",
+        "soldier"
+      ],
+      "bluffs": [
+        "noble",
+        "investigator",
+        "chef"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 0,
+            "minion": -1,
+            "demon": 3
+          },
+          "choiceId": "majority-legion-7",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-2",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "boomdandy",
+        "zombuul",
+        "ravenkeeper",
+        "mayor",
+        "noble",
+        "investigator",
+        "chef"
+      ],
+      "bluffs": [
+        "sailor",
+        "fortuneteller",
+        "juggler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-3",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "investigator",
+        "chef",
+        "empath"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "juggler",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 0,
+            "minion": -1,
+            "demon": 3
+          },
+          "choiceId": "majority-legion-7",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-4",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "philosopher",
+        "soldier",
+        "ravenkeeper"
+      ],
+      "bluffs": [
+        "noble",
+        "investigator",
+        "chef"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -1,
+            "minion": -1,
+            "demon": 4
+          },
+          "choiceId": "majority-legion-8",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-5",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "vigormortis",
+        "mayor",
+        "noble",
+        "investigator",
+        "chef",
+        "empath",
+        "sailor"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-6",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "soldier",
+        "ravenkeeper",
+        "mayor",
+        "noble"
+      ],
+      "bluffs": [
+        "investigator",
+        "chef",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": -2,
+            "minion": -1,
+            "demon": 4
+          },
+          "choiceId": "majority-legion-9",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-10/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-7",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "lleech",
+        "noble",
+        "investigator",
+        "chef",
+        "empath",
+        "sailor",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-8",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "ravenkeeper",
+        "mayor",
+        "noble",
+        "investigator"
+      ],
+      "bluffs": [
+        "chef",
+        "empath",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": 0,
+            "minion": -2,
+            "demon": 5
+          },
+          "choiceId": "majority-legion-10",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-12/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-9",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "boomdandy",
+        "zombuul",
+        "investigator",
+        "chef",
+        "empath",
+        "sailor",
+        "juggler",
+        "drunk",
+        "goon"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-10",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "sailor",
+        "juggler",
+        "savant",
+        "artist"
+      ],
+      "bluffs": [
+        "chef",
+        "empath",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": 0,
+            "minion": -2,
+            "demon": 5
+          },
+          "choiceId": "majority-legion-10",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-11",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "mayor",
+        "noble",
+        "investigator",
+        "chef",
+        "empath"
+      ],
+      "bluffs": [
+        "sailor",
+        "fortuneteller",
+        "juggler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -1,
+            "minion": -2,
+            "demon": 5
+          },
+          "choiceId": "majority-legion-11",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-12",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "boomdandy",
+        "harpy",
+        "vigormortis",
+        "chef",
+        "empath",
+        "sailor",
+        "juggler",
+        "savant",
+        "artist",
+        "philosopher",
+        "soldier"
+      ],
+      "bluffs": [
+        "investigator",
+        "fortuneteller",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-13",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "noble",
+        "investigator",
+        "chef",
+        "empath",
+        "sailor"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "juggler",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -2,
+            "demon": 6
+          },
+          "choiceId": "majority-legion-12",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-14",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "witch",
+        "lleech",
+        "empath",
+        "sailor",
+        "juggler",
+        "savant",
+        "artist",
+        "philosopher",
+        "soldier",
+        "saint",
+        "damsel"
+      ],
+      "bluffs": [
+        "investigator",
+        "chef",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-15",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "savant",
+        "artist",
+        "philosopher",
+        "soldier",
+        "ravenkeeper"
+      ],
+      "bluffs": [
+        "chef",
+        "empath",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -2,
+            "demon": 6
+          },
+          "choiceId": "majority-legion-12",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-10/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-16",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "investigator",
+        "chef",
+        "empath",
+        "sailor",
+        "juggler",
+        "savant"
+      ],
+      "bluffs": [
+        "noble",
+        "fortuneteller",
+        "artist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": 0,
+            "minion": -3,
+            "demon": 6
+          },
+          "choiceId": "majority-legion-13",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-10/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-17",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "baron",
+        "boomdandy",
+        "zombuul",
+        "sailor",
+        "juggler",
+        "savant",
+        "artist",
+        "philosopher",
+        "soldier",
+        "ravenkeeper",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "investigator",
+        "chef",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-18",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "chef",
+        "empath",
+        "sailor",
+        "juggler",
+        "savant",
+        "artist"
+      ],
+      "bluffs": [
+        "noble",
+        "investigator",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": -1,
+            "minion": -3,
+            "demon": 7
+          },
+          "choiceId": "majority-legion-14",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-12/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-19",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "boomdandy",
+        "harpy",
+        "vigormortis",
+        "juggler",
+        "savant",
+        "artist",
+        "philosopher",
+        "soldier",
+        "ravenkeeper",
+        "mayor",
+        "noble",
+        "drunk",
+        "goon"
+      ],
+      "bluffs": [
+        "chef",
+        "empath",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-20",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "empath",
+        "sailor",
+        "juggler",
+        "savant",
+        "artist",
+        "philosopher",
+        "soldier"
+      ],
+      "bluffs": [
+        "noble",
+        "investigator",
+        "chef"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -3,
+            "demon": 7
+          },
+          "choiceId": "majority-legion-15",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-21",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "boomdandy",
+        "harpy",
+        "witch",
+        "lleech",
+        "savant",
+        "artist",
+        "philosopher",
+        "soldier",
+        "ravenkeeper",
+        "mayor",
+        "noble",
+        "investigator",
+        "chef",
+        "goon",
+        "saint"
+      ],
+      "bluffs": [
+        "sailor",
+        "fortuneteller",
+        "juggler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c53790b64239b119-candidate-22",
+      "scriptId": "wiki-c53790b64239b119",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "soldier",
+        "ravenkeeper",
+        "mayor",
+        "noble",
+        "investigator",
+        "chef",
+        "empath"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -3,
+            "demon": 7
+          },
+          "choiceId": "majority-legion-15",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "legion-majority",
+      "roleId": "legion",
+      "summary": "军团局多数玩家实际为军团，军团也登记为爪牙；模板显式记录多恶魔、零实际爪牙及善良人数。只有邪恶玩家投票时处决失败；不是自动禁止记录那一轮投票。 本批选用官方允许的三枚伪装方案，不支持在这些模板中临时改成零枚；零伪装由主持在后续专门支持后再选。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+        "https://release.botc.app/resources/data/roles.json",
+        "https://wiki.bloodontheclocktower.com/Legion"
+      ],
+      "reviewedAt": "2026-10-16"
+    },
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "baron-outsider-plus-two",
+      "roleId": "baron",
+      "summary": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-07-22"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "investigator",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "chef",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "legion",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "zombuul",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "ravenkeeper",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "juggler",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "investigator": "sha256:216861593841d940f8eabf4c34556454bef623f59b59f8eb3ac38ec86f90154a",
+    "chef": "sha256:c8807ca47c02a574ea6e25a14564bf67e596f59bc677d1852df1110f59bc4935",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "juggler": "sha256:bbcea5b0d8167d59a0145880a0c448f02ff7ae87da08cf8f4f747b02220395b7",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "artist": "sha256:c9b8ee57527bb669ec6b036b53a1c4196be7c4801e0572ea1ac5a19d42bedda5",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "soldier": "sha256:e24f9025b8c74c0b5fae6536a74ffd2845b311d4a2f60272a3950476946fd523",
+    "ravenkeeper": "sha256:6e3311f80393bc0e63bc13ad33ad354fec889729ba26aed45dbcc23dde876bf3",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "goon": "sha256:20785befe683a597aa8e6ea54bbe8473a93c9db400b21a3f40b73c0821949343",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "harpy": "sha256:7469099af60e189ef4516c76ca2454b0854d274c9fbbcfd32c8a0d5b0bc559de",
+    "witch": "sha256:15211f928a1e9002e2b9c0229d6540ebcef894cec8829434b46bbd1106650bc9",
+    "baron": "sha256:890d34be482a8e93a73c160430757fc5f236aa26654d8734a5419df15b645493",
+    "boomdandy": "sha256:7dda7eaea6645740c25344433f16ccc682ffe2813511e806e653f6603e2e1c05",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b",
+    "zombuul": "sha256:574a6febf6505b736f3c436d08068dc3784b0e411bf75e3d3947e7dec8a512e0",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "legion": "sha256:f467e16cd214f612c1876703d5b5747b49d49c5de25466d9105fc3efeec3261e"
+  }
+}

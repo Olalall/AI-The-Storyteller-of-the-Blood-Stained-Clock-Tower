@@ -1,0 +1,1297 @@
+{
+  "scriptId": "wiki-54608950449750c2",
+  "displayName": "瓷牛商会",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "autumn",
+    "version": "库记录555 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:54608950449750c2e95ee07177fd1fa5187767b06e4ea2cc894463b7c036c02d",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "knight",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "grandmother",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "general",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "innkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "juggler",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "alsaahir",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "tealady",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "fool",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "pacifist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "tinker",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "klutz",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "witch",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "widow",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "lordoftyphon",
+      "sourceId": "xin-kou-ci-huang",
+      "sourceVersion": "sha256:4397c0506ab8e254b135a0610c1b096a8304925c86694e953514adf67ab1cd69"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "yaggababble",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-54608950449750c2-candidate-1",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "witch",
+        "godfather",
+        "lordoftyphon",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "knight",
+        "grandmother",
+        "general"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-2",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "yaggababble",
+        "fool",
+        "pacifist",
+        "knight",
+        "grandmother",
+        "general"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-3",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "widow",
+        "assassin",
+        "lordoftyphon",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "fool"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "alsaahir"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-4",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "widow",
+        "lordoftyphon",
+        "tealady",
+        "farmer",
+        "fool",
+        "pacifist",
+        "knight"
+      ],
+      "bluffs": [
+        "grandmother",
+        "general",
+        "innkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-5",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "ojo",
+        "pacifist",
+        "knight",
+        "grandmother",
+        "general",
+        "innkeeper",
+        "juggler"
+      ],
+      "bluffs": [
+        "alsaahir",
+        "philosopher",
+        "tealady"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-6",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "widow",
+        "assassin",
+        "lordoftyphon",
+        "farmer",
+        "fool",
+        "pacifist",
+        "knight",
+        "tinker",
+        "klutz"
+      ],
+      "bluffs": [
+        "grandmother",
+        "general",
+        "innkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-7",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "widow",
+        "yaggababble",
+        "knight",
+        "grandmother",
+        "general",
+        "innkeeper",
+        "juggler",
+        "klutz",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "alsaahir",
+        "philosopher",
+        "tealady"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-8",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "assassin",
+        "devilsadvocate",
+        "witch",
+        "lordoftyphon",
+        "fool",
+        "pacifist",
+        "knight",
+        "grandmother",
+        "general",
+        "innkeeper"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "alsaahir"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-9",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "devilsadvocate",
+        "ojo",
+        "grandmother",
+        "general",
+        "innkeeper",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "philosopher"
+      ],
+      "bluffs": [
+        "tealady",
+        "farmer",
+        "fool"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-10",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "witch",
+        "godfather",
+        "lordoftyphon",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "drunk"
+      ],
+      "bluffs": [
+        "general",
+        "innkeeper",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-11",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "witch",
+        "godfather",
+        "lordoftyphon",
+        "pacifist",
+        "knight",
+        "grandmother",
+        "general",
+        "innkeeper",
+        "plaguedoctor",
+        "drunk"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "alsaahir"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-12",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "witch",
+        "yaggababble",
+        "general",
+        "innkeeper",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "drunk"
+      ],
+      "bluffs": [
+        "grandmother",
+        "farmer",
+        "fool"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-13",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "witch",
+        "godfather",
+        "widow",
+        "lordoftyphon",
+        "knight",
+        "grandmother",
+        "general",
+        "innkeeper",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "drunk"
+      ],
+      "bluffs": [
+        "philosopher",
+        "tealady",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-14",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "godfather",
+        "ojo",
+        "innkeeper",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "fool",
+        "tinker"
+      ],
+      "bluffs": [
+        "grandmother",
+        "general",
+        "pacifist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-15",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "godfather",
+        "widow",
+        "assassin",
+        "lordoftyphon",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "fool",
+        "klutz",
+        "plaguedoctor",
+        "drunk"
+      ],
+      "bluffs": [
+        "general",
+        "innkeeper",
+        "juggler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-16",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "widow",
+        "assassin",
+        "devilsadvocate",
+        "lordoftyphon",
+        "grandmother",
+        "general",
+        "innkeeper",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "philosopher",
+        "tinker"
+      ],
+      "bluffs": [
+        "knight",
+        "tealady",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-17",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "widow",
+        "assassin",
+        "yaggababble",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "fool",
+        "pacifist",
+        "klutz"
+      ],
+      "bluffs": [
+        "grandmother",
+        "general",
+        "innkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-18",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "widow",
+        "assassin",
+        "devilsadvocate",
+        "witch",
+        "lordoftyphon",
+        "general",
+        "innkeeper",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "klutz"
+      ],
+      "bluffs": [
+        "knight",
+        "grandmother",
+        "fool"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-19",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "widow",
+        "assassin",
+        "devilsadvocate",
+        "ojo",
+        "savant",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "fool",
+        "pacifist",
+        "knight",
+        "grandmother",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "juggler",
+        "amnesiac"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-20",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "assassin",
+        "devilsadvocate",
+        "witch",
+        "godfather",
+        "lordoftyphon",
+        "innkeeper",
+        "juggler",
+        "savant",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "plaguedoctor",
+        "drunk",
+        "tinker"
+      ],
+      "bluffs": [
+        "knight",
+        "grandmother",
+        "general"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-21",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "devilsadvocate",
+        "witch",
+        "yaggababble",
+        "alsaahir",
+        "philosopher",
+        "tealady",
+        "farmer",
+        "fool",
+        "pacifist",
+        "knight",
+        "grandmother",
+        "general",
+        "drunk",
+        "tinker"
+      ],
+      "bluffs": [
+        "juggler",
+        "savant",
+        "amnesiac"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-54608950449750c2-candidate-22",
+      "scriptId": "wiki-54608950449750c2",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "witch",
+        "godfather",
+        "widow",
+        "lordoftyphon",
+        "farmer",
+        "fool",
+        "pacifist",
+        "knight",
+        "grandmother",
+        "general",
+        "innkeeper",
+        "juggler",
+        "savant",
+        "tinker"
+      ],
+      "bluffs": [
+        "tealady",
+        "amnesiac",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "godfather-outsider",
+      "roleId": "godfather",
+      "summary": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "lordoftyphon-setup",
+      "roleId": "lordoftyphon",
+      "summary": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+        "https://release.botc.app/resources/data/roles.json",
+        "https://wiki.bloodontheclocktower.com/Lord_of_Typhon"
+      ],
+      "reviewedAt": "2026-10-16"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "lordoftyphon",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "yaggababble",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "widow",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "knight",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "innkeeper",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lordoftyphon",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "yaggababble",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "plaguedoctor",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "tinker",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "juggler",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "knight": "sha256:22749fad133589f7a60a2641b1c8e0b3930f329c198ca468c9e6c029584ec193",
+    "grandmother": "sha256:ddae6200635dbe4275d6b9398d8a0dc528897b43686e7fb9599fec3f6961e069",
+    "general": "sha256:fd1842203e0740d67a0126b7f4a7e2fcdaa670d5251cc4f8690d72d4a1d8933c",
+    "innkeeper": "sha256:d08a610a685471cf44a7ee19977c4a5466152b3d8d42c7a48a0a9d1b874b3304",
+    "juggler": "sha256:bbcea5b0d8167d59a0145880a0c448f02ff7ae87da08cf8f4f747b02220395b7",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "alsaahir": "sha256:7f5823307449ddf39fe8d6324d3b589b6de0e6e969b28d3f1061f055f4b81ce0",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "tealady": "sha256:5477146713dda2d2ac0acb2b3a2b712e71a5691d1f0ea364fa0ef990d3c5cef4",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "fool": "sha256:d5634a743a49c3d77febbcd150e2178993f9c16df520ea6b2f058433c79167f5",
+    "pacifist": "sha256:469225591f3a9499dbb2da61566dd13fb776cb2d67b045271c2614797f98f099",
+    "amnesiac": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "tinker": "sha256:d39df1b38a7eec0b2d78aab9622b53c4e4880933b8f06daece703dae70007a61",
+    "klutz": "sha256:3c7f19f518ebf523ae77562a799ff7a27fc20b0ec3d8c0e1d05bb733ada471fd",
+    "plaguedoctor": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "witch": "sha256:15211f928a1e9002e2b9c0229d6540ebcef894cec8829434b46bbd1106650bc9",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "widow": "sha256:836cc4e1fdf47586df7e6f3065c6d80a671dd89bd1ed1c1a1661503e7945667a",
+    "lordoftyphon": "sha256:06c519562a52839f2fbbc315f7ef342deba589bd2b18f62b165ca8113edaccf4",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5",
+    "yaggababble": "sha256:251a11ed72ec35dcaf55fdd40e3841249196b2898200d5482d98273afae641d3"
+  }
+}

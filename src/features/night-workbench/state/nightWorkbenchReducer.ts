@@ -333,7 +333,7 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       if (state.previewEntryId !== state.activeCursorId || state.correctionItemId) return state
       const item = state.queue.find((entry) => entry.id === state.activeCursorId)
       const draft = state.drafts[state.activeCursorId]
-      if (item?.systemStep) return { ...state, lastNotice: '系统步骤没有角色可换' }
+      if (item?.systemStep || item?.lilMonstaStep) return { ...state, lastNotice: '此项没有玩家角色可换' }
       if (!item || (draft?.updatedAt && item.progress !== 'confirmed')) {
         return { ...state, lastNotice: '请先完成或清空当前草稿，再更换角色' }
       }

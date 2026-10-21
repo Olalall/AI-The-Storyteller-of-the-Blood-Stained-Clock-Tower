@@ -29,6 +29,24 @@ function plan(boards: unknown[][], limit = 100) {
 }
 
 describe('whole-library intake planning and reusable source evidence', () => {
+  it('normalizes legacy IDs only for intake and keeps unreviewed rules pending', () => {
+    const before = JSON.stringify(context.packs)
+    const old = reuse.resolve({ id:'plague_doctor', name:'瘟疫医生', team:'outsider', ability:'Unreviewed replacement ability' })
+    expect(old.reusable).toBe(false)
+    expect(old.roleId ?? old.reference?.id).toBe('plaguedoctor')
+    expect(old.sourceTextReviewRequired).toBe(true)
+    expect(JSON.stringify(context.packs)).toBe(before)
+    const { result } = plan([['plaguedoctor', { id:'plague_doctor', name:'瘟疫医生', team:'outsider', ability:'Unreviewed replacement ability' }]])
+    expect(result.report.rows[0].hold).toBe('duplicate-canonical-role')
+  })
+
+  it('keeps special openings in the unapproved batch instead of silently filtering every such script', () => {
+    const { result } = plan([[...originals, 'summoner']])
+    expect(result.report.rows[0].specialOpeningReviewRequired).toBe(true)
+    expect(result.manifest.scripts).toHaveLength(1)
+    expect(result.manifest.scripts[0].intakeReview.required).toBe(true)
+    expect(result.report.automaticRuleApproval).toBe(false)
+  })
   it('keeps explicitly typed author jinx notes out of seats while preserving them for review', () => {
     const note = { id: 'author-jinx', name: '巫婆与少女', team: 'a jinxed', ability: 'Author rule still requires review.' }
     const { result } = plan([[...originals, note]])

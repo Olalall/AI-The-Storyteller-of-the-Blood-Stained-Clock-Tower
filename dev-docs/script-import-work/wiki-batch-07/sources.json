@@ -1,0 +1,593 @@
+{
+  "sourceBuild": "16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e",
+  "checkedAt": "2026-10-21",
+  "source": "https://kkovo550.github.io/clocktower-wiki/",
+  "officialSnapshots": [
+    {
+      "name": "roles",
+      "url": "https://release.botc.app/resources/data/roles.json",
+      "sha256": "6c659354dee75cf3afdeaf6cbc750b274a87d1099cc5f68651a2114881eb85ca",
+      "bytes": 99614,
+      "checkedAt": "2026-10-21T11:57:05.597Z"
+    },
+    {
+      "name": "nightsheet",
+      "url": "https://release.botc.app/resources/data/nightsheet.json",
+      "sha256": "99a2815bb31bcec3e107bf7f1c2fb305e301d317981d855704d3d954ec4c3f75",
+      "bytes": 2923,
+      "checkedAt": "2026-10-21T11:57:05.592Z"
+    },
+    {
+      "name": "jinxes",
+      "url": "https://release.botc.app/resources/data/jinxes.json",
+      "sha256": "5d3d8d0ac194fb1ea44af79b74f9e4bdc09712aef2123c3a3ef2b6c43efa7df7",
+      "bytes": 21358,
+      "checkedAt": "2026-10-21T11:57:05.603Z"
+    }
+  ],
+  "boards": [
+    {
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "displayName": "刀光剑影",
+      "sourceIndex": 109,
+      "rawJsonSha256": "c7c02faa0f7569e4bcf5d3c6b5164ed415fbd2b7d1d5fd10b1d6bb1d3e49d3c7",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "amnesiac",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-3eb2cb9590c7d0d5",
+      "displayName": "回到三日之前",
+      "sourceIndex": 113,
+      "rawJsonSha256": "3eb2cb9590c7d0d536d2ef47fcb0a98beeaf8c4da96fc0abfef10117f46bf071",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 8,
+      "authorRuleCount": 12,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "huntsman"
+      ]
+    },
+    {
+      "scriptId": "wiki-bed7e3ed354aaa0d",
+      "displayName": "大师之夜",
+      "sourceIndex": 320,
+      "rawJsonSha256": "bed7e3ed354aaa0d1defd63b1e3894581802dfe5b05b64375558fb73735daaa1",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 5,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "bountyhunter",
+        "magician",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-a708fb7d579e8ada",
+      "displayName": "超越无限",
+      "sourceIndex": 401,
+      "rawJsonSha256": "a708fb7d579e8adaff7b399efc65a895bded52546dc5ef793784446e375a6d61",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-42c18a784ce689e9",
+      "displayName": "共生体",
+      "sourceIndex": 453,
+      "rawJsonSha256": "42c18a784ce689e93b5ae60f6e5f072ff5b45aea66149534f23f5512aefb9c29",
+      "roleCount": 24,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 4,
+      "rolesOutsideGeneratedTemplates": [
+        "lilmonsta",
+        "marionette",
+        "villageidiot"
+      ]
+    },
+    {
+      "scriptId": "wiki-b96791b549a6f47a",
+      "displayName": "仙境奇踪",
+      "sourceIndex": 474,
+      "rawJsonSha256": "b96791b549a6f47a48026894bf637baec845d6b5cf57193a9a2a637651c5ad7b",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": []
+    },
+    {
+      "scriptId": "wiki-25a50a60d07a8b40",
+      "displayName": "长夜险恶",
+      "sourceIndex": 500,
+      "rawJsonSha256": "25a50a60d07a8b4049fd0264aaa44aecc1fc1fda8e6e4cc9b214700b02717e34",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 7,
+      "authorRuleCount": 5,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "huntsman"
+      ]
+    },
+    {
+      "scriptId": "wiki-c3ac27c222a57353",
+      "displayName": "世纪谍杀",
+      "sourceIndex": 508,
+      "rawJsonSha256": "c3ac27c222a573538fd246eb8d012b942db1ba7c0718e8ad9e1b23d8de9bc484",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "magician",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-c53790b64239b119",
+      "displayName": "凶鸟戏画",
+      "sourceIndex": 512,
+      "rawJsonSha256": "c53790b64239b119cf07c474ca81be7d42b57f3628c5208daafeba0337509f62",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller"
+      ]
+    },
+    {
+      "scriptId": "wiki-dc4a9065e297ffdd",
+      "displayName": "喋喋不休？",
+      "sourceIndex": 514,
+      "rawJsonSha256": "dc4a9065e297ffdd1b0f311ca1ae0cd662802ce17806dce20b1c4d929b279719",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "villageidiot",
+        "fortuneteller"
+      ]
+    },
+    {
+      "scriptId": "wiki-2d964c6980972069",
+      "displayName": "滚出我的沼泽！！",
+      "sourceIndex": 521,
+      "rawJsonSha256": "2d964c69809720695ff54157da41502b8207a2cb8710c4809830ef87f46bfb48",
+      "roleCount": 26,
+      "templateCount": 27,
+      "jinxCount": 6,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "king",
+        "fortuneteller",
+        "choirboy",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "displayName": "疫病仆从",
+      "sourceIndex": 524,
+      "rawJsonSha256": "d829da1a9b85c9cb505d794dee639db7ae5ebf8145b34f9c0646bab929e6e329",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 5,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "displayName": "亡国悲歌",
+      "sourceIndex": 537,
+      "rawJsonSha256": "ddb055dcbcca72f5800d483ff6e9919f7171cdaefadf8845808dc731b6437709",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "king",
+        "choirboy"
+      ]
+    },
+    {
+      "scriptId": "wiki-bfae83e273882610",
+      "displayName": "刺杀金牛座",
+      "sourceIndex": 542,
+      "rawJsonSha256": "bfae83e27388261059b5e3323d7d3115647f7c514619ff3ab4eab5856c08f363",
+      "roleCount": 26,
+      "templateCount": 27,
+      "jinxCount": 3,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": []
+    },
+    {
+      "scriptId": "wiki-fec05266799865ee",
+      "displayName": "卡科顿教派",
+      "sourceIndex": 544,
+      "rawJsonSha256": "fec05266799865ee706749ce64ccff52107ee72169e84be202919408f8641645",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 1,
+      "rolesOutsideGeneratedTemplates": [
+        "king",
+        "choirboy"
+      ]
+    },
+    {
+      "scriptId": "wiki-af7868116d747ac5",
+      "displayName": "吞云吐雾",
+      "sourceIndex": 545,
+      "rawJsonSha256": "af7868116d747ac5b447f41504e1ce331d5139237f247382b2a2b6e365a68aa6",
+      "roleCount": 23,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "villageidiot",
+        "magician"
+      ]
+    },
+    {
+      "scriptId": "wiki-d313105b0e1c6424",
+      "displayName": "大惊小怪",
+      "sourceIndex": 547,
+      "rawJsonSha256": "d313105b0e1c6424cf624a96dc186cefac15de1b369c2ac32c6f419012f51478",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "villageidiot",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-54608950449750c2",
+      "displayName": "瓷牛商会",
+      "sourceIndex": 555,
+      "rawJsonSha256": "54608950449750c2e95ee07177fd1fa5187767b06e4ea2cc894463b7c036c02d",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "amnesiac"
+      ]
+    },
+    {
+      "scriptId": "wiki-83d83637a80c8b35",
+      "displayName": "邪眼还巢",
+      "sourceIndex": 563,
+      "rawJsonSha256": "83d83637a80c8b3512a65ce970bdf210632ef874f9544867255dc02176a06fb9",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "amnesiac",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-9e3516afe8c21785",
+      "displayName": "意外人选",
+      "sourceIndex": 574,
+      "rawJsonSha256": "9e3516afe8c2178506d4eb00c5572c41804f9b8d117b05b0524652d53d24012d",
+      "roleCount": 30,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 1,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "huntsman"
+      ]
+    },
+    {
+      "scriptId": "wiki-3cfb328313ddec82",
+      "displayName": "好好聊聊",
+      "sourceIndex": 591,
+      "rawJsonSha256": "3cfb328313ddec8220a6b6b6236d58a0166eafab3928f81403621733c25e62cb",
+      "roleCount": 27,
+      "templateCount": 22,
+      "jinxCount": 6,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "huntsman",
+        "magician"
+      ]
+    },
+    {
+      "scriptId": "wiki-131c39f8148c7eec",
+      "displayName": "蛛丝马迹",
+      "sourceIndex": 599,
+      "rawJsonSha256": "131c39f8148c7eec7022ee8cd507e2d749b8ed38aca4f842b61292de4b6ce162",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 2,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "huntsman",
+        "amnesiac",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-373affd84c855e0b",
+      "displayName": "大幕将启",
+      "sourceIndex": 600,
+      "rawJsonSha256": "373affd84c855e0ba60e225c74afbdcddf716c5102a75608dafc3dd997ed191c",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 4,
+      "authorRuleCount": 4,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "amnesiac",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-03b535cc7201464c",
+      "displayName": "谜动初露",
+      "sourceIndex": 605,
+      "rawJsonSha256": "03b535cc7201464c80ae9d8364e130ecb113bc695af39eb038fb013630907235",
+      "roleCount": 29,
+      "templateCount": 22,
+      "jinxCount": 8,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "bountyhunter",
+        "amnesiac",
+        "magician",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-624f42be86e8de94",
+      "displayName": "疯狂动物镇",
+      "sourceIndex": 607,
+      "rawJsonSha256": "624f42be86e8de94eeac7f47c5455ba0a75a801d3e1ca858d478f17f53bde07e",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": []
+    },
+    {
+      "scriptId": "wiki-579c1e51159b889a",
+      "displayName": "重新启动-释小年",
+      "sourceIndex": 608,
+      "rawJsonSha256": "579c1e51159b889a9a511d88e78f149607fdd4c7dc9e7b42d3be550a1c27eca5",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 2,
+      "rolesOutsideGeneratedTemplates": [
+        "bountyhunter",
+        "huntsman"
+      ]
+    },
+    {
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "displayName": "心照不宣",
+      "sourceIndex": 618,
+      "rawJsonSha256": "5c01c0cc12f5e4c0c84d5df3907bd06c2f784b6fd1e0a580e15522fccd96248c",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 4,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller"
+      ]
+    },
+    {
+      "scriptId": "wiki-221e26eff16e4ac4",
+      "displayName": "古堡疑云-卡慕萝米",
+      "sourceIndex": 630,
+      "rawJsonSha256": "221e26eff16e4ac4b584dae894b7c6f64c845fb2375e0ec004a6e5711bf50f62",
+      "roleCount": 26,
+      "templateCount": 45,
+      "jinxCount": 17,
+      "authorRuleCount": 16,
+      "rolesOutsideGeneratedTemplates": [
+        "bountyhunter",
+        "amnesiac",
+        "poppygrower",
+        "magician",
+        "atheist",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-dd178a28103dbae2",
+      "displayName": "大橘已定-斯派德米",
+      "sourceIndex": 631,
+      "rawJsonSha256": "dd178a28103dbae2ab31adb52c788a0e94fdf419f73b315e34667e4550f4b081",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 5,
+      "authorRuleCount": 6,
+      "rolesOutsideGeneratedTemplates": [
+        "amnesiac",
+        "poppygrower",
+        "atheist"
+      ]
+    },
+    {
+      "scriptId": "wiki-c1f67aadb9368a5b",
+      "displayName": "缄默静言",
+      "sourceIndex": 635,
+      "rawJsonSha256": "c1f67aadb9368a5b0335c5012f170e60ac39756b677e2acff73709eb4212bcc5",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 7,
+      "authorRuleCount": 5,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "huntsman",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-f7392bd0fec4cc6e",
+      "displayName": "初窥门径",
+      "sourceIndex": 668,
+      "rawJsonSha256": "f7392bd0fec4cc6e753809f0e2fdb94553f17c7c1d5ecd0b158fd2fc2313c32b",
+      "roleCount": 24,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller"
+      ]
+    },
+    {
+      "scriptId": "wiki-27ed3b4517d2d194",
+      "displayName": "五星大厨",
+      "sourceIndex": 820,
+      "rawJsonSha256": "27ed3b4517d2d1942b73a1264afc73e4d298919868c4e9eb50f3ab876b534e5a",
+      "roleCount": 24,
+      "templateCount": 22,
+      "jinxCount": 4,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "poppygrower",
+        "amnesiac",
+        "atheist"
+      ]
+    },
+    {
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "displayName": "与汝同袍？",
+      "sourceIndex": 837,
+      "rawJsonSha256": "6cb94b3a25db5fb94c777242a6eaa0f552656293d7f707480e18a56583d35918",
+      "roleCount": 25,
+      "templateCount": 36,
+      "jinxCount": 5,
+      "authorRuleCount": 6,
+      "rolesOutsideGeneratedTemplates": [
+        "huntsman",
+        "amnesiac",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "displayName": "异数略算",
+      "sourceIndex": 840,
+      "rawJsonSha256": "3d4ca1a93128c7d7770a3ed1d4e17e823d1e5ea694e3064f27a64f2b64597984",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 4,
+      "authorRuleCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "bountyhunter",
+        "villageidiot",
+        "fortuneteller",
+        "poppygrower"
+      ]
+    },
+    {
+      "scriptId": "wiki-a488b4f1cf4eaeb7",
+      "displayName": "暗流涌动地狱",
+      "sourceIndex": 869,
+      "rawJsonSha256": "a488b4f1cf4eaeb7898261065740299366c24ddb9e41d3b1d06483b850b5b3a5",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "atheist"
+      ]
+    },
+    {
+      "scriptId": "wiki-25af2829bee0ec08",
+      "displayName": "双倍劲凉",
+      "sourceIndex": 903,
+      "rawJsonSha256": "25af2829bee0ec08c209140e07de9b1880068e050bd6d0bd990fa3c2569304fa",
+      "roleCount": 26,
+      "templateCount": 27,
+      "jinxCount": 0,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "amnesiac",
+        "poppygrower",
+        "atheist"
+      ]
+    },
+    {
+      "scriptId": "wiki-9efed422c2d1e88c",
+      "displayName": "急转直下",
+      "sourceIndex": 909,
+      "rawJsonSha256": "9efed422c2d1e88ca63c3fa9d34bdab8132d027d8a432bf5c5dbe64584314b85",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": []
+    },
+    {
+      "scriptId": "wiki-045c469020bffd03",
+      "displayName": "无所顾忌",
+      "sourceIndex": 910,
+      "rawJsonSha256": "045c469020bffd03d17c41f96c30b41c42d7e0d4329a93ebf8689414f126b3f2",
+      "roleCount": 26,
+      "templateCount": 27,
+      "jinxCount": 2,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "bountyhunter",
+        "amnesiac",
+        "huntsman",
+        "poppygrower",
+        "lilmonsta"
+      ]
+    },
+    {
+      "scriptId": "wiki-bac3d2dbc903f593",
+      "displayName": "窥夜之境",
+      "sourceIndex": 914,
+      "rawJsonSha256": "bac3d2dbc903f5932fcad449b1c57fef70112b37f6d5da4a9d01b1a7aec974a5",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 4,
+      "authorRuleCount": 4,
+      "rolesOutsideGeneratedTemplates": [
+        "bountyhunter",
+        "fortuneteller",
+        "huntsman",
+        "poppygrower",
+        "lilmonsta"
+      ]
+    }
+  ],
+  "heldCandidates": [],
+  "allRoleLogicReused": true,
+  "sourceReviewGroupingIsSkillCoverage": false
+}

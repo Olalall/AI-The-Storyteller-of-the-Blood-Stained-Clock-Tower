@@ -71,9 +71,9 @@ export function prepareScriptPack(input, context) {
   const counts = new Map(), templates = [], seen = new Set()
   for (const { template, sourceId } of eligible) {
     if (!definition.playerCounts.includes(template.playerCount)
-      || (counts.get(template.playerCount) ?? 0) >= minimumTemplates[template.playerCount]) continue
+      || (!input.setupTemplates && (counts.get(template.playerCount) ?? 0) >= minimumTemplates[template.playerCount])) continue
     const roles = template.roles.map(normalizeRoleId), bluffs = template.bluffs.map(normalizeRoleId)
-    if ([...roles, ...bluffs].some((id) => !roleIds.has(id)) || new Set(bluffs).size !== 3 || bluffs.some((id) => roles.includes(id))) continue
+    if ([...roles, ...bluffs].some((id) => !roleIds.has(id)) || bluffs.some((id) => roles.includes(id))) continue
     const key = JSON.stringify([template.playerCount, roles, bluffs, template.setupAdjustments ?? []])
     if (seen.has(key)) continue
     const candidate = { ...template, scriptId: definition.scriptId, templateId: definition.scriptId + '-candidate-' + (templates.length + 1),

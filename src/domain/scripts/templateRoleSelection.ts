@@ -1,6 +1,7 @@
 import { normalizeRoleId } from './roleId'
 import type { SetupTemplate, SmartScriptPack } from './types'
 import { inferModifierRoleId, isMandatorySetupCountRole, isValidSetupCountChangeForRole } from '../setup-templates/setupCountChanges'
+import { isLilMonstaCountChange, isNonSeatedLilMonstaChoice } from '../setup-templates/lilMonstaOpening'
 
 /** Shared structural guard. It does not infer character abilities or game outcomes. */
 export function templateRoleSelectionValid(pack: Pick<SmartScriptPack, 'roles' | 'setupRules'>, template: SetupTemplate) {
@@ -19,7 +20,11 @@ export function templateRoleSelectionValid(pack: Pick<SmartScriptPack, 'roles' |
     && pack.setupRules?.some((rule) => rule.id === adjustment.ruleId)
     && normalizeRoleId(inferModifierRoleId(adjustment.ruleId, pack) ?? '') === roleId
     && isValidSetupCountChangeForRole(roleId, adjustment.compositionDelta)))) return false
-  return bluffs.length === 3 && new Set(bluffs).size === 3 && bluffs.every((id) => {
+  const lilMonsta = template.setupAdjustments?.some(adjustment =>
+    pack.setupRules.some(rule => rule.id === adjustment.ruleId && rule.roleId === 'lilmonsta' && rule.knowledgeStatus === 'confirmed')
+    && isNonSeatedLilMonstaChoice(adjustment.ruleId, adjustment.choiceId) && isLilMonstaCountChange(adjustment.compositionDelta))
+  const bluffCount = lilMonsta ? 0 : 3
+  return bluffs.length === bluffCount && new Set(bluffs).size === bluffCount && bluffs.every((id) => {
     const role = byId.get(id)
     return role && (role.team === 'townsfolk' || role.team === 'outsider') && !seen.has(id)
   }) && [...repeatable].every((id) => byId.has(id))

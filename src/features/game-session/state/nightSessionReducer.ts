@@ -12,6 +12,7 @@ const itemIndependentActions = new Set<NightWorkbenchAction['type']>([
 ])
 import { formalNightRecordValid, wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
 import { projectNightResultContract } from './nightWakeContract'
+import { hasLilMonstaOpening, validLilMonstaItem } from './lilMonstaNight'
 
 type NightSessionActionType =
   | 'commit-night-workbench'
@@ -92,7 +93,8 @@ function commitNightWorkbench(
     if (kazaliAllocationBlocksItem(state, record.wakeItemId)) return state
     const item = queueItemById.get(record.wakeItemId)
     if (!item) return state
-    if (!record.correctionOf && !item.systemStep && normalizeRoleId(projectCurrentAssignments(state).find((assignment) => assignment.seatId === item.seatId)?.role.id ?? '') !== normalizeRoleId(item.roleId)) return state
+    const nonSeated = validLilMonstaItem(item, currentQueueById.get(item.id)) && hasLilMonstaOpening(state, projectCurrentAssignments(state))
+    if (!record.correctionOf && !item.systemStep && !nonSeated && normalizeRoleId(projectCurrentAssignments(state).find((assignment) => assignment.seatId === item.seatId)?.role.id ?? '') !== normalizeRoleId(item.roleId)) return state
     if (!record.correctionOf && item.abilityPhase === 'initial' && (record.snapshot.targets.length !== 1 || record.snapshot.targets.some((seat) => projectCurrentPlayerStates(state)[seat]?.life !== 'alive'))) return state
     const entry = {
       kind: 'night_action' as const,

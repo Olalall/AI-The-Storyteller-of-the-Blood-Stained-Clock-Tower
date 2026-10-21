@@ -1,21 +1,7 @@
 import type { NightSettlementProviderRequest } from './types'
 
-// Kept in sync with the actual script packs by kazaliTargetRoleChoices.test.ts.
-export const kazaliMinionRoleIds: Readonly<Record<string, readonly string[]>> = {
-  'tan-hu-se-bian': ['boomdandy', 'cerenovus', 'scarletwoman', 'widow', 'witch'],
-  'yan-bu-you-zhong': ['cerenovus', 'goblin', 'scarletwoman', 'widow'],
-  'sheng-dan-ye-jing-hun': ['assassin', 'fearmonger', 'guai_dao', 'wei_zheng_tian_cai', 'widow'],
-  'one-in-one-out': ['harpy', 'mezepheles', 'poisoner', 'spy'],
-  punchy: ['cerenovus', 'harpy', 'psychopath', 'vizier'],
-  'devout-theists': ['goblin', 'marionette', 'psychopath', 'widow'],
-  'wu-he-you-zhi-xiang': ['harpy', 'mezepheles', 'poisoner', 'scarletwoman', 'spy'],
-  'xin-kou-ci-huang': ['boffin', 'poisoner', 'psychopath', 'scarletwoman'],
-  'wu-yin-cang-sheng': ['gudiao', 'harpy', 'mezepheles', 'pithag'],
-  'ku-mu-feng-chun': ['harpy', 'pithag', 'poisoner', 'witch'],
-  'bai-zhou-wei-shi': ['gudiao', 'mezepheles', 'psychopath', 'scarletwoman'],
-  'ji-meng-ta-xiang': ['assassin', 'cerenovus', 'ganshiren', 'gudiao'],
-  'nuo-fu-jiu-xing': ['goblin', 'harpy', 'humeiniang', 'psychopath'],
-}
+import { kazaliMinionRoleIds } from './kazaliMinionRoleIds.generated'
+export { kazaliMinionRoleIds } from './kazaliMinionRoleIds.generated'
 
 export function missingKazaliTargetRoleChoices(input: NightSettlementProviderRequest): string[] {
   const count = input.wakeItem.targetRoleChoiceCount

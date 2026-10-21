@@ -10,6 +10,7 @@ import { createNightWakeInteraction } from './nightWakeInteraction'
 import { applyWakeHistoricalContext } from './nightHistoricalContext'
 import { createAudienceNoticeItem, createFirstNightSystemSteps, mergeFirstNightSystemSteps } from './firstNightSystemSteps'
 import { playerFacingIdentity } from '../../identity-deal/identityProjection'
+import { createLilMonstaItems, hasLilMonstaOpening } from './lilMonstaNight'
 
 export function nextNightSequence(session: GameSessionState) {
   return nextPhaseSequence(session, 'night')
@@ -64,6 +65,23 @@ export function createSmartScriptNightQueue(
     const role = roleById.get(normalizeRoleId(order.roleId))
     if (!role) return []
     const roleAssignments = assignments.filter((assignment) => normalizeRoleId(assignment.role.id) === normalizeRoleId(order.roleId))
+    if (role.id === 'lilmonsta' && assignments.length === session.playerCount && !roleAssignments.length && hasLilMonstaOpening(session, assignments)) {
+      return createLilMonstaItems(session, role, order, runId, sequence)
+    }
+    if (role.id === 'legion' && roleAssignments.length) {
+      const assignment = roleAssignments.find(actor => playerStates[actor.seatId]?.life === 'alive') ?? roleAssignments[0]
+      const state = playerStates[assignment.seatId]
+      if (!state) return []
+      return [{ ...createSmartWakeItem({ session, assignment, playerState:state, role, order, runId, isFirstNight:sequence === 1 }),
+        playerLabel:'全体军团 · 说书人处理', targetCount:1, targetKind:'storyteller_info' as const, targetLabel:'死亡候选',
+        interactionVersion:'legion/collective-night-v1',
+        storytellerPrompt:'整组军团只处理一次可能死亡；由说书人选择，通常优先考虑军团，不逐名军团发动或分别杀人。状态与胜负另行确认。',
+        outcomeOptions:[
+          {id:'record',label:'记录死亡候选',requiredInputs:['targets' as const],resultTemplate:'军团：{target}为本夜死亡候选，由说书人另行确认生死。'},
+          {id:'hold',label:'本夜无人死亡',requiredInputs:[],resultTemplate:'军团：本夜不造成死亡。'},
+        ],
+      }]
+    }
     if (order.delivery?.kind === 'audience_notice') {
       return roleAssignments.length ? [createAudienceNoticeItem({ session, assignments: projectCurrentAssignments(session), playerStates, sourceAssignments: roleAssignments, role, order, runId })] : []
     }

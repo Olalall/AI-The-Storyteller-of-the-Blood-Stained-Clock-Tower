@@ -1,0 +1,1118 @@
+{
+  "scriptId": "wiki-ddb055dcbcca72f5",
+  "displayName": "亡国悲歌",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "Rhea",
+    "version": "库记录537 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:ddb055dcbcca72f5800d483ff6e9919f7171cdaefadf8845808dc731b6437709",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "shugenja",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "highpriestess",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "king",
+      "sourceId": "he-fang-jiao-zhong",
+      "sourceVersion": "sha256:63e5b87f8058d6c25041fca52652806a894e24ad883e7a97fe07bc4925601da4"
+    },
+    {
+      "id": "choirboy",
+      "sourceId": "he-fang-jiao-zhong",
+      "sourceVersion": "sha256:63e5b87f8058d6c25041fca52652806a894e24ad883e7a97fe07bc4925601da4"
+    },
+    {
+      "id": "innkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "nightwatchman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "minstrel",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "xaan",
+      "sourceId": "quick-maths",
+      "sourceVersion": "sha256:2960bb5ebba764e8cc812500a4cba1c759ef6817859e836db7121f4b89e4ae03"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "kazali",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-1",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "dreamer",
+        "highpriestess"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-2",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "vigormortis",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess"
+      ],
+      "bluffs": [
+        "king",
+        "choirboy",
+        "innkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-3",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "mutant"
+      ],
+      "bluffs": [
+        "shugenja",
+        "fortuneteller",
+        "king"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-4",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "king",
+        "choirboy"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-5",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "imp",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "mutant"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "king",
+        "choirboy"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-6",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "king",
+        "choirboy"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-7",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "vigormortis",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "damsel"
+      ],
+      "bluffs": [
+        "noble",
+        "fortuneteller",
+        "king"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-8",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "king",
+        "choirboy"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-9",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "poisoner",
+        "imp",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel"
+      ],
+      "bluffs": [
+        "noble",
+        "shugenja",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-10",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "recluse"
+      ],
+      "bluffs": [
+        "king",
+        "choirboy",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-11",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "king",
+        "choirboy"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-12",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "vigormortis",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "dreamer",
+        "king"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-13",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "cerenovus",
+        "imp",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "dreamer",
+        "highpriestess"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-14",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "damsel"
+      ],
+      "bluffs": [
+        "choirboy",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-15",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "marionette",
+        "imp",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "puzzlemaster",
+        "recluse"
+      ],
+      "bluffs": [
+        "choirboy",
+        "savant",
+        "minstrel"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-16",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "marionette",
+        "xaan",
+        "vigormortis",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess"
+      ],
+      "bluffs": [
+        "king",
+        "choirboy",
+        "innkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-17",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "xaan",
+        "poisoner",
+        "vigormortis",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian"
+      ],
+      "bluffs": [
+        "choirboy",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-18",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "xaan",
+        "poisoner",
+        "imp",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "king",
+        "choirboy",
+        "nightwatchman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-19",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "poisoner",
+        "scarletwoman",
+        "imp",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "mutant"
+      ],
+      "bluffs": [
+        "choirboy",
+        "recluse",
+        "damsel"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-20",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "poisoner",
+        "scarletwoman",
+        "vigormortis",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "recluse"
+      ],
+      "bluffs": [
+        "king",
+        "choirboy",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-21",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "cerenovus",
+        "vigormortis",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "minstrel",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "damsel"
+      ],
+      "bluffs": [
+        "recluse",
+        "mutant",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-ddb055dcbcca72f5-candidate-22",
+      "scriptId": "wiki-ddb055dcbcca72f5",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "cerenovus",
+        "marionette",
+        "imp",
+        "librarian",
+        "noble",
+        "shugenja",
+        "dreamer",
+        "highpriestess",
+        "innkeeper",
+        "nightwatchman",
+        "fisherman",
+        "savant",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "puzzlemaster",
+        "fortuneteller",
+        "king"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "marionette-kazali-jinx",
+      "roleId": "marionette",
+      "summary": "If there would be a Marionette in play, they enter play after the Demon & must start as their neighbor.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "kazali",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "king",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "shugenja",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "xaan",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "innkeeper",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "kazali",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "choirboy",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "king",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "shugenja": "sha256:20e3ef86b6aeed76cf4588bbf6b856480cd1fff5ece0e97b8e42928b98439fc0",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "highpriestess": "sha256:8494609fb30ae75114cd2a18e0053104c012cad339d6a9fe9964cd3554176c07",
+    "king": "sha256:ede85d3b759272ebacba45fe2fb95652c33ffc4d56fac9c10d5223b926637613",
+    "choirboy": "sha256:2b01d20acbbbf05ef260f05f5e5585bb650ba24bd51dd57221b4f29e061f1d9e",
+    "innkeeper": "sha256:d08a610a685471cf44a7ee19977c4a5466152b3d8d42c7a48a0a9d1b874b3304",
+    "nightwatchman": "sha256:9abb4633d92f6cce99fb53748bb1020e8e0a12e98274df257a2bc16cf75bac19",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "minstrel": "sha256:069a4084e7355e04e5981d782f82e370c35f729496adf7ff5f5dc83f5a378fbb",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "xaan": "sha256:7759915ed1083035085b10cd8dab84caff67297c023ee33a0d34cc38f2d540ba",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "kazali": "sha256:1d09ef273bca43a80090cd4a16749f9d2fe72a4e6a07f1af2c3ea8d99d062456"
+  }
+}
