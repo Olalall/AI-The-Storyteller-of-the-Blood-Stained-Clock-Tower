@@ -1,0 +1,1115 @@
+{
+  "scriptId": "chen-ke-nan-fan",
+  "displayName": "沉科难返",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Dylan",
+    "version": "Clocktower Wiki index 554 / build 16ad8f7c270d / 当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:10b858d906b59ce13bd27593ef8cef9c3f1a4d4a70432534ea8459ba38ed9cfb",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "general",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "highpriestess",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "juggler",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "slayer",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "ravenkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "boffin",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "chen-ke-nan-fan-candidate-1",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "nodashii",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath"
+      ],
+      "bluffs": [
+        "general",
+        "highpriestess",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-2",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "nodashii",
+        "pixie",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher"
+      ],
+      "bluffs": [
+        "slayer",
+        "fisherman",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-3",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "marionette",
+        "ojo",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "slayer",
+        "fisherman"
+      ],
+      "bluffs": [
+        "general",
+        "savant",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-4",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "ojo",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general",
+        "recluse"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "philosopher",
+        "juggler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-5",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "ojo",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "mutant"
+      ],
+      "bluffs": [
+        "slayer",
+        "fisherman",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-6",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "fanggu",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general",
+        "mutant",
+        "damsel",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "philosopher",
+        "juggler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-7",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "fanggu",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "damsel",
+        "puzzlemaster",
+        "recluse"
+      ],
+      "bluffs": [
+        "empath",
+        "slayer",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-8",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "scarletwoman",
+        "nodashii",
+        "pixie",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "slayer"
+      ],
+      "bluffs": [
+        "fisherman",
+        "savant",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-9",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "boffin",
+        "nodashii",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper"
+      ],
+      "bluffs": [
+        "empath",
+        "general",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-10",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "boffin",
+        "marionette",
+        "ojo",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general"
+      ],
+      "bluffs": [
+        "juggler",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-11",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "boffin",
+        "ojo",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "pixie",
+        "savant",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-12",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "marionette",
+        "ojo",
+        "philosopher",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "recluse"
+      ],
+      "bluffs": [
+        "general",
+        "highpriestess",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-13",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "marionette",
+        "fanggu",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "recluse",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "pixie",
+        "empath",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-14",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "cerenovus",
+        "fanggu",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "mutant",
+        "damsel",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "general",
+        "highpriestess",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-15",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "cerenovus",
+        "scarletwoman",
+        "nodashii",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "damsel",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "fisherman",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-16",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "cerenovus",
+        "scarletwoman",
+        "nodashii",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath"
+      ],
+      "bluffs": [
+        "general",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-17",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "scarletwoman",
+        "boffin",
+        "nodashii",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher"
+      ],
+      "bluffs": [
+        "recluse",
+        "mutant",
+        "damsel"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-18",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "scarletwoman",
+        "boffin",
+        "ojo",
+        "philosopher",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general",
+        "damsel"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-19",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "boffin",
+        "marionette",
+        "ojo",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "recluse",
+        "mutant",
+        "damsel"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-20",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "boffin",
+        "marionette",
+        "fanggu",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general",
+        "puzzlemaster",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "philosopher",
+        "damsel"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-21",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "marionette",
+        "cerenovus",
+        "fanggu",
+        "savant",
+        "ravenkeeper",
+        "pixie",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "recluse",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "fisherman",
+        "puzzlemaster",
+        "slayer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "chen-ke-nan-fan-candidate-22",
+      "scriptId": "chen-ke-nan-fan",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "marionette",
+        "cerenovus",
+        "scarletwoman",
+        "nodashii",
+        "empath",
+        "general",
+        "highpriestess",
+        "philosopher",
+        "juggler",
+        "slayer",
+        "fisherman",
+        "savant",
+        "ravenkeeper",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "puzzlemaster",
+        "pixie",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "balloonist-setup-count",
+      "roleId": "balloonist",
+      "summary": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Balloonist"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fanggu-setup-count",
+      "roleId": "fanggu",
+      "summary": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Fang_Gu"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "marionette-balloonist-jinx",
+      "roleId": "marionette",
+      "summary": "If the Marionette thinks that they are the Balloonist, an Outsider might have been added during setup.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "scarletwoman-fanggu-jinx",
+      "roleId": "scarletwoman",
+      "summary": "If there would be two Demons, one of which was the Scarlet Woman, the Scarlet Woman remains the Scarlet Woman.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "boffin",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "ravenkeeper",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "juggler",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "general": "sha256:fd1842203e0740d67a0126b7f4a7e2fcdaa670d5251cc4f8690d72d4a1d8933c",
+    "highpriestess": "sha256:8494609fb30ae75114cd2a18e0053104c012cad339d6a9fe9964cd3554176c07",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "juggler": "sha256:bbcea5b0d8167d59a0145880a0c448f02ff7ae87da08cf8f4f747b02220395b7",
+    "slayer": "sha256:74d1245e17fde7141ff849dd826aadeb562b21263addbd4de8e9eae521d1fba7",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "amnesiac": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+    "ravenkeeper": "sha256:6e3311f80393bc0e63bc13ad33ad354fec889729ba26aed45dbcc23dde876bf3",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "boffin": "sha256:226f74d07df7fadf4df107b7d4e64d0283c16d5a1fa48f7f4ad70ac60d595173",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5"
+  }
+}

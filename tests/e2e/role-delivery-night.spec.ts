@@ -247,12 +247,16 @@ test('Exorcist disables the confirmed previous target and keeps one clear next a
 
 test('Pukka shows the active poison target without applying death or recovery', async ({ page }) => {
   await openSession(page, sessionFocusedOn(delayedRoleItem('pukka', '普卡')))
+  const before = JSON.parse((await page.evaluate(key => localStorage.getItem(key), gameSessionStorageKey))!) as GameSessionState
   await page.getByText('上次记录', { exact: true }).click()
-  await expect(page.getByText(/当前待结算的普卡中毒目标：4号/)).toBeVisible()
+  await expect(page.getByText(/待核对的普卡旧目标：4号；追踪不代表当前中毒/)).toBeVisible()
   await page.getByRole('button', { name: '选择5号玩家' }).click()
   await page.getByRole('button', { name: '新毒目标生效' }).click()
-  await expect(page.getByText(/4号为死亡并恢复健康候选/)).toBeVisible()
+  await expect(page.getByText(/4号旧毒结算候选：先核对死亡是否被保护等效果阻止/)).toBeVisible()
   await expect(page.getByRole('button', { name: '确认本项', exact: true })).toBeEnabled()
+  const after = JSON.parse((await page.evaluate(key => localStorage.getItem(key), gameSessionStorageKey))!) as GameSessionState
+  expect(after.timeline).toEqual(before.timeline)
+  expect(projectCurrentPlayerStates(after)).toEqual(projectCurrentPlayerStates(before))
 })
 
 test('Shabaloth offers only dead previous targets as regurgitation choices', async ({ page }) => {

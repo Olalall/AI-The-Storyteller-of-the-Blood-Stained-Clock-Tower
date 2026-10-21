@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { runInNewContext } from 'node:vm'
+import { pathToFileURL } from 'node:url'
 import ts from 'typescript'
 
 /** Offline trusted project modules only. Script JSON is parsed as data, never evaluated. */
@@ -16,6 +17,15 @@ export function createTypescriptLoader() {
     }
     const output = ts.transpileModule(readFileSync(file, 'utf8'), {
       compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true },
+      transformers: { before: [(context) => {
+        const visit = (node) => ts.isMetaProperty(node) && node.keywordToken === ts.SyntaxKind.ImportKeyword
+          ? ts.factory.createObjectLiteralExpression([
+            ts.factory.createPropertyAssignment('env', ts.factory.createObjectLiteralExpression()),
+            ts.factory.createPropertyAssignment('url', ts.factory.createStringLiteral(pathToFileURL(file).href)),
+          ])
+          : ts.visitEachChild(node, visit, context)
+        return (node) => ts.visitNode(node, visit)
+      }] },
     }).outputText
     const exports = {}
     cache.set(file, exports)

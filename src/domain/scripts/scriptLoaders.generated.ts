@@ -148,4 +148,13 @@ export const scriptLoaders: Record<string, () => Promise<SmartScriptPack>> = {
   "wen-run-liang-ye": () => import('./packs/wen-run-liang-ye').then((module) => module.preparedWenRunLiangYeSmartScriptPack),
   "shen-bu-you-ji": () => import('./packs/shen-bu-you-ji').then((module) => module.preparedShenBuYouJiSmartScriptPack),
   "quan-qiu-jing-song": () => import('./packs/quan-qiu-jing-song').then((module) => module.preparedQuanQiuJingSongSmartScriptPack),
+  "bi-ye-dian-li": () => import('./packs/bi-ye-dian-li').then((module) => module.preparedBiYeDianLiSmartScriptPack),
+  "tian-ruo-you-qing": () => import('./packs/tian-ruo-you-qing').then((module) => module.preparedTianRuoYouQingSmartScriptPack),
+  "chen-ke-nan-fan": () => import('./packs/chen-ke-nan-fan').then((module) => module.preparedChenKeNanFanSmartScriptPack),
+  "feng-kuang-ke-yan": () => import('./packs/feng-kuang-ke-yan').then((module) => module.preparedFengKuangKeYanSmartScriptPack),
+  "du-shi-sha-shou-hou": () => import('./packs/du-shi-sha-shou-hou').then((module) => module.preparedDuShiShaShouHouSmartScriptPack),
+  "huan-shou-qi-jing": () => import('./packs/huan-shou-qi-jing').then((module) => module.preparedHuanShouQiJingSmartScriptPack),
+  "wu-xian-bo-yi": () => import('./packs/wu-xian-bo-yi').then((module) => module.preparedWuXianBoYiSmartScriptPack),
+  "du-xian-man-yan": () => import('./packs/du-xian-man-yan').then((module) => module.preparedDuXianManYanSmartScriptPack),
+  "shu-xue-jia-sha-ren-shi-jian": () => import('./packs/shu-xue-jia-sha-ren-shi-jian').then((module) => module.preparedShuXueJiaShaRenShiJianSmartScriptPack),
 }

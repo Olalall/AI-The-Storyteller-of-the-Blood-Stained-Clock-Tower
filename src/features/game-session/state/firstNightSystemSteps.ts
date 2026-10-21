@@ -37,7 +37,7 @@ export function createAudienceNoticeItem(input: {
     ? '无需通知 · 没有可获知此信息的爪牙'
     : `逐个通知 · ${recipientLabels.join(' / ')}`
 
-  return createSystemStepItem({
+  return { ...createSystemStepItem({
     session: input.session,
     playerStates: input.playerStates,
     runId: allocationSystemRunId(input.session, input.runId),
@@ -69,7 +69,7 @@ export function createAudienceNoticeItem(input: {
     resultTemplate: noRecipients
       ? `${input.role.name}信息：本局没有可获知此信息的爪牙。`
       : `${input.role.name}信息：已向${recipientLabels.join('、')}逐个展示「${delivery.infoToken}」标记。`,
-  })
+  }), orderIndex: input.order.order }
 }
 
 /** 《规则概要》二.2：七人及以上的首夜才走爪牙信息与恶魔信息。 */
