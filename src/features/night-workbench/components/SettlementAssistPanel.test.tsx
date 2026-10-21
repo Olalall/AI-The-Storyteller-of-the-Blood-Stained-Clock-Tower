@@ -4,6 +4,7 @@ import { describe, expect, it, vi } from 'vitest'
 import type { PlayerState } from '../../game-session/model/playerTypes'
 import type { StateChangeAdoptionContext } from '../../../services/ai/stateChangeAdoption'
 import type { AIResultAdvice, AIStateChangeDraft } from '../types'
+import { normalizeStateChangeDrafts } from '../../../services/ai/aiStateChangeDraft'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
 
 function missingAdvice(missing: string[]): AIResultAdvice {
@@ -110,6 +111,27 @@ describe('SettlementAssistPanel', () => {
     const panel = screen.getByRole('region', { name: '本项辅助' })
     expect(within(panel).getByText('可能涉及中毒：确认后在玩家状态中标记。')).toBeInTheDocument()
     expect(within(panel).queryByRole('button')).toBeNull()
+  })
+
+  it.each([true, false])('does not offer or dispatch a state change after boolean poisoned.to=%s is downgraded', async (to) => {
+    const onAdopt = vi.fn()
+    const playerStates = { 3: alive({ poisoned: !to }) }
+    const before = structuredClone(playerStates)
+    const drafts = normalizeStateChangeDrafts([
+      { text: '3号中毒状态待核对', seatId: 3, change: { field: 'poisoned', to } },
+    ], [3])
+    render(<SettlementAssistPanel
+      aiAdvice={answerAdvice(drafts)}
+      aiOutcomeLabel={'受到影响'}
+      adoption={adoptionContext(playerStates)}
+      onAdoptStateChange={onAdopt}
+    />)
+
+    const panel = screen.getByRole('region', { name: '本项辅助' })
+    expect(within(panel).queryByRole('button')).toBeNull()
+    await userEvent.click(within(panel).getByText('3号中毒状态待核对'))
+    expect(onAdopt).not.toHaveBeenCalled()
+    expect(playerStates).toEqual(before)
   })
 
   /*

@@ -140,6 +140,17 @@ import { zuiGeLuanWuSmartScriptPack } from './packs/zui-ge-luan-wu'
 import { ziGuiQiMingSmartScriptPack } from './packs/zi-gui-qi-ming'
 import { zhuoYueBiFangSmartScriptPack } from './packs/zhuo-yue-bi-fang'
 
+import { preparedJiuRiChongXianSmartScriptPack } from './packs/jiu-ri-chong-xian'
+import { preparedBuZhiZhiZhengSmartScriptPack } from './packs/bu-zhi-zhi-zheng'
+import { preparedWangLingTongHaoHuiSmartScriptPack } from './packs/wang-ling-tong-hao-hui'
+import { preparedYiCunDuanYiCunXianSmartScriptPack } from './packs/yi-cun-duan-yi-cun-xian'
+import { preparedJiaFangFuChouJiSmartScriptPack } from './packs/jia-fang-fu-chou-ji'
+import { preparedYouTouLaiGuoSmartScriptPack } from './packs/you-tou-lai-guo'
+import { preparedFuShouChengChenSmartScriptPack } from './packs/fu-shou-cheng-chen'
+import { preparedWenRunLiangYeSmartScriptPack } from './packs/wen-run-liang-ye'
+import { preparedShenBuYouJiSmartScriptPack } from './packs/shen-bu-you-ji'
+import { preparedQuanQiuJingSongSmartScriptPack } from './packs/quan-qiu-jing-song'
+
 const sourceSmartScriptPacks = [
   catfishingSmartScriptPack,
   anDuChenCangSmartScriptPack,
@@ -279,6 +290,16 @@ const sourceSmartScriptPacks = [
   fengMaoZhiYanSmartScriptPack,
   tanHuSeBianSmartScriptPack,
   yanBuYouZhongSmartScriptPack,
+  preparedJiuRiChongXianSmartScriptPack,
+  preparedBuZhiZhiZhengSmartScriptPack,
+  preparedWangLingTongHaoHuiSmartScriptPack,
+  preparedYiCunDuanYiCunXianSmartScriptPack,
+  preparedJiaFangFuChouJiSmartScriptPack,
+  preparedYouTouLaiGuoSmartScriptPack,
+  preparedFuShouChengChenSmartScriptPack,
+  preparedWenRunLiangYeSmartScriptPack,
+  preparedShenBuYouJiSmartScriptPack,
+  preparedQuanQiuJingSongSmartScriptPack,
 ] as const satisfies readonly SmartScriptPack[]
 
 export const smartScriptPacks = sourceSmartScriptPacks.map((pack) => ({

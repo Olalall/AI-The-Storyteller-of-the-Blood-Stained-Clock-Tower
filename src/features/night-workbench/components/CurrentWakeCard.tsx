@@ -111,7 +111,7 @@ export function CurrentWakeCard({
     )
   }
 
-  const formDisabled = isPreviewing || isReadOnly
+  const formDisabled = isPreviewing || isReadOnly || item.interactionVersion === 'farmer/trigger-review-v1' && item.applicability !== 'applicable'
   const modifiedFromAI = draft.outputSource?.kind === 'preset'
     ? draft.outputSource.modifiedFromAI
     : undefined

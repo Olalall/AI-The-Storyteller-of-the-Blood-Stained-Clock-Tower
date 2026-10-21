@@ -13,10 +13,39 @@ import { smartScriptPacks } from '../../src/domain/scripts/catalog'
 import { compactScriptText, createScriptTextPool, renderScriptTextPool, scriptTextModule } from './compact-script-text'
 
 function execute(code: string, requireModule: (id: string) => unknown = () => ({})) {
-  const output = ts.transpileModule(code, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022 } }).outputText
+  const output = ts.transpileModule(code, { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true } }).outputText
   const exports = {}
   runInNewContext(output, { exports, require: requireModule, URL })
   return exports as Record<string, unknown>
+}
+
+function createPooledScriptLoader(files: readonly string[], pool = createScriptTextPool(files.map((file) => readFileSync(file, 'utf8')))) {
+  const fileSet = new Set(files)
+  const textExports = execute(renderScriptTextPool(pool))
+  const cache = new Map<string, Record<string, unknown>>()
+  function load(file: string): Record<string, unknown> {
+    const cached = cache.get(file)
+    if (cached) return cached
+    const source = readFileSync(file, 'utf8')
+    // Match Node's JSON require shape; TypeScript supplies default import interop.
+    if (file.endsWith('.json')) {
+      const exports = JSON.parse(source)
+      cache.set(file, exports)
+      return exports
+    }
+    const transformed = fileSet.has(file) ? compactScriptText(source, pool) ?? source : source
+    const exports = execute(transformed, (id) => {
+      if (id === scriptTextModule) return textExports
+      const path = resolve(dirname(file), id)
+      const target = [path, `${path}.ts`, `${path}.json`, resolve(path, 'index.ts')]
+        .find((candidate) => /\.(?:ts|json)$/.test(candidate) && existsSync(candidate))
+      if (!target) throw new Error(`Missing pooled test module: ${id}`)
+      return load(target)
+    })
+    cache.set(file, exports)
+    return exports
+  }
+  return load
 }
 
 test('pooling preserves escaped Unicode and excludes property names, imports and types', () => {
@@ -39,28 +68,25 @@ test('every registered production pack retains all data after text pooling', () 
     const root = resolve('src/domain/scripts', directory)
     return readdirSync(root, { recursive: true }).map(String).filter((name) => name.endsWith('.ts') && !name.endsWith('.test.ts')).sort().map((name) => resolve(root, name))
   })
-  const fileSet = new Set(files)
-  const pool = createScriptTextPool(files.map((file) => readFileSync(file, 'utf8')))
-  const textExports = execute(renderScriptTextPool(pool))
-  const cache = new Map<string, Record<string, unknown>>()
-  function load(file: string): Record<string, unknown> {
-    const cached = cache.get(file)
-    if (cached) return cached
-    const source = readFileSync(file, 'utf8')
-    const transformed = fileSet.has(file) ? compactScriptText(source, pool) ?? source : source
-    const exports = execute(transformed, (id) => {
-      if (id === scriptTextModule) return textExports
-      const path = resolve(dirname(file), id)
-      return load(existsSync(`${path}.ts`) ? `${path}.ts` : resolve(path, 'index.ts'))
-    })
-    cache.set(file, exports)
-    return exports
-  }
+  const load = createPooledScriptLoader(files)
   const pooled = load(resolve('src/domain/scripts/allPacks.ts')).smartScriptPacks as SmartScriptPack[]
   const actual = pooled.map(normalizeImportedPack)
   expect(smartScriptPacks).toHaveLength(scriptManifest.length)
   expect(JSON.parse(JSON.stringify(actual))).toEqual(JSON.parse(JSON.stringify(smartScriptPacks)))
 }, 30_000)
+
+test('thin pack JSON metadata and official night data survive the pooled module loader', () => {
+  const root = resolve('src/domain/scripts/packs/wen-run-liang-ye')
+  const index = resolve(root, 'index.ts')
+  const definition = resolve(root, 'definition.json')
+  const nightSheet = resolve('src/features/night-workbench/data/official/nightsheet.json')
+  const load = createPooledScriptLoader([index])
+  expect(load(definition)).toEqual(JSON.parse(readFileSync(definition, 'utf8')))
+  expect(load(nightSheet)).toEqual(JSON.parse(readFileSync(nightSheet, 'utf8')))
+  const pooled = load(index).preparedWenRunLiangYeSmartScriptPack as SmartScriptPack
+  const original = smartScriptPacks.find((pack) => pack.scriptId === 'wen-run-liang-ye')
+  expect(JSON.parse(JSON.stringify(normalizeImportedPack(pooled)))).toEqual(JSON.parse(JSON.stringify(original)))
+})
 
 
 test('generated list and icon projection match complete source packs', () => {

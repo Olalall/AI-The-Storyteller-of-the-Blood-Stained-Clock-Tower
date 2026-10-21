@@ -1,0 +1,1525 @@
+{
+  "scriptId": "jiu-ri-chong-xian",
+  "displayName": "旧日重现",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+    "author": "叮当",
+    "version": "原文未标作者版本；当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:ea5d369b9f65e22dfab3cb52e4892280a8fed6c9e9d835e0d4e7be5fde23726b",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "chef",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "widow",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "eviltwin",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-1",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "savant",
+        "philosopher",
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "widow",
+        "ojo"
+      ],
+      "bluffs": [
+        "chef",
+        "noble",
+        "empath"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-2",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "cannibal",
+        "farmer",
+        "chef",
+        "drunk",
+        "eviltwin",
+        "ojo"
+      ],
+      "bluffs": [
+        "empath",
+        "chambermaid",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-3",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 7,
+      "style": "bluff-heavy",
+      "roles": [
+        "balloonist",
+        "noble",
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "scarletwoman",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "towncrier",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "no-extra-outsider",
+          "compositionDelta": {
+            "townsfolk": 0,
+            "outsider": 0
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        },
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-4",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "philosopher",
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "chef",
+        "noble",
+        "eviltwin",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "empath",
+        "balloonist",
+        "chambermaid"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-5",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "farmer",
+        "chef",
+        "noble",
+        "empath",
+        "recluse",
+        "scarletwoman",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        },
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-6",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "chef",
+        "noble",
+        "recluse",
+        "sweetheart",
+        "scarletwoman",
+        "nodashii"
+      ],
+      "bluffs": [
+        "empath",
+        "balloonist",
+        "chambermaid"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-7",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "chef",
+        "noble",
+        "empath",
+        "sweetheart",
+        "mutant",
+        "drunk",
+        "cerenovus",
+        "nodashii"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-8",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "cannibal",
+        "farmer",
+        "chef",
+        "noble",
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "cerenovus",
+        "pithag",
+        "ojo"
+      ],
+      "bluffs": [
+        "balloonist",
+        "fortuneteller",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-9",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "noble",
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller",
+        "mutant",
+        "pithag",
+        "widow",
+        "ojo"
+      ],
+      "bluffs": [
+        "towncrier",
+        "savant",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-10",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 10,
+      "style": "bluff-heavy",
+      "roles": [
+        "balloonist",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "savant",
+        "philosopher",
+        "fisherman",
+        "widow",
+        "eviltwin",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "cannibal",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "no-extra-outsider",
+          "compositionDelta": {
+            "townsfolk": 0,
+            "outsider": 0
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        },
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-11",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "farmer",
+        "chef",
+        "noble",
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "pithag",
+        "widow",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "balloonist",
+        "savant",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-12",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "savant",
+        "drunk",
+        "widow",
+        "eviltwin",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "philosopher",
+        "fisherman",
+        "cannibal"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        },
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-13",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "chef",
+        "noble",
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "drunk",
+        "recluse",
+        "widow",
+        "eviltwin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "balloonist",
+        "savant",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-14",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "savant",
+        "recluse",
+        "sweetheart",
+        "mutant",
+        "eviltwin",
+        "scarletwoman",
+        "nodashii"
+      ],
+      "bluffs": [
+        "empath",
+        "philosopher",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-15",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 12,
+      "style": "bluff-heavy",
+      "roles": [
+        "balloonist",
+        "towncrier",
+        "savant",
+        "philosopher",
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "sweetheart",
+        "mutant",
+        "scarletwoman",
+        "cerenovus",
+        "ojo"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "no-extra-outsider",
+          "compositionDelta": {
+            "townsfolk": 0,
+            "outsider": 0
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-16",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "noble",
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "savant",
+        "philosopher",
+        "fisherman",
+        "eviltwin",
+        "scarletwoman",
+        "cerenovus",
+        "ojo"
+      ],
+      "bluffs": [
+        "chef",
+        "balloonist",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-17",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "savant",
+        "philosopher",
+        "fisherman",
+        "cannibal",
+        "sweetheart",
+        "scarletwoman",
+        "cerenovus",
+        "pithag",
+        "ojo"
+      ],
+      "bluffs": [
+        "empath",
+        "chambermaid",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-18",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "savant",
+        "philosopher",
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "scarletwoman",
+        "cerenovus",
+        "pithag",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "chef",
+        "noble",
+        "balloonist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-19",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "fortuneteller",
+        "towncrier",
+        "savant",
+        "philosopher",
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "chef",
+        "mutant",
+        "cerenovus",
+        "pithag",
+        "widow",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "empath",
+        "chambermaid",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        },
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-20",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "chambermaid",
+        "snakecharmer",
+        "fortuneteller",
+        "towncrier",
+        "savant",
+        "philosopher",
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "mutant",
+        "drunk",
+        "cerenovus",
+        "pithag",
+        "widow",
+        "nodashii"
+      ],
+      "bluffs": [
+        "chef",
+        "noble",
+        "empath"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-21",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "towncrier",
+        "savant",
+        "philosopher",
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "chef",
+        "drunk",
+        "recluse",
+        "sweetheart",
+        "pithag",
+        "widow",
+        "eviltwin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "empath",
+        "chambermaid",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jiu-ri-chong-xian-candidate-22",
+      "scriptId": "jiu-ri-chong-xian",
+      "playerCount": 15,
+      "style": "bluff-heavy",
+      "roles": [
+        "balloonist",
+        "fisherman",
+        "cannibal",
+        "farmer",
+        "chef",
+        "noble",
+        "empath",
+        "chambermaid",
+        "snakecharmer",
+        "recluse",
+        "sweetheart",
+        "widow",
+        "eviltwin",
+        "scarletwoman",
+        "ojo"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "towncrier",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "no-extra-outsider",
+          "compositionDelta": {
+            "townsfolk": 0,
+            "outsider": 0
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "host-confirmation-boundary",
+      "summary": "仅生成主持候选；身份、阵营、生死、毒醉、投票和胜负由说书人确认。角色变化、额外能力与死亡触发按本局事实另行记录。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "chef-manual-boundary",
+      "roleId": "chef",
+      "summary": "在你的首个夜晚，你会得知场上邻座的邪恶玩家有多少对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "noble-high-risk",
+      "roleId": "noble",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "empath-high-risk",
+      "roleId": "empath",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "balloonist-setup-count",
+      "roleId": "balloonist",
+      "summary": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Balloonist"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "chambermaid-manual-boundary",
+      "roleId": "chambermaid",
+      "summary": "每个夜晚，你要选择除你以外的两名存活的玩家：你会得知他们中有几人在当晚因其自身能力而被唤醒。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "snakecharmer-manual-boundary",
+      "roleId": "snakecharmer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21050_74806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fortuneteller-high-risk",
+      "roleId": "fortuneteller",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "towncrier-high-risk",
+      "roleId": "towncrier",
+      "summary": "Nomination history and registration are checked by ST.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20001_77217.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "savant-manual-boundary",
+      "roleId": "savant",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "philosopher-setup",
+      "roleId": "philosopher",
+      "summary": "May drunk an existing holder of the selected good role.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fisherman-manual-boundary",
+      "roleId": "fisherman",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21050_74806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "cannibal-manual-boundary",
+      "roleId": "cannibal",
+      "summary": "你拥有上个死于处决的玩家的能力。如果该玩家属于邪恶阵营，你中毒直到下个善良玩家死于处决。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "farmer-risk-1",
+      "roleId": "farmer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "drunk-cover",
+      "roleId": "drunk",
+      "summary": "Drunk: needs a Townsfolk cover identity; the player does not know they are the Drunk.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "recluse-high-risk",
+      "roleId": "recluse",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "sweetheart-high-risk",
+      "roleId": "sweetheart",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mutant-high-risk",
+      "roleId": "mutant",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "cerenovus-manual-boundary",
+      "roleId": "cerenovus",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-manual-boundary",
+      "roleId": "pithag",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "widow-high-risk",
+      "roleId": "widow",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "eviltwin-high-risk",
+      "roleId": "eviltwin",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21227_64421.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "scarletwoman-high-risk",
+      "roleId": "scarletwoman",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20722_51832.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "nodashii-manual-boundary",
+      "roleId": "nodashii",
+      "summary": "每个夜晚*，你要选择一名玩家：他死亡。与你邻近的两名镇民中毒。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "yi-yan-huan-yan-ojo-reminder",
+      "roleId": "ojo",
+      "summary": "Ojo kills a chosen role, or storyteller chooses the death if absent; target and death are manual.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20970_16223.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "vigormortis-setup-count",
+      "roleId": "vigormortis",
+      "summary": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Vigormortis"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "night-role-changes",
+      "summary": "食人族及哲学家借用能力、麻脸创造新角色、舞蛇交换都保留主持单独确认；新能力是否当晚发动必须选时点。镜像双子的当前阵营和胜负阻碍分别核对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 14。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "widow",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 34。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 37。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "eviltwin",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 41。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 43。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "chef",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 55。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "empath",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 56。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 57。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "noble",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 65。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 66。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 76。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 11。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 23。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 28。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 29。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 33。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 46。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 49。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 50。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 61。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 70。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "empath",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 76。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 77。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 81。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 85。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 95。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      }
+    ]
+  },
+  "demonBluffPolicy": {
+    "count": 3,
+    "eligibleTeams": [
+      "townsfolk",
+      "outsider"
+    ],
+    "requireNotInPlay": true,
+    "summary": "三枚不在场善良角色伪装；酒鬼对外身份及额外借用能力另由主持私下确认。"
+  },
+  "roleDefinitionHashes": {
+    "chef": "sha256:c8807ca47c02a574ea6e25a14564bf67e596f59bc677d1852df1110f59bc4935",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "widow": "sha256:836cc4e1fdf47586df7e6f3065c6d80a671dd89bd1ed1c1a1661503e7945667a",
+    "eviltwin": "sha256:75dc9503eee2fe674c64e39ecfb9c45d818a6fff40767c0de8d36cc8c7297dd6",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1"
+  }
+}

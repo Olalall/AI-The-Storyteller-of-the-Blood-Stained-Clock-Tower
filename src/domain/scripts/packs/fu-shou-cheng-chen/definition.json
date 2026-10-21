@@ -1,0 +1,1493 @@
+{
+  "scriptId": "fu-shou-cheng-chen",
+  "displayName": "俯首称臣",
+  "source": {
+    "author": "Ben Jammin",
+    "version": "Clocktower Wiki index 540 / build 16ad8f7c270d / 原库版→2026-10-21当前规则适配",
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "contentHash": "sha256:5db5191d519df7ad436f14d0b1c18b959d779e8bef543f0655360eb9dbc00e00",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "steward",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "knight",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "chef",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "innkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "gossip",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "tealady",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "butler",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "tinker",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "politician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-1",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "gossip",
+        "fisherman",
+        "seamstress",
+        "tealady",
+        "barber",
+        "assassin",
+        "fanggu"
+      ],
+      "bluffs": [
+        "steward",
+        "knight",
+        "noble"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-2",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "tealady",
+        "farmer",
+        "mayor",
+        "steward",
+        "knight",
+        "godfather",
+        "fanggu"
+      ],
+      "bluffs": [
+        "noble",
+        "chef",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        },
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-3",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 7,
+      "style": "bluff-heavy",
+      "roles": [
+        "steward",
+        "knight",
+        "noble",
+        "chef",
+        "sailor",
+        "poisoner",
+        "pukka"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "innkeeper",
+        "gossip"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-4",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "fisherman",
+        "seamstress",
+        "tealady",
+        "farmer",
+        "butler",
+        "tinker",
+        "godfather",
+        "pukka"
+      ],
+      "bluffs": [
+        "steward",
+        "knight",
+        "noble"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-5",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "farmer",
+        "mayor",
+        "steward",
+        "knight",
+        "noble",
+        "tinker",
+        "poisoner",
+        "pukka"
+      ],
+      "bluffs": [
+        "chef",
+        "sailor",
+        "chambermaid"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-6",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "seamstress",
+        "tealady",
+        "farmer",
+        "mayor",
+        "steward",
+        "tinker",
+        "politician",
+        "poisoner",
+        "lleech"
+      ],
+      "bluffs": [
+        "knight",
+        "noble",
+        "chef"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-7",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "mayor",
+        "steward",
+        "knight",
+        "noble",
+        "chef",
+        "politician",
+        "barber",
+        "devilsadvocate",
+        "lleech"
+      ],
+      "bluffs": [
+        "sailor",
+        "chambermaid",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-8",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "tealady",
+        "farmer",
+        "mayor",
+        "steward",
+        "knight",
+        "noble",
+        "chef",
+        "devilsadvocate",
+        "assassin",
+        "imp"
+      ],
+      "bluffs": [
+        "sailor",
+        "chambermaid",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-9",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 10,
+      "style": "bluff-heavy",
+      "roles": [
+        "chef",
+        "sailor",
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "butler",
+        "tinker",
+        "godfather",
+        "poisoner",
+        "fanggu"
+      ],
+      "bluffs": [
+        "fisherman",
+        "seamstress",
+        "tealady"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        },
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-10",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "seamstress",
+        "tealady",
+        "farmer",
+        "tinker",
+        "poisoner",
+        "devilsadvocate",
+        "fanggu"
+      ],
+      "bluffs": [
+        "mayor",
+        "butler",
+        "politician"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-11",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "farmer",
+        "mayor",
+        "steward",
+        "knight",
+        "noble",
+        "barber",
+        "butler",
+        "tinker",
+        "assassin",
+        "godfather",
+        "fanggu"
+      ],
+      "bluffs": [
+        "chef",
+        "sailor",
+        "chambermaid"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        },
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-12",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "knight",
+        "noble",
+        "chef",
+        "sailor",
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "butler",
+        "godfather",
+        "poisoner",
+        "fanggu"
+      ],
+      "bluffs": [
+        "fisherman",
+        "seamstress",
+        "tealady"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        },
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-13",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "mayor",
+        "steward",
+        "knight",
+        "noble",
+        "chef",
+        "sailor",
+        "butler",
+        "tinker",
+        "politician",
+        "godfather",
+        "poisoner",
+        "pukka"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "innkeeper",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-14",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "noble",
+        "chef",
+        "sailor",
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "tinker",
+        "politician",
+        "poisoner",
+        "devilsadvocate",
+        "pukka"
+      ],
+      "bluffs": [
+        "seamstress",
+        "tealady",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-15",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 12,
+      "style": "bluff-heavy",
+      "roles": [
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "seamstress",
+        "tealady",
+        "farmer",
+        "politician",
+        "barber",
+        "devilsadvocate",
+        "assassin",
+        "lleech"
+      ],
+      "bluffs": [
+        "sailor",
+        "mayor",
+        "butler"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-16",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "steward",
+        "knight",
+        "noble",
+        "chef",
+        "sailor",
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "poisoner",
+        "devilsadvocate",
+        "assassin",
+        "lleech"
+      ],
+      "bluffs": [
+        "seamstress",
+        "tealady",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-17",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 13,
+      "style": "bluff-heavy",
+      "roles": [
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "seamstress",
+        "tealady",
+        "farmer",
+        "mayor",
+        "steward",
+        "barber",
+        "assassin",
+        "godfather",
+        "poisoner",
+        "imp"
+      ],
+      "bluffs": [
+        "sailor",
+        "chambermaid",
+        "butler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-18",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "knight",
+        "noble",
+        "chef",
+        "sailor",
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "politician",
+        "barber",
+        "devilsadvocate",
+        "assassin",
+        "godfather",
+        "imp"
+      ],
+      "bluffs": [
+        "steward",
+        "seamstress",
+        "tealady"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-19",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "sailor",
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "seamstress",
+        "tealady",
+        "farmer",
+        "mayor",
+        "steward",
+        "assassin",
+        "godfather",
+        "poisoner",
+        "imp"
+      ],
+      "bluffs": [
+        "noble",
+        "chef",
+        "butler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-20",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "noble",
+        "chef",
+        "sailor",
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "barber",
+        "butler",
+        "tinker",
+        "politician",
+        "assassin",
+        "godfather",
+        "poisoner",
+        "fanggu"
+      ],
+      "bluffs": [
+        "steward",
+        "knight",
+        "seamstress"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        },
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-21",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "chambermaid",
+        "innkeeper",
+        "gossip",
+        "fisherman",
+        "seamstress",
+        "tealady",
+        "farmer",
+        "mayor",
+        "steward",
+        "butler",
+        "tinker",
+        "godfather",
+        "poisoner",
+        "devilsadvocate",
+        "fanggu"
+      ],
+      "bluffs": [
+        "noble",
+        "chef",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        },
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "fu-shou-cheng-chen-candidate-22",
+      "scriptId": "fu-shou-cheng-chen",
+      "playerCount": 15,
+      "style": "bluff-heavy",
+      "roles": [
+        "fisherman",
+        "seamstress",
+        "tealady",
+        "farmer",
+        "mayor",
+        "steward",
+        "knight",
+        "noble",
+        "chef",
+        "tinker",
+        "politician",
+        "poisoner",
+        "devilsadvocate",
+        "assassin",
+        "pukka"
+      ],
+      "bluffs": [
+        "sailor",
+        "chambermaid",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "host-confirmation-boundary",
+      "summary": "仅生成主持候选；身份、阵营、生死、毒醉、投票和胜负由说书人确认。角色变化、额外能力与死亡触发按本局事实另行记录。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "steward-manual-boundary",
+      "roleId": "steward",
+      "summary": "在你的首个夜晚，你会得知一名善良玩家。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "knight-risk-1",
+      "roleId": "knight",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "noble-high-risk",
+      "roleId": "noble",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "chef-manual-boundary",
+      "roleId": "chef",
+      "summary": "在你的首个夜晚，你会得知场上邻座的邪恶玩家有多少对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "sailor-high-risk",
+      "roleId": "sailor",
+      "summary": "Drunken target and death prevention are ST-confirmed.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20754_59933.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "chambermaid-manual-boundary",
+      "roleId": "chambermaid",
+      "summary": "每个夜晚，你要选择除你以外的两名存活的玩家：你会得知他们中有几人在当晚因其自身能力而被唤醒。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "innkeeper-manual-boundary",
+      "roleId": "innkeeper",
+      "summary": "每个夜晚*，你要选择两名玩家：他们当晚不会死亡，但其中一人会醉酒到下个黄昏。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "gossip-manual-boundary",
+      "roleId": "gossip",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fisherman-manual-boundary",
+      "roleId": "fisherman",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21050_74806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "seamstress-manual-boundary",
+      "roleId": "seamstress",
+      "summary": "每局游戏限一次，在夜晚时，你可以选择除你以外的两名玩家：你会得知他们是否为同一阵营。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "zhui-chai-qi-yuan-lao-hua-deng-tealady-rule",
+      "roleId": "tealady",
+      "summary": "茶艺师: 如果与你邻近的两名存活的玩家是善良的，他们不会死亡。... Storyteller confirms any authority-state impact.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20730_52285.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "farmer-risk-1",
+      "roleId": "farmer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mayor-high-risk",
+      "roleId": "mayor",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21229_95005.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "butler-risk-1",
+      "roleId": "butler",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "tinker-high-risk",
+      "roleId": "tinker",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "politician-high-risk",
+      "roleId": "politician",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20722_51832.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "barber-manual-boundary",
+      "roleId": "barber",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "godfather-setup-count",
+      "roleId": "godfather",
+      "summary": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Godfather"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "poisoner-high-risk",
+      "roleId": "poisoner",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "devilsadvocate-high-risk",
+      "roleId": "devilsadvocate",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20723_51891.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "assassin-manual-boundary",
+      "roleId": "assassin",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "imp-high-risk",
+      "roleId": "imp",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fanggu-setup-count",
+      "roleId": "fanggu",
+      "summary": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Fang_Gu"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pukka-current-chain-protection",
+      "roleId": "pukka",
+      "summary": "普卡首夜即选新毒目标；后夜先处理新毒，再核对上一有效毒目标的死亡与恢复健康。旅店保护可阻止死亡但不能凭空保留已结束的毒；毒醉、失能与历史链缺项由主持核对，不自动续杀。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Pukka",
+        "https://wiki.bloodontheclocktower.com/Innkeeper"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "lleech-current-host",
+      "roleId": "lleech",
+      "summary": "开始拥有痢蛭能力时确认一名存活宿主并登记中毒，含中途新痢蛭；宿主活时不能死、宿主死时随之死须核对能力是否有效。后夜攻击独立于宿主，不能重复选宿主。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Lleech"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "sailor",
+        "order": 1,
+        "note": "复用本轮已核当前官方夜表原始顺位26；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "lleech",
+        "order": 2,
+        "note": "复用本轮已核当前官方夜表原始顺位31；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 3,
+        "note": "复用本轮已核当前官方夜表原始顺位33；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "godfather",
+        "order": 4,
+        "note": "复用本轮已核当前官方夜表原始顺位38；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 5,
+        "note": "复用本轮已核当前官方夜表原始顺位40；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "pukka",
+        "order": 6,
+        "note": "复用本轮已核当前官方夜表原始顺位47；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "chef",
+        "order": 7,
+        "note": "复用本轮已核当前官方夜表原始顺位55；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "butler",
+        "order": 8,
+        "note": "复用本轮已核当前官方夜表原始顺位58；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 9,
+        "note": "复用本轮已核当前官方夜表原始顺位62；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "steward",
+        "order": 10,
+        "note": "复用本轮已核当前官方夜表原始顺位63；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "knight",
+        "order": 11,
+        "note": "复用本轮已核当前官方夜表原始顺位64；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "noble",
+        "order": 12,
+        "note": "复用本轮已核当前官方夜表原始顺位65；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 13,
+        "note": "复用本轮已核当前官方夜表原始顺位76；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "sailor",
+        "order": 1,
+        "note": "复用本轮已核当前官方夜表原始顺位13；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 2,
+        "note": "复用本轮已核当前官方夜表原始顺位17；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "innkeeper",
+        "order": 3,
+        "note": "复用本轮已核当前官方夜表原始顺位19；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 4,
+        "note": "复用本轮已核当前官方夜表原始顺位26；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "imp",
+        "order": 5,
+        "note": "复用本轮已核当前官方夜表原始顺位40；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "pukka",
+        "order": 6,
+        "note": "复用本轮已核当前官方夜表原始顺位42；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 7,
+        "note": "复用本轮已核当前官方夜表原始顺位45；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "lleech",
+        "order": 8,
+        "note": "复用本轮已核当前官方夜表原始顺位52；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "assassin",
+        "order": 9,
+        "note": "复用本轮已核当前官方夜表原始顺位56；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "godfather",
+        "order": 10,
+        "note": "复用本轮已核当前官方夜表原始顺位57；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "gossip",
+        "order": 11,
+        "note": "复用本轮已核当前官方夜表原始顺位58；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "barber",
+        "order": 12,
+        "note": "复用本轮已核当前官方夜表原始顺位60；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "farmer",
+        "order": 13,
+        "note": "复用本轮已核当前官方夜表原始顺位70；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "tinker",
+        "order": 14,
+        "note": "复用本轮已核当前官方夜表原始顺位71；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 15,
+        "note": "复用本轮已核当前官方夜表原始顺位83；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "butler",
+        "order": 16,
+        "note": "复用本轮已核当前官方夜表原始顺位91；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 17,
+        "note": "复用本轮已核当前官方夜表原始顺位95；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "steward": "sha256:fbf26cf36a81721eccd8500f0a30bba3464ac17c74baa71769b870a1f0dd6e65",
+    "knight": "sha256:22749fad133589f7a60a2641b1c8e0b3930f329c198ca468c9e6c029584ec193",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "chef": "sha256:c8807ca47c02a574ea6e25a14564bf67e596f59bc677d1852df1110f59bc4935",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "innkeeper": "sha256:d08a610a685471cf44a7ee19977c4a5466152b3d8d42c7a48a0a9d1b874b3304",
+    "gossip": "sha256:c1ee906e8b2abcc4e4c51c9d0f88c968a0ab63432ee6297545f02b62a1befa65",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "tealady": "sha256:5477146713dda2d2ac0acb2b3a2b712e71a5691d1f0ea364fa0ef990d3c5cef4",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "butler": "sha256:04db9f00db45a76fc59be3cc9bb14cfa21e01be8b3c7f57c755eafa718732b59",
+    "tinker": "sha256:d39df1b38a7eec0b2d78aab9622b53c4e4880933b8f06daece703dae70007a61",
+    "politician": "sha256:21857240892fde2151faf0f01634c2d0157af15bf5764485f12e96a1a554b8bb",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a"
+  }
+}

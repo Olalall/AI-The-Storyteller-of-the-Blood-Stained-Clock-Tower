@@ -1,0 +1,1461 @@
+{
+  "scriptId": "jia-fang-fu-chou-ji",
+  "displayName": "贾方复仇记",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+    "author": "jimothy",
+    "version": "原文未标作者版本；当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:50cd959cdbada67d1ad97cdff83223a9d7e43da6e420b61f9793929076e1a042",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "investigator",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "innkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "courtier",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "ravenkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "lunatic",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "witch",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "vizier",
+      "sourceId": "punchy",
+      "sourceVersion": "sha256:2db376682e56699246b43b787ae0f3ddef03ab3c28f678e0373fc35b08b0036c"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-1",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "oracle",
+        "courtier",
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "witch",
+        "imp"
+      ],
+      "bluffs": [
+        "librarian",
+        "investigator",
+        "dreamer"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-2",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "vizier",
+        "imp"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-3",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 7,
+      "style": "bluff-heavy",
+      "roles": [
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "assassin",
+        "pukka"
+      ],
+      "bluffs": [
+        "undertaker",
+        "oracle",
+        "courtier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-4",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "courtier",
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "barber",
+        "vizier",
+        "pukka"
+      ],
+      "bluffs": [
+        "investigator",
+        "dreamer",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-5",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "ravenkeeper",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "drunk",
+        "assassin",
+        "pukka"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "innkeeper",
+        "undertaker"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-6",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "drunk",
+        "assassin",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-7",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "librarian",
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "recluse",
+        "witch",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "undertaker",
+        "oracle",
+        "courtier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-8",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "recluse",
+        "witch",
+        "vizier",
+        "fanggu"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "innkeeper",
+        "undertaker"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-9",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "lunatic",
+        "vizier",
+        "assassin",
+        "fanggu"
+      ],
+      "bluffs": [
+        "oracle",
+        "courtier",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-10",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 10,
+      "style": "bluff-heavy",
+      "roles": [
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "fisherman",
+        "assassin",
+        "witch",
+        "imp"
+      ],
+      "bluffs": [
+        "ravenkeeper",
+        "amnesiac",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-11",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "ravenkeeper",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "lunatic",
+        "vizier",
+        "assassin",
+        "imp"
+      ],
+      "bluffs": [
+        "undertaker",
+        "oracle",
+        "courtier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-12",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "oracle",
+        "courtier",
+        "barber",
+        "assassin",
+        "witch",
+        "imp"
+      ],
+      "bluffs": [
+        "philosopher",
+        "fisherman",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-13",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "librarian",
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "barber",
+        "drunk",
+        "assassin",
+        "witch",
+        "pukka"
+      ],
+      "bluffs": [
+        "oracle",
+        "courtier",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-14",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "drunk",
+        "recluse",
+        "witch",
+        "vizier",
+        "pukka"
+      ],
+      "bluffs": [
+        "dreamer",
+        "fisherman",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-15",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 12,
+      "style": "bluff-heavy",
+      "roles": [
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "investigator",
+        "recluse",
+        "vizier",
+        "assassin",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "innkeeper",
+        "amnesiac"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-16",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "witch",
+        "vizier",
+        "assassin",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "librarian",
+        "fisherman",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-17",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "vizier",
+        "assassin",
+        "witch",
+        "vigormortis"
+      ],
+      "bluffs": [
+        "dreamer",
+        "fortuneteller",
+        "amnesiac"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-18",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "recluse",
+        "lunatic",
+        "vizier",
+        "assassin",
+        "witch",
+        "fanggu"
+      ],
+      "bluffs": [
+        "librarian",
+        "investigator",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-19",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "innkeeper",
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "lunatic",
+        "barber",
+        "assassin",
+        "witch",
+        "vizier",
+        "fanggu"
+      ],
+      "bluffs": [
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-20",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "lunatic",
+        "barber",
+        "assassin",
+        "witch",
+        "vizier",
+        "imp"
+      ],
+      "bluffs": [
+        "librarian",
+        "investigator",
+        "dreamer"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-21",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "undertaker",
+        "oracle",
+        "courtier",
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "barber",
+        "drunk",
+        "witch",
+        "vizier",
+        "assassin",
+        "imp"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "jia-fang-fu-chou-ji-candidate-22",
+      "scriptId": "jia-fang-fu-chou-ji",
+      "playerCount": 15,
+      "style": "bluff-heavy",
+      "roles": [
+        "philosopher",
+        "fisherman",
+        "ravenkeeper",
+        "librarian",
+        "investigator",
+        "dreamer",
+        "fortuneteller",
+        "snakecharmer",
+        "innkeeper",
+        "drunk",
+        "recluse",
+        "vizier",
+        "assassin",
+        "witch",
+        "pukka"
+      ],
+      "bluffs": [
+        "undertaker",
+        "oracle",
+        "courtier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "host-confirmation-boundary",
+      "summary": "仅生成主持候选；身份、阵营、生死、毒醉、投票和胜负由说书人确认。角色变化、额外能力与死亡触发按本局事实另行记录。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "librarian-high-risk",
+      "roleId": "librarian",
+      "summary": "Information can be affected by poison/drunk or registration.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20284_77324.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "investigator-manual-boundary",
+      "roleId": "investigator",
+      "summary": "在你的首个夜晚，你会得知两名玩家和一个爪牙角色：这两名玩家之一是该角色（或者你会得知没有爪牙在场）。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "dreamer-high-risk",
+      "roleId": "dreamer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fortuneteller-high-risk",
+      "roleId": "fortuneteller",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "snakecharmer-manual-boundary",
+      "roleId": "snakecharmer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21050_74806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "innkeeper-manual-boundary",
+      "roleId": "innkeeper",
+      "summary": "每个夜晚*，你要选择两名玩家：他们当晚不会死亡，但其中一人会醉酒到下个黄昏。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "undertaker-high-risk",
+      "roleId": "undertaker",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "oracle-manual-boundary",
+      "roleId": "oracle",
+      "summary": "每个夜晚*，你会得知有多少名死亡的玩家是邪恶的。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "courtier-high-risk",
+      "roleId": "courtier",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21229_95005.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "philosopher-setup",
+      "roleId": "philosopher",
+      "summary": "May drunk an existing holder of the selected good role.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fisherman-manual-boundary",
+      "roleId": "fisherman",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21050_74806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "ravenkeeper-high-risk",
+      "roleId": "ravenkeeper",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "amnesiac-manual-boundary",
+      "roleId": "amnesiac",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "barber-manual-boundary",
+      "roleId": "barber",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "drunk-cover",
+      "roleId": "drunk",
+      "summary": "Drunk: needs a Townsfolk cover identity; the player does not know they are the Drunk.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "recluse-high-risk",
+      "roleId": "recluse",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "lunatic-high-risk",
+      "roleId": "lunatic",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "assassin-manual-boundary",
+      "roleId": "assassin",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "witch-manual-boundary",
+      "roleId": "witch",
+      "summary": "每个夜晚，你要选择一名玩家：如果他明天白天发起提名，他死亡。如果只有三名存活的玩家，你失去此能力。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "bing-gong-ban-shi-vizier-reminder",
+      "roleId": "vizier",
+      "summary": "Vizier public identity, daytime death immunity and immediate execution all need explicit Storyteller confirmation.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21097_69653.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pukka-poison-death",
+      "roleId": "pukka",
+      "summary": "Pukka poison and delayed death must be tracked manually.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21179_35934.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "vigormortis-setup-count",
+      "roleId": "vigormortis",
+      "summary": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Vigormortis"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fanggu-setup-count",
+      "roleId": "fanggu",
+      "summary": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Fang_Gu"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "imp-high-risk",
+      "roleId": "imp",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "amnesiac-manual-only",
+      "summary": "失忆者保留角色资料供手动主持，但常规模板不选用；能力必须由主持设计和记录，AI不能编造。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "vizier-manual-execution",
+      "summary": "维齐尔通常公开身份、白天免死及有善良投票时的强制处决由主持确认，不按普通得票门槛自动裁定；调查员和侍臣在场时执行本板两条当前官方相克。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fanggu-and-role-change",
+      "summary": "方古转变须确认新角色及原宿主死亡，仅有候选不消耗首次成功。理发师、舞蛇与哲学家产生的新能力按主持选择的当晚时点处理。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "vizier-courtier-jinx",
+      "roleId": "vizier",
+      "summary": "侍臣与维齐尔相克生效时，如果维齐尔失去能力，他会得知此事，并且仍不能在白天死亡；不能用普通失能分支覆盖这条相克。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "vizier-investigator-jinx",
+      "roleId": "vizier",
+      "summary": "调查员与维齐尔相克：说书人不宣布维齐尔在场，不机械执行维齐尔通常的公开在场声明。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 14。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 22。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "courtier",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 35。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 37。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "witch",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 42。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 47。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 51。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 53。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "investigator",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 54。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 57。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 61。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "vizier",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 80。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 11。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "courtier",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 18。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "innkeeper",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 19。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 23。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "witch",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 27。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 35。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "imp",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 40。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 42。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 45。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 49。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 56。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "barber",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 60。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 69。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "ravenkeeper",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 75。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 77。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 78。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 79。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 82。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      }
+    ]
+  },
+  "demonBluffPolicy": {
+    "count": 3,
+    "eligibleTeams": [
+      "townsfolk",
+      "outsider"
+    ],
+    "requireNotInPlay": true,
+    "summary": "三枚不在场善良角色伪装；酒鬼对外身份及额外借用能力另由主持私下确认。"
+  },
+  "roleDefinitionHashes": {
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "investigator": "sha256:216861593841d940f8eabf4c34556454bef623f59b59f8eb3ac38ec86f90154a",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "innkeeper": "sha256:d08a610a685471cf44a7ee19977c4a5466152b3d8d42c7a48a0a9d1b874b3304",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "courtier": "sha256:85d105485cb1dc4ba656cc02fbc0e9d7c330cdaf59e31824aa867a63344c9f15",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "ravenkeeper": "sha256:6e3311f80393bc0e63bc13ad33ad354fec889729ba26aed45dbcc23dde876bf3",
+    "amnesiac": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "lunatic": "sha256:f46c1eae4440c477172fd759c1bbb54586d17a9934342ce29b8f395d9e299937",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "witch": "sha256:15211f928a1e9002e2b9c0229d6540ebcef894cec8829434b46bbd1106650bc9",
+    "vizier": "sha256:66c93b4a97e75caaca1ff93bcc941cef9057d1636ae9707e3adcd548811289b1",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743"
+  }
+}

@@ -28,6 +28,43 @@ async function requestWaitingUpdate(page: Page, bump: () => void) {
   await expect(page.getByText('新版本已准备好', { exact: true })).toBeVisible()
   await expect.poll(() => page.evaluate(async () => Boolean((await navigator.serviceWorker.ready).waiting))).toBe(true)
 }
+async function showSyntheticOfflineNotice(page: Page) {
+  // The fixture really disconnects its origin. This event tests the separate offline UI,
+  // without claiming to change the host OS network or relying on engine-specific emulation.
+  await page.evaluate(() => window.dispatchEvent(new Event('offline')))
+  await test.info().attach('offline-ui-event-boundary', { contentType: 'application/json', body: Buffer.from(JSON.stringify({ offlineUiEventSynthetic: true, physicalNetworkDisconnectionClaimed: false })) })
+}
+
+for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+  test(`late offline-ready notice preserves an in-progress setup click at ${viewport.width}px`, async ({ page, context, site }, info) => {
+    await page.setViewportSize(viewport)
+    const releaseInstall = site.holdServiceWorkerInstall()
+    await seed(context, createEmptyGameSession())
+    await page.goto(site.url)
+    await ready(page)
+    const setupButton = page.getByRole('button', { name: '智能配板与调整', exact: true })
+    const before = (await setupButton.boundingBox())!
+    await page.mouse.move(before.x + before.width / 2, before.y + before.height / 2)
+    await page.mouse.down()
+    releaseInstall()
+    await expect(page.getByText('离线版本已准备好', { exact: true })).toBeVisible()
+    const after = (await setupButton.boundingBox())!
+    await page.mouse.up()
+    // Mobile viewport scaling can quantize boxes by a few thousandths of a CSS pixel.
+    // Keep this below 0.05px; the original 74/140px shift and any lost click still fail.
+    expect.soft(Math.abs(after.y - before.y), 'a late SW notice must not move the pressed setup button').toBeLessThan(0.05)
+    await expect(page.getByRole('dialog', { name: '智能配板与调整', exact: true })).toBeVisible()
+    await page.getByRole('button', { name: '关闭智能配板与调整', exact: true }).click()
+    const close = page.getByRole('button', { name: '关闭离线提示', exact: true })
+    const closeBox = (await close.boundingBox())!
+    expect(closeBox.width).toBeGreaterThanOrEqual(44)
+    expect(closeBox.height).toBeGreaterThanOrEqual(44)
+    await close.click()
+    expect(Math.abs((await setupButton.boundingBox())!.y - before.y)).toBeLessThan(0.05)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth - innerWidth)).toBeLessThanOrEqual(1)
+    await page.screenshot({ path: info.outputPath(`late-pwa-${viewport.width}.png`), fullPage: false })
+  })
+}
 
 test('PWA manifest and real first SW install expose an explicit install action in live API settings', async ({ page, site }) => {
   await page.goto(site.url)
@@ -81,9 +118,10 @@ test('only already visited lazy pages reopen offline and the original isolated g
     const cache = await caches.open('botc-static-v1')
     return (await cache.keys()).some(request => /SetupPanel-.*\.js$/.test(new URL(request.url).pathname))
   })).toBe(true)
-  await context.setOffline(true)
+  await site.disconnectOrigin()
   await page.reload()
   await ready(page)
+  await showSyntheticOfflineNotice(page)
   await page.getByRole('button', { name: '智能配板与调整', exact: true }).click()
   await expect(page.getByRole('dialog', { name: '智能配板与调整', exact: true })).toBeVisible()
   await expect(page.getByText('当前离线', { exact: true })).toBeVisible()
@@ -97,7 +135,7 @@ test('only already visited lazy pages reopen offline and the original isolated g
   await page.screenshot({ path: info.outputPath('cached-setup-offline.png'), fullPage: false })
 })
 
-test('online API GET responses never enter SW caches and cannot become offline HTML or private cached data', async ({ page, context, site }) => {
+test('online API GET responses never enter SW caches and cannot become offline HTML or private cached data', async ({ page, site }) => {
   await page.goto(site.url)
   await controlled(page)
   const online = await page.evaluate(async () => {
@@ -111,7 +149,7 @@ test('online API GET responses never enter SW caches and cannot become offline H
     return requests.map(request => new URL(request.url).pathname).filter(path => path === '/api' || path.startsWith('/api/'))
   })
   expect(cachedApiUrls).toEqual([])
-  await context.setOffline(true)
+  await site.disconnectOrigin()
   expect(await page.evaluate(async () => { try { await fetch('/api/pwa-cache-contract'); return false } catch { return true } })).toBe(true)
 })
 
@@ -129,17 +167,18 @@ test('live atomic backup sheet previews before restore and retains the exact pre
   expect(await rawSession(page)).toBe(before)
   await backup.getByRole('checkbox', { name: '我确认替换当前对局，并保留恢复前备份。', exact: true }).check()
   await page.screenshot({ path: info.outputPath('atomic-restore-preview.png'), fullPage: false })
-  await backup.getByRole('button', { name: '确认恢复', exact: true }).click()
-  await expect.poll(() => page.evaluate(key => JSON.parse(localStorage.getItem(key) ?? '{}').id, gameSessionStorageKey)).toBe(imported.id)
+  await Promise.all([page.waitForEvent('domcontentloaded'), backup.getByRole('button', { name: '确认恢复', exact: true }).click()])
   await ready(page)
+  expect(await rawSession(page)).toBe(JSON.stringify(imported))
   expect(await page.evaluate(key => localStorage.getItem(key), beforeRestoreKey)).toBe(before)
   await page.getByRole('button', { name: '备份恢复', exact: true }).click()
   const recovery = page.getByRole('dialog', { name: '对局备份', exact: true })
   await recovery.getByRole('button', { name: '查看恢复前备份', exact: true }).click()
   await expect(recovery.locator('.session-backup__preview')).toContainText('恢复前的对局')
   await recovery.getByRole('checkbox', { name: '我确认替换当前对局，并保留恢复前备份。', exact: true }).check()
-  await recovery.getByRole('button', { name: '确认恢复', exact: true }).click()
-  await expect.poll(() => rawSession(page)).toBe(before)
+  await Promise.all([page.waitForEvent('domcontentloaded'), recovery.getByRole('button', { name: '确认恢复', exact: true }).click()])
+  await ready(page)
+  expect(await rawSession(page)).toBe(before)
 })
 
 test('an offline cached game still confirms a night record and a day vote only after the real confirmation clicks', async ({ page, context, site }) => {
@@ -154,9 +193,10 @@ test('an offline cached game still confirms a night record and a day vote only a
   await enterDashboardPhase(page, '白天')
   await expect(page.locator('.day-workbench')).toBeVisible()
   await page.getByRole('button', { name: '返回本局', exact: true }).click()
-  await context.setOffline(true)
+  await site.disconnectOrigin()
   await page.reload()
   await ready(page)
+  await showSyntheticOfflineNotice(page)
   await enterDashboardPhase(page, '夜晚')
   const beforeNight = JSON.parse((await rawSession(page))!).timeline.length
   await page.getByRole('button', { name: '选择3号玩家', exact: true }).click()
