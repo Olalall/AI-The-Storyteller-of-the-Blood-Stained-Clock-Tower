@@ -34,8 +34,6 @@ export function PWAStatusNotices({ hasStarted, canReload = false }: PWAStatusNot
   }, [needRefresh])
 
   const showUpdate = needRefresh && (!hasStarted || !deferredUntilGameEnds)
-  if (online && !offlineReady && !showUpdate) return null
-
   return (
     <section className="pwa-status-stack" aria-label="应用运行状态">
       {!online ? (
@@ -46,9 +44,9 @@ export function PWAStatusNotices({ hasStarted, canReload = false }: PWAStatusNot
       ) : null}
 
       {offlineReady && !hasStarted ? (
-        <div className="pwa-status-notice" role="status">
+        <div className="pwa-status-notice pwa-status-notice--ready" role="status">
           <DownloadCloud aria-hidden="true" />
-          <span><strong>离线版本已准备好</strong><small>以后断网也能打开首页和已缓存的页面，未缓存资料仍需联网。</small></span>
+          <span><strong>离线版本已准备好</strong><small>已缓存页面可离线使用，未缓存内容仍需联网。</small></span>
           <button type="button" className="pwa-status-notice__close" aria-label="关闭离线提示" onClick={() => setOfflineReady(false)}>
             <X aria-hidden="true" />
           </button>

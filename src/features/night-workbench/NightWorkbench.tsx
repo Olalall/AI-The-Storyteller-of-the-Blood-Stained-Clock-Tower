@@ -19,7 +19,7 @@ import { projectGameRecordEntries } from './state/gameRecordProjection'
 import { hasWakeDraftContent, missingWakeInputReason, targetCountChosen } from './state/projectWakeDraft'
 import { projectWakePlayerStatus } from './state/projectWakePlayerStatus'
 import { currentRoleForItem } from './state/roleChanges'
-import { useNightAIAdvice } from './hooks/useNightAIAdvice'
+import { farmerTriggerReviewPending, useNightAIAdvice } from './hooks/useNightAIAdvice'
 import { projectDayFacts } from '../game-session/state/projectDayFacts'
 import type { WorkbenchSurface } from './state/workbenchMode'
 import { useNightWorkbench } from './state/useNightWorkbench'
@@ -42,7 +42,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
   const [privateInformation, setPrivateInformation] = useState<string | null>(null)
   const workbench = useNightWorkbench(sessionBinding, surface)
-  const { loadingItemId, requestAIAdvice } = useNightAIAdvice()
+  const { loadingItemId, requestAIAdvice } = useNightAIAdvice(workbench ?? undefined)
   if (!workbench) return <UnavailableNightWorkbench onExit={onExit} />
   const {
     state,
@@ -75,7 +75,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
   const recordEntries = projectGameRecordEntries(state)
   const aiAvailable = current.outcomeOptions.length > 0 && current.roleId !== 'marionette' && !current.systemStep && current.aiAdviceEnabled !== false
   const isAIAdviceLoading = loadingItemId === current.id
-  const canUseAI = !awaitingAllocation && !isPreviewing && !isReadOnly && aiAvailable && !isAIAdviceLoading && targetCountChosen(current, draft)
+  const canUseAI = !awaitingAllocation && !isPreviewing && !isReadOnly && aiAvailable && !isAIAdviceLoading && !farmerTriggerReviewPending(current) && targetCountChosen(current, draft)
   const aiReference = draft.outputSource?.kind === 'ai'
     ? draft.outputSource
     : draft.outputSource?.kind === 'preset'

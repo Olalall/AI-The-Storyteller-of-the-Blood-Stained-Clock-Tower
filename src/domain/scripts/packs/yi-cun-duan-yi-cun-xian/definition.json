@@ -1,0 +1,1336 @@
+{
+  "scriptId": "yi-cun-duan-yi-cun-xian",
+  "displayName": "一寸短一寸险",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+    "author": "小巷",
+    "version": "原文未标作者版本；当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:ec0a63737570d97ef55821295a1d2e0640fbfdd8acdd707453eb348fd6bbf04b",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "chef",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "knight",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "steward",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "gambler",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "flowergirl",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "virgin",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "pacifist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "fool",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "soldier",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "tinker",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "baron",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-1",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "flowergirl",
+        "virgin",
+        "pacifist",
+        "fool",
+        "soldier",
+        "assassin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "chef",
+        "knight",
+        "steward"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-2",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "fool",
+        "soldier",
+        "farmer",
+        "chef",
+        "knight",
+        "poisoner",
+        "nodashii"
+      ],
+      "bluffs": [
+        "steward",
+        "undertaker",
+        "gambler"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-3",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 7,
+      "style": "bluff-heavy",
+      "roles": [
+        "chef",
+        "knight",
+        "steward",
+        "undertaker",
+        "gambler",
+        "scarletwoman",
+        "pukka"
+      ],
+      "bluffs": [
+        "towncrier",
+        "oracle",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-4",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "virgin",
+        "pacifist",
+        "fool",
+        "soldier",
+        "farmer",
+        "saint",
+        "poisoner",
+        "pukka"
+      ],
+      "bluffs": [
+        "chef",
+        "knight",
+        "steward"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-5",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "soldier",
+        "farmer",
+        "chef",
+        "knight",
+        "steward",
+        "tinker",
+        "scarletwoman",
+        "pukka"
+      ],
+      "bluffs": [
+        "undertaker",
+        "gambler",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-6",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "pacifist",
+        "fool",
+        "soldier",
+        "farmer",
+        "chef",
+        "tinker",
+        "sweetheart",
+        "scarletwoman",
+        "imp"
+      ],
+      "bluffs": [
+        "knight",
+        "steward",
+        "undertaker"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-7",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "farmer",
+        "chef",
+        "knight",
+        "sweetheart",
+        "mutant",
+        "saint",
+        "tinker",
+        "baron",
+        "imp"
+      ],
+      "bluffs": [
+        "steward",
+        "undertaker",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-8",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "fool",
+        "soldier",
+        "farmer",
+        "chef",
+        "knight",
+        "sweetheart",
+        "mutant",
+        "baron",
+        "assassin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "steward",
+        "undertaker",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-9",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "chef",
+        "knight",
+        "steward",
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "oracle",
+        "assassin",
+        "poisoner",
+        "nodashii"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "virgin",
+        "pacifist"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-10",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 10,
+      "style": "bluff-heavy",
+      "roles": [
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "oracle",
+        "flowergirl",
+        "virgin",
+        "pacifist",
+        "poisoner",
+        "scarletwoman",
+        "pukka"
+      ],
+      "bluffs": [
+        "fool",
+        "soldier",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-11",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "soldier",
+        "farmer",
+        "chef",
+        "knight",
+        "steward",
+        "undertaker",
+        "gambler",
+        "mutant",
+        "assassin",
+        "poisoner",
+        "pukka"
+      ],
+      "bluffs": [
+        "towncrier",
+        "oracle",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-12",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "knight",
+        "steward",
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "oracle",
+        "flowergirl",
+        "saint",
+        "poisoner",
+        "scarletwoman",
+        "pukka"
+      ],
+      "bluffs": [
+        "virgin",
+        "pacifist",
+        "fool"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-13",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "farmer",
+        "chef",
+        "knight",
+        "steward",
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "saint",
+        "tinker",
+        "poisoner",
+        "scarletwoman",
+        "imp"
+      ],
+      "bluffs": [
+        "oracle",
+        "flowergirl",
+        "virgin"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-14",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "steward",
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "oracle",
+        "tinker",
+        "sweetheart",
+        "mutant",
+        "saint",
+        "scarletwoman",
+        "baron",
+        "imp"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "virgin",
+        "pacifist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-15",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 12,
+      "style": "bluff-heavy",
+      "roles": [
+        "towncrier",
+        "oracle",
+        "flowergirl",
+        "virgin",
+        "pacifist",
+        "sweetheart",
+        "mutant",
+        "saint",
+        "tinker",
+        "baron",
+        "assassin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "gambler",
+        "fool",
+        "soldier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-16",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "chef",
+        "knight",
+        "steward",
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "oracle",
+        "tinker",
+        "sweetheart",
+        "scarletwoman",
+        "baron",
+        "assassin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "virgin",
+        "pacifist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-17",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "oracle",
+        "flowergirl",
+        "virgin",
+        "pacifist",
+        "sweetheart",
+        "mutant",
+        "baron",
+        "assassin",
+        "poisoner",
+        "nodashii"
+      ],
+      "bluffs": [
+        "steward",
+        "fool",
+        "soldier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-18",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "knight",
+        "steward",
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "oracle",
+        "flowergirl",
+        "sweetheart",
+        "mutant",
+        "saint",
+        "baron",
+        "assassin",
+        "poisoner",
+        "pukka"
+      ],
+      "bluffs": [
+        "chef",
+        "virgin",
+        "pacifist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-19",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "gambler",
+        "towncrier",
+        "oracle",
+        "flowergirl",
+        "virgin",
+        "pacifist",
+        "fool",
+        "soldier",
+        "farmer",
+        "mutant",
+        "assassin",
+        "poisoner",
+        "scarletwoman",
+        "pukka"
+      ],
+      "bluffs": [
+        "steward",
+        "undertaker",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-20",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "steward",
+        "undertaker",
+        "gambler",
+        "towncrier",
+        "oracle",
+        "flowergirl",
+        "virgin",
+        "pacifist",
+        "fool",
+        "mutant",
+        "saint",
+        "assassin",
+        "poisoner",
+        "scarletwoman",
+        "imp"
+      ],
+      "bluffs": [
+        "chef",
+        "knight",
+        "soldier"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-21",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "towncrier",
+        "oracle",
+        "flowergirl",
+        "virgin",
+        "pacifist",
+        "fool",
+        "soldier",
+        "saint",
+        "tinker",
+        "sweetheart",
+        "mutant",
+        "poisoner",
+        "scarletwoman",
+        "baron",
+        "imp"
+      ],
+      "bluffs": [
+        "steward",
+        "undertaker",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "yi-cun-duan-yi-cun-xian-candidate-22",
+      "scriptId": "yi-cun-duan-yi-cun-xian",
+      "playerCount": 15,
+      "style": "bluff-heavy",
+      "roles": [
+        "virgin",
+        "pacifist",
+        "fool",
+        "soldier",
+        "farmer",
+        "chef",
+        "knight",
+        "tinker",
+        "sweetheart",
+        "mutant",
+        "saint",
+        "scarletwoman",
+        "baron",
+        "assassin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "gambler",
+        "towncrier",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-setup-count",
+          "choiceId": "add-two-outsiders",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "note": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "host-confirmation-boundary",
+      "summary": "仅生成主持候选；身份、阵营、生死、毒醉、投票和胜负由说书人确认。角色变化、额外能力与死亡触发按本局事实另行记录。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "chef-manual-boundary",
+      "roleId": "chef",
+      "summary": "在你的首个夜晚，你会得知场上邻座的邪恶玩家有多少对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "knight-risk-1",
+      "roleId": "knight",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "steward-manual-boundary",
+      "roleId": "steward",
+      "summary": "在你的首个夜晚，你会得知一名善良玩家。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "undertaker-high-risk",
+      "roleId": "undertaker",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "gambler-high-risk",
+      "roleId": "gambler",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "towncrier-high-risk",
+      "roleId": "towncrier",
+      "summary": "Nomination history and registration are checked by ST.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20001_77217.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "oracle-manual-boundary",
+      "roleId": "oracle",
+      "summary": "每个夜晚*，你会得知有多少名死亡的玩家是邪恶的。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "flowergirl-high-risk",
+      "roleId": "flowergirl",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "virgin-high-risk",
+      "roleId": "virgin",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pacifist-manual-boundary",
+      "roleId": "pacifist",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fool-manual-boundary",
+      "roleId": "fool",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "soldier-high-risk",
+      "roleId": "soldier",
+      "summary": "Protection impact is ST-confirmed.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20001_77217.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "farmer-risk-1",
+      "roleId": "farmer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "saint-risk-1",
+      "roleId": "saint",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "tinker-high-risk",
+      "roleId": "tinker",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "sweetheart-high-risk",
+      "roleId": "sweetheart",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mutant-high-risk",
+      "roleId": "mutant",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "poisoner-high-risk",
+      "roleId": "poisoner",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "scarletwoman-high-risk",
+      "roleId": "scarletwoman",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20722_51832.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "baron-setup-count",
+      "roleId": "baron",
+      "summary": "男爵在场增加2外来者并减少2镇民，与其他已确认人数修正叠加。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Baron"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "assassin-manual-boundary",
+      "roleId": "assassin",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "imp-high-risk",
+      "roleId": "imp",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "nodashii-manual-boundary",
+      "roleId": "nodashii",
+      "summary": "每个夜晚*，你要选择一名玩家：他死亡。与你邻近的两名镇民中毒。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pukka-poison-death",
+      "roleId": "pukka",
+      "summary": "Pukka poison and delayed death must be tracked manually.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21179_35934.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "day-vote-and-death-triggers",
+      "summary": "卖花女孩、城镇公告员分别核对投票与发起提名；贞洁者为处决而非自动死亡，和平主义者、弄臣和圣徒按实际结果核对。刺客穿透、普卡毒链及农夫继承仍为主持候选。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/剧本库.html",
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 33。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 47。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "chef",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 55。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "steward",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 63。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "knight",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 64。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 17。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "gambler",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 21。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 33。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "imp",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 40。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 42。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 46。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 56。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 61。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 70。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "tinker",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 71。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 78。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "flowergirl",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 80。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 81。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "2026-10-21复核当前官方夜表；全表原始顺位 82。原库旧夜数保留在来源锁，不沿用为当前规则。"
+      }
+    ]
+  },
+  "demonBluffPolicy": {
+    "count": 3,
+    "eligibleTeams": [
+      "townsfolk",
+      "outsider"
+    ],
+    "requireNotInPlay": true,
+    "summary": "三枚不在场善良角色伪装；酒鬼对外身份及额外借用能力另由主持私下确认。"
+  },
+  "roleDefinitionHashes": {
+    "chef": "sha256:c8807ca47c02a574ea6e25a14564bf67e596f59bc677d1852df1110f59bc4935",
+    "knight": "sha256:22749fad133589f7a60a2641b1c8e0b3930f329c198ca468c9e6c029584ec193",
+    "steward": "sha256:fbf26cf36a81721eccd8500f0a30bba3464ac17c74baa71769b870a1f0dd6e65",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "gambler": "sha256:6ce92beee5117fb21f9c5cdf4bbe2578363a9069a3110b245bef6a04afb4b762",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "flowergirl": "sha256:c0e4f2a93f2dc792eaf2ff9b0b5f7b6c07eb912e57d0106248aaa39972414f61",
+    "virgin": "sha256:06096e9d4874b45d7b7599b6375d9ef6cd018269f62900eef30f3221befb5df4",
+    "pacifist": "sha256:469225591f3a9499dbb2da61566dd13fb776cb2d67b045271c2614797f98f099",
+    "fool": "sha256:d5634a743a49c3d77febbcd150e2178993f9c16df520ea6b2f058433c79167f5",
+    "soldier": "sha256:e24f9025b8c74c0b5fae6536a74ffd2845b311d4a2f60272a3950476946fd523",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "tinker": "sha256:d39df1b38a7eec0b2d78aab9622b53c4e4880933b8f06daece703dae70007a61",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "baron": "sha256:890d34be482a8e93a73c160430757fc5f236aa26654d8734a5419df15b645493",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e"
+  }
+}

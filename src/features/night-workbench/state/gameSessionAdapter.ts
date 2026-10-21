@@ -134,7 +134,7 @@ export function sessionInitialNightState(binding: NightWorkbenchSessionBinding):
     }))
   const seatSnapshots = seatSnapshotsForSession(binding.session)
   const projectedRun = { ...run, queue: structuredClone(run.queue).map((item) => ({
-    ...projectNightInteraction(item, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount }),
+    ...projectNightInteraction(item, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount, status: seatSnapshots[item.seatId]?.status }),
     status: seatSnapshots[item.seatId]?.status ?? item.status,
   })) }
   const queue = refreshNightRunHistoricalContext(binding.session, projectedRun)

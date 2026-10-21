@@ -1,0 +1,1338 @@
+{
+  "scriptId": "shen-bu-you-ji",
+  "displayName": "身不由己",
+  "source": {
+    "author": "Luxray & Sabenite",
+    "version": "Clocktower Wiki index 562 / build 16ad8f7c270d / 原库版→2026-10-21当前规则适配",
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "contentHash": "sha256:052a01a8d2a7c6270b45ee7c068da272dfebfc569823d3059ad9ef4b7bea2dc6",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "knight",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "shugenja",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "highpriestess",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "mathematician",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "artist",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "spy",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "boomdandy",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "eviltwin",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "shen-bu-you-ji-candidate-1",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "savant",
+        "artist",
+        "seamstress",
+        "farmer",
+        "mayor",
+        "eviltwin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "knight",
+        "shugenja",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-2",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "farmer",
+        "mayor",
+        "knight",
+        "shugenja",
+        "fortuneteller",
+        "scarletwoman",
+        "nodashii"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "mathematician",
+        "monk"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-3",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 7,
+      "style": "bluff-heavy",
+      "roles": [
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "spy",
+        "vortox"
+      ],
+      "bluffs": [
+        "oracle",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-4",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "artist",
+        "seamstress",
+        "farmer",
+        "mayor",
+        "knight",
+        "barber",
+        "scarletwoman",
+        "vortox"
+      ],
+      "bluffs": [
+        "shugenja",
+        "fortuneteller",
+        "highpriestess"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-5",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "mayor",
+        "knight",
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "drunk",
+        "spy",
+        "vortox"
+      ],
+      "bluffs": [
+        "mathematician",
+        "monk",
+        "oracle"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-6",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "seamstress",
+        "farmer",
+        "mayor",
+        "knight",
+        "drunk",
+        "recluse",
+        "saint",
+        "spy",
+        "fanggu"
+      ],
+      "bluffs": [
+        "shugenja",
+        "fortuneteller",
+        "highpriestess"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-7",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "knight",
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "recluse",
+        "saint",
+        "barber",
+        "boomdandy",
+        "fanggu"
+      ],
+      "bluffs": [
+        "mathematician",
+        "monk",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-8",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "farmer",
+        "mayor",
+        "knight",
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "boomdandy",
+        "eviltwin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "monk",
+        "oracle",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-9",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "oracle",
+        "savant",
+        "eviltwin",
+        "scarletwoman",
+        "nodashii"
+      ],
+      "bluffs": [
+        "artist",
+        "seamstress",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-10",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 10,
+      "style": "bluff-heavy",
+      "roles": [
+        "mathematician",
+        "monk",
+        "oracle",
+        "savant",
+        "artist",
+        "seamstress",
+        "farmer",
+        "scarletwoman",
+        "spy",
+        "vortox"
+      ],
+      "bluffs": [
+        "mayor",
+        "barber",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-11",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "mayor",
+        "knight",
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "saint",
+        "eviltwin",
+        "scarletwoman",
+        "vortox"
+      ],
+      "bluffs": [
+        "oracle",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-12",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "oracle",
+        "savant",
+        "artist",
+        "barber",
+        "scarletwoman",
+        "spy",
+        "vortox"
+      ],
+      "bluffs": [
+        "seamstress",
+        "farmer",
+        "mayor"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-13",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "knight",
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "barber",
+        "drunk",
+        "recluse",
+        "scarletwoman",
+        "spy",
+        "fanggu"
+      ],
+      "bluffs": [
+        "oracle",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-14",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "oracle",
+        "savant",
+        "artist",
+        "drunk",
+        "recluse",
+        "saint",
+        "spy",
+        "boomdandy",
+        "fanggu"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "seamstress",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-15",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 12,
+      "style": "bluff-heavy",
+      "roles": [
+        "oracle",
+        "savant",
+        "artist",
+        "seamstress",
+        "farmer",
+        "mayor",
+        "knight",
+        "recluse",
+        "saint",
+        "boomdandy",
+        "eviltwin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "mathematician",
+        "monk",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-16",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "oracle",
+        "savant",
+        "artist",
+        "seamstress",
+        "spy",
+        "boomdandy",
+        "eviltwin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "knight",
+        "farmer",
+        "mayor"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-17",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "mathematician",
+        "monk",
+        "oracle",
+        "savant",
+        "artist",
+        "seamstress",
+        "farmer",
+        "mayor",
+        "knight",
+        "boomdandy",
+        "eviltwin",
+        "scarletwoman",
+        "nodashii"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "highpriestess",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-18",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "oracle",
+        "savant",
+        "artist",
+        "seamstress",
+        "farmer",
+        "recluse",
+        "boomdandy",
+        "eviltwin",
+        "scarletwoman",
+        "vortox"
+      ],
+      "bluffs": [
+        "knight",
+        "shugenja",
+        "mayor"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-19",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "monk",
+        "oracle",
+        "savant",
+        "artist",
+        "seamstress",
+        "farmer",
+        "mayor",
+        "knight",
+        "shugenja",
+        "saint",
+        "eviltwin",
+        "scarletwoman",
+        "spy",
+        "vortox"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "highpriestess",
+        "mathematician"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-20",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "oracle",
+        "savant",
+        "artist",
+        "seamstress",
+        "farmer",
+        "saint",
+        "barber",
+        "drunk",
+        "eviltwin",
+        "scarletwoman",
+        "spy",
+        "fanggu"
+      ],
+      "bluffs": [
+        "knight",
+        "shugenja",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-21",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "oracle",
+        "savant",
+        "artist",
+        "seamstress",
+        "farmer",
+        "mayor",
+        "knight",
+        "shugenja",
+        "barber",
+        "drunk",
+        "recluse",
+        "scarletwoman",
+        "spy",
+        "boomdandy",
+        "fanggu"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "highpriestess",
+        "mathematician"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "shen-bu-you-ji-candidate-22",
+      "scriptId": "shen-bu-you-ji",
+      "playerCount": 15,
+      "style": "bluff-heavy",
+      "roles": [
+        "seamstress",
+        "farmer",
+        "mayor",
+        "knight",
+        "shugenja",
+        "fortuneteller",
+        "highpriestess",
+        "mathematician",
+        "monk",
+        "drunk",
+        "recluse",
+        "spy",
+        "boomdandy",
+        "eviltwin",
+        "nodashii"
+      ],
+      "bluffs": [
+        "oracle",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "host-confirmation-boundary",
+      "summary": "仅生成主持候选；身份、阵营、生死、毒醉、投票和胜负由说书人确认。角色变化、额外能力与死亡触发按本局事实另行记录。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "knight-risk-1",
+      "roleId": "knight",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "shugenja-risk-1",
+      "roleId": "shugenja",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fortuneteller-high-risk",
+      "roleId": "fortuneteller",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "highpriestess-manual-boundary",
+      "roleId": "highpriestess",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-high-risk",
+      "roleId": "mathematician",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21227_64421.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "monk-high-risk",
+      "roleId": "monk",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "oracle-manual-boundary",
+      "roleId": "oracle",
+      "summary": "每个夜晚*，你会得知有多少名死亡的玩家是邪恶的。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "savant-manual-boundary",
+      "roleId": "savant",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "artist-risk-1",
+      "roleId": "artist",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20946_46814.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "seamstress-manual-boundary",
+      "roleId": "seamstress",
+      "summary": "每局游戏限一次，在夜晚时，你可以选择除你以外的两名玩家：你会得知他们是否为同一阵营。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "farmer-risk-1",
+      "roleId": "farmer",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mayor-high-risk",
+      "roleId": "mayor",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21229_95005.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "barber-manual-boundary",
+      "roleId": "barber",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21007_69642.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "drunk-cover",
+      "roleId": "drunk",
+      "summary": "Drunk: needs a Townsfolk cover identity; the player does not know they are the Drunk.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "recluse-high-risk",
+      "roleId": "recluse",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "saint-risk-1",
+      "roleId": "saint",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21234_32853.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "scarletwoman-high-risk",
+      "roleId": "scarletwoman",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20722_51832.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "spy-manual-boundary",
+      "roleId": "spy",
+      "summary": "每个夜晚，你能查看魔典。你可能会被当作善良阵营、镇民角色或外来者角色，即使你已死亡。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "eviltwin-high-risk",
+      "roleId": "eviltwin",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21227_64421.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fanggu-setup-count",
+      "roleId": "fanggu",
+      "summary": "方古在场增加1外来者并减少1镇民；首次成功转变须分别确认新身份和原方古死亡，仅有候选不算成功。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Fang_Gu"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "nodashii-manual-boundary",
+      "roleId": "nodashii",
+      "summary": "每个夜晚*，你要选择一名玩家：他死亡。与你邻近的两名镇民中毒。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "vortox-no-execution",
+      "roleId": "vortox",
+      "summary": "Vortox can make evil win if no one is executed during the day; exiling a Traveller does not count as an execution; the tool only reminds.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21087_69602.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "djinn-high-risk",
+      "roleId": "djinn",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "boomdandy-current-countdown",
+      "roleId": "boomdandy",
+      "summary": "采用当前10到1倒数，替代原文一分钟。被处决即可触发，不要求处决死亡；其他死因不触发。由主持逐个处理死亡及保护，通常留下含恶魔的3人；全部玩家包括无死亡票者均可指认，平指不杀，不按普通投票消耗死亡票。系统不自动杀人或判胜。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Boomdandy"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-drunk-jinx",
+      "roleId": "mathematician",
+      "summary": "数学家须核对酒鬼所认为拥有的镇民能力：若该能力给出错误信息或未正常生效，按相克纳入数学家信息；不能仅因真实身份是酒鬼就固定加一。信息仍由主持按当夜实际情况确认，不泄露给酒鬼本人。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "scarletwoman-fanggu-jinx",
+      "roleId": "scarletwoman",
+      "summary": "红唇女郎与方古同时在场时，若某次结算会出现两名恶魔且其中一名来自红唇女郎，红唇女郎保留原角色。方古转变、原方古死亡与红唇女郎条件须逐条核对并由主持明确确认，不能额外自动生成第二名恶魔。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "eviltwin",
+        "order": 1,
+        "note": "复用本轮已核当前官方夜表原始顺位41；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 2,
+        "note": "复用本轮已核当前官方夜表原始顺位57；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 3,
+        "note": "复用本轮已核当前官方夜表原始顺位62；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "knight",
+        "order": 4,
+        "note": "复用本轮已核当前官方夜表原始顺位64；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "shugenja",
+        "order": 5,
+        "note": "复用本轮已核当前官方夜表原始顺位67；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "spy",
+        "order": 6,
+        "note": "复用本轮已核当前官方夜表原始顺位72；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 7,
+        "note": "复用本轮已核当前官方夜表原始顺位74；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 8,
+        "note": "复用本轮已核当前官方夜表原始顺位77；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "monk",
+        "order": 1,
+        "note": "复用本轮已核当前官方夜表原始顺位24；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 2,
+        "note": "复用本轮已核当前官方夜表原始顺位33；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 3,
+        "note": "复用本轮已核当前官方夜表原始顺位45；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 4,
+        "note": "复用本轮已核当前官方夜表原始顺位46；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "vortox",
+        "order": 5,
+        "note": "复用本轮已核当前官方夜表原始顺位47；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "barber",
+        "order": 6,
+        "note": "复用本轮已核当前官方夜表原始顺位60；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "farmer",
+        "order": 7,
+        "note": "复用本轮已核当前官方夜表原始顺位70；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 8,
+        "note": "复用本轮已核当前官方夜表原始顺位77；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "oracle",
+        "order": 9,
+        "note": "复用本轮已核当前官方夜表原始顺位82；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 10,
+        "note": "复用本轮已核当前官方夜表原始顺位83；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "spy",
+        "order": 11,
+        "note": "复用本轮已核当前官方夜表原始顺位92；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 12,
+        "note": "复用本轮已核当前官方夜表原始顺位93；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 13,
+        "note": "复用本轮已核当前官方夜表原始顺位96；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "knight": "sha256:22749fad133589f7a60a2641b1c8e0b3930f329c198ca468c9e6c029584ec193",
+    "shugenja": "sha256:20e3ef86b6aeed76cf4588bbf6b856480cd1fff5ece0e97b8e42928b98439fc0",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "highpriestess": "sha256:8494609fb30ae75114cd2a18e0053104c012cad339d6a9fe9964cd3554176c07",
+    "mathematician": "sha256:f1262386ef8bd2783d644dc5240ea8e3fe2ee414a55b3cc3b86f9aee91cd027d",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "artist": "sha256:c9b8ee57527bb669ec6b036b53a1c4196be7c4801e0572ea1ac5a19d42bedda5",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "spy": "sha256:77894cd65fb49bffc53307f3e96f39b8581734ae64e3b9a2afcc4cbb5cbb8f82",
+    "boomdandy": "sha256:7dda7eaea6645740c25344433f16ccc682ffe2813511e806e653f6603e2e1c05",
+    "eviltwin": "sha256:75dc9503eee2fe674c64e39ecfb9c45d818a6fff40767c0de8d36cc8c7297dd6",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f",
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46"
+  }
+}

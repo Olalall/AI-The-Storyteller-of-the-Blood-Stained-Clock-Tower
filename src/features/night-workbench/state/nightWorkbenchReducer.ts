@@ -4,6 +4,8 @@ import { applyDefaultOutcome, applyOutcome, emptyWakeDraft, invalidateOutcome, s
 import { advanceFrom, updatePreviewDraft } from './nightWorkbenchDrafts'
 import { appendRoleChange } from './roleChanges'
 import { canConfirmDraft, canEditItem } from './workbenchGuards'
+import { projectNightInteraction } from './projectNightInteraction'
+import { normalizeRoleId } from '../../../domain/scripts'
 
 /**
  * 组件只描述「做什么」，不带时间。
@@ -282,6 +284,8 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       return {
         ...state,
         correctionItemId: state.activeCursorId,
+        queue: state.queue.map((item) => item.id === state.activeCursorId && normalizeRoleId(item.roleId) === 'farmer'
+          ? projectNightInteraction({ ...item, progress: 'draft', interactionVersion: 'farmer/recheck' }, state.scriptId, { nightType: state.nightType, playerCount: state.playerCount }) : item),
         drafts: { ...state.drafts, [state.activeCursorId]: structuredClone(latest.snapshot) },
         lastNotice: '正在追加更正；原确认记录不会被覆盖',
       }
@@ -293,6 +297,8 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       return {
         ...state,
         correctionItemId: null,
+        queue: state.queue.map((item) => item.id === state.activeCursorId && normalizeRoleId(item.roleId) === 'farmer'
+          ? { ...item, progress: 'confirmed' as const, applicability: 'applicable' as const, reason: '原确认记录仍然保留；再次更正时须重新核对农夫触发。' } : item),
         drafts: { ...state.drafts, [state.activeCursorId]: structuredClone(latest.snapshot) },
         lastNotice: '已放弃本次更正，原记录未变化',
       }

@@ -1,15 +1,18 @@
 import { describe, expect, it } from 'vitest'
-import { createPrototypeGameSession } from '../data/createPrototypeSession'
+import { createPrototypeGameSession, createSmartScriptSetupSession } from '../data/createPrototypeSession'
 import type { DayActionEntry, GameSessionState, NightActionEntry, NightRunState } from '../types'
-import { emptyWakeDraft } from '../../night-workbench/state/projectWakeDraft'
+import { applyOutcome, emptyWakeDraft } from '../../night-workbench/state/projectWakeDraft'
 import { outcomeReady } from '../../night-workbench/state/projectWakeDraft'
 import type { WakeItem } from '../../night-workbench/types'
 import type { NightWorkbenchState } from '../../night-workbench/types'
-import { nightWorkbenchReducer } from '../../night-workbench/state/nightWorkbenchReducer'
+import { nightWorkbenchReducer, type NightWorkbenchIntent } from '../../night-workbench/state/nightWorkbenchReducer'
 import { sessionInitialNightState } from '../../night-workbench/state/gameSessionAdapter'
 import { canConfirmDraft } from '../../night-workbench/state/workbenchGuards'
 import { applyWakeHistoricalContext, refreshNightRunHistoricalContext } from './nightHistoricalContext'
 import { appendCorrection } from './timeline'
+import { roleSnapshotsForScript } from '../../../domain/scripts'
+import { gameSessionReducer } from './sessionReducer'
+import { projectCurrentPlayerStates } from './projectors'
 
 const AT = '2026-08-07T00:00:00.000Z'
 
@@ -416,6 +419,85 @@ describe('跨夜目标投影', () => {
     const session = sessionWithHistory([poisoned, roleEntry('pukka-2', 'pukka', [5], 'pukka-no-new-poison', 'night-3')])
     session.phaseSegments.push({ id: 'night-4', kind: 'night', sequence: 4, label: '第4夜', createdAt: AT })
     expect(applyWakeHistoricalContext(session, complexItem('pukka'), 4).historicalContext?.seatIds).toEqual([4])
+  })
+
+  it('confirms an impaired Pukka choice without keeping its old target poisoned or losing the next-night tracking', () => {
+    const scriptId = 'yi-cun-duan-yi-cun-xian'
+    const roles = roleSnapshotsForScript(scriptId)
+    const role = (id: string) => ({ ...roles.find((candidate) => candidate.id === id)! })
+    let session = createSmartScriptSetupSession(scriptId, AT, { playerCount: 8 })
+    session = gameSessionReducer(session, { type: 'set-setup-draft', draft: {
+      candidateId: 'pukka-poison-suspension', revision: 1, updatedAt: AT,
+      assignments: ['virgin', 'pacifist', 'fool', 'soldier', 'farmer', 'saint', 'poisoner', 'pukka']
+        .map((id, index) => ({ seatId: index + 1, role: role(id) })),
+      demonBluffs: ['chef', 'knight', 'steward'].map(role),
+    } })
+    session = gameSessionReducer(session, { type: 'confirm-setup', id: 'pukka-suspension-setup', confirmedAt: AT })
+    const original = { ...roleEntry('pukka-first-poison', 'pukka', [1], 'pukka-new-poison', 'night-1'),
+      actorSeatId: 8, nightRunId: 'night-1', wakeItemId: 'night-1-pukka-8' }
+    session.timeline.push(original)
+    session.phaseSegments = [
+      { id: 'night-1', kind: 'night', sequence: 1, label: '第1夜', createdAt: AT, closedAt: AT },
+      { id: 'day-1', kind: 'day', sequence: 1, label: '第1天', createdAt: AT, closedAt: AT },
+    ]
+    // Explicit host changes: old poison first applied, then suspended when the Pukka is poisoned.
+    for (const [index, [seatId, poisoned]] of ([[1, true], [8, true], [1, false]] as const).entries()) {
+      const before = projectCurrentPlayerStates(session)[seatId]
+      session = gameSessionReducer(session, { type: 'confirm-player-state-change', seatId, expectedBefore: before,
+        after: { ...before, poisoned }, segmentId: null, entryId: `pukka-host-state-${index}`,
+        confirmedAt: AT, reason: '说书人确认投毒者使普卡失能，旧目标的普卡毒暂时失效。' })
+    }
+    session = gameSessionReducer(session, { type: 'start-next-night-run' })
+    const act = (action: NightWorkbenchIntent) => {
+      const state = sessionInitialNightState({ session, dispatchSession: () => undefined })!
+      session = gameSessionReducer(session, { type: 'night-workbench-action', nightRunId: state.nightRunId,
+        expectedWakeItemId: state.previewEntryId, expectedActiveCursorId: state.activeCursorId, action: { ...action, at: AT } })
+    }
+    const wake = sessionInitialNightState({ session, dispatchSession: () => undefined })!.queue.find((item) => item.roleId === 'pukka')!
+    act({ type: 'preview', id: wake.id })
+    act({ type: 'activate-preview' })
+    act({ type: 'target', seatId: 2 })
+    const facts = '投毒者先使普卡中毒；1号旧目标当前恢复健康并存活；普卡本夜选择2号，新毒不生效。'
+    act({ type: 'storyteller-context', value: facts })
+    const before = projectCurrentPlayerStates(session)
+    expect(before[8].poisoned).toBe(true)
+    expect(before[1]).toMatchObject({ life: 'alive', poisoned: false })
+    act({ type: 'outcome', outcomeId: 'pukka-no-new-poison' })
+    const selected = sessionInitialNightState({ session, dispatchSession: () => undefined })!
+    const draft = selected.drafts[wake.id]
+    expect(canConfirmDraft(selected, selected.queue.find((item) => item.id === wake.id)!, draft)).toBe(true)
+    expect(draft.storytellerResult).toContain('追踪')
+    expect(draft.storytellerResult).toContain('暂时失效')
+    expect(draft.storytellerResult).not.toContain('旧毒继续保留')
+    act({ type: 'confirm', advance: false })
+    const saved = session.timeline.filter((entry): entry is NightActionEntry => entry.kind === 'night_action').at(-1)!
+    expect(saved.record.snapshot).toMatchObject({ outcomeId: 'pukka-no-new-poison', targets: [2], storytellerContext: facts })
+    expect(saved.details).toContain(`说书人已核对：${facts}`)
+    expect(projectCurrentPlayerStates(session)).toEqual(before)
+    expect(session.timeline.find((entry) => entry.id === original.id)).toEqual(original)
+    session = gameSessionReducer(session, { type: 'close-active-night-run', nightRunId: session.activeNightRunId!, closedAt: AT })
+    session = gameSessionReducer(session, { type: 'start-next-night-run' })
+    const nextWake = sessionInitialNightState({ session, dispatchSession: () => undefined })!.queue.find((item) => item.roleId === 'pukka')!
+    expect(nextWake.historicalContext).toMatchObject({ kind: 'pukka_poison', status: 'ready', seatIds: [1] })
+    expect(projectCurrentPlayerStates(session)).toEqual(before)
+  })
+
+  it.each([
+    ['pukka-new-poison', [5], [5]],
+    ['pukka-old-resolved-no-new', [], []],
+  ] as const)('keeps a protected Pukka old target alive while %s records the end of its old poison', (outcomeId, targets, pending) => {
+    const session = sessionWithHistory([roleEntry('pukka-old', 'pukka', [4], 'pukka-new-poison')])
+    const before = projectCurrentPlayerStates(session)
+    const projected = applyWakeHistoricalContext(session, complexItem('pukka'), 3)
+    const facts = '4号旧毒目标被清醒旅店老板保护，未死亡；旧毒结束。是否有新目标由本次选择记录。'
+    const draft = applyOutcome(projected, { ...emptyWakeDraft(), targets: [...targets], storytellerContext: facts }, outcomeId)
+    expect(draft.outcomeId).toBe(outcomeId)
+    expect(draft.storytellerResult).toContain('保护')
+    expect(draft.storytellerResult).not.toContain('4号为死亡并恢复健康候选')
+    session.timeline.push({ ...roleEntry('pukka-protected', 'pukka', [...targets], outcomeId, 'night-3'), record: { revision: 1, snapshot: draft } })
+    expect(applyWakeHistoricalContext(session, complexItem('pukka'), 4).historicalContext?.seatIds).toEqual([...pending])
+    expect(projectCurrentPlayerStates(session)).toEqual(before)
+    expect(projectCurrentPlayerStates(session)[4].life).toBe('alive')
   })
 
   it('does not treat a legacy Pukka target as a successfully poisoned target', () => {

@@ -1,0 +1,1570 @@
+{
+  "scriptId": "you-tou-lai-guo",
+  "displayName": "由头来过",
+  "source": {
+    "author": "荷西",
+    "version": "Clocktower Wiki index 396 / build 16ad8f7c270d / 原库版→2026-10-21当前规则适配",
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "contentHash": "sha256:3f1f9b3ba84318c973ad39ffe92d83475b886843f0fae41bb62bf0d114a4d8e1",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "clockmaker",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "villageidiot",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "gambler",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "nightwatchman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "princess",
+      "sourceId": "punchy",
+      "sourceVersion": "sha256:2db376682e56699246b43b787ae0f3ddef03ab3c28f678e0373fc35b08b0036c"
+    },
+    {
+      "id": "tealady",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sage",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "moonchild",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "ogre",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "klutz",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "po",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "you-tou-lai-guo-candidate-1",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "seamstress",
+        "nightwatchman",
+        "princess",
+        "tealady",
+        "klutz",
+        "godfather",
+        "nodashii"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "noble",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-2",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "tealady",
+        "sage",
+        "clockmaker",
+        "drunk",
+        "scarletwoman",
+        "nodashii"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-3",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 7,
+      "style": "bluff-heavy",
+      "roles": [
+        "balloonist",
+        "noble",
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot",
+        "devilsadvocate",
+        "po"
+      ],
+      "bluffs": [
+        "undertaker",
+        "gambler",
+        "seamstress"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "no-extra-outsider",
+          "compositionDelta": {
+            "townsfolk": 0,
+            "outsider": 0
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-4",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "nightwatchman",
+        "princess",
+        "tealady",
+        "sage",
+        "clockmaker",
+        "drunk",
+        "scarletwoman",
+        "po"
+      ],
+      "bluffs": [
+        "noble",
+        "fortuneteller",
+        "chambermaid"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-5",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "sage",
+        "clockmaker",
+        "noble",
+        "moonchild",
+        "ogre",
+        "devilsadvocate",
+        "po"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-6",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "princess",
+        "tealady",
+        "sage",
+        "clockmaker",
+        "noble",
+        "moonchild",
+        "ogre",
+        "devilsadvocate",
+        "imp"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "chambermaid",
+        "balloonist"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-7",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "clockmaker",
+        "noble",
+        "fortuneteller",
+        "ogre",
+        "klutz",
+        "drunk",
+        "poisoner",
+        "imp"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "villageidiot",
+        "undertaker"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-8",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "tealady",
+        "sage",
+        "clockmaker",
+        "noble",
+        "fortuneteller",
+        "chambermaid",
+        "ogre",
+        "poisoner",
+        "godfather",
+        "vortox"
+      ],
+      "bluffs": [
+        "balloonist",
+        "villageidiot",
+        "undertaker"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-9",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "noble",
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "godfather",
+        "scarletwoman",
+        "vortox"
+      ],
+      "bluffs": [
+        "seamstress",
+        "nightwatchman",
+        "princess"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        },
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-10",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 10,
+      "style": "bluff-heavy",
+      "roles": [
+        "balloonist",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "seamstress",
+        "nightwatchman",
+        "princess",
+        "scarletwoman",
+        "devilsadvocate",
+        "nodashii"
+      ],
+      "bluffs": [
+        "tealady",
+        "sage",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "no-extra-outsider",
+          "compositionDelta": {
+            "townsfolk": 0,
+            "outsider": 0
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-11",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "sage",
+        "clockmaker",
+        "noble",
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot",
+        "klutz",
+        "drunk",
+        "godfather",
+        "scarletwoman",
+        "nodashii"
+      ],
+      "bluffs": [
+        "balloonist",
+        "undertaker",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-12",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "drunk",
+        "moonchild",
+        "scarletwoman",
+        "devilsadvocate",
+        "nodashii"
+      ],
+      "bluffs": [
+        "seamstress",
+        "nightwatchman",
+        "princess"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-13",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "clockmaker",
+        "noble",
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "drunk",
+        "moonchild",
+        "scarletwoman",
+        "devilsadvocate",
+        "po"
+      ],
+      "bluffs": [
+        "balloonist",
+        "seamstress",
+        "nightwatchman"
+      ],
+      "setupAdjustments": [],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-14",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "chambermaid",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "seamstress",
+        "moonchild",
+        "ogre",
+        "klutz",
+        "devilsadvocate",
+        "poisoner",
+        "po"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "nightwatchman",
+        "princess"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-15",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 12,
+      "style": "bluff-heavy",
+      "roles": [
+        "balloonist",
+        "gambler",
+        "seamstress",
+        "nightwatchman",
+        "princess",
+        "tealady",
+        "ogre",
+        "klutz",
+        "drunk",
+        "poisoner",
+        "godfather",
+        "imp"
+      ],
+      "bluffs": [
+        "villageidiot",
+        "undertaker",
+        "sage"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        },
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "no-extra-outsider",
+          "compositionDelta": {
+            "townsfolk": 0,
+            "outsider": 0
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-16",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "noble",
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "seamstress",
+        "nightwatchman",
+        "moonchild",
+        "devilsadvocate",
+        "poisoner",
+        "godfather",
+        "imp"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "balloonist",
+        "princess"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-17",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "seamstress",
+        "nightwatchman",
+        "princess",
+        "tealady",
+        "sage",
+        "poisoner",
+        "godfather",
+        "scarletwoman",
+        "imp"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "chambermaid",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        },
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-18",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "seamstress",
+        "nightwatchman",
+        "princess",
+        "ogre",
+        "klutz",
+        "poisoner",
+        "godfather",
+        "scarletwoman",
+        "vortox"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "noble",
+        "balloonist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-19",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "undertaker",
+        "gambler",
+        "seamstress",
+        "nightwatchman",
+        "princess",
+        "tealady",
+        "sage",
+        "clockmaker",
+        "klutz",
+        "godfather",
+        "scarletwoman",
+        "devilsadvocate",
+        "vortox"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "remove-one-outsider",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        },
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-20",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "chambermaid",
+        "villageidiot",
+        "undertaker",
+        "gambler",
+        "seamstress",
+        "nightwatchman",
+        "princess",
+        "tealady",
+        "klutz",
+        "drunk",
+        "moonchild",
+        "godfather",
+        "scarletwoman",
+        "devilsadvocate",
+        "nodashii"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "noble",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-21",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "balloonist",
+        "gambler",
+        "seamstress",
+        "nightwatchman",
+        "princess",
+        "tealady",
+        "sage",
+        "clockmaker",
+        "drunk",
+        "moonchild",
+        "ogre",
+        "scarletwoman",
+        "devilsadvocate",
+        "poisoner",
+        "nodashii"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "chambermaid",
+        "villageidiot"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "酒鬼自认身份从不在场镇民中另选并私下确认；真实身份仍为酒鬼。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    },
+    {
+      "templateId": "you-tou-lai-guo-candidate-22",
+      "scriptId": "you-tou-lai-guo",
+      "playerCount": 15,
+      "style": "bluff-heavy",
+      "roles": [
+        "balloonist",
+        "princess",
+        "tealady",
+        "sage",
+        "clockmaker",
+        "noble",
+        "fortuneteller",
+        "chambermaid",
+        "moonchild",
+        "ogre",
+        "klutz",
+        "devilsadvocate",
+        "poisoner",
+        "godfather",
+        "po"
+      ],
+      "bluffs": [
+        "villageidiot",
+        "undertaker",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "add-one-outsider",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。"
+        },
+        {
+          "ruleId": "balloonist-setup-count",
+          "choiceId": "no-extra-outsider",
+          "compositionDelta": {
+            "townsfolk": 0,
+            "outsider": 0
+          },
+          "note": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。"
+        }
+      ],
+      "notes": [
+        "复用已验收的轮换组合和人数修正方法；不是作者平衡性背书。",
+        "额外能力、毒醉、死亡、角色变化和胜负仍由说书人确认。",
+        "开局另行确认一名善良玩家为红鲱鱼，不据真实恶魔席位自动给信息。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ],
+      "verified": true
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "host-confirmation-boundary",
+      "summary": "仅生成主持候选；身份、阵营、生死、毒醉、投票和胜负由说书人确认。角色变化、额外能力与死亡触发按本局事实另行记录。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Abilities"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "clockmaker-high-risk",
+      "roleId": "clockmaker",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "noble-high-risk",
+      "roleId": "noble",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fortuneteller-high-risk",
+      "roleId": "fortuneteller",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "chambermaid-manual-boundary",
+      "roleId": "chambermaid",
+      "summary": "每个夜晚，你要选择除你以外的两名存活的玩家：你会得知他们中有几人在当晚因其自身能力而被唤醒。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "balloonist-setup-count",
+      "roleId": "balloonist",
+      "summary": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Balloonist"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "undertaker-high-risk",
+      "roleId": "undertaker",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "gambler-high-risk",
+      "roleId": "gambler",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "seamstress-manual-boundary",
+      "roleId": "seamstress",
+      "summary": "每局游戏限一次，在夜晚时，你可以选择除你以外的两名玩家：你会得知他们是否为同一阵营。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "nightwatchman-high-risk",
+      "roleId": "nightwatchman",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21229_95005.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "zhui-chai-qi-yuan-lao-hua-deng-tealady-rule",
+      "roleId": "tealady",
+      "summary": "茶艺师: 如果与你邻近的两名存活的玩家是善良的，他们不会死亡。... Storyteller confirms any authority-state impact.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20730_52285.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "sage-manual-boundary",
+      "roleId": "sage",
+      "summary": "Sage killed by Demon learns two players one of whom is Demon; answer remains ST-confirmed.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20746_59942.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "drunk-cover",
+      "roleId": "drunk",
+      "summary": "Drunk: needs a Townsfolk cover identity; the player does not know they are the Drunk.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "moonchild-high-risk",
+      "roleId": "moonchild",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20723_51891.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "ogre-alignment",
+      "roleId": "ogre",
+      "summary": "食人魔：首夜选择后变成目标阵营，即使醉酒或中毒也会发生；玩家不知道结果。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://script.bloodontheclocktower.com/?script=H4sIAAAAAAAACpWSQU7EMAxFr1J53RN0CSvEggMghEzrJqaJHTnOoBnE3RFiBEvMMtLzj/N%2BHt%2BBN1jguZIjzIDDsxoscIOmMp1Upvsy%2FAIzCFaCBR6EJpZJhSYdDjO8FNWtO9pdxUS3akarswosoPIdqV3NYdmxdJrBz%2B0raB%2BlwMd8XaA7vaFtMEPK2n%2FhxiK0XY8%2F9CGcsgfhzCk3Y%2BpOvQdnTlwKJuKNNXpNFzxozWiVLDiyq%2FkQciolPKOGa6EgXFWOIIpVqDOu0dW5Z7KKErVDWLtbvIH9PyJXFOEXLFGHyaIGk2r0iUZrGT0avNkId9OUu0rYRkZr52gvYbLShVqmQtEGD7xg4SDMtUXLe9XwF5KURlgEG7vufFL7S8nTJ74mOs83BQAA"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "klutz-high-risk",
+      "roleId": "klutz",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "scarletwoman-high-risk",
+      "roleId": "scarletwoman",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20722_51832.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "devilsadvocate-high-risk",
+      "roleId": "devilsadvocate",
+      "summary": "AI may suggest this result, but ST confirms authority state before saving changes.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20723_51891.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "poisoner-high-risk",
+      "roleId": "poisoner",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "godfather-setup-count",
+      "roleId": "godfather",
+      "summary": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Godfather"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "po-manual-boundary",
+      "roleId": "po",
+      "summary": "每个夜晚*，你可以选择一名玩家：他死亡。如果你上次选择时没有选择任何玩家，当晚你要选择三名玩家：他们死亡。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21219_64086.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "imp-high-risk",
+      "roleId": "imp",
+      "summary": "AI only drafts reminders; storyteller confirms before changing authority state.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20950_46806.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "vortox-no-execution",
+      "roleId": "vortox",
+      "summary": "Vortox can make evil win if no one is executed during the day; exiling a Traveller does not count as an execution; the tool only reminds.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_21087_69602.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "nodashii-manual-boundary",
+      "roleId": "nodashii",
+      "summary": "每个夜晚*，你要选择一名玩家：他死亡。与你邻近的两名镇民中毒。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20947_46831.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "villageidiot-extra-copies",
+      "roleId": "villageidiot",
+      "summary": "可以用额外村夫替换0至2名镇民；仅1名村夫时不因自身设置醉酒，多名时由主持标记1名额外村夫醉酒。本批普通模板仅用单实例，不自动复制或加醉。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Village_Idiot"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "princess-first-day-execution",
+      "roleId": "princess",
+      "summary": "公主首个白天提名的玩家须实际被处决，不要求处决死亡；核对公主当夜是否清醒健康。恶魔仍按原夜序选择目标，但当晚不造成死亡；其他恶魔效果及教父等非恶魔死亡不因此停止。只作主持确认提醒。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Princess"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "note": "复用本轮已核当前官方夜表原始顺位33；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "godfather",
+        "order": 2,
+        "note": "复用本轮已核当前官方夜表原始顺位38；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 3,
+        "note": "复用本轮已核当前官方夜表原始顺位40；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 4,
+        "note": "复用本轮已核当前官方夜表原始顺位57；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "clockmaker",
+        "order": 5,
+        "note": "复用本轮已核当前官方夜表原始顺位60；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 6,
+        "note": "复用本轮已核当前官方夜表原始顺位62；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "noble",
+        "order": 7,
+        "note": "复用本轮已核当前官方夜表原始顺位65；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 8,
+        "note": "复用本轮已核当前官方夜表原始顺位66；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "villageidiot",
+        "order": 9,
+        "note": "复用本轮已核当前官方夜表原始顺位68；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 10,
+        "note": "复用本轮已核当前官方夜表原始顺位70；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "ogre",
+        "order": 11,
+        "note": "复用本轮已核当前官方夜表原始顺位73；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 12,
+        "note": "复用本轮已核当前官方夜表原始顺位76；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "note": "复用本轮已核当前官方夜表原始顺位17；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "gambler",
+        "order": 2,
+        "note": "复用本轮已核当前官方夜表原始顺位21；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 3,
+        "note": "复用本轮已核当前官方夜表原始顺位26；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 4,
+        "note": "复用本轮已核当前官方夜表原始顺位33；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "princess",
+        "order": 5,
+        "note": "复用本轮已核当前官方夜表原始顺位38；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "imp",
+        "order": 6,
+        "note": "复用本轮已核当前官方夜表原始顺位40；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "po",
+        "order": 7,
+        "note": "复用本轮已核当前官方夜表原始顺位44；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 8,
+        "note": "复用本轮已核当前官方夜表原始顺位46；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "vortox",
+        "order": 9,
+        "note": "复用本轮已核当前官方夜表原始顺位47；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "godfather",
+        "order": 10,
+        "note": "复用本轮已核当前官方夜表原始顺位57；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "sage",
+        "order": 11,
+        "note": "复用本轮已核当前官方夜表原始顺位63；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "moonchild",
+        "order": 12,
+        "note": "复用本轮已核当前官方夜表原始顺位72；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 13,
+        "note": "复用本轮已核当前官方夜表原始顺位77；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 14,
+        "note": "复用本轮已核当前官方夜表原始顺位78；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 15,
+        "note": "复用本轮已核当前官方夜表原始顺位83；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 16,
+        "note": "复用本轮已核当前官方夜表原始顺位85；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "villageidiot",
+        "order": 17,
+        "note": "复用本轮已核当前官方夜表原始顺位86；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 18,
+        "note": "复用本轮已核当前官方夜表原始顺位89；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 19,
+        "note": "复用本轮已核当前官方夜表原始顺位95；触发与角色变化仍由主持确认。",
+        "knowledgeStatus": "confirmed"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "clockmaker": "sha256:eda181c646d1926ef95e22b78579955d8042a92bc5d9f5bb71beabc165e7f9a0",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "villageidiot": "sha256:6f0a168d318bf468312655eb4d5a0e3da89481595bfd1e87d317a10eb632f083",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "gambler": "sha256:6ce92beee5117fb21f9c5cdf4bbe2578363a9069a3110b245bef6a04afb4b762",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "nightwatchman": "sha256:9abb4633d92f6cce99fb53748bb1020e8e0a12e98274df257a2bc16cf75bac19",
+    "princess": "sha256:8e923bdf4cd089d265676471519f864e3785291f0364a862ce53b7c7bf0c5553",
+    "tealady": "sha256:5477146713dda2d2ac0acb2b3a2b712e71a5691d1f0ea364fa0ef990d3c5cef4",
+    "sage": "sha256:e7fa6d07a5450bd0623d4092b8df4e576bcdfb08e9117b33cffb5081cd926515",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "moonchild": "sha256:8cdf1c15876cc9c7833b2eee156ce02b6e2e90080412890a621d2d906ea547d8",
+    "ogre": "sha256:f74b212d5e4879597a0f6637c081f73edb187eccb92dc2f567217623310290e1",
+    "klutz": "sha256:3c7f19f518ebf523ae77562a799ff7a27fc20b0ec3d8c0e1d05bb733ada471fd",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "po": "sha256:f3ef02e0ba52f3bf72ba6cf687f54bcc07c27d819451313c8e90d43f69481660",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874"
+  }
+}
