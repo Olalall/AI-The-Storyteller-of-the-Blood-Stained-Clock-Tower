@@ -1,0 +1,1133 @@
+{
+  "scriptId": "wiki-e7f9d2e70b75b11d",
+  "displayName": "失之交臂",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "小巷",
+    "version": "库记录624 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:e7f9d2e70b75b11d1267de4f08df568551dd973252f0064fb1750032236dfd52",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "investigator",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "slayer",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "artist",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "preacher",
+      "sourceId": "hide-and-seek",
+      "sourceVersion": "sha256:d50e711952349f51adc87356c2a3a1e29991bc131b906a5c49a795fd50f9c823"
+    },
+    {
+      "id": "cultleader",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "huntsman",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "alchemist",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "magician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "poppygrower",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "alsaahir",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "klutz",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "heretic",
+      "sourceId": "er-yu-wo-zha",
+      "sourceVersion": "sha256:7f808685e84f16b77b34a486fcf2548efbc5ef9feaa9215010ff563d742aca63"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "mastermind",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "eviltwin",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "fearmonger",
+      "sourceId": "he-fang-jiao-zhong",
+      "sourceVersion": "sha256:63e5b87f8058d6c25041fca52652806a894e24ad883e7a97fe07bc4925601da4"
+    },
+    {
+      "id": "goblin",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "leviathan",
+      "sourceId": "guo-jie-xin-yang",
+      "sourceVersion": "sha256:aae3b5e90dc59df98998d6e0ee8f3a30bf64a859abc802e7c19e9d92389d197a"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-1",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "goblin",
+        "leviathan",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer"
+      ],
+      "bluffs": [
+        "mayor",
+        "philosopher",
+        "artist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-2",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "mastermind",
+        "leviathan",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist"
+      ],
+      "bluffs": [
+        "preacher",
+        "cultleader",
+        "alchemist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-3",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "eviltwin",
+        "vigormortis",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher",
+        "cultleader"
+      ],
+      "bluffs": [
+        "mayor",
+        "alchemist",
+        "alsaahir"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-4",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "mastermind",
+        "vigormortis",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher"
+      ],
+      "bluffs": [
+        "artist",
+        "pixie",
+        "preacher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-5",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "eviltwin",
+        "vigormortis",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher"
+      ],
+      "bluffs": [
+        "cultleader",
+        "alchemist",
+        "alsaahir"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-6",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "eviltwin",
+        "vortox",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "klutz",
+        "heretic"
+      ],
+      "bluffs": [
+        "artist",
+        "pixie",
+        "preacher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-7",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "fearmonger",
+        "vortox",
+        "mayor",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher",
+        "heretic",
+        "damsel"
+      ],
+      "bluffs": [
+        "slayer",
+        "cultleader",
+        "alchemist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-8",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "fearmonger",
+        "goblin",
+        "lleech",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher"
+      ],
+      "bluffs": [
+        "cultleader",
+        "alchemist",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-9",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "mastermind",
+        "lleech",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir"
+      ],
+      "bluffs": [
+        "slayer",
+        "mayor",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-10",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "mastermind",
+        "eviltwin",
+        "leviathan",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor"
+      ],
+      "bluffs": [
+        "pixie",
+        "saint",
+        "klutz"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-11",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "goblin",
+        "mastermind",
+        "leviathan",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "damsel"
+      ],
+      "bluffs": [
+        "investigator",
+        "alchemist",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-12",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "mastermind",
+        "eviltwin",
+        "leviathan",
+        "artist",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "saint"
+      ],
+      "bluffs": [
+        "mayor",
+        "philosopher",
+        "klutz"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-13",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "mastermind",
+        "eviltwin",
+        "vigormortis",
+        "mayor",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "saint"
+      ],
+      "bluffs": [
+        "investigator",
+        "slayer",
+        "klutz"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-14",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "eviltwin",
+        "fearmonger",
+        "vigormortis",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "klutz"
+      ],
+      "bluffs": [
+        "artist",
+        "saint",
+        "heretic"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-15",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "fearmonger",
+        "goblin",
+        "vortox",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist",
+        "heretic",
+        "damsel"
+      ],
+      "bluffs": [
+        "cultleader",
+        "saint",
+        "klutz"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-16",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "eviltwin",
+        "fearmonger",
+        "goblin",
+        "vortox",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer"
+      ],
+      "bluffs": [
+        "mayor",
+        "saint",
+        "klutz"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-17",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "fearmonger",
+        "goblin",
+        "mastermind",
+        "vortox",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist"
+      ],
+      "bluffs": [
+        "saint",
+        "klutz",
+        "heretic"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-18",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "fearmonger",
+        "goblin",
+        "mastermind",
+        "lleech",
+        "artist",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "heretic"
+      ],
+      "bluffs": [
+        "philosopher",
+        "saint",
+        "klutz"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-19",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "mastermind",
+        "eviltwin",
+        "lleech",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist",
+        "pixie",
+        "damsel"
+      ],
+      "bluffs": [
+        "saint",
+        "klutz",
+        "heretic"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-20",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "goblin",
+        "mastermind",
+        "eviltwin",
+        "leviathan",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "damsel",
+        "saint"
+      ],
+      "bluffs": [
+        "artist",
+        "klutz",
+        "heretic"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-21",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "mastermind",
+        "eviltwin",
+        "fearmonger",
+        "leviathan",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher",
+        "saint",
+        "klutz"
+      ],
+      "bluffs": [
+        "heretic",
+        "damsel",
+        "cultleader"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e7f9d2e70b75b11d-candidate-22",
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "eviltwin",
+        "fearmonger",
+        "goblin",
+        "vigormortis",
+        "slayer",
+        "mayor",
+        "philosopher",
+        "artist",
+        "pixie",
+        "preacher",
+        "cultleader",
+        "alchemist",
+        "alsaahir",
+        "investigator",
+        "klutz"
+      ],
+      "bluffs": [
+        "damsel",
+        "saint",
+        "heretic"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "alchemist-mastermind-jinx",
+      "roleId": "alchemist",
+      "summary": "An Alchemist-Mastermind has no Mastermind ability & the Mastermind is not-in-play.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "heretic-lleech-jinx",
+      "roleId": "heretic",
+      "summary": "Only 1 jinxed character can be in play.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "leviathan-mayor-jinx",
+      "roleId": "leviathan",
+      "summary": "If the Leviathan and the Mayor are alive on day 5 & no execution occurs, good wins.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "lleech-mastermind-jinx",
+      "roleId": "lleech",
+      "summary": "If the Mastermind is alive and the Lleech host dies by execution, the Lleech lives but loses their ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "lleech-slayer-jinx",
+      "roleId": "lleech",
+      "summary": "If the Slayer slays the Lleech host, the host dies.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mastermind-vigormortis-jinx",
+      "roleId": "mastermind",
+      "summary": "A Mastermind that has their ability keeps it if the Vigormortis dies.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "alchemist",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "poppygrower",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "magician",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "eviltwin",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fearmonger",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "investigator",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "cultleader",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "leviathan",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "poppygrower",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fearmonger",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "cultleader",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "leviathan",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "investigator": "sha256:216861593841d940f8eabf4c34556454bef623f59b59f8eb3ac38ec86f90154a",
+    "slayer": "sha256:74d1245e17fde7141ff849dd826aadeb562b21263addbd4de8e9eae521d1fba7",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "artist": "sha256:c9b8ee57527bb669ec6b036b53a1c4196be7c4801e0572ea1ac5a19d42bedda5",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "preacher": "sha256:3be7c2bf8f30817fc6c3d59c16eabd81a69e7758670f36d84f194baf638dd266",
+    "cultleader": "sha256:e0e8ee47bf984f43ca86121be767c4624af669fc4ed46326a79a68cbb61b1587",
+    "huntsman": "sha256:b0f38948ef04be8e1ddd284a4a44af8aa2ca936d3ae8eded18291db8c89e63f4",
+    "alchemist": "sha256:ae1492c17041400cf245d844d0ae9e35c06049f70d4774409f4f276e931911c8",
+    "magician": "sha256:df4b91bdbf86955cc97bfea6a0219e2b6a834a6e6457803c13b4e0b895d06690",
+    "poppygrower": "sha256:515acffda0a36fe28e0ca53e5aa0d4b75a9b69ba0de881ba0ab88adc253fb586",
+    "alsaahir": "sha256:7f5823307449ddf39fe8d6324d3b589b6de0e6e969b28d3f1061f055f4b81ce0",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "klutz": "sha256:3c7f19f518ebf523ae77562a799ff7a27fc20b0ec3d8c0e1d05bb733ada471fd",
+    "heretic": "sha256:15d126f4ced300b710bbcba8b520f821980bc18eb543cb930bec1dcfbfb5c4a1",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "mastermind": "sha256:bc59e4db15ea510baeb660d70acf54c3fcc65019faedef9cbb45d81b4ffb02c3",
+    "eviltwin": "sha256:75dc9503eee2fe674c64e39ecfb9c45d818a6fff40767c0de8d36cc8c7297dd6",
+    "fearmonger": "sha256:46fc5843ad04197d747d7c816bfaf7961fd321b985cee4bea0e8b24c814d1790",
+    "goblin": "sha256:c831c99d03dd8c2c7ddb4a84d51c78ef7df4e951ed30f40341940ba888d456ac",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b",
+    "leviathan": "sha256:bf1ef5c2b9337b5018631e4b54f887f50102e34f5eb38a4e381c9f76b84ba530"
+  }
+}

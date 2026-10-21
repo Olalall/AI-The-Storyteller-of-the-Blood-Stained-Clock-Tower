@@ -1,0 +1,985 @@
+{
+  "scriptId": "wiki-4a8f7390981cb0e9",
+  "displayName": "叱诧风云",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Paradox",
+    "version": "库记录446 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:4a8f7390981cb0e9e6c2a149105a20fb06b23b06e845b0d5242df53e0f78ad7d",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "knight",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "preacher",
+      "sourceId": "hide-and-seek",
+      "sourceVersion": "sha256:d50e711952349f51adc87356c2a3a1e29991bc131b906a5c49a795fd50f9c823"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "highpriestess",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "princess",
+      "sourceId": "punchy",
+      "sourceVersion": "sha256:2db376682e56699246b43b787ae0f3ddef03ab3c28f678e0373fc35b08b0036c"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "alsaahir",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "banshee",
+      "sourceId": "ku-mu-feng-chun",
+      "sourceVersion": "sha256:219a954bddff7d34db1947d630200fedb2e40e7475d809f20a435fc76943e810"
+    },
+    {
+      "id": "snitch",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "golem",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "politician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "xaan",
+      "sourceId": "quick-maths",
+      "sourceVersion": "sha256:2960bb5ebba764e8cc812500a4cba1c759ef6817859e836db7121f4b89e4ae03"
+    },
+    {
+      "id": "mastermind",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "boomdandy",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "boffin",
+      "sourceId": "xin-kou-ci-huang",
+      "sourceVersion": "sha256:4397c0506ab8e254b135a0610c1b096a8304925c86694e953514adf67ab1cd69"
+    },
+    {
+      "id": "alhadikhia",
+      "sourceId": "zhi-shou-zhe-tian",
+      "sourceVersion": "sha256:4238810a6fb68f2daa965e332d1be23dd5f61299b49bd179a6937dd2692e68d2"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-1",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "alhadikhia",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight"
+      ],
+      "bluffs": [
+        "preacher",
+        "highpriestess",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-2",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "alhadikhia",
+        "banshee",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "towncrier"
+      ],
+      "bluffs": [
+        "seamstress",
+        "princess",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-3",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "mastermind",
+        "alhadikhia",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "princess"
+      ],
+      "bluffs": [
+        "fisherman",
+        "savant",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-4",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "alhadikhia",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight",
+        "preacher",
+        "snitch"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "towncrier",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-5",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "mastermind",
+        "alhadikhia",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "golem"
+      ],
+      "bluffs": [
+        "princess",
+        "fisherman",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-6",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "mastermind",
+        "alhadikhia",
+        "alsaahir",
+        "banshee",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "golem",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "towncrier",
+        "philosopher",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-7",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "boomdandy",
+        "alhadikhia",
+        "preacher",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "puzzlemaster",
+        "politician"
+      ],
+      "bluffs": [
+        "princess",
+        "fisherman",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-8",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "boomdandy",
+        "boffin",
+        "alhadikhia",
+        "banshee",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "seamstress"
+      ],
+      "bluffs": [
+        "princess",
+        "fisherman",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-9",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "xaan",
+        "alhadikhia",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "savant"
+      ],
+      "bluffs": [
+        "preacher",
+        "alsaahir",
+        "banshee"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-10",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "xaan",
+        "mastermind",
+        "alhadikhia",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight"
+      ],
+      "bluffs": [
+        "towncrier",
+        "philosopher",
+        "snitch"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-11",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "xaan",
+        "alhadikhia",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "politician"
+      ],
+      "bluffs": [
+        "fisherman",
+        "savant",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-12",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "mastermind",
+        "alhadikhia",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "snitch"
+      ],
+      "bluffs": [
+        "preacher",
+        "highpriestess",
+        "banshee"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-13",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "mastermind",
+        "alhadikhia",
+        "preacher",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "snitch",
+        "golem"
+      ],
+      "bluffs": [
+        "knight",
+        "savant",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-14",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "mastermind",
+        "boomdandy",
+        "alhadikhia",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "golem",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "preacher",
+        "highpriestess",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-15",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "boomdandy",
+        "boffin",
+        "alhadikhia",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "puzzlemaster",
+        "politician"
+      ],
+      "bluffs": [
+        "seamstress",
+        "princess",
+        "snitch"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-16",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "mastermind",
+        "boomdandy",
+        "boffin",
+        "alhadikhia",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee"
+      ],
+      "bluffs": [
+        "knight",
+        "preacher",
+        "snitch"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-17",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "boomdandy",
+        "boffin",
+        "xaan",
+        "alhadikhia",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight",
+        "preacher",
+        "highpriestess"
+      ],
+      "bluffs": [
+        "philosopher",
+        "snitch",
+        "golem"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-18",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "boomdandy",
+        "boffin",
+        "xaan",
+        "alhadikhia",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "preacher",
+        "highpriestess",
+        "snitch"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-19",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "xaan",
+        "mastermind",
+        "alhadikhia",
+        "princess",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "towncrier",
+        "politician"
+      ],
+      "bluffs": [
+        "seamstress",
+        "snitch",
+        "golem"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-20",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "xaan",
+        "mastermind",
+        "alhadikhia",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight",
+        "preacher",
+        "politician",
+        "snitch"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "towncrier",
+        "golem"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-21",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "mastermind",
+        "boomdandy",
+        "alhadikhia",
+        "fisherman",
+        "savant",
+        "alsaahir",
+        "banshee",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "snitch",
+        "golem"
+      ],
+      "bluffs": [
+        "princess",
+        "puzzlemaster",
+        "politician"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-4a8f7390981cb0e9-candidate-22",
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "mastermind",
+        "boomdandy",
+        "boffin",
+        "alhadikhia",
+        "banshee",
+        "knight",
+        "preacher",
+        "highpriestess",
+        "towncrier",
+        "philosopher",
+        "seamstress",
+        "princess",
+        "fisherman",
+        "golem",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "snitch",
+        "politician",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "alhadikhia-mastermind-jinx",
+      "roleId": "alhadikhia",
+      "summary": "If the Al-Hadikhia dies by execution, and the Mastermind is alive, the Al-Hadikhia chooses 3 good players tonight: if all 3 choose to live, evil wins. Otherwise, good wins.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "alhadikhia-princess-jinx",
+      "roleId": "alhadikhia",
+      "summary": "If the Princess nominated & executed a player on their 1st day, no one dies to the Al-Hadikhia tonight.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "boffin-politician-jinx",
+      "roleId": "boffin",
+      "summary": "The Demon cannot have the Politician ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "boffin",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snitch",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "knight",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "princess",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "alhadikhia",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "banshee",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "knight": "sha256:22749fad133589f7a60a2641b1c8e0b3930f329c198ca468c9e6c029584ec193",
+    "preacher": "sha256:3be7c2bf8f30817fc6c3d59c16eabd81a69e7758670f36d84f194baf638dd266",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "highpriestess": "sha256:8494609fb30ae75114cd2a18e0053104c012cad339d6a9fe9964cd3554176c07",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "princess": "sha256:8e923bdf4cd089d265676471519f864e3785291f0364a862ce53b7c7bf0c5553",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "alsaahir": "sha256:7f5823307449ddf39fe8d6324d3b589b6de0e6e969b28d3f1061f055f4b81ce0",
+    "amnesiac": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+    "banshee": "sha256:8c16cf3b582bb67fba1aa15839831a778b52edc4c730fd6ec94103811d6e3fed",
+    "snitch": "sha256:922ac4c591a4352a6dee713dd5f608d332b3785885afb4a661b685cd00e7b09e",
+    "golem": "sha256:578b6fd4850920a915174ff1654c6958a61d659931e4419c2f9ae2a56dbd8349",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "politician": "sha256:21857240892fde2151faf0f01634c2d0157af15bf5764485f12e96a1a554b8bb",
+    "xaan": "sha256:7759915ed1083035085b10cd8dab84caff67297c023ee33a0d34cc38f2d540ba",
+    "mastermind": "sha256:bc59e4db15ea510baeb660d70acf54c3fcc65019faedef9cbb45d81b4ffb02c3",
+    "boomdandy": "sha256:7dda7eaea6645740c25344433f16ccc682ffe2813511e806e653f6603e2e1c05",
+    "boffin": "sha256:0b07b44dbe0af2138554093d66008429cd4f7e220d119cae090a2370add30696",
+    "alhadikhia": "sha256:6c9048366d5d870be2217f5e87d5f2e12c04d2f518d43a759926de8e47cf6f26"
+  }
+}

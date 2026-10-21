@@ -1,0 +1,303 @@
+{
+  "sourceBuild": "16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e",
+  "checkedAt": "2026-10-21",
+  "source": "https://kkovo550.github.io/clocktower-wiki/",
+  "officialSnapshots": [
+    {
+      "name": "roles",
+      "url": "https://release.botc.app/resources/data/roles.json",
+      "sha256": "6c659354dee75cf3afdeaf6cbc750b274a87d1099cc5f68651a2114881eb85ca",
+      "bytes": 99614,
+      "checkedAt": "2026-10-21T09:20:40.054Z"
+    },
+    {
+      "name": "nightsheet",
+      "url": "https://release.botc.app/resources/data/nightsheet.json",
+      "sha256": "99a2815bb31bcec3e107bf7f1c2fb305e301d317981d855704d3d954ec4c3f75",
+      "bytes": 2923,
+      "checkedAt": "2026-10-21T09:20:40.252Z"
+    },
+    {
+      "name": "jinxes",
+      "url": "https://release.botc.app/resources/data/jinxes.json",
+      "sha256": "5d3d8d0ac194fb1ea44af79b74f9e4bdc09712aef2123c3a3ef2b6c43efa7df7",
+      "bytes": 21358,
+      "checkedAt": "2026-10-21T09:20:40.227Z"
+    }
+  ],
+  "boards": [
+    {
+      "scriptId": "wiki-e1677e64744d2bb5",
+      "displayName": "恶魔迷城",
+      "sourceIndex": 12,
+      "rawJsonSha256": "e1677e64744d2bb508cea5d7ed9b527bd02e839c0dbf879967d04dd41578374c",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 2,
+      "rolesOutsideGeneratedTemplates": [
+        "huntsman"
+      ]
+    },
+    {
+      "scriptId": "wiki-4a8f7390981cb0e9",
+      "displayName": "叱诧风云",
+      "sourceIndex": 446,
+      "rawJsonSha256": "4a8f7390981cb0e9e6c2a149105a20fb06b23b06e845b0d5242df53e0f78ad7d",
+      "roleCount": 22,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "balloonist",
+        "amnesiac"
+      ]
+    },
+    {
+      "scriptId": "wiki-95b384783bb4b3d9",
+      "displayName": "无限恩赐",
+      "sourceIndex": 520,
+      "rawJsonSha256": "95b384783bb4b3d91260b9636c0c4197c0004b56896932ea28883b6f31b40085",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "balloonist"
+      ]
+    },
+    {
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "displayName": "党同伐异",
+      "sourceIndex": 541,
+      "rawJsonSha256": "6ae3cc3d56a76434baa07588beb8f268e808d98daebcc5fabd4aa1cf4e07bcee",
+      "roleCount": 24,
+      "templateCount": 22,
+      "jinxCount": 5,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "balloonist",
+        "amnesiac",
+        "huntsman",
+        "magician"
+      ]
+    },
+    {
+      "scriptId": "wiki-5b28e06eb2955d8e",
+      "displayName": "地狱将至",
+      "sourceIndex": 546,
+      "rawJsonSha256": "5b28e06eb2955d8e63f0331a11776e6e11f50fb72b26fa610fc0c252fb6171c8",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 2,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller"
+      ]
+    },
+    {
+      "scriptId": "wiki-ea99f23804d8c9bb",
+      "displayName": "好奇猴乔治",
+      "sourceIndex": 550,
+      "rawJsonSha256": "ea99f23804d8c9bbce9367cde3d099b3165d75e5ae2ec5d7c8503366e1460e8d",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "amnesiac",
+        "atheist"
+      ]
+    },
+    {
+      "scriptId": "wiki-1eb0363e35dbd723",
+      "displayName": "限定冒险",
+      "sourceIndex": 565,
+      "rawJsonSha256": "1eb0363e35dbd723aa044018f7e324c8ff77f3174d6244a896e563ce62bb4d1d",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "balloonist"
+      ]
+    },
+    {
+      "scriptId": "wiki-53b4df41d5a1079a",
+      "displayName": "嗤之以鼻",
+      "sourceIndex": 569,
+      "rawJsonSha256": "53b4df41d5a1079a586d1ef09f4d6fe539b293f96232d5b1e30c5ca565c0aaa7",
+      "roleCount": 24,
+      "templateCount": 22,
+      "jinxCount": 6,
+      "authorRuleCount": 5,
+      "rolesOutsideGeneratedTemplates": [
+        "bountyhunter",
+        "balloonist"
+      ]
+    },
+    {
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "displayName": "异星复仇",
+      "sourceIndex": 572,
+      "rawJsonSha256": "e89d6f6239a18c766ad6bfae1552d975f6488a57d70c014658c0cb8fa0bcd443",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 1,
+      "rolesOutsideGeneratedTemplates": [
+        "balloonist"
+      ]
+    },
+    {
+      "scriptId": "wiki-66ad0a0f1a38dee6",
+      "displayName": "红分蓝缕",
+      "sourceIndex": 581,
+      "rawJsonSha256": "66ad0a0f1a38dee63a9cf3217869d41469bef4d8a5dd3975b442439c1aff4fbb",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 1,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "villageidiot"
+      ]
+    },
+    {
+      "scriptId": "wiki-2c821085e5df4b96",
+      "displayName": "失控古神",
+      "sourceIndex": 601,
+      "rawJsonSha256": "2c821085e5df4b969b635e57d21a1c7523511dba86f838cfa5a8c6ee67be4e5e",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "authorRuleCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "atheist"
+      ]
+    },
+    {
+      "scriptId": "wiki-2e9bc84322f79c96",
+      "displayName": "醉窥死生",
+      "sourceIndex": 606,
+      "rawJsonSha256": "2e9bc84322f79c96e34b9650f007b8872bdf60aedf9f64e118dc0336a4362547",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 2,
+      "authorRuleCount": 2,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "villageidiot",
+        "amnesiac"
+      ]
+    },
+    {
+      "scriptId": "wiki-adbaf66494661865",
+      "displayName": "雾尽鸦鸣-皮卡麒",
+      "sourceIndex": 609,
+      "rawJsonSha256": "adbaf66494661865a5c504c85c00eb7ddec285f95ad4f2d8d5a7c726b06a63a3",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "bountyhunter",
+        "poppygrower"
+      ]
+    },
+    {
+      "scriptId": "wiki-6533660425b7a18b",
+      "displayName": "懿海迷漩",
+      "sourceIndex": 612,
+      "rawJsonSha256": "6533660425b7a18b49ab412da043801e1c63703c74ef0205e6a01f3d24a8b173",
+      "roleCount": 33,
+      "templateCount": 22,
+      "jinxCount": 2,
+      "authorRuleCount": 2,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller"
+      ]
+    },
+    {
+      "scriptId": "wiki-e7f9d2e70b75b11d",
+      "displayName": "失之交臂",
+      "sourceIndex": 624,
+      "rawJsonSha256": "e7f9d2e70b75b11d1267de4f08df568551dd973252f0064fb1750032236dfd52",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 6,
+      "authorRuleCount": 5,
+      "rolesOutsideGeneratedTemplates": [
+        "huntsman",
+        "magician",
+        "poppygrower"
+      ]
+    },
+    {
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "displayName": "只若初见",
+      "sourceIndex": 625,
+      "rawJsonSha256": "b3845a927a7b48d14fe7267f02ea327f2389ea2772f01e9049b2e1c2b0b3e81b",
+      "roleCount": 24,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 1,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller"
+      ]
+    },
+    {
+      "scriptId": "wiki-9b83b6c53857fcf0",
+      "displayName": "善意谎言",
+      "sourceIndex": 904,
+      "rawJsonSha256": "9b83b6c53857fcf065a45607eeea29ffc7af03c84a114b51cae7cfe7f80be7ef",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 4,
+      "authorRuleCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "balloonist",
+        "amnesiac"
+      ]
+    },
+    {
+      "scriptId": "wiki-ebf387f6f8945e24",
+      "displayName": "章鱼博士",
+      "sourceIndex": 915,
+      "rawJsonSha256": "ebf387f6f8945e24c19b2c78ae5849a43a514123126501389b16131f10fd3d61",
+      "roleCount": 22,
+      "templateCount": 22,
+      "jinxCount": 4,
+      "authorRuleCount": 1,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller"
+      ]
+    },
+    {
+      "scriptId": "wiki-208842d7c4a589ad",
+      "displayName": "苦尽甘来",
+      "sourceIndex": 918,
+      "rawJsonSha256": "208842d7c4a589ad9bf2ebc9757781221d9bf819af720fc48ae8a93656a05283",
+      "roleCount": 24,
+      "templateCount": 22,
+      "jinxCount": 1,
+      "authorRuleCount": 1,
+      "rolesOutsideGeneratedTemplates": [
+        "balloonist",
+        "huntsman"
+      ]
+    }
+  ],
+  "heldCandidates": [
+    {
+      "sourceIndex": 875,
+      "name": "险象环生Pro",
+      "reason": "10—15人缺足够合法模板；不凑数发布。"
+    }
+  ],
+  "allRoleLogicReused": true,
+  "sourceReviewGroupingIsSkillCoverage": false
+}

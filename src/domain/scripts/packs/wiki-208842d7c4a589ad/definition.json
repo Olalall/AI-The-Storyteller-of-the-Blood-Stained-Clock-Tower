@@ -1,0 +1,1116 @@
+{
+  "scriptId": "wiki-208842d7c4a589ad",
+  "displayName": "苦尽甘来",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Moll",
+    "version": "库记录918 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:208842d7c4a589ad9bf2ebc9757781221d9bf819af720fc48ae8a93656a05283",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "chef",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "huntsman",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "shugenja",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "alsaahir",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "spy",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "baron",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-1",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "nodashii",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "alsaahir",
+        "chef"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "chambermaid"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-2",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "nodashii",
+        "alsaahir",
+        "chef",
+        "empath",
+        "monk",
+        "chambermaid"
+      ],
+      "bluffs": [
+        "seamstress",
+        "noble",
+        "pixie"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-3",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "vortox",
+        "monk",
+        "chambermaid",
+        "towncrier",
+        "seamstress",
+        "noble"
+      ],
+      "bluffs": [
+        "pixie",
+        "fisherman",
+        "shugenja"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-4",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "spy",
+        "vortox",
+        "fisherman",
+        "shugenja",
+        "alsaahir",
+        "chef",
+        "empath",
+        "drunk"
+      ],
+      "bluffs": [
+        "monk",
+        "chambermaid",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-5",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "vortox",
+        "chef",
+        "empath",
+        "monk",
+        "chambermaid",
+        "towncrier",
+        "recluse"
+      ],
+      "bluffs": [
+        "noble",
+        "pixie",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-6",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "imp",
+        "shugenja",
+        "alsaahir",
+        "chef",
+        "empath",
+        "monk",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "towncrier",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-7",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "imp",
+        "empath",
+        "monk",
+        "chambermaid",
+        "mutant",
+        "damsel",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "towncrier",
+        "seamstress",
+        "noble"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-8",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "baron",
+        "cerenovus",
+        "nodashii",
+        "alsaahir",
+        "chef",
+        "empath",
+        "monk",
+        "chambermaid",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "towncrier",
+        "seamstress",
+        "noble"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-9",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "spy",
+        "nodashii",
+        "monk",
+        "chambermaid",
+        "towncrier",
+        "seamstress",
+        "noble",
+        "pixie",
+        "fisherman"
+      ],
+      "bluffs": [
+        "empath",
+        "shugenja",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-10",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "spy",
+        "scarletwoman",
+        "vortox",
+        "seamstress",
+        "noble",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "alsaahir",
+        "chef"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "towncrier",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-11",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "spy",
+        "vortox",
+        "chef",
+        "empath",
+        "monk",
+        "chambermaid",
+        "towncrier",
+        "seamstress",
+        "noble",
+        "damsel"
+      ],
+      "bluffs": [
+        "pixie",
+        "fisherman",
+        "shugenja"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-12",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "scarletwoman",
+        "vortox",
+        "chambermaid",
+        "towncrier",
+        "seamstress",
+        "noble",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "drunk"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-13",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "spy",
+        "scarletwoman",
+        "imp",
+        "empath",
+        "monk",
+        "chambermaid",
+        "towncrier",
+        "seamstress",
+        "noble",
+        "pixie",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "chef",
+        "fisherman",
+        "shugenja"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-14",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "baron",
+        "imp",
+        "towncrier",
+        "seamstress",
+        "noble",
+        "pixie",
+        "fisherman",
+        "recluse",
+        "mutant",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "chambermaid"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-15",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "baron",
+        "cerenovus",
+        "nodashii",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "alsaahir",
+        "chef",
+        "mutant",
+        "damsel",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "towncrier",
+        "seamstress"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-16",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "baron",
+        "cerenovus",
+        "nodashii",
+        "monk",
+        "chambermaid",
+        "towncrier",
+        "seamstress",
+        "noble",
+        "pixie",
+        "fisherman",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "chef",
+        "empath",
+        "shugenja"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-17",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "cerenovus",
+        "spy",
+        "nodashii",
+        "seamstress",
+        "noble",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "alsaahir",
+        "chef",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "monk",
+        "chambermaid",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-18",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "baron",
+        "cerenovus",
+        "spy",
+        "vortox",
+        "chambermaid",
+        "towncrier",
+        "seamstress",
+        "noble",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "mutant",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "chef",
+        "empath",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-19",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "spy",
+        "scarletwoman",
+        "vortox",
+        "noble",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "alsaahir",
+        "chef",
+        "empath",
+        "monk",
+        "chambermaid",
+        "damsel"
+      ],
+      "bluffs": [
+        "seamstress",
+        "drunk",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-20",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "spy",
+        "scarletwoman",
+        "imp",
+        "towncrier",
+        "seamstress",
+        "noble",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "alsaahir",
+        "chef",
+        "empath",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "monk",
+        "chambermaid",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-21",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "scarletwoman",
+        "baron",
+        "imp",
+        "pixie",
+        "fisherman",
+        "shugenja",
+        "alsaahir",
+        "chef",
+        "empath",
+        "monk",
+        "drunk",
+        "recluse",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "towncrier",
+        "seamstress",
+        "noble"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-208842d7c4a589ad-candidate-22",
+      "scriptId": "wiki-208842d7c4a589ad",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "baron",
+        "cerenovus",
+        "nodashii",
+        "alsaahir",
+        "chef",
+        "empath",
+        "monk",
+        "chambermaid",
+        "towncrier",
+        "seamstress",
+        "recluse",
+        "mutant",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "fisherman",
+        "shugenja",
+        "noble"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "baron-outsider-plus-two",
+      "roleId": "baron",
+      "summary": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-07-22"
+    },
+    {
+      "id": "spy-damsel-jinx",
+      "roleId": "spy",
+      "summary": "If the Spy is (or has been) in play, the Damsel is poisoned.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "cerenovus",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chef",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "shugenja",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "spy",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "monk",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "spy",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "chef": "sha256:c8807ca47c02a574ea6e25a14564bf67e596f59bc677d1852df1110f59bc4935",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "huntsman": "sha256:b0f38948ef04be8e1ddd284a4a44af8aa2ca936d3ae8eded18291db8c89e63f4",
+    "shugenja": "sha256:20e3ef86b6aeed76cf4588bbf6b856480cd1fff5ece0e97b8e42928b98439fc0",
+    "alsaahir": "sha256:7f5823307449ddf39fe8d6324d3b589b6de0e6e969b28d3f1061f055f4b81ce0",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "spy": "sha256:77894cd65fb49bffc53307f3e96f39b8581734ae64e3b9a2afcc4cbb5cbb8f82",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "baron": "sha256:890d34be482a8e93a73c160430757fc5f236aa26654d8734a5419df15b645493",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f"
+  }
+}

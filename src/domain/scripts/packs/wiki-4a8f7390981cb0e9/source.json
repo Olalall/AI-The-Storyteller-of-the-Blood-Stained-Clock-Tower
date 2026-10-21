@@ -1,0 +1,375 @@
+[
+  {
+    "id": "_meta",
+    "name": "叱诧风云",
+    "author": "Paradox",
+    "logo": "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/d/de/7nbf6znkho7k9w3w6ox0deg9rebdsns.png"
+  },
+  {
+    "id": "qishi_tpi",
+    "name": "骑士",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/2/2b/ama9h6ak2lkejho57jirtrquvktlmsu.png"
+    ],
+    "team": "townsfolk",
+    "ability": "在你的首个夜晚，你会得知两名非恶魔玩家。",
+    "firstNight": 8800,
+    "firstNightReminder": "唤醒骑士，对他指向两名非恶魔玩家。",
+    "otherNight": 0,
+    "reminders": [
+      "得知"
+    ],
+    "setup": false
+  },
+  {
+    "id": "chuanjiaoshi_tpi",
+    "name": "传教士",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/6/6f/oi460mqpnxwd7zgyboe78patdo8amc5.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每个夜晚，你要选择一名玩家：如果你选中了爪牙，他会得知被传教士选中。\n所有被你选中的爪牙失去能力。",
+    "firstNight": 4200,
+    "firstNightReminder": "唤醒传教士，让他选择一名玩家。如果他选中了爪牙，该爪牙失去能力。在传教士入睡后通知该爪牙被传教士选中。",
+    "otherNight": 1200,
+    "otherNightReminder": "唤醒传教士，让他选择一名玩家。如果他选中了爪牙，该爪牙失去能力。在传教士入睡后通知该爪牙被传教士选中。",
+    "reminders": [
+      "失去能力"
+    ],
+    "setup": false
+  },
+  {
+    "id": "qiqiujiashiyuan_tpi",
+    "name": "气球驾驶员",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/8/84/7a2ofp66u0ovh8x1lcvsd63qixll6oo.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每个夜晚，你会得知一名与上个夜晚得知的玩家角色类型不同的玩家。[+0~1外来者]",
+    "firstNight": 9000,
+    "firstNightReminder": "唤醒气球驾驶员，对他指向一名玩家。",
+    "otherNight": 12100,
+    "otherNightReminder": "唤醒气球驾驶员，对他指向一名玩家，这名玩家与之前气球驾驶员得知过的玩家属于不同的角色类型。",
+    "reminders": [
+      "得知"
+    ],
+    "setup": true
+  },
+  {
+    "id": "nvjisi_tpi",
+    "name": "女祭司",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/e4/k7buci8yvy6ll768d2mae5cgvkrpfkc.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每个夜晚，你会得知一名说书人认为你最应该与其交流的玩家。",
+    "firstNight": 11900,
+    "firstNightReminder": "唤醒女祭司，对她指向一名玩家。",
+    "otherNight": 14500,
+    "otherNightReminder": "唤醒女祭司，对她指向一名玩家。",
+    "setup": false
+  },
+  {
+    "id": "chengzhengonggaoyuan_tpi",
+    "name": "城镇公告员",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/ed/8gb1ezkhqkc865jead15pevypmc72g9.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每个夜晚*，你会得知在今天白天时是否有爪牙发起过提名。",
+    "firstNight": 0,
+    "otherNight": 11700,
+    "otherNightReminder": "唤醒城镇公告员，以点头或摇头告知他今天白天是否有爪牙发起提名。",
+    "reminders": [
+      "爪牙未提名",
+      "爪牙已提名"
+    ],
+    "setup": false
+  },
+  {
+    "id": "zhexuejia_tpi",
+    "name": "哲学家",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/ed/5u0zlyh58gvbif2oan8qv9yhsta5lnh.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在夜晚时，你可以选择一个善良角色：你获得该角色的能力。\n如果这个角色在场，他醉酒。",
+    "firstNight": 300,
+    "firstNightReminder": "唤醒哲学家，他可以摇头不使用能力，或选择获得角色列表上的一个善良角色的能力。",
+    "otherNight": 400,
+    "otherNightReminder": "如果哲学家未曾使用能力，唤醒哲学家，他可以摇头不使用能力，或选择获得角色列表上的一个善良角色的能力。",
+    "remindersGlobal": [
+      "醉酒",
+      "是哲学家"
+    ],
+    "setup": false
+  },
+  {
+    "id": "nvcaifeng_tpi",
+    "name": "女裁缝",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/aa/0khyidxxipwitzqjs9iryheur62zkrj.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在夜晚时，你可以选择除你以外的两名玩家：你会得知他们是否为同一阵营。",
+    "firstNight": 8600,
+    "firstNightReminder": "如果女裁缝未曾使用能力，唤醒女裁缝，她可以摇头不使用能力，或选择除自己以外的两名玩家。以点头或摇头告知她选择的玩家是否为同一阵营。",
+    "otherNight": 11900,
+    "otherNightReminder": "如果女裁缝未曾使用能力，唤醒女裁缝，她可以摇头不使用能力，或选择除自己以外的两名玩家。以点头或摇头告知她选择的玩家是否为同一阵营。",
+    "reminders": [
+      "失去能力"
+    ],
+    "setup": false
+  },
+  {
+    "id": "gongzhu_tpi",
+    "name": "公主",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/b/b5/rdpsq1wjpsq66ah5y3f4p2wyuzl8wuk.png"
+    ],
+    "team": "townsfolk",
+    "ability": "在你的首个白天，如果你提名并处决了一名玩家，当晚恶魔不会造成死亡。",
+    "firstNight": 0,
+    "otherNight": 4600,
+    "otherNightReminder": "如果公主在今天白天提名并处决了一名玩家，当晚恶魔不会造成死亡。",
+    "reminders": [
+      "没有死亡"
+    ],
+    "setup": false
+  },
+  {
+    "id": "yufu_tpi",
+    "name": "渔夫",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/4/44/bio3bf3g3vunctpnldg6lsct4u4jt81.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在白天时，你可以让说书人给你一些能帮助你的阵营获胜的建议。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "reminders": [
+      "失去能力"
+    ],
+    "setup": false
+  },
+  {
+    "id": "boxuezhe_tpi",
+    "name": "博学者",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/9/90/chh8x7dptz128a42p7f0g5c0qn8o063.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每个白天，你可以私下询问说书人以得知两条信息：一个是正确的，一个是错误的。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "setup": false
+  },
+  {
+    "id": "xifashi_tpi",
+    "name": "戏法师",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/b/bf/0wf6zizpzk61n1txjo233fembq7utl3.png"
+    ],
+    "team": "townsfolk",
+    "ability": "每个白天，你可以公开进行一次谁是爪牙，谁是恶魔的猜测。如果你猜对，善良阵营获胜。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "setup": false
+  },
+  {
+    "id": "shiyizhe_tpi",
+    "name": "失忆者",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/9/99/l0ni14v8hhutascdsnbz31udi870fbg.png"
+    ],
+    "team": "townsfolk",
+    "ability": "你不知道你的能力是什么。每个白天你可以找说书人猜测一次，你会得知你的猜测有多准确。",
+    "firstNight": 200,
+    "firstNightReminder": "决定失忆者的能力，并根据具体能力决定是否需要唤醒失忆者、何时唤醒、唤醒后让他做出什么操作或得知什么信息。",
+    "otherNight": 300,
+    "otherNightReminder": "根据失忆者的具体能力决定是否需要唤醒失忆者、何时唤醒、唤醒后让他做出什么操作或得知什么信息。",
+    "reminders": [
+      "？"
+    ],
+    "setup": false
+  },
+  {
+    "id": "baosangnvyao_tpi",
+    "name": "报丧女妖",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/d/db/c3eh7h72datpfz6mu6o3c3p334y7g26.png"
+    ],
+    "team": "townsfolk",
+    "ability": "如果恶魔杀死了你，所有玩家都会得知此事。从现在开始，你每天可以发起两次提名，每次投票时可以投两票。",
+    "firstNight": 0,
+    "otherNight": 10400,
+    "otherNightReminder": "如果恶魔杀死了报丧女妖，宣布“报丧女妖觉醒了”，并使用“具有能力”标记报丧女妖。",
+    "reminders": [
+      "具有能力"
+    ],
+    "setup": false
+  },
+  {
+    "id": "gaomizhe_tpi",
+    "name": "告密者",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/6/67/q7r2sg4xzntxj5df6j7qepczuoer09p.png"
+    ],
+    "team": "outsider",
+    "ability": "爪牙会在其首个夜晚得知三个伪装。",
+    "firstNight": 2100,
+    "firstNightReminder": "如果告密者在场，对爪牙展示三个不在场的善良角色标记。",
+    "otherNight": 0,
+    "setup": false
+  },
+  {
+    "id": "moxiang_tpi",
+    "name": "魔像",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/8/89/ge09m69i6ymwudxtr1plmt68pek8sgh.png"
+    ],
+    "team": "outsider",
+    "ability": "每局游戏你只能发起提名一次。当你发起提名时，如果被你提名的玩家不是恶魔，他死亡。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "reminders": [
+      "无法提名"
+    ],
+    "setup": false
+  },
+  {
+    "id": "jiemidashi_tpi",
+    "name": "解谜大师",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/5/59/ns2ifb3z40ukn4xa61a460473sm6lhq.png"
+    ],
+    "team": "outsider",
+    "ability": "一名玩家醉酒，即使你已死亡。每局游戏限一次，你可以猜测谁是那个醉酒的玩家，如果猜对了，你会得知谁是恶魔，但如果猜错了，你会得知错误的“谁是恶魔”信息。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "reminders": [
+      "醉酒",
+      "已猜测"
+    ],
+    "setup": false
+  },
+  {
+    "id": "zhengke_tpi",
+    "name": "政客",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/1/1a/m6s8wbkeie9d2pyx1qb5agosonjypaq.png"
+    ],
+    "team": "outsider",
+    "ability": "如果你是对你的阵营落败负最大责任的人，你转变阵营并获胜，即使你已死亡。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "setup": false
+  },
+  {
+    "id": "xian_tpi",
+    "name": "限",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/0/0d/f64m0fvt72762oey33lurp4wez01hcp.png"
+    ],
+    "team": "minion",
+    "ability": "在等同于初始外来者数量的夜晚，所有镇民玩家中毒直到下个黄昏。[外来者数量任意]",
+    "firstNight": 4575,
+    "firstNightReminder": "在等同初始外来者数量的夜晚，所有镇民中毒。",
+    "otherNight": 1350,
+    "otherNightReminder": "在等同初始外来者数量的夜晚，所有镇民中毒。",
+    "reminders": [
+      "第一晚",
+      "第二晚",
+      "第三晚",
+      "大限将至"
+    ],
+    "setup": false
+  },
+  {
+    "id": "zhumou_tpi",
+    "name": "主谋",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/a/a1/gk7ybmowkkwp8b4m512yuo9ux370oqo.png"
+    ],
+    "team": "minion",
+    "ability": "如果恶魔因为死于处决而因此导致游戏结束时，再额外进行一个夜晚和一个白天。在那个白天如果有玩家被处决，他的阵营落败。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "setup": false
+  },
+  {
+    "id": "zhadanren_tpi",
+    "name": "炸弹人",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/e/e5/ismmyqbij3uprn5w0vhf5vtfec6o027.png"
+    ],
+    "team": "minion",
+    "ability": "如果你被处决，除三名玩家以外的其他所有玩家均会死亡。倒数十声后，被最多玩家手指指着的玩家死亡。",
+    "firstNight": 0,
+    "otherNight": 0,
+    "setup": false
+  },
+  {
+    "id": "kexueguairen_tpi",
+    "name": "科学怪人",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/4/4c/cbp9yi8vzy26hp8lyzpw8tgyb4981cx.png"
+    ],
+    "team": "minion",
+    "ability": "恶魔拥有一个不在场的善良角色的能力，即使他醉酒或中毒。你和他都知道他获得了什么能力。",
+    "firstNight": 150,
+    "firstNightReminder": "（分别或同时）唤醒科学怪人和恶魔，通知他们恶魔因为科学怪人而获得的善良角色的能力。",
+    "otherNight": 0,
+    "setup": false
+  },
+  {
+    "id": "hadijiya_tpi",
+    "name": "哈迪寂亚",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/5/5d/m3w3qvs4dvwru0g8klp2qo0oqisysxc.png"
+    ],
+    "team": "demon",
+    "ability": "每个夜晚*，你可以选择三名玩家（所有玩家都会得知你选了谁）：他们分别秘密决定自己的生死，然后如果他们都存活则都死亡。",
+    "firstNight": 0,
+    "otherNight": 7000,
+    "otherNightReminder": "唤醒哈迪寂亚，让他选择三名玩家。执行哈迪寂亚的能力流程。",
+    "reminders": [
+      "1",
+      "2",
+      "3",
+      "选择生",
+      "选择死"
+    ],
+    "setup": false
+  },
+  {
+    "id": "dengshen_tpi_1",
+    "name": "科学怪人&政客",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/4/46/91ooo4qrwtm8hflacbv5owrok8vxkls.png"
+    ],
+    "team": "a jinxed",
+    "ability": "恶魔无法拥有政客的能力。",
+    "setup": false
+  },
+  {
+    "id": "dengshen_tpi_2",
+    "name": "哈迪寂亚&公主",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/4/46/91ooo4qrwtm8hflacbv5owrok8vxkls.png"
+    ],
+    "team": "a jinxed",
+    "ability": "如果公主在首个白天提名并处决了一名玩家，没有人会因为哈迪寂亚而死亡。",
+    "setup": false
+  },
+  {
+    "id": "dengshen_tpi_3",
+    "name": "哈迪寂亚&主谋",
+    "image": [
+      "https://patchwiki.biligame.com/images/jbzlbwgwjcygf/4/46/91ooo4qrwtm8hflacbv5owrok8vxkls.png"
+    ],
+    "team": "a jinxed",
+    "ability": "如果哈迪寂亚死于处决，且主谋存活，当晚哈迪寂亚要选择三名善良玩家；如果他们都选择存活，邪恶阵营获胜。否则，善良阵营获胜。",
+    "setup": false
+  }
+]

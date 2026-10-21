@@ -1,0 +1,1243 @@
+{
+  "scriptId": "wiki-adbaf66494661865",
+  "displayName": "雾尽鸦鸣-皮卡麒",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "皮卡麒",
+    "version": "库记录609 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:adbaf66494661865a5c504c85c00eb7ddec285f95ad4f2d8d5a7c726b06a63a3",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "sentinel",
+      "sourceId": "ye-ban-kuang-huan",
+      "sourceVersion": "sha256:f512be8087e3f0b2caa971adc8d9b789cc96315f4c8bffef44423380107b3077"
+    },
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "bountyhunter",
+      "sourceId": "chuan-qi-zhi-ye",
+      "sourceVersion": "sha256:cc4c9bb6509aed6544f4cd7964ebb93bf092a5f6f31b57c0dca7913c7aeecb1d"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "exorcist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "engineer",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "virgin",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "ravenkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "poppygrower",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "lunatic",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "psychopath",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-1",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "psychopath",
+        "fanggu",
+        "engineer",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "librarian",
+        "noble",
+        "dreamer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-2",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "fanggu",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "dreamer",
+        "drunk"
+      ],
+      "bluffs": [
+        "undertaker",
+        "exorcist",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-3",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "imp",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "philosopher"
+      ],
+      "bluffs": [
+        "engineer",
+        "savant",
+        "virgin"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-4",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "imp",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "drunk"
+      ],
+      "bluffs": [
+        "dreamer",
+        "snakecharmer",
+        "undertaker"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-5",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "imp",
+        "librarian",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "philosopher",
+        "engineer",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-6",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "lleech",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "dreamer",
+        "sweetheart",
+        "lunatic"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "undertaker",
+        "exorcist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-7",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "lleech",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "lunatic"
+      ],
+      "bluffs": [
+        "engineer",
+        "savant",
+        "virgin"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-8",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "psychopath",
+        "poisoner",
+        "nodashii",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "engineer",
+        "savant"
+      ],
+      "bluffs": [
+        "noble",
+        "virgin",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-9",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "poisoner",
+        "pithag",
+        "fanggu",
+        "exorcist",
+        "philosopher",
+        "engineer",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "drunk"
+      ],
+      "bluffs": [
+        "dreamer",
+        "snakecharmer",
+        "undertaker"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-10",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "godfather",
+        "fanggu",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "sweetheart",
+        "lunatic"
+      ],
+      "bluffs": [
+        "exorcist",
+        "philosopher",
+        "engineer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-11",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "psychopath",
+        "poisoner",
+        "fanggu",
+        "librarian",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "plaguedoctor",
+        "drunk"
+      ],
+      "bluffs": [
+        "philosopher",
+        "engineer",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-12",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "pithag",
+        "fanggu",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "engineer",
+        "savant",
+        "drunk",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "noble",
+        "dreamer",
+        "virgin"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-13",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "pithag",
+        "imp",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "engineer",
+        "drunk",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "librarian",
+        "savant",
+        "virgin"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-14",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "godfather",
+        "imp",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "engineer",
+        "savant",
+        "virgin",
+        "sweetheart",
+        "lunatic",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "noble",
+        "dreamer",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-15",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "godfather",
+        "psychopath",
+        "lleech",
+        "engineer",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "lunatic"
+      ],
+      "bluffs": [
+        "philosopher",
+        "drunk",
+        "sweetheart"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-16",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "godfather",
+        "psychopath",
+        "lleech",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "engineer",
+        "savant",
+        "virgin",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "librarian",
+        "noble",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-17",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 13,
+      "style": "chaos",
+      "roles": [
+        "psychopath",
+        "poisoner",
+        "pithag",
+        "nodashii",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "exorcist"
+      ],
+      "bluffs": [
+        "drunk",
+        "sweetheart",
+        "lunatic"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-18",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "psychopath",
+        "poisoner",
+        "nodashii",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "engineer",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "noble"
+      ],
+      "bluffs": [
+        "dreamer",
+        "drunk",
+        "sweetheart"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-19",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "psychopath",
+        "poisoner",
+        "pithag",
+        "nodashii",
+        "philosopher",
+        "engineer",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "exorcist",
+        "drunk",
+        "sweetheart"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-20",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "psychopath",
+        "poisoner",
+        "pithag",
+        "fanggu",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "engineer",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "plaguedoctor",
+        "drunk",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "noble",
+        "dreamer",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-21",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "pithag",
+        "godfather",
+        "fanggu",
+        "engineer",
+        "savant",
+        "virgin",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "drunk",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "philosopher",
+        "lunatic",
+        "plaguedoctor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-adbaf66494661865-candidate-22",
+      "scriptId": "wiki-adbaf66494661865",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "godfather",
+        "psychopath",
+        "imp",
+        "ravenkeeper",
+        "librarian",
+        "noble",
+        "dreamer",
+        "snakecharmer",
+        "undertaker",
+        "exorcist",
+        "philosopher",
+        "sweetheart",
+        "lunatic",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "virgin",
+        "drunk",
+        "engineer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "fanggu-outsider",
+      "roleId": "fanggu",
+      "summary": "Fang Gu: setup adds 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "godfather-outsider",
+      "roleId": "godfather",
+      "summary": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "bountyhunter-philosopher-jinx",
+      "roleId": "bountyhunter",
+      "summary": "If the Philosopher gains the Bounty Hunter ability, a Townsfolk might turn evil.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "poppygrower",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "engineer",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "bountyhunter",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "poppygrower",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "engineer",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "exorcist",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "plaguedoctor",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "ravenkeeper",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "bountyhunter",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "sentinel": "sha256:a02bfd466fa02b66325d40171c617f0adb7a5c3d70d8d476bd00727b6002c261",
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "bountyhunter": "sha256:0bcacf61a2e3d4c45228cd202d4368f843f95a0b866c6f5bf9bd71cd84d29ae2",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "exorcist": "sha256:8af78315af9ed40d46f59a081ce0127480a0d8f4f0af13a013970b7af64ba6da",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "engineer": "sha256:3bfb97f5808e8425789cf7c425c771466a4d1bb7a90528865b27c7b32f5c5f6e",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "virgin": "sha256:06096e9d4874b45d7b7599b6375d9ef6cd018269f62900eef30f3221befb5df4",
+    "ravenkeeper": "sha256:6e3311f80393bc0e63bc13ad33ad354fec889729ba26aed45dbcc23dde876bf3",
+    "poppygrower": "sha256:515acffda0a36fe28e0ca53e5aa0d4b75a9b69ba0de881ba0ab88adc253fb586",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "lunatic": "sha256:f46c1eae4440c477172fd759c1bbb54586d17a9934342ce29b8f395d9e299937",
+    "plaguedoctor": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "psychopath": "sha256:bf31b7229cc06963de8514e79ae2201f0140bc8272ac92a287713e5bb28f85b9",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a"
+  }
+}
