@@ -1,5 +1,6 @@
 import { isValidSetupCountChangeForRole, resolveSetupCountChanges } from '../../domain/setup-templates/setupCountChanges'
 import { kazaliOpeningCounts } from '../../domain/setup-templates/kazaliOpening'
+import { isLilMonstaCountChange, isNonSeatedLilMonstaChoice } from '../../domain/setup-templates/lilMonstaOpening'
 import type { SetupAssignment, SetupRuleSelection } from '../game-session/types'
 import type { RoleSnapshot } from '../night-workbench/types'
 import { emptyTeamCounts } from './baseDistribution'
@@ -209,8 +210,9 @@ export function evaluateSetupRules({
   const bluffIds = demonBluffs.map((role) => role.id)
   const bluffPolicy = rulePack.demonBluffPolicy
   const eligibleBluffTeams = new Set(bluffPolicy.eligibleTeams ?? [bluffPolicy.eligibleTeam])
-  const validBluffs = bluffIds.length === bluffPolicy.count &&
-    new Set(bluffIds).size === bluffPolicy.count &&
+  const bluffCount = appliedModifiers.some(({ rule, choice }) => rule.roleId === 'lilmonsta' && isNonSeatedLilMonstaChoice(rule.id, choice.id) && isLilMonstaCountChange(choice.delta)) ? 0 : bluffPolicy.count
+  const validBluffs = bluffIds.length === bluffCount &&
+    new Set(bluffIds).size === bluffCount &&
     bluffIds.every((roleId) => eligibleBluffTeams.has(teamForRole[roleId]) &&
       (!bluffPolicy.requireNotInPlay || !inPlay.has(roleId)))
   checks.push(check(

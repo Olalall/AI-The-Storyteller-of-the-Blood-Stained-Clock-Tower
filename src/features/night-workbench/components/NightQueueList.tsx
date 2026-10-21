@@ -43,11 +43,11 @@ export function NightQueueList({
         // 系统步骤的 playerLabel 是爪牙/恶魔名单，遮蔽时不能露出；它也没有可称呼的座位号。
         const sensitiveSystemStep = Boolean(item.systemStepSensitive)
         const title = hidden
-          ? item.systemStep ? sensitiveSystemStep ? '系统步骤已遮蔽' : item.roleName : `${item.seatId}号角色`
+          ? item.systemStep ? sensitiveSystemStep ? '系统步骤已遮蔽' : item.roleName : item.seatId === 0 ? '角色已遮蔽' : `${item.seatId}号角色`
           : item.roleName
         const detail = item.systemStep
           ? hidden ? '名单已遮蔽' : item.playerLabel
-          : `${item.playerLabel}${!hidden && item.history ? ` · ${item.history}` : hidden ? ' · 历史已遮蔽' : ''}`
+          : hidden && item.seatId === 0 ? '处理信息已遮蔽' : `${item.playerLabel}${!hidden && item.history ? ` · ${item.history}` : hidden ? ' · 历史已遮蔽' : ''}`
         const content = (
           <>
             <span className="night-queue-item__index">{item.orderIndex}</span>
@@ -84,7 +84,7 @@ export function NightQueueList({
                 onClick={() => onPreview?.(item.id)}
                 aria-label={item.systemStep
                   ? `预览夜序第${item.orderIndex}项：${hidden && sensitiveSystemStep ? '系统步骤已遮蔽' : item.roleName}`
-                  : `预览夜序第${item.orderIndex}项：${item.seatId}号${hidden ? '角色已遮蔽' : item.roleName}`}
+                  : `预览夜序第${item.orderIndex}项：${item.seatId === 0 ? '' : `${item.seatId}号`}${hidden ? '角色已遮蔽' : item.roleName}`}
                 ref={active ? activeRef : undefined}
               >
                 {content}

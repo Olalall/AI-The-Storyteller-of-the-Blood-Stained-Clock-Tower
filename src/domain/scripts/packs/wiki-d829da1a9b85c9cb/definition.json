@@ -1,0 +1,1281 @@
+{
+  "scriptId": "wiki-d829da1a9b85c9cb",
+  "displayName": "疫病仆从",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "Ben Burns",
+    "version": "库记录524 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:d829da1a9b85c9cb505d794dee639db7ae5ebf8145b34f9c0646bab929e6e329",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "steward",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "clockmaker",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "general",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "lycanthrope",
+      "sourceId": "he-fang-jiao-zhong",
+      "sourceVersion": "sha256:63e5b87f8058d6c25041fca52652806a894e24ad883e7a97fe07bc4925601da4"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "engineer",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "nightwatchman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "soldier",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "snitch",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "goblin",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "witch",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "lilmonsta",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-1",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "witch",
+        "pithag",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "soldier"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-2",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "vigormortis",
+        "nightwatchman",
+        "soldier",
+        "librarian",
+        "steward",
+        "clockmaker"
+      ],
+      "bluffs": [
+        "general",
+        "dreamer",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-3",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "poisoner",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-4",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "poisoner",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "soldier",
+        "librarian",
+        "plaguedoctor"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-5",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "vigormortis",
+        "soldier",
+        "librarian",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general"
+      ],
+      "bluffs": [
+        "towncrier",
+        "lycanthrope",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-6",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "goblin",
+        "engineer",
+        "nightwatchman",
+        "soldier",
+        "librarian",
+        "steward",
+        "snitch",
+        "drunk"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-7",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "vigormortis",
+        "librarian",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer",
+        "drunk"
+      ],
+      "bluffs": [
+        "lycanthrope",
+        "philosopher",
+        "engineer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-8",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "goblin",
+        "scarletwoman",
+        "witch",
+        "nightwatchman",
+        "soldier",
+        "librarian",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-9",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "poisoner",
+        "vigormortis",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer",
+        "towncrier",
+        "lycanthrope"
+      ],
+      "bluffs": [
+        "philosopher",
+        "engineer",
+        "nightwatchman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-10",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "witch",
+        "pithag",
+        "general",
+        "dreamer",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-11",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "witch",
+        "pithag",
+        "soldier",
+        "librarian",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer",
+        "mutant"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-12",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "goblin",
+        "vigormortis",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer"
+      ],
+      "bluffs": [
+        "steward",
+        "nightwatchman",
+        "soldier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-13",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "witch",
+        "pithag",
+        "poisoner",
+        "librarian",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer",
+        "towncrier",
+        "plaguedoctor",
+        "snitch"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-14",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "scarletwoman",
+        "vigormortis",
+        "empath",
+        "general",
+        "dreamer",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "snitch"
+      ],
+      "bluffs": [
+        "steward",
+        "clockmaker",
+        "soldier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-15",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "poisoner",
+        "goblin",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "soldier",
+        "librarian",
+        "drunk",
+        "mutant"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-16",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "poisoner",
+        "goblin",
+        "scarletwoman",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-17",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "marionette",
+        "witch",
+        "vigormortis",
+        "general",
+        "dreamer",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "soldier",
+        "librarian"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "empath",
+        "plaguedoctor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-18",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "goblin",
+        "scarletwoman",
+        "witch",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "drunk"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-19",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "witch",
+        "pithag",
+        "vigormortis",
+        "dreamer",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "soldier",
+        "librarian",
+        "steward",
+        "clockmaker"
+      ],
+      "bluffs": [
+        "general",
+        "plaguedoctor",
+        "snitch"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-20",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "goblin",
+        "scarletwoman",
+        "witch",
+        "pithag",
+        "empath",
+        "general",
+        "dreamer",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "soldier",
+        "mutant",
+        "plaguedoctor"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-21",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "pithag",
+        "poisoner",
+        "vigormortis",
+        "towncrier",
+        "lycanthrope",
+        "philosopher",
+        "engineer",
+        "nightwatchman",
+        "soldier",
+        "librarian",
+        "steward",
+        "clockmaker",
+        "empath",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "dreamer",
+        "snitch",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-d829da1a9b85c9cb-candidate-22",
+      "scriptId": "wiki-d829da1a9b85c9cb",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "witch",
+        "pithag",
+        "poisoner",
+        "engineer",
+        "nightwatchman",
+        "soldier",
+        "librarian",
+        "steward",
+        "clockmaker",
+        "empath",
+        "general",
+        "dreamer",
+        "snitch",
+        "drunk"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "lilmonsta-extra-minion",
+      "roleId": "lilmonsta",
+      "knowledgeStatus": "confirmed",
+      "summary": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Lil%27_Monsta"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "lilmonsta-scarletwoman-jinx",
+      "roleId": "lilmonsta",
+      "summary": "If Lil' Monsta dies with 5 or more players alive, the Scarlet Woman babysits Lil' Monsta for the rest of the game.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "marionette-lilmonsta-jinx",
+      "roleId": "marionette",
+      "summary": "If there would be a Marionette in play, they enter play after the Demon & must start as their neighbor.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-goblin-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Goblin ability, a Minion gains it, and learns this.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-marionette-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Marionette ability, one of the Demon's good neighbors becomes the Marionette.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-scarletwoman-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Scarlet Woman ability, a Minion gains it, and learns this.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "snitch",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "engineer",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lilmonsta",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "clockmaker",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "steward",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "engineer",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lycanthrope",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lilmonsta",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "plaguedoctor",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46",
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "steward": "sha256:fbf26cf36a81721eccd8500f0a30bba3464ac17c74baa71769b870a1f0dd6e65",
+    "clockmaker": "sha256:eda181c646d1926ef95e22b78579955d8042a92bc5d9f5bb71beabc165e7f9a0",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "general": "sha256:fd1842203e0740d67a0126b7f4a7e2fcdaa670d5251cc4f8690d72d4a1d8933c",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "lycanthrope": "sha256:f412f37bc4df2cbd6b735c26fac959276ebfdadffa7f531437a834a2e45050b7",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "engineer": "sha256:3bfb97f5808e8425789cf7c425c771466a4d1bb7a90528865b27c7b32f5c5f6e",
+    "nightwatchman": "sha256:9abb4633d92f6cce99fb53748bb1020e8e0a12e98274df257a2bc16cf75bac19",
+    "soldier": "sha256:e24f9025b8c74c0b5fae6536a74ffd2845b311d4a2f60272a3950476946fd523",
+    "plaguedoctor": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+    "snitch": "sha256:922ac4c591a4352a6dee713dd5f608d332b3785885afb4a661b685cd00e7b09e",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "goblin": "sha256:c831c99d03dd8c2c7ddb4a84d51c78ef7df4e951ed30f40341940ba888d456ac",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "witch": "sha256:15211f928a1e9002e2b9c0229d6540ebcef894cec8829434b46bbd1106650bc9",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "lilmonsta": "sha256:566509c99cbacc9917a0d1f126aa0c3896be6247b57fddd6d6711c0de39043ec"
+  }
+}

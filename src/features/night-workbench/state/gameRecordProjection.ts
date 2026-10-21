@@ -58,7 +58,7 @@ export function projectGameRecordEntries(state: NightWorkbenchState): GameRecord
         phaseLabel: state.nightLabel,
         createdAt: record.confirmedAt,
         kind: 'night_action',
-        summary: record.snapshot.storytellerResult || `${item.seatId}号 ${item.roleName}：记录已确认`,
+        summary: record.snapshot.storytellerResult || `${item.seatId > 0 ? `${item.seatId}号 ` : ''}${item.roleName}：记录已确认`,
         meta: sourceMeta(record.snapshot),
         details: [record.snapshot.playerChoice, record.snapshot.informationGiven && `告知：${record.snapshot.informationGiven}`, record.snapshot.storytellerContext && `说书人已核对：${record.snapshot.storytellerContext}`].filter(Boolean) as string[],
         badges,

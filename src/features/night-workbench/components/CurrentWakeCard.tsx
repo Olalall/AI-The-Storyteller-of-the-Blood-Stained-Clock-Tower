@@ -125,7 +125,7 @@ export function CurrentWakeCard({
 
   return (
     <section className="wake-workspace">
-      {!item.systemStep ? <PlayerStatusBar
+      {!item.systemStep && !item.lilMonstaStep && item.interactionVersion !== 'legion/collective-night-v1' ? <PlayerStatusBar
         playerLabel={item.playerLabel}
         status={playerStatus}
         queuedRoleName={roleChange && roleChange.toRole.id !== item.roleId ? item.roleName : undefined}

@@ -5,6 +5,7 @@ import { collectCandidates, parseAssignments, splitScriptSource } from './scout-
 import { createBatchContext } from './prepare-script-batch.mjs'
 import { createRoleReuseIndex, roleReviewKey, sha256 } from './build/script-role-reuse.mjs'
 import { ordinaryTemplateExcludedRoles } from './prepare-script-templates.mjs'
+import { intakeRoleId } from './build/intake-role-id.mjs'
 
 /** Plan all records once. Every manifest entry remains an unregistered draft requiring board review. */
 export function planScriptIntake(catalogText, fullText, context, reuse, limit = 100) {
@@ -54,10 +55,10 @@ export function planScriptIntake(catalogText, fullText, context, reuse, limit = 
     if (!result.roleReferenceCandidatesComplete) { result.hold = 'role-review'; continue }
     const refs = roles.map((role) => role.reference), ids = refs.map((ref) => ref.id)
     if (new Set(ids).size !== ids.length) { result.hold = 'duplicate-canonical-role'; continue }
-    const sameRoster = context.packs.filter((pack) => pack.roles.length === ids.length && pack.roles.every((role) => ids.includes(context.normalizeRoleId(role.id))))
+    const sameRoster = context.packs.filter((pack) => pack.roles.length === ids.length && pack.roles.every((role) => ids.includes(intakeRoleId(role.id, context.normalizeRoleId))))
     if (sameRoster.length) { result.existingPackIds = sameRoster.map((pack) => pack.scriptId); result.hold = 'existing-roster-review'; continue }
     if (ids.some((id) => !context.officialIds.has(id))) { result.hold = 'custom-night-order-review'; continue }
-    if (ids.some((id) => ordinaryTemplateExcludedRoles.has(id))) { result.hold = 'special-opening-template-review'; continue }
+    result.specialOpeningReviewRequired = ids.some((id) => ordinaryTemplateExcludedRoles.has(id))
     const scriptId = 'wiki-' + row.rawJsonSha256.slice(0, 16)
     if (context.packs.some((pack) => pack.scriptId === scriptId) || inputs.some((entry) => entry.scriptId === scriptId)) throw new Error('草稿ID冲突，不能覆盖。')
     const input = { scriptId, displayName: row.name, sourceFile: 'sources/' + scriptId + '.json',

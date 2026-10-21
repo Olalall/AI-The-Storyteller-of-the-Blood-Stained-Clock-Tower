@@ -1,0 +1,1054 @@
+{
+  "scriptId": "wiki-579c1e51159b889a",
+  "displayName": "重新启动-释小年",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "释小年",
+    "version": "库记录608 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:579c1e51159b889a9a511d88e78f149607fdd4c7dc9e7b42d3be550a1c27eca5",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "bountyhunter",
+      "sourceId": "chuan-qi-zhi-ye",
+      "sourceVersion": "sha256:cc4c9bb6509aed6544f4cd7964ebb93bf092a5f6f31b57c0dca7913c7aeecb1d"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "preacher",
+      "sourceId": "hide-and-seek",
+      "sourceVersion": "sha256:d50e711952349f51adc87356c2a3a1e29991bc131b906a5c49a795fd50f9c823"
+    },
+    {
+      "id": "exorcist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "huntsman",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "nightwatchman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "tealady",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "tinker",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "golem",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "harpy",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "eviltwin",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "alhadikhia",
+      "sourceId": "zhi-shou-zhe-tian",
+      "sourceVersion": "sha256:4238810a6fb68f2daa965e332d1be23dd5f61299b49bd179a6937dd2692e68d2"
+    },
+    {
+      "id": "kazali",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-1",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "preacher",
+        "exorcist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-2",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "eviltwin",
+        "alhadikhia",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist"
+      ],
+      "bluffs": [
+        "oracle",
+        "undertaker",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-3",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "golem"
+      ],
+      "bluffs": [
+        "balloonist",
+        "seamstress",
+        "huntsman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-4",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "oracle",
+        "undertaker"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-5",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "nodashii",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "golem"
+      ],
+      "bluffs": [
+        "undertaker",
+        "towncrier",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-6",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "towncrier",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-7",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "alhadikhia",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "towncrier",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-8",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "huntsman",
+        "nightwatchman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-9",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "eviltwin",
+        "nodashii",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "balloonist",
+        "huntsman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-10",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "tinker"
+      ],
+      "bluffs": [
+        "exorcist",
+        "oracle",
+        "huntsman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-11",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "huntsman",
+        "mayor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-12",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "eviltwin",
+        "poisoner",
+        "alhadikhia",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "tinker"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "balloonist",
+        "preacher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-13",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "huntsman",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-14",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "harpy",
+        "nodashii",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "damsel",
+        "golem"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "balloonist",
+        "preacher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-15",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "golem"
+      ],
+      "bluffs": [
+        "huntsman",
+        "drunk",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-16",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "assassin",
+        "eviltwin",
+        "alhadikhia",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher"
+      ],
+      "bluffs": [
+        "exorcist",
+        "oracle",
+        "huntsman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-17",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 13,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "drunk"
+      ],
+      "bluffs": [
+        "recluse",
+        "tinker",
+        "damsel"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-18",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "eviltwin",
+        "poisoner",
+        "nodashii",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "drunk"
+      ],
+      "bluffs": [
+        "oracle",
+        "undertaker",
+        "huntsman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-19",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "eviltwin",
+        "poisoner",
+        "harpy",
+        "nodashii",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "tinker"
+      ],
+      "bluffs": [
+        "mayor",
+        "drunk",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-20",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "eviltwin",
+        "poisoner",
+        "harpy",
+        "alhadikhia",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "recluse",
+        "tinker"
+      ],
+      "bluffs": [
+        "undertaker",
+        "towncrier",
+        "huntsman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-21",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "harpy",
+        "assassin",
+        "alhadikhia",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "towncrier",
+        "seamstress",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "damsel",
+        "golem"
+      ],
+      "bluffs": [
+        "huntsman",
+        "drunk",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-579c1e51159b889a-candidate-22",
+      "scriptId": "wiki-579c1e51159b889a",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "harpy",
+        "assassin",
+        "eviltwin",
+        "nodashii",
+        "nightwatchman",
+        "tealady",
+        "mayor",
+        "librarian",
+        "balloonist",
+        "preacher",
+        "exorcist",
+        "oracle",
+        "undertaker",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "damsel",
+        "golem",
+        "bountyhunter"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "bountyhunter-kazali-jinx",
+      "roleId": "bountyhunter",
+      "summary": "If the Kazali turns the Bounty Hunter into a Minion, an evil Townsfolk is not created.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "kazali",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "eviltwin",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "bountyhunter",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "preacher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "exorcist",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "alhadikhia",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "kazali",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "tinker",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "bountyhunter",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nightwatchman",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "bountyhunter": "sha256:0bcacf61a2e3d4c45228cd202d4368f843f95a0b866c6f5bf9bd71cd84d29ae2",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "preacher": "sha256:3be7c2bf8f30817fc6c3d59c16eabd81a69e7758670f36d84f194baf638dd266",
+    "exorcist": "sha256:8af78315af9ed40d46f59a081ce0127480a0d8f4f0af13a013970b7af64ba6da",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "huntsman": "sha256:b0f38948ef04be8e1ddd284a4a44af8aa2ca936d3ae8eded18291db8c89e63f4",
+    "nightwatchman": "sha256:9abb4633d92f6cce99fb53748bb1020e8e0a12e98274df257a2bc16cf75bac19",
+    "tealady": "sha256:5477146713dda2d2ac0acb2b3a2b712e71a5691d1f0ea364fa0ef990d3c5cef4",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "tinker": "sha256:d39df1b38a7eec0b2d78aab9622b53c4e4880933b8f06daece703dae70007a61",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "golem": "sha256:578b6fd4850920a915174ff1654c6958a61d659931e4419c2f9ae2a56dbd8349",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "harpy": "sha256:7469099af60e189ef4516c76ca2454b0854d274c9fbbcfd32c8a0d5b0bc559de",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "eviltwin": "sha256:75dc9503eee2fe674c64e39ecfb9c45d818a6fff40767c0de8d36cc8c7297dd6",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "alhadikhia": "sha256:6c9048366d5d870be2217f5e87d5f2e12c04d2f518d43a759926de8e47cf6f26",
+    "kazali": "sha256:1d09ef273bca43a80090cd4a16749f9d2fe72a4e6a07f1af2c3ea8d99d062456"
+  }
+}

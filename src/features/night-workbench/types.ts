@@ -243,6 +243,7 @@ export interface SystemStepSpec {
 }
 
 export interface WakeItem {
+  lilMonstaStep?: 'babysitter' | 'death'
   abilityPhase?: 'initial'
   id: string
   orderIndex: number

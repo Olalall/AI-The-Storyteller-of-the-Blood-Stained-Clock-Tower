@@ -2816,5 +2816,629 @@ export const scriptManifest: readonly Pick<SmartScriptPack, 'scriptId' | 'displa
       15
     ],
     "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-c7c02faa0f7569e4",
+    "displayName": "刀光剑影",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-3eb2cb9590c7d0d5",
+    "displayName": "回到三日之前",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-bed7e3ed354aaa0d",
+    "displayName": "大师之夜",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-a708fb7d579e8ada",
+    "displayName": "超越无限",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-42c18a784ce689e9",
+    "displayName": "共生体",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-b96791b549a6f47a",
+    "displayName": "仙境奇踪",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-25a50a60d07a8b40",
+    "displayName": "长夜险恶",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-c3ac27c222a57353",
+    "displayName": "世纪谍杀",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-c53790b64239b119",
+    "displayName": "凶鸟戏画",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-dc4a9065e297ffdd",
+    "displayName": "喋喋不休？",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-2d964c6980972069",
+    "displayName": "滚出我的沼泽！！",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-d829da1a9b85c9cb",
+    "displayName": "疫病仆从",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-ddb055dcbcca72f5",
+    "displayName": "亡国悲歌",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-bfae83e273882610",
+    "displayName": "刺杀金牛座",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-fec05266799865ee",
+    "displayName": "卡科顿教派",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-af7868116d747ac5",
+    "displayName": "吞云吐雾",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-d313105b0e1c6424",
+    "displayName": "大惊小怪",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-54608950449750c2",
+    "displayName": "瓷牛商会",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-83d83637a80c8b35",
+    "displayName": "邪眼还巢",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-9e3516afe8c21785",
+    "displayName": "意外人选",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-3cfb328313ddec82",
+    "displayName": "好好聊聊",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-131c39f8148c7eec",
+    "displayName": "蛛丝马迹",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-373affd84c855e0b",
+    "displayName": "大幕将启",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-03b535cc7201464c",
+    "displayName": "谜动初露",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-624f42be86e8de94",
+    "displayName": "疯狂动物镇",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-579c1e51159b889a",
+    "displayName": "重新启动-释小年",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-5c01c0cc12f5e4c0",
+    "displayName": "心照不宣",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-221e26eff16e4ac4",
+    "displayName": "古堡疑云-卡慕萝米",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-dd178a28103dbae2",
+    "displayName": "大橘已定-斯派德米",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-c1f67aadb9368a5b",
+    "displayName": "缄默静言",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-f7392bd0fec4cc6e",
+    "displayName": "初窥门径",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-27ed3b4517d2d194",
+    "displayName": "五星大厨",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-6cb94b3a25db5fb9",
+    "displayName": "与汝同袍？",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-3d4ca1a93128c7d7",
+    "displayName": "异数略算",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-a488b4f1cf4eaeb7",
+    "displayName": "暗流涌动地狱",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-25af2829bee0ec08",
+    "displayName": "双倍劲凉",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-9efed422c2d1e88c",
+    "displayName": "急转直下",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-045c469020bffd03",
+    "displayName": "无所顾忌",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wiki-bac3d2dbc903f593",
+    "displayName": "窥夜之境",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
   }
 ]
