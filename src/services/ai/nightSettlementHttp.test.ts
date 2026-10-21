@@ -3,6 +3,8 @@ import { initialNightWorkbenchState } from '../../features/night-workbench/data/
 import { emptyWakeDraft } from '../../features/night-workbench/state/projectWakeDraft'
 import { defaultAISettings, saveAISettings } from '../settings'
 import { createNightResultAdviceAsync } from './nightSettlementHttp'
+import { actNight, informationSession, projected } from '../../features/night-workbench/state/nightInformation.test-support'
+import { isNightSettlementRequest } from '../../../server/ai/aiRequestValidators'
 
 function jsonResponse(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -18,6 +20,28 @@ function adviceInput() {
 }
 
 describe('night settlement HTTP adapter', () => {
+  it('sends the host-entered formal number with range metadata, keeping old payloads optional and rejecting malformed fields', async () => {
+    const session = actNight(informationSession('empath'), { type: 'information', value: '0' })
+    const state = projected(session), item = state.queue.find((entry) => entry.id === state.activeCursorId)!, draft = state.drafts[item.id]
+    const before = structuredClone(session)
+    await createNightResultAdviceAsync({ state, item, draft }, {
+      runtimeSettings: { mode: 'http', baseUrl: 'https://offline.example.test', timeoutMs: 2000 },
+      fetcher: async (_input, init) => {
+        const payload = JSON.parse(String(init?.body))
+        expect(payload.wakeItem.informationInput).toEqual({ kind: 'number', minimum: 0, maximum: 2 })
+        expect(payload.draft.informationGiven).toBe('0')
+        expect(payload.availableOutcomes.find((option: { id: string }) => option.id === 'record').ready).toBe(true)
+        expect(isNightSettlementRequest(payload)).toBe(true)
+        expect(isNightSettlementRequest({ ...payload, draft: { ...payload.draft, informationGiven: {} } })).toBe(false)
+        expect(isNightSettlementRequest({ ...payload, wakeItem: { ...payload.wakeItem, informationInput: { kind: 'number', minimum: 3, maximum: 2 } } })).toBe(false)
+        delete payload.wakeItem.informationInput
+        delete payload.draft.informationGiven
+        expect(isNightSettlementRequest(payload)).toBe(true)
+        return jsonResponse({ accepted: true, data: { draft: { status: 'answer', recommendedOutcomeId: 'record', summary: '保留主持决定的正式答案' } } })
+      },
+    })
+    expect(session).toEqual(before)
+  })
   it('does not let duplicated provider warnings hide the final timing or authority reminder', async () => {
     const warnings = ['核对原角色', '核对阵营', '核对当前状态']
     const advice = await createNightResultAdviceAsync(adviceInput(), {

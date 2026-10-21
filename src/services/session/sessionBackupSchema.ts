@@ -23,12 +23,14 @@ const extraRoleChoices: Check = (value) => Array.isArray(value) && value.length 
 const targetMode = oneOf(0, 1, 3)
 const targetRoleChoices: Check = (value) => Array.isArray(value) && value.length <= 3 && value.every((choice) => object(choice) &&
   Number.isInteger(choice.seatId) && Number(choice.seatId) >= 0 && Number(choice.seatId) <= 15 && typeof choice.roleId === 'string' && choice.roleId.length <= 100)
+const informationInput: Check = (v) => shape({ kind: oneOf('number'), minimum: count, maximum: count })(v) && object(v) && Number(v.minimum) <= Number(v.maximum)
 const wakeDraft = shape({ systemChecks: optional(array(string)), bluffRoleIds: optional(array(string)), registration: optional(registration), targets: array(number), targetRoleChoices: optional(targetRoleChoices), targetCountChoice: optional(targetMode), roleChoice: string, secondRoleChoice: optional(string), additionalRoleChoices: optional(extraRoleChoices), storytellerContext: optional(contextText), outcomeId: string, playerChoice: string, storytellerResult: string, informationGiven: string, draftRevision: number })
 const setup = shape({ candidateId: string, revision: number, updatedAt: string, assignments: array(shape({ seatId: number, role })), demonBluffs: array(role), repeatableRoleIds: optional(array(string)), setupRuleSelections: optional(array(shape({ ruleId: string, choiceId: string }))) })
 const phase = shape({ id: string, kind: oneOf('night', 'day'), sequence: number, label: string, createdAt: string, closedAt: optional(string) })
 const voteAdjustment = shape({ count: number, reason: string })
 const systemStep = shape({ kind: oneOf('minion_info', 'demon_info', 'audience_notice'), minionLabels: array(string), demonLabel: string, infoTokens: array(string), checks: array(shape({ id: string, label: string })), bluffCount: optional(count), bluffChoices: optional(array(shape({ id: string, label: string, teamLabel: string, suggested: boolean }))), audienceLabel: optional(string), recipientLabels: optional(array(string)), sensitive: optional(boolean) })
 const wake = shape({
+  informationInput: optional(informationInput),
   systemStep: optional(systemStep), minimumTargetCount: optional(count), registrationSpec: optional(shape({ kind: oneOf('role_type', 'alignment'), label: string, choices: array(shape({ id: registrationValue, label: string })) })),
   previousRegistration: optional(registration), forbiddenRegistrationValues: optional(array(registrationValue)), previousTargets: optional(array(seat)), forbiddenTargetSeatIds: optional(array(seat)), previousTargetRequired: optional(boolean),
   historicalContext: optional(shape({ kind: oneOf('balloonist_role_type', 'fanggu_conversion', 'godfather_trigger', 'moonchild_choice', 'once_per_game_use', 'pukka_poison', 'shabaloth_regurgitation', 'yanluo_delayed_death', 'po_charge', 'zombuul_day_death'), status: oneOf('ready', 'clear', 'missing'), seatIds: array(seat), summary: string })), aiAdviceEnabled: optional(boolean),
@@ -38,7 +40,7 @@ const wake = shape({
   reason: optional(string),
   applicability: oneOf('applicable', 'needs_review', 'not_applicable'), targetCount: number, targetRoleChoiceCount: optional(oneOf(1, 2, 3)), allowedTargetCounts: optional(array(targetMode)), roleCount: optional(oneOf(1, 2, 4)), interactionVersion: string,
   status: shape({ life: oneOf('alive', 'dead'), impairments: array(oneOf('poisoned', 'drunk')), markers: array(marker) }),
-  outcomeOptions: array(shape({ id: string, label: string, requiredInputs: array(oneOf('targets', 'role')), targetCounts: optional(array(count)), resultTemplate: string })),
+  outcomeOptions: array(shape({ id: string, label: string, requiredInputs: array(oneOf('targets', 'role', 'information')), targetCounts: optional(array(count)), resultTemplate: string })),
   roleChoices: optional(array(shape({ id: string, label: string, alignment: optional(oneOf('good', 'evil')) }))),
 })
 const stateChangeProposal: Check = (v) => object(v) && (v.field === 'life' ? oneOf('alive', 'dead')(v.to) && v.markerLabel === undefined : v.field === 'poisoned' || v.field === 'drunk' ? oneOf('true', 'false')(v.to) && v.markerLabel === undefined : v.field === 'marker' && oneOf('add', 'remove')(v.to) && typeof v.markerLabel === 'string' && Boolean(v.markerLabel.trim()))

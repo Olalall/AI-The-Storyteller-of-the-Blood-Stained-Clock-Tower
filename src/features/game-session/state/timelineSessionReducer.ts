@@ -6,6 +6,7 @@ import type { GameSessionAction } from './sessionActions'
 import { canAppendHistoryCorrection, canAppendNightActionEntry, hasDayResolution } from './sessionReducerGuards'
 import { canCompleteVoteRound } from '../../day-workbench/state/voteRound'
 import { findOpenSegment } from './phaseSegments'
+import { canRecordGhostVotes, normalizeDeadVotes } from '../../day-workbench/state/ghostVotes'
 
 type TimelineSessionActionType = 'append-phase-entry' | 'append-correction'
 
@@ -21,6 +22,7 @@ export function reduceTimelineSession(state: GameSessionState, action: TimelineS
         if (entry.correctionOf || entry.voided || !canCompleteVoteRound({ ...entry, segmentId: day?.id ?? 'day-pending' }) ||
           !state.seats[entry.nominatorSeatId] || !state.seats[entry.nomineeSeatId] ||
           entry.raisedSeatIds.some((id) => !state.seats[id]) || entry.ghostVoteSeatIds.some((id) => !state.seats[id]) ||
+          !canRecordGhostVotes(state, entry) ||
           (day && hasDayResolution(state, day.id))) return state
       }
       switch (entry.kind) {
@@ -39,7 +41,8 @@ export function reduceTimelineSession(state: GameSessionState, action: TimelineS
           // 未知 kind 仍按普通记录写入，与穷尽检查加入前一致。
           assertNever(entry)
       }
-      const appended = appendPhaseEntry(state, action.phaseKind, entry, action.input)
+      const appended = appendPhaseEntry(state, action.phaseKind, entry.kind === 'vote_round'
+        ? { ...entry, ghostVoteSeatIds: normalizeDeadVotes(state, { ...entry, segmentId: 'day-pending' }).ghostVoteSeatIds } : entry, action.input)
       if (appended.entry.kind === 'vote_round') {
         return {
           ...appended.state,

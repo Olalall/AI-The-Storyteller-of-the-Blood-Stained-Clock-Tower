@@ -16,6 +16,8 @@ import { DayFactsBar } from './DayFactsBar'
 import { shouldShowDayFacts } from '../../game-session/state/projectDayFacts'
 import type { DayFacts } from '../../game-session/state/projectDayFacts'
 import { StorytellerContextEditor } from './StorytellerContextEditor'
+import { Field } from '../../../components/ui/Field'
+import { formalInformationValid } from '../state/projectWakeDraft'
 
 interface CurrentWakeCardProps {
   item: WakeItem
@@ -48,6 +50,7 @@ interface CurrentWakeCardProps {
   onSecondRoleChoice: (roleId: string) => void
   onAdditionalRoleChoice?: (index: 0 | 1, roleId: string) => void
   onStorytellerContext: (value: string) => void
+  onInformation: (value: string) => void
   onOutcome: (outcomeId: string) => void
   onUseAI: () => void
   onChangeRole: () => void
@@ -87,6 +90,7 @@ export function CurrentWakeCard({
   onSecondRoleChoice,
   onAdditionalRoleChoice,
   onStorytellerContext,
+  onInformation,
   onOutcome,
   onUseAI,
   onChangeRole,
@@ -177,6 +181,11 @@ export function CurrentWakeCard({
             <NightRoleChoices item={item} draft={draft} disabled={formDisabled} onRoleChoice={onRoleChoice} onSecondRoleChoice={onSecondRoleChoice} onAdditionalRoleChoice={onAdditionalRoleChoice} /></>}
         <StorytellerContextEditor key={`${item.id}:${formDisabled}:${draft.storytellerContext ?? ''}`} value={draft.storytellerContext} disabled={formDisabled} onSave={onStorytellerContext} />
 
+        {item.informationInput ? <Field label="正式告知数字" hint={`填写${item.informationInput.minimum}-${item.informationInput.maximum}的整数；毒醉、误登记等情况仍由说书人决定答案，不自动计算。`}
+          error={!formDisabled && draft.informationGiven && !formalInformationValid(item, draft) ? `请输入${item.informationInput.minimum}-${item.informationInput.maximum}的整数` : undefined}>
+          <input type="text" inputMode="numeric" pattern="[0-9]*" aria-label="正式告知数字" aria-invalid={Boolean(!formDisabled && draft.informationGiven && !formalInformationValid(item, draft))} value={draft.informationGiven} disabled={formDisabled} onChange={(event) => onInformation(event.target.value)} />
+        </Field> : null}
+
         <fieldset disabled={formDisabled}>
           <legend className="result-legend">
             <span>结果候选</span>
@@ -237,7 +246,7 @@ export function CurrentWakeCard({
           readOnly={formDisabled}
         />
 
-        {draft.informationGiven && item.targetRoleChoiceCount === undefined && canRevealNightResult(item.roleId) ? (
+        {draft.outcomeId && draft.informationGiven && item.targetRoleChoiceCount === undefined && canRevealNightResult(item.roleId) ? (
           <section className="information-preview">
             <div>
               <div><strong>告知玩家</strong><StatusBadge tone="neutral">待告知</StatusBadge></div>

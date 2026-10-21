@@ -133,6 +133,7 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
       previousTargets: item.previousTargets ? [...item.previousTargets] : undefined,
       forbiddenTargetSeatIds: item.forbiddenTargetSeatIds ? [...item.forbiddenTargetSeatIds] : undefined,
       previousTargetRequired: item.previousTargetRequired,
+      informationInput: item.informationInput ? { ...item.informationInput } : undefined,
       historicalContext: item.historicalContext ? structuredClone(item.historicalContext) : undefined,
     },
     draft: {
@@ -143,6 +144,7 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
       targetRoleChoices: draft.targetRoleChoices?.map(choice => ({ ...choice })),
       targetCountChoice: draft.targetCountChoice,
       storytellerContext: draft.storytellerContext?.trim().slice(0, 1000) || undefined,
+      informationGiven: item.informationInput ? draft.informationGiven : undefined,
       outcomeId: draft.outcomeId,
       playerChoice: draft.playerChoice,
       draftRevision: draft.draftRevision,

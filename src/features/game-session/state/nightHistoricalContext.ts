@@ -1,8 +1,11 @@
-import { normalizeRoleId, roleTeamByIdForScript } from '../../../domain/scripts'
+import { getSmartScriptPack, normalizeRoleId, roleTeamByIdForScript } from '../../../domain/scripts'
 import type { DayActionEntry, GameSessionState, NightActionEntry, NightRunState, PlayerStateChangedEntry, SetupChangedEntry } from '../types'
 import type { StorytellerRegistrationSnapshot, WakeItem } from '../../night-workbench/types'
 import { projectEffectiveTimelineEntries } from './projectTimelineHistory'
 import { projectConfirmedSetup, projectCurrentPlayerStates } from './projectors'
+import { createRoleSpecificOutcomeOptions } from './nightWakeContract'
+import { createNightWakeInteraction } from './nightWakeInteraction'
+import { projectNightInteraction } from '../../night-workbench/state/projectNightInteraction'
 
 const previousTargetRoleIds = new Set(['exorcist', 'devilsadvocate'])
 const oncePerGameNightRoleIds = new Set(['professor', 'assassin', 'courtier', 'nightwatchman', 'seamstress', 'huntsman', 'engineer'])
@@ -196,17 +199,38 @@ function godfatherContext(session: GameSessionState, item: WakeItem, sequence: n
 
 function fangguContext(session: GameSessionState, item: WakeItem, sequence: number): WakeItem {
   const nightSequence = new Map(session.phaseSegments.filter((segment) => segment.kind === 'night').map((segment) => [segment.id, segment.sequence]))
+  const effective = projectEffectiveTimelineEntries(session.timeline)
   // 方古的 ONCE 是整局标记；换宿主、死亡或再次变成方古均不能重置。
-  const converted = projectEffectiveTimelineEntries(session.timeline).find((entry): entry is NightActionEntry =>
-    entry.kind === 'night_action' && entry.record.snapshot.outcomeId === 'convert' &&
-    normalizeRoleId(nightEntryIdentity(session, entry).roleId ?? '') === 'fanggu' &&
-    (entry.segmentId !== null && (nightSequence.get(entry.segmentId) ?? Infinity) <= sequence))
+  const converted = effective.find((entry): entry is NightActionEntry => {
+    if (entry.kind !== 'night_action' || entry.record.snapshot.outcomeId !== 'convert'
+      || normalizeRoleId(nightEntryIdentity(session, entry).roleId ?? '') !== 'fanggu'
+      || !entry.segmentId || (nightSequence.get(entry.segmentId) ?? Infinity) > sequence
+      || entry.record.snapshot.targets.length !== 1) return false
+    const at = Date.parse(sourceCreatedAt(session, entry))
+    const phase = session.phaseSegments.find((segment) => segment.id === entry.segmentId)
+    const end = Date.parse(phase?.closedAt ?? session.phaseSegments.find((segment) => Date.parse(segment.createdAt) > at)?.createdAt ?? '')
+    const target = entry.record.snapshot.targets[0]
+    const actor = nightEntryIdentity(session, entry).actorSeatId
+    // 候选不消耗 ONCE；身份与原宿主死亡都必须已有主持确认，旧局可用同夜时间边界关联。
+    // 登记资格由主持核对；间谍等可登记为外来者，不能用实际角色类型否定已确认的跳转。
+    const changed = effective.some((change) => change.kind === 'setup_changed' && change.seatId === target
+      && normalizeRoleId(change.toRole.id) === 'fanggu' && normalizeRoleId(change.fromRole.id) !== 'fanggu'
+      && Date.parse(change.createdAt) >= at && (change.originNightRunId === entry.nightRunId
+        || change.originNightRunId == null && Date.parse(change.createdAt) <= end))
+    const died = effective.some((change) => change.kind === 'player_state_changed' && change.seatId === actor
+      && change.before.life === 'alive' && change.after.life === 'dead' && Date.parse(change.createdAt) >= at
+      && !effective.some((event) => event.kind === 'player_state_changed' && event.revertOf === change.id)
+      && (change.segmentId === entry.segmentId || change.segmentId === null && Date.parse(change.createdAt) <= end))
+    return changed && died
+  })
   const summary = converted
     ? `本局已记录方古成功转化${seatsLabel(converted.record.snapshot.targets)}；之后外来者只按普通击杀处理，不再生成转化建议。`
-    : '本局尚未找到方古成功转化记录；只有本次确实杀死外来者时，才可能触发首次转化。'
+    : '本局尚未找到完整的方古成功转化确认；转变候选不消耗首次机会。请分别确认目标变为方古和原方古死亡。'
+  const options = item.outcomeOptions.some((option) => option.id === 'convert') ? item.outcomeOptions
+    : [createRoleSpecificOutcomeOptions('fanggu', { targetCount: 1 }, false)![0], ...item.outcomeOptions]
   return {
     ...item,
-    history: item.history ? `${item.history} ${summary}` : summary,
+    history: summary,
     historicalContext: {
       kind: 'fanggu_conversion',
       status: converted ? 'ready' : 'clear',
@@ -214,8 +238,8 @@ function fangguContext(session: GameSessionState, item: WakeItem, sequence: numb
       summary,
     },
     outcomeOptions: converted
-      ? item.outcomeOptions.filter((option) => option.id !== 'convert')
-      : item.outcomeOptions,
+      ? options.filter((option) => option.id !== 'convert')
+      : options,
   }
 }
 
@@ -235,6 +259,13 @@ function previousMoonchildChoice(session: GameSessionState, item: WakeItem, sequ
       && normalizeRoleId(entry.skillContext.abilityRole.id) === 'moonchild'
       && entry.skillContext.actor?.seatId === item.seatId)
   if (!entry || roleContinuityBroken(session, item, entry)) {
+    const deathWindow = new Set([...segmentIds(session, 'night', sequence), ...ids])
+    const death = projectEffectiveTimelineEntries(session.timeline).some((event) => deathWindow.has(event.segmentId ?? '')
+      && (event.kind === 'player_state_changed' && event.seatId === item.seatId && event.before.life === 'alive' && event.after.life === 'dead'
+        || event.kind === 'execution' && event.executedSeatId === item.seatId && event.causedDeath !== false))
+    if (item.status.life === 'alive' && !death) return {
+      status: 'clear', summary: '月之子仍存活且未记录本次死亡触发；无需白天选择，本夜不产生死亡候选。',
+    }
     return {
       status: 'missing',
       summary: '白天选择记录缺失或已被角色变化截断；不能从当前身份倒推月之子目标阵营。',
@@ -647,10 +678,20 @@ function isOncePerGameUse(entry: NightActionEntry) {
 function oncePerGameContext(session: GameSessionState, item: WakeItem, sequence: number): WakeItem {
   const usedEntry = priorRoleEntries(session, item, sequence).find(isOncePerGameUse)
   if (!usedEntry) {
+    if (item.historicalContext?.kind === 'once_per_game_use' && item.historicalContext.status === 'ready') {
+      const role = getSmartScriptPack(session.scriptId).roles.find((role) => normalizeRoleId(role.id) === normalizeRoleId(item.roleId))
+      if (role) {
+        const interaction = createNightWakeInteraction(session.scriptId, role, sequence === 1, session.playerCount)
+        item = projectNightInteraction({ ...item, ...interaction, storytellerPrompt: item.storytellerPrompt,
+          applicability: item.status.life === 'dead' ? 'needs_review' : 'applicable',
+          previousTargets: undefined, aiAdviceEnabled: undefined, informationInput: undefined,
+        }, session.scriptId, { nightType: sequence === 1 ? 'first' : 'other', playerCount: session.playerCount })
+      }
+    }
     const summary = '本局尚未找到已确认的限次使用记录；若说书人确认此前已用过，请先追加历史更正。'
     return {
       ...item,
-      history: item.history ? `${item.history} ${summary}` : summary,
+      history: summary,
       historicalContext: { kind: 'once_per_game_use', status: 'clear', seatIds: [], summary },
     }
   }

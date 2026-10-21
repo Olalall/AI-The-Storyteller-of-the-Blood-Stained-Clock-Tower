@@ -10,7 +10,8 @@ import { projectCurrentAssignments, projectCurrentPlayerStates } from './project
 const itemIndependentActions = new Set<NightWorkbenchAction['type']>([
   'preview', 'return-current', 'toggle-privacy', 'set-privacy', 'toggle-dim', 'skip-item', 'apply-ai-advice',
 ])
-import { wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
+import { formalNightRecordValid, wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
+import { projectNightResultContract } from './nightWakeContract'
 
 type NightSessionActionType =
   | 'commit-night-workbench'
@@ -73,6 +74,7 @@ function commitNightWorkbench(
   if (records.some((record) => !existingRecordIds.has(record.id) && (
     !queueItemById.has(record.wakeItemId) ||
     !wakeTargetsStructurallyValid(queueItemById.get(record.wakeItemId)!, record.snapshot, state.playerCount) ||
+    !formalNightRecordValid(projectNightResultContract(queueItemById.get(record.wakeItemId)!, state.playerCount), record.snapshot) ||
     (record.correctionOf !== undefined && !knownRecordIds.has(record.correctionOf))))) return state
 
   let nextState = state

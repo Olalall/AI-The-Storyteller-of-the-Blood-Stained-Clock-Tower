@@ -23,6 +23,7 @@ import { DayTimer } from './components/DayTimer'
 import { DayRecordSheet } from './components/DayRecordSheet'
 import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchNotice'
 import './day-workbench.css'
+import { canRecordGhostVotes } from './state/ghostVotes'
 
 interface DayWorkbenchProps {
   session: GameSessionState
@@ -82,7 +83,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   }
 
   function completeRound() {
-    if (dayLocked || leavePromptOpen) return
+    if (dayLocked || leavePromptOpen || !canRecordGhostVotes(session, draft)) return
     const entry = completeVoteRound(draft, {
       id: `vote-round-${crypto.randomUUID()}`,
       roundId: `round-${roundNumber}`,
@@ -198,7 +199,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
           onSelectSeat={selectNominationSeat} onExpand={() => setStepOverride('nomination')}
         />
         {activeStep === 'vote' ? <DayVoteEditor
-          key={roundNumber} draft={draft} playerCount={session.playerCount} playerStates={playerStates}
+          key={roundNumber} draft={draft} playerCount={session.playerCount} playerStates={playerStates} session={session}
           showNomination={false} disabled={dayLocked} onChange={updateDraft}
         /> : <DayStepRow index={2} title="举手"
           summary={draft.raisedSeatIds.length ? `举手${draft.raisedSeatIds.length} · 门槛${draft.threshold}` : '未记录'}
@@ -254,7 +255,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
           <div className="day-action-bar__pair">
             {hasUnrecordedVote ? <Button variant="ghost" onClick={cancelRound}>取消本轮提名</Button> : null}
             {activeStep === 'nomination' ? <Button variant="primary" disabled={!nominationReady} onClick={() => setStepOverride('vote')}>下一步：记录举手</Button>
-              : activeStep === 'vote' ? <Button variant="primary" disabled={!canCompleteVoteRound(draft)} onClick={completeRound}><Hand aria-hidden="true" />记录本轮票型</Button>
+              : activeStep === 'vote' ? <Button variant="primary" disabled={!canCompleteVoteRound(draft) || !canRecordGhostVotes(session, draft)} onClick={completeRound}><Hand aria-hidden="true" />记录本轮票型</Button>
                 : <Button variant="primary" onClick={() => { setNominationTarget('nominator'); setStepOverride('nomination') }}>开始下一轮提名</Button>}
           </div>
         </div>

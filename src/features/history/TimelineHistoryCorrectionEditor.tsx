@@ -6,7 +6,8 @@ import type { PhaseTimelineEntryInput } from '../game-session/state/timeline'
 import type { DayActionEntry, GameSessionState, NightActionEntry, TimelineEntry } from '../game-session/types'
 import { refreshNightRunHistoricalContext } from '../game-session/state/nightHistoricalContext'
 import { normalizeRoleId } from '../../domain/scripts'
-import { hasForbiddenRegistration, wakeTargetRange, wakeTargetsValid } from '../night-workbench/state/projectWakeDraft'
+import { formalInformationValid, hasForbiddenRegistration, wakeTargetRange, wakeTargetsValid } from '../night-workbench/state/projectWakeDraft'
+import { projectNightInteraction } from '../night-workbench/state/projectNightInteraction'
 import type { WakeItem } from '../night-workbench/types'
 import { DaySkillRecordFields } from '../day-workbench/components/DaySkillRecordFields'
 import {
@@ -43,7 +44,7 @@ interface NightActionCorrectionEditorProps {
 function correctedWakeItem(session: GameSessionState, entry: NightActionEntry): WakeItem | null {
   const run = session.nightRuns[entry.nightRunId]
   return run
-    ? refreshNightRunHistoricalContext(session, run).find((item) => item.id === entry.wakeItemId) ?? null
+    ? refreshNightRunHistoricalContext(session, { ...run, queue: run.queue.map((item) => projectNightInteraction(item, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount })) }).find((item) => item.id === entry.wakeItemId) ?? null
     : null
 }
 
@@ -54,6 +55,8 @@ function fixedRange(count: number) {
 function nightCorrectionTargetRange(entry: NightActionEntry, wakeItem: WakeItem | null, playerCount: number) {
   const roleId = normalizeRoleId(entry.roleId ?? '')
   const outcomeId = entry.record.snapshot.outcomeId
+  const option = wakeItem?.outcomeOptions.find((candidate) => candidate.id === outcomeId)
+  if (option?.targetCounts?.length === 1 && option.targetCounts[0] === 0 && !option.requiredInputs.length) return fixedRange(0)
   const selectedCount = entry.record.snapshot.targetCountChoice
   if (selectedCount !== undefined && wakeItem?.allowedTargetCounts?.includes(selectedCount)) return fixedRange(selectedCount)
   if (roleId === 'pukka') {
@@ -88,6 +91,7 @@ function NightActionCorrectionEditor({ entry, session, onCancel, onConfirm }: Ni
     result.trim() &&
     reason.trim() &&
     targetsInCorrectionRange &&
+    (!wakeItem?.informationInput || snapshot.outcomeId !== 'record' || formalInformationValid(wakeItem, targetDraft)) &&
     (!snapshot.registration || registration) &&
     (!correctionWakeItem || (
       wakeTargetsValid(correctionWakeItem, targetDraft, session.playerCount) &&

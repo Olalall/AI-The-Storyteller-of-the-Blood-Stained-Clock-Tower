@@ -42,7 +42,7 @@ export interface PlayerStatusSnapshot {
   markers: ManualStatusMarker[]
 }
 
-export type OutcomeInput = 'targets' | 'role'
+export type OutcomeInput = 'targets' | 'role' | 'information'
 
 export type TargetKind = 'player_choice' | 'storyteller_info'
 
@@ -260,6 +260,8 @@ export interface WakeItem {
   history?: string
   reason?: string
   targetCount: number
+  /** 主持决定的正式答案；不根据真实身份、毒醉或人数自动计算。 */
+  informationInput?: { kind: 'number'; minimum: number; maximum: number }
   allowedTargetCounts?: number[]
   /** 最少目标数；省略时必须选满 targetCount。用于珀等允许明确空选的角色。 */
   minimumTargetCount?: number

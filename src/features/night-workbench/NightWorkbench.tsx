@@ -101,7 +101,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
     hasWakeDraftContent(item) &&
     state.queue.find((entry) => entry.id === itemId)?.progress !== 'confirmed',
   ) || Boolean(state.correctionItemId)
-  const canRevealInformation = current.targetRoleChoiceCount === undefined && canRevealNightResult(current.roleId) && !state.privacyShielded && !isPreviewing && Boolean(draft.informationGiven.trim())
+  const canRevealInformation = current.targetRoleChoiceCount === undefined && canRevealNightResult(current.roleId) && !state.privacyShielded && !isPreviewing && Boolean(draft.outcomeId && draft.informationGiven.trim())
   const visibleNotice = state.lastNotice?.includes('夜序快照') ? '' : state.privacyShielded && state.lastNotice ? '提示内容已遮蔽，解除遮蔽后查看。' : state.lastNotice
   const isSettled = (current.progress === 'confirmed' && !isCorrecting)
     || current.progress === 'deferred'
@@ -241,6 +241,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
           onSecondRoleChoice={(roleId) => dispatch({ type: 'second-role-choice', roleId })}
           onAdditionalRoleChoice={(index, roleId) => dispatch({ type: 'additional-role-choice', index, roleId })}
           onStorytellerContext={(value) => dispatch({ type: 'storyteller-context', value })}
+          onInformation={(value) => dispatch({ type: 'information', value })}
           onOutcome={(outcomeId) => dispatch({ type: 'outcome', outcomeId })}
           onUseAI={() => requestAIAdvice(state, current, draft, dispatch)}
           onChangeRole={() => setOpenPanel('role-change')}

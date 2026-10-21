@@ -80,6 +80,7 @@ function seatSnapshotsForSession(session: GameSessionState): Record<number, Nigh
 function wakeContractFingerprint(item: NightWorkbenchState['queue'][number]) {
   return JSON.stringify({
     targetCount: item.targetCount,
+    informationInput: item.informationInput,
     minimumTargetCount: item.minimumTargetCount,
     allowedTargetCounts: item.allowedTargetCounts,
     roleCount: item.roleCount,

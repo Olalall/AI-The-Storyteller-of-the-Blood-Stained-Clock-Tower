@@ -23,6 +23,7 @@ export type NightWorkbenchIntent =
   | { type: 'second-role-choice'; roleId: string }
   | { type: 'additional-role-choice'; index: 0 | 1; roleId: string }
   | { type: 'storyteller-context'; value: string }
+  | { type: 'information'; value: string }
   | { type: 'registration-choice'; value: string }
   | { type: 'system-check'; checkId: string }
   | { type: 'system-bluff'; roleId: string }
@@ -155,6 +156,11 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
         return invalidateOutcome(item, { ...draft, additionalRoleChoices: choices })
       })
     }
+    case 'information':
+      return updatePreviewDraft(state, action.at, (draft, item) => {
+        if (!item.informationInput || action.value.length > 3 || (action.value !== '' && !/^\d+$/.test(action.value)) || draft.informationGiven === action.value) return draft
+        return { ...invalidateOutcome(item, draft), informationGiven: action.value }
+      })
     case 'storyteller-context': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
       if (!item || !canEditItem(state, item)) return state
@@ -205,7 +211,7 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
             ...draft,
             outcomeId: '',
             storytellerResult: '',
-            informationGiven: '',
+            informationGiven: item.informationInput ? draft.informationGiven : '',
             outputSource: undefined,
           }
         }

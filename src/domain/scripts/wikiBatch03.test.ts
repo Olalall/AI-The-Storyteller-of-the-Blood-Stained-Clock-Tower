@@ -242,8 +242,21 @@ describe('clocktower-wiki batch 03 source, actual setup candidates and night inp
     for (const seatId of targets) session = actNight(session, { type: 'target', seatId })
     expect(current(session).item.targetCount).toBe(size)
     expect(current(session).draft.targets).toEqual(targets)
-    session = actNight(session, { type: 'outcome', outcomeId: 'record' })
+    let outcomeId = 'record'
+    if (roleId === 'chambermaid') {
+      session = actNight(session, { type: 'storyteller-context', value: '合成首夜场景：主持确认这两名目标至今均未因自身能力被唤醒，正式告知0。' })
+      session = actNight(session, { type: 'information', value: '0' })
+    }
+    if (roleId === 'seamstress') {
+      const assignments = projectCurrentAssignments(session), roles = getSmartScriptPack(scriptId).roles
+      const alignments = targets.map((seatId) => ['townsfolk', 'outsider'].includes(roles.find((role) => role.id === assignments.find((assignment) => assignment.seatId === seatId)!.role.id)!.team) ? '善良' : '邪恶')
+      outcomeId = alignments[0] === alignments[1] ? 'yes' : 'no'
+      session = actNight(session, { type: 'storyteller-context', value: `合成首夜场景：目标当前阵营依次为${alignments.join('、')}；主持确认没有阵营变化、毒醉或误登记，正式回答${outcomeId === 'yes' ? '是' : '否'}。` })
+    }
+    session = actNight(session, { type: 'outcome', outcomeId })
     expect(canConfirmDraft(current(session).state, current(session).item, current(session).draft)).toBe(true)
+    if (roleId === 'chambermaid') expect(current(session).draft.informationGiven).toBe('0')
+    if (roleId === 'seamstress') expect(current(session).draft.informationGiven).toBe(outcomeId === 'yes' ? '是。' : '否。')
     expect(session.timeline).toEqual(timeline)
   })
 })

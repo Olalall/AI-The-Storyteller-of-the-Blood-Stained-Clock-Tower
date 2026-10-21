@@ -1,5 +1,5 @@
 import { projectCurrentPlayerStates } from '../../features/game-session/state/projectors'
-import { projectEffectiveTimelineEntries } from '../../features/game-session/state/projectTimelineHistory'
+import { projectEffectiveTimelineEntries, timelinePhaseInfo } from '../../features/game-session/state/projectTimelineHistory'
 import type { GameSessionState, TimelineEntry } from '../../features/game-session/types'
 import { assertNever } from '../../shared/assertNever'
 import { localArchiveAdapter } from './localArchiveAdapter'
@@ -82,7 +82,7 @@ export function projectGameArchiveSession(session: GameSessionState): GameArchiv
   const dayCount = kindCounts.day_action ?? 0
   const voteCount = kindCounts.vote_round ?? 0
   const executionCount = kindCounts.execution ?? 0
-  const correctionCount = activeEntries.filter((entry) => Boolean(entry.correctionOf)).length
+  const correctionCount = session.timeline.filter((entry) => Boolean(entry.correctionOf)).length
 
   return {
     alive,
@@ -130,11 +130,10 @@ export function createGameArchiveRecord({
       corrections: projection.correctionCount,
     },
     timeline: projection.entries.map((entry) => {
-      const segment = entry.segmentId ? session.phaseSegments.find((item) => item.id === entry.segmentId) : undefined
       return {
         id: entry.id,
         kind: entry.kind,
-        phaseLabel: segment?.label ?? (entry.kind.startsWith('setup_') ? '配板' : '本局'),
+        phaseLabel: timelinePhaseInfo(session, entry).phaseLabel,
         summary: entrySummary(entry),
         createdAt: entry.createdAt,
       }
