@@ -35,8 +35,10 @@ test('pooling preserves escaped Unicode and excludes property names, imports and
 })
 
 test('every registered production pack retains all data after text pooling', () => {
-  const root = resolve('src/domain/scripts/packs')
-  const files = readdirSync(root, { recursive: true }).map(String).filter((name) => name.endsWith('.ts') && !name.endsWith('.test.ts')).sort().map((name) => resolve(root, name))
+  const files = ['packs', 'role-library'].flatMap((directory) => {
+    const root = resolve('src/domain/scripts', directory)
+    return readdirSync(root, { recursive: true }).map(String).filter((name) => name.endsWith('.ts') && !name.endsWith('.test.ts')).sort().map((name) => resolve(root, name))
+  })
   const fileSet = new Set(files)
   const pool = createScriptTextPool(files.map((file) => readFileSync(file, 'utf8')))
   const textExports = execute(renderScriptTextPool(pool))

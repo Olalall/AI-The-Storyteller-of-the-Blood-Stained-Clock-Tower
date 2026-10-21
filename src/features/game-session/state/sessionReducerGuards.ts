@@ -1,8 +1,9 @@
 import type { GameSessionState } from '../types'
 import type { GameSessionAction } from './sessionActions'
 import type { PhaseTimelineEntryInput } from './timeline'
-import { targetRoleChoicesSatisfied, wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
+import { formalNightRecordValid, targetRoleChoicesSatisfied, wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
 import { refreshNightRunHistoricalContext } from './nightHistoricalContext'
+import { projectNightInteraction } from '../../night-workbench/state/projectNightInteraction'
 
 export function hasDayResolution(state: GameSessionState, segmentId: string) {
   return state.timeline.some((entry) =>
@@ -51,9 +52,10 @@ export function canAppendNightActionEntry(
 ) {
   const run = state.nightRuns[entry.nightRunId]
   const item = run
-    ? refreshNightRunHistoricalContext(state, run).find((candidate) => candidate.id === entry.wakeItemId)
+    ? refreshNightRunHistoricalContext(state, { ...run, queue: run.queue.map((candidate) => projectNightInteraction(candidate, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount })) }).find((candidate) => candidate.id === entry.wakeItemId)
     : undefined
   return Boolean(item
+    && formalNightRecordValid(item, entry.record.snapshot)
     && wakeTargetsStructurallyValid(item, entry.record.snapshot, state.playerCount)
     && targetRoleChoicesSatisfied(item, entry.record.snapshot, state.playerCount))
 }

@@ -1,14 +1,12 @@
-import { sampleOtherNightQueue } from '../../night-workbench/data/catfishing'
-import { getSmartScriptPack, normalizeRoleId, roleAbilityForScript, rolePromptForScript, roleSnapshotsForScript } from '../../../domain/scripts'
-import type { AbilityInputKind, NightOrderEntry, SmartRoleDefinition } from '../../../domain/scripts'
-import type { OutcomeInput, PlayerStatusSnapshot, WakeItem, WakeRoleChoice } from '../../night-workbench/types'
+import { getSmartScriptPack, normalizeRoleId, roleAbilityForScript, rolePromptForScript } from '../../../domain/scripts'
+import type { NightOrderEntry, SmartRoleDefinition } from '../../../domain/scripts'
+import type { PlayerStatusSnapshot, WakeItem } from '../../night-workbench/types'
 import type { GameSessionState, NightRunState, PlayerState, SetupAssignment } from '../types'
 import { projectCurrentAssignments, projectCurrentPlayerStates } from './projectors'
 import { storytellerSeatLabel } from '../seatPresentation'
 import { nextPhaseSequence } from './phaseSegments'
-import { nightInteractionInputs, nightTargetCountForRole } from '../../../domain/scripts/nightInteractionInputs'
 import { projectNightInteraction } from '../../night-workbench/state/projectNightInteraction'
-import { targetContractFor, createRoleSpecificOutcomeOptions } from './nightWakeContract'
+import { createNightWakeInteraction } from './nightWakeInteraction'
 import { applyWakeHistoricalContext } from './nightHistoricalContext'
 import { createAudienceNoticeItem, createFirstNightSystemSteps, mergeFirstNightSystemSteps } from './firstNightSystemSteps'
 import { playerFacingIdentity } from '../../identity-deal/identityProjection'
@@ -74,12 +72,24 @@ export function createSmartScriptNightQueue(
       return playerState ? [createSmartWakeItem({ session, assignment, playerState, role, order, runId, isFirstNight: sequence === 1 })] : []
     })
   })
-  for (const assignment of assignments.filter((entry) => normalizeRoleId(entry.role.id) === 'marionette')) {
+  for (const assignment of assignments.filter((entry) => ['marionette', 'drunk'].includes(normalizeRoleId(entry.role.id)))) {
     const shown = playerFacingIdentity(session, assignment.seatId).role
     const role = shown && roleById.get(normalizeRoleId(shown.id))
-    const order = role && orders.find((entry) => entry.roleId === role.id)
+    const order = role && orders.find((entry) => normalizeRoleId(entry.roleId) === normalizeRoleId(role.id))
     const playerState = playerStates[assignment.seatId]
     if (!role || !shown || !order || !playerState) continue
+    if (normalizeRoleId(assignment.role.id) === 'drunk') {
+      const prompt = `按对外身份“${shown.name}”的时点假装唤醒和反馈。酒鬼实际为外来者，不拥有该镇民能力；本项选择与告知仅记录假装流程，无真实效果，不向玩家展示酒鬼身份。`
+      queue.push({
+        ...createSmartWakeItem({ session, assignment: { ...assignment, role: shown }, playerState, role, order, runId, isFirstNight: sequence === 1 }),
+        id: `${runId}-drunk-pretend-${shown.id}-${assignment.seatId}`,
+        roleId: 'drunk', roleName: `酒鬼（假装${shown.name}）`, roleInitial: assignment.role.initial, iconPath: assignment.role.iconPath,
+        ability: prompt, storytellerPrompt: prompt, reason: prompt,
+        interactionVersion: `drunk/pretend-${shown.id}-v1`,
+        aiAdviceEnabled: false,
+      })
+      continue
+    }
     const prompt = `按对外身份“${shown.name}”的时点假装唤醒和反馈。原善良能力不生效，不执行其毒醉、死亡或身份效果，也不展示提线木偶身份。`
     queue.push({
       ...createSmartWakeItem({ session, assignment: { ...assignment, role: shown }, playerState, role, order, runId, isFirstNight: sequence === 1 }),
@@ -88,6 +98,7 @@ export function createSmartScriptNightQueue(
       ability: prompt, storytellerPrompt: prompt, reason: prompt,
       targetCount: 0, targetRoleChoiceCount: undefined, allowedTargetCounts: undefined, targetKind: undefined,
       targetLabel: undefined, roleCount: undefined, roleChoices: undefined, roleLabel: undefined,
+      informationInput: undefined,
       interactionVersion: 'marionette/pretend-v1',
       outcomeOptions: [{ id: 'record', label: '已完成假装流程', requiredInputs: [], resultTemplate: `{actor}按对外身份“${shown.name}”完成假装流程，原善良技能无真实效果。` }],
     })
@@ -105,18 +116,10 @@ function createSmartWakeItem(input: {
   isFirstNight: boolean
 }): WakeItem {
   const { session, assignment, playerState, role, order, runId, isFirstNight } = input
-  const template = session.scriptId === 'catfishing' ? sampleOtherNightQueue.find((item) => item.roleId === role.id) : undefined
-  const firstNightRoleCount = isFirstNight ? nightInteractionInputs[role.id]?.firstNightRoleCount : undefined
-  const roleChoices = firstNightRoleCount === 0 ? undefined
-    : template?.roleChoices ? structuredClone(template.roleChoices) : createRoleChoices(session.scriptId, role.inputKinds)
-  const contract = targetContractFor(role, session.playerCount, roleAbilityForScript(session.scriptId, role.id))
-  const explicit = nightInteractionInputs[role.id]
-  const targetCount = template?.targetCount ?? (explicit ? nightTargetCountForRole(role, isFirstNight) : contract.targetCount)
-  const genericOptions = createGenericOutcomeOptions(targetCount, Boolean(roleChoices))
-  const specificOptions = createRoleSpecificOutcomeOptions(role.id, contract, Boolean(roleChoices))
-  const outcomes = specificOptions ? [...specificOptions, ...genericOptions.filter((option) => !specificOptions.some((known) => known.id === option.id) && (option.id === 'skip' || !specificOptions.some((known) => known.targetCounts?.length)))] : genericOptions
+  const interaction = createNightWakeInteraction(session.scriptId, role, isFirstNight, session.playerCount)
   const dead = playerState.life === 'dead'
   return applyWakeHistoricalContext(session, projectNightInteraction({
+    ...interaction,
     id: `${runId}-${role.id}-${assignment.seatId}`,
     orderIndex: order.order,
     seatId: assignment.seatId,
@@ -128,54 +131,12 @@ function createSmartWakeItem(input: {
     roleInitial: assignment.role.initial,
     iconPath: assignment.role.iconPath,
     ability: roleAbilityForScript(session.scriptId, role.id),
-    storytellerPrompt: template?.storytellerPrompt ?? order.note ?? rolePromptForScript(session.scriptId, role.id),
+    storytellerPrompt: interaction.storytellerPrompt ?? order.note ?? rolePromptForScript(session.scriptId, role.id),
     progress: 'pending',
     applicability: dead ? 'needs_review' : 'applicable',
     status: toWakeStatus(playerState),
     reason: dead ? '玩家已死亡；请说书人核对是否需要唤醒。' : undefined,
-    targetCount,
-    minimumTargetCount: explicit ? undefined : contract.minimumTargetCount,
-    targetLabel: template?.targetLabel ?? contract.targetLabel ?? (targetCount > 1 ? '玩家' : targetCount === 1 ? '目标' : undefined),
-    targetKind: template?.targetKind ?? (targetCount > 0 ? 'player_choice' : undefined),
-    roleChoices,
-    roleLabel: roleChoices ? template?.roleLabel ?? '角色' : undefined,
-    interactionVersion: template?.interactionVersion ?? `${session.scriptId}/generic-night-v1`,
-    outcomeOptions: template ? structuredClone(template.outcomeOptions) : outcomes,
   }, session.scriptId, { nightType: isFirstNight ? 'first' : 'other', playerCount: session.playerCount }), isFirstNight ? 1 : nextNightSequence(session))
-}
-
-function createRoleChoices(scriptId: string, inputKinds: readonly AbilityInputKind[]): WakeRoleChoice[] | undefined {
-  if (!inputKinds.includes('role')) return undefined
-  return roleSnapshotsForScript(scriptId).map((role) => ({ id: role.id, label: role.name }))
-}
-
-function createGenericOutcomeOptions(targetCount: number, needsRole: boolean) {
-  const requiredInputs: OutcomeInput[] = [
-    ...(targetCount > 0 ? ['targets' as const] : []),
-    ...(needsRole ? ['role' as const] : []),
-  ]
-  const hasInput = requiredInputs.length > 0
-  const resultTemplate = targetCount > 0 && needsRole
-    ? '{actor}记录：{targets} · {role}。'
-    : targetCount > 0
-      ? '{actor}记录：{targets}。'
-      : needsRole
-        ? '{actor}记录：{role}。'
-        : '{actor}本夜已记录。'
-  return [
-    {
-      id: 'record',
-      label: hasInput ? '记录结果' : '已记录',
-      requiredInputs,
-      resultTemplate,
-    },
-    {
-      id: 'skip',
-      label: '不发动',
-      requiredInputs: [],
-      resultTemplate: '{actor}本夜不发动。',
-    },
-  ]
 }
 
 function nextNightRunId(session: GameSessionState, sequence: number) {

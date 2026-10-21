@@ -69,6 +69,8 @@ export default defineConfig({
   },
   test: {
     environment: 'jsdom',
+    // Bound parallel DOM suites on Windows so deferred panels keep their real timing budget.
+    maxWorkers: 4,
     setupFiles: './src/test/setup.ts',
     css: true,
     exclude: ['tests/e2e/**', 'tests/load-performance/**', 'node_modules/**', 'dist/**', '.tmp/**', '.codex-artifacts/**'],

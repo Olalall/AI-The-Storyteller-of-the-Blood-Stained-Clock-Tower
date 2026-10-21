@@ -168,8 +168,13 @@ describe('clocktower-wiki batch 02 A source, candidates and real night inputs', 
     for (const seatId of targets) session = actNight(session, { type: 'target', seatId })
     expect(current(session).item.targetCount).toBe(size)
     expect(current(session).draft.targets).toEqual(targets)
+    if (roleId === 'chambermaid') {
+      session = actNight(session, { type: 'storyteller-context', value: '合成首夜场景：主持确认这两名目标至今均未因自身能力被唤醒，正式告知0。' })
+      session = actNight(session, { type: 'information', value: '0' })
+    }
     session = actNight(session, { type: 'outcome', outcomeId: 'record' })
     expect(canConfirmDraft(current(session).state, current(session).item, current(session).draft)).toBe(true)
+    if (roleId === 'chambermaid') expect(current(session).draft.informationGiven).toBe('0')
     expect(session.timeline).toEqual(authority)
   })
 

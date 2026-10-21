@@ -27,6 +27,7 @@ function inputFor(roleId = 'gambler'): CreateNightResultAdviceInput {
   item.progress = 'pending'
   item.history = undefined
   item.status = { life: 'alive', impairments: [], markers: [] }
+  state.seatSnapshots[item.seatId].status = structuredClone(item.status)
   state.queue = [item]
   state.activeCursorId = state.previewEntryId = item.id
   const draft = { ...emptyWakeDraft(), targets: [9], roleChoice: 'lunatic', draftRevision: 2 }
@@ -53,6 +54,7 @@ function pukkaInput(): CreateNightResultAdviceInput {
   const draft = { ...input.draft, targets: [3], roleChoice: '' }
   input.state.queue = [item]
   input.state.seatSnapshots[12].role = role('pukka', '普卡')
+  input.state.seatSnapshots[12].status = structuredClone(item.status)
   input.state.activeCursorId = input.state.previewEntryId = item.id
   input.state.drafts = { [item.id]: draft }
   return { state: input.state, item, draft }
@@ -75,6 +77,7 @@ export const nightQualityCases: NightQualityCase[] = [
     makeInput: () => {
       const input = inputFor()
       input.item.status.impairments = [impairment]
+      input.state.seatSnapshots[input.item.seatId].status = structuredClone(input.item.status)
       input.draft.roleChoice = 'balloonist'
       return input
     },
@@ -106,6 +109,7 @@ export const nightQualityCases: NightQualityCase[] = [
     makeInput: () => {
       const input = pukkaInput()
       input.item.status.impairments = ['drunk']
+      input.state.seatSnapshots[input.item.seatId].status = structuredClone(input.item.status)
       input.item.history = '第2夜：普卡清醒并成功使4号中毒。第3夜行动前普卡已醉酒；尚未恢复清醒。'
       return input
     },
@@ -120,6 +124,7 @@ export const nightQualityCases: NightQualityCase[] = [
       const input = inputFor('snakecharmer')
       input.draft.targets = [12]
       input.draft.roleChoice = ''
+      input.draft.storytellerContext = '合成场景：说书人已核实5号当前善良、12号当前邪恶；这是本次明确提供的阵营事实，不是从角色类型推断。双方均健康，没有保留原阵营或阻止交换的其他影响。'
       return input
     },
     expectedStatus: 'answer', expectedOutcomeId: 'swap',

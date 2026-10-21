@@ -320,6 +320,25 @@ describe('night settlement AI quality regression', () => {
 })
 
 describe('complex night context and authority regression (no real model)', () => {
+  it.each(['ACTOR-poisoned', 'ACTOR-drunk', 'PUKKA-CURRENT-DRUNK'])('%s supplies a single consistent acting-player status to the production HTTP adapter', async (prefix) => {
+    const input = nightQualityCases.find((testCase) => testCase.id.startsWith(prefix))!.makeInput()
+    const before = JSON.stringify(input)
+    const request = await captureNightQualityRequest(input)
+    expect(request.currentActor?.seatId).toBe(request.wakeItem.seatId)
+    expect(request.currentActor?.status).toEqual(request.wakeItem.status)
+    expect(request.currentActor?.status?.impairments).toEqual([prefix === 'ACTOR-poisoned' ? 'poisoned' : 'drunk'])
+    expect(JSON.stringify(input)).toBe(before)
+  })
+
+  it('the complete Snake Charmer scenario explicitly provides confirmed synthetic alignments rather than inferring them from character types', async () => {
+    const input = nightQualityCases.find((testCase) => testCase.id.startsWith('SNAKECHARMER'))!.makeInput()
+    const request = await captureNightQualityRequest(input)
+    expect(request.draft.storytellerContext).toContain('5号当前善良')
+    expect(request.draft.storytellerContext).toContain('12号当前邪恶')
+    expect(request.draft.storytellerContext).toContain('说书人已核实')
+    expect(request.draft.storytellerContext).toBe(input.draft.storytellerContext)
+  })
+
   it.each(nightQualityCases)('$id preserves the actual prompt context and rejects invented outcomes', async (testCase) => {
     const input = testCase.makeInput()
     const before = JSON.stringify(input)

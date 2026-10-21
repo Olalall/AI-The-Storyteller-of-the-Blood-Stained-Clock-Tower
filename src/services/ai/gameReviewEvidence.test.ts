@@ -23,6 +23,12 @@ function fixture() {
 }
 
 describe('review evidence projection', () => {
+  it('reconstructs corrections from an old archive whose summary missed withdrawn votes', () => {
+    const archive = fixture()
+    archive.summary.corrections = 0
+    expect(createLocalGameReviewDraft(archive).evaluation.correction).toContain('1条更正（含撤销）')
+    expect(archive.summary.corrections).toBe(0)
+  })
   it('prioritizes later corrections and execution, retaining original facts and exact structural seats', () => {
     const archive = fixture()
     const before = JSON.stringify(archive)

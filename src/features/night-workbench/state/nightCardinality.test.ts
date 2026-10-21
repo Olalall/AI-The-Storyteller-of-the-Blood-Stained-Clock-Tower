@@ -37,6 +37,7 @@ describe('registered script night input cardinalities', () => {
     for (const seatId of targets) session = actNight(session, { type: 'target', seatId })
     expect(current(session).draft.targets).toEqual(targets)
     expect(current(session).item.targetCount).toBe(targets.length)
+    if (role === 'chambermaid') session = actNight(session, { type: 'information', value: '1' })
     session = actNight(session, { type: 'outcome', outcomeId: 'record' })
     expect(canConfirmDraft(current(session).state, current(session).item, current(session).draft)).toBe(true)
     expect(session.timeline).toEqual(authority)

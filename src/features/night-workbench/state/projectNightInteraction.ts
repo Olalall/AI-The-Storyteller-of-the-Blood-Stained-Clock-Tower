@@ -5,7 +5,7 @@ import type { NightType, WakeItem } from '../types'
 
 /** 只修正表单元数据；不重排旧夜序，也不重算已确认记录。 */
 export function projectNightInteraction(item: WakeItem, scriptId: string, night?: { nightType: NightType; playerCount: number }): WakeItem {
-  item = projectNightResultContract(item)
+  item = projectNightResultContract(item, night?.playerCount)
   const roleId = normalizeRoleId(item.roleId)
   if (item.abilityPhase === 'initial' && night) night = { ...night, nightType: 'first' }
   if (roleId === 'marionette' && night?.nightType === 'first' && item.interactionVersion !== 'marionette/pretend-v1') return {

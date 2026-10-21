@@ -22,6 +22,7 @@ import type { GameEndMode } from './features/game-end/GameEndSheet'
 import { HostNotice } from './components/ui/HostNotice'
 import { PWAInstallProvider } from './features/pwa/PWAInstallProvider'
 import { PWAStatusNotices } from './features/pwa/PWAStatusNotices'
+import { TimelineHistorySheet } from './features/history/TimelineHistorySheet'
 type View = 'dashboard' | 'night' | 'day' | 'timer'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
   const [setupOpen, setSetupOpen] = useState(false)
   const [identityDealOpen, setIdentityDealOpen] = useState(false)
   const [gameEndOpen, setGameEndOpen] = useState(false)
+  const [recordsOpen, setRecordsOpen] = useState(false)
   const [gameEndMode, setGameEndMode] = useState<GameEndMode>('save')
   const [resetNotice, setResetNotice] = useState('')
   const [scriptLibraryOpen, setScriptLibraryOpen] = useState(false)
@@ -50,6 +52,7 @@ function App() {
     setSetupOpen(true)
     setIdentityDealOpen(false)
     setGameEndOpen(false)
+    setRecordsOpen(false)
     setScriptLibraryOpen(false)
     setPlayerStatusSeatId(null)
     setNextScriptAfterReset(null)
@@ -83,6 +86,7 @@ function App() {
             nodes={projectPhaseTrack(session)}
             actions={(
               <PhaseUtilityActions dispatch={dispatch} session={session} onRestore={async (next) => { await restoreSession(next); setSetupScriptId(next.scriptId) }} tutorialOpen={tutorialOpen} onTutorialOpenChange={setTutorialOpen}
+                onOpenRecords={() => setRecordsOpen(true)}
                 onOpenReview={() => { setGameEndMode('review'); setGameEndOpen(true) }}
                 onOpenSave={() => { setGameEndMode('save'); setGameEndOpen(true) }}
                 onOpenReset={() => { setGameEndMode('reset'); setGameEndOpen(true) }} />
@@ -100,6 +104,8 @@ function App() {
         <GameEndSheet open={gameEndOpen} session={session} initialMode={gameEndMode} onResetGame={resetGame}
           nextScriptLabel={nextScriptAfterReset ? scriptDisplayName(nextScriptAfterReset) : null}
           onOpenChange={(nextOpen) => { setGameEndOpen(nextOpen); if (!nextOpen) { if (nextScriptAfterReset) setScriptLibraryOpen(true); setNextScriptAfterReset(null) } }} />
+        <TimelineHistorySheet open={recordsOpen} onOpenChange={setRecordsOpen} session={session} dispatch={dispatch}
+          onOpenPlayerStatus={setPlayerStatusSeatId} onOpenDayWorkbench={phaseEntry.enterDay} onOpenSetup={() => setSetupOpen(true)} />
         <ScriptLibrarySheet open={scriptLibraryOpen} onOpenChange={setScriptLibraryOpen} session={session} onSelectScript={(id) => { void scriptRequest.run(id, () => { setScriptLibraryOpen(false); selectSetupScript(id) }, '返回选板') }}
           onRequestResetSwitch={(id) => { void scriptRequest.run(id, () => { setScriptLibraryOpen(false); setNextScriptAfterReset(id); setGameEndMode('reset'); setGameEndOpen(true) }, '返回选板') }} />
         <PlayerStatusOverlay seatId={playerStatusSeatId} session={session} dispatch={dispatch} onOpenChange={(open) => { if (!open) setPlayerStatusSeatId(null) }} />

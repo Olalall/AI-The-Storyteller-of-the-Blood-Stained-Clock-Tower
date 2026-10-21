@@ -1,13 +1,13 @@
-import { badMoonRisingRoles } from './packs/bad-moon-rising/roles'
-import { aGrimmChorusRoles } from './packs/a-grimm-chorus/roles'
-import { devoutTheistsRoles } from './packs/devout-theists/roles'
-import { hideAndSeekRoles } from './packs/hide-and-seek/roles'
-import { lunarEclipseRoles } from './packs/lunar-eclipse/roles'
-import { oneInOneOutRoles } from './packs/one-in-one-out/roles'
-import { punchyRoles } from './packs/punchy/roles'
-import { quickMathsRoles } from './packs/quick-maths/roles'
-import { sectsAndVioletsRoles } from './packs/sects-and-violets/roles'
-import { troubleBrewingRoles } from './packs/trouble-brewing/roles'
+import { badMoonRisingRoles } from './role-library/bad-moon-rising/roles'
+import { aGrimmChorusRoles } from './role-library/a-grimm-chorus/roles'
+import { devoutTheistsRoles } from './role-library/devout-theists/roles'
+import { hideAndSeekRoles } from './role-library/hide-and-seek/roles'
+import { lunarEclipseRoles } from './role-library/lunar-eclipse/roles'
+import { oneInOneOutRoles } from './role-library/one-in-one-out/roles'
+import { punchyRoles } from './role-library/punchy/roles'
+import { quickMathsRoles } from './role-library/quick-maths/roles'
+import { sectsAndVioletsRoles } from './role-library/sects-and-violets/roles'
+import { troubleBrewingRoles } from './role-library/trouble-brewing/roles'
 import type { RoleId, SmartRoleDefinition } from './types'
 
 const confirmedRoleFacts = new Map<RoleId, SmartRoleDefinition>()
@@ -25,6 +25,10 @@ for (const role of [
   ...sectsAndVioletsRoles,
 ]) {
   confirmedRoleFacts.set(role.id, role)
+}
+
+export function confirmedRoleFactsList(): readonly SmartRoleDefinition[] {
+  return [...confirmedRoleFacts.values()]
 }
 
 export function confirmedRoleFactsForScript(roleIds: readonly RoleId[]): readonly SmartRoleDefinition[] {

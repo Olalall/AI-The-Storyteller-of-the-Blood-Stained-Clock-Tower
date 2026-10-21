@@ -36,6 +36,7 @@ test-results
 .openai-key
 *.pid
 # Local scratch/generated files
+.tmp/
 tmp_*
 *.tmp
 # Public repository boundary: BOTC official/community visual assets are local optional packs.
