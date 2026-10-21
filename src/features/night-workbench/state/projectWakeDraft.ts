@@ -149,7 +149,7 @@ function renderTemplate(template: string, item: WakeItem, draft: WakeDraft) {
   const role = selectedRoleLabel(item, draft)
   const registration = selectedRegistrationLabel(item, draft)
   const values: Record<string, string> = {
-    actor: item.systemStep ? item.roleName : `${item.seatId}号${item.roleName}`,
+    actor: item.systemStep || item.lilMonstaStep ? item.roleName : `${item.seatId}号${item.roleName}`,
     target: targets,
     targets,
     role,

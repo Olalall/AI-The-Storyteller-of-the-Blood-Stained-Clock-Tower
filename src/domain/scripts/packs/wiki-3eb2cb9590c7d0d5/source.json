@@ -1,0 +1,552 @@
+[
+    {
+        "id": "_meta",
+        "name": "回到三日之前",
+        "logo": "https://www.helloimg.com/i/2024/10/30/6721d5e886dde.png",
+        "author":"星火乐",
+        "description": "回到三日之前",
+        "townsfolkName": "镇民",
+        "outsidersName": "外来者",
+        "minionsName": "爪牙",
+        "demonsName": "恶魔",
+        "townsfolk": "镇民",
+        "outsider": "外来者",
+        "minion": "爪牙",
+        "demon": "恶魔",
+        "a jinxedName": "相克",
+        "a jinxed": "相克"
+    },
+    {
+        "id": "5e78c085-752c-4b2f-b1a3-6f5eac6b6092",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/6/66/Grandmother.png/300px-Grandmother.png",
+        "edition": "custom",
+        "name": "祖母",
+        "ability": "在你的首个夜晚，你会得知一名善良玩家和他的角色。如果恶魔杀死了他，你也会死亡。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 43,
+        "otherNight": 66,
+        "firstNightReminder": "唤醒祖母，对她指向一名善良玩家，并展示该玩家的角色标记。",
+        "otherNightReminder": "如果恶魔杀死了孙子，祖母死亡。",
+        "reminders": [
+            "孙子",
+            "死亡"
+        ],
+        "setup": false
+    },
+    {
+        "id": "e0908ac4-7ed1-4e0f-8e05-1e4797c6cb63",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/4/4e/Empath.png/300px-Empath.png",
+        "edition": "custom",
+        "name": "共情者",
+        "ability": "每个夜晚,你会得知与你邻近的两名存活的玩家中邪恶玩家的数量。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 39,
+        "otherNight": 80,
+        "firstNightReminder": "唤醒共情者，对他用手势比划数字来告知他与他邻近的存活玩家中有几人是邪恶玩家。",
+        "otherNightReminder": "唤醒共情者，对他用手势比划数字来告知他与他邻近的存活玩家中有几人是邪恶玩家。",
+        "reminders": [],
+        "setup": false
+    },
+    {
+        "id": "3d3398bf-6c1a-4ff3-8f65-ae58f9279765",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/6/67/Fortuneteller.png/300px-Fortuneteller.png",
+        "edition": "custom",
+        "name": "占卜师",
+        "ability": "每个夜晚，你要选择两名玩家：你会得知他们之中是否有恶魔。会有一名善良玩家始终被你的能力当作恶魔。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 40,
+        "otherNight": 81,
+        "firstNightReminder": "唤醒占卜师，让他选择两名玩家。以点头或摇头告知他是否选中了恶魔。",
+        "otherNightReminder": "唤醒占卜师，让他选择两名玩家。以点头或摇头告知他是否选中了恶魔。",
+        "reminders": [
+            "干扰项"
+        ],
+        "setup": false
+    },
+    {
+        "id": "02c54272-eca8-47bc-89c2-57d8e66cf759",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/0/00/Chambermaid.png/300px-Chambermaid.png",
+        "edition": "custom",
+        "name": "侍女",
+        "ability": "每个夜晚，你要选择除你以外的两名存活的玩家：你会得知他们中有几人在当晚因其自身能力而被唤醒。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 64,
+        "otherNight": 100,
+        "firstNightReminder": "唤醒侍女，让她选择两名除自己以外的存活玩家。用手势比划数字来告知她这些玩家中因自己能力而唤醒的玩家数量。",
+        "otherNightReminder": "唤醒侍女，让她选择两名除自己以外的存活玩家。用手势比划数字来告知她这些玩家中因自己能力而唤醒的玩家数量。",
+        "reminders": [],
+        "setup": false
+    },
+    {
+        "id": "8562ed12-112c-413e-a97e-d55b47c57935",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/a/ab/Snakecharmer.png/300px-Snakecharmer.png",
+        "edition": "custom",
+        "name": "舞蛇人",
+        "ability": "每个夜晚，你要选择一名存活的玩家：如果你选中了恶魔，你和他交换角色和阵营，然后他中毒。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 21,
+        "otherNight": 13,
+        "firstNightReminder": "唤醒舞蛇人，让他选择一名存活玩家。如果选中恶魔则执行角色和阵营的交换，并在舞蛇人入睡后通知旧恶魔角色变化。",
+        "otherNightReminder": "唤醒舞蛇人，让他选择一名存活玩家。如果选中恶魔则执行角色和阵营的交换，并在舞蛇人入睡后通知旧恶魔角色变化。",
+        "reminders": [
+            "中毒"
+        ],
+        "setup": false
+    },
+    {
+        "id": "8e236331-7d6e-4419-bf4a-949ac2e7993b",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/35/Balloonist.png/300px-Balloonist.png",
+        "edition": "custom",
+        "name": "气球驾驶员",
+        "ability": "每个夜晚，你会得知一名与上个夜晚得知的玩家角色类型不同的玩家。[+0~1外来者]",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 50,
+        "otherNight": 90,
+        "firstNightReminder": "唤醒气球驾驶员，对他指向一名玩家。",
+        "otherNightReminder": "唤醒气球驾驶员，对他指向一名玩家，这名玩家与之前气球驾驶员上一个夜晚得知过的玩家属于不同的角色类型。",
+        "reminders": [
+            "得知"
+        ],
+        "setup": true
+    },
+    {
+        "id": "dbf4a509-8c0e-4953-963c-cdd4510393ad",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/a/ac/Exorcist.png/300px-Exorcist.png",
+        "edition": "custom",
+        "name": "驱魔人",
+        "ability": "每个夜晚*，你要选择一名玩家（与上个夜晚不同）：如果你选中了恶魔，他会得知你的角色，但他当晚不会因其自身能力而被唤醒。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 0,
+        "otherNight": 29,
+        "firstNightReminder": "",
+        "otherNightReminder": "唤醒驱魔人，让他选择一名与上一晚不同的玩家。如果他选中了恶魔，则在驱魔人入睡后通知该恶魔谁是驱魔人。",
+        "reminders": [
+            "被选择"
+        ],
+        "setup": false
+    },
+    {
+        "id": "61d37f22-1ac4-4691-ba80-3584991ba282",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/a/ae/Seamstress.png/300px-Seamstress.png",
+        "edition": "custom",
+        "name": "女裁缝",
+        "ability": "每局游戏限一次，在夜晚时，你可以选择除你以外的两名玩家：你会得知他们是否为同一阵营。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 46,
+        "otherNight": 88,
+        "firstNightReminder": "唤醒女裁缝，她可以摇头不使用能力，或选择除自己以外的两名玩家。以点头或摇头告知她选择的玩家是否为同一阵营。",
+        "otherNightReminder": "如果女裁缝未曾使用能力，唤醒女裁缝，她可以摇头不使用能力，或选择除自己以外的两名玩家。以点头或摇头告知她选择的玩家是否为同一阵营。",
+        "reminders": [
+            "失去能力"
+        ],
+        "setup": false
+    },
+    {
+        "id": "112d1b3d-9bea-4932-894f-6c60596d22a3",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/7/75/Huntsman.png/300px-Huntsman.png",
+        "edition": "custom",
+        "name": "巡山人",
+        "ability": "每局游戏限一次，在夜晚时，你可以选择一名存活的玩家：如果你选中了落难少女，她会变成一个不在场的镇民角色。[+落难少女]",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 34,
+        "otherNight": 77,
+        "firstNightReminder": "唤醒巡山人，他可以摇头不使用能力，或选择一名玩家。如果巡山人选中了落难少女，则在巡山人入睡后通知落难少女角色变化。",
+        "otherNightReminder": "如果巡山人未曾使用能力，唤醒巡山人，他可以摇头不使用能力，或选择一名玩家。如果巡山人选中了落难少女，则在巡山人入睡后通知落难少女角色变化。",
+        "reminders": [
+            "失去能力"
+        ],
+        "setup": true
+    },
+    {
+        "id": "7c81d834-b9b4-419e-8f5c-e13b81522163",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/5/53/Savant.png/300px-Savant.png",
+        "edition": "custom",
+        "name": "博学者",
+        "ability": "每个白天，你可以私下询问说书人以得知两条信息：一个是正确的，一个是错误的。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 0,
+        "otherNight": 0,
+        "firstNightReminder": "",
+        "otherNightReminder": "",
+        "reminders": [],
+        "setup": false
+    },
+    {
+        "id": "13baf086-104c-4bd2-b175-465a0d08108f",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/5/5b/Alchemist.png/300px-Alchemist.png",
+        "edition": "custom",
+        "name": "炼金术士",
+        "ability": "你拥有一个不在场的爪牙角色的能力。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 3.3,
+        "otherNight": 0,
+        "firstNightReminder": "唤醒炼金术士，对他展示他获得的能力所对应的爪牙角色标记。",
+        "remindersGlobal": [
+            "是炼金术士"
+        ],
+        "setup": false
+    },
+  {
+    "id": "a5e6733d-210b-4559-d788",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/d/d3/Banshee.png/300px-Banshee.png",
+    "edition": "custom",
+    "name": "报丧女妖",
+    "ability": "如果恶魔杀死了你，所有玩家都会得知此事。从现在开始，你每天可以发起两次提名，每次投票时可以投两票。",
+    "team": "townsfolk",
+    "sch_team": "村民",
+    "firstNight": 0,
+    "otherNight": 75,
+    "firstNightReminder": "如果恶魔杀死了报丧女妖，宣布“报丧女妖觉醒了”，并使用“具有能力”标记报丧女妖。",
+    "reminders": [
+      "具有能力"
+    ],
+        "setup": false
+  },
+    {
+        "id": "96683ba2-6635-4c30-8306-86e5efec5a11",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/7/70/Fool.png/300px-Fool.png",
+        "edition": "custom",
+        "name": "弄臣",
+        "ability": "当你首次将要死亡时，你不会死亡。",
+        "team": "townsfolk",
+        "sch_team": "镇民",
+        "firstNight": 0,
+        "otherNight": 0,
+        "firstNightReminder": "",
+        "otherNightReminder": "",
+        "reminders": [
+            "失去能力"
+        ],
+        "setup": false
+    },
+    {
+        "id": "711e5e9d-3d45-48e4-b359-66725aa1a58c",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/cd/Goon.png/300px-Goon.png",
+        "edition": "custom",
+        "name": "莽夫",
+        "ability": "每个夜晚，首个使用其自身能力选择了你的玩家会醉酒直到下个黄昏。你会转变为他的阵营。",
+        "team": "outsider",
+        "sch_team": "外来者",
+        "firstNight": 0,
+        "otherNight": 0,
+        "firstNightReminder": "",
+        "otherNightReminder": "",
+        "reminders": [
+            "醉酒"
+        ],
+        "setup": false
+    },
+    {
+        "id": "af5d2da7-2510-456a-b420-9397f6f3877b",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/8/89/Lunatic.png/300px-Lunatic.png",
+        "edition": "custom",
+        "name": "疯子",
+        "ability": "你以为你是一个恶魔，但其实你不是。恶魔知道你是疯子以及你在每个夜晚选择了哪些玩家。",
+        "team": "outsider",
+        "sch_team": "外来者",
+        "firstNight": 5.3,
+        "otherNight": 28,
+        "firstNightReminder": "唤醒疯子并向他提供恶魔信息。如可能，则让疯子进行相应的恶魔行动。随后在恶魔信息环节对恶魔提供疯子的相关信息。",
+        "otherNightReminder": "如果疯子以为的恶魔会在当晚行动，唤醒疯子，并让他以恶魔的方式行动。",
+        "reminders": [
+            "被选择"
+        ],
+        "remindersGlobal": [
+            "是疯子"
+        ],
+        "setup": true
+    },
+    {
+        "id": "f66fd04a-651f-4092-88c5-1207c8cfe3bf",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/b/b6/Damsel.png/300px-Damsel.png",
+        "edition": "custom",
+        "name": "落难少女",
+        "ability": "所有爪牙都知道落难少女在场。每局游戏限一次，任意爪牙可以公开猜测你是落难少女，如果猜对，你的阵营落败。",
+        "team": "outsider",
+        "sch_team": "外来者",
+        "firstNight": 5.1,
+        "otherNight": 0,
+        "firstNightReminder": "如果落难少女在场，对爪牙展示落难少女角色标记。",
+        "otherNightReminder": "0",
+        "reminders": [
+            "已被猜测"
+        ],
+        "setup": false
+    },
+    {
+        "id": "maojiang",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/e/ee/Hatter.png/300px-Hatter.png",
+        "edition": "custom",
+        "name": "帽匠",
+        "ability": "如果你死亡，当晚爪牙和恶魔玩家可以选择变成新的爪牙和恶魔角色。",
+        "team": "outsider",
+        "sch_team": "外来者",
+        "firstNight": 0,
+        "otherNight": 3,
+        "firstNightReminder": "",
+        "otherNightReminder": "如果帽匠死于白天，（建议分别）唤醒恶魔和爪牙并让他们选择是否改变角色。如果帽匠死于夜晚，则在当前玩家行动结束后立即开始茶会。",
+        "reminders": [
+            "今晚茶会"
+        ],
+        "setup": false
+    },
+    {
+        "id": "e124340a-52c3-470d-90f0-0ed0103dfbfd",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/7/74/Poisoner.png/300px-Poisoner.png",
+        "edition": "custom",
+        "name": "投毒者",
+        "ability": "每个夜晚，你要选择一名玩家：他在当晚和明天白天中毒。",
+        "team": "minion",
+        "sch_team": "爪牙",
+        "firstNight": 18,
+        "otherNight": 9,
+        "firstNightReminder": "唤醒投毒者，让他选择一名玩家，那名玩家中毒。",
+        "otherNightReminder": "唤醒投毒者，让他选择一名玩家，那名玩家中毒。",
+        "reminders": [
+            "中毒"
+        ],
+        "setup": false
+    },
+    {
+        "id": "eabea94a-5492-40de-828d-dcd0386549dc",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/d/de/Pithag.png/300px-Pithag.png",
+        "edition": "custom",
+        "name": "麻脸巫婆",
+        "ability": "每个夜晚*，你要选择一名玩家和一个角色，如果该角色不在场，他变成该角色。如果因此创造了一个恶魔，当晚的死亡由说书人决定。",
+        "team": "minion",
+        "sch_team": "爪牙",
+        "firstNight": 0,
+        "otherNight": 8,
+        "firstNightReminder": "",
+        "otherNightReminder": "唤醒麻脸巫婆，让她选择一名玩家和角色列表上的一个角色。如果该角色不在场，则在麻脸巫婆入睡后通知该玩家角色变化。根据实际情况，可以将相关通知合并，例如玩家变成了恶魔，则在恶魔行动时一并唤醒，通知角色变化并让他执行相应行动。",
+        "reminders": [],
+        "setup": false
+    },
+    {
+        "id": "5d11e-0be8-47cb-a6c8-f84ef5943659",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+        "edition": "custom",
+        "name": "召唤师",
+        "ability": "在首个夜晚，你会得知三个伪装。在第三个夜晚，你要选择一名玩家：他变成由你选择的邪恶恶魔。[无恶魔在场]",
+        "team": "minion",
+        "sch_team": "爪牙",
+        "firstNight": 5.2,
+        "otherNight": 27,
+        "firstNightReminder": "唤醒召唤师，对他展示三个不在场的善良角色标记。",
+        "otherNightReminder": "如果这是游戏中的第三个夜晚，唤醒召唤师，让他选择一名玩家和一个恶魔角色，那名玩家变成由他选择的邪恶恶魔。",
+        "reminders": [
+            "第一晚",
+            "第二晚",
+            "第三晚"
+        ],
+        "setup": true
+    },
+    {
+        "id": "62b26ea6-53e2-4cf4-953e-7f0f095a5781",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/b/b0/Boomdandy.png/300px-Boomdandy.png",
+        "edition": "custom",
+        "name": "炸弹人",
+        "ability": "如果你被处决，除三名玩家以外的其他所有玩家均会死亡。一分钟之后，被最多玩家手指指着的玩家死亡。",
+        "team": "minion",
+        "sch_team": "爪牙",
+        "firstNight": 0,
+        "otherNight": 0,
+        "firstNightReminder": "",
+        "otherNightReminder": "",
+        "reminders": [],
+        "setup": false
+    },
+    {
+        "id": "df0e4318-dbd9-4585-ab1e-78f68f5e0c19",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/b/bf/Po.png/300px-Po.png",
+        "edition": "custom",
+        "name": "珀",
+        "ability": "每个夜晚*，你可以选择一名玩家：他死亡。如果你上次选择时没有选择任何玩家，当晚你要选择三名玩家：他们死亡。",
+        "team": "demon",
+        "sch_team": "恶魔",
+        "firstNight": 0,
+        "otherNight": 35,
+        "firstNightReminder": "",
+        "otherNightReminder": "唤醒珀，他可以攻击一名玩家或不进行攻击，如果他上一次选择了不进行攻击，则此次必须攻击三名玩家。",
+        "reminders": [
+            "攻击三次",
+            "死亡"
+        ],
+        "setup": false
+    },
+    {
+        "id": "cab39e97-f125-40e3-b3fc-0cb66d332988",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/f/fc/Vigormortis.png/300px-Vigormortis.png",
+        "edition": "custom",
+        "name": "亡骨魔",
+        "ability": "每个夜晚*，你要选择一名玩家：他死亡。被你杀死的爪牙保留他的能力，且与他邻近的两名镇民之一中毒。[-1外来者]",
+        "team": "demon",
+        "sch_team": "恶魔",
+        "firstNight": 0,
+        "otherNight": 40,
+        "firstNightReminder": "",
+        "otherNightReminder": "唤醒亡骨魔，让他攻击一名玩家。",
+        "reminders": [
+            "死亡",
+            "保留能力",
+            "中毒"
+        ],
+        "setup": true
+    },
+    {
+        "id": "cea8c77b-33d1-41bd-a0eb-d32303ee2496",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/0/09/Alhadikhia.png/300px-Alhadikhia.png",
+        "edition": "custom",
+        "name": "哈迪寂亚",
+        "ability": "每个夜晚*，你要选择三名玩家（所有玩家会得知你选了谁）：他们分别秘密决定自己的生死，然后如果他们都存活则都死亡。",
+        "team": "demon",
+        "sch_team": "恶魔",
+        "firstNight": 0,
+        "otherNight": 42,
+        "firstNightReminder": "",
+        "otherNightReminder": "唤醒哈迪寂亚，让他选择三名玩家。执行哈迪寂亚的能力流程（参考哈迪寂亚的百科页面）。",
+        "reminders": [
+            "1",
+            "2",
+            "3",
+            "选择生",
+            "选择死"
+        ],
+        "setup": false
+    },
+    {
+        "id": "5049c07f-0dda-449e-b31b-1ad59e6ed204",
+        "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/c0/Riot.png/300px-Riot.png",
+        "edition": "custom",
+        "name": "暴乱",
+        "ability": "被提名的玩家死亡，但他可以立刻再次发起提名（第三天白天他必须这么做）。在第三个白天结束时，邪恶阵营获胜。[所有爪牙都是暴乱]",
+        "team": "demon",
+        "sch_team": "恶魔",
+        "firstNight": 0,
+        "otherNight": 0,
+        "firstNightReminder": "",
+        "otherNightReminder": "",
+        "reminders": [],
+        "setup": true
+    }, 
+  {
+    "id": "3_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/c0/Riot.png/300px-Riot.png",
+    "name": "暴乱&祖母",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "如果暴乱提名并杀死了孙子，祖母会一同死亡。 "
+  },
+  {
+    "id": "1_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/c0/Riot.png/300px-Riot.png",
+    "name": "暴乱&驱魔人",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "互为克星的角色在同一时间里只能有其中一个角色在场。"
+  },
+  {
+    "id": "4_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/c0/Riot.png/300px-Riot.png",
+    "name": "暴乱&报丧女妖",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "如果暴乱提名并杀死了报丧女妖，所有玩家都会得知报丧女妖死亡，随后报丧女妖可以立即提名两名玩家。（同时或按顺序结算这两条提名链。）"
+  },
+  {
+    "id": "2_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/c0/Riot.png/300px-Riot.png",
+    "name": "暴乱&落难少女",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "暴乱被落难少女当作爪牙。  "
+  },
+  {
+    "id": "6_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/c0/Riot.png/300px-Riot.png",
+    "name": "暴乱&帽匠",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "如果帽匠死亡时暴乱在场，一名暴乱选择变成其他恶魔，则其他所有暴乱需要选择变成其他爪牙。如果帽匠死亡时恶魔选择变成暴乱，所有爪牙会一同变成暴乱（如果发生在第三天后，则游戏会多进行一天）。"
+  },
+  {
+    "id": "5_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/c0/Riot.png/300px-Riot.png",
+    "name": "暴乱&麻脸巫婆",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "如果麻脸巫婆创造了暴乱，所有邪恶玩家都会变成暴乱。如果麻脸巫婆在游戏的第三天之后创造了暴乱，则游戏还会再进行一天。"
+  },
+  {
+    "id": "7_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/c/c0/Riot.png/300px-Riot.png",
+    "name":  "暴乱与召唤师",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "如果召唤师创造了暴乱，被选择的玩家和所有邪恶玩家都变成邪恶的暴乱。被选择的玩家必须是与召唤师邻近的存活善良玩家。"
+  },
+  {
+    "id": "8_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+    "name":  "召唤师&炼金术士",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "如果炼金术士获得了召唤师的能力，游戏会以初始有恶魔在场进行。炼金术士召唤师选择的玩家会变成恶魔但不会改变阵营。"
+  },
+  {
+    "id": "48.1_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+    "name": "召唤师&帽匠",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "召唤师无法创造已经在场的恶魔。如果召唤师创造了一个不在场的恶魔，当晚的死亡由说书人决定。"
+  },
+  {
+    "id": "9_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+    "name":  "召唤师&麻脸巫婆",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "召唤师无法创造已经在场的恶魔。如果召唤师创造了一名不在场的恶魔，当晚的死亡由说书人决定。"
+  },
+  {
+    "id": "114_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/d/de/Pithag.png/300px-Pithag.png",
+    "name": "麻脸巫婆&莽夫",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "被麻脸巫婆创造的邪恶莽夫无法因为自身能力转变为善良阵营。"
+  },
+  {
+    "id": "11_meta",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/d/de/Pithag.png/300px-Pithag.png",
+    "name":  "麻脸巫婆与落难少女",
+    "team": "a jinxed",
+    "setup": 0,
+    "ability": "如果麻脸巫婆创造了落难少女，改为由说书人来决定哪一名玩家变成落难少女。"
+  },
+  {
+    "id": "shengjiezhihunhunhun",
+    "image": "https://clocktower-wiki.gstonegames.com/images/thumb/9/9f/Spiritofivory.png/300px-Spiritofivory.png",
+    "edition": "custom",
+    "name": "圣洁之魂",
+    "ability": "游戏过程中邪恶玩家的总数最多能比初始设置多一名。",
+    "team": "fabled",
+        "reminders": [
+            "禁止邪恶"
+        ],
+    "firstNight": 0,
+    "otherNight": 0
+  }
+]

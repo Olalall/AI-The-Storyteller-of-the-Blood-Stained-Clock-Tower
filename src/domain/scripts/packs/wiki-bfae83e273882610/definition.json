@@ -1,0 +1,1446 @@
+{
+  "scriptId": "wiki-bfae83e273882610",
+  "displayName": "刺杀金牛座",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "Etreides",
+    "version": "库记录542 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:bfae83e27388261059b5e3323d7d3115647f7c514619ff3ab4eab5856c08f363",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "chef",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "flowergirl",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "alsaahir",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "soldier",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "spy",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "summoner",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "lordoftyphon",
+      "sourceId": "xin-kou-ci-huang",
+      "sourceVersion": "sha256:4397c0506ab8e254b135a0610c1b096a8304925c86694e953514adf67ab1cd69"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-1",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "mayor"
+      ],
+      "bluffs": [
+        "chef",
+        "librarian",
+        "pixie"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-2",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "lordoftyphon",
+        "soldier",
+        "cannibal",
+        "mayor",
+        "chef"
+      ],
+      "bluffs": [
+        "pixie",
+        "empath",
+        "flowergirl"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-3",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "vigormortis",
+        "chef",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl"
+      ],
+      "bluffs": [
+        "savant",
+        "alsaahir",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-4",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "mayor",
+        "chef",
+        "drunk"
+      ],
+      "bluffs": [
+        "librarian",
+        "pixie",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-5",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "assassin",
+        "lordoftyphon",
+        "cannibal",
+        "mayor",
+        "chef",
+        "librarian",
+        "recluse"
+      ],
+      "bluffs": [
+        "empath",
+        "flowergirl",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-6",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 8,
+      "style": "chaos",
+      "roles": [
+        "poisoner",
+        "vortox",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "mutant"
+      ],
+      "bluffs": [
+        "savant",
+        "alsaahir",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-7",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "mayor",
+        "chef",
+        "librarian",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "pixie",
+        "empath",
+        "flowergirl"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-8",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "spy",
+        "lordoftyphon",
+        "mayor",
+        "chef",
+        "librarian",
+        "pixie",
+        "mutant",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "towncrier",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-9",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 9,
+      "style": "chaos",
+      "roles": [
+        "assassin",
+        "vigormortis",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "alsaahir",
+        "fisherman",
+        "soldier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-10",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "spy",
+        "soldier",
+        "cannibal",
+        "mayor",
+        "chef",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl"
+      ],
+      "bluffs": [
+        "towncrier",
+        "monk",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-11",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "scarletwoman",
+        "poisoner",
+        "lordoftyphon",
+        "chef",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier"
+      ],
+      "bluffs": [
+        "savant",
+        "alsaahir",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-12",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "spy",
+        "scarletwoman",
+        "vortox",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman"
+      ],
+      "bluffs": [
+        "pixie",
+        "soldier",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-13",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "scarletwoman",
+        "cannibal",
+        "mayor",
+        "chef",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "monk",
+        "savant",
+        "alsaahir"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-14",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "assassin",
+        "lordoftyphon",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "drunk"
+      ],
+      "bluffs": [
+        "savant",
+        "alsaahir",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-15",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 11,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "vigormortis",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal"
+      ],
+      "bluffs": [
+        "pixie",
+        "empath",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-16",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "poisoner",
+        "mayor",
+        "chef",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "savant",
+        "alsaahir",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-17",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "assassin",
+        "spy",
+        "lordoftyphon",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "librarian",
+        "alsaahir",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-18",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "poisoner",
+        "assassin",
+        "vortox",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "mutant",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "pixie",
+        "empath",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-19",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "assassin",
+        "spy",
+        "chef",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman"
+      ],
+      "bluffs": [
+        "soldier",
+        "cannibal",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-20",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "spy",
+        "scarletwoman",
+        "poisoner",
+        "lordoftyphon",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier"
+      ],
+      "bluffs": [
+        "librarian",
+        "pixie",
+        "cannibal"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-21",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 13,
+      "style": "chaos",
+      "roles": [
+        "assassin",
+        "spy",
+        "scarletwoman",
+        "vigormortis",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "mayor",
+        "chef",
+        "librarian"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "towncrier",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-22",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "spy",
+        "scarletwoman",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "mutant"
+      ],
+      "bluffs": [
+        "chef",
+        "cannibal",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-23",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "scarletwoman",
+        "poisoner",
+        "assassin",
+        "lordoftyphon",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "librarian",
+        "pixie",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-24",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 14,
+      "style": "chaos",
+      "roles": [
+        "spy",
+        "scarletwoman",
+        "poisoner",
+        "vortox",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "mayor",
+        "chef",
+        "librarian",
+        "pixie",
+        "drunk"
+      ],
+      "bluffs": [
+        "towncrier",
+        "monk",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-25",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "scarletwoman",
+        "poisoner",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "plaguedoctor",
+        "drunk"
+      ],
+      "bluffs": [
+        "chef",
+        "librarian",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-26",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "assassin",
+        "spy",
+        "lordoftyphon",
+        "towncrier",
+        "monk",
+        "savant",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "mayor",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "librarian",
+        "pixie",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "lordoftyphon-setup",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "minion": 1
+          },
+          "choiceId": "count-choice-1",
+          "note": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。；人数选项来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/lordoftyphon-setup/add-minion-keep-outsiders/lordoftyphon-setup。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-bfae83e273882610-candidate-27",
+      "scriptId": "wiki-bfae83e273882610",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "assassin",
+        "vigormortis",
+        "alsaahir",
+        "fisherman",
+        "soldier",
+        "cannibal",
+        "mayor",
+        "chef",
+        "librarian",
+        "pixie",
+        "empath",
+        "flowergirl",
+        "recluse"
+      ],
+      "bluffs": [
+        "savant",
+        "drunk",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "summoner-no-demon",
+      "roleId": "summoner",
+      "summary": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://script.bloodontheclocktower.com/?script=H4sIAAAAAAAACpWUQU4DMQxFr4K8nhPMDnWBuAIIIU/iSdwm9sjOUCrE3VFFBUvMMtbzj/X95ecP4AwzvHYaCBPgPqoazPBEw2ECwU4ww/3dg3Hvd4eqtl/rS1PNPtAeOxY6qBmlwSowg8q3jrragHnF5jTBuGxXoXVvDT6n26+FhAwbTFCq+i+8sQjl2/OHfuPWsBBn1hFsGXqWZEwW5FnkRLSF+YJ9aWGa3tUSe3R47ELOmIK4cKnjjCPVjhLs8YaX8PgreyX7h7i2HLe+s/gwioYhoQgv4exk7B7WzrbLKZoAbdSD7KaNBycOO1g0rzhq2EPfe1cJ4+iO7hzeZ0JrNM4aj8AFS8EFl6VR1KP9dMIgq0cNOx89GJVpDbIVrYUv0XHPJerBQqVgeOcJNyqKfw3y8gXT+fIa6wUAAA==",
+        "https://wiki.bloodontheclocktower.com/Summoner"
+      ],
+      "reviewedAt": "2026-10-16"
+    },
+    {
+      "id": "lordoftyphon-setup",
+      "roleId": "lordoftyphon",
+      "summary": "堤丰之首 +1 爪牙，外来者数量可自由修正；本批模板选择不额外改外来者。全部邪恶角色连续相邻，恶魔两侧都必须是邪恶角色，不能在连续段端点；不要求几何中位。提线木偶需紧邻恶魔。首夜分发爪牙信息，不是攻击选择。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+        "https://release.botc.app/resources/data/roles.json",
+        "https://wiki.bloodontheclocktower.com/Lord_of_Typhon"
+      ],
+      "reviewedAt": "2026-10-16"
+    },
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "plaguedoctor-scarletwoman-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Scarlet Woman ability, a Minion gains it, and learns this.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-spy-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Spy ability, a Minion gains it, and learns this.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "summoner-lordoftyphon-jinx",
+      "roleId": "summoner",
+      "summary": "If a Lord of Typhon is summoned, they must neighbor a Minion & their other neighbor becomes an evil Minion.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "lordoftyphon",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "summoner",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "chef",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "spy",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "summoner",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lordoftyphon",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "plaguedoctor",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "flowergirl",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "spy",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46",
+    "chef": "sha256:c8807ca47c02a574ea6e25a14564bf67e596f59bc677d1852df1110f59bc4935",
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "flowergirl": "sha256:c0e4f2a93f2dc792eaf2ff9b0b5f7b6c07eb912e57d0106248aaa39972414f61",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "alsaahir": "sha256:7f5823307449ddf39fe8d6324d3b589b6de0e6e969b28d3f1061f055f4b81ce0",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "soldier": "sha256:e24f9025b8c74c0b5fae6536a74ffd2845b311d4a2f60272a3950476946fd523",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "plaguedoctor": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "spy": "sha256:77894cd65fb49bffc53307f3e96f39b8581734ae64e3b9a2afcc4cbb5cbb8f82",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "summoner": "sha256:9fc50dd518f3cd792b82133d178c0b6ff7bf688e6e7e56cf219420ea13376c4f",
+    "lordoftyphon": "sha256:06c519562a52839f2fbbc315f7ef342deba589bd2b18f62b165ca8113edaccf4",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1"
+  }
+}

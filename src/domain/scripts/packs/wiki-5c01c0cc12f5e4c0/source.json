@@ -1,0 +1,306 @@
+[
+  {
+    "id": "_meta",
+    "name": "心照不宣",
+    "author": "榴莲",
+    "logo": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/_meta.png",
+    "almanac": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/almanac.html"
+  },
+  {
+    "id": "_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/_xinzhoabuxuan.png",
+    "otherNightReminder": "如果公主在今天白天提名并处决了一名玩家，当晚恶魔不会造成死亡。",
+    "name": "公主",
+    "team": "townsfolk",
+    "ability": "在你的首个白天，如果你提名并处决了一名玩家，当晚恶魔不会造成死亡。",
+    "otherNight": 9
+  },
+  {
+    "id": "1_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/1_xinzhoabuxuan.png",
+    "firstNightReminder": "让占卜师选择两名玩家。如果其中有恶魔或“干扰项”，点头示意，否则摇头。",
+    "otherNightReminder": "让占卜师选择两名玩家。如果其中有恶魔或“干扰项”，点头示意，否则摇头。",
+    "reminders": [
+      "干扰项"
+    ],
+    "name": "占卜师",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你要选择两名玩家：你会得知他们之中是否有恶魔。会有一名善良玩家始终被你的能力当作恶魔。",
+    "firstNight": 6100,
+    "otherNight": 14
+  },
+  {
+    "id": "2_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/2_xinzhoabuxuan.png",
+    "otherNightReminder": "如果有玩家今天白天死于处决，唤醒送葬者并对他展示那名玩家的角色标记。",
+    "reminders": [
+      "死于今日"
+    ],
+    "name": "送葬者",
+    "team": "townsfolk",
+    "ability": "每个夜晚*，你会得知今天白天死于处决的玩家的角色。",
+    "otherNight": 15
+  },
+  {
+    "id": "3_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/3_xinzhoabuxuan.png",
+    "otherNightReminder": "让僧侣选择除自己外的一名玩家。标记那名玩家被保护。",
+    "reminders": [
+      "保护"
+    ],
+    "name": "僧侣",
+    "team": "townsfolk",
+    "ability": "每个夜晚*，你要选择除你以外的一名玩家：当晚恶魔的负面能力对他无效。",
+    "otherNight": 6
+  },
+  {
+    "id": "4_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/4_xinzhoabuxuan.png",
+    "firstNightReminder": "让水手选择一名存活玩家。标记那名玩家或水手醉酒。",
+    "otherNightReminder": "让水手选择一名存活玩家。标记那名玩家或水手醉酒。",
+    "reminders": [
+      "醉酒"
+    ],
+    "name": "水手",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你要选择一名存活的玩家：你或他之一会醉酒直到下个黄昏。你不会死亡。",
+    "firstNight": 5500,
+    "otherNight": 2
+  },
+  {
+    "id": "5_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/5_xinzhoabuxuan.png",
+    "otherNightReminder": "让赌徒选择一名玩家和一个角色。如果赌徒猜错了，标记赌徒死亡。",
+    "reminders": [
+      "死亡"
+    ],
+    "name": "赌徒",
+    "team": "townsfolk",
+    "ability": "每个夜晚*，你要选择一名玩家并猜测他的角色：如果你猜错了，你会死亡。",
+    "otherNight": 5
+  },
+  {
+    "id": "6_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/6_xinzhoabuxuan.png",
+    "reminders": [
+      "不会死亡"
+    ],
+    "name": "茶艺师",
+    "team": "townsfolk",
+    "ability": "如果与你邻近的两名存活的玩家是善良的，他们不会死亡。"
+  },
+  {
+    "id": "7_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/7_xinzhoabuxuan.png",
+    "name": "博学者",
+    "team": "townsfolk",
+    "ability": "每个白天，你可以私下询问说书人以得知两条信息：一个是正确的，一个是错误的。"
+  },
+  {
+    "id": "8_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/8_xinzhoabuxuan.png",
+    "reminders": [
+      "失去能力"
+    ],
+    "name": "艺术家",
+    "team": "townsfolk",
+    "ability": "每局游戏限一次，在白天时，你可以私下询问说书人一个是非问题，你会得知该问题的答案。"
+  },
+  {
+    "id": "9_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/9_xinzhoabuxuan.png",
+    "firstNightReminder": "以任意顺序指向三名玩家，其中一名邪恶。",
+    "reminders": [
+      "得知"
+    ],
+    "name": "贵族",
+    "team": "townsfolk",
+    "ability": "在你的首个夜晚，你会得知三名玩家：其中有且只有一名玩家是邪恶的。",
+    "firstNight": 6200
+  },
+  {
+    "id": "10_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/10_xinzhoabuxuan.png",
+    "otherNightReminder": "如果农夫在夜晚死去，则选择另一位善良玩家成为农夫。唤醒这名玩家，并告知他成为了农夫。",
+    "name": "农夫",
+    "team": "townsfolk",
+    "ability": "如果你在夜晚死亡，一名存活的善良玩家会变成农夫。",
+    "otherNight": 13
+  },
+  {
+    "id": "11_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/11_xinzhoabuxuan.png",
+    "firstNightReminder": "选择一种角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。",
+    "otherNightReminder": "选择一种与被放置得知的玩家不同的角色类型，并告知其一个符合该类型的玩家。在该玩家旁边标记已被知晓。",
+    "reminders": [
+      "得知"
+    ],
+    "setup": 1,
+    "name": "气球驾驶员",
+    "team": "townsfolk",
+    "ability": "每个夜晚，你会得知一名与上个夜晚得知的玩家角色类型不同的玩家。[+0~1外来者]",
+    "firstNight": 6300,
+    "otherNight": 16
+  },
+  {
+    "id": "12_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/12_xinzhoabuxuan.png",
+    "firstNightReminder": "对小精灵展示一个在场的镇民角色。",
+    "reminders": [
+      "疯狂",
+      "获得能力"
+    ],
+    "name": "小精灵",
+    "team": "townsfolk",
+    "ability": "在你的首个夜晚，你会得知一个在场的镇民角色。如果你“疯狂”地证明你是该角色，当他死亡时你获得该角色的能力。",
+    "firstNight": 6000
+  },
+  {
+    "id": "13_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/13_xinzhoabuxuan.png",
+    "name": "畸形秀演员",
+    "team": "outsider",
+    "ability": "如果你“疯狂”地证明自己是外来者，你可能被处决。"
+  },
+  {
+    "id": "14_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/14_xinzhoabuxuan.png",
+    "reminders": [
+      "醉酒",
+      "已猜测"
+    ],
+    "name": "解谜大师",
+    "team": "outsider",
+    "ability": "一名玩家醉酒，即使你已死亡。每局游戏限一次，你可以猜测谁是那个醉酒的玩家，如果猜对了，你会得知谁是恶魔，但如果猜错了，你会得知错误的“谁是恶魔”信息。"
+  },
+  {
+    "id": "15_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/15_xinzhoabuxuan.png",
+    "firstNightReminder": "唤醒所有爪牙，并告知他们场中有落难少女。",
+    "reminders": [
+      "已被猜测"
+    ],
+    "name": "落难少女",
+    "team": "outsider",
+    "ability": "所有爪牙都知道落难少女在场。每局游戏限一次，任意爪牙可以公开猜测你是落难少女，如果猜对，你的阵营落败。",
+    "firstNight": 2300
+  },
+  {
+    "id": "16_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/16_xinzhoabuxuan.png",
+    "name": "政客",
+    "team": "outsider",
+    "ability": "如果你是对你的阵营落败负最大责任的人，你转变阵营并获胜，即使你已死亡。"
+  },
+  {
+    "id": "17_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/17_xinzhoabuxuan.png",
+    "firstNightReminder": "让洗脑师选择一名玩家和一个善良角色。标记那名玩家疯狂。让洗脑师重新入睡。唤醒洗脑师的目标。对这名玩家展示“该角色的能力对你生效”信息标记，洗脑师角色标记，该玩家需要疯狂证明的角色标记。",
+    "otherNightReminder": "让洗脑师选择一名玩家和一个善良角色。标记那名玩家疯狂。让洗脑师重新入睡。唤醒洗脑师的目标。对这名玩家展示“该角色的能力对你生效”信息标记，洗脑师角色标记，该玩家需要疯狂证明的角色标记。",
+    "reminders": [
+      "疯狂"
+    ],
+    "name": "洗脑师",
+    "team": "minion",
+    "ability": "每个夜晚，你要选择一名玩家和一个善良角色。他明天白天和夜晚需要“疯狂”地证明自己是这个角色，不然他可能被处决。",
+    "firstNight": 5800,
+    "otherNight": 7
+  },
+  {
+    "id": "18_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/18_xinzhoabuxuan.png",
+    "otherNightReminder": "让麻脸巫婆选择一名玩家和一个角色。如果她选择的角色不在场：让麻脸巫婆重新入睡。唤醒她的目标玩家。对该玩家展示“你是”信息标记和他的新角色标记。",
+    "name": "麻脸巫婆",
+    "team": "minion",
+    "ability": "每个夜晚*，你要选择一名玩家和一个角色，如果该角色不在场，他变成该角色。如果因此创造了一个恶魔，当晚的死亡由说书人决定。",
+    "otherNight": 4
+  },
+  {
+    "id": "19_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/19_xinzhoabuxuan.png",
+    "firstNightReminder": "选择一个邻近恶魔的善良玩家放置提线木偶标记。唤醒恶魔并告知他谁是提线木偶。",
+    "remindersGlobal": [
+      "是提线木偶"
+    ],
+    "setup": 1,
+    "name": "提线木偶",
+    "team": "minion",
+    "ability": "你以为你是一个善良角色，但其实你不是。恶魔会知道你是提线木偶。[提线木偶会与恶魔邻座]",
+    "firstNight": 5400
+  },
+  {
+    "id": "20_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/20_xinzhoabuxuan.png",
+    "firstNightReminder": "唤醒鹰身女妖并让他依次指向两名玩家。标记第一名玩家“疯狂”，标记第二名玩家“第二名”。",
+    "otherNightReminder": "唤醒鹰身女妖并让他依次指向两名玩家。标记第一名玩家“疯狂”，标记第二名玩家“第二名”。",
+    "reminders": [
+      "疯狂",
+      "第二名"
+    ],
+    "name": "鹰身女妖",
+    "team": "minion",
+    "ability": "每个夜晚，你要选择两名玩家：明天第一名玩家需要“疯狂”地证明第二名玩家是邪恶的，否则他们之中可能会有人死亡。",
+    "firstNight": 5900,
+    "otherNight": 8
+  },
+  {
+    "id": "21_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/21_xinzhoabuxuan.png",
+    "firstNightReminder": "在等同初始外来者数量的夜晚，所有镇民中毒。",
+    "otherNightReminder": "在等同初始外来者数量的夜晚，所有镇民中毒。",
+    "reminders": [
+      "第一夜",
+      "第二夜",
+      "第三夜",
+      "大限将至"
+    ],
+    "setup": true,
+    "name": "限",
+    "team": "minion",
+    "ability": "在等同于初始外来者数量的夜晚，所有镇民玩家中毒直到下个黄昏。[外来者数量任意]",
+    "firstNight": 5700,
+    "otherNight": 3
+  },
+  {
+    "id": "22_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/22_xinzhoabuxuan.png",
+    "otherNightReminder": "让小恶魔选择一名玩家。标记那名玩家死亡。如果小恶魔选择了自己：用一个备用的小恶魔标记替换一个存活的爪牙角色标记。让原来的小恶魔重新入睡。唤醒新的小恶魔。对他展示“你是”信息标记，和小恶魔角色标记。",
+    "reminders": [
+      "死亡"
+    ],
+    "name": "小恶魔",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。如果你以这种方式自杀，一名爪牙会变成小恶魔。",
+    "otherNight": 10
+  },
+  {
+    "id": "23_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/23_xinzhoabuxuan.png",
+    "firstNightReminder": "在首个夜晚，唤醒卡扎力。让他指向一名玩家，和角色列表上的一个爪牙角色。用这个爪牙的角色标记替换该玩家原本的角色标记，然后唤醒该玩家，对他展示“你是”信息标记和这个爪牙角色标记，然后展示向下的大拇指。重复这个流程，直到场上有与初始设置时同等数量的爪牙。让卡扎力重新入睡。",
+    "otherNightReminder": "除首个夜晚以外的每个夜晚，唤醒卡扎力。让他指向任意一名玩家。那名玩家死亡——在他角色标记旁放置“死亡”提示标记。让卡扎力重新入睡。",
+    "reminders": [
+      "死亡"
+    ],
+    "setup": 1,
+    "name": "卡扎力",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。[由你决定谁是什么爪牙，-或+任意数量外来者]",
+    "firstNight": 11,
+    "otherNight": 12
+  },
+  {
+    "id": "24_xinzhoabuxuan",
+    "image": "https://www.bloodstar.xyz/p/SerraEvelyn/xinzhoabuxuan/24_xinzhoabuxuan.png",
+    "firstNightReminder": "寄生蛭指向一名玩家。放置寄生标记，那名玩家中毒。",
+    "otherNightReminder": "寄生蛭指向一名玩家。那名玩家死亡。",
+    "reminders": [
+      "死亡",
+      "中毒"
+    ],
+    "name": "痢蛭",
+    "team": "demon",
+    "ability": "每个夜晚*，你要选择一名玩家：他死亡。在你的首个夜晚，你要选择一名存活的玩家：他中毒，只有当他处于死亡状态时你才会立即死亡。",
+    "firstNight": 5600,
+    "otherNight": 11
+  }
+]

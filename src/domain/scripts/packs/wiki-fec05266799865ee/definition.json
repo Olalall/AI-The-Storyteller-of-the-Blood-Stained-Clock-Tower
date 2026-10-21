@@ -1,0 +1,1276 @@
+{
+  "scriptId": "wiki-fec05266799865ee",
+  "displayName": "卡科顿教派",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "Khinoe",
+    "version": "库记录544 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:fec05266799865ee706749ce64ccff52107ee72169e84be202919408f8641645",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "knight",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "steward",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "shugenja",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "king",
+      "sourceId": "he-fang-jiao-zhong",
+      "sourceVersion": "sha256:63e5b87f8058d6c25041fca52652806a894e24ad883e7a97fe07bc4925601da4"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pacifist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "choirboy",
+      "sourceId": "he-fang-jiao-zhong",
+      "sourceVersion": "sha256:63e5b87f8058d6c25041fca52652806a894e24ad883e7a97fe07bc4925601da4"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "spy",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "goblin",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "legion",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-1",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "seamstress",
+        "pacifist",
+        "farmer"
+      ],
+      "bluffs": [
+        "knight",
+        "steward",
+        "shugenja"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 0,
+            "minion": -1,
+            "demon": 3
+          },
+          "choiceId": "majority-legion-7",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-2",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "fanggu",
+        "cannibal",
+        "knight",
+        "steward",
+        "shugenja",
+        "drunk"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "empath",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-3",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "shugenja",
+        "snakecharmer",
+        "empath"
+      ],
+      "bluffs": [
+        "king",
+        "oracle",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 0,
+            "minion": -1,
+            "demon": 3
+          },
+          "choiceId": "majority-legion-7",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-4",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "pacifist",
+        "farmer",
+        "cannibal"
+      ],
+      "bluffs": [
+        "knight",
+        "steward",
+        "shugenja"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -1,
+            "minion": -1,
+            "demon": 4
+          },
+          "choiceId": "majority-legion-8",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-5",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "lleech",
+        "knight",
+        "steward",
+        "shugenja",
+        "snakecharmer",
+        "empath",
+        "recluse"
+      ],
+      "bluffs": [
+        "oracle",
+        "towncrier",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-6",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "farmer",
+        "cannibal",
+        "knight",
+        "steward"
+      ],
+      "bluffs": [
+        "shugenja",
+        "king",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": -2,
+            "minion": -1,
+            "demon": 4
+          },
+          "choiceId": "majority-legion-9",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-10/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-7",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "vortox",
+        "steward",
+        "shugenja",
+        "snakecharmer",
+        "empath",
+        "oracle",
+        "mutant",
+        "saint"
+      ],
+      "bluffs": [
+        "king",
+        "towncrier",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-8",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "cannibal",
+        "knight",
+        "steward",
+        "shugenja"
+      ],
+      "bluffs": [
+        "king",
+        "snakecharmer",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": 0,
+            "minion": -2,
+            "demon": 5
+          },
+          "choiceId": "majority-legion-10",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-12/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-9",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "goblin",
+        "fanggu",
+        "shugenja",
+        "snakecharmer",
+        "empath",
+        "oracle",
+        "towncrier",
+        "seamstress",
+        "saint"
+      ],
+      "bluffs": [
+        "steward",
+        "king",
+        "pacifist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-10",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "oracle",
+        "towncrier",
+        "seamstress",
+        "pacifist"
+      ],
+      "bluffs": [
+        "shugenja",
+        "king",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": 0,
+            "minion": -2,
+            "demon": 5
+          },
+          "choiceId": "majority-legion-10",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-11",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "knight",
+        "steward",
+        "shugenja",
+        "snakecharmer",
+        "empath"
+      ],
+      "bluffs": [
+        "king",
+        "oracle",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -1,
+            "minion": -2,
+            "demon": 5
+          },
+          "choiceId": "majority-legion-11",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-12",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "devilsadvocate",
+        "lleech",
+        "snakecharmer",
+        "empath",
+        "oracle",
+        "towncrier",
+        "seamstress",
+        "pacifist",
+        "farmer",
+        "drunk"
+      ],
+      "bluffs": [
+        "steward",
+        "shugenja",
+        "king"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-13",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "steward",
+        "shugenja",
+        "snakecharmer",
+        "empath",
+        "oracle"
+      ],
+      "bluffs": [
+        "knight",
+        "king",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -2,
+            "demon": 6
+          },
+          "choiceId": "majority-legion-12",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-14",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "spy",
+        "vortox",
+        "empath",
+        "oracle",
+        "towncrier",
+        "seamstress",
+        "pacifist",
+        "farmer",
+        "cannibal",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "steward",
+        "shugenja",
+        "king"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-15",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "seamstress",
+        "pacifist",
+        "farmer",
+        "cannibal",
+        "knight"
+      ],
+      "bluffs": [
+        "king",
+        "snakecharmer",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -2,
+            "demon": 6
+          },
+          "choiceId": "majority-legion-12",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-10/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-16",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "shugenja",
+        "snakecharmer",
+        "empath",
+        "oracle",
+        "towncrier",
+        "seamstress"
+      ],
+      "bluffs": [
+        "knight",
+        "steward",
+        "king"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": 0,
+            "minion": -3,
+            "demon": 6
+          },
+          "choiceId": "majority-legion-13",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-10/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-17",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "cerenovus",
+        "goblin",
+        "fanggu",
+        "oracle",
+        "towncrier",
+        "seamstress",
+        "pacifist",
+        "farmer",
+        "cannibal",
+        "knight",
+        "steward",
+        "mutant"
+      ],
+      "bluffs": [
+        "king",
+        "snakecharmer",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-18",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "snakecharmer",
+        "empath",
+        "oracle",
+        "towncrier",
+        "seamstress",
+        "pacifist"
+      ],
+      "bluffs": [
+        "knight",
+        "steward",
+        "shugenja"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": -1,
+            "minion": -3,
+            "demon": 7
+          },
+          "choiceId": "majority-legion-14",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-12/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-19",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "goblin",
+        "devilsadvocate",
+        "lleech",
+        "towncrier",
+        "seamstress",
+        "pacifist",
+        "farmer",
+        "cannibal",
+        "knight",
+        "steward",
+        "shugenja",
+        "snakecharmer",
+        "saint"
+      ],
+      "bluffs": [
+        "empath",
+        "oracle",
+        "choirboy"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-20",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "empath",
+        "oracle",
+        "towncrier",
+        "seamstress",
+        "pacifist",
+        "farmer",
+        "cannibal"
+      ],
+      "bluffs": [
+        "knight",
+        "steward",
+        "shugenja"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -3,
+            "demon": 7
+          },
+          "choiceId": "majority-legion-15",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-21",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "devilsadvocate",
+        "spy",
+        "vortox",
+        "seamstress",
+        "pacifist",
+        "farmer",
+        "cannibal",
+        "knight",
+        "steward",
+        "shugenja",
+        "snakecharmer",
+        "empath",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "oracle",
+        "towncrier",
+        "choirboy"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-fec05266799865ee-candidate-22",
+      "scriptId": "wiki-fec05266799865ee",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "cannibal",
+        "knight",
+        "steward",
+        "shugenja",
+        "snakecharmer",
+        "empath",
+        "oracle"
+      ],
+      "bluffs": [
+        "seamstress",
+        "pacifist",
+        "choirboy"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -3,
+            "demon": 7
+          },
+          "choiceId": "majority-legion-15",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "legion-majority",
+      "roleId": "legion",
+      "summary": "军团局多数玩家实际为军团，军团也登记为爪牙；模板显式记录多恶魔、零实际爪牙及善良人数。只有邪恶玩家投票时处决失败；不是自动禁止记录那一轮投票。 本批选用官方允许的三枚伪装方案，不支持在这些模板中临时改成零枚；零伪装由主持在后续专门支持后再选。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+        "https://release.botc.app/resources/data/roles.json",
+        "https://wiki.bloodontheclocktower.com/Legion"
+      ],
+      "reviewedAt": "2026-10-16"
+    },
+    {
+      "id": "fanggu-outsider",
+      "roleId": "fanggu",
+      "summary": "Fang Gu: setup adds 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "cerenovus-goblin-jinx",
+      "roleId": "cerenovus",
+      "summary": "The Cerenovus may choose to make a player mad that they are the Goblin.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "king",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "steward",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "knight",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "shugenja",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "spy",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "snakecharmer",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "legion",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "choirboy",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "king",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "spy",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "knight": "sha256:22749fad133589f7a60a2641b1c8e0b3930f329c198ca468c9e6c029584ec193",
+    "steward": "sha256:fbf26cf36a81721eccd8500f0a30bba3464ac17c74baa71769b870a1f0dd6e65",
+    "shugenja": "sha256:20e3ef86b6aeed76cf4588bbf6b856480cd1fff5ece0e97b8e42928b98439fc0",
+    "king": "sha256:ede85d3b759272ebacba45fe2fb95652c33ffc4d56fac9c10d5223b926637613",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "pacifist": "sha256:469225591f3a9499dbb2da61566dd13fb776cb2d67b045271c2614797f98f099",
+    "choirboy": "sha256:2b01d20acbbbf05ef260f05f5e5585bb650ba24bd51dd57221b4f29e061f1d9e",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "spy": "sha256:77894cd65fb49bffc53307f3e96f39b8581734ae64e3b9a2afcc4cbb5cbb8f82",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "goblin": "sha256:c831c99d03dd8c2c7ddb4a84d51c78ef7df4e951ed30f40341940ba888d456ac",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b",
+    "legion": "sha256:f467e16cd214f612c1876703d5b5747b49d49c5de25466d9105fc3efeec3261e"
+  }
+}

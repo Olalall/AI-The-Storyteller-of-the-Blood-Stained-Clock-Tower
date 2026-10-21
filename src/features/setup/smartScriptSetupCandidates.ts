@@ -1,4 +1,5 @@
 import { boundedSetupTransferForRole, inferModifierRoleId, isMandatorySetupCountRole } from '../../domain/setup-templates/setupCountChanges'
+import { lilMonstaOpeningSelected } from '../../domain/setup-templates/lilMonstaOpening'
 import type { PlayerCount, ScriptId, SetupTemplate, SetupTemplateStyle, SmartScriptPack, SmartRoleDefinition } from '../../domain/scripts'
 import { getSmartScriptPack, roleSnapshotsForScript, roleTeamByIdForScript, scriptKnowledgeVersion, smartScriptRegistry } from '../../domain/scripts'
 import { selectSetupCandidates, type RandomSource } from '../../services/setup-candidates'
@@ -130,6 +131,7 @@ function rationaleForTemplate(template: SetupTemplate, pack: SmartScriptPack, se
 }
 
 function normalizedDemonBluffs(template: SetupTemplate, pack: SmartScriptPack) {
+  if (lilMonstaOpeningSelected({ ...pack, setupTemplates: [template] }, toSetupRuleSelections(template))) return []
   const roleById = new Map(roleSnapshotsForScript(pack.scriptId).map((role) => [role.id, role]))
   const teamByRoleId = roleTeamByIdForScript(pack.scriptId)
   const inPlay = new Set(template.roles)

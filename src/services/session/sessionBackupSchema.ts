@@ -30,6 +30,7 @@ const phase = shape({ id: string, kind: oneOf('night', 'day'), sequence: number,
 const voteAdjustment = shape({ count: number, reason: string })
 const systemStep = shape({ kind: oneOf('minion_info', 'demon_info', 'audience_notice'), minionLabels: array(string), demonLabel: string, infoTokens: array(string), checks: array(shape({ id: string, label: string })), bluffCount: optional(count), bluffChoices: optional(array(shape({ id: string, label: string, teamLabel: string, suggested: boolean }))), audienceLabel: optional(string), recipientLabels: optional(array(string)), sensitive: optional(boolean) })
 const wake = shape({
+  lilMonstaStep: optional(oneOf('babysitter', 'death')),
   informationInput: optional(informationInput),
   systemStep: optional(systemStep), minimumTargetCount: optional(count), registrationSpec: optional(shape({ kind: oneOf('role_type', 'alignment'), label: string, choices: array(shape({ id: registrationValue, label: string })) })),
   previousRegistration: optional(registration), forbiddenRegistrationValues: optional(array(registrationValue)), previousTargets: optional(array(seat)), forbiddenTargetSeatIds: optional(array(seat)), previousTargetRequired: optional(boolean),

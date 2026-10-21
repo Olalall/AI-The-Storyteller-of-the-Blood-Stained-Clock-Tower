@@ -134,11 +134,13 @@ export function createFirstNightSystemSteps(
   ))
   const demon = assignments.find((assignment) => teamById[assignment.role.id] === 'demon')
   if (!demon) return []
+  const legion = assignments.filter(assignment => normalizeRoleId(assignment.role.id) === 'legion')
+  const collectiveLegion = normalizeRoleId(demon.role.id) === 'legion' && legion.length > 1
 
   const minionSeats = minions.map((assignment) => `${assignment.seatId}号`).join('、')
-  const demonSeat = `${demon.seatId}号`
+  const demonSeat = collectiveLegion ? legion.map(assignment => `${assignment.seatId}号`).join('、') : `${demon.seatId}号`
   const minionLabels = minions.map((assignment) => seatLabel(session, assignment.seatId))
-  const demonLabel = seatLabel(session, demon.seatId)
+  const demonLabel = collectiveLegion ? `全体军团 · ${demonSeat}` : seatLabel(session, demon.seatId)
 
   const minionStep: SystemStepSpec = {
     kind: 'minion_info',
@@ -152,7 +154,7 @@ export function createFirstNightSystemSteps(
     minionLabels,
     demonLabel,
     infoTokens: [...(minions.length ? ['他们是你的爪牙'] : []), '这些角色不在场'],
-    checks: minions.length ? [{ id: 'pointed-minions', label: '已依次指认每一名爪牙' }] : [],
+    checks: collectiveLegion ? [{ id:'legion-recognized',label:'已共同唤醒全体军团并完成互认' }] : minions.length ? [{ id: 'pointed-minions', label: '已依次指认每一名爪牙' }] : [],
     bluffCount: 3,
     bluffChoices: createBluffChoices(session, assignments),
   }
@@ -180,11 +182,11 @@ export function createFirstNightSystemSteps(
     playerStates,
     runId: systemRunId,
     anchorSeatId: demon.seatId,
-    playerLabel: `恶魔 · ${demonSeat}`,
+    playerLabel: collectiveLegion ? demonLabel : `恶魔 · ${demonSeat}`,
     roleId: 'system-demon-info',
     roleName: '恶魔信息',
     roleInitial: '魔',
-    ability: minions.length
+    ability: collectiveLegion ? '共同唤醒全体军团并完成互认。本模板采用三枚不在场善良角色伪装；不将一名军团当作唯一恶魔。' : minions.length
       ? '唤醒恶魔：出示「他们是你的爪牙」并依次指认每一名爪牙；再出示「这些角色不在场」，展示三个不在场的善良角色。'
       : '唤醒恶魔：不指认提线木偶；出示「这些角色不在场」，展示三个不在场的善良角色。',
     storytellerPrompt: '记录本夜给出的三张伪装，后续几夜判断恶魔叙事空间要靠它。',

@@ -30,6 +30,9 @@ for (const pack of packs) for (const role of pack.roles) {
   else if (/^https?:/.test(path)) remote.add(path)
 }
 files.set('scriptAssets.generated.ts', banner + 'export const scriptAssetProjection = ' + JSON.stringify({ requirements: [...requirements.values()].sort((a, b) => a.path.localeCompare(b.path)), remoteIconCount: remote.size, localDirectory: 'public/assets/characters/', manifestPath: 'public/assets/characters/source-manifest.json' }, null, 2) + '\n')
+const kazali = Object.fromEntries(packs.filter(pack => pack.roles.some(role => role.id === 'kazali'))
+  .map(pack => [pack.scriptId, pack.roles.filter(role => role.team === 'minion').map(role => role.id).sort()]))
+files.set(resolve('server/ai/kazaliMinionRoleIds.generated.ts'), banner + 'export const kazaliMinionRoleIds: Readonly<Record<string, readonly string[]>> = ' + JSON.stringify(kazali, null, 2) + '\n')
 for (const [name, content] of files) {
   const file = resolve('src/domain/scripts', name)
   if (process.argv.includes('--check')) {

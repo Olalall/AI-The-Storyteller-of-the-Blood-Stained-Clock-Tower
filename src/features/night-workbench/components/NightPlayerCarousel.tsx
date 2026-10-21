@@ -4,6 +4,7 @@ import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { isPreviewMode, type WorkbenchMode } from '../state/workbenchMode'
 import type { RoleChangeEvent, RoleSnapshot, WakeItem } from '../types'
 import { progressMeta } from './statusMeta'
+import { wakeShortLabel } from '../state/systemSteps'
 
 interface NightPlayerCarouselProps {
   current: WakeItem
@@ -28,9 +29,9 @@ function NeighborDisc({ item, role, direction, concealed }: { item?: WakeItem; r
       <span className="carousel-neighbor__label">{
         concealed && item.systemStep?.sensitive
           ? '系统步骤已遮蔽'
-          : concealed && !item.systemStep ? `${item.seatId}号` : displayRole.name
+          : concealed && !item.systemStep ? wakeShortLabel(item, true) : displayRole.name
       }</span>
-      <small>{item.systemStep ? '系统步骤' : `${item.seatId}号`} · {progressMeta[item.progress].label}</small>
+      <small>{item.systemStep ? '系统步骤' : wakeShortLabel(item, concealed)} · {progressMeta[item.progress].label}</small>
     </div>
   )
 }
@@ -87,7 +88,7 @@ export function NightPlayerCarousel({
               : concealed && !current.systemStep ? '角色信息已遮蔽' : currentRole.name
           }</strong>
           {/* 系统步骤的 playerLabel 就是爪牙/恶魔名单本身，遮蔽时不能照原样显示。 */}
-          <span>{concealed && current.systemStep ? '名单已遮蔽' : current.playerLabel}</span>
+          <span>{concealed && current.systemStep ? '名单已遮蔽' : concealed && (current.lilMonstaStep || current.interactionVersion === 'legion/collective-night-v1') ? '处理信息已遮蔽' : current.playerLabel}</span>
           {!concealed && currentRoleChange ? (
             <small className="carousel-current__change"><RefreshCw aria-hidden="true" />已变更 · 原{currentRoleChange.fromRole.name}</small>
           ) : null}

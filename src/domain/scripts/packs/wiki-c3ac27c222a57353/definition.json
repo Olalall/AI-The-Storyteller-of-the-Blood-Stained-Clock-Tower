@@ -1,0 +1,1207 @@
+{
+  "scriptId": "wiki-c3ac27c222a57353",
+  "displayName": "世纪谍杀",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "Capell1",
+    "version": "库记录508 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:c3ac27c222a573538fd246eb8d012b942db1ba7c0718e8ad9e1b23d8de9bc484",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "clockmaker",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mathematician",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "artist",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "magician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "snitch",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "lunatic",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "witch",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "spy",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "organgrinder",
+      "sourceId": "yu-zhe-huan-yan",
+      "sourceVersion": "sha256:4571db2ca9cfb548f5357a82e87a05a7c29b128678d43d4be427aa444b897e06"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "lilmonsta",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-1",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "witch",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-2",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "nodashii",
+        "cannibal",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "dreamer"
+      ],
+      "bluffs": [
+        "mathematician",
+        "oracle",
+        "towncrier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-3",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "witch",
+        "pithag",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "oracle",
+        "towncrier"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-4",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "witch",
+        "pithag",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble",
+        "pixie",
+        "snitch"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-5",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "vortox",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "oracle",
+        "towncrier",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-6",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "spy",
+        "farmer",
+        "cannibal",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "sweetheart",
+        "barber"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-7",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "fanggu",
+        "pixie",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "barber",
+        "lunatic",
+        "snitch"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "oracle",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-8",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "spy",
+        "organgrinder",
+        "witch",
+        "cannibal",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "oracle"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-9",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "organgrinder",
+        "nodashii",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "savant",
+        "artist"
+      ],
+      "bluffs": [
+        "pixie",
+        "fortuneteller",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-10",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "organgrinder",
+        "witch",
+        "pithag",
+        "oracle",
+        "towncrier",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-11",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "witch",
+        "pithag",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "lunatic"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-12",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "witch",
+        "vortox",
+        "dreamer",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "savant",
+        "artist",
+        "farmer",
+        "snitch"
+      ],
+      "bluffs": [
+        "pixie",
+        "clockmaker",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-13",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "witch",
+        "pithag",
+        "spy",
+        "pixie",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "savant",
+        "snitch",
+        "sweetheart"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-14",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "pithag",
+        "fanggu",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "savant",
+        "artist",
+        "farmer",
+        "sweetheart",
+        "barber",
+        "lunatic"
+      ],
+      "bluffs": [
+        "pixie",
+        "clockmaker",
+        "dreamer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-15",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "spy",
+        "organgrinder",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "barber",
+        "lunatic"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-16",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "spy",
+        "organgrinder",
+        "witch",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-17",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "spy",
+        "organgrinder",
+        "nodashii",
+        "oracle",
+        "towncrier",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble",
+        "pixie",
+        "clockmaker"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "mathematician",
+        "magician"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-18",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "spy",
+        "organgrinder",
+        "witch",
+        "pithag",
+        "dreamer",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble",
+        "barber"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-19",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "spy",
+        "organgrinder",
+        "witch",
+        "vortox",
+        "towncrier",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "dreamer",
+        "lunatic"
+      ],
+      "bluffs": [
+        "mathematician",
+        "oracle",
+        "magician"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-20",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "witch",
+        "pithag",
+        "spy",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble",
+        "pixie",
+        "lunatic",
+        "snitch"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-21",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "witch",
+        "pithag",
+        "fanggu",
+        "savant",
+        "artist",
+        "farmer",
+        "cannibal",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "dreamer",
+        "snitch",
+        "sweetheart",
+        "barber"
+      ],
+      "bluffs": [
+        "mathematician",
+        "oracle",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c3ac27c222a57353-candidate-22",
+      "scriptId": "wiki-c3ac27c222a57353",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "witch",
+        "pithag",
+        "spy",
+        "organgrinder",
+        "cannibal",
+        "noble",
+        "pixie",
+        "clockmaker",
+        "dreamer",
+        "mathematician",
+        "oracle",
+        "towncrier",
+        "savant",
+        "sweetheart",
+        "barber"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "lilmonsta-extra-minion",
+      "roleId": "lilmonsta",
+      "knowledgeStatus": "confirmed",
+      "summary": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Lil%27_Monsta"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "fanggu-outsider",
+      "roleId": "fanggu",
+      "summary": "Fang Gu: setup adds 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "lilmonsta-magician-jinx",
+      "roleId": "lilmonsta",
+      "summary": "If the Magician is alive, the Storyteller chooses which Minion babysits Lil' Monsta. ",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "magician-spy-jinx",
+      "roleId": "magician",
+      "summary": "When the Spy sees the Grimoire, the Demon and Magician's character tokens are removed.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-lunatic-jinx",
+      "roleId": "mathematician",
+      "summary": "The Mathematician learns if the Lunatic attacks a different player than the real Demon attacked.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "magician",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "snitch",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lilmonsta",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "organgrinder",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "clockmaker",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "spy",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "organgrinder",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lilmonsta",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "barber",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "spy",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "clockmaker": "sha256:eda181c646d1926ef95e22b78579955d8042a92bc5d9f5bb71beabc165e7f9a0",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "mathematician": "sha256:f1262386ef8bd2783d644dc5240ea8e3fe2ee414a55b3cc3b86f9aee91cd027d",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "artist": "sha256:c9b8ee57527bb669ec6b036b53a1c4196be7c4801e0572ea1ac5a19d42bedda5",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "magician": "sha256:df4b91bdbf86955cc97bfea6a0219e2b6a834a6e6457803c13b4e0b895d06690",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "snitch": "sha256:922ac4c591a4352a6dee713dd5f608d332b3785885afb4a661b685cd00e7b09e",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "lunatic": "sha256:f46c1eae4440c477172fd759c1bbb54586d17a9934342ce29b8f395d9e299937",
+    "witch": "sha256:15211f928a1e9002e2b9c0229d6540ebcef894cec8829434b46bbd1106650bc9",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "spy": "sha256:77894cd65fb49bffc53307f3e96f39b8581734ae64e3b9a2afcc4cbb5cbb8f82",
+    "organgrinder": "sha256:43f5b78821dc3e71057d941acb9706533394a99a1ced945c9e1330eab9c65615",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a",
+    "lilmonsta": "sha256:566509c99cbacc9917a0d1f126aa0c3896be6247b57fddd6d6711c0de39043ec",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f"
+  }
+}

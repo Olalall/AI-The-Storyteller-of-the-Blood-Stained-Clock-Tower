@@ -1,0 +1,899 @@
+{
+  "sourceUrl": "https://kkovo550.github.io/clocktower-wiki/",
+  "rawJsonSha256": "221e26eff16e4ac4b584dae894b7c6f64c845fb2375e0ec004a6e5711bf50f62",
+  "rawJsonByteLength": 25658,
+  "reviewedAt": "2026-10-21",
+  "roleAliases": [
+    {
+      "rawId": "mangshengnifaxianlehuadian111",
+      "rawName": "调查员",
+      "rawTeam": "townsfolk",
+      "roleId": "investigator",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f",
+      "rawAbilitySha256": "106b0070c58cca0535d0658e790cd1efcf1e953deb20873aebeef6c380e50d7c",
+      "resolvedAbilitySha256": "6a3b988bc83790486986c223fe32f5a7c0b8e329ea00954c82893f2c8b167dd9",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 37,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:216861593841d940f8eabf4c34556454bef623f59b59f8eb3ac38ec86f90154a",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "jingcaisanxuanyi111",
+      "rawName": "贵族",
+      "rawTeam": "townsfolk",
+      "roleId": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca",
+      "rawAbilitySha256": "2553078f2444c073bd4ff6e3a709b4da5ee37b1bb56107e3c7a738e29f4cda97",
+      "resolvedAbilitySha256": "f2f834f274dbc51c1388d22deb74fd0482f4dda79ebd4b73a5eb53d7a168dfbf",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 49,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "arknights111",
+      "rawName": "骑士",
+      "rawTeam": "townsfolk",
+      "roleId": "knight",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f",
+      "rawAbilitySha256": "4d464b9b5052b3d73d7b15371c8845100f758dc47bd2e9c24384bfef8cf9fc3a",
+      "resolvedAbilitySha256": "511adcb040affcea7b376bb0388d2a6f8107c9776572c59ff7ebb637c14adbce",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 48,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:22749fad133589f7a60a2641b1c8e0b3930f329c198ca468c9e6c029584ec193",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "eyunxiaojie111",
+      "rawName": "赏金猎人",
+      "rawTeam": "townsfolk",
+      "roleId": "bountyhunter",
+      "sourceId": "chuan-qi-zhi-ye",
+      "sourceVersion": "sha256:cc4c9bb6509aed6544f4cd7964ebb93bf092a5f6f31b57c0dca7913c7aeecb1d",
+      "rawAbilitySha256": "6ce734ca4d51a0201425c8010ed91bfefcba9fa37f78ffa290c7aad280f5984d",
+      "resolvedAbilitySha256": "6ce734ca4d51a0201425c8010ed91bfefcba9fa37f78ffa290c7aad280f5984d",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 55,
+      "rawOtherNight": 94,
+      "sharedRoleDefinitionHash": "sha256:0bcacf61a2e3d4c45228cd202d4368f843f95a0b866c6f5bf9bd71cd84d29ae2",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "rangwokangkang111",
+      "rawName": "筑梦师",
+      "rawTeam": "townsfolk",
+      "roleId": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c",
+      "rawAbilitySha256": "1f4b18cc94a5355ab7f6a81ed1d076598f802975718a543656e959fe4f60fc23",
+      "resolvedAbilitySha256": "299b656903d71a239a4c37cadc5ff0df39f16c1d404f5394155a65eeb8d2b4db",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 45,
+      "rawOtherNight": 84,
+      "sharedRoleDefinitionHash": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "zhuijidelaoda111",
+      "rawName": "气球驾驶员",
+      "rawTeam": "townsfolk",
+      "roleId": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f",
+      "rawAbilitySha256": "f78418d57c764eb2a30003c16dfab4d8d87487e2b5670267414faf235d9dab1a",
+      "resolvedAbilitySha256": "38754ea33ef81f909142acbe9c49190d0ea1cf17058356499440580e7a7442cf",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 50,
+      "rawOtherNight": 90,
+      "sharedRoleDefinitionHash": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "shiyizhezhezhezhe",
+      "rawName": "失忆者",
+      "rawTeam": "townsfolk",
+      "roleId": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683",
+      "rawAbilitySha256": "72be44231b52099c4185d33876e0d2276011f2b0c4294b69d79d12ae1d64800d",
+      "resolvedAbilitySha256": "55d9b14f9edce4ea084113e863662a6776edb3749480b2eb5002af5960ab6bf6",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 1.5,
+      "rawOtherNight": 1.5,
+      "sharedRoleDefinitionHash": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "zhongdayande111",
+      "rawName": "罂粟种植者",
+      "rawTeam": "townsfolk",
+      "roleId": "poppygrower",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f",
+      "rawAbilitySha256": "a22a40b64aadd43f58953fbef38f41542847b3824bad14ff1dfa6520c220a2bb",
+      "resolvedAbilitySha256": "4f68eb0cc42fffc7f48d912339551799edda6ae381f8682b2fad8c4dcfc899bd",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 3.4,
+      "rawOtherNight": 4,
+      "sharedRoleDefinitionHash": "sha256:515acffda0a36fe28e0ca53e5aa0d4b75a9b69ba0de881ba0ab88adc253fb586",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "xinde_xinjide111",
+      "rawName": "炼金术士",
+      "rawTeam": "townsfolk",
+      "roleId": "alchemist",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab",
+      "rawAbilitySha256": "15ae9acd39bbe438169b4721484bb570fc3134dcf941f0bd99c5cf079cbd290e",
+      "resolvedAbilitySha256": "5e21517c98dfde7f0d31617f86f0e223b2933639a5ffcb6e792cf893e65b0163",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 3.3,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:ae1492c17041400cf245d844d0ae9e35c06049f70d4774409f4f276e931911c8",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "chichichichichichichi111",
+      "rawName": "食人族",
+      "rawTeam": "townsfolk",
+      "roleId": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca",
+      "rawAbilitySha256": "5e36e6389187ed6f49ad45bb5170f4e0f4aeef16ca4cc857a1ef5f377c92e492",
+      "resolvedAbilitySha256": "b30f6920f5fd70ae75711b382623390dcb452a7cf00edf16556b16fefaa13fe8",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "wangzherongyao111",
+      "rawName": "农夫",
+      "rawTeam": "townsfolk",
+      "roleId": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683",
+      "rawAbilitySha256": "858919ea37e09238432ee0775139cac1a11b16a4e50d28e5c48518c7dcf2642a",
+      "resolvedAbilitySha256": "295055154e5e95ed85ba1d02d3b4c1a8ab5c7086b5e5ba2aaa88d21031c8810e",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 74,
+      "sharedRoleDefinitionHash": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "liuqian111",
+      "rawName": "魔术师",
+      "rawTeam": "townsfolk",
+      "roleId": "magician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3",
+      "rawAbilitySha256": "6d840e83ebc7de65b6e66f7ed43d6608646b31306e538f5a8226735eefde0361",
+      "resolvedAbilitySha256": "8bee71ec2bbc31b524a30b6328cae08c73bc7155c1307905aaf3748bb93b225d",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 3.6,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:df4b91bdbf86955cc97bfea6a0219e2b6a834a6e6457803c13b4e0b895d06690",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "chuangsishuoshuren111",
+      "rawName": "无神论者",
+      "rawTeam": "townsfolk",
+      "roleId": "atheist",
+      "sourceId": "gai-tou-huan-mian",
+      "sourceVersion": "sha256:d7833ff494f68c1819ee9ae7c2841c2e3a5b2d8a153d9301e522ba871352c05f",
+      "rawAbilitySha256": "d7e543f23f5227df0699c58998e3e3135a561b57993a0e6b2fb09c21ac7235a3",
+      "resolvedAbilitySha256": "d7e543f23f5227df0699c58998e3e3135a561b57993a0e6b2fb09c21ac7235a3",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:98fcf9b5a057de37a3468b8e0fc9ee71913bab8527c71d6ec78a5627b32cc07f",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "zhadiaole111",
+      "rawName": "畸形秀演员",
+      "rawTeam": "outsider",
+      "roleId": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc",
+      "rawAbilitySha256": "1bf81bdf2318935b9432a796572aa62e79b532a6ba5b229a90764e14fcf8e036",
+      "resolvedAbilitySha256": "21a582a5eb2fa49488b05dbc9f65dbf170438361ae0dcbcf392cb5ba68556b11",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "woheduolema111",
+      "rawName": "酒鬼",
+      "rawTeam": "outsider",
+      "roleId": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca",
+      "rawAbilitySha256": "18b60e84cd50d768ebe227895a002cd5cdbdba9530a2cd9094469fcaa680da22",
+      "resolvedAbilitySha256": "eb0c4bb551288efa3bb3718aeaf9851335da0dc21a415f4d1d95a957303a82ff",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "scp-049049049",
+      "rawName": "瘟疫医生",
+      "rawTeam": "outsider",
+      "roleId": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f",
+      "rawAbilitySha256": "dd6aa47e5c321b735627952cc0ed2463202a1c1f12f9d2eb06bb6a5b5a6e44b5",
+      "resolvedAbilitySha256": "e7e8fded207ec8f0390fe0720fc1db7d8fc203d037e0c3a109424007f4d729bd",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 72,
+      "sharedRoleDefinitionHash": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "liangjifanzhuan111",
+      "rawName": "异端分子",
+      "rawTeam": "outsider",
+      "roleId": "heretic",
+      "sourceId": "er-yu-wo-zha",
+      "sourceVersion": "sha256:7f808685e84f16b77b34a486fcf2548efbc5ef9feaa9215010ff563d742aca63",
+      "rawAbilitySha256": "5ffb0ae2a0fed9704582893cc10d0b77ca3b7a44555208667625cec474dd93b7",
+      "resolvedAbilitySha256": "5ffb0ae2a0fed9704582893cc10d0b77ca3b7a44555208667625cec474dd93b7",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:15d126f4ced300b710bbcba8b520f821980bc18eb543cb930bec1dcfbfb5c4a1",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "zhaohuandaxiangjiao111",
+      "rawName": "召唤师",
+      "rawTeam": "minion",
+      "roleId": "summoner",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d",
+      "rawAbilitySha256": "144af9de970a2d6220e357d1f42cea9991a14432329862ef04aab74f88bca44a",
+      "resolvedAbilitySha256": "0c079ff05c7fbccf09ab2a38d58127942bea37d246d3376403abd090320dadbc",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 5.2,
+      "rawOtherNight": 27,
+      "sharedRoleDefinitionHash": "sha256:9fc50dd518f3cd792b82133d178c0b6ff7bf688e6e7e56cf219420ea13376c4f",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "shabihouzi122211",
+      "rawName": "街头风琴手",
+      "rawTeam": "minion",
+      "roleId": "organgrinder",
+      "sourceId": "yu-zhe-huan-yan",
+      "sourceVersion": "sha256:4571db2ca9cfb548f5357a82e87a05a7c29b128678d43d4be427aa444b897e06",
+      "rawAbilitySha256": "92f32c56924920dbf38db69d0b1a835a3da9fcbf81050cf306a91a6df26caff2",
+      "resolvedAbilitySha256": "92f32c56924920dbf38db69d0b1a835a3da9fcbf81050cf306a91a6df26caff2",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 18.5,
+      "rawOtherNight": 17.5,
+      "sharedRoleDefinitionHash": "sha256:43f5b78821dc3e71057d941acb9706533394a99a1ced945c9e1330eab9c65615",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "zheyeshigejiugui111",
+      "rawName": "提线木偶",
+      "rawTeam": "minion",
+      "roleId": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc",
+      "rawAbilitySha256": "46febd99d83eb08dfe9a03d7c46e38807d76dc5e6cbe8e66f4d532feffcc815f",
+      "resolvedAbilitySha256": "f069f8a02afad3c99d81e16387e97bb593fb4ec9559d9807973dbd2f9f81ba05",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 10,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "nanjueeeee111",
+      "rawName": "男爵",
+      "rawTeam": "minion",
+      "roleId": "baron",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc",
+      "rawAbilitySha256": "51cd12b4a4b7cd1ad2b488398fc4e9f13b7c5a54b80e07563c0c0b23a988e493",
+      "resolvedAbilitySha256": "0b298e61bfa3ffb6202ad6ecccf9b9fd7943a57c310bb89bf67107bde75bb05e",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:890d34be482a8e93a73c160430757fc5f236aa26654d8734a5419df15b645493",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "tifeng11zhishou11111111",
+      "rawName": "堤丰之首",
+      "rawTeam": "demon",
+      "roleId": "lordoftyphon",
+      "sourceId": "xin-kou-ci-huang",
+      "sourceVersion": "sha256:4397c0506ab8e254b135a0610c1b096a8304925c86694e953514adf67ab1cd69",
+      "rawAbilitySha256": "e4ea49115ee1eccc2f7fd5b5d552112a10a1b953b5cb843f049a1c3f02db8701",
+      "resolvedAbilitySha256": "f4b321d68c08d9701390734ec30eaffe5ea6a4ba4744905bf6576a4aeddde648",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 1.4,
+      "rawOtherNight": 38.5,
+      "sharedRoleDefinitionHash": "sha256:06c519562a52839f2fbbc315f7ef342deba589bd2b18f62b165ca8113edaccf4",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "xiaoshabi111111",
+      "rawName": "小怪宝",
+      "rawTeam": "demon",
+      "roleId": "lilmonsta",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f",
+      "rawAbilitySha256": "2218f0da21ffa484c43970a2a3212a03d0f990042b4b56c3cfc69ceabf2d4a5d",
+      "resolvedAbilitySha256": "2218f0da21ffa484c43970a2a3212a03d0f990042b4b56c3cfc69ceabf2d4a5d",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 16,
+      "rawOtherNight": 44,
+      "sharedRoleDefinitionHash": "sha256:566509c99cbacc9917a0d1f126aa0c3896be6247b57fddd6d6711c0de39043ec",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "kakakakkakakakakakakakaakakak111",
+      "rawName": "卡扎力",
+      "rawTeam": "demon",
+      "roleId": "kazali",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683",
+      "rawAbilitySha256": "57dd16df72ee546dc17651fca086e93399dbc4f8847ca93ae92ccd3e4538ce81",
+      "resolvedAbilitySha256": "3b343bde20de8a8d5259005bfa33bb537863a820dfe17b14b89ccc30e3700e9f",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 3.5,
+      "rawOtherNight": 46,
+      "sharedRoleDefinitionHash": "sha256:1d09ef273bca43a80090cd4a16749f9d2fe72a4e6a07f1af2c3ea8d99d062456",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "oeeroeeerooooeeeeee1111111",
+      "rawName": "奥赫",
+      "rawTeam": "demon",
+      "roleId": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca",
+      "rawAbilitySha256": "50e614fff97cabd608d92d06fa38f6347dc0f9fadf23eb4acccc3054f1c4b72c",
+      "resolvedAbilitySha256": "996333b611f228cf98eae4993ae6524798e07595667cf426eea597ee70e49fd8",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 41,
+      "sharedRoleDefinitionHash": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    },
+    {
+      "rawId": "ssdhaioudhoipasjdilajslkdjaslkdjklasjd",
+      "rawName": "圣洁之魂",
+      "rawTeam": "fabled",
+      "roleId": "spiritofivory",
+      "sourceId": "punchy",
+      "sourceVersion": "sha256:2db376682e56699246b43b787ae0f3ddef03ab3c28f678e0373fc35b08b0036c",
+      "rawAbilitySha256": "7c3e672367d722abfdde989bdca0e2a6d8c830d8e276417196bc31968a566f07",
+      "resolvedAbilitySha256": "abca82ec4527fce0c1b3137e147d51db06bcf34ff7c53e5978fb2f8fcd767328",
+      "aliasReviewRequired": false,
+      "abilityTextReviewRequired": false,
+      "rawFirstNight": 0,
+      "rawOtherNight": 0,
+      "sharedRoleDefinitionHash": "sha256:75c15683c6c2afaa2ce01ff65deb67aad5cf0ca2689a426dce73c8b5b49e8dd3",
+      "aliasReviewed": true,
+      "abilityTextReviewed": true,
+      "review": "已核对稳定角色身份、技能含义和团队；运行采用明确的现有当前规则引用，完整原文字节保留。"
+    }
+  ],
+  "authorMetadata": {
+    "id": "_meta",
+    "name": "古堡疑云-卡慕萝米",
+    "logo": "https://img.picui.cn/free/2025/04/14/67fcc33eb5f20.png",
+    "author": "卡慕萝米",
+    "description": "古堡疑云",
+    "townsfolkName": "镇民",
+    "outsidersName": "外来者",
+    "minionsName": "爪牙",
+    "demonsName": "恶魔",
+    "townsfolk": "镇民",
+    "outsider": "外来者",
+    "minion": "爪牙",
+    "demon": "恶魔",
+    "a jinxedName": "相克",
+    "a jinxed": "相克"
+  },
+  "authorRuleEntries": [
+    {
+      "id": "56786542_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/e/ed/Cannibal.png/300px-Cannibal.png",
+      "name": "食人族&罂粟种植者",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果食人族获得了罂粟种植者的能力，当他获得下一个能力时，爪牙和恶魔也会互相认识。"
+    },
+    {
+      "id": "4_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2d/Plaguedoctor.png/300px-Plaguedoctor.png",
+      "name": "瘟疫医生&男爵",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果说书人获得了男爵的能力，至多两名玩家会变成不在场的外来者。"
+    },
+    {
+      "id": "7_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2d/Plaguedoctor.png/300px-Plaguedoctor.png",
+      "name": "瘟疫医生&提线木偶",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果在瘟疫医生死亡时说书人获得了提线木偶的能力，且与恶魔邻座的存活玩家中有镇民或外来者，其中一名玩家会变成邪恶的提线木偶。如果此时场上的邪恶玩家数量比初始设置时的数量超出一名或更多，改为无事发生。"
+    },
+    {
+      "id": "31_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/3d/Marionette.png/300px-Marionette.png",
+      "name": "提线木偶&气球驾驶员",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果提线木偶抽到了气球驾驶员，也可能会+1外来者"
+    },
+    {
+      "id": "30_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/3d/Marionette.png/300px-Marionette.png",
+      "name": "提线木偶&罂粟种植者",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "当罂粟种植者死亡后，恶魔会知道谁是提线木偶，但提线木偶什么都不会知道。"
+    },
+    {
+      "id": "29_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/3d/Marionette.png/300px-Marionette.png",
+      "name": "提线木偶&小怪宝",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "提线木偶会与一名爪牙玩家邻座，而不是恶魔。提线木偶不会被唤醒来决定是否照看小怪宝，也不会在照看小怪宝时得知自己是提线木偶。"
+    },
+    {
+      "id": "44_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+      "name": "召唤师&炼金术士",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果炼金术士获得了召唤师的能力，游戏会以初始有恶魔在场进行。炼金术士召唤师选择的玩家会变成恶魔但不会改变阵营。"
+    },
+    {
+      "id": "46_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+      "name": "召唤师&罂粟种植者",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果召唤师创造恶魔时罂粟种植者存活，由召唤师来选择创造哪种恶魔，由说书人来决定哪名玩家发生转变。"
+    },
+    {
+      "id": "47_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+      "name": "召唤师&提线木偶",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "在初始设置时，提线木偶会与召唤师邻座。召唤师会得知谁是提线木偶。"
+    },
+    {
+      "id": "109_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+      "name": "召唤师&卡扎力",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "召唤师无法创造已经在场的恶魔。如果召唤师创造了一个不在场的恶魔，当晚的死亡由说书人决定。"
+    },
+    {
+      "id": "34_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/4/40/Baron.png/300px-Baron.png",
+      "name": "男爵&异端分子",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果异端分子在剧本中，男爵的效果可能会只增加一个而非两个外来者。（全追慎用）"
+    },
+    {
+      "id": "62_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/39/Lilmonsta.png/300px-Lilmonsta.png",
+      "name": "小怪宝&魔术师",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "每个夜晚，由魔术师来选择一个爪牙角色：如果他和小怪宝均存活，由他来照看小怪宝。"
+    },
+    {
+      "id": "61_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/39/Lilmonsta.png/300px-Lilmonsta.png",
+      "name": "小怪宝&罂粟种植者",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果罂粟种植者在场，爪牙们不会同时醒来选择照看小怪宝。他们会依次单独被唤醒，直到其中一人选择照看小怪宝。"
+    },
+    {
+      "id": "112312312312312122333_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/1/18/Lordoftyphon.png",
+      "name": "堤丰之首&召唤师",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果召唤师创造了堤丰之首，则堤丰之首必须与一名爪牙相邻，且堤丰之首另一侧的玩家变成一个不在场的邪恶爪牙。"
+    },
+    {
+      "id": "106_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/4/46/Kazali.png/300px-Kazali.png",
+      "name": "卡扎力&提线木偶",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果卡扎力选择创造提线木偶，他只能选择将自己的邻座玩家变成提线木偶。"
+    },
+    {
+      "id": "104_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/4/46/Kazali.png/300px-Kazali.png",
+      "name": "卡扎力&赏金猎人",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "在卡扎力行动完毕后，如果赏金猎人仍然在场，才会创造邪恶镇民。"
+    }
+  ],
+  "authorSpecialRules": [
+    {
+      "id": "56786542_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/e/ed/Cannibal.png/300px-Cannibal.png",
+      "name": "食人族&罂粟种植者",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果食人族获得了罂粟种植者的能力，当他获得下一个能力时，爪牙和恶魔也会互相认识。"
+    },
+    {
+      "id": "4_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2d/Plaguedoctor.png/300px-Plaguedoctor.png",
+      "name": "瘟疫医生&男爵",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果说书人获得了男爵的能力，至多两名玩家会变成不在场的外来者。"
+    },
+    {
+      "id": "7_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2d/Plaguedoctor.png/300px-Plaguedoctor.png",
+      "name": "瘟疫医生&提线木偶",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果在瘟疫医生死亡时说书人获得了提线木偶的能力，且与恶魔邻座的存活玩家中有镇民或外来者，其中一名玩家会变成邪恶的提线木偶。如果此时场上的邪恶玩家数量比初始设置时的数量超出一名或更多，改为无事发生。"
+    },
+    {
+      "id": "31_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/3d/Marionette.png/300px-Marionette.png",
+      "name": "提线木偶&气球驾驶员",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果提线木偶抽到了气球驾驶员，也可能会+1外来者"
+    },
+    {
+      "id": "30_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/3d/Marionette.png/300px-Marionette.png",
+      "name": "提线木偶&罂粟种植者",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "当罂粟种植者死亡后，恶魔会知道谁是提线木偶，但提线木偶什么都不会知道。"
+    },
+    {
+      "id": "29_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/3d/Marionette.png/300px-Marionette.png",
+      "name": "提线木偶&小怪宝",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "提线木偶会与一名爪牙玩家邻座，而不是恶魔。提线木偶不会被唤醒来决定是否照看小怪宝，也不会在照看小怪宝时得知自己是提线木偶。"
+    },
+    {
+      "id": "44_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+      "name": "召唤师&炼金术士",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果炼金术士获得了召唤师的能力，游戏会以初始有恶魔在场进行。炼金术士召唤师选择的玩家会变成恶魔但不会改变阵营。"
+    },
+    {
+      "id": "46_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+      "name": "召唤师&罂粟种植者",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果召唤师创造恶魔时罂粟种植者存活，由召唤师来选择创造哪种恶魔，由说书人来决定哪名玩家发生转变。"
+    },
+    {
+      "id": "47_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+      "name": "召唤师&提线木偶",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "在初始设置时，提线木偶会与召唤师邻座。召唤师会得知谁是提线木偶。"
+    },
+    {
+      "id": "109_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/2/2f/Summoner.png/300px-Summoner.png",
+      "name": "召唤师&卡扎力",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "召唤师无法创造已经在场的恶魔。如果召唤师创造了一个不在场的恶魔，当晚的死亡由说书人决定。"
+    },
+    {
+      "id": "34_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/4/40/Baron.png/300px-Baron.png",
+      "name": "男爵&异端分子",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果异端分子在剧本中，男爵的效果可能会只增加一个而非两个外来者。（全追慎用）"
+    },
+    {
+      "id": "62_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/39/Lilmonsta.png/300px-Lilmonsta.png",
+      "name": "小怪宝&魔术师",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "每个夜晚，由魔术师来选择一个爪牙角色：如果他和小怪宝均存活，由他来照看小怪宝。"
+    },
+    {
+      "id": "61_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/3/39/Lilmonsta.png/300px-Lilmonsta.png",
+      "name": "小怪宝&罂粟种植者",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果罂粟种植者在场，爪牙们不会同时醒来选择照看小怪宝。他们会依次单独被唤醒，直到其中一人选择照看小怪宝。"
+    },
+    {
+      "id": "112312312312312122333_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/1/18/Lordoftyphon.png",
+      "name": "堤丰之首&召唤师",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果召唤师创造了堤丰之首，则堤丰之首必须与一名爪牙相邻，且堤丰之首另一侧的玩家变成一个不在场的邪恶爪牙。"
+    },
+    {
+      "id": "106_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/4/46/Kazali.png/300px-Kazali.png",
+      "name": "卡扎力&提线木偶",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "如果卡扎力选择创造提线木偶，他只能选择将自己的邻座玩家变成提线木偶。"
+    },
+    {
+      "id": "104_meta",
+      "image": "https://clocktower-wiki.gstonegames.com/images/thumb/4/46/Kazali.png/300px-Kazali.png",
+      "name": "卡扎力&赏金猎人",
+      "team": "a jinxed",
+      "setup": 0,
+      "ability": "在卡扎力行动完毕后，如果赏金猎人仍然在场，才会创造邪恶镇民。"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "automaticApproval": false,
+  "intakeReview": {
+    "required": true,
+    "pendingRoleReviewKeys": [
+      "45d6f1bf95c8c1544c740b138a2eb0b9c06ea7b581a93b37f009ec1cc05ae1cc",
+      "2863e8b9c9d0dee8fcd3e3a2e332c35e952200b80ffc091114c5b0e638943f29",
+      "3412b8bfdb1c2313f8e0655fe52504108d941065eaba323c63d65ab7ede66119",
+      "579c21f1ccee92272f5f972668423e1ce08b180b634d1c4efd7f5d6c13b11865",
+      "5ae2b91a5bca59f9b3c09d79fe7b3117cff568309c5b5d93015abe69a25db10e"
+    ],
+    "completed": true,
+    "reviewedAt": "2026-10-21",
+    "review": "身份、原技能、类型、完整来源版本与定义指纹已逐事实核对，原文差异及作者附注另存；本板模板与夜序检查单列。"
+  },
+  "sourceIndex": 630,
+  "sourceBuild": "16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e",
+  "sourcePath": "民间创意剧本\\不含华灯\\包含私货\\401-600期\\#古堡疑云-卡慕萝米.json",
+  "sourceCatalogLabel": "古堡疑云-卡慕萝米",
+  "rawAuthor": "卡慕萝米",
+  "authorVersion": "古堡疑云",
+  "currentSourceRechecked": true,
+  "currentJinxes": [
+    {
+      "roleId": "alchemist",
+      "withRoleId": "marionette",
+      "reason": "An Alchemist-Marionette has no Marionette ability & the Marionette is in play."
+    },
+    {
+      "roleId": "alchemist",
+      "withRoleId": "organgrinder",
+      "reason": "If the Alchemist has the Organ Grinder ability, the Organ Grinder is in play. If both are sober, both are drunk."
+    },
+    {
+      "roleId": "alchemist",
+      "withRoleId": "summoner",
+      "reason": "The Alchemist-Summoner does not get bluffs, and chooses which Demon but not which player. If they die before this happens, evil wins. [No Demon]"
+    },
+    {
+      "roleId": "bountyhunter",
+      "withRoleId": "kazali",
+      "reason": "If the Kazali turns the Bounty Hunter into a Minion, an evil Townsfolk is not created."
+    },
+    {
+      "roleId": "heretic",
+      "withRoleId": "baron",
+      "reason": "Only 1 jinxed character can be in play."
+    },
+    {
+      "roleId": "lilmonsta",
+      "withRoleId": "magician",
+      "reason": "If the Magician is alive, the Storyteller chooses which Minion babysits Lil' Monsta. "
+    },
+    {
+      "roleId": "lilmonsta",
+      "withRoleId": "poppygrower",
+      "reason": "If Lil' Monsta & the Poppy Grower are alive, Minions wake one by one, until one of them chooses to take the Lil' Monsta token."
+    },
+    {
+      "roleId": "magician",
+      "withRoleId": "marionette",
+      "reason": "If the Magician is alive, the Demon doesn't know which neighbor is the Marionette."
+    },
+    {
+      "roleId": "marionette",
+      "withRoleId": "balloonist",
+      "reason": "If the Marionette thinks that they are the Balloonist, an Outsider might have been added during setup."
+    },
+    {
+      "roleId": "marionette",
+      "withRoleId": "kazali",
+      "reason": "If there would be a Marionette in play, they enter play after the Demon & must start as their neighbor."
+    },
+    {
+      "roleId": "marionette",
+      "withRoleId": "lilmonsta",
+      "reason": "If there would be a Marionette in play, they enter play after the Demon & must start as their neighbor."
+    },
+    {
+      "roleId": "marionette",
+      "withRoleId": "summoner",
+      "reason": "If there would be a Marionette in play, they enter play after the Demon & must start as their neighbor."
+    },
+    {
+      "roleId": "plaguedoctor",
+      "withRoleId": "baron",
+      "reason": "If the Storyteller would gain the Baron ability, up to two players become Outsiders."
+    },
+    {
+      "roleId": "plaguedoctor",
+      "withRoleId": "marionette",
+      "reason": "If the Storyteller would gain the Marionette ability, one of the Demon's good neighbors becomes the Marionette."
+    },
+    {
+      "roleId": "summoner",
+      "withRoleId": "kazali",
+      "reason": "If the Summoner creates a second living Demon, deaths tonight are arbitrary."
+    },
+    {
+      "roleId": "summoner",
+      "withRoleId": "lordoftyphon",
+      "reason": "If a Lord of Typhon is summoned, they must neighbor a Minion & their other neighbor becomes an evil Minion."
+    },
+    {
+      "roleId": "summoner",
+      "withRoleId": "poppygrower",
+      "reason": "If the Poppy Grower is alive on the 3rd night, the Summoner chooses which Demon but not which player."
+    }
+  ],
+  "ruleAndSourceReviewCompleted": true,
+  "adaptationPolicy": "完整原文、作者元数据与相克附注保留；运行适配2026-10-21核实的当前官方能力、团队、夜表和相克，只引用已有共享定义。不声称是最新作者版本，也不把翻译或规则适配冒充原文字面一致。",
+  "differences": [
+    {
+      "roleId": "investigator",
+      "review": "采用当前两名候选与一个爪牙角色的正式信息；原文零爪牙附注不增加普通开局特例。"
+    },
+    {
+      "roleId": "balloonist",
+      "review": "使用与上一夜角色类型不同的信息及0或+1外来者；旧四类型循环或固定+1不适用。"
+    },
+    {
+      "roleId": "alchemist",
+      "review": "当前可持有爪牙能力，主持可要求更换选择，不要求必须不在场。"
+    },
+    {
+      "roleId": "plaguedoctor",
+      "review": "当前获得一个爪牙能力，不强制不在场；特殊能力由当前相克另行确认。"
+    },
+    {
+      "roleId": "organgrinder",
+      "review": "原文可能仍含对自身提名计票的旧规则；运行采用每夜选择自身是否醉酒至黄昏的当前能力，旧限制不适用。"
+    },
+    {
+      "roleId": "lilmonsta",
+      "review": "小怪宝不占玩家座位、不提供普通恶魔伪装；死亡为可能而非必然。每晚照看者与后续夜可选死亡分开记录，角色与阵营不自动更改。"
+    }
+  ],
+  "authorRuleReviewCompleted": true,
+  "authorRulePolicy": "a jinxed为明确标注的作者相克附注，保留原文但不占角色座位；生效规则来自本板角色两两匹配的当前官方相克。错误标签、旧版文字不静默变成新规则。",
+  "officialRoleSourceUrl": "https://release.botc.app/resources/data/roles.json",
+  "officialRoleSnapshotSha256": "6c659354dee75cf3afdeaf6cbc750b274a87d1099cc5f68651a2114881eb85ca",
+  "officialNightSourceUrl": "https://release.botc.app/resources/data/nightsheet.json",
+  "officialNightSnapshotSha256": "99a2815bb31bcec3e107bf7f1c2fb305e301d317981d855704d3d954ec4c3f75",
+  "officialJinxSourceUrl": "https://release.botc.app/resources/data/jinxes.json",
+  "officialJinxSnapshotSha256": "5d3d8d0ac194fb1ea44af79b74f9e4bdc09712aef2123c3a3ef2b6c43efa7df7",
+  "currentMarionetteJinxPolicy": "以2026-10-21官方相克为准；召唤师/小怪宝的无恶魔初始模板不预分配木偶，不能沿用开局邻接召唤师或爪牙的旧规则。延后入场及其他复杂变化仍由主持明确确认。"
+}

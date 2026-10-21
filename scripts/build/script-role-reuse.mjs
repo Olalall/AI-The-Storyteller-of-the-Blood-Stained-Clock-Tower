@@ -3,6 +3,7 @@ import { existsSync, readFileSync, readdirSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { roleDefinitionHashes } from './role-definition-pins.mjs'
 import { splitScriptSource } from '../scout-clocktower-wiki.mjs'
+import { intakeRoleId } from './intake-role-id.mjs'
 
 export const sha256 = (value) => createHash('sha256').update(value).digest('hex')
 // Only role identity/text is reused; author reminders, night order and special rules remain board review.
@@ -14,7 +15,8 @@ export const roleReviewKey = (raw, canonicalId) => {
 
 /** Reuse reviewed source mappings only while both original bytes and full shared definitions still match. */
 export function createRoleReuseIndex(root, context) {
-  const reviewed = new Map(), canonical = new Map(), invalidProofs = [], fingerprints = new Map()
+  const canonical = id => intakeRoleId(id, context.normalizeRoleId)
+  const reviewed = new Map(), currentDefinitions = new Map(), invalidProofs = [], fingerprints = new Map()
   let verifiedSources = 0, staleRoleMappings = 0
   const reference = (resolved) => ({ id: context.normalizeRoleId(resolved.role.id), sourceId: resolved.sourceId, sourceVersion: resolved.sourceVersion })
   const fingerprint = (resolved) => {
@@ -26,7 +28,7 @@ export function createRoleReuseIndex(root, context) {
   const directory = resolve(root, 'src/domain/scripts/packs')
   const library = { ...context.library, resolve(ref) {
     try { return context.library.resolve(ref) } catch (error) {
-      const candidates = typeof ref === 'string' ? [...(canonical.get(context.normalizeRoleId(ref))?.values() ?? [])] : []
+      const candidates = typeof ref === 'string' ? [...(currentDefinitions.get(canonical(ref))?.values() ?? [])] : []
       if (candidates.length === 1) return candidates[0]
       throw error
     }
@@ -54,11 +56,12 @@ export function createRoleReuseIndex(root, context) {
         const hash = fingerprint(resolved), team = original.team === 'traveller' ? 'traveler' : original.team
         if (hash !== alias.sharedRoleDefinitionHash) { staleRoleMappings++; return }
         if (resolved.role.knowledgeStatus !== 'confirmed' || team && team !== resolved.role.team) return
-        const canonicalId = context.normalizeRoleId(resolved.role.id), declaredId = context.normalizeRoleId(original.id)
+        const canonicalId = canonical(resolved.role.id), declaredId = canonical(original.id)
+        if (context.normalizeRoleId(resolved.role.id) !== canonicalId) return
         if (context.library.variants(declaredId).length && declaredId !== canonicalId) return
         if (currentNight) {
-          const choices = canonical.get(canonicalId) ?? new Map()
-          choices.set(hash, resolved); canonical.set(canonicalId, choices)
+          const choices = currentDefinitions.get(canonicalId) ?? new Map()
+          choices.set(hash, resolved); currentDefinitions.set(canonicalId, choices)
         }
         for (const key of new Set([roleReviewKey(raw), roleReviewKey(raw, canonicalId), roleReviewKey(raw, '@source-text')])) {
           const variants = reviewed.get(key) ?? new Map()
@@ -72,17 +75,18 @@ export function createRoleReuseIndex(root, context) {
     resolve(raw) {
       const original = typeof raw === 'string' ? { id: raw } : raw
       if (!original || typeof original.id !== 'string' || !original.id.trim()) return { status: 'invalid-role', reusable: false }
-      const declaredId = context.normalizeRoleId(original.id), declaredKnown = context.library.variants(declaredId).length > 0
-      const hint = typeof original.GstoneID === 'string' ? context.normalizeRoleId(original.GstoneID) : ''
+      const declaredId = canonical(original.id), declaredKnown = context.library.variants(declaredId).length > 0
+      const legacyAlias = context.normalizeRoleId(original.id) !== declaredId
+      const hint = typeof original.GstoneID === 'string' ? canonical(original.GstoneID) : ''
       if (declaredKnown && hint && hint !== declaredId) return { status: 'conflicting-source-identity', reusable: false, roleId: declaredId }
-      const suffixId = context.normalizeRoleId(original.id.replace(/_?button$/, ''))
+      const suffixId = canonical(original.id.replace(/_?button$/, ''))
       let id = declaredKnown ? declaredId : hint && context.library.variants(hint).length ? hint
         : context.library.variants(suffixId).length ? suffixId : declaredId
       const textIdentity = !declaredKnown && typeof original.name === 'string' && typeof original.ability === 'string' && typeof original.team === 'string'
       const candidates = [...(reviewed.get(roleReviewKey(raw))?.values() ?? []), ...(reviewed.get(roleReviewKey(raw, id))?.values() ?? []),
         ...(textIdentity ? reviewed.get(roleReviewKey(raw, '@source-text'))?.values() ?? [] : [])]
       const previous = [...new Map(candidates.map((entry) => [entry.definitionHash, entry])).values()]
-      if (previous.length === 1 && hint && context.library.variants(hint).length && context.normalizeRoleId(previous[0].role.id) !== hint) {
+      if (previous.length === 1 && hint && context.library.variants(hint).length && canonical(previous[0].role.id) !== hint) {
         return { status: 'conflicting-source-identity', reusable: false }
       }
       if (previous.length === 1) return { status: 'reviewed-source', reusable: true, reference: reference(previous[0]), definitionHash: previous[0].definitionHash, proofScriptId: previous[0].proofScriptId }
@@ -91,13 +95,14 @@ export function createRoleReuseIndex(root, context) {
       if (!variants.length && textIdentity) {
         variants = context.library.all().filter(({ role }) => role.name === original.name
           && role.abilityText === original.ability && role.team === (original.team === 'traveller' ? 'traveler' : original.team))
-        const ids = [...new Set(variants.map(({ role }) => context.normalizeRoleId(role.id)))]
+        const ids = [...new Set(variants.map(({ role }) => canonical(role.id)))]
         if (ids.length === 1) id = ids[0]
+        if (ids.length === 1) variants = variants.filter(entry => context.normalizeRoleId(entry.role.id) === id)
       }
       if (!variants.length && textIdentity) {
         const named = context.library.all().filter(({ role }) => role.name === original.name
           && role.team === (original.team === 'traveller' ? 'traveler' : original.team))
-        const ids = [...new Set(named.map(({ role }) => context.normalizeRoleId(role.id)))]
+        const ids = [...new Set(named.map(({ role }) => canonical(role.id)))]
         if (ids.length === 1) {
           try {
             const proposed = library.resolve(ids[0])
@@ -109,7 +114,7 @@ export function createRoleReuseIndex(root, context) {
           candidates: named.map((entry) => ({ ...reference(entry), definitionHash: fingerprint(entry) })) }
       }
       if (!variants.length) return { status: 'unknown-role-or-alias', reusable: false }
-      if (declaredKnown && (typeof raw === 'string' || Object.keys(original).every((field) => field === 'id'))) {
+      if (declaredKnown && !legacyAlias && (typeof raw === 'string' || Object.keys(original).every((field) => field === 'id'))) {
         try {
           const resolved = library.resolve(id)
           if (resolved.role.knowledgeStatus === 'confirmed') return { status: 'current-id-default', reusable: true, reference: reference(resolved), definitionHash: fingerprint(resolved) }

@@ -28,6 +28,7 @@ import { createResolutionHint } from './state/resolutionHint'
 import './night-workbench.css'
 import { canRevealNightResult } from '../../domain/scripts/nightInteractionInputs'
 import { kazaliAllocationBlocksItem } from '../game-session/state/applyKazaliAllocation'
+import { wakeShortLabel } from './state/systemSteps'
 interface NightWorkbenchProps {
   sessionBinding: NightWorkbenchSessionBinding
   onExit: () => void
@@ -92,9 +93,9 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
     )
     .at(-1)
   const aiAdvice = aiReference ? state.aiAdviceLog[aiReference.adviceId] : currentInputAdvice
-  const activeLabel = state.privacyShielded ? `${activeItem.seatId}号角色` : `${activeItem.seatId}号 ${activeRole.name}`
-  const previewLabel = state.privacyShielded ? `${current.seatId}号角色` : `${current.seatId}号 ${currentRole.name}`
-  const canChangeRole = !current.systemStep && surface === 'live' && !awaitingAllocation && !isPreviewing && !isCorrecting && !(draft.updatedAt && current.progress !== 'confirmed')
+  const activeLabel = activeItem.seatId === 0 || activeItem.interactionVersion === 'legion/collective-night-v1' ? wakeShortLabel(activeItem, state.privacyShielded) : state.privacyShielded ? `${activeItem.seatId}号角色` : `${activeItem.seatId}号 ${activeRole.name}`
+  const previewLabel = current.seatId === 0 || current.interactionVersion === 'legion/collective-night-v1' ? wakeShortLabel(current, state.privacyShielded) : state.privacyShielded ? `${current.seatId}号角色` : `${current.seatId}号 ${currentRole.name}`
+  const canChangeRole = !current.systemStep && !current.lilMonstaStep && surface === 'live' && !awaitingAllocation && !isPreviewing && !isCorrecting && !(draft.updatedAt && current.progress !== 'confirmed')
   // progress 从不会是 'draft'（reducer 只写 drafts），所以必须按草稿内容判断，
   // 否则「草稿已保留」的离开守卫永远不会出现，误触返回时说书人会以为记录丢了。
   const hasInProgressDraft = Object.entries(state.drafts).some(([itemId, item]) =>

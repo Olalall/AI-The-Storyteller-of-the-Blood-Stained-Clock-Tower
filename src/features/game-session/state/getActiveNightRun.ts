@@ -1,4 +1,5 @@
 import type { GameSessionState, NightRunState } from '../types'
+import { validLilMonstaItem } from './lilMonstaNight'
 
 /** 只接受本局可浏览的夜序，缺失或损坏时保留原存档供恢复。 */
 export function getActiveNightRun(session: GameSessionState): NightRunState | null {
@@ -8,7 +9,9 @@ export function getActiveNightRun(session: GameSessionState): NightRunState | nu
     !Array.isArray(run.queue) || !run.queue.length || !run.drafts || !run.aiAdviceLog) return null
   const ids = new Set(run.queue.map((item) => item?.id))
   if (ids.size !== run.queue.length || !ids.has(run.activeCursorId) || !ids.has(run.previewEntryId) ||
-    run.queue.some((item) => !item || typeof item.id !== 'string' || !item.id || !session.seats[item.seatId] && !(item.seatId === 0 && item.systemStep?.kind === 'audience_notice' && item.systemStep.recipientLabels?.length === 0))) return null
+    run.queue.some((item) => !item || typeof item.id !== 'string' || !item.id || !session.seats[item.seatId]
+      && !(item.seatId === 0 && item.systemStep?.kind === 'audience_notice' && item.systemStep.recipientLabels?.length === 0)
+      && !validLilMonstaItem(item, item))) return null
   if (run.phaseSegmentId && !session.phaseSegments.some((segment) => segment.id === run.phaseSegmentId && segment.kind === 'night')) return null
   return run
 }
