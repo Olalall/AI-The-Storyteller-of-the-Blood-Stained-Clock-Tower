@@ -1,0 +1,1350 @@
+{
+  "scriptId": "wiki-3d4ca1a93128c7d7",
+  "displayName": "异数略算",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "TPI",
+    "version": "库记录840 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:3d4ca1a93128c7d7770a3ed1d4e17e823d1e5ea694e3064f27a64f2b64597984",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "voudon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "washerwoman",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "grandmother",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "bountyhunter",
+      "sourceId": "chuan-qi-zhi-ye",
+      "sourceVersion": "sha256:cc4c9bb6509aed6544f4cd7964ebb93bf092a5f6f31b57c0dca7913c7aeecb1d"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "villageidiot",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "mathematician",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "exorcist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "gossip",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "slayer",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "tealady",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "poppygrower",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "baron",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "summoner",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-1",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-2",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "lleech",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-3",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "summoner",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "tealady",
+        "washerwoman"
+      ],
+      "bluffs": [
+        "sailor",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-4",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "drunk"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-5",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "imp",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "saint"
+      ],
+      "bluffs": [
+        "grandmother",
+        "bountyhunter",
+        "villageidiot"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-6",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "saint",
+        "barber"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-7",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "nodashii",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "barber",
+        "sweetheart",
+        "drunk",
+        "saint"
+      ],
+      "bluffs": [
+        "grandmother",
+        "bountyhunter",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-8",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "devilsadvocate",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "tealady"
+      ],
+      "bluffs": [
+        "washerwoman",
+        "bountyhunter",
+        "villageidiot"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-9",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "assassin",
+        "vortox",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "grandmother"
+      ],
+      "bluffs": [
+        "sailor",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-10",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "summoner",
+        "assassin",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "gossip",
+        "poppygrower"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-11",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "assassin",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "grandmother",
+        "bountyhunter",
+        "villageidiot"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-12",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "baron",
+        "lleech",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "drunk",
+        "saint",
+        "barber"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "sailor",
+        "villageidiot"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-13",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "baron",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "tealady",
+        "drunk",
+        "saint",
+        "barber",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "washerwoman",
+        "grandmother",
+        "bountyhunter"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-14",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "devilsadvocate",
+        "imp",
+        "gossip",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "saint",
+        "barber",
+        "sweetheart",
+        "drunk"
+      ],
+      "bluffs": [
+        "sailor",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-15",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "summoner",
+        "devilsadvocate",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "barber",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "tealady",
+        "poppygrower"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-16",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "assassin",
+        "baron",
+        "nodashii",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "barber",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "villageidiot",
+        "fortuneteller",
+        "exorcist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-17",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 13,
+      "style": "chaos",
+      "roles": [
+        "summoner",
+        "assassin",
+        "baron",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "tealady",
+        "sweetheart",
+        "drunk"
+      ],
+      "bluffs": [
+        "villageidiot",
+        "fortuneteller",
+        "poppygrower"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-18",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "assassin",
+        "baron",
+        "exorcist",
+        "gossip",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "barber",
+        "sweetheart",
+        "drunk"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-19",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "baron",
+        "devilsadvocate",
+        "vortox",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "sweetheart",
+        "drunk",
+        "saint"
+      ],
+      "bluffs": [
+        "villageidiot",
+        "fortuneteller",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-20",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "baron",
+        "devilsadvocate",
+        "gossip",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "sweetheart",
+        "drunk",
+        "saint",
+        "barber"
+      ],
+      "bluffs": [
+        "bountyhunter",
+        "villageidiot",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-21",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "devilsadvocate",
+        "assassin",
+        "lleech",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "mathematician",
+        "exorcist",
+        "gossip",
+        "drunk",
+        "saint",
+        "barber",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "villageidiot",
+        "fortuneteller",
+        "slayer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-3d4ca1a93128c7d7-candidate-22",
+      "scriptId": "wiki-3d4ca1a93128c7d7",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "assassin",
+        "baron",
+        "lleech",
+        "gossip",
+        "slayer",
+        "tealady",
+        "washerwoman",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "barber",
+        "sweetheart",
+        "drunk",
+        "saint"
+      ],
+      "bluffs": [
+        "mathematician",
+        "exorcist",
+        "poppygrower"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "summoner-no-demon",
+      "roleId": "summoner",
+      "summary": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://script.bloodontheclocktower.com/?script=H4sIAAAAAAAACpWUQU4DMQxFr4K8nhPMDnWBuAIIIU/iSdwm9sjOUCrE3VFFBUvMMtbzj/X95ecP4AwzvHYaCBPgPqoazPBEw2ECwU4ww/3dg3Hvd4eqtl/rS1PNPtAeOxY6qBmlwSowg8q3jrragHnF5jTBuGxXoXVvDT6n26+FhAwbTFCq+i+8sQjl2/OHfuPWsBBn1hFsGXqWZEwW5FnkRLSF+YJ9aWGa3tUSe3R47ELOmIK4cKnjjCPVjhLs8YaX8PgreyX7h7i2HLe+s/gwioYhoQgv4exk7B7WzrbLKZoAbdSD7KaNBycOO1g0rzhq2EPfe1cJ4+iO7hzeZ0JrNM4aj8AFS8EFl6VR1KP9dMIgq0cNOx89GJVpDbIVrYUv0XHPJerBQqVgeOcJNyqKfw3y8gXT+fIa6wUAAA==",
+        "https://wiki.bloodontheclocktower.com/Summoner"
+      ],
+      "reviewedAt": "2026-10-16"
+    },
+    {
+      "id": "baron-outsider-plus-two",
+      "roleId": "baron",
+      "summary": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-07-22"
+    },
+    {
+      "id": "lleech-slayer-jinx",
+      "roleId": "lleech",
+      "summary": "If the Slayer slays the Lleech host, the host dies.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-chambermaid-jinx",
+      "roleId": "mathematician",
+      "summary": "The Chambermaid can detect if the Mathematician will wake tonight.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-drunk-jinx",
+      "roleId": "mathematician",
+      "summary": "The Mathematician learns if the Drunk’s ability yielded false info or failed to work properly.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "summoner-poppygrower-jinx",
+      "roleId": "summoner",
+      "summary": "If the Poppy Grower is alive on the 3rd night, the Summoner chooses which Demon but not which player.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "poppygrower",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "summoner",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "washerwoman",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "villageidiot",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "bountyhunter",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "poppygrower",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "summoner",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "exorcist",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "gossip",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "barber",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "villageidiot",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "bountyhunter",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "voudon": "sha256:4c9e26c77efc094f2324dd8b0d4de9402c6cddb5dd508215c972385ab103f3ad",
+    "washerwoman": "sha256:a5447d91f7ba8eb611c52928fc1be043d95e8c89204f1f8b23168ee059926641",
+    "grandmother": "sha256:ddae6200635dbe4275d6b9398d8a0dc528897b43686e7fb9599fec3f6961e069",
+    "bountyhunter": "sha256:0bcacf61a2e3d4c45228cd202d4368f843f95a0b866c6f5bf9bd71cd84d29ae2",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "villageidiot": "sha256:6f0a168d318bf468312655eb4d5a0e3da89481595bfd1e87d317a10eb632f083",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "mathematician": "sha256:f1262386ef8bd2783d644dc5240ea8e3fe2ee414a55b3cc3b86f9aee91cd027d",
+    "exorcist": "sha256:8af78315af9ed40d46f59a081ce0127480a0d8f4f0af13a013970b7af64ba6da",
+    "gossip": "sha256:c1ee906e8b2abcc4e4c51c9d0f88c968a0ab63432ee6297545f02b62a1befa65",
+    "slayer": "sha256:74d1245e17fde7141ff849dd826aadeb562b21263addbd4de8e9eae521d1fba7",
+    "tealady": "sha256:5477146713dda2d2ac0acb2b3a2b712e71a5691d1f0ea364fa0ef990d3c5cef4",
+    "poppygrower": "sha256:515acffda0a36fe28e0ca53e5aa0d4b75a9b69ba0de881ba0ab88adc253fb586",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "baron": "sha256:890d34be482a8e93a73c160430757fc5f236aa26654d8734a5419df15b645493",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "summoner": "sha256:9fc50dd518f3cd792b82133d178c0b6ff7bf688e6e7e56cf219420ea13376c4f",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b"
+  }
+}

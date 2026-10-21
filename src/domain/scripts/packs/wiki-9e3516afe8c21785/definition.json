@@ -1,0 +1,1334 @@
+{
+  "scriptId": "wiki-9e3516afe8c21785",
+  "displayName": "意外人选",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "【作者】Taylor & Viva La Sam",
+    "version": "库记录574 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:9e3516afe8c2178506d4eb00c5572c41804f9b8d117b05b0524652d53d24012d",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "steward",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "shugenja",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "exorcist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "gossip",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "huntsman",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "artist",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "soldier",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "summoner",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "goblin",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "yaggababble",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "po",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "harlot",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "barista",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "bishop",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "beggar",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "scapegoat",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-1",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie"
+      ],
+      "bluffs": [
+        "shugenja",
+        "fortuneteller",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-2",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "po",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier"
+      ],
+      "bluffs": [
+        "monk",
+        "exorcist",
+        "gossip"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-3",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "summoner",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "philosopher",
+        "huntsman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-4",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja",
+        "drunk"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "towncrier",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-5",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "yaggababble",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "recluse"
+      ],
+      "bluffs": [
+        "exorcist",
+        "gossip",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-6",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "recluse",
+        "damsel"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "monk",
+        "exorcist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-7",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "nodashii",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "damsel",
+        "sweetheart",
+        "drunk"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "exorcist",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-8",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "assassin",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "seamstress",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-9",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "goblin",
+        "ojo",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher"
+      ],
+      "bluffs": [
+        "pixie",
+        "fortuneteller",
+        "huntsman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-10",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "summoner",
+        "goblin",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie"
+      ],
+      "bluffs": [
+        "towncrier",
+        "monk",
+        "huntsman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-11",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "goblin",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "philosopher",
+        "huntsman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-12",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "godfather",
+        "po",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "pixie",
+        "shugenja",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-13",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "godfather",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "drunk"
+      ],
+      "bluffs": [
+        "steward",
+        "fortuneteller",
+        "huntsman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-14",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "assassin",
+        "yaggababble",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "recluse"
+      ],
+      "bluffs": [
+        "shugenja",
+        "fortuneteller",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-15",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "summoner",
+        "assassin",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "damsel",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "exorcist",
+        "gossip",
+        "huntsman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-16",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "assassin",
+        "goblin",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward"
+      ],
+      "bluffs": [
+        "pixie",
+        "fortuneteller",
+        "huntsman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-17",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "goblin",
+        "godfather",
+        "nodashii",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie",
+        "damsel"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "towncrier",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-18",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "goblin",
+        "godfather",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "huntsman",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-19",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "godfather",
+        "assassin",
+        "ojo",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "monk"
+      ],
+      "bluffs": [
+        "exorcist",
+        "huntsman",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-20",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "godfather",
+        "assassin",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie",
+        "sweetheart",
+        "drunk",
+        "recluse"
+      ],
+      "bluffs": [
+        "shugenja",
+        "fortuneteller",
+        "towncrier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-21",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "assassin",
+        "goblin",
+        "po",
+        "seamstress",
+        "philosopher",
+        "artist",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "drunk",
+        "recluse",
+        "damsel"
+      ],
+      "bluffs": [
+        "monk",
+        "exorcist",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-9e3516afe8c21785-candidate-22",
+      "scriptId": "wiki-9e3516afe8c21785",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "summoner",
+        "assassin",
+        "goblin",
+        "soldier",
+        "steward",
+        "pixie",
+        "shugenja",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "gossip",
+        "seamstress",
+        "philosopher",
+        "recluse",
+        "damsel"
+      ],
+      "bluffs": [
+        "artist",
+        "drunk",
+        "sweetheart"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "summoner-no-demon",
+      "roleId": "summoner",
+      "summary": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://script.bloodontheclocktower.com/?script=H4sIAAAAAAAACpWUQU4DMQxFr4K8nhPMDnWBuAIIIU/iSdwm9sjOUCrE3VFFBUvMMtbzj/X95ecP4AwzvHYaCBPgPqoazPBEw2ECwU4ww/3dg3Hvd4eqtl/rS1PNPtAeOxY6qBmlwSowg8q3jrragHnF5jTBuGxXoXVvDT6n26+FhAwbTFCq+i+8sQjl2/OHfuPWsBBn1hFsGXqWZEwW5FnkRLSF+YJ9aWGa3tUSe3R47ELOmIK4cKnjjCPVjhLs8YaX8PgreyX7h7i2HLe+s/gwioYhoQgv4exk7B7WzrbLKZoAbdSD7KaNBycOO1g0rzhq2EPfe1cJ4+iO7hzeZ0JrNM4aj8AFS8EFl6VR1KP9dMIgq0cNOx89GJVpDbIVrYUv0XHPJerBQqVgeOcJNyqKfw3y8gXT+fIa6wUAAA==",
+        "https://wiki.bloodontheclocktower.com/Summoner"
+      ],
+      "reviewedAt": "2026-10-16"
+    },
+    {
+      "id": "godfather-outsider",
+      "roleId": "godfather",
+      "summary": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "yaggababble-exorcist-jinx",
+      "roleId": "yaggababble",
+      "summary": "If the Exorcist chooses the Yaggababble, the Yaggababble does not kill tonight.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "barista",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "yaggababble",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "summoner",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "steward",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "shugenja",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "barista",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harlot",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "summoner",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "exorcist",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "po",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "yaggababble",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "gossip",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "steward": "sha256:fbf26cf36a81721eccd8500f0a30bba3464ac17c74baa71769b870a1f0dd6e65",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "shugenja": "sha256:20e3ef86b6aeed76cf4588bbf6b856480cd1fff5ece0e97b8e42928b98439fc0",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "exorcist": "sha256:8af78315af9ed40d46f59a081ce0127480a0d8f4f0af13a013970b7af64ba6da",
+    "gossip": "sha256:c1ee906e8b2abcc4e4c51c9d0f88c968a0ab63432ee6297545f02b62a1befa65",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "huntsman": "sha256:b0f38948ef04be8e1ddd284a4a44af8aa2ca936d3ae8eded18291db8c89e63f4",
+    "artist": "sha256:c9b8ee57527bb669ec6b036b53a1c4196be7c4801e0572ea1ac5a19d42bedda5",
+    "soldier": "sha256:e24f9025b8c74c0b5fae6536a74ffd2845b311d4a2f60272a3950476946fd523",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "summoner": "sha256:9fc50dd518f3cd792b82133d178c0b6ff7bf688e6e7e56cf219420ea13376c4f",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "goblin": "sha256:c831c99d03dd8c2c7ddb4a84d51c78ef7df4e951ed30f40341940ba888d456ac",
+    "yaggababble": "sha256:251a11ed72ec35dcaf55fdd40e3841249196b2898200d5482d98273afae641d3",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5",
+    "po": "sha256:f3ef02e0ba52f3bf72ba6cf687f54bcc07c27d819451313c8e90d43f69481660",
+    "harlot": "sha256:710408224974e879701ae8d073fb6803c2232feca07cbbd1d3317974663930c3",
+    "barista": "sha256:034c65e4f9caf7aec12ce5e0fb34a4c0979843fe56015fc2a7f3981fccf0a83f",
+    "bishop": "sha256:197ad43c5b2d29232d63b02e76b3793ed1555e1bb32f9ab2679d738f21ca3a0b",
+    "beggar": "sha256:02c34769f3b35707979f5836727e32194a93fd3bc8048439fdadfa08f524aefc",
+    "scapegoat": "sha256:508bd91db3bf128f85776b2d28caf320a11db4718d244f6912f23ed5aa6d7669"
+  }
+}

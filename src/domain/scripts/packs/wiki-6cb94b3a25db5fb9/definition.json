@@ -1,0 +1,2115 @@
+{
+  "scriptId": "wiki-6cb94b3a25db5fb9",
+  "displayName": "与汝同袍？",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "Ben Burns",
+    "version": "库记录837 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:6cb94b3a25db5fb94c777242a6eaa0f552656293d7f707480e18a56583d35918",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "investigator",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "clockmaker",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "gambler",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "gossip",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "huntsman",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "ogre",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "lunatic",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "baron",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "summoner",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "lilmonsta",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "legion",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-1",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator",
+        "clockmaker"
+      ],
+      "bluffs": [
+        "noble",
+        "sailor",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-2",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "mayor",
+        "investigator",
+        "clockmaker"
+      ],
+      "bluffs": [
+        "sailor",
+        "empath",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 0,
+            "minion": -1,
+            "demon": 3
+          },
+          "choiceId": "majority-legion-7",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-3",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "baron",
+        "noble",
+        "sailor",
+        "empath",
+        "ogre",
+        "lunatic"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-4",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "ojo",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer"
+      ],
+      "bluffs": [
+        "sailor",
+        "empath",
+        "huntsman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-5",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "damsel"
+      ],
+      "bluffs": [
+        "sailor",
+        "empath",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-6",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "investigator",
+        "clockmaker",
+        "noble"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -1,
+            "minion": -1,
+            "demon": 4
+          },
+          "choiceId": "majority-legion-8",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-7",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 8,
+      "style": "chaos",
+      "roles": [
+        "baron",
+        "devilsadvocate",
+        "sailor",
+        "empath",
+        "monk",
+        "lunatic",
+        "puzzlemaster",
+        "damsel"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-8",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "vigormortis",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "huntsman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-9",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "farmer",
+        "mayor",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "ogre",
+        "lunatic"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-10",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath"
+      ],
+      "bluffs": [
+        "monk",
+        "gambler",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": -2,
+            "minion": -1,
+            "demon": 4
+          },
+          "choiceId": "majority-legion-9",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-10/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-11",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 9,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "baron",
+        "empath",
+        "monk",
+        "gambler",
+        "puzzlemaster",
+        "damsel",
+        "ogre",
+        "lunatic"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-12",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "baron",
+        "ojo",
+        "oracle",
+        "gossip",
+        "farmer",
+        "damsel",
+        "ogre",
+        "lunatic",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "sailor",
+        "empath",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-13",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "baron",
+        "mayor",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath",
+        "lunatic",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "monk",
+        "gambler",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-14",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "noble",
+        "sailor",
+        "empath",
+        "monk"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "gambler",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": 0,
+            "minion": -2,
+            "demon": 5
+          },
+          "choiceId": "majority-legion-10",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-12/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-15",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "marionette",
+        "vigormortis",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "sailor"
+      ],
+      "bluffs": [
+        "oracle",
+        "huntsman",
+        "amnesiac"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-16",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "summoner",
+        "devilsadvocate",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle"
+      ],
+      "bluffs": [
+        "mayor",
+        "damsel",
+        "ogre"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-17",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "devilsadvocate",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "gossip",
+        "huntsman",
+        "amnesiac"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-18",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "noble",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -1,
+            "minion": -2,
+            "demon": 5
+          },
+          "choiceId": "majority-legion-11",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-19",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "baron",
+        "ojo",
+        "farmer",
+        "mayor",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "lunatic",
+        "puzzlemaster",
+        "damsel"
+      ],
+      "bluffs": [
+        "gambler",
+        "oracle",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-20",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "summoner",
+        "baron",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "puzzlemaster",
+        "damsel",
+        "ogre"
+      ],
+      "bluffs": [
+        "amnesiac",
+        "farmer",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-21",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "baron",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "damsel",
+        "ogre",
+        "lunatic",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "investigator",
+        "oracle",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-22",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "noble",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -2,
+            "demon": 6
+          },
+          "choiceId": "majority-legion-12",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-7/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-23",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "baron",
+        "devilsadvocate",
+        "vigormortis",
+        "mayor",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath",
+        "puzzlemaster",
+        "damsel",
+        "ogre"
+      ],
+      "bluffs": [
+        "gossip",
+        "huntsman",
+        "amnesiac"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-24",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "summoner",
+        "devilsadvocate",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "damsel",
+        "ogre"
+      ],
+      "bluffs": [
+        "mayor",
+        "lunatic",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-25",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "devilsadvocate",
+        "baron",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "ogre",
+        "lunatic"
+      ],
+      "bluffs": [
+        "investigator",
+        "clockmaker",
+        "huntsman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-26",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "noble",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": 0,
+            "minion": -3,
+            "demon": 6
+          },
+          "choiceId": "majority-legion-13",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-10/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-27",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "marionette",
+        "baron",
+        "ojo",
+        "investigator",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "damsel",
+        "ogre"
+      ],
+      "bluffs": [
+        "amnesiac",
+        "farmer",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-28",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "summoner",
+        "baron",
+        "devilsadvocate",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "ogre",
+        "lunatic"
+      ],
+      "bluffs": [
+        "amnesiac",
+        "damsel",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-29",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "baron",
+        "devilsadvocate",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "lunatic",
+        "puzzlemaster",
+        "damsel"
+      ],
+      "bluffs": [
+        "investigator",
+        "clockmaker",
+        "noble"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-30",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator"
+      ],
+      "bluffs": [
+        "noble",
+        "sailor",
+        "empath"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -3,
+            "outsider": -1,
+            "minion": -3,
+            "demon": 7
+          },
+          "choiceId": "majority-legion-14",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-12/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-31",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "baron",
+        "devilsadvocate",
+        "vigormortis",
+        "clockmaker",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "ogre",
+        "lunatic"
+      ],
+      "bluffs": [
+        "farmer",
+        "mayor",
+        "damsel"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-32",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "summoner",
+        "devilsadvocate",
+        "baron",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator",
+        "lunatic",
+        "puzzlemaster",
+        "damsel"
+      ],
+      "bluffs": [
+        "amnesiac",
+        "ogre",
+        "clockmaker"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-33",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "summoner",
+        "devilsadvocate",
+        "baron",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator",
+        "puzzlemaster",
+        "damsel",
+        "ogre",
+        "lunatic"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "noble",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-34",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "legion",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator",
+        "clockmaker",
+        "noble"
+      ],
+      "bluffs": [
+        "empath",
+        "monk",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "legion-majority",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": -2,
+            "minion": -3,
+            "demon": 7
+          },
+          "choiceId": "majority-legion-15",
+          "note": "多数玩家为军团；其余为善良镇民，采用三枚伪装方案。"
+        }
+      ],
+      "repeatableRoles": [
+        "legion"
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：yi-zhi-du-xiu/legion-majority/majority-legion-15/legion-majority。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-35",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "baron",
+        "devilsadvocate",
+        "marionette",
+        "ojo",
+        "noble",
+        "sailor",
+        "empath",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "lunatic",
+        "puzzlemaster",
+        "damsel",
+        "ogre"
+      ],
+      "bluffs": [
+        "amnesiac",
+        "farmer",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6cb94b3a25db5fb9-candidate-36",
+      "scriptId": "wiki-6cb94b3a25db5fb9",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "summoner",
+        "baron",
+        "devilsadvocate",
+        "monk",
+        "gambler",
+        "oracle",
+        "gossip",
+        "farmer",
+        "mayor",
+        "investigator",
+        "clockmaker",
+        "puzzlemaster",
+        "damsel",
+        "ogre",
+        "lunatic"
+      ],
+      "bluffs": [
+        "amnesiac",
+        "noble",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "summoner-no-demon",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "demon": -1
+          },
+          "note": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。；人数选项来源：a-grimm-chorus/summoner-no-demon/no-demon。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：a-grimm-chorus/summoner-no-demon/no-demon/summoner-no-demon。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "summoner-no-demon",
+      "roleId": "summoner",
+      "summary": "召唤师：开局移除恶魔并增加 1 名镇民，爪牙数量不变；第 3 夜选择一名玩家成为邪恶恶魔。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json",
+        "https://script.bloodontheclocktower.com/?script=H4sIAAAAAAAACpWUQU4DMQxFr4K8nhPMDnWBuAIIIU/iSdwm9sjOUCrE3VFFBUvMMtbzj/X95ecP4AwzvHYaCBPgPqoazPBEw2ECwU4ww/3dg3Hvd4eqtl/rS1PNPtAeOxY6qBmlwSowg8q3jrragHnF5jTBuGxXoXVvDT6n26+FhAwbTFCq+i+8sQjl2/OHfuPWsBBn1hFsGXqWZEwW5FnkRLSF+YJ9aWGa3tUSe3R47ELOmIK4cKnjjCPVjhLs8YaX8PgreyX7h7i2HLe+s/gwioYhoQgv4exk7B7WzrbLKZoAbdSD7KaNBycOO1g0rzhq2EPfe1cJ4+iO7hzeZ0JrNM4aj8AFS8EFl6VR1KP9dMIgq0cNOx89GJVpDbIVrYUv0XHPJerBQqVgeOcJNyqKfw3y8gXT+fIa6wUAAA==",
+        "https://wiki.bloodontheclocktower.com/Summoner"
+      ],
+      "reviewedAt": "2026-10-16"
+    },
+    {
+      "id": "legion-majority",
+      "roleId": "legion",
+      "summary": "军团局多数玩家实际为军团，军团也登记为爪牙；模板显式记录多恶魔、零实际爪牙及善良人数。只有邪恶玩家投票时处决失败；不是自动禁止记录那一轮投票。 本批选用官方允许的三枚伪装方案，不支持在这些模板中临时改成零枚；零伪装由主持在后续专门支持后再选。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+        "https://release.botc.app/resources/data/roles.json",
+        "https://wiki.bloodontheclocktower.com/Legion"
+      ],
+      "reviewedAt": "2026-10-16"
+    },
+    {
+      "id": "lilmonsta-extra-minion",
+      "roleId": "lilmonsta",
+      "knowledgeStatus": "confirmed",
+      "summary": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Lil%27_Monsta"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "baron-outsider-plus-two",
+      "roleId": "baron",
+      "summary": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-07-22"
+    },
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "legion-summoner-jinx",
+      "roleId": "legion",
+      "summary": "If Legion is summoned, all evil players become Legion. ",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "marionette-huntsman-jinx",
+      "roleId": "marionette",
+      "summary": "If the Marionette thinks that they are the Huntsman, the Damsel was added during setup.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "marionette-lilmonsta-jinx",
+      "roleId": "marionette",
+      "summary": "If there would be a Marionette in play, they enter play after the Demon & must start as their neighbor.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "marionette-summoner-jinx",
+      "roleId": "marionette",
+      "summary": "If there would be a Marionette in play, they enter play after the Demon & must start as their neighbor.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "summoner-clockmaker-jinx",
+      "roleId": "summoner",
+      "summary": "The Summoner registers as the Demon to the Clockmaker.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "lunatic",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "summoner",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lilmonsta",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "investigator",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "clockmaker",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "ogre",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "sailor",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "gambler",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "summoner",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "legion",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lilmonsta",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "gossip",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "investigator": "sha256:216861593841d940f8eabf4c34556454bef623f59b59f8eb3ac38ec86f90154a",
+    "clockmaker": "sha256:eda181c646d1926ef95e22b78579955d8042a92bc5d9f5bb71beabc165e7f9a0",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "gambler": "sha256:6ce92beee5117fb21f9c5cdf4bbe2578363a9069a3110b245bef6a04afb4b762",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "gossip": "sha256:c1ee906e8b2abcc4e4c51c9d0f88c968a0ab63432ee6297545f02b62a1befa65",
+    "huntsman": "sha256:b0f38948ef04be8e1ddd284a4a44af8aa2ca936d3ae8eded18291db8c89e63f4",
+    "amnesiac": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "ogre": "sha256:f74b212d5e4879597a0f6637c081f73edb187eccb92dc2f567217623310290e1",
+    "lunatic": "sha256:f46c1eae4440c477172fd759c1bbb54586d17a9934342ce29b8f395d9e299937",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "baron": "sha256:890d34be482a8e93a73c160430757fc5f236aa26654d8734a5419df15b645493",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "summoner": "sha256:9fc50dd518f3cd792b82133d178c0b6ff7bf688e6e7e56cf219420ea13376c4f",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "lilmonsta": "sha256:566509c99cbacc9917a0d1f126aa0c3896be6247b57fddd6d6711c0de39043ec",
+    "legion": "sha256:f467e16cd214f612c1876703d5b5747b49d49c5de25466d9105fc3efeec3261e",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5"
+  }
+}

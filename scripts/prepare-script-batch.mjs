@@ -8,6 +8,7 @@ import { prepareScriptPack, projectContext, writePreparedScript } from './prepar
 import { fillTemplateGaps } from './prepare-script-templates.mjs'
 import { verifyPreparedScript } from './verify-script-batch.mjs'
 import { splitScriptSource } from './scout-clocktower-wiki.mjs'
+import { intakeRoleId } from './build/intake-role-id.mjs'
 
 const sha = (value) => createHash('sha256').update(value).digest('hex')
 const milliseconds = (start) => Math.round((performance.now() - start) * 1000) / 1000
@@ -39,7 +40,7 @@ function checkedSource(input, directory, context) {
     const original = typeof entry === 'string' ? { id: entry } : entry
     if (!original || typeof original.id !== 'string') throw new Error('原文角色缺少稳定ID或已核对的别名。')
     const resolved = context.library.resolve(input.roleRefs[index]), roleId = context.normalizeRoleId(resolved.role.id)
-    if (context.library.variants(original.id).length && context.normalizeRoleId(original.id) !== roleId) throw new Error('原文的已知角色ID与引用不一致。')
+    if (context.library.variants(original.id).length && intakeRoleId(original.id, context.normalizeRoleId) !== roleId) throw new Error('原文的已知角色ID与引用不一致。')
     const team = original.team === 'traveller' ? 'traveler' : original.team
     if (team && team !== resolved.role.team) throw new Error('原文角色类型与共享定义冲突；须单独核对版本。')
     return { rawId: original.id, rawName: original.name ?? null, rawTeam: original.team ?? null, roleId,

@@ -1,0 +1,1069 @@
+{
+  "scriptId": "wiki-5c01c0cc12f5e4c0",
+  "displayName": "心照不宣",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "榴莲",
+    "version": "库记录618 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:5c01c0cc12f5e4c0c84d5df3907bd06c2f784b6fd1e0a580e15522fccd96248c",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "princess",
+      "sourceId": "punchy",
+      "sourceVersion": "sha256:2db376682e56699246b43b787ae0f3ddef03ab3c28f678e0373fc35b08b0036c"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "gambler",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "tealady",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "artist",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "politician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "harpy",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "xaan",
+      "sourceId": "quick-maths",
+      "sourceVersion": "sha256:2960bb5ebba764e8cc812500a4cba1c759ef6817859e836db7121f4b89e4ae03"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "kazali",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-1",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "undertaker",
+        "monk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-2",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "lleech",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk"
+      ],
+      "bluffs": [
+        "sailor",
+        "gambler",
+        "tealady"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-3",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "savant",
+        "artist",
+        "noble"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-4",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "sailor",
+        "gambler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-5",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "imp",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "gambler",
+        "tealady",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-6",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "tealady",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-7",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "lleech",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "damsel",
+        "politician"
+      ],
+      "bluffs": [
+        "tealady",
+        "savant",
+        "artist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-8",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "artist",
+        "noble"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-9",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "imp",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "noble",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-10",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "mutant"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-11",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "farmer",
+        "balloonist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-12",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "marionette",
+        "lleech",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "mutant"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "undertaker",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-13",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "pixie",
+        "mutant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-14",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "harpy",
+        "imp",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "puzzlemaster",
+        "damsel"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "undertaker",
+        "monk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-15",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "damsel"
+      ],
+      "bluffs": [
+        "tealady",
+        "mutant",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-16",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "kazali",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess"
+      ],
+      "bluffs": [
+        "fortuneteller",
+        "mutant",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-17",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "xaan",
+        "cerenovus",
+        "lleech",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-18",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "cerenovus",
+        "pithag",
+        "imp",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "politician"
+      ],
+      "bluffs": [
+        "monk",
+        "sailor",
+        "gambler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-19",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 14,
+      "style": "chaos",
+      "roles": [
+        "kazali",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "mutant"
+      ],
+      "bluffs": [
+        "damsel",
+        "politician",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-20",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "marionette",
+        "lleech",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk",
+        "mutant",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "sailor",
+        "gambler",
+        "tealady"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-21",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "marionette",
+        "harpy",
+        "lleech",
+        "princess",
+        "undertaker",
+        "monk",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "damsel",
+        "politician"
+      ],
+      "bluffs": [
+        "pixie",
+        "mutant",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-5c01c0cc12f5e4c0-candidate-22",
+      "scriptId": "wiki-5c01c0cc12f5e4c0",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "kazali",
+        "sailor",
+        "gambler",
+        "tealady",
+        "savant",
+        "artist",
+        "noble",
+        "farmer",
+        "balloonist",
+        "pixie",
+        "princess",
+        "undertaker",
+        "monk",
+        "politician",
+        "mutant"
+      ],
+      "bluffs": [
+        "puzzlemaster",
+        "damsel",
+        "fortuneteller"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "marionette-balloonist-jinx",
+      "roleId": "marionette",
+      "summary": "If the Marionette thinks that they are the Balloonist, an Outsider might have been added during setup.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "marionette-kazali-jinx",
+      "roleId": "marionette",
+      "summary": "If there would be a Marionette in play, they enter play after the Demon & must start as their neighbor.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-damsel-jinx",
+      "roleId": "pithag",
+      "summary": "If a Pit-Hag creates a Damsel, the Storyteller chooses which player it is.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-politician-jinx",
+      "roleId": "pithag",
+      "summary": "If the Pit-Hag turns an evil player into the Politician, they can't turn good due to their own ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "kazali",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "sailor",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "gambler",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "princess",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "kazali",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "princess": "sha256:8e923bdf4cd089d265676471519f864e3785291f0364a862ce53b7c7bf0c5553",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "gambler": "sha256:6ce92beee5117fb21f9c5cdf4bbe2578363a9069a3110b245bef6a04afb4b762",
+    "tealady": "sha256:5477146713dda2d2ac0acb2b3a2b712e71a5691d1f0ea364fa0ef990d3c5cef4",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "artist": "sha256:c9b8ee57527bb669ec6b036b53a1c4196be7c4801e0572ea1ac5a19d42bedda5",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "politician": "sha256:21857240892fde2151faf0f01634c2d0157af15bf5764485f12e96a1a554b8bb",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "harpy": "sha256:7469099af60e189ef4516c76ca2454b0854d274c9fbbcfd32c8a0d5b0bc559de",
+    "xaan": "sha256:7759915ed1083035085b10cd8dab84caff67297c023ee33a0d34cc38f2d540ba",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "kazali": "sha256:1d09ef273bca43a80090cd4a16749f9d2fe72a4e6a07f1af2c3ea8d99d062456",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b"
+  }
+}

@@ -2,6 +2,7 @@ import { ArrowRight, PencilLine, RotateCcw } from 'lucide-react'
 import { Button } from '../../../components/ui/Button'
 import { StickyActionBar } from '../../../components/ui/StickyActionBar'
 import type { WakeItem } from '../types'
+import { wakeShortLabel } from '../state/systemSteps'
 
 interface NightActionBarProps {
   activeItem: WakeItem
@@ -49,8 +50,8 @@ export function NightActionBar({
   if (isPreviewing) {
     return <StickyActionBar>
       <div className="preview-action-bar">
-        <Button variant="secondary" aria-label={`退出预览，回到正在处理的${activeLabel}；夜间处理位置不变`} onClick={onReturnCurrent}>回到{activeItem.seatId}号</Button>
-        <Button variant="primary" aria-label={`将夜间处理位置切换到${previewLabel}；不确认或保存记录`} onClick={onActivatePreview}>处理{current.seatId}号</Button>
+        <Button variant="secondary" aria-label={`退出预览，回到正在处理的${activeLabel}；夜间处理位置不变`} onClick={onReturnCurrent}>回到{activeItem.seatId === 0 || activeItem.interactionVersion === 'legion/collective-night-v1' ? activeLabel : wakeShortLabel(activeItem)}</Button>
+        <Button variant="primary" aria-label={`将夜间处理位置切换到${previewLabel}；不确认或保存记录`} onClick={onActivatePreview}>处理{current.seatId === 0 || current.interactionVersion === 'legion/collective-night-v1' ? previewLabel : wakeShortLabel(current)}</Button>
       </div>
     </StickyActionBar>
   }

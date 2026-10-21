@@ -1,0 +1,1394 @@
+{
+  "scriptId": "wiki-c7c02faa0f7569e4",
+  "displayName": "刀光剑影",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/",
+    "author": "长湴",
+    "version": "库记录109 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:c7c02faa0f7569e4bcf5d3c6b5164ed415fbd2b7d1d5fd10b1d6bb1d3e49d3c7",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "shugenja",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "preacher",
+      "sourceId": "hide-and-seek",
+      "sourceVersion": "sha256:d50e711952349f51adc87356c2a3a1e29991bc131b906a5c49a795fd50f9c823"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "mathematician",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "flowergirl",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "ravenkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "goon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "witch",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "harpy",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "lilmonsta",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-1",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "godfather",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "plaguedoctor"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-2",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "pukka",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja",
+        "noble",
+        "preacher"
+      ],
+      "bluffs": [
+        "mathematician",
+        "balloonist",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-3",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "scarletwoman",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-4",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "witch",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja",
+        "noble"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-5",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "nodashii",
+        "cannibal",
+        "shugenja",
+        "noble",
+        "preacher",
+        "dreamer",
+        "mathematician"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "savant",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-6",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "witch",
+        "scarletwoman",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja",
+        "noble",
+        "drunk",
+        "sweetheart"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-7",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "vigormortis",
+        "shugenja",
+        "noble",
+        "preacher",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "savant",
+        "philosopher",
+        "seamstress"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-8",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "harpy",
+        "pukka",
+        "noble",
+        "preacher",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant"
+      ],
+      "bluffs": [
+        "philosopher",
+        "seamstress",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-9",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "harpy",
+        "godfather",
+        "witch",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "goon"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-10",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "godfather",
+        "pukka",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja",
+        "drunk"
+      ],
+      "bluffs": [
+        "mathematician",
+        "balloonist",
+        "flowergirl"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-11",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "godfather",
+        "witch",
+        "cannibal",
+        "shugenja",
+        "noble",
+        "preacher",
+        "dreamer",
+        "mathematician",
+        "plaguedoctor",
+        "goon"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-12",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "godfather",
+        "nodashii",
+        "preacher",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "goon",
+        "drunk"
+      ],
+      "bluffs": [
+        "noble",
+        "philosopher",
+        "seamstress"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-13",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "witch",
+        "scarletwoman",
+        "shugenja",
+        "noble",
+        "preacher",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "goon"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-14",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "witch",
+        "vigormortis",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal"
+      ],
+      "bluffs": [
+        "noble",
+        "preacher",
+        "amnesiac"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-15",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "witch",
+        "scarletwoman",
+        "harpy",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-16",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "witch",
+        "scarletwoman",
+        "harpy",
+        "godfather",
+        "noble",
+        "preacher",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "drunk"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-17",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "witch",
+        "scarletwoman",
+        "harpy",
+        "pukka",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja"
+      ],
+      "bluffs": [
+        "preacher",
+        "dreamer",
+        "amnesiac"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-18",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "harpy",
+        "godfather",
+        "witch",
+        "preacher",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-19",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "harpy",
+        "godfather",
+        "nodashii",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja",
+        "noble",
+        "preacher"
+      ],
+      "bluffs": [
+        "mathematician",
+        "amnesiac",
+        "goon"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-20",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "godfather",
+        "witch",
+        "scarletwoman",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "plaguedoctor",
+        "goon",
+        "drunk"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-21",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "godfather",
+        "witch",
+        "vigormortis",
+        "flowergirl",
+        "savant",
+        "philosopher",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja",
+        "noble",
+        "preacher",
+        "goon",
+        "drunk"
+      ],
+      "bluffs": [
+        "mathematician",
+        "balloonist",
+        "amnesiac"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-c7c02faa0f7569e4-candidate-22",
+      "scriptId": "wiki-c7c02faa0f7569e4",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "godfather",
+        "witch",
+        "scarletwoman",
+        "harpy",
+        "seamstress",
+        "ravenkeeper",
+        "cannibal",
+        "shugenja",
+        "noble",
+        "preacher",
+        "dreamer",
+        "mathematician",
+        "balloonist",
+        "flowergirl",
+        "drunk"
+      ],
+      "bluffs": [],
+      "setupAdjustments": [
+        {
+          "ruleId": "lilmonsta-extra-minion",
+          "choiceId": "extra-minion-no-demon",
+          "compositionDelta": {
+            "minion": 1,
+            "demon": -1
+          },
+          "note": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。"
+        },
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "气球驾驶员采用当前能力允许的+0外来者选项；原文固定+1的旧规则不适用于本候选。",
+        "人数修正复用已验证来源：https://wiki.bloodontheclocktower.com/Lil%27_Monsta/lilmonsta-extra-minion。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "lilmonsta-extra-minion",
+      "roleId": "lilmonsta",
+      "knowledgeStatus": "confirmed",
+      "summary": "小怪宝不占玩家座位；移除恶魔并增加一名爪牙。首夜不发送普通爪牙/恶魔信息，不提供恶魔伪装；每晚由爪牙共同选择照看者，照看者保留原角色和阵营。",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Lil%27_Monsta"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "godfather-outsider",
+      "roleId": "godfather",
+      "summary": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "lilmonsta-scarletwoman-jinx",
+      "roleId": "lilmonsta",
+      "summary": "If Lil' Monsta dies with 5 or more players alive, the Scarlet Woman babysits Lil' Monsta for the rest of the game.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-drunk-jinx",
+      "roleId": "mathematician",
+      "summary": "The Mathematician learns if the Drunk’s ability yielded false info or failed to work properly.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-scarletwoman-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Scarlet Woman ability, a Minion gains it, and learns this.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lilmonsta",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "shugenja",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "witch",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "lilmonsta",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "plaguedoctor",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "ravenkeeper",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "flowergirl",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "使用2026-10-21核实的官方夜表；结果由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46",
+    "shugenja": "sha256:20e3ef86b6aeed76cf4588bbf6b856480cd1fff5ece0e97b8e42928b98439fc0",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "preacher": "sha256:3be7c2bf8f30817fc6c3d59c16eabd81a69e7758670f36d84f194baf638dd266",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "mathematician": "sha256:f1262386ef8bd2783d644dc5240ea8e3fe2ee414a55b3cc3b86f9aee91cd027d",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "flowergirl": "sha256:c0e4f2a93f2dc792eaf2ff9b0b5f7b6c07eb912e57d0106248aaa39972414f61",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "ravenkeeper": "sha256:6e3311f80393bc0e63bc13ad33ad354fec889729ba26aed45dbcc23dde876bf3",
+    "amnesiac": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "goon": "sha256:20785befe683a597aa8e6ea54bbe8473a93c9db400b21a3f40b73c0821949343",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "plaguedoctor": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "witch": "sha256:15211f928a1e9002e2b9c0229d6540ebcef894cec8829434b46bbd1106650bc9",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "harpy": "sha256:7469099af60e189ef4516c76ca2454b0854d274c9fbbcfd32c8a0d5b0bc559de",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "lilmonsta": "sha256:566509c99cbacc9917a0d1f126aa0c3896be6247b57fddd6d6711c0de39043ec"
+  }
+}

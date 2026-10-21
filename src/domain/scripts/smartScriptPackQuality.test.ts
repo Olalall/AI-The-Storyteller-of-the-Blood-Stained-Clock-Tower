@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { createSmartScriptSetupCandidates } from '../../features/setup/smartScriptSetupCandidates'
 import { validateTemplateComposition } from '../setup-templates/composition'
+import { lilMonstaOpeningSelected } from '../setup-templates/lilMonstaOpening'
 import { smartScriptPacks } from './catalog'
 import type { PlayerCount, SmartRoleDefinition, SmartScriptPack } from './types'
 
@@ -56,7 +57,8 @@ describe('smart script pack quality gate', () => {
       for (const template of pack.setupTemplates) {
         expect(template.verified, template.templateId).toBe(true)
         expect(template.roles, template.templateId).toHaveLength(template.playerCount)
-        expect(template.bluffs, template.templateId).toHaveLength(3)
+        const selections = template.setupAdjustments?.flatMap(a => a.choiceId ? [{ruleId:a.ruleId,choiceId:a.choiceId}] : []) ?? []
+        expect(template.bluffs, template.templateId).toHaveLength(lilMonstaOpeningSelected({ ...pack, setupTemplates:[template] }, selections) ? 0 : 3)
         const repeatableRoles = 'repeatableRoles' in template ? template.repeatableRoles ?? [] : []
         expect(hasOnlyAllowedDuplicateRoles(template.roles, repeatableRoles), template.templateId).toBe(true)
         expect(unique(template.bluffs).length, template.templateId).toBe(template.bluffs.length)

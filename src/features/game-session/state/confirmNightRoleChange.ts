@@ -69,8 +69,11 @@ export function confirmNightRoleChange(session: GameSessionState, action: Extrac
   const additions = action.timing !== 'later' ? changedRoleNightItems(next, action.seatId, toRole.id, action.id, action.timing) : []
   if (action.timing !== 'later' && !additions.length) return session
   const currentAssignments = projectCurrentAssignments(next)
+  const collectiveLegion = fromRole.id === 'legion' ? createSmartScriptNightQueue(next, currentAssignments, projectCurrentPlayerStates(next), run.id, run.nightType === 'first' ? 1 : 2)
+    .find(item => item.interactionVersion === 'legion/collective-night-v1') : undefined
   const queue: WakeItem[] = run.queue.map((item) => {
     if (item.progress === 'confirmed') return item
+    if (item.interactionVersion === 'legion/collective-night-v1' && collectiveLegion) return { ...item, seatId:collectiveLegion.seatId, status:collectiveLegion.status }
     // 通知卡锚定接收人，不能只按座位停用：来源角色已失去能力时也要停止通知。
     const sourceRoleId = item.systemStep?.kind === 'audience_notice' ? item.roleId.replace(/^system-audience-/, '') : null
     const sourceRemoved = sourceRoleId === fromRole.id && !currentAssignments.some((assignment) => assignment.role.id === sourceRoleId)
@@ -83,6 +86,7 @@ export function confirmNightRoleChange(session: GameSessionState, action: Extrac
     ?? (item.interactionVersion === 'marionette/pretend-v1' ? session.identityPresentations?.[item.seatId]?.shownRole.id
       : item.systemStep?.kind === 'audience_notice' ? item.roleId.replace(/^system-audience-/, '') : item.roleId) ?? item.roleId
   for (const item of additions) {
+    if (item.interactionVersion === 'legion/collective-night-v1' && queue.some(known => known.roleId === 'legion' && known.progress !== 'not_applicable')) continue
     if (item.systemStep?.kind === 'audience_notice') {
       const merged = mergeFirstNightSystemSteps(queue, [item])
       queue.splice(0, queue.length, ...merged)

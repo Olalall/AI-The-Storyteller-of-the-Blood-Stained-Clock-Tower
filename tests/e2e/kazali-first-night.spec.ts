@@ -19,8 +19,17 @@ async function prepare(page: Page, count: number, scriptId = 'one-in-one-out', f
   session = gameSessionReducer(session, { type: 'confirm-setup', id: 'kazali-browser-setup', confirmedAt: '2026-10-18T00:00:00.000Z' })
   session = gameSessionReducer(session, { type: 'start-next-night-run' })
   await page.route('**/api/ai/**', route => route.abort())
-  await page.addInitScript(({ key, session }) => { if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(session)) }, { key, session })
+  await page.addInitScript(({ key, session }) => {
+    if (!localStorage.getItem(key)) localStorage.setItem(key, JSON.stringify(session))
+    Object.assign(window, { kazaliReadyWrites: 0 })
+    const setItem = Storage.prototype.setItem
+    Storage.prototype.setItem = function (name, value) {
+      setItem.call(this, name, value)
+      if (this === localStorage && name === key) (window as unknown as { kazaliReadyWrites: number }).kazaliReadyWrites++
+    }
+  }, { key, session })
   await page.goto('/')
+  await expect.poll(() => page.evaluate(() => (window as unknown as { kazaliReadyWrites: number }).kazaliReadyWrites), { timeout: 15000 }).toBeGreaterThan(0)
   await page.getByRole('button', { name: /^进入夜晚/ }).click()
   await expect(page.getByRole('group', { name: /^首夜爪牙分配/ })).toBeVisible()
   return session
@@ -81,6 +90,7 @@ for (const width of [390, 1440]) for (const count of [7, 10, 13, 15]) {
     await page.screenshot({ path: info.outputPath(`kazali-${count}-review.png`), animations: 'disabled' })
     await page.getByRole('button', { name: '确认应用身份并更新本夜夜序', exact: true }).click()
     await expect(page.getByText('卡扎力首夜分配已应用 · 新爪牙按当夜夜序处理，原角色未发动项已停用。', { exact: true })).toBeVisible()
+    await expect.poll(async () => (await saved(page)).timeline.filter((e: { kind: string }) => e.kind === 'setup_changed').length).toBe(groups)
     const applied = await saved(page), run = applied.nightRuns[applied.activeNightRunId]
     expect(applied.timeline.slice(0, recorded.timeline.length)).toEqual(recorded.timeline)
     expect(applied.initialPlayerStates).toEqual(original.initialPlayerStates)
@@ -119,6 +129,7 @@ for (const scriptId of ['yan-bu-you-zhong', 'tan-hu-se-bian']) {
     const recorded = await saved(page)
     await page.getByRole('button', { name: '核对并应用首夜分配', exact: true }).click()
     await page.getByRole('button', { name: '确认应用身份并更新本夜夜序', exact: true }).click()
+    await expect.poll(async () => (await saved(page)).timeline.filter((e: { kind: string }) => e.kind === 'setup_changed').length).toBe(minions.length)
     const applied = await saved(page), run = applied.nightRuns[applied.activeNightRunId]
     expect(applied.timeline.slice(0, recorded.timeline.length)).toEqual(recorded.timeline)
     expect(applied.initialPlayerStates).toEqual(before.initialPlayerStates)
