@@ -161,6 +161,26 @@ import { preparedWuXianBoYiSmartScriptPack } from './packs/wu-xian-bo-yi'
 import { preparedDuXianManYanSmartScriptPack } from './packs/du-xian-man-yan'
 import { preparedShuXueJiaShaRenShiJianSmartScriptPack } from './packs/shu-xue-jia-sha-ren-shi-jian'
 
+import { preparedWikiE1677e64744d2bb5SmartScriptPack } from './packs/wiki-e1677e64744d2bb5'
+import { preparedWiki4a8f7390981cb0e9SmartScriptPack } from './packs/wiki-4a8f7390981cb0e9'
+import { preparedWiki95b384783bb4b3d9SmartScriptPack } from './packs/wiki-95b384783bb4b3d9'
+import { preparedWiki6ae3cc3d56a76434SmartScriptPack } from './packs/wiki-6ae3cc3d56a76434'
+import { preparedWiki5b28e06eb2955d8eSmartScriptPack } from './packs/wiki-5b28e06eb2955d8e'
+import { preparedWikiEa99f23804d8c9bbSmartScriptPack } from './packs/wiki-ea99f23804d8c9bb'
+import { preparedWiki1eb0363e35dbd723SmartScriptPack } from './packs/wiki-1eb0363e35dbd723'
+import { preparedWiki53b4df41d5a1079aSmartScriptPack } from './packs/wiki-53b4df41d5a1079a'
+import { preparedWikiE89d6f6239a18c76SmartScriptPack } from './packs/wiki-e89d6f6239a18c76'
+import { preparedWiki66ad0a0f1a38dee6SmartScriptPack } from './packs/wiki-66ad0a0f1a38dee6'
+import { preparedWiki2c821085e5df4b96SmartScriptPack } from './packs/wiki-2c821085e5df4b96'
+import { preparedWiki2e9bc84322f79c96SmartScriptPack } from './packs/wiki-2e9bc84322f79c96'
+import { preparedWikiAdbaf66494661865SmartScriptPack } from './packs/wiki-adbaf66494661865'
+import { preparedWiki6533660425b7a18bSmartScriptPack } from './packs/wiki-6533660425b7a18b'
+import { preparedWikiE7f9d2e70b75b11dSmartScriptPack } from './packs/wiki-e7f9d2e70b75b11d'
+import { preparedWikiB3845a927a7b48d1SmartScriptPack } from './packs/wiki-b3845a927a7b48d1'
+import { preparedWiki9b83b6c53857fcf0SmartScriptPack } from './packs/wiki-9b83b6c53857fcf0'
+import { preparedWikiEbf387f6f8945e24SmartScriptPack } from './packs/wiki-ebf387f6f8945e24'
+import { preparedWiki208842d7c4a589adSmartScriptPack } from './packs/wiki-208842d7c4a589ad'
+
 const sourceSmartScriptPacks = [
   catfishingSmartScriptPack,
   anDuChenCangSmartScriptPack,
@@ -319,6 +339,25 @@ const sourceSmartScriptPacks = [
   preparedWuXianBoYiSmartScriptPack,
   preparedDuXianManYanSmartScriptPack,
   preparedShuXueJiaShaRenShiJianSmartScriptPack,
+  preparedWikiE1677e64744d2bb5SmartScriptPack,
+  preparedWiki4a8f7390981cb0e9SmartScriptPack,
+  preparedWiki95b384783bb4b3d9SmartScriptPack,
+  preparedWiki6ae3cc3d56a76434SmartScriptPack,
+  preparedWiki5b28e06eb2955d8eSmartScriptPack,
+  preparedWikiEa99f23804d8c9bbSmartScriptPack,
+  preparedWiki1eb0363e35dbd723SmartScriptPack,
+  preparedWiki53b4df41d5a1079aSmartScriptPack,
+  preparedWikiE89d6f6239a18c76SmartScriptPack,
+  preparedWiki66ad0a0f1a38dee6SmartScriptPack,
+  preparedWiki2c821085e5df4b96SmartScriptPack,
+  preparedWiki2e9bc84322f79c96SmartScriptPack,
+  preparedWikiAdbaf66494661865SmartScriptPack,
+  preparedWiki6533660425b7a18bSmartScriptPack,
+  preparedWikiE7f9d2e70b75b11dSmartScriptPack,
+  preparedWikiB3845a927a7b48d1SmartScriptPack,
+  preparedWiki9b83b6c53857fcf0SmartScriptPack,
+  preparedWikiEbf387f6f8945e24SmartScriptPack,
+  preparedWiki208842d7c4a589adSmartScriptPack,
 ] as const satisfies readonly SmartScriptPack[]
 
 export const smartScriptPacks = sourceSmartScriptPacks.map((pack) => ({

@@ -1,0 +1,1007 @@
+{
+  "scriptId": "wiki-b3845a927a7b48d1",
+  "displayName": "只若初见",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "海雾和他最棒的玩家们",
+    "version": "库记录625 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:b3845a927a7b48d14fe7267f02ea327f2389ea2772f01e9049b2e1c2b0b3e81b",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "investigator",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "grandmother",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "gambler",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "tealady",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "alsaahir",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "princess",
+      "sourceId": "punchy",
+      "sourceVersion": "sha256:2db376682e56699246b43b787ae0f3ddef03ab3c28f678e0373fc35b08b0036c"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "moonchild",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "ogre",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "assassin",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "psychopath",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "xaan",
+      "sourceId": "quick-maths",
+      "sourceVersion": "sha256:2960bb5ebba764e8cc812500a4cba1c759ef6817859e836db7121f4b89e4ae03"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-1",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "psychopath",
+        "lleech",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "alsaahir",
+        "princess"
+      ],
+      "bluffs": [
+        "investigator",
+        "monk",
+        "grandmother"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-2",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "lleech",
+        "alsaahir",
+        "princess",
+        "investigator",
+        "monk",
+        "grandmother"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "gambler",
+        "tealady"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-3",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "xaan",
+        "imp",
+        "monk",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "gambler"
+      ],
+      "bluffs": [
+        "seamstress",
+        "fisherman",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-4",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "imp",
+        "fisherman",
+        "farmer",
+        "alsaahir",
+        "princess",
+        "investigator",
+        "recluse"
+      ],
+      "bluffs": [
+        "monk",
+        "grandmother",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-5",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "imp",
+        "princess",
+        "investigator",
+        "monk",
+        "grandmother",
+        "sailor",
+        "moonchild"
+      ],
+      "bluffs": [
+        "gambler",
+        "tealady",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-6",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "lleech",
+        "farmer",
+        "alsaahir",
+        "princess",
+        "investigator",
+        "monk",
+        "moonchild",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "chambermaid"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-7",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "lleech",
+        "investigator",
+        "monk",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "puzzlemaster",
+        "ogre"
+      ],
+      "bluffs": [
+        "tealady",
+        "seamstress",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-8",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "assassin",
+        "imp",
+        "alsaahir",
+        "princess",
+        "investigator",
+        "monk",
+        "grandmother",
+        "sailor",
+        "chambermaid"
+      ],
+      "bluffs": [
+        "gambler",
+        "tealady",
+        "seamstress"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-9",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "psychopath",
+        "imp",
+        "monk",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "seamstress"
+      ],
+      "bluffs": [
+        "fisherman",
+        "farmer",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-10",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "psychopath",
+        "marionette",
+        "lleech",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "alsaahir"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "princess"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-11",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "assassin",
+        "psychopath",
+        "lleech",
+        "princess",
+        "investigator",
+        "monk",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "ogre"
+      ],
+      "bluffs": [
+        "tealady",
+        "seamstress",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-12",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "psychopath",
+        "marionette",
+        "lleech",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "recluse"
+      ],
+      "bluffs": [
+        "monk",
+        "farmer",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-13",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "psychopath",
+        "marionette",
+        "imp",
+        "investigator",
+        "monk",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "recluse",
+        "moonchild"
+      ],
+      "bluffs": [
+        "seamstress",
+        "fisherman",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-14",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "xaan",
+        "imp",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "moonchild",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "monk",
+        "grandmother",
+        "alsaahir"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-15",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "xaan",
+        "devilsadvocate",
+        "lleech",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "alsaahir",
+        "princess",
+        "investigator",
+        "puzzlemaster",
+        "ogre"
+      ],
+      "bluffs": [
+        "sailor",
+        "chambermaid",
+        "gambler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-16",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "xaan",
+        "devilsadvocate",
+        "lleech",
+        "monk",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer"
+      ],
+      "bluffs": [
+        "investigator",
+        "alsaahir",
+        "princess"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-17",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "xaan",
+        "devilsadvocate",
+        "assassin",
+        "lleech",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "alsaahir",
+        "princess",
+        "investigator"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-18",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "xaan",
+        "devilsadvocate",
+        "assassin",
+        "imp",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "alsaahir",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "investigator",
+        "monk",
+        "princess"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-19",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "assassin",
+        "psychopath",
+        "imp",
+        "gambler",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "alsaahir",
+        "princess",
+        "investigator",
+        "monk",
+        "ogre"
+      ],
+      "bluffs": [
+        "sailor",
+        "chambermaid",
+        "recluse"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-20",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "assassin",
+        "psychopath",
+        "lleech",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "alsaahir",
+        "princess",
+        "ogre",
+        "recluse"
+      ],
+      "bluffs": [
+        "investigator",
+        "monk",
+        "grandmother"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-21",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "assassin",
+        "psychopath",
+        "marionette",
+        "lleech",
+        "tealady",
+        "seamstress",
+        "fisherman",
+        "farmer",
+        "alsaahir",
+        "princess",
+        "investigator",
+        "monk",
+        "grandmother",
+        "recluse",
+        "moonchild"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "gambler",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-b3845a927a7b48d1-candidate-22",
+      "scriptId": "wiki-b3845a927a7b48d1",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "psychopath",
+        "marionette",
+        "xaan",
+        "imp",
+        "farmer",
+        "alsaahir",
+        "princess",
+        "investigator",
+        "monk",
+        "grandmother",
+        "sailor",
+        "chambermaid",
+        "gambler",
+        "moonchild",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "fisherman",
+        "recluse",
+        "ogre"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "recluse-ogre-jinx",
+      "roleId": "recluse",
+      "summary": "If the Recluse registers as evil to the Ogre, the Ogre learns that they are evil.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "sailor",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "investigator",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "ogre",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "sailor",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "xaan",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "gambler",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "princess",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "assassin",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "moonchild",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "investigator": "sha256:216861593841d940f8eabf4c34556454bef623f59b59f8eb3ac38ec86f90154a",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "grandmother": "sha256:ddae6200635dbe4275d6b9398d8a0dc528897b43686e7fb9599fec3f6961e069",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "gambler": "sha256:6ce92beee5117fb21f9c5cdf4bbe2578363a9069a3110b245bef6a04afb4b762",
+    "tealady": "sha256:5477146713dda2d2ac0acb2b3a2b712e71a5691d1f0ea364fa0ef990d3c5cef4",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "alsaahir": "sha256:7f5823307449ddf39fe8d6324d3b589b6de0e6e969b28d3f1061f055f4b81ce0",
+    "princess": "sha256:8e923bdf4cd089d265676471519f864e3785291f0364a862ce53b7c7bf0c5553",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "moonchild": "sha256:8cdf1c15876cc9c7833b2eee156ce02b6e2e90080412890a621d2d906ea547d8",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "ogre": "sha256:f74b212d5e4879597a0f6637c081f73edb187eccb92dc2f567217623310290e1",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "assassin": "sha256:aa4dba04633b0b879c4b0d8684bf57d7ca37a228c19070684d49eee84a74a37b",
+    "psychopath": "sha256:bf31b7229cc06963de8514e79ae2201f0140bc8272ac92a287713e5bb28f85b9",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "xaan": "sha256:7759915ed1083035085b10cd8dab84caff67297c023ee33a0d34cc38f2d540ba",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b"
+  }
+}

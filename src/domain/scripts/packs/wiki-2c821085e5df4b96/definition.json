@@ -1,0 +1,1214 @@
+{
+  "scriptId": "wiki-2c821085e5df4b96",
+  "displayName": "失控古神",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "热心",
+    "version": "库记录601 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:2c821085e5df4b969b635e57d21a1c7523511dba86f838cfa5a8c6ee67be4e5e",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "highpriestess",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "exorcist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "virgin",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "sage",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "pacifist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "atheist",
+      "sourceId": "gai-tou-huan-mian",
+      "sourceVersion": "sha256:d7833ff494f68c1819ee9ae7c2841c2e3a5b2d8a153d9301e522ba871352c05f"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "golem",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "heretic",
+      "sourceId": "er-yu-wo-zha",
+      "sourceVersion": "sha256:7f808685e84f16b77b34a486fcf2548efbc5ef9feaa9215010ff563d742aca63"
+    },
+    {
+      "id": "fearmonger",
+      "sourceId": "he-fang-jiao-zhong",
+      "sourceVersion": "sha256:63e5b87f8058d6c25041fca52652806a894e24ad883e7a97fe07bc4925601da4"
+    },
+    {
+      "id": "psychopath",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-1",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "vortox",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "undertaker",
+        "monk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-2",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "vigormortis",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle",
+        "philosopher"
+      ],
+      "bluffs": [
+        "fisherman",
+        "virgin",
+        "sage"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-3",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "fearmonger",
+        "vigormortis",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage"
+      ],
+      "bluffs": [
+        "monk",
+        "exorcist",
+        "pacifist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-4",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "vigormortis",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker"
+      ],
+      "bluffs": [
+        "monk",
+        "exorcist",
+        "oracle"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-5",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "vigormortis",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle"
+      ],
+      "bluffs": [
+        "fisherman",
+        "virgin",
+        "sage"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-6",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "nodashii",
+        "sage",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "saint",
+        "golem"
+      ],
+      "bluffs": [
+        "monk",
+        "exorcist",
+        "oracle"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-7",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "fearmonger",
+        "nodashii",
+        "highpriestess",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle",
+        "golem",
+        "heretic"
+      ],
+      "bluffs": [
+        "philosopher",
+        "fisherman",
+        "virgin"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-8",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "fearmonger",
+        "psychopath",
+        "lleech",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle"
+      ],
+      "bluffs": [
+        "philosopher",
+        "fisherman",
+        "virgin"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-9",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "psychopath",
+        "devilsadvocate",
+        "lleech",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "sage",
+        "pacifist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-10",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "pithag",
+        "vortox",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "saint"
+      ],
+      "bluffs": [
+        "philosopher",
+        "fisherman",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-11",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "psychopath",
+        "devilsadvocate",
+        "vortox",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "heretic"
+      ],
+      "bluffs": [
+        "fisherman",
+        "virgin",
+        "sage"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-12",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "godfather",
+        "vortox",
+        "monk",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "undertaker",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-13",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "godfather",
+        "vigormortis",
+        "highpriestess",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage"
+      ],
+      "bluffs": [
+        "sailor",
+        "pacifist",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-14",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "pithag",
+        "vigormortis",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist",
+        "saint",
+        "golem"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "undertaker",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-15",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "fearmonger",
+        "nodashii",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "golem",
+        "heretic"
+      ],
+      "bluffs": [
+        "oracle",
+        "philosopher",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-16",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "pithag",
+        "fearmonger",
+        "nodashii",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage",
+        "saint"
+      ],
+      "bluffs": [
+        "sailor",
+        "highpriestess",
+        "pacifist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-17",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "fearmonger",
+        "psychopath",
+        "nodashii",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker"
+      ],
+      "bluffs": [
+        "exorcist",
+        "drunk",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-18",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "fearmonger",
+        "psychopath",
+        "lleech",
+        "monk",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor",
+        "golem"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "undertaker",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-19",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "fearmonger",
+        "psychopath",
+        "devilsadvocate",
+        "lleech",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "monk",
+        "heretic"
+      ],
+      "bluffs": [
+        "oracle",
+        "drunk",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-20",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "fearmonger",
+        "psychopath",
+        "devilsadvocate",
+        "vortox",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "heretic",
+        "drunk"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-21",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "psychopath",
+        "devilsadvocate",
+        "godfather",
+        "vortox",
+        "fisherman",
+        "virgin",
+        "sage",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle",
+        "drunk"
+      ],
+      "bluffs": [
+        "saint",
+        "golem",
+        "heretic"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-2c821085e5df4b96-candidate-22",
+      "scriptId": "wiki-2c821085e5df4b96",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "godfather",
+        "pithag",
+        "vigormortis",
+        "pacifist",
+        "sailor",
+        "highpriestess",
+        "undertaker",
+        "monk",
+        "exorcist",
+        "oracle",
+        "philosopher",
+        "fisherman",
+        "saint",
+        "golem"
+      ],
+      "bluffs": [
+        "drunk",
+        "heretic",
+        "virgin"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Vigormortis: setup removes 1 Outsider.；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "vigormortis-outsider",
+      "roleId": "vigormortis",
+      "summary": "Vigormortis: setup removes 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "godfather-outsider",
+      "roleId": "godfather",
+      "summary": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "heretic-godfather-jinx",
+      "roleId": "heretic",
+      "summary": "Only 1 jinxed character can be in play.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "heretic-lleech-jinx",
+      "roleId": "heretic",
+      "summary": "Only 1 jinxed character can be in play.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "heretic-pithag-jinx",
+      "roleId": "heretic",
+      "summary": "Only 1 jinxed character can be in play.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fearmonger",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fearmonger",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "exorcist",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sage",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "highpriestess": "sha256:8494609fb30ae75114cd2a18e0053104c012cad339d6a9fe9964cd3554176c07",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "exorcist": "sha256:8af78315af9ed40d46f59a081ce0127480a0d8f4f0af13a013970b7af64ba6da",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "virgin": "sha256:06096e9d4874b45d7b7599b6375d9ef6cd018269f62900eef30f3221befb5df4",
+    "sage": "sha256:e7fa6d07a5450bd0623d4092b8df4e576bcdfb08e9117b33cffb5081cd926515",
+    "pacifist": "sha256:469225591f3a9499dbb2da61566dd13fb776cb2d67b045271c2614797f98f099",
+    "atheist": "sha256:98fcf9b5a057de37a3468b8e0fc9ee71913bab8527c71d6ec78a5627b32cc07f",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "golem": "sha256:578b6fd4850920a915174ff1654c6958a61d659931e4419c2f9ae2a56dbd8349",
+    "heretic": "sha256:15d126f4ced300b710bbcba8b520f821980bc18eb543cb930bec1dcfbfb5c4a1",
+    "fearmonger": "sha256:46fc5843ad04197d747d7c816bfaf7961fd321b985cee4bea0e8b24c814d1790",
+    "psychopath": "sha256:bf31b7229cc06963de8514e79ae2201f0140bc8272ac92a287713e5bb28f85b9",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f"
+  }
+}

@@ -13,6 +13,7 @@
     "generate:script-manifest": "node scripts/build/generate-script-manifest.mjs",
     "prepare:script": "node scripts/prepare-script-pack.mjs",
     "prepare:scripts": "node scripts/prepare-script-batch.mjs",
+    "plan:scripts": "node scripts/plan-script-intake.mjs",
     "verify:pwa": "node scripts/verify-pwa-build.mjs",
     "build:backend": "vite build --config vite.backend.config.ts",
     "lint": "oxlint",

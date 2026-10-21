@@ -1,0 +1,1087 @@
+{
+  "scriptId": "wiki-e89d6f6239a18c76",
+  "displayName": "异星复仇",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Ropeperson",
+    "version": "库记录572 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:e89d6f6239a18c766ad6bfae1552d975f6488a57d70c014658c0cb8fa0bcd443",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "pixie",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "general",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "exorcist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "innkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "courtier",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "mayor",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "politician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "heretic",
+      "sourceId": "er-yu-wo-zha",
+      "sourceVersion": "sha256:7f808685e84f16b77b34a486fcf2548efbc5ef9feaa9215010ff563d742aca63"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mastermind",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "eviltwin",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-1",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "pukka",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "mayor",
+        "cannibal"
+      ],
+      "bluffs": [
+        "librarian",
+        "pixie",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-2",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "pukka",
+        "mayor",
+        "cannibal",
+        "librarian",
+        "pixie",
+        "savant"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "empath",
+        "exorcist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-3",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "mastermind",
+        "fanggu",
+        "pixie",
+        "savant",
+        "general",
+        "snakecharmer",
+        "heretic"
+      ],
+      "bluffs": [
+        "exorcist",
+        "innkeeper",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-4",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "fanggu",
+        "fisherman",
+        "courtier",
+        "mayor",
+        "cannibal",
+        "mutant",
+        "heretic"
+      ],
+      "bluffs": [
+        "librarian",
+        "pixie",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-5",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "mastermind",
+        "fanggu",
+        "cannibal",
+        "librarian",
+        "pixie",
+        "savant",
+        "heretic",
+        "drunk"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "empath",
+        "exorcist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-6",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "mastermind",
+        "imp",
+        "courtier",
+        "mayor",
+        "cannibal",
+        "librarian",
+        "pixie",
+        "heretic",
+        "drunk"
+      ],
+      "bluffs": [
+        "savant",
+        "general",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-7",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "eviltwin",
+        "imp",
+        "librarian",
+        "pixie",
+        "savant",
+        "general",
+        "snakecharmer",
+        "drunk",
+        "politician"
+      ],
+      "bluffs": [
+        "exorcist",
+        "innkeeper",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-8",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "eviltwin",
+        "scarletwoman",
+        "pukka",
+        "mayor",
+        "cannibal",
+        "librarian",
+        "pixie",
+        "savant",
+        "general",
+        "snakecharmer"
+      ],
+      "bluffs": [
+        "empath",
+        "exorcist",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-9",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "pukka",
+        "pixie",
+        "savant",
+        "general",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "innkeeper"
+      ],
+      "bluffs": [
+        "fisherman",
+        "courtier",
+        "mayor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-10",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "poisoner",
+        "mastermind",
+        "fanggu",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "saint"
+      ],
+      "bluffs": [
+        "savant",
+        "general",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-11",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "fanggu",
+        "cannibal",
+        "librarian",
+        "pixie",
+        "savant",
+        "general",
+        "snakecharmer",
+        "politician",
+        "saint"
+      ],
+      "bluffs": [
+        "empath",
+        "exorcist",
+        "innkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-12",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "mastermind",
+        "fanggu",
+        "savant",
+        "general",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "innkeeper",
+        "saint",
+        "mutant"
+      ],
+      "bluffs": [
+        "pixie",
+        "fisherman",
+        "courtier"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-13",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "mastermind",
+        "imp",
+        "librarian",
+        "pixie",
+        "savant",
+        "general",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "saint",
+        "mutant"
+      ],
+      "bluffs": [
+        "innkeeper",
+        "fisherman",
+        "courtier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-14",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "mastermind",
+        "eviltwin",
+        "imp",
+        "general",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "mutant",
+        "heretic"
+      ],
+      "bluffs": [
+        "pixie",
+        "savant",
+        "mayor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-15",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "eviltwin",
+        "scarletwoman",
+        "pukka",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "mayor",
+        "cannibal",
+        "librarian",
+        "heretic",
+        "drunk"
+      ],
+      "bluffs": [
+        "general",
+        "snakecharmer",
+        "empath"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-16",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "mastermind",
+        "eviltwin",
+        "scarletwoman",
+        "pukka",
+        "pixie",
+        "savant",
+        "general",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier"
+      ],
+      "bluffs": [
+        "librarian",
+        "mayor",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-17",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "eviltwin",
+        "scarletwoman",
+        "poisoner",
+        "pukka",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "mayor",
+        "cannibal",
+        "librarian"
+      ],
+      "bluffs": [
+        "savant",
+        "general",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-18",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "eviltwin",
+        "scarletwoman",
+        "poisoner",
+        "fanggu",
+        "savant",
+        "general",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "heretic",
+        "drunk"
+      ],
+      "bluffs": [
+        "librarian",
+        "pixie",
+        "mayor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-19",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "mastermind",
+        "fanggu",
+        "empath",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "mayor",
+        "cannibal",
+        "librarian",
+        "drunk",
+        "politician"
+      ],
+      "bluffs": [
+        "savant",
+        "general",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-20",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "poisoner",
+        "mastermind",
+        "imp",
+        "general",
+        "snakecharmer",
+        "empath",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "mayor",
+        "cannibal",
+        "drunk",
+        "politician"
+      ],
+      "bluffs": [
+        "librarian",
+        "pixie",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-21",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "mastermind",
+        "eviltwin",
+        "imp",
+        "exorcist",
+        "innkeeper",
+        "fisherman",
+        "courtier",
+        "mayor",
+        "cannibal",
+        "librarian",
+        "pixie",
+        "savant",
+        "politician",
+        "saint"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "empath",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-e89d6f6239a18c76-candidate-22",
+      "scriptId": "wiki-e89d6f6239a18c76",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "mastermind",
+        "eviltwin",
+        "scarletwoman",
+        "pukka",
+        "courtier",
+        "mayor",
+        "cannibal",
+        "librarian",
+        "pixie",
+        "savant",
+        "general",
+        "snakecharmer",
+        "empath",
+        "saint",
+        "mutant"
+      ],
+      "bluffs": [
+        "fisherman",
+        "drunk",
+        "politician"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "fanggu-outsider",
+      "roleId": "fanggu",
+      "summary": "Fang Gu: setup adds 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "scarletwoman-fanggu-jinx",
+      "roleId": "scarletwoman",
+      "summary": "If there would be two Demons, one of which was the Scarlet Woman, the Scarlet Woman remains the Scarlet Woman.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "courtier",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "eviltwin",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pixie",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "courtier",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "innkeeper",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "exorcist",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "general",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "pixie": "sha256:21355ae46ff0ded3e28174ff1d00f30baf7e15924a987149172173d49d97f759",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "general": "sha256:fd1842203e0740d67a0126b7f4a7e2fcdaa670d5251cc4f8690d72d4a1d8933c",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "exorcist": "sha256:8af78315af9ed40d46f59a081ce0127480a0d8f4f0af13a013970b7af64ba6da",
+    "innkeeper": "sha256:d08a610a685471cf44a7ee19977c4a5466152b3d8d42c7a48a0a9d1b874b3304",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "courtier": "sha256:85d105485cb1dc4ba656cc02fbc0e9d7c330cdaf59e31824aa867a63344c9f15",
+    "mayor": "sha256:47167e442c0d507262ec27aa179cecc27fdafb87ccab27c042451177f1259766",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "politician": "sha256:21857240892fde2151faf0f01634c2d0157af15bf5764485f12e96a1a554b8bb",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "heretic": "sha256:15d126f4ced300b710bbcba8b520f821980bc18eb543cb930bec1dcfbfb5c4a1",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "mastermind": "sha256:bc59e4db15ea510baeb660d70acf54c3fcc65019faedef9cbb45d81b4ffb02c3",
+    "eviltwin": "sha256:75dc9503eee2fe674c64e39ecfb9c45d818a6fff40767c0de8d36cc8c7297dd6",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a"
+  }
+}

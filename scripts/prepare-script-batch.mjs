@@ -7,6 +7,7 @@ import { createTypescriptLoader } from './build/load-typescript.mjs'
 import { prepareScriptPack, projectContext, writePreparedScript } from './prepare-script-pack.mjs'
 import { fillTemplateGaps } from './prepare-script-templates.mjs'
 import { verifyPreparedScript } from './verify-script-batch.mjs'
+import { splitScriptSource } from './scout-clocktower-wiki.mjs'
 
 const sha = (value) => createHash('sha256').update(value).digest('hex')
 const milliseconds = (start) => Math.round((performance.now() - start) * 1000) / 1000
@@ -32,7 +33,7 @@ function checkedSource(input, directory, context) {
   if (input.source?.contentHash !== 'sha256:' + sha(bytes)) throw new Error('原文字节与来源哈希不一致。')
   const raw = readJson(bytes, '原文')
   if (!Array.isArray(raw) || raw.filter((role) => role?.id === '_meta').length > 1) throw new Error('原文必须为单一元数据的角色数组。')
-  const entries = raw.filter((role) => typeof role === 'string' || role?.id !== '_meta')
+  const { roles: entries, rules: authorRuleEntries } = splitScriptSource(raw)
   if (!entries.length || entries.length !== input.roleRefs?.length) throw new Error('原文角色数量与声明引用数量不一致。')
   const aliases = entries.map((entry, index) => {
     const original = typeof entry === 'string' ? { id: entry } : entry
@@ -51,7 +52,8 @@ function checkedSource(input, directory, context) {
   const metadata = raw.find((role) => role?.id === '_meta') ?? null
   return { bytes, lock: { sourceUrl: input.source.url, rawJsonSha256: sha(bytes), rawJsonByteLength: bytes.length,
     reviewedAt: input.source.verifiedAt, roleAliases: aliases, authorMetadata: metadata,
-    authorSpecialRules: [...(Array.isArray(metadata?.state) ? metadata.state : []), ...(Array.isArray(metadata?.states) ? metadata.states : [])],
+    authorRuleEntries,
+    authorSpecialRules: [...(Array.isArray(metadata?.state) ? metadata.state : []), ...(Array.isArray(metadata?.states) ? metadata.states : []), ...authorRuleEntries],
     knowledgeStatus: 'needs-review', automaticApproval: false } }
 }
 
@@ -83,6 +85,13 @@ export function prepareScriptBatch(manifest, directory, context) {
     const itemStart = performance.now()
     try {
       const source = checkedSource(input, directory, context)
+      if (input.intakeReview !== undefined) {
+        const review = input.intakeReview
+        if (review?.required !== true || !Array.isArray(review.pendingRoleReviewKeys)
+          || review.pendingRoleReviewKeys.length > input.roleRefs.length
+          || review.pendingRoleReviewKeys.some((key) => typeof key !== 'string' || !/^[a-f0-9]{64}$/.test(key))) throw new Error('角色复核依赖必须明确保留，不能自动关闭或写成无效引用。')
+        source.lock.intakeReview = review
+      }
       const pack = input.fillTemplateGaps ? fillTemplateGaps(input, context) : prepareScriptPack(input, context)
       const officialOrdersChecked = checkOfficialOrders(pack.definition, context)
       const verification = pack.report.missingTemplateCounts.length ? null : verifyPreparedScript(pack, context)

@@ -10,6 +10,15 @@ const resources = [
 ]
 const sha256 = (text) => createHash('sha256').update(text).digest('hex')
 
+export function splitScriptSource(raw) {
+  if (!Array.isArray(raw)) throw new Error('原文必须为角色数组。')
+  const rules = raw.filter((entry) => entry?.team === 'a jinxed')
+  if (rules.some((entry) => ['id', 'name', 'ability'].some((field) => typeof entry[field] !== 'string' || !entry[field].trim()))) {
+    throw new Error('相克附注缺少ID、名称或完整规则；不能作为角色或静默丢弃。')
+  }
+  return { roles: raw.filter((entry) => typeof entry === 'string' || entry?.id !== '_meta' && entry?.team !== 'a jinxed'), rules }
+}
+
 export function parseAssignments(text, names) {
   const result = {}
   for (const line of text.replace(/^\uFEFF/, '').split(/\r?\n/)) {

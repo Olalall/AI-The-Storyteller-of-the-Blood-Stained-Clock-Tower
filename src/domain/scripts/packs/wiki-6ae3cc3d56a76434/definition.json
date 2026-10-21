@@ -1,0 +1,1589 @@
+{
+  "scriptId": "wiki-6ae3cc3d56a76434",
+  "displayName": "党同伐异",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Evil Steve",
+    "version": "库记录541 / build 16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e / 当前规则适配",
+    "contentHash": "sha256:6ae3cc3d56a76434baa07588beb8f268e808d98daebcc5fabd4aa1cf4e07bcee",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "highpriestess",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "gossip",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "huntsman",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "magician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "virgin",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "plaguedoctor",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mutant",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "baron",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "organgrinder",
+      "sourceId": "yu-zhe-huan-yan",
+      "sourceVersion": "sha256:4571db2ca9cfb548f5357a82e87a05a7c29b128678d43d4be427aa444b897e06"
+    },
+    {
+      "id": "fanggu",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-1",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "fanggu",
+        "philosopher",
+        "virgin",
+        "librarian",
+        "empath",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "dreamer",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-2",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "fanggu",
+        "empath",
+        "highpriestess",
+        "dreamer",
+        "snakecharmer",
+        "monk"
+      ],
+      "bluffs": [
+        "gossip",
+        "philosopher",
+        "virgin"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-3",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "baron",
+        "fanggu",
+        "snakecharmer",
+        "monk",
+        "mutant",
+        "damsel",
+        "barber"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "dreamer",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-4",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "fanggu",
+        "virgin",
+        "librarian",
+        "empath",
+        "highpriestess",
+        "dreamer",
+        "recluse"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "monk",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-5",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "fanggu",
+        "highpriestess",
+        "dreamer",
+        "mutant",
+        "damsel",
+        "barber",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "empath",
+        "snakecharmer",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-6",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "baron",
+        "fanggu",
+        "librarian",
+        "empath",
+        "mutant",
+        "damsel",
+        "barber",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "dreamer",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-7",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "fanggu",
+        "dreamer",
+        "snakecharmer",
+        "monk",
+        "gossip",
+        "damsel",
+        "barber",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "empath",
+        "highpriestess",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-8",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "organgrinder",
+        "fanggu",
+        "empath",
+        "highpriestess",
+        "dreamer",
+        "snakecharmer",
+        "monk",
+        "gossip",
+        "damsel"
+      ],
+      "bluffs": [
+        "librarian",
+        "philosopher",
+        "virgin"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-9",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "fanggu",
+        "snakecharmer",
+        "monk",
+        "gossip",
+        "philosopher",
+        "virgin",
+        "barber",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "empath",
+        "highpriestess",
+        "dreamer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-10",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "godfather",
+        "baron",
+        "fanggu",
+        "philosopher",
+        "virgin",
+        "librarian",
+        "empath",
+        "highpriestess",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "monk",
+        "gossip",
+        "recluse"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-11",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "fanggu",
+        "highpriestess",
+        "dreamer",
+        "snakecharmer",
+        "monk",
+        "gossip",
+        "barber",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "librarian",
+        "empath",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-12",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "baron",
+        "fanggu",
+        "monk",
+        "gossip",
+        "philosopher",
+        "virgin",
+        "librarian",
+        "sweetheart",
+        "plaguedoctor",
+        "recluse"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "dreamer",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-13",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "baron",
+        "fanggu",
+        "dreamer",
+        "snakecharmer",
+        "monk",
+        "gossip",
+        "philosopher",
+        "sweetheart",
+        "plaguedoctor",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "librarian",
+        "empath",
+        "highpriestess"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-14",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "baron",
+        "marionette",
+        "fanggu",
+        "gossip",
+        "philosopher",
+        "virgin",
+        "librarian",
+        "plaguedoctor",
+        "recluse",
+        "mutant",
+        "damsel",
+        "barber"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "dreamer",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-15",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "marionette",
+        "organgrinder",
+        "fanggu",
+        "librarian",
+        "empath",
+        "highpriestess",
+        "dreamer",
+        "snakecharmer",
+        "monk",
+        "recluse",
+        "mutant",
+        "damsel"
+      ],
+      "bluffs": [
+        "virgin",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-16",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "baron",
+        "marionette",
+        "organgrinder",
+        "fanggu",
+        "snakecharmer",
+        "monk",
+        "gossip",
+        "philosopher",
+        "virgin",
+        "librarian",
+        "plaguedoctor",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "empath",
+        "highpriestess",
+        "dreamer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-17",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "organgrinder",
+        "godfather",
+        "fanggu",
+        "philosopher",
+        "virgin",
+        "librarian",
+        "empath",
+        "highpriestess",
+        "dreamer",
+        "snakecharmer",
+        "monk",
+        "gossip"
+      ],
+      "bluffs": [
+        "plaguedoctor",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-18",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "organgrinder",
+        "godfather",
+        "fanggu",
+        "monk",
+        "gossip",
+        "philosopher",
+        "virgin",
+        "librarian",
+        "empath",
+        "highpriestess",
+        "dreamer",
+        "snakecharmer",
+        "recluse"
+      ],
+      "bluffs": [
+        "sweetheart",
+        "plaguedoctor",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-19",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "baron",
+        "fanggu",
+        "virgin",
+        "librarian",
+        "empath",
+        "highpriestess",
+        "dreamer",
+        "mutant",
+        "damsel",
+        "barber",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "monk",
+        "gossip",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-20",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "baron",
+        "fanggu",
+        "gossip",
+        "philosopher",
+        "virgin",
+        "librarian",
+        "empath",
+        "mutant",
+        "damsel",
+        "barber",
+        "sweetheart",
+        "plaguedoctor",
+        "recluse"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "dreamer",
+        "snakecharmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-21",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "baron",
+        "marionette",
+        "fanggu",
+        "librarian",
+        "empath",
+        "highpriestess",
+        "dreamer",
+        "snakecharmer",
+        "monk",
+        "gossip",
+        "damsel",
+        "barber",
+        "sweetheart",
+        "plaguedoctor"
+      ],
+      "bluffs": [
+        "virgin",
+        "recluse",
+        "mutant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-outsider。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wiki-6ae3cc3d56a76434-candidate-22",
+      "scriptId": "wiki-6ae3cc3d56a76434",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "baron",
+        "marionette",
+        "organgrinder",
+        "fanggu",
+        "dreamer",
+        "snakecharmer",
+        "monk",
+        "gossip",
+        "philosopher",
+        "virgin",
+        "barber",
+        "sweetheart",
+        "plaguedoctor",
+        "recluse",
+        "mutant"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "damsel",
+        "librarian"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "baron-outsider-plus-two",
+          "compositionDelta": {
+            "townsfolk": -2,
+            "outsider": 2
+          },
+          "choiceId": "count-choice-1",
+          "note": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.；人数选项来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders。"
+        },
+        {
+          "ruleId": "fanggu-outsider",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "Fang Gu: setup adds 1 Outsider.；人数选项来源：catfishing/fanggu-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：an-du-chen-cang/baron-outsider-plus-two/baron-plus-two-outsiders/baron-outsider-plus-two。",
+        "人数修正复用已验证来源：catfishing/fanggu-outsider/add-outsider/fanggu-outsider。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "fanggu-outsider",
+      "roleId": "fanggu",
+      "summary": "Fang Gu: setup adds 1 Outsider.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "godfather-outsider",
+      "roleId": "godfather",
+      "summary": "Godfather: setup may remove 1 Outsider or add 1 Outsider; starts knowing in-play Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/roles.json"
+      ],
+      "reviewedAt": "2026-07-19"
+    },
+    {
+      "id": "baron-outsider-plus-two",
+      "roleId": "baron",
+      "summary": "Baron setup adjustment: +2 Outsiders, balanced by -2 Townsfolk in templates.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://oss.gstonegames.com/data_file/clocktower/json/ct_edition_20705_14196.json"
+      ],
+      "reviewedAt": "2026-07-22"
+    },
+    {
+      "id": "magician-marionette-jinx",
+      "roleId": "magician",
+      "summary": "If the Magician is alive, the Demon doesn't know which neighbor is the Marionette.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "marionette-balloonist-jinx",
+      "roleId": "marionette",
+      "summary": "If the Marionette thinks that they are the Balloonist, an Outsider might have been added during setup.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "marionette-huntsman-jinx",
+      "roleId": "marionette",
+      "summary": "If the Marionette thinks that they are the Huntsman, the Damsel was added during setup.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-baron-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Baron ability, up to two players become Outsiders.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "plaguedoctor-marionette-jinx",
+      "roleId": "plaguedoctor",
+      "summary": "If the Storyteller would gain the Marionette ability, one of the Demon's good neighbors becomes the Marionette.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "magician",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "marionette",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "organgrinder",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "organgrinder",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "fanggu",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "gossip",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "barber",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "plaguedoctor",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "huntsman",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用项目已核实的官方夜表；结果仍由说书人确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "highpriestess": "sha256:8494609fb30ae75114cd2a18e0053104c012cad339d6a9fe9964cd3554176c07",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "gossip": "sha256:c1ee906e8b2abcc4e4c51c9d0f88c968a0ab63432ee6297545f02b62a1befa65",
+    "amnesiac": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "huntsman": "sha256:b0f38948ef04be8e1ddd284a4a44af8aa2ca936d3ae8eded18291db8c89e63f4",
+    "magician": "sha256:df4b91bdbf86955cc97bfea6a0219e2b6a834a6e6457803c13b4e0b895d06690",
+    "virgin": "sha256:06096e9d4874b45d7b7599b6375d9ef6cd018269f62900eef30f3221befb5df4",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "plaguedoctor": "sha256:71a0c833e41afb53c5ddc760d718fa49720f4d39d01bc274deafb03a25dd40cc",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "mutant": "sha256:24d88063361f63a8c374f0cf5200515943373f796c0b2de7773b9abb22fbf93e",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "baron": "sha256:890d34be482a8e93a73c160430757fc5f236aa26654d8734a5419df15b645493",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "organgrinder": "sha256:43f5b78821dc3e71057d941acb9706533394a99a1ced945c9e1330eab9c65615",
+    "fanggu": "sha256:69359e2bfb4c0de20fce1759519869906ac0b53cd665980026d41318fc760f1a"
+  }
+}
