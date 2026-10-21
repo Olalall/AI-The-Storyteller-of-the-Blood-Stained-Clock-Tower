@@ -79,15 +79,18 @@ export function confirmNightRoleChange(session: GameSessionState, action: Extrac
   })
   const orders = getSmartScriptPack(session.scriptId).nightOrders[run.nightType === 'first' ? 'firstNight' : 'otherNight']
   const order = new Map(orders.map((item) => [item.roleId, item.order]))
+  const timingRoleId = (item: WakeItem) => /^drunk\/pretend-(.+)-v1$/.exec(item.interactionVersion)?.[1]
+    ?? (item.interactionVersion === 'marionette/pretend-v1' ? session.identityPresentations?.[item.seatId]?.shownRole.id
+      : item.systemStep?.kind === 'audience_notice' ? item.roleId.replace(/^system-audience-/, '') : item.roleId) ?? item.roleId
   for (const item of additions) {
     if (item.systemStep?.kind === 'audience_notice') {
       const merged = mergeFirstNightSystemSteps(queue, [item])
       queue.splice(0, queue.length, ...merged)
       continue
     }
-    const rank = item.abilityPhase === 'initial' ? undefined : order.get(item.roleId)
+    const rank = item.abilityPhase === 'initial' ? undefined : order.get(timingRoleId(item))
     const index = rank === undefined ? queue.findIndex((known) => known.id === run.activeCursorId) + 1
-      : queue.findIndex((known) => (order.get(known.systemStep?.kind === 'audience_notice' ? known.roleId.replace(/^system-audience-/, '') : known.roleId) ?? Infinity) > rank)
+      : queue.findIndex((known) => (order.get(timingRoleId(known)) ?? Infinity) > rank)
     queue.splice(index < 0 ? queue.length : index, 0, { ...item,
       reason: `${item.reason ? `${item.reason} ` : ''}主持已确认当晚处理新获得的能力；核对时点、旧持续效果及使用次数。`,
     })

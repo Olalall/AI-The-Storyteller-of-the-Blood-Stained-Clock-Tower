@@ -27,7 +27,7 @@ export function isValidSetupCountChangeForRole(roleId: string | undefined, delta
 }
 
 /** Same trusted rule/role association as the existing modifier projection. */
-export function inferModifierRoleId(ruleId: string, pack: SmartScriptPack) {
+export function inferModifierRoleId(ruleId: string, pack: Pick<SmartScriptPack, 'roles' | 'setupRules'>) {
   const explicit = pack.setupRules.find((rule) => rule.id === ruleId)?.roleId
   if (explicit) return explicit
   const token = (value: string) => value.toLowerCase().replace(/[^a-z0-9]/g, '')

@@ -59,8 +59,10 @@ function gameEvaluation(archive: GameArchiveRecord) {
   const { summary } = archive
   const density = summary.records >= 12 ? '记录较完整' : summary.records >= 6 ? '记录中等' : '记录偏少'
   const vote = summary.votes >= 3 ? '白天投票链较清晰' : '投票样本较少'
-  const correction = summary.corrections > 0
-    ? `出现${summary.corrections}条更正，复盘时应重点检查误操作来源。`
+  const correctionCount = archive.session?.timeline
+    ? archive.session.timeline.filter((entry) => Boolean(entry.correctionOf)).length : summary.corrections
+  const correction = correctionCount > 0
+    ? `出现${correctionCount}条更正（含撤销），可结合原因核对当时的记录和操作。`
     : '没有更正记录，仍需结合现场核对。'
   return { density, vote, correction }
 }

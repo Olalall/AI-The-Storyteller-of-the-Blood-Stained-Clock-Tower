@@ -1,13 +1,15 @@
 import { normalizeRoleId } from '../../../domain/scripts'
 import type { AbilityInputKind, SmartRoleDefinition } from '../../../domain/scripts'
 import type { OutcomeInput, WakeItem } from '../../night-workbench/types'
+import { nightInformationRoleId, projectFormalNightInformation } from './nightInformationContract'
 
 /** 新夜序与旧局恢复共用表单合同；回答由主持选择，不根据身份或毒醉推算。 */
-export function projectNightResultContract(item: WakeItem): WakeItem {
-  if (normalizeRoleId(item.roleId) !== 'fortuneteller') return item
+export function projectNightResultContract(item: WakeItem, playerCount = 15): WakeItem {
+  item = projectFormalNightInformation(item, playerCount)
+  if (nightInformationRoleId(item) !== 'fortuneteller') return item
   return {
     ...item, targetCount: 2, minimumTargetCount: undefined,
-    interactionVersion: 'fortuneteller/yes-no-v1',
+    interactionVersion: normalizeRoleId(item.roleId) === 'fortuneteller' ? 'fortuneteller/yes-no-v1' : item.interactionVersion,
     outcomeOptions: [
       { id: 'yes', label: '是', requiredInputs: ['targets'], resultTemplate: '{actor}选择{targets}，结果为“是”。', informationTemplate: '是。' },
       { id: 'no', label: '否', requiredInputs: ['targets'], resultTemplate: '{actor}选择{targets}，结果为“否”。', informationTemplate: '否。' },

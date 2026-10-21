@@ -60,13 +60,25 @@ function uniqueSeatIds(values: Array<number | null | undefined>) {
     .sort((left, right) => left - right)
 }
 
-function phaseInfo(session: GameSessionState, entry: TimelineEntry) {
-  if (entry.segmentId) {
-    const segment = session.phaseSegments.find((candidate) => candidate.id === entry.segmentId)
+export function timelinePhaseInfo(session: GameSessionState, entry: TimelineEntry) {
+  const nightRunId = entry.kind === 'setup_changed' ? entry.originNightRunId : null
+  const segmentId = entry.segmentId ?? (nightRunId ? session.nightRuns[nightRunId]?.phaseSegmentId : null)
+  if (segmentId) {
+    const segment = session.phaseSegments.find((candidate) => candidate.id === segmentId)
     if (segment) return { phaseKey: `segment:${segment.id}`, phaseLabel: segment.label }
   }
+  if (nightRunId) return { phaseKey: `night-run:${nightRunId}`, phaseLabel: '夜间角色调整' }
   if (entry.kind === 'setup_confirmed' || entry.kind === 'setup_changed') return { phaseKey: 'setup', phaseLabel: '配板' }
   return { phaseKey: 'session', phaseLabel: '本局' }
+}
+
+function roleChangeTiming(entry: Extract<TimelineEntry, { kind: 'setup_changed' }>) {
+  if (!entry.originNightRunId) return '从后续工作台起生效'
+  if (entry.nightAbilityTiming === 'tonight') return '身份立即更新，新能力按本夜夜序处理'
+  if (entry.nightAbilityTiming === 'initial') return '身份立即更新，本夜仅处理新角色初始化'
+  if (entry.nightAbilityTiming === 'later') return '身份立即更新，本夜不再发动新能力'
+  if (entry.sourceNightActionId) return '首夜分配已应用，新角色按本夜夜序处理'
+  return '身份已更新；旧记录未注明本夜能力安排，请核对原记录'
 }
 
 function stateLabel(entry: Extract<TimelineEntry, { kind: 'player_state_changed' }>) {
@@ -92,7 +104,7 @@ function historyFields(session: GameSessionState, entry: TimelineEntry): Timelin
       return {
         category: 'role_change' as const,
         summary: `${entry.seatId}号角色：${entry.fromRole.name} → ${entry.toRole.name}`,
-        details: [`原因：${entry.reason}`, '从后续工作台起生效'],
+        details: [`原因：${entry.reason}`, roleChangeTiming(entry)],
         seatIds: [entry.seatId],
       }
     case 'player_state_changed':
@@ -197,7 +209,7 @@ export function projectTimelineHistory(session: GameSessionState): TimelineHisto
   return session.timeline
     .map((source) => {
       const fields = historyFields(session, source)
-      const phase = phaseInfo(session, source)
+      const phase = timelinePhaseInfo(session, source)
       const isSuperseded = supersededIds.has(source.id)
       const details = source.correctionOf
         ? [...fields.details, `更正原因：${source.correctionReason?.trim() || '历史记录未填写原因'}`]

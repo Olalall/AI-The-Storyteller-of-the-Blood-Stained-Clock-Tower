@@ -39,6 +39,7 @@ export function buildNightSettlementProviderMessages(input: NightSettlementProvi
           'input.wakeItem.previousTargets 是紧邻上一夜已确认目标；previousTargetRequired=true 且缺失时必须返回 needs_input。',
           'input.wakeItem.historicalContext 是角色专用的已确认历史投影；status=missing 时必须返回 needs_input，seatIds 只能作为候选，不得自动执行死亡、中毒或复活。',
         'recommendedOutcomeId 必须来自 ready=true 的 availableOutcomes；没有可选结果时不要返回 recommendedOutcomeId。',
+        'wakeItem.informationInput 表示主持手填的正式数字告知，draft.informationGiven 是其答案；不能把它当作已知真实数值，也不能依据实际身份自动覆盖毒醉、误登记情况下主持决定的错误答案。缺少答案时需要补充，不得只推荐 record 绕过。',
         'input.roleResearch 是导入智能板子时人工复核过的角色规则摘要；它优先于模型记忆。',
         'input.selectedTargets[].roleKnowledge 如存在，是目标角色的已复核共享规则；涉及目标的死亡触发、保命或额外投票/提名时同样优先于模型记忆，不能只核对发动者能力。',
         'input.selectedTargets 只包含本步已选择目标的身份和状态，用于核对本步，不代表完整魔典。',

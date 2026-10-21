@@ -1,7 +1,17 @@
 import type { SmartRoleDefinition } from './types'
 
+export type NightInformationInput = { kind: 'number'; maximum?: number } | { kind: 'choice'; choices: readonly { id: string; label: string; information: string }[] }
+const yesNo: NightInformationInput = { kind: 'choice', choices: [{ id: 'yes', label: '是', information: '是。' }, { id: 'no', label: '否', information: '否。' }] }
 // 这里只描述记录表单，不执行技能；来源为对应角色官方规则。
-export const nightInteractionInputs: Readonly<Record<string, { targetCount?: number; aiAdviceEnabled?: boolean; firstNightTargetCount?: number; otherNightTargetCount?: number; allowedTargetCounts?: number[]; roleCount?: number; firstNightRoleCount?: number; targetKind?: 'storyteller_info'; revealResult?: boolean; midgameInitialization?: { label: string; prompt: string; resultTemplate: string }; choiceResults?: readonly { id: string; label: string }[] }>> = {
+export const nightInteractionInputs: Readonly<Record<string, { targetCount?: number; aiAdviceEnabled?: boolean; firstNightTargetCount?: number; otherNightTargetCount?: number; allowedTargetCounts?: number[]; roleCount?: number; firstNightRoleCount?: number; targetKind?: 'storyteller_info'; revealResult?: boolean; informationInput?: NightInformationInput; midgameInitialization?: { label: string; prompt: string; resultTemplate: string }; choiceResults?: readonly { id: string; label: string }[] }>> = {
+  chef: { informationInput: { kind: 'number' } },
+  empath: { informationInput: { kind: 'number', maximum: 2 } },
+  mathematician: { informationInput: { kind: 'number' } },
+  oracle: { informationInput: { kind: 'number' } },
+  towncrier: { informationInput: yesNo },
+  flowergirl: { informationInput: yesNo },
+  seamstress: { informationInput: yesNo },
+  villageidiot: { informationInput: { kind: 'choice', choices: [{ id: 'good', label: '善良', information: '善良阵营。' }, { id: 'evil', label: '邪恶', information: '邪恶阵营。' }] } },
   // https://wiki.bloodontheclocktower.com/Librarian
   librarian: { targetCount: 2, targetKind: 'storyteller_info' },
   // https://wiki.bloodontheclocktower.com/Investigator
@@ -22,7 +32,7 @@ export const nightInteractionInputs: Readonly<Record<string, { targetCount?: num
   // https://wiki.bloodontheclocktower.com/Preacher
   preacher: { targetCount: 1 },
   // https://wiki.bloodontheclocktower.com/Chambermaid
-  chambermaid: { targetCount: 2 },
+  chambermaid: { targetCount: 2, informationInput: { kind: 'number', maximum: 2 } },
   // https://wiki.bloodontheclocktower.com/Lleech — 首夜记宿主，后续夜记攻击，各一人。
   lleech: { targetCount: 1, midgameInitialization: {
     label: '存活宿主', prompt: '中途获得痢蛭能力的当晚初始化：只选择一名存活宿主并核对寄生、中毒；这不是普通夜间攻击，不额外杀人。相关标记和中毒仍由主持确认。',

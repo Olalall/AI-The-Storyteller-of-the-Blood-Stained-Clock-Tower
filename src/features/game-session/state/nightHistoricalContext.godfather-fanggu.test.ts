@@ -48,7 +48,9 @@ function sessionWithSetup(overrides: { execution?: ExecutionEntry; conversion?: 
   const setup = session.timeline.find((entry) => entry.kind === 'setup_confirmed')
   if (setup?.kind === 'setup_confirmed') {
     setup.setup.draft.assignments = setup.setup.draft.assignments.map((assignment) => {
-      if (assignment.seatId === 2) return { ...assignment, role: { id: 'professor', name: '教授', initial: '教', iconPath: '' } }
+      if (assignment.seatId === 2) return { ...assignment, role: overrides.conversion
+        ? { id: 'fanggu', name: '方古', initial: '方', iconPath: '' }
+        : { id: 'professor', name: '教授', initial: '教', iconPath: '' } }
       if (assignment.seatId === 4) return { ...assignment, role: { id: 'tinker', name: '修补匠', initial: '修', iconPath: '' } }
       return assignment
     })
@@ -58,6 +60,20 @@ function sessionWithSetup(overrides: { execution?: ExecutionEntry; conversion?: 
     ...(overrides.conversion ? [overrides.conversion] : []),
     ...(overrides.execution ? [overrides.execution] : []),
   ]
+  return session
+}
+
+function confirmFangGuJump(session: GameSessionState) {
+  const setup = session.timeline.find((entry) => entry.kind === 'setup_confirmed')!
+  if (setup.kind !== 'setup_confirmed') throw new Error('setup is required')
+  const target = setup.setup.draft.assignments.find((assignment) => assignment.seatId === 4)!.role
+  session.timeline.push({ id: 'confirmed-new-fanggu', kind: 'setup_changed', segmentId: null,
+    createdAt: AT, confirmedBy: 'storyteller', baseSetupId: setup.setup.id, originNightRunId: 'night-2',
+    seatId: 4, fromRole: target, toRole: { id: 'fanggu', name: '方古', initial: '方', iconPath: '' },
+    reason: '主持确认方古跳转', effectiveFrom: 'future_workbenches' })
+  const before = { life: 'alive' as const, poisoned: false, drunk: false, markers: [] }
+  session.timeline.push({ id: 'confirmed-old-fanggu-death', kind: 'player_state_changed', segmentId: 'night-2',
+    createdAt: AT, confirmedBy: 'storyteller', seatId: 2, before, after: { ...before, life: 'dead' }, reason: '主持确认原方古死亡' })
   return session
 }
 
@@ -95,7 +111,7 @@ describe('教父与方古的夜间历史约束', () => {
 
   it('方古已经成功转化后，后续夜晚不再给出转化建议', () => {
     const projected = applyWakeHistoricalContext(
-      sessionWithSetup({ conversion: fangguConversionEntry() }),
+      confirmFangGuJump(sessionWithSetup({ conversion: fangguConversionEntry() })),
       item('fanggu'),
       3,
     )
@@ -139,7 +155,7 @@ it('uses the character at the time of the death, preserving later role changes',
 })
 
 it('keeps Fang Gu conversion spent for a new host and when projecting the same night', () => {
-  const session = sessionWithSetup({ conversion: fangguConversionEntry() })
+  const session = confirmFangGuJump(sessionWithSetup({ conversion: fangguConversionEntry() }))
   const nextHost = { ...item('fanggu'), seatId: 4 }
   for (const sequence of [2, 3]) {
     const projected = applyWakeHistoricalContext(session, nextHost, sequence)
@@ -149,14 +165,89 @@ it('keeps Fang Gu conversion spent for a new host and when projecting the same n
 })
 
 it('does not reset the global Fang Gu use after the original actor changes character', () => {
-  const session = sessionWithSetup({ conversion: fangguConversionEntry() }), setup = session.timeline.find((entry) => entry.kind === 'setup_confirmed')!
+  const session = confirmFangGuJump(sessionWithSetup({ conversion: fangguConversionEntry() })), setup = session.timeline.find((entry) => entry.kind === 'setup_confirmed')!
   if (setup.kind !== 'setup_confirmed') throw new Error('setup is required')
   session.timeline.push({ id: 'old-fanggu-changed', kind: 'setup_changed', segmentId: null, createdAt: '2026-08-07T01:00:00Z', confirmedBy: 'storyteller', baseSetupId: setup.setup.id, originNightRunId: null, seatId: 2, fromRole: { id: 'fanggu', name: '方古', initial: '方', iconPath: '' }, toRole: { id: 'imp', name: '小恶魔', initial: '小', iconPath: '' }, reason: '主持确认角色变化', effectiveFrom: 'future_workbenches' })
   expect(applyWakeHistoricalContext(session, { ...item('fanggu'), seatId: 4 }, 3).outcomeOptions.map((option) => option.id)).toEqual(['kill', 'no-effect'])
 })
 
 it('uses the effective Fang Gu history after a mistaken conversion is explicitly corrected', () => {
-  const session = sessionWithSetup({ conversion: fangguConversionEntry() }), original = fangguConversionEntry()
+  const session = confirmFangGuJump(sessionWithSetup({ conversion: fangguConversionEntry() })), original = fangguConversionEntry()
   session.timeline.push({ ...original, id: 'fanggu-corrected', correctionOf: original.id, createdAt: '2026-08-07T01:00:00Z', record: { revision: 2, snapshot: { ...original.record.snapshot, outcomeId: 'no-effect' } } })
   expect(applyWakeHistoricalContext(session, { ...item('fanggu'), seatId: 4 }, 3).outcomeOptions.map((option) => option.id)).toContain('convert')
+})
+
+it('does not associate a different-night role change or a reverted death with a successful jump', () => {
+  for (const invalid of ['other-night', 'reverted-death'] as const) {
+    const session = confirmFangGuJump(sessionWithSetup({ conversion: fangguConversionEntry() }))
+    if (invalid === 'other-night') {
+      const change = session.timeline.find((entry) => entry.id === 'confirmed-new-fanggu')!
+      if (change.kind === 'setup_changed') change.originNightRunId = 'night-3'
+    } else {
+      const death = session.timeline.find((entry) => entry.id === 'confirmed-old-fanggu-death')!
+      if (death.kind !== 'player_state_changed') throw new Error('death is required')
+      session.timeline.push({ ...death, id: 'reverted-death', revertOf: death.id, before: death.after, after: death.before })
+    }
+    expect(applyWakeHistoricalContext(session, item('fanggu'), 3).outcomeOptions.map((option) => option.id)).toContain('convert')
+  }
+})
+
+it('recognizes legacy same-night host confirmations without rewriting their saved records', () => {
+  const session = confirmFangGuJump(sessionWithSetup({ conversion: fangguConversionEntry() }))
+  session.phaseSegments[0].closedAt = '2026-08-07T00:30:00.000Z'
+  const change = session.timeline.find((entry) => entry.id === 'confirmed-new-fanggu')!
+  if (change.kind === 'setup_changed') {
+    change.originNightRunId = null
+    change.createdAt = '2026-08-07T00:00:01Z'
+  }
+  const before = structuredClone(session)
+  expect(applyWakeHistoricalContext(session, item('fanggu'), 3).historicalContext?.status).toBe('ready')
+  expect(session).toEqual(before)
+})
+
+it('restores a wrongly removed conversion option when reprojecting an old candidate-only queue', () => {
+  const wake = item('fanggu')
+  wake.outcomeOptions = wake.outcomeOptions.filter((option) => option.id !== 'convert')
+  wake.historicalContext = { kind: 'fanggu_conversion', status: 'ready', seatIds: [4], summary: '旧版误记成功' }
+  const projected = applyWakeHistoricalContext(sessionWithSetup({ conversion: fangguConversionEntry() }), wake, 3)
+  expect(projected.historicalContext?.status).toBe('clear')
+  expect(projected.outcomeOptions.map((option) => option.id)).toEqual(['convert', 'kill', 'no-effect'])
+  expect(projected.history).not.toContain('旧版误记成功')
+})
+
+// Spy may register as an Outsider to an ability that affects Outsiders.
+// https://wiki.bloodontheclocktower.com/Spy
+it('respects an explicitly confirmed Fang Gu jump to a Spy registered as an Outsider', () => {
+  const session = confirmFangGuJump(sessionWithSetup({ conversion: fangguConversionEntry() }))
+  const change = session.timeline.find((entry) => entry.id === 'confirmed-new-fanggu')!
+  if (change.kind !== 'setup_changed') throw new Error('role change is required')
+  change.fromRole = { id: 'spy', name: '间谍', initial: '间', iconPath: '' }
+  const before = structuredClone(session)
+  const projected = applyWakeHistoricalContext(session, item('fanggu'), 3)
+  expect(projected.historicalContext).toMatchObject({ status: 'ready', seatIds: [4] })
+  expect(projected.outcomeOptions.map((option) => option.id)).not.toContain('convert')
+  expect(session).toEqual(before)
+})
+
+it('keeps the global Fang Gu jump available for a candidate without both host confirmations', () => {
+  for (const missing of ['both', 'role', 'death'] as const) {
+    const session = confirmFangGuJump(sessionWithSetup({ conversion: fangguConversionEntry() }))
+    session.timeline = session.timeline.filter((entry) => !(entry.id === 'confirmed-new-fanggu' && missing !== 'death')
+      && !(entry.id === 'confirmed-old-fanggu-death' && missing !== 'role'))
+    const before = structuredClone(session)
+    for (const sequence of [2, 3]) {
+      const projected = applyWakeHistoricalContext(session, item('fanggu'), sequence)
+      expect(projected.historicalContext?.status).not.toBe('ready')
+      expect(projected.outcomeOptions.map((option) => option.id)).toContain('convert')
+    }
+    expect(session).toEqual(before)
+  }
+})
+
+it('replaces stale Fang Gu history instead of retaining contradictory or duplicate conclusions', () => {
+  const session = sessionWithSetup({ conversion: fangguConversionEntry() })
+  const stale = { ...item('fanggu'), history: '本局尚未找到方古成功转化记录。 本局已记录方古成功转化4号。' }
+  const first = applyWakeHistoricalContext(session, stale, 3)
+  expect(first.history).not.toContain('已记录方古成功')
+  expect(applyWakeHistoricalContext(session, first, 3)).toEqual(first)
 })

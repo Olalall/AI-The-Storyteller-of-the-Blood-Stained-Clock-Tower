@@ -256,7 +256,7 @@ const rules = [
   {
     id: 'pack-no-session-state',
     docSection: '「为魔典模式新增的 9 条反规则引擎自动检查」P0-2：角色包必须是纯数据',
-    applies: (file) => /^src\/domain\/(scripts\/packs|role-knowledge)\/.*\.(ts|tsx)$/.test(file),
+    applies: (file) => /^src\/domain\/(scripts\/(packs|role-library)|role-knowledge)\/.*\.(ts|tsx)$/.test(file),
     detect: (line, { file }) => {
       if (/(=>|:)\s*(Promise<\s*)?GameSessionState\b/.test(line)) return '出现返回 GameSessionState 的函数签名'
       const specifier = importSpecifierOf(line)

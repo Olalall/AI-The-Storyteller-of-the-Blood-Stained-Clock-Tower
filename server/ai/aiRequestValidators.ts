@@ -218,6 +218,8 @@ export function isNightSettlementRequest(value: unknown): value is NightSettleme
     && validHistoricalContext(value.wakeItem.historicalContext, value.playerCount)
     && validDraftTargets(value.draft.targets, value.wakeItem, value.playerCount)
     && typeof value.draft.roleChoice === 'string'
+    && (value.wakeItem.informationInput === undefined || (isRecord(value.wakeItem.informationInput) && value.wakeItem.informationInput.kind === 'number' && Number.isInteger(value.wakeItem.informationInput.minimum) && Number.isInteger(value.wakeItem.informationInput.maximum) && Number(value.wakeItem.informationInput.minimum) >= 0 && Number(value.wakeItem.informationInput.maximum) <= value.playerCount && Number(value.wakeItem.informationInput.minimum) <= Number(value.wakeItem.informationInput.maximum)))
+    && (value.draft.informationGiven === undefined || (typeof value.draft.informationGiven === 'string' && value.draft.informationGiven.length <= 3 && /^(?:\d+)?$/.test(value.draft.informationGiven)))
     && validTargetRoleChoices(value.draft.targetRoleChoices)
     && (value.wakeItem.targetRoleChoiceCount === undefined || [1, 2, 3].includes(Number(value.wakeItem.targetRoleChoiceCount)) && typeof value.wakeItem.targetRoleChoiceCount === 'number')
     && (value.wakeItem.targetRoleChoiceRoleIds === undefined || (validStringArray(value.wakeItem.targetRoleChoiceRoleIds) && value.wakeItem.targetRoleChoiceRoleIds.length <= 50 && value.wakeItem.targetRoleChoiceRoleIds.every(role => role.length > 0 && role.length <= 100)))

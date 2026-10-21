@@ -111,7 +111,7 @@ function isWakeStatus(value: unknown) {
 function isOutcomeOption(value: unknown) {
   return isRecord(value) && typeof value.id === 'string' && typeof value.label === 'string' &&
     Array.isArray(value.requiredInputs) &&
-    value.requiredInputs.every((item) => item === 'targets' || item === 'role') &&
+    value.requiredInputs.every((item) => item === 'targets' || item === 'role' || item === 'information') &&
     (value.targetCounts === undefined || (Array.isArray(value.targetCounts) &&
       value.targetCounts.every((item) => isInteger(item, 0, 15)))) &&
     typeof value.resultTemplate === 'string' && isOptionalString(value.informationTemplate)
@@ -152,6 +152,8 @@ function isWakeItem(value: unknown) {
     typeof value.applicability === 'string' && applicabilities.has(value.applicability) &&
     isWakeStatus(value.status) && isOptionalString(value.history) && isOptionalString(value.reason) &&
     isInteger(value.targetCount, 0, 15) &&
+    (value.informationInput === undefined || (isRecord(value.informationInput) && value.informationInput.kind === 'number' &&
+      isInteger(value.informationInput.minimum, 0, 15) && isInteger(value.informationInput.maximum, 0, 15) && value.informationInput.minimum <= value.informationInput.maximum)) &&
     (value.minimumTargetCount === undefined || isInteger(value.minimumTargetCount, 0, 15)) &&
     isOptionalString(value.targetLabel) &&
     (value.targetKind === undefined || value.targetKind === 'player_choice' || value.targetKind === 'storyteller_info') &&

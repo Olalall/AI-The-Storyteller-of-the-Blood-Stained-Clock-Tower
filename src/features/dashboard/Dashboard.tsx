@@ -8,7 +8,7 @@ import { assertNever } from '../../shared/assertNever'
 import { OpeningScriptSheet } from '../host-tools/OpeningScriptSheet'
 import { AISettingsSheet } from '../ai-settings/AISettingsSheet'
 import { projectOpenSegmentLabels, projectStorytellerSeatSummaries } from '../game-session/state/projectors'
-import { projectEffectiveTimelineEntries } from '../game-session/state/projectTimelineHistory'
+import { projectEffectiveTimelineEntries, timelinePhaseInfo } from '../game-session/state/projectTimelineHistory'
 import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState, TimelineEntry } from '../game-session/types'
 import { PlayerStatusBoard } from './components/PlayerStatusBoard'
@@ -124,8 +124,7 @@ export function Dashboard({ session, dispatch, onEnterNight, onEnterDay, onOpenT
           {recentEntries.length ? (
             <ul className="dashboard__recent-list">
               {recentEntries.map((entry) => {
-                const segment = entry.segmentId ? session.phaseSegments.find((item) => item.id === entry.segmentId) : undefined
-                return <li key={entry.id}><span>{segment?.label ?? (entry.kind.startsWith('setup_') ? '配板' : '本局')}</span><strong>{entrySummary(entry)}</strong></li>
+                return <li key={entry.id}><span>{timelinePhaseInfo(session, entry).phaseLabel}</span><strong>{entrySummary(entry)}</strong></li>
               })}
             </ul>
           ) : <EmptyState compact title="暂无记录" />}

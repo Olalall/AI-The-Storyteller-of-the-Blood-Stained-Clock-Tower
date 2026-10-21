@@ -156,9 +156,10 @@ function renderTemplate(template: string, item: WakeItem, draft: WakeDraft) {
     targetRoles: targetRoleText(item, draft),
     registration,
     bluffs: item.systemStep ? bluffLabels(item.systemStep, draft) : '',
+    information: draft.informationGiven,
   }
 
-  return template.replace(/\{(actor|target|targets|role|targetRoles|registration|bluffs)\}/g, (_, key: string) => values[key] ?? '')
+  return template.replace(/\{(actor|target|targets|role|targetRoles|registration|bluffs|information)\}/g, (_, key: string) => values[key] ?? '')
 }
 
 /**
@@ -176,6 +177,8 @@ export function wakeInputsSatisfied(item: WakeItem, draft: WakeDraft) {
 }
 
 export function missingWakeInputReason(item: WakeItem, draft: WakeDraft) {
+  const chosen = item.outcomeOptions.find((option) => option.id === draft.outcomeId)
+  if (chosen && isEmptyInformationOutcome(chosen) && outcomeReady(chosen, item, draft)) return ''
   if (item.systemStep) return systemStepMissingReason(item, draft)
   if (item.registrationSpec && !selectedRegistrationLabel(item, draft)) return `选${item.registrationSpec.label}`
   if (hasForbiddenRegistration(item, draft)) return '核对本夜登记类型'
@@ -184,16 +187,37 @@ export function missingWakeInputReason(item: WakeItem, draft: WakeDraft) {
   if (selectedTargetCount(item, draft) > draft.targets.length) return `选${item.targetLabel ?? '目标'}`
   if (item.roleChoices && !roleInputsSatisfied(item, draft)) return item.roleCount === 4
     ? '选两善两恶四个不同角色' : item.roleCount === 2 ? '选一善一恶两个角色' : `选${item.roleLabel ?? '角色'}`
+  if (item.informationInput && !formalInformationValid(item, draft)) return `填写${item.informationInput.minimum}-${item.informationInput.maximum}的整数告知`
   return ''
 }
 
 export function outcomeReady(option: WakeOutcomeOption, item: WakeItem, draft: WakeDraft) {
+  if (isEmptyInformationOutcome(option)) return draft.outcomeId !== option.id || (draft.targets.length === 0 && !draft.roleChoice && !draft.secondRoleChoice && !draft.additionalRoleChoices?.some(Boolean))
   if (item.targetRoleChoiceCount !== undefined && !targetRoleChoicesSatisfied(item, draft)) return false
   if (!isNoActionOutcome(option) && !wakeInputsSatisfied(item, draft)) return false
   return option.requiredInputs.every((input) => {
     if (input === 'targets') return wakeTargetsReadyForOutcome(option, item, draft)
+    if (input === 'information') return formalInformationValid(item, draft)
     return roleInputsSatisfied(item, draft)
   })
+}
+
+export function formalInformationValid(item: WakeItem, draft: WakeDraft) {
+  const spec = item.informationInput
+  if (!spec || !/^\d+$/.test(draft.informationGiven)) return false
+  const value = Number(draft.informationGiven)
+  return Number.isSafeInteger(value) && value >= spec.minimum && value <= spec.maximum
+}
+
+function isEmptyInformationOutcome(option: WakeOutcomeOption) {
+  return option.requiredInputs.length === 0 && option.targetCounts?.length === 1 && option.targetCounts[0] === 0
+}
+
+/** 新写入与更正共用；旧已确认快照在恢复时不重写或追补。 */
+export function formalNightRecordValid(item: WakeItem, draft: WakeDraft) {
+  const option = item.outcomeOptions.find((candidate) => candidate.id === draft.outcomeId)
+  return (!item.informationInput || Boolean(option && (!option.requiredInputs.includes('information') || formalInformationValid(item, draft)))) &&
+    (!option || !isEmptyInformationOutcome(option) || outcomeReady(option, item, draft))
 }
 
 function isNoActionOutcome(option: WakeOutcomeOption) {
@@ -238,8 +262,9 @@ export function applyDefaultOutcome(item: WakeItem, draft: WakeDraft): WakeDraft
 
 export function applyOutcome(item: WakeItem, draft: WakeDraft, outcomeId: string): WakeDraft {
   const option = item.outcomeOptions.find((candidate) => candidate.id === outcomeId)
-  if (!option || !outcomeReady(option, item, draft)) return draft
-  if (isNoActionOutcome(option)) draft = { ...draft, targets: [], targetRoleChoices: undefined, targetCountChoice: undefined, roleChoice: '', secondRoleChoice: undefined, additionalRoleChoices: undefined }
+  if (!option) return draft
+  if (isNoActionOutcome(option) || isEmptyInformationOutcome(option)) draft = { ...draft, targets: [], targetRoleChoices: undefined, targetCountChoice: undefined, roleChoice: '', secondRoleChoice: undefined, additionalRoleChoices: undefined }
+  if (!outcomeReady(option, item, draft)) return draft
 
   const storytellerResult = renderTemplate(option.resultTemplate, item, draft)
   const informationGiven = item.targetRoleChoiceCount === undefined && canRevealNightResult(item.roleId) && option.informationTemplate

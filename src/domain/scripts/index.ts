@@ -38,6 +38,10 @@ export type {
   SmartScriptPack,
 } from './types'
 export { buildScriptQualityReport, buildScriptQualitySummary } from './quality'
+export { createRoleDefinitionLibrary } from './roleDefinitionLibrary'
+export type { RoleDefinitionLibrary, RoleDefinitionReference, RoleDefinitionSource, ResolvedRoleDefinition } from './roleDefinitionLibrary'
+export { createReferencedScriptPack } from './referencedScriptPack'
+export type { ReferencedScriptDefinition } from './referencedScriptPack'
 export type {
   KnowledgeStatusCounts,
   ScriptQualityReport,

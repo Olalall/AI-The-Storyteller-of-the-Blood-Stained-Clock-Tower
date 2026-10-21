@@ -237,6 +237,7 @@ export interface NightSettlementProviderRequest {
     storytellerPrompt: string
     history?: string
     targetCount: number
+    informationInput?: { kind: 'number'; minimum: number; maximum: number }
     allowedTargetCounts?: readonly number[]
     roleCount?: number
     abilityPhase?: 'initial'
@@ -270,6 +271,7 @@ export interface NightSettlementProviderRequest {
     targetRoleChoices?: { seatId: number; roleId: string }[]
     targetCountChoice?: number
     storytellerContext?: string
+    informationGiven?: string
     outcomeId: string
     playerChoice: string
     draftRevision: number
