@@ -2368,5 +2368,149 @@ export const scriptManifest: readonly Pick<SmartScriptPack, 'scriptId' | 'displa
       15
     ],
     "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "bi-ye-dian-li",
+    "displayName": "毕业典礼",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "tian-ruo-you-qing",
+    "displayName": "天若有情",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "chen-ke-nan-fan",
+    "displayName": "沉科难返",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "feng-kuang-ke-yan",
+    "displayName": "疯狂科研",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "du-shi-sha-shou-hou",
+    "displayName": "都市杀手猴",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "huan-shou-qi-jing",
+    "displayName": "环首奇景",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wu-xian-bo-yi",
+    "displayName": "无限博弈",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "du-xian-man-yan",
+    "displayName": "毒线蔓延",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+    "displayName": "数学家杀人事件",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
   }
 ]
