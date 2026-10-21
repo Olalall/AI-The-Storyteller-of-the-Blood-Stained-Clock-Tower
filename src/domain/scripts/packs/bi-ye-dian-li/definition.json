@@ -1,0 +1,1117 @@
+{
+  "scriptId": "bi-ye-dian-li",
+  "displayName": "毕业典礼",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "JOX",
+    "version": "Clocktower Wiki index 620 / build 16ad8f7c270d / 当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:830d947813c3364fd113a347896163034cef4186e9794a0713a224c6477ff5c4",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "clockmaker",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "grandmother",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "empath",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "villageidiot",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "flowergirl",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "acrobat",
+      "sourceId": "shi-san-hang",
+      "sourceVersion": "sha256:4537cee40664d86345fa1b20af1858768df3be233db1d41081e184dece91f0e5"
+    },
+    {
+      "id": "artist",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "slayer",
+      "sourceId": "everyone-can-play",
+      "sourceVersion": "sha256:0dc9c76e31a2de5dc3b1038de16aac854f263e3134bdadead2607d0709e2eb35"
+    },
+    {
+      "id": "ravenkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "virgin",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "moonchild",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "hatter",
+      "sourceId": "wu-he-you-zhi-xiang",
+      "sourceVersion": "sha256:2339a029e70a71b16a7ecad56a64051f0852b7336b9e26d1708a046ed7b30a87"
+    },
+    {
+      "id": "damsel",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "marionette",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "organgrinder",
+      "sourceId": "yu-zhe-huan-yan",
+      "sourceVersion": "sha256:4571db2ca9cfb548f5357a82e87a05a7c29b128678d43d4be427aa444b897e06"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "shabaloth",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "bi-ye-dian-li-candidate-1",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "imp",
+        "acrobat",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "virgin"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "grandmother",
+        "librarian"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-2",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "marionette",
+        "shabaloth",
+        "grandmother",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "undertaker"
+      ],
+      "bluffs": [
+        "acrobat",
+        "artist",
+        "slayer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-3",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "shabaloth",
+        "flowergirl",
+        "undertaker",
+        "monk",
+        "acrobat",
+        "artist"
+      ],
+      "bluffs": [
+        "empath",
+        "slayer",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-4",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "shabaloth",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "grandmother"
+      ],
+      "bluffs": [
+        "librarian",
+        "empath",
+        "flowergirl"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-5",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "shabaloth",
+        "virgin",
+        "clockmaker",
+        "grandmother",
+        "librarian",
+        "empath",
+        "moonchild"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "acrobat"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-6",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "nodashii",
+        "slayer",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "grandmother",
+        "moonchild",
+        "hatter"
+      ],
+      "bluffs": [
+        "librarian",
+        "empath",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-7",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "nodashii",
+        "clockmaker",
+        "grandmother",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "hatter",
+        "damsel"
+      ],
+      "bluffs": [
+        "monk",
+        "acrobat",
+        "artist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-8",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "organgrinder",
+        "imp",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "grandmother",
+        "librarian",
+        "empath",
+        "flowergirl"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "acrobat"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-9",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "imp",
+        "grandmother",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "undertaker",
+        "monk",
+        "damsel"
+      ],
+      "bluffs": [
+        "acrobat",
+        "artist",
+        "slayer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-10",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "scarletwoman",
+        "shabaloth",
+        "acrobat",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "grandmother"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-11",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "shabaloth",
+        "virgin",
+        "clockmaker",
+        "grandmother",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "acrobat"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-12",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "marionette",
+        "shabaloth",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "undertaker",
+        "monk",
+        "acrobat",
+        "artist",
+        "slayer"
+      ],
+      "bluffs": [
+        "grandmother",
+        "ravenkeeper",
+        "virgin"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-13",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "marionette",
+        "nodashii",
+        "clockmaker",
+        "grandmother",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "undertaker",
+        "monk",
+        "acrobat",
+        "drunk"
+      ],
+      "bluffs": [
+        "artist",
+        "slayer",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-14",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "marionette",
+        "scarletwoman",
+        "nodashii",
+        "empath",
+        "flowergirl",
+        "undertaker",
+        "monk",
+        "acrobat",
+        "artist",
+        "slayer",
+        "moonchild",
+        "hatter"
+      ],
+      "bluffs": [
+        "grandmother",
+        "librarian",
+        "ravenkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-15",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "organgrinder",
+        "imp",
+        "monk",
+        "acrobat",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "hatter",
+        "damsel"
+      ],
+      "bluffs": [
+        "empath",
+        "flowergirl",
+        "undertaker"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-16",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "marionette",
+        "scarletwoman",
+        "organgrinder",
+        "imp",
+        "grandmother",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "undertaker",
+        "monk",
+        "acrobat",
+        "artist",
+        "slayer"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "ravenkeeper",
+        "virgin"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-17",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 13,
+      "style": "chaos",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "marionette",
+        "shabaloth",
+        "acrobat",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "grandmother",
+        "librarian",
+        "damsel"
+      ],
+      "bluffs": [
+        "undertaker",
+        "monk",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-18",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "organgrinder",
+        "godfather",
+        "shabaloth",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "undertaker",
+        "monk",
+        "acrobat",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "virgin"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "grandmother",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-19",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "marionette",
+        "shabaloth",
+        "undertaker",
+        "monk",
+        "acrobat",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "damsel",
+        "drunk"
+      ],
+      "bluffs": [
+        "librarian",
+        "empath",
+        "flowergirl"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-20",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "organgrinder",
+        "godfather",
+        "marionette",
+        "nodashii",
+        "empath",
+        "flowergirl",
+        "undertaker",
+        "monk",
+        "acrobat",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "damsel",
+        "drunk",
+        "moonchild"
+      ],
+      "bluffs": [
+        "clockmaker",
+        "grandmother",
+        "librarian"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-21",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "marionette",
+        "scarletwoman",
+        "nodashii",
+        "monk",
+        "acrobat",
+        "artist",
+        "slayer",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "grandmother",
+        "librarian",
+        "empath",
+        "drunk"
+      ],
+      "bluffs": [
+        "undertaker",
+        "moonchild",
+        "hatter"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "bi-ye-dian-li-candidate-22",
+      "scriptId": "bi-ye-dian-li",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "marionette",
+        "scarletwoman",
+        "organgrinder",
+        "imp",
+        "slayer",
+        "ravenkeeper",
+        "virgin",
+        "clockmaker",
+        "grandmother",
+        "librarian",
+        "empath",
+        "flowergirl",
+        "undertaker",
+        "moonchild",
+        "hatter"
+      ],
+      "bluffs": [
+        "artist",
+        "drunk",
+        "damsel"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "godfather-setup-count",
+      "roleId": "godfather",
+      "summary": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Godfather"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "marionette",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "organgrinder",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "clockmaker",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "villageidiot",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "acrobat",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "organgrinder",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "shabaloth",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "hatter",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "damsel",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "moonchild",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "ravenkeeper",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "empath",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "flowergirl",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "villageidiot",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "clockmaker": "sha256:eda181c646d1926ef95e22b78579955d8042a92bc5d9f5bb71beabc165e7f9a0",
+    "grandmother": "sha256:ddae6200635dbe4275d6b9398d8a0dc528897b43686e7fb9599fec3f6961e069",
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "empath": "sha256:316e6808e6eeeb7e189822ca3b9b8fab77549698ece576051959e4412760a3e5",
+    "villageidiot": "sha256:6f0a168d318bf468312655eb4d5a0e3da89481595bfd1e87d317a10eb632f083",
+    "flowergirl": "sha256:c0e4f2a93f2dc792eaf2ff9b0b5f7b6c07eb912e57d0106248aaa39972414f61",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "acrobat": "sha256:dda6616445f1f1a0ee1fd5374a83adef8ca4ba32fb4a2632530215327ab68b76",
+    "artist": "sha256:c9b8ee57527bb669ec6b036b53a1c4196be7c4801e0572ea1ac5a19d42bedda5",
+    "slayer": "sha256:74d1245e17fde7141ff849dd826aadeb562b21263addbd4de8e9eae521d1fba7",
+    "ravenkeeper": "sha256:6e3311f80393bc0e63bc13ad33ad354fec889729ba26aed45dbcc23dde876bf3",
+    "virgin": "sha256:06096e9d4874b45d7b7599b6375d9ef6cd018269f62900eef30f3221befb5df4",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "moonchild": "sha256:8cdf1c15876cc9c7833b2eee156ce02b6e2e90080412890a621d2d906ea547d8",
+    "hatter": "sha256:04142d342bc693d6c10d03cb37ae19d6735df71f4794e2fb3730aac2264794d8",
+    "damsel": "sha256:ccefdaf5f26d5faf9230c28bae56ccd0887c0906e2717b3882fb9a20d8e9be6f",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "marionette": "sha256:5a989bd1ccfc4c5d949c4bf3a1dec3b160a0d4778545491c83cdcab8898c145a",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "organgrinder": "sha256:43f5b78821dc3e71057d941acb9706533394a99a1ced945c9e1330eab9c65615",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "shabaloth": "sha256:45b9ec178f8359536d9b48a5a2ee057fe58eaf31bf8fb09877e921d1f352fa7c"
+  }
+}

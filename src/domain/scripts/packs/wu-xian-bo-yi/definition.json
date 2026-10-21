@@ -1,0 +1,1195 @@
+{
+  "scriptId": "wu-xian-bo-yi",
+  "displayName": "无限博弈",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "王鑫",
+    "version": "Clocktower Wiki index 594 / build 16ad8f7c270d / 当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:d9b5c9080555da24fd1af3ad344aec9a366955c15ab415cd798629b210186c58",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "bureaucrat",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "thief",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "gunslinger",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "scapegoat",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "beggar",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "apprentice",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "matron",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "judge",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "bishop",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "voudon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "barista",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "harlot",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "butcher",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "bonecollector",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "deviant",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "gangster",
+      "sourceId": "si-dong-fei-dong",
+      "sourceVersion": "sha256:9440c0157f79ecba0d6118d97f7ec390b0decdb4213e4feaae68196062505116"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "snakecharmer",
+      "sourceId": "pa-xing-du-shi",
+      "sourceVersion": "sha256:73f3f88be9401010c713ef346a8fe3ef98369e40735f0b679cde287a4c5cedac"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "dreamer",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "artist",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "gambler",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "gossip",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "grandmother",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "cultleader",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "balloonist",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "magician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "alchemist",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "puzzlemaster",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "golem",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "moonchild",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "goblin",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "psychopath",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "cerenovus",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "alhadikhia",
+      "sourceId": "zhi-shou-zhe-tian",
+      "sourceVersion": "sha256:4238810a6fb68f2daa965e332d1be23dd5f61299b49bd179a6937dd2692e68d2"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "wu-xian-bo-yi-candidate-1",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "imp",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "philosopher",
+        "dreamer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-2",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "imp",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "dreamer"
+      ],
+      "bluffs": [
+        "gambler",
+        "gossip",
+        "grandmother"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-3",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "psychopath",
+        "alhadikhia",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "gambler",
+        "gossip"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "cultleader"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-4",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "goblin",
+        "alhadikhia",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "barber"
+      ],
+      "bluffs": [
+        "philosopher",
+        "dreamer",
+        "artist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-5",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "psychopath",
+        "alhadikhia",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "gossip",
+        "grandmother",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-6",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "psychopath",
+        "vortox",
+        "cultleader",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "puzzlemaster",
+        "golem"
+      ],
+      "bluffs": [
+        "dreamer",
+        "artist",
+        "gambler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-7",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "vortox",
+        "snakecharmer",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "gambler",
+        "golem",
+        "moonchild"
+      ],
+      "bluffs": [
+        "gossip",
+        "grandmother",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-8",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "nodashii",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "gambler"
+      ],
+      "bluffs": [
+        "gossip",
+        "grandmother",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-9",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "goblin",
+        "nodashii",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "sailor"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "cultleader",
+        "alchemist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-10",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "goblin",
+        "psychopath",
+        "imp",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant"
+      ],
+      "bluffs": [
+        "dreamer",
+        "artist",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-11",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "goblin",
+        "imp",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "gambler",
+        "gossip",
+        "moonchild"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "cultleader"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-12",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "psychopath",
+        "imp",
+        "dreamer",
+        "artist",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "barber"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "philosopher",
+        "alchemist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-13",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "goblin",
+        "psychopath",
+        "alhadikhia",
+        "snakecharmer",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "barber",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "savant",
+        "sailor",
+        "cultleader"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-14",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "psychopath",
+        "cerenovus",
+        "alhadikhia",
+        "artist",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "puzzlemaster",
+        "golem"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "philosopher",
+        "dreamer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-15",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "vortox",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "golem",
+        "moonchild"
+      ],
+      "bluffs": [
+        "gambler",
+        "gossip",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-16",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "psychopath",
+        "cerenovus",
+        "pithag",
+        "vortox",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist"
+      ],
+      "bluffs": [
+        "savant",
+        "snakecharmer",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-17",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "goblin",
+        "vortox",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "philosopher"
+      ],
+      "bluffs": [
+        "artist",
+        "barber",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-18",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "cerenovus",
+        "pithag",
+        "goblin",
+        "nodashii",
+        "dreamer",
+        "artist",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant",
+        "golem"
+      ],
+      "bluffs": [
+        "snakecharmer",
+        "philosopher",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-19",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "goblin",
+        "psychopath",
+        "nodashii",
+        "gossip",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "dreamer",
+        "moonchild"
+      ],
+      "bluffs": [
+        "gambler",
+        "barber",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-20",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "goblin",
+        "psychopath",
+        "imp",
+        "artist",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "moonchild",
+        "barber"
+      ],
+      "bluffs": [
+        "philosopher",
+        "dreamer",
+        "puzzlemaster"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-21",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "goblin",
+        "psychopath",
+        "cerenovus",
+        "imp",
+        "grandmother",
+        "sailor",
+        "cultleader",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "barber",
+        "puzzlemaster"
+      ],
+      "bluffs": [
+        "gossip",
+        "golem",
+        "moonchild"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "wu-xian-bo-yi-candidate-22",
+      "scriptId": "wu-xian-bo-yi",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "psychopath",
+        "cerenovus",
+        "pithag",
+        "alhadikhia",
+        "alchemist",
+        "savant",
+        "snakecharmer",
+        "philosopher",
+        "dreamer",
+        "artist",
+        "gambler",
+        "gossip",
+        "grandmother",
+        "puzzlemaster",
+        "golem"
+      ],
+      "bluffs": [
+        "barber",
+        "moonchild",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "balloonist-setup-count",
+      "roleId": "balloonist",
+      "summary": "按当前官方版，气球驾驶员可选择增加0或1外来者；每夜信息与上一夜角色类型比较，不使用旧四类型版本。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Balloonist"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "cerenovus-goblin-jinx",
+      "roleId": "cerenovus",
+      "summary": "The Cerenovus may choose to make a player mad that they are the Goblin.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-cultleader-jinx",
+      "roleId": "pithag",
+      "summary": "If the Pit-Hag turns an evil player into the Cult Leader, they can't turn good due to their own ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "apprentice",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "barista",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "bureaucrat",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "thief",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "alchemist",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "magician",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cultleader",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "barista",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "bureaucrat",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "thief",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "harlot",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "bonecollector",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "gambler",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "snakecharmer",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cerenovus",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "alhadikhia",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "gossip",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "barber",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "moonchild",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "dreamer",
+        "order": 20,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "balloonist",
+        "order": 21,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cultleader",
+        "order": 22,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "bureaucrat": "sha256:e85cfd371237a4f3d167ab88009eb0b92e2bae1844e7f1b4c29ea4f689600c4c",
+    "thief": "sha256:d5176f3348db35b7c792818fd1989c4cc24c7508d5bb6e849a53461872343743",
+    "gunslinger": "sha256:dc9d965acdbc8248036fd85062b50afcb35058d3cd8cfb68f61c7056864f394c",
+    "scapegoat": "sha256:508bd91db3bf128f85776b2d28caf320a11db4718d244f6912f23ed5aa6d7669",
+    "beggar": "sha256:02c34769f3b35707979f5836727e32194a93fd3bc8048439fdadfa08f524aefc",
+    "apprentice": "sha256:bf6ffe848098cb77ecffde134ebe2d28b2514de046ad593c90fb09a6b2d29311",
+    "matron": "sha256:e00dd983fd79f2596a8227dfef7dab329cf6ca2f108a865b18a7fe8e83d3bcb4",
+    "judge": "sha256:a213ecfafb2d4660267c57fc4e28a613a79c163990a9438d11dd6385c7c8cc16",
+    "bishop": "sha256:197ad43c5b2d29232d63b02e76b3793ed1555e1bb32f9ab2679d738f21ca3a0b",
+    "voudon": "sha256:4c9e26c77efc094f2324dd8b0d4de9402c6cddb5dd508215c972385ab103f3ad",
+    "barista": "sha256:034c65e4f9caf7aec12ce5e0fb34a4c0979843fe56015fc2a7f3981fccf0a83f",
+    "harlot": "sha256:710408224974e879701ae8d073fb6803c2232feca07cbbd1d3317974663930c3",
+    "butcher": "sha256:eedbe1916eb297e3da3e6de82092dca304547f0d4a91ef9c3fc4cc62e51ed9c0",
+    "bonecollector": "sha256:9664e9b0d8128352eb01f5961308fd14ffa20ecf35af759b4797d670cf3b88f4",
+    "deviant": "sha256:3161c6c626b48a43a817265aaa0d344afa79ac4d2135c2c07e06c48520e4911e",
+    "gangster": "sha256:07bb3d6b67f0f3e35f6f918b8d0f3bb87122d0dca444ef23b104daddff8168b4",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "snakecharmer": "sha256:1c0a7ff861cdeab435fa5c7da0d1adb9fef63084c50181fb2febf024737e29a9",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "dreamer": "sha256:35a0483c2a782b8f79999daf1807ae1d27a92d8795b62bf6dacc1f1225bd5f36",
+    "artist": "sha256:c9b8ee57527bb669ec6b036b53a1c4196be7c4801e0572ea1ac5a19d42bedda5",
+    "gambler": "sha256:6ce92beee5117fb21f9c5cdf4bbe2578363a9069a3110b245bef6a04afb4b762",
+    "gossip": "sha256:c1ee906e8b2abcc4e4c51c9d0f88c968a0ab63432ee6297545f02b62a1befa65",
+    "grandmother": "sha256:ddae6200635dbe4275d6b9398d8a0dc528897b43686e7fb9599fec3f6961e069",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "cultleader": "sha256:e0e8ee47bf984f43ca86121be767c4624af669fc4ed46326a79a68cbb61b1587",
+    "balloonist": "sha256:9bd3c7634de02fbba6c66b7c3d7ef114d6a10bc5b86dbda2879c3dbdf00e3f57",
+    "magician": "sha256:df4b91bdbf86955cc97bfea6a0219e2b6a834a6e6457803c13b4e0b895d06690",
+    "alchemist": "sha256:ae1492c17041400cf245d844d0ae9e35c06049f70d4774409f4f276e931911c8",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "puzzlemaster": "sha256:46b605096df154e5338487eb648897ef6efaca1a5a6390053e3e4336f780c555",
+    "golem": "sha256:578b6fd4850920a915174ff1654c6958a61d659931e4419c2f9ae2a56dbd8349",
+    "moonchild": "sha256:8cdf1c15876cc9c7833b2eee156ce02b6e2e90080412890a621d2d906ea547d8",
+    "goblin": "sha256:c831c99d03dd8c2c7ddb4a84d51c78ef7df4e951ed30f40341940ba888d456ac",
+    "psychopath": "sha256:bf31b7229cc06963de8514e79ae2201f0140bc8272ac92a287713e5bb28f85b9",
+    "cerenovus": "sha256:578b8b1a817827d29a8bf4e23a212dfcfbc0ebed97327049df3684db2a914a06",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "alhadikhia": "sha256:6c9048366d5d870be2217f5e87d5f2e12c04d2f518d43a759926de8e47cf6f26",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46"
+  }
+}

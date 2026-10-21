@@ -4,7 +4,7 @@ import { fileURLToPath, pathToFileURL } from 'node:url'
 import { createTypescriptLoader } from './build/load-typescript.mjs'
 import { roleDefinitionHashes } from './build/role-definition-pins.mjs'
 
-const minimumTemplates = { 7: 3, 8: 2, 9: 2, 10: 3, 11: 2, 12: 3, 13: 2, 14: 2, 15: 3 }
+export const minimumTemplates = { 7: 3, 8: 2, 9: 2, 10: 3, 11: 2, 12: 3, 13: 2, 14: 2, 15: 3 }
 
 export function projectContext(root, load = createTypescriptLoader()) {
   const scriptRoot = resolve(root, 'src/domain/scripts')

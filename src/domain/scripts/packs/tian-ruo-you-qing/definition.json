@@ -1,0 +1,1127 @@
+{
+  "scriptId": "tian-ruo-you-qing",
+  "displayName": "天若有情",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "长湴",
+    "version": "Clocktower Wiki index 116 / build 16ad8f7c270d / 当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:1fef518644dda7a88500a16574e7c17575274b402f1c3a80a9523e81bd97d040",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "noble",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "villageidiot",
+      "sourceId": "a-grimm-chorus",
+      "sourceVersion": "sha256:1700a2c15bba5d993f429b6f5d9e5715aeb0dd2cfb0fc2d495078ec9d3dfb22d"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "cultleader",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "undertaker",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "towncrier",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "exorcist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "juggler",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "farmer",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "amnesiac",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "barber",
+      "sourceId": "jiu-ri-shu-shi",
+      "sourceVersion": "sha256:e277ec1aad9583021771d4654d542eb9cefb83426f388e18e19b04bf4256ebe7"
+    },
+    {
+      "id": "saint",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "klutz",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "tinker",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pithag",
+      "sourceId": "long-zheng-hu-dou",
+      "sourceVersion": "sha256:5c54906cd8dd44c78f0fc1aa7050ba8e922e527c5a471eb4f167d42d3aaedb17"
+    },
+    {
+      "id": "harpy",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "ojo",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "tian-ruo-you-qing-candidate-1",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "vigormortis",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader"
+      ],
+      "bluffs": [
+        "undertaker",
+        "towncrier",
+        "monk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-2",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "vigormortis",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk"
+      ],
+      "bluffs": [
+        "savant",
+        "juggler",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-3",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "ojo",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant",
+        "juggler"
+      ],
+      "bluffs": [
+        "undertaker",
+        "fisherman",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-4",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "ojo",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "barber"
+      ],
+      "bluffs": [
+        "towncrier",
+        "monk",
+        "exorcist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-5",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "ojo",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "saint"
+      ],
+      "bluffs": [
+        "savant",
+        "juggler",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-6",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "imp",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "saint",
+        "klutz"
+      ],
+      "bluffs": [
+        "monk",
+        "exorcist",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-7",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "imp",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant",
+        "klutz",
+        "tinker"
+      ],
+      "bluffs": [
+        "cultleader",
+        "juggler",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-8",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "harpy",
+        "vigormortis",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant"
+      ],
+      "bluffs": [
+        "juggler",
+        "fisherman",
+        "farmer"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-9",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "poisoner",
+        "vigormortis",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer"
+      ],
+      "bluffs": [
+        "cultleader",
+        "undertaker",
+        "barber"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-10",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "poisoner",
+        "devilsadvocate",
+        "ojo",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker"
+      ],
+      "bluffs": [
+        "exorcist",
+        "barber",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-11",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "poisoner",
+        "ojo",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant",
+        "juggler",
+        "tinker"
+      ],
+      "bluffs": [
+        "noble",
+        "fisherman",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-12",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "devilsadvocate",
+        "ojo",
+        "monk",
+        "exorcist",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "barber"
+      ],
+      "bluffs": [
+        "undertaker",
+        "towncrier",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-13",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "devilsadvocate",
+        "imp",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant",
+        "juggler",
+        "fisherman",
+        "barber",
+        "saint"
+      ],
+      "bluffs": [
+        "noble",
+        "cultleader",
+        "farmer"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-14",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "pithag",
+        "imp",
+        "exorcist",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "saint",
+        "klutz"
+      ],
+      "bluffs": [
+        "towncrier",
+        "monk",
+        "barber"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-15",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "pithag",
+        "harpy",
+        "vigormortis",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "klutz"
+      ],
+      "bluffs": [
+        "barber",
+        "saint",
+        "tinker"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-16",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "pithag",
+        "harpy",
+        "vigormortis",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader"
+      ],
+      "bluffs": [
+        "undertaker",
+        "barber",
+        "saint"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-17",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "pithag",
+        "harpy",
+        "poisoner",
+        "vigormortis",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk"
+      ],
+      "bluffs": [
+        "barber",
+        "saint",
+        "klutz"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-18",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "pithag",
+        "harpy",
+        "poisoner",
+        "ojo",
+        "monk",
+        "exorcist",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "klutz"
+      ],
+      "bluffs": [
+        "towncrier",
+        "barber",
+        "saint"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-19",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "poisoner",
+        "devilsadvocate",
+        "ojo",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "tinker"
+      ],
+      "bluffs": [
+        "barber",
+        "saint",
+        "klutz"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-20",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "poisoner",
+        "devilsadvocate",
+        "imp",
+        "exorcist",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "tinker",
+        "barber"
+      ],
+      "bluffs": [
+        "monk",
+        "saint",
+        "klutz"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-21",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "devilsadvocate",
+        "pithag",
+        "imp",
+        "fisherman",
+        "farmer",
+        "noble",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant",
+        "barber",
+        "saint"
+      ],
+      "bluffs": [
+        "klutz",
+        "tinker",
+        "juggler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "tian-ruo-you-qing-candidate-22",
+      "scriptId": "tian-ruo-you-qing",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "pithag",
+        "harpy",
+        "vigormortis",
+        "cultleader",
+        "undertaker",
+        "towncrier",
+        "monk",
+        "exorcist",
+        "savant",
+        "juggler",
+        "fisherman",
+        "farmer",
+        "noble",
+        "saint"
+      ],
+      "bluffs": [
+        "tinker",
+        "barber",
+        "klutz"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "vigormortis-setup-count",
+      "roleId": "vigormortis",
+      "summary": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Vigormortis"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-cultleader-jinx",
+      "roleId": "pithag",
+      "summary": "If the Pit-Hag turns an evil player into the Cult Leader, they can't turn good due to their own ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "pithag-villageidiot-jinx",
+      "roleId": "pithag",
+      "summary": "If there is a spare token, the Pit-Hag can create an extra Village Idiot. If so, the drunk Village Idiot might change.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "noble",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "villageidiot",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cultleader",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "poisoner",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "pithag",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "exorcist",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "ojo",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "barber",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "amnesiac",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "farmer",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "tinker",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "undertaker",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "towncrier",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "juggler",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "villageidiot",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cultleader",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46",
+    "noble": "sha256:c551bfd09f490ca89986a45d133004c602eb89d84d1714025abbb8d772af5eab",
+    "villageidiot": "sha256:6f0a168d318bf468312655eb4d5a0e3da89481595bfd1e87d317a10eb632f083",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "cultleader": "sha256:e0e8ee47bf984f43ca86121be767c4624af669fc4ed46326a79a68cbb61b1587",
+    "undertaker": "sha256:99f51fd7456f592d3c2c495d368b73aad258e5771cfef7738ca2e9df24acb810",
+    "towncrier": "sha256:00b9b500142944f3bc2b02b05ea488437c8fa886ee32e8ed598e92bfa97224dd",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "exorcist": "sha256:8af78315af9ed40d46f59a081ce0127480a0d8f4f0af13a013970b7af64ba6da",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "juggler": "sha256:bbcea5b0d8167d59a0145880a0c448f02ff7ae87da08cf8f4f747b02220395b7",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "farmer": "sha256:7a3e40535752ca2407e4a1fb56adc97ee945e543adbf58309f0fb7df05b27457",
+    "amnesiac": "sha256:0ab684190966b1de17b9b2c4795af1ddc89f03d9db7a39e6759ca39fa1a19042",
+    "barber": "sha256:9d083cd310fa3372f4282c44003c4c9a1960b7790788d83d7b5701a18002531e",
+    "saint": "sha256:f4264a44b7998eb1538a57fe1d397fc5dde5251efaa021e749394e5c8fc25a83",
+    "klutz": "sha256:3c7f19f518ebf523ae77562a799ff7a27fc20b0ec3d8c0e1d05bb733ada471fd",
+    "tinker": "sha256:d39df1b38a7eec0b2d78aab9622b53c4e4880933b8f06daece703dae70007a61",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "pithag": "sha256:f19747df2abdd8a2dccc0f977688ae62af0ff9597111317dfcb2cc7e60850b21",
+    "harpy": "sha256:7469099af60e189ef4516c76ca2454b0854d274c9fbbcfd32c8a0d5b0bc559de",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "ojo": "sha256:f48fd55448a0a6a4f3e86d2fb9d9b10391eb27b29de654927ea31adf109143b5"
+  }
+}
