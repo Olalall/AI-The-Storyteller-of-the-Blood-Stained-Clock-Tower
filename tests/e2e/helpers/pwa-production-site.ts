@@ -9,6 +9,8 @@ interface ProductionSite {
   url: string
   indexSha256: string
   bumpServiceWorker: () => void
+  holdServiceWorkerInstall: () => () => void
+  disconnectOrigin: () => Promise<void>
   paidRequests: () => number
 }
 const contentTypes: Record<string, string> = {
@@ -30,7 +32,14 @@ export const test = base.extend<{ site: ProductionSite }>({
     let serviceWorkerRevision = 0
     let paidRequests = 0
     let apiReads = 0
+    let serviceWorkerGate: Promise<void> | undefined
+    let originDisconnected = false
+    let originDisconnectProbeVerified = false
+    let disconnectedRequests = 0
     const server = createServer(async (request, response) => {
+      // Browser offline emulation does not consistently cover SW fetches across engines.
+      // Drop the actual isolated origin's sockets so neither pages nor workers can reach it.
+      if (originDisconnected) { disconnectedRequests++; request.socket.destroy(); return }
       try {
         const url = new URL(request.url ?? '/', 'http://127.0.0.1')
         if (url.pathname.startsWith('/api/')) {
@@ -51,7 +60,10 @@ export const test = base.extend<{ site: ProductionSite }>({
           extension = '.html'
         }
         // Only a comment changes between versions: exercise a real waiting SW without mutating the build.
-        if (relative === 'sw.js') body = Buffer.concat([body, Buffer.from(`\n/* isolated-e2e-worker-revision:${serviceWorkerRevision} */\n`)])
+        if (relative === 'sw.js') {
+          await serviceWorkerGate
+          body = Buffer.concat([body, Buffer.from(`\n/* isolated-e2e-worker-revision:${serviceWorkerRevision} */\n`)])
+        }
         response.writeHead(200, { 'Content-Type': contentTypes[extension] ?? 'application/octet-stream', 'Cache-Control': 'no-cache' })
         response.end(body)
       } catch { response.writeHead(500); response.end() }
@@ -60,10 +72,19 @@ export const test = base.extend<{ site: ProductionSite }>({
     const address = server.address()
     if (!address || typeof address === 'string') throw new Error('Isolated production static server did not bind')
     const indexSha256 = createHash('sha256').update(indexBytes).digest('hex').toUpperCase()
-    const site = { url: `http://127.0.0.1:${address.port}`, indexSha256, bumpServiceWorker: () => { serviceWorkerRevision++ }, paidRequests: () => paidRequests }
+    const site = { url: `http://127.0.0.1:${address.port}`, indexSha256, bumpServiceWorker: () => { serviceWorkerRevision++ },
+      holdServiceWorkerInstall: () => { let release!: () => void; serviceWorkerGate = new Promise<void>(resolve => { release = resolve }); return release },
+      disconnectOrigin: async () => {
+        originDisconnected = true
+        server.closeAllConnections()
+        await expect(fetch(`http://127.0.0.1:${address.port}/__isolated-origin-disconnection-probe`)).rejects.toThrow()
+        expect(disconnectedRequests).toBeGreaterThan(0)
+        originDisconnectProbeVerified = true
+      },
+      paidRequests: () => paidRequests }
     try { await provide(site) }
     finally {
-      await info.attach('production-pwa-fixture-boundary', { contentType: 'application/json', body: Buffer.from(JSON.stringify({ indexSha256, realServiceWorker: true, serviceWorkerCommentRevisionOnly: serviceWorkerRevision, realOsInstallation: false, productionOrPrivateDataUsed: false, paidRequests })) })
+      await info.attach('production-pwa-fixture-boundary', { contentType: 'application/json', body: Buffer.from(JSON.stringify({ indexSha256, realServiceWorker: true, serviceWorkerCommentRevisionOnly: serviceWorkerRevision, realOsInstallation: false, productionOrPrivateDataUsed: false, paidRequests, originDisconnected, originDisconnectProbeVerified, disconnectedRequests, physicalNetworkDisconnectionClaimed: false })) })
       await closeServer(server)
       expect(paidRequests).toBe(0)
     }

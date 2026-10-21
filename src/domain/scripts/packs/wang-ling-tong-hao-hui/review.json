@@ -1,0 +1,21 @@
+{
+  "status": "source-and-template-review-complete",
+  "generatorDidNotRegister": true,
+  "roleCount": 23,
+  "templateCount": 22,
+  "templateCounts": {
+    "7": 3,
+    "8": 2,
+    "9": 2,
+    "10": 3,
+    "11": 2,
+    "12": 3,
+    "13": 2,
+    "14": 2,
+    "15": 3
+  },
+  "currentJinxCount": 0,
+  "sourceHashPreserved": "sha256:6ba5cfe963c606e56e5e567b26ca2ed3a3837d429017f55d190889173589d517",
+  "sourceAndTemplateChecksPassed": true,
+  "scope": "资料/结构及生产配板守门通过；完整回归、Ego、真实AI和发布由批次总记录独立说明，不代表全部角色组合穷举。"
+}

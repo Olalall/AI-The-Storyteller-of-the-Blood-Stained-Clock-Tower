@@ -6,8 +6,8 @@ import { roleDefinitionHashes } from './build/role-definition-pins.mjs'
 
 const minimumTemplates = { 7: 3, 8: 2, 9: 2, 10: 3, 11: 2, 12: 3, 13: 2, 14: 2, 15: 3 }
 
-export function projectContext(root) {
-  const load = createTypescriptLoader(), scriptRoot = resolve(root, 'src/domain/scripts')
+export function projectContext(root, load = createTypescriptLoader()) {
+  const scriptRoot = resolve(root, 'src/domain/scripts')
   const { smartScriptPacks: packs } = load(resolve(scriptRoot, 'allPacks.ts'))
   const { createRoleDefinitionLibrary } = load(resolve(scriptRoot, 'roleDefinitionLibrary.ts'))
   const { confirmedRoleFactsList } = load(resolve(scriptRoot, 'role-facts.ts'))
@@ -17,18 +17,25 @@ export function projectContext(root) {
   const { validateTemplateComposition } = load(resolve(root, 'src/domain/setup-templates/composition.ts'))
   const { normalizeRoleId } = load(resolve(scriptRoot, 'roleId.ts'))
   const { templateRoleSelectionValid } = load(resolve(scriptRoot, 'templateRoleSelection.ts'))
-  const sources = packs.map((pack) => ({ sourceId: pack.scriptId, sourceVersion: pack.source.contentHash, roles: pack.roles }))
-  const preferred = confirmedRoleFactsList().map((role) => ({ ...role, iconPath: resolveCharacterIconPath(role) }))
-  const library = createRoleDefinitionLibrary(sources, preferred)
+  const referencedPackIds = new Set()
   const originModules = new Map([...readFileSync(resolve(scriptRoot, 'allPacks.ts'), 'utf8')
-    .matchAll(/import \{ (\w+) \} from '(\.\/packs\/[^']+)'/g)].map(([, symbol, path]) => {
+    .matchAll(/import \{ (\w+) \} from '(\.\/packs\/[^']+)'/g)].flatMap(([, symbol, path]) => {
       const pack = load(resolve(scriptRoot, path, 'index.ts'))[symbol]
+      const definitionPath = resolve(scriptRoot, path, 'definition.json')
+      if (existsSync(definitionPath) && Array.isArray(JSON.parse(readFileSync(definitionPath, 'utf8')).roleRefs)) {
+        referencedPackIds.add(pack.scriptId)
+        return []
+      }
       const group = basename(path), module = load(resolve(scriptRoot, 'role-library', group, 'roles.ts'))
       const roleExport = Object.keys(module).find((name) => name.endsWith('Roles') && Array.isArray(module[name])
         && module[name].every((entry) => entry && typeof entry.id === 'string'))
       if (!roleExport) throw new Error('Missing role-library export: ' + group)
-      return [pack.scriptId, { group, roleExport }]
+      return [[pack.scriptId, { group, roleExport }]]
     }))
+  const sources = packs.filter((pack) => !referencedPackIds.has(pack.scriptId))
+    .map((pack) => ({ sourceId: pack.scriptId, sourceVersion: pack.source.contentHash, roles: pack.roles }))
+  const preferred = confirmedRoleFactsList().map((role) => ({ ...role, iconPath: resolveCharacterIconPath(role) }))
+  const library = createRoleDefinitionLibrary(sources, preferred)
   return { packs, library, createReferencedScriptPack, normalizeImportedPack, validateTemplateComposition, templateRoleSelectionValid, normalizeRoleId, originModules }
 }
 

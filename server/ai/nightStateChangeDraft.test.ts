@@ -87,6 +87,12 @@ describe('normalizeStateChangeDrafts', () => {
     ], seats)).toEqual([{ text: '3号可能中毒', seatId: 3 }])
   })
 
+  it.each([true, false])('keeps boolean poisoned.to=%s as a reminder without coercing a structured action', (to) => {
+    expect(normalizeStateChangeDrafts([
+      { text: '3号中毒状态待核对', seatId: 3, change: { field: 'poisoned', to } },
+    ], seats)).toEqual([{ text: '3号中毒状态待核对', seatId: 3 }])
+  })
+
   /* marker 必须带 label，其它字段一律不许带——带了说明模型串了字段。 */
   it('binds markerLabel to marker changes only', () => {
     expect(normalizeStateChangeDrafts([

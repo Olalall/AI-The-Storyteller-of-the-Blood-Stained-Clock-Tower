@@ -64,6 +64,9 @@ function commitNightWorkbench(
   if (action.roleChanges.some((change) => change.nightRunId !== run.id)) return state
 
   const queueItemById = new Map(action.nightRun.queue.map((item) => [item.id, item]))
+  // A new Farmer record must use the review already persisted in the current run,
+  // never a claimed approval supplied alongside that new record.
+  const currentQueueById = new Map(sessionInitialNightState({ session: state, dispatchSession: () => {} })?.queue.map((item) => [item.id, item]))
   const records = [...action.records].sort((left, right) =>
     left.confirmedAt.localeCompare(right.confirmedAt) || left.id.localeCompare(right.id))
   const knownRecordIds = new Set([
@@ -73,6 +76,10 @@ function commitNightWorkbench(
   const existingRecordIds = new Set(state.timeline.filter((entry) => entry.kind === 'night_action').map((entry) => entry.id))
   if (records.some((record) => !existingRecordIds.has(record.id) && (
     !queueItemById.has(record.wakeItemId) ||
+    ((normalizeRoleId(queueItemById.get(record.wakeItemId)!.roleId) === 'farmer'
+      || normalizeRoleId(currentQueueById.get(record.wakeItemId)?.roleId ?? '') === 'farmer')
+      && (currentQueueById.get(record.wakeItemId)?.interactionVersion !== 'farmer/trigger-review-v1'
+        || currentQueueById.get(record.wakeItemId)?.applicability !== 'applicable')) ||
     !wakeTargetsStructurallyValid(queueItemById.get(record.wakeItemId)!, record.snapshot, state.playerCount) ||
     !formalNightRecordValid(projectNightResultContract(queueItemById.get(record.wakeItemId)!, state.playerCount), record.snapshot) ||
     (record.correctionOf !== undefined && !knownRecordIds.has(record.correctionOf))))) return state

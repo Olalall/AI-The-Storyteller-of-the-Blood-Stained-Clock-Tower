@@ -506,11 +506,11 @@ function pukkaContext(session: GameSessionState, item: WakeItem, sequence: numbe
   }
   const status = activeTarget ? 'ready' : known ? 'clear' : 'missing'
   const summary = activeTarget
-    ? `当前待结算的普卡中毒目标：${activeTarget}号；死亡与恢复健康均为候选，需说书人确认。`
+    ? `待核对的普卡旧目标：${activeTarget}号；追踪不代表当前中毒。普卡毒醉时旧毒暂时失效，旧目标不因普卡死亡；普卡恢复清醒健康后旧毒恢复。实际状态由说书人确认。`
     : known
-      ? '当前没有已确认的普卡中毒目标。'
+      ? '当前没有已确认的普卡旧目标追踪。'
       : '缺少最近一次普卡中毒是否生效的确认记录；请人工核对旧毒目标。'
-  const oldEffect = activeTarget ? `${activeTarget}号为死亡并恢复健康候选；` : ''
+  const oldEffect = activeTarget ? `${activeTarget}号旧毒结算候选：先核对死亡是否被保护等效果阻止，再确认旧毒结束与恢复健康；` : ''
   return {
     ...item,
     targetCount: 1,
@@ -525,12 +525,12 @@ function pukkaContext(session: GameSessionState, item: WakeItem, sequence: numbe
         resultTemplate: `${oldEffect}{targets}为新的中毒候选；仅记录候选，不自动修改状态。`,
       },
       {
-        id: 'pukka-no-new-poison', label: '新毒未生效，旧毒保留', requiredInputs: ['targets'],
-        resultTemplate: `{targets}未成为新的中毒目标；${activeTarget ? `${activeTarget}号旧毒继续保留` : '当前无已确认旧毒目标'}；仅记录结果。`,
+        id: 'pukka-no-new-poison', label: '新毒未生效，保留旧目标追踪', requiredInputs: ['targets'],
+        resultTemplate: `{targets}未成为新的中毒目标；${activeTarget ? `${activeTarget}号只保留旧目标追踪，不代表当前仍中毒；若普卡毒醉，旧毒暂时失效，旧目标不因普卡死亡；普卡恢复清醒健康后旧毒恢复` : '当前无已确认旧目标追踪'}；实际毒效与生死由说书人另行确认。`,
       },
       {
         id: 'pukka-old-resolved-no-new', label: '旧毒结算，本夜无新毒', requiredInputs: [],
-        resultTemplate: `${activeTarget ? `${activeTarget}号为死亡并恢复健康候选；` : '旧毒目标待人工核对；'}本夜没有新的中毒目标。`,
+        resultTemplate: `${activeTarget ? oldEffect : '旧毒目标及结算结果待人工核对；'}本夜没有新的中毒目标。`,
       },
     ],
   }

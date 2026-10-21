@@ -1,8 +1,12 @@
 .pwa-status-stack {
   position: relative;
   width: min(680px, calc(100% - 24px));
+  /* Keep the first SW-ready card from moving a button between pointerdown and pointerup.
+     Longer offline/update notices still expand normally; never clip their actions or copy. */
+  min-height: 80px;
   margin: var(--space-8) auto 0;
   display: grid;
+  align-content: start;
   gap: var(--space-8);
 }
 
@@ -74,6 +78,8 @@
   .pwa-status-notice > .ui-button,
   .pwa-status-notice__close { grid-column: 2; justify-self: stretch; }
   .pwa-status-notice__close { justify-self: end; }
+  .pwa-status-notice--ready { grid-template-columns: auto minmax(0, 1fr) auto; }
+  .pwa-status-notice--ready .pwa-status-notice__close { grid-column: auto; }
   .pwa-install-card { grid-template-columns: auto minmax(0, 1fr); }
   .pwa-install-card > .ui-button,
   .pwa-install-card__hint-icon,

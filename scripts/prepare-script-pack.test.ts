@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { existsSync, mkdtempSync, readFileSync, rmSync } from 'node:fs'
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join, resolve } from 'node:path'
+import { join, relative, resolve } from 'node:path'
 import { runInNewContext } from 'node:vm'
 import ts from 'typescript'
 import { createTypescriptLoader } from './build/load-typescript.mjs'
@@ -86,6 +86,49 @@ describe('offline referenced script preparation', () => {
     const prepared = prepareScriptPack(input(), context), output = resolve(temporary, 'invalid')
     expect(() => writePreparedScript(output, prepared, { ...context, originModules: new Map() })).toThrow('安全导入')
     expect(existsSync(output)).toBe(false)
+  })
+  it('can prepare again after registering a generated thin pack without creating another role source', () => {
+    const fixture = resolve(temporary, 'registered-thin-pack'), scriptRoot = resolve(fixture, 'src/domain/scripts')
+    const output = resolve(scriptRoot, 'packs/shared-preparation-example')
+    const prepared = prepareScriptPack(input(), context), written = writePreparedScript(output, prepared, context)
+    const exports: Record<string, unknown> = {}, realLoad = createTypescriptLoader()
+    const code = ts.transpileModule(readFileSync(join(output, 'index.ts'), 'utf8'), { compilerOptions: {
+      module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2022, esModuleInterop: true,
+    } }).outputText
+    runInNewContext(code, { exports, require(id: string) {
+      if (id === './definition.json') return prepared.definition
+      if (!id.startsWith('../../')) throw new Error('Unexpected generated import')
+      return realLoad(resolve(process.cwd(), 'src/domain/scripts', id.slice(6) + '.ts'))
+    } })
+    const thin = exports[written.exportName] as ReturnType<typeof context.createReferencedScriptPack>
+    const original = context.packs.find((pack) => pack.scriptId === 'trouble-brewing')!
+    mkdirSync(scriptRoot, { recursive: true })
+    writeFileSync(join(scriptRoot, 'allPacks.ts'), "import { originalPack } from './packs/trouble-brewing'\n"
+      + "import { preparedPack } from './packs/shared-preparation-example'\n")
+    const loaded: string[] = []
+    const load = (file: string) => {
+      loaded.push(file)
+      if (file === resolve(scriptRoot, 'allPacks.ts')) return { smartScriptPacks: [original, thin] }
+      if (file === resolve(scriptRoot, 'packs/trouble-brewing/index.ts')) return { originalPack: original }
+      if (file === resolve(output, 'index.ts')) return { preparedPack: thin }
+      if (file === resolve(scriptRoot, 'role-library/shared-preparation-example/roles.ts')) {
+        throw new Error('Thin packs must not need their own role-library directory')
+      }
+      return realLoad(resolve(process.cwd(), relative(fixture, file)))
+    }
+    const nextContext = projectContext(fixture, load)
+    expect(nextContext.packs).toHaveLength(2)
+    expect(nextContext.library.all()).toHaveLength(original.roles.length)
+    expect(nextContext.originModules.has(thin.scriptId)).toBe(false)
+    expect(loaded).not.toContain(resolve(scriptRoot, 'role-library/shared-preparation-example/roles.ts'))
+    expect(() => nextContext.library.resolve({ id: 'chef', sourceId: thin.scriptId })).toThrow('未找到')
+    const next = prepareScriptPack({ ...input(), scriptId: 'second-shared-preparation', templateSources: [thin.scriptId] }, nextContext)
+    expect(next.report.templateCount).toBe(22)
+    expect(next.report.missingTemplateCounts).toEqual([])
+    expect(next.definition.roleRefs.every((ref) => ref.sourceId === original.scriptId)).toBe(true)
+    expect(next.definition.setupTemplates.every((template) => template.notes.some((note) => note.includes(thin.scriptId)))).toBe(true)
+    expect(existsSync(resolve(scriptRoot, 'role-library/shared-preparation-example'))).toBe(false)
+    expect(() => verifyRoleDefinitionPins(prepared.definition, thin.roles)).not.toThrow()
   })
   it('rejects repeated non-repeatable roles and evil or already-present demon bluffs', () => {
     const template = { templateId: 'invalid', scriptId: 'old', playerCount: 7, style: 'balanced',

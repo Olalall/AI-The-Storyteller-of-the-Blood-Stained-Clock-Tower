@@ -2208,5 +2208,165 @@ export const scriptManifest: readonly Pick<SmartScriptPack, 'scriptId' | 'displa
       15
     ],
     "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "jiu-ri-chong-xian",
+    "displayName": "旧日重现",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "bu-zhi-zhi-zheng",
+    "displayName": "不蛭之症",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wang-ling-tong-hao-hui",
+    "displayName": "亡灵同好会",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "yi-cun-duan-yi-cun-xian",
+    "displayName": "一寸短一寸险",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "jia-fang-fu-chou-ji",
+    "displayName": "贾方复仇记",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "you-tou-lai-guo",
+    "displayName": "由头来过",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "fu-shou-cheng-chen",
+    "displayName": "俯首称臣",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "wen-run-liang-ye",
+    "displayName": "温润良夜",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "shen-bu-you-ji",
+    "displayName": "身不由己",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
+  },
+  {
+    "scriptId": "quan-qiu-jing-song",
+    "displayName": "全球惊悚",
+    "playerCounts": [
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15
+    ],
+    "knowledgeStatus": "confirmed"
   }
 ]
