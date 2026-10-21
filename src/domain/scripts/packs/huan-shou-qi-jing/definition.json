@@ -1,0 +1,1237 @@
+{
+  "scriptId": "huan-shou-qi-jing",
+  "displayName": "环首奇景",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Navean",
+    "version": "Clocktower Wiki index 871 / build 16ad8f7c270d / 当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:e1aaf837c9be774440f804448b6a1dedf78c812f58f18c10fbd0540c957fe8a9",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "deviant",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "gunslinger",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "judge",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "harlot",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "bureaucrat",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    },
+    {
+      "id": "chef",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "monk",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "fool",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "flowergirl",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "savant",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "seamstress",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "sage",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "magician",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "cannibal",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "cultleader",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "tinker",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "lunatic",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "klutz",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "mezepheles",
+      "sourceId": "da-cheng-xiao-zhen",
+      "sourceVersion": "sha256:caffb90244367ea48d6c11a921f108feb109d2e396b6a375748df8b6f05ff6f3"
+    },
+    {
+      "id": "boomdandy",
+      "sourceId": "insanity-and-intuition",
+      "sourceVersion": "sha256:0cbfe67652eff77cf336c2d68532d0a87ae46ce44b9e873a93cde22a4d02de6f"
+    },
+    {
+      "id": "zombuul",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "lleech",
+      "sourceId": "devout-theists",
+      "sourceVersion": "sha256:fbf82db75ccfdcf0c211c0aa9318faacb29fbe3a5e967a45dc162c624b465683"
+    },
+    {
+      "id": "vortox",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "huan-shou-qi-jing-candidate-1",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "boomdandy",
+        "vortox",
+        "savant",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "cultleader"
+      ],
+      "bluffs": [
+        "chef",
+        "monk",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-2",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "zombuul",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "flowergirl"
+      ],
+      "bluffs": [
+        "savant",
+        "seamstress",
+        "sage"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-3",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "mezepheles",
+        "zombuul",
+        "fool",
+        "flowergirl",
+        "oracle",
+        "savant",
+        "seamstress"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "sage",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-4",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "zombuul",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "monk"
+      ],
+      "bluffs": [
+        "sailor",
+        "chambermaid",
+        "fool"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-5",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "zombuul",
+        "cultleader",
+        "chef",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "tinker"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "oracle",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-6",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "vigormortis",
+        "sage",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "monk",
+        "sailor",
+        "tinker"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "fool",
+        "flowergirl"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-7",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "mezepheles",
+        "vigormortis",
+        "chef",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "lunatic"
+      ],
+      "bluffs": [
+        "savant",
+        "seamstress",
+        "sage"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-8",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "mezepheles",
+        "boomdandy",
+        "lleech",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "fool"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "oracle",
+        "savant"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-9",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "boomdandy",
+        "godfather",
+        "lleech",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "oracle",
+        "klutz"
+      ],
+      "bluffs": [
+        "savant",
+        "seamstress",
+        "sage"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-10",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "mezepheles",
+        "vortox",
+        "savant",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "monk"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "oracle",
+        "drunk"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-11",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "boomdandy",
+        "godfather",
+        "vortox",
+        "cultleader",
+        "chef",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "klutz",
+        "drunk"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "oracle",
+        "savant"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-12",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "devilsadvocate",
+        "vortox",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "oracle",
+        "savant",
+        "seamstress",
+        "sage"
+      ],
+      "bluffs": [
+        "monk",
+        "cannibal",
+        "cultleader"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-13",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "devilsadvocate",
+        "zombuul",
+        "chef",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "oracle",
+        "savant",
+        "drunk"
+      ],
+      "bluffs": [
+        "seamstress",
+        "sage",
+        "cannibal"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-14",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "mezepheles",
+        "zombuul",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "oracle",
+        "savant",
+        "seamstress",
+        "sage",
+        "tinker",
+        "lunatic"
+      ],
+      "bluffs": [
+        "monk",
+        "sailor",
+        "cannibal"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-15",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "mezepheles",
+        "boomdandy",
+        "vigormortis",
+        "oracle",
+        "savant",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "monk",
+        "lunatic"
+      ],
+      "bluffs": [
+        "fool",
+        "flowergirl",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-16",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "mezepheles",
+        "boomdandy",
+        "vigormortis",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "oracle",
+        "savant",
+        "seamstress",
+        "sage"
+      ],
+      "bluffs": [
+        "chef",
+        "cannibal",
+        "cultleader"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-17",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 13,
+      "style": "chaos",
+      "roles": [
+        "boomdandy",
+        "godfather",
+        "devilsadvocate",
+        "lleech",
+        "savant",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "monk",
+        "sailor",
+        "klutz"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "oracle",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-18",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "mezepheles",
+        "boomdandy",
+        "godfather",
+        "lleech",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "oracle",
+        "savant",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "cultleader"
+      ],
+      "bluffs": [
+        "chef",
+        "monk",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-19",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "boomdandy",
+        "godfather",
+        "devilsadvocate",
+        "lleech",
+        "flowergirl",
+        "oracle",
+        "savant",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "klutz",
+        "drunk"
+      ],
+      "bluffs": [
+        "sailor",
+        "chambermaid",
+        "fool"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-20",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "boomdandy",
+        "godfather",
+        "devilsadvocate",
+        "vortox",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "oracle",
+        "savant",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "klutz",
+        "drunk",
+        "tinker"
+      ],
+      "bluffs": [
+        "chef",
+        "monk",
+        "sailor"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-21",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "devilsadvocate",
+        "mezepheles",
+        "vortox",
+        "oracle",
+        "savant",
+        "seamstress",
+        "sage",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "drunk"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "tinker",
+        "lunatic"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "huan-shou-qi-jing-candidate-22",
+      "scriptId": "huan-shou-qi-jing",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "mezepheles",
+        "boomdandy",
+        "zombuul",
+        "sage",
+        "cannibal",
+        "cultleader",
+        "chef",
+        "monk",
+        "sailor",
+        "chambermaid",
+        "fool",
+        "flowergirl",
+        "tinker",
+        "lunatic"
+      ],
+      "bluffs": [
+        "seamstress",
+        "drunk",
+        "klutz"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "vigormortis-setup-count",
+      "roleId": "vigormortis",
+      "summary": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Vigormortis"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "godfather-setup-count",
+      "roleId": "godfather",
+      "summary": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Godfather"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "bureaucrat",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "magician",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "mezepheles",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "chef",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cultleader",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "bureaucrat",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "harlot",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "monk",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "mezepheles",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "lunatic",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "zombuul",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "vortox",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "lleech",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "sage",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "tinker",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "flowergirl",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "seamstress",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "cultleader",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "deviant": "sha256:3161c6c626b48a43a817265aaa0d344afa79ac4d2135c2c07e06c48520e4911e",
+    "gunslinger": "sha256:dc9d965acdbc8248036fd85062b50afcb35058d3cd8cfb68f61c7056864f394c",
+    "judge": "sha256:a213ecfafb2d4660267c57fc4e28a613a79c163990a9438d11dd6385c7c8cc16",
+    "harlot": "sha256:710408224974e879701ae8d073fb6803c2232feca07cbbd1d3317974663930c3",
+    "bureaucrat": "sha256:e85cfd371237a4f3d167ab88009eb0b92e2bae1844e7f1b4c29ea4f689600c4c",
+    "chef": "sha256:c8807ca47c02a574ea6e25a14564bf67e596f59bc677d1852df1110f59bc4935",
+    "monk": "sha256:f0555316391052f27d36d3d3229823bc69eebd101f0185683751b52ed5f12e5f",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "fool": "sha256:d5634a743a49c3d77febbcd150e2178993f9c16df520ea6b2f058433c79167f5",
+    "flowergirl": "sha256:c0e4f2a93f2dc792eaf2ff9b0b5f7b6c07eb912e57d0106248aaa39972414f61",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "savant": "sha256:448bffae8e78142e7b639764f7edf353c6392fe574173a1d514f46217ed1e0b8",
+    "seamstress": "sha256:d6ecb573446c35af9fe45ce1e8595c9f7952489222d6455a3c301d20cc2fcb5f",
+    "sage": "sha256:e7fa6d07a5450bd0623d4092b8df4e576bcdfb08e9117b33cffb5081cd926515",
+    "magician": "sha256:df4b91bdbf86955cc97bfea6a0219e2b6a834a6e6457803c13b4e0b895d06690",
+    "cannibal": "sha256:44c06d6700300fffe0aa928dc8fd8c2d0d35153ea20277f9441b81f1dc55bdec",
+    "cultleader": "sha256:e0e8ee47bf984f43ca86121be767c4624af669fc4ed46326a79a68cbb61b1587",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "tinker": "sha256:d39df1b38a7eec0b2d78aab9622b53c4e4880933b8f06daece703dae70007a61",
+    "lunatic": "sha256:f46c1eae4440c477172fd759c1bbb54586d17a9934342ce29b8f395d9e299937",
+    "klutz": "sha256:3c7f19f518ebf523ae77562a799ff7a27fc20b0ec3d8c0e1d05bb733ada471fd",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "mezepheles": "sha256:cfdd0f530537870686bd4d684258354b643a7379db1a99d5e52ebbd569c04774",
+    "boomdandy": "sha256:7dda7eaea6645740c25344433f16ccc682ffe2813511e806e653f6603e2e1c05",
+    "zombuul": "sha256:574a6febf6505b736f3c436d08068dc3784b0e411bf75e3d3947e7dec8a512e0",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "lleech": "sha256:247be170cff71926a6fb89cf400c43e784a42fdecd2fd4bf52e08131ab14596b",
+    "vortox": "sha256:b7652057a0e13f899871b791215ccceb3136eea6fde428bb25fcf1219ffb545f"
+  }
+}

@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
-import { normalizeRoleId, roleSnapshotsForScript, roleTeamByIdForScript } from '../../domain/scripts'
+import { getSmartScriptPack, normalizeRoleId, roleSnapshotsForScript, roleTeamByIdForScript } from '../../domain/scripts'
 import { createSmartScriptSetupSession } from '../game-session/data/createPrototypeSession'
 import { createNextNightRun } from '../game-session/state/createNextNightRun'
+import { createAudienceNoticeItem } from '../game-session/state/firstNightSystemSteps'
 import { createSmartScriptSetupCandidates } from '../setup/smartScriptSetupCandidates'
 import type { SetupSeatProfile } from '../setup/types'
 import type { GameSessionState } from '../game-session/types'
@@ -552,6 +553,12 @@ describe('角色投递与玩家决定', () => {
       timeline: [{ ...setup, setup: { ...setup.setup, draft: { ...setup.setup.draft, assignments } } }],
     }
     const item = createNextNightRun(withDamsel)?.queue.find((entry) => entry.roleId === 'system-audience-damsel')
+    const sourceRole = getSmartScriptPack(scriptId).roles.find((role) => role.id === 'damsel')!
+    const sourceOrder = getSmartScriptPack(scriptId).nightOrders.firstNight.find((order) => order.roleId === 'damsel')!
+    const unsorted = createAudienceNoticeItem({ session: withDamsel, assignments,
+      playerStates: withDamsel.initialPlayerStates, sourceAssignments: [assignments[goodIndex]],
+      role: sourceRole, order: sourceOrder, runId: 'notice-order-regression' })
+    expect(unsorted.orderIndex).toBe(sourceOrder.order)
     const damselSeat = assignments[goodIndex].seatId
     const marionetteSeat = assignments[minionIndex].seatId
     const eligibleMinionSeats = assignments

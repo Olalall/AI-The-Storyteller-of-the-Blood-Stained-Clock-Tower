@@ -1,0 +1,1187 @@
+{
+  "scriptId": "feng-kuang-ke-yan",
+  "displayName": "疯狂科研",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "Foxx",
+    "version": "Clocktower Wiki index 556 / build 16ad8f7c270d / 当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:c22a9c7ba0b8059ffac33b60ed0da52cda7dfeb3e3d6590e7a941a49ca5f9c07",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    },
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "grandmother",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sailor",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "preacher",
+      "sourceId": "hide-and-seek",
+      "sourceVersion": "sha256:d50e711952349f51adc87356c2a3a1e29991bc131b906a5c49a795fd50f9c823"
+    },
+    {
+      "id": "highpriestess",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "gambler",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "innkeeper",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "flowergirl",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "professor",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "fisherman",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "gossip",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "alchemist",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "pacifist",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "goon",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "tinker",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "sweetheart",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "klutz",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "boffin",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "harpy",
+      "sourceId": "feng-mao-zhi-yan",
+      "sourceVersion": "sha256:66abd567cdb4622ba5ece7aef64d70ccc324a2f3537eefda92457d5cbdb2f1ab"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "devilsadvocate",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "shabaloth",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "apprentice",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "bishop",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "judge",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "bonecollector",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "beggar",
+      "sourceId": "trouble-brewing",
+      "sourceVersion": "sha256:102dddc141da4e829de953563b5d9370c6c71482860c756474f7e55477c56ecb"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-1",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "pukka",
+        "flowergirl",
+        "professor",
+        "fisherman",
+        "gossip",
+        "alchemist"
+      ],
+      "bluffs": [
+        "librarian",
+        "grandmother",
+        "sailor"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-2",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "shabaloth",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "preacher",
+        "highpriestess"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "professor",
+        "fisherman"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-3",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "shabaloth",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "flowergirl"
+      ],
+      "bluffs": [
+        "professor",
+        "fisherman",
+        "gossip"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-4",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "shabaloth",
+        "professor",
+        "fisherman",
+        "gossip",
+        "alchemist",
+        "pacifist",
+        "librarian"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "preacher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-5",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "shabaloth",
+        "alchemist",
+        "pacifist",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "tinker"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "gambler",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-6",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "imp",
+        "fisherman",
+        "gossip",
+        "alchemist",
+        "pacifist",
+        "librarian",
+        "tinker",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "preacher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-7",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "imp",
+        "pacifist",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "preacher",
+        "sweetheart",
+        "klutz"
+      ],
+      "bluffs": [
+        "gambler",
+        "innkeeper",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-8",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "scarletwoman",
+        "pukka",
+        "gossip",
+        "alchemist",
+        "pacifist",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "preacher"
+      ],
+      "bluffs": [
+        "highpriestess",
+        "gambler",
+        "innkeeper"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-9",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "harpy",
+        "pukka",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper"
+      ],
+      "bluffs": [
+        "professor",
+        "fisherman",
+        "gossip"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-10",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "devilsadvocate",
+        "shabaloth",
+        "innkeeper",
+        "flowergirl",
+        "professor",
+        "fisherman",
+        "gossip",
+        "alchemist",
+        "tinker"
+      ],
+      "bluffs": [
+        "preacher",
+        "highpriestess",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-11",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "harpy",
+        "shabaloth",
+        "alchemist",
+        "pacifist",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "preacher",
+        "highpriestess",
+        "klutz"
+      ],
+      "bluffs": [
+        "gambler",
+        "innkeeper",
+        "flowergirl"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-12",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "harpy",
+        "godfather",
+        "shabaloth",
+        "grandmother",
+        "sailor",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "professor"
+      ],
+      "bluffs": [
+        "fisherman",
+        "gossip",
+        "alchemist"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-13",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "harpy",
+        "godfather",
+        "imp",
+        "pacifist",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "goon"
+      ],
+      "bluffs": [
+        "flowergirl",
+        "professor",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-14",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "devilsadvocate",
+        "imp",
+        "sailor",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "tinker",
+        "sweetheart",
+        "klutz"
+      ],
+      "bluffs": [
+        "grandmother",
+        "professor",
+        "fisherman"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-15",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "devilsadvocate",
+        "boffin",
+        "pukka",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "professor",
+        "fisherman",
+        "gossip",
+        "alchemist",
+        "sweetheart",
+        "klutz"
+      ],
+      "bluffs": [
+        "sailor",
+        "preacher",
+        "highpriestess"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-16",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "devilsadvocate",
+        "boffin",
+        "pukka",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "tinker"
+      ],
+      "bluffs": [
+        "professor",
+        "fisherman",
+        "gossip"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-17",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 13,
+      "style": "long-game",
+      "roles": [
+        "devilsadvocate",
+        "boffin",
+        "scarletwoman",
+        "pukka",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "professor",
+        "fisherman",
+        "gossip",
+        "alchemist"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "pacifist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-18",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "devilsadvocate",
+        "boffin",
+        "scarletwoman",
+        "shabaloth",
+        "grandmother",
+        "sailor",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "professor",
+        "fisherman",
+        "sweetheart"
+      ],
+      "bluffs": [
+        "librarian",
+        "gossip",
+        "alchemist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-19",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "scarletwoman",
+        "harpy",
+        "shabaloth",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "professor",
+        "fisherman",
+        "gossip",
+        "alchemist",
+        "pacifist",
+        "klutz"
+      ],
+      "bluffs": [
+        "grandmother",
+        "sailor",
+        "preacher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-20",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "scarletwoman",
+        "harpy",
+        "imp",
+        "sailor",
+        "preacher",
+        "highpriestess",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "professor",
+        "fisherman",
+        "gossip",
+        "klutz",
+        "goon"
+      ],
+      "bluffs": [
+        "librarian",
+        "grandmother",
+        "alchemist"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-21",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "harpy",
+        "godfather",
+        "imp",
+        "gambler",
+        "innkeeper",
+        "flowergirl",
+        "professor",
+        "fisherman",
+        "gossip",
+        "alchemist",
+        "pacifist",
+        "librarian",
+        "grandmother",
+        "goon"
+      ],
+      "bluffs": [
+        "preacher",
+        "highpriestess",
+        "tinker"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "feng-kuang-ke-yan-candidate-22",
+      "scriptId": "feng-kuang-ke-yan",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "harpy",
+        "godfather",
+        "devilsadvocate",
+        "pukka",
+        "professor",
+        "fisherman",
+        "gossip",
+        "alchemist",
+        "pacifist",
+        "librarian",
+        "grandmother",
+        "sailor",
+        "tinker",
+        "sweetheart",
+        "klutz"
+      ],
+      "bluffs": [
+        "gambler",
+        "innkeeper",
+        "flowergirl"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "godfather-setup-count",
+      "roleId": "godfather",
+      "summary": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Godfather"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "alchemist-boffin-jinx",
+      "roleId": "alchemist",
+      "summary": "If the Alchemist has the Boffin ability, the Alchemist does not learn what ability the Demon has.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "boffin-goon-jinx",
+      "roleId": "boffin",
+      "summary": "If the Demon has the Goon ability, they can’t turn good due to this ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "apprentice",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "boffin",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "alchemist",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "bonecollector",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "sailor",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "preacher",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "innkeeper",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "gambler",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "devilsadvocate",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "harpy",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "shabaloth",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "gossip",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "sweetheart",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "professor",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "tinker",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "flowergirl",
+        "order": 18,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "highpriestess",
+        "order": 19,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46",
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "grandmother": "sha256:ddae6200635dbe4275d6b9398d8a0dc528897b43686e7fb9599fec3f6961e069",
+    "sailor": "sha256:8d76f1aec684291d01906cbbb9e04cee6442fb994ffb527d29095445528e0cb3",
+    "preacher": "sha256:3be7c2bf8f30817fc6c3d59c16eabd81a69e7758670f36d84f194baf638dd266",
+    "highpriestess": "sha256:8494609fb30ae75114cd2a18e0053104c012cad339d6a9fe9964cd3554176c07",
+    "gambler": "sha256:6ce92beee5117fb21f9c5cdf4bbe2578363a9069a3110b245bef6a04afb4b762",
+    "innkeeper": "sha256:d08a610a685471cf44a7ee19977c4a5466152b3d8d42c7a48a0a9d1b874b3304",
+    "flowergirl": "sha256:c0e4f2a93f2dc792eaf2ff9b0b5f7b6c07eb912e57d0106248aaa39972414f61",
+    "professor": "sha256:cbdc498da0f27c428a4948a992597bd601eb3784c0e773a67c70ef64e3bfe306",
+    "fisherman": "sha256:75020f322feeefa16d79f7746cf10f5dc95270fd3542a3f222953c62209ec3ab",
+    "gossip": "sha256:c1ee906e8b2abcc4e4c51c9d0f88c968a0ab63432ee6297545f02b62a1befa65",
+    "alchemist": "sha256:ae1492c17041400cf245d844d0ae9e35c06049f70d4774409f4f276e931911c8",
+    "pacifist": "sha256:469225591f3a9499dbb2da61566dd13fb776cb2d67b045271c2614797f98f099",
+    "goon": "sha256:20785befe683a597aa8e6ea54bbe8473a93c9db400b21a3f40b73c0821949343",
+    "tinker": "sha256:d39df1b38a7eec0b2d78aab9622b53c4e4880933b8f06daece703dae70007a61",
+    "sweetheart": "sha256:8746cff04b228d432b920239c58f01bd142fc7142296577b0f95c4e80becdf8b",
+    "klutz": "sha256:3c7f19f518ebf523ae77562a799ff7a27fc20b0ec3d8c0e1d05bb733ada471fd",
+    "boffin": "sha256:226f74d07df7fadf4df107b7d4e64d0283c16d5a1fa48f7f4ad70ac60d595173",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "harpy": "sha256:7469099af60e189ef4516c76ca2454b0854d274c9fbbcfd32c8a0d5b0bc559de",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "devilsadvocate": "sha256:1848656df1015994da8a8cf72bd270e2d2ee2b6a8a24ca4c57df1125be9d40e9",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e",
+    "shabaloth": "sha256:45b9ec178f8359536d9b48a5a2ee057fe58eaf31bf8fb09877e921d1f352fa7c",
+    "apprentice": "sha256:bf6ffe848098cb77ecffde134ebe2d28b2514de046ad593c90fb09a6b2d29311",
+    "bishop": "sha256:197ad43c5b2d29232d63b02e76b3793ed1555e1bb32f9ab2679d738f21ca3a0b",
+    "judge": "sha256:a213ecfafb2d4660267c57fc4e28a613a79c163990a9438d11dd6385c7c8cc16",
+    "bonecollector": "sha256:9664e9b0d8128352eb01f5961308fd14ffa20ecf35af759b4797d670cf3b88f4",
+    "beggar": "sha256:02c34769f3b35707979f5836727e32194a93fd3bc8048439fdadfa08f524aefc"
+  }
+}

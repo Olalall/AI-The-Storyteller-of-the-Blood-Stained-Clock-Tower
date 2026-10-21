@@ -1,0 +1,180 @@
+{
+  "sourceBuild": "16ad8f7c270dfc011aeb9fc412950304b68293fc5269c882c32b2e037fc5073e",
+  "checkedAt": "2026-10-21",
+  "source": "https://kkovo550.github.io/clocktower-wiki/",
+  "officialSnapshots": [
+    {
+      "name": "nightsheet",
+      "url": "https://release.botc.app/resources/data/nightsheet.json",
+      "bytes": 2923,
+      "sha256": "99a2815bb31bcec3e107bf7f1c2fb305e301d317981d855704d3d954ec4c3f75"
+    },
+    {
+      "name": "jinxes",
+      "url": "https://release.botc.app/resources/data/jinxes.json",
+      "bytes": 21358,
+      "sha256": "5d3d8d0ac194fb1ea44af79b74f9e4bdc09712aef2123c3a3ef2b6c43efa7df7"
+    },
+    {
+      "name": "roles",
+      "url": "https://release.botc.app/resources/data/roles.json",
+      "bytes": 99614,
+      "sha256": "6c659354dee75cf3afdeaf6cbc750b274a87d1099cc5f68651a2114881eb85ca"
+    }
+  ],
+  "boards": [
+    {
+      "scriptId": "bi-ye-dian-li",
+      "displayName": "毕业典礼",
+      "sourceIndex": 620,
+      "rawJsonSha256": "830d947813c3364fd113a347896163034cef4186e9794a0713a224c6477ff5c4",
+      "roleCount": 24,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "villageidiot"
+      ]
+    },
+    {
+      "scriptId": "tian-ruo-you-qing",
+      "displayName": "天若有情",
+      "sourceIndex": 116,
+      "rawJsonSha256": "1fef518644dda7a88500a16574e7c17575274b402f1c3a80a9523e81bd97d040",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 2,
+      "rolesOutsideGeneratedTemplates": [
+        "villageidiot",
+        "fortuneteller",
+        "amnesiac"
+      ]
+    },
+    {
+      "scriptId": "chen-ke-nan-fan",
+      "displayName": "沉科难返",
+      "sourceIndex": 554,
+      "rawJsonSha256": "10b858d906b59ce13bd27593ef8cef9c3f1a4d4a70432534ea8459ba38ed9cfb",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 2,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller",
+        "balloonist",
+        "amnesiac"
+      ]
+    },
+    {
+      "scriptId": "feng-kuang-ke-yan",
+      "displayName": "疯狂科研",
+      "sourceIndex": 556,
+      "rawJsonSha256": "c22a9c7ba0b8059ffac33b60ed0da52cda7dfeb3e3d6590e7a941a49ca5f9c07",
+      "roleCount": 31,
+      "templateCount": 22,
+      "jinxCount": 2,
+      "rolesOutsideGeneratedTemplates": []
+    },
+    {
+      "scriptId": "du-shi-sha-shou-hou",
+      "displayName": "都市杀手猴",
+      "sourceIndex": 564,
+      "rawJsonSha256": "7196e5a983067d543d9267fd048ed35c17a1b83c73688aa6e0fec99603f2e6b3",
+      "roleCount": 25,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "rolesOutsideGeneratedTemplates": []
+    },
+    {
+      "scriptId": "huan-shou-qi-jing",
+      "displayName": "环首奇景",
+      "sourceIndex": 871,
+      "rawJsonSha256": "e1aaf837c9be774440f804448b6a1dedf78c812f58f18c10fbd0540c957fe8a9",
+      "roleCount": 30,
+      "templateCount": 22,
+      "jinxCount": 0,
+      "rolesOutsideGeneratedTemplates": [
+        "magician"
+      ]
+    },
+    {
+      "scriptId": "wu-xian-bo-yi",
+      "displayName": "无限博弈",
+      "sourceIndex": 594,
+      "rawJsonSha256": "d9b5c9080555da24fd1af3ad344aec9a366955c15ab415cd798629b210186c58",
+      "roleCount": 42,
+      "templateCount": 22,
+      "jinxCount": 2,
+      "rolesOutsideGeneratedTemplates": [
+        "balloonist",
+        "magician"
+      ]
+    },
+    {
+      "scriptId": "du-xian-man-yan",
+      "displayName": "毒线蔓延",
+      "sourceIndex": 828,
+      "rawJsonSha256": "ec6b2278aa1e98dd68d4b4dde9ee4c7adcb8fa97951b78958798cca5aa32ff4c",
+      "roleCount": 31,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "huntsman"
+      ]
+    },
+    {
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "displayName": "数学家杀人事件",
+      "sourceIndex": 592,
+      "rawJsonSha256": "2092a41ec868a41b7851183d156ffe736d48afd18490f8d0109643ca30ab6640",
+      "roleCount": 26,
+      "templateCount": 22,
+      "jinxCount": 3,
+      "rolesOutsideGeneratedTemplates": [
+        "fortuneteller"
+      ]
+    }
+  ],
+  "heldCandidates": [
+    {
+      "index": 518,
+      "scriptId": "xing-hui-shen-yin",
+      "name": "幸会神音",
+      "reason": "source-team-version-conflict:acrobat"
+    },
+    {
+      "index": 838,
+      "scriptId": "xiang-ye-chun-fu",
+      "name": "乡野蠢夫",
+      "reason": "duplicate-resolved-role-needs-source-review"
+    },
+    {
+      "index": 25,
+      "scriptId": "yin-he-man-bu",
+      "name": "银河漫步v2.2.0",
+      "reason": "existing-script-needs-version-review"
+    },
+    {
+      "index": 316,
+      "scriptId": "zheng-fen-duo-miao",
+      "name": "争分夺秒",
+      "reason": "source-team-version-conflict:acrobat"
+    },
+    {
+      "index": 596,
+      "scriptId": "shen-mou-yuan-lv",
+      "name": "深谋远虑",
+      "reason": "source-team-version-conflict:acrobat"
+    },
+    {
+      "index": 875,
+      "scriptId": "xian-xiang-huan-sheng-pro",
+      "name": "险象环生Pro",
+      "reason": "ordinary-opening-cannot-cover-10-to-15-players"
+    },
+    {
+      "index": 558,
+      "scriptId": "wei-si-ta-ji-dian",
+      "name": "维斯塔祭典",
+      "reason": "source-team-version-conflict:acrobat"
+    }
+  ]
+}

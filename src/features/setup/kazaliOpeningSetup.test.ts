@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { smartScriptPacks as sourcePacks } from '../../domain/scripts/allPacks'
 import { smartScriptRegistry, roleSnapshotsForScript } from '../../domain/scripts'
+import { scriptManifest } from '../../domain/scripts/catalog'
 import type { SmartScriptPack } from '../../domain/scripts'
 import { actualCompositionForTemplate, validateTemplateComposition } from '../../domain/setup-templates/composition'
 import { createSmartScriptSetupCandidates, evaluateSmartScriptSetup } from './smartScriptSetupCandidates'
@@ -93,7 +94,8 @@ describe('Kazali opening bag and confirmed-source compatibility', () => {
     expect(checked).toBe(24)
   })
   it('audits all registered packs through composition and actual candidate validation', () => {
-    expect(smartScriptPacks).toHaveLength(148)
+    expect(smartScriptPacks.length).toBeGreaterThanOrEqual(148)
+    expect(smartScriptPacks.map((pack) => pack.scriptId).sort()).toEqual(scriptManifest.map((pack) => pack.scriptId).sort())
     for (const currentPack of smartScriptPacks) {
       for (const template of currentPack.setupTemplates) expect(validateTemplateComposition(currentPack, template).problems, template.templateId).toEqual([])
       for (const count of currentPack.playerCounts) {

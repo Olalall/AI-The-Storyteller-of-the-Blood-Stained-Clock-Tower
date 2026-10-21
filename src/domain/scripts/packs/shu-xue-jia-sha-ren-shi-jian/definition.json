@@ -1,0 +1,1208 @@
+{
+  "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+  "displayName": "数学家杀人事件",
+  "source": {
+    "url": "https://kkovo550.github.io/clocktower-wiki/script_lib/%E5%89%A7%E6%9C%AC%E5%BA%93.html",
+    "author": "驯鹿",
+    "version": "Clocktower Wiki index 592 / build 16ad8f7c270d / 当前官方规则适配 2026-10-21",
+    "contentHash": "sha256:2092a41ec868a41b7851183d156ffe736d48afd18490f8d0109643ca30ab6640",
+    "verifiedAt": "2026-10-21"
+  },
+  "playerCounts": [
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15
+  ],
+  "roleRefs": [
+    {
+      "id": "washerwoman",
+      "sourceId": "mu-hou-cao-kong",
+      "sourceVersion": "sha256:b77d9ce8594bfccaf5faaec7e935aa05d633d60f0fe0919af9ea37d3460428da"
+    },
+    {
+      "id": "librarian",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "investigator",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "grandmother",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "fortuneteller",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "chambermaid",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "acrobat",
+      "sourceId": "shi-san-hang",
+      "sourceVersion": "sha256:4537cee40664d86345fa1b20af1858768df3be233db1d41081e184dece91f0e5"
+    },
+    {
+      "id": "gambler",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "oracle",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "soldier",
+      "sourceId": "hua-wai-zhi-min",
+      "sourceVersion": "sha256:92d35caa93ce60d9845432078da0dddfca65e0e6d1faf4aa9db12ac6c857203c"
+    },
+    {
+      "id": "juggler",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "philosopher",
+      "sourceId": "bao-zou-ge-bu-lin",
+      "sourceVersion": "sha256:ec718ff385087b6789a7b0c177f4a3fe8da78858048b37f4836044ba6f7f494f"
+    },
+    {
+      "id": "mathematician",
+      "sourceId": "sects-and-violets",
+      "sourceVersion": "sha256:3b02f7bd81d30d2e866a8cb1ca14486f01d2a73a62da62ac17bff6f0438b3656"
+    },
+    {
+      "id": "drunk",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "klutz",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "recluse",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "moonchild",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "poisoner",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "scarletwoman",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "godfather",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "boffin",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "imp",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "pukka",
+      "sourceId": "bad-moon-rising",
+      "sourceVersion": "sha256:948647c614fae6c5a0c05c979ae72b466995d9ee9ffc36800f88ef3d22585a3d"
+    },
+    {
+      "id": "vigormortis",
+      "sourceId": "ao-fa-ji-hui",
+      "sourceVersion": "sha256:f0dec4f76dcdfc9064d0ce2ce38eee58535688bd1ecb689f67bfc52ab64958ca"
+    },
+    {
+      "id": "nodashii",
+      "sourceId": "church-of-spies",
+      "sourceVersion": "sha256:e5f565d2db1ab4ff5c4485bbf5ba84fb33829a18c53b8f081e87be6d8609a5cc"
+    },
+    {
+      "id": "djinn",
+      "sourceId": "bao-meng-mi-tuan",
+      "sourceVersion": "sha256:ae0069938104af40ca1b8b9bfc842293c15e68e212b0c93a5014d23bbe40486f"
+    }
+  ],
+  "setupTemplates": [
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-1",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 7,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "nodashii",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician"
+      ],
+      "bluffs": [
+        "washerwoman",
+        "librarian",
+        "investigator"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-2",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 7,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "nodashii",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "investigator"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "acrobat",
+        "gambler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-3",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 7,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "imp",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "acrobat"
+      ],
+      "bluffs": [
+        "oracle",
+        "soldier",
+        "juggler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-4",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 8,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "imp",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "drunk"
+      ],
+      "bluffs": [
+        "librarian",
+        "investigator",
+        "grandmother"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-5",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 8,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "imp",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "klutz"
+      ],
+      "bluffs": [
+        "acrobat",
+        "gambler",
+        "oracle"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-6",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 9,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "pukka",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "klutz",
+        "recluse"
+      ],
+      "bluffs": [
+        "investigator",
+        "grandmother",
+        "chambermaid"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-7",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 9,
+      "style": "long-game",
+      "roles": [
+        "godfather",
+        "pukka",
+        "washerwoman",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "recluse"
+      ],
+      "bluffs": [
+        "oracle",
+        "soldier",
+        "juggler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-8",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 10,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "poisoner",
+        "vigormortis",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "gambler",
+        "oracle"
+      ],
+      "bluffs": [
+        "soldier",
+        "juggler",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-9",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 10,
+      "style": "chaos",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "nodashii",
+        "chambermaid",
+        "acrobat",
+        "gambler",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher"
+      ],
+      "bluffs": [
+        "investigator",
+        "grandmother",
+        "mathematician"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-10",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 10,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "godfather",
+        "nodashii",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "klutz"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "acrobat",
+        "gambler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-11",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 11,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "poisoner",
+        "nodashii",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "moonchild"
+      ],
+      "bluffs": [
+        "gambler",
+        "oracle",
+        "soldier"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-12",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 11,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "nodashii",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "gambler",
+        "oracle",
+        "soldier",
+        "drunk"
+      ],
+      "bluffs": [
+        "librarian",
+        "juggler",
+        "philosopher"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-13",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 12,
+      "style": "balanced",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "imp",
+        "washerwoman",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "gambler",
+        "drunk",
+        "klutz"
+      ],
+      "bluffs": [
+        "oracle",
+        "soldier",
+        "juggler"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-14",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 12,
+      "style": "long-game",
+      "roles": [
+        "scarletwoman",
+        "godfather",
+        "imp",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "gambler",
+        "oracle",
+        "soldier",
+        "klutz",
+        "recluse",
+        "moonchild"
+      ],
+      "bluffs": [
+        "librarian",
+        "investigator",
+        "juggler"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-15",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 12,
+      "style": "chaos",
+      "roles": [
+        "godfather",
+        "boffin",
+        "pukka",
+        "gambler",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "recluse"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "acrobat",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-16",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 13,
+      "style": "balanced",
+      "roles": [
+        "scarletwoman",
+        "godfather",
+        "boffin",
+        "pukka",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "gambler",
+        "oracle",
+        "soldier",
+        "klutz"
+      ],
+      "bluffs": [
+        "washerwoman",
+        "juggler",
+        "philosopher"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-17",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 13,
+      "style": "chaos",
+      "roles": [
+        "boffin",
+        "poisoner",
+        "scarletwoman",
+        "vigormortis",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "investigator",
+        "grandmother"
+      ],
+      "bluffs": [
+        "gambler",
+        "drunk",
+        "klutz"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-18",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 14,
+      "style": "balanced",
+      "roles": [
+        "godfather",
+        "boffin",
+        "poisoner",
+        "vigormortis",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "gambler",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician"
+      ],
+      "bluffs": [
+        "washerwoman",
+        "librarian",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        },
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-19",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 14,
+      "style": "long-game",
+      "roles": [
+        "boffin",
+        "poisoner",
+        "scarletwoman",
+        "vigormortis",
+        "acrobat",
+        "gambler",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "investigator"
+      ],
+      "bluffs": [
+        "chambermaid",
+        "drunk",
+        "klutz"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "vigormortis-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。；人数选项来源：catfishing/vigormortis-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/vigormortis-outsider/remove-outsider/vigormortis-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-20",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 15,
+      "style": "balanced",
+      "roles": [
+        "boffin",
+        "poisoner",
+        "scarletwoman",
+        "nodashii",
+        "grandmother",
+        "chambermaid",
+        "acrobat",
+        "gambler",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "moonchild",
+        "drunk"
+      ],
+      "bluffs": [
+        "washerwoman",
+        "librarian",
+        "investigator"
+      ],
+      "setupAdjustments": [],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-21",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 15,
+      "style": "long-game",
+      "roles": [
+        "poisoner",
+        "scarletwoman",
+        "godfather",
+        "nodashii",
+        "gambler",
+        "oracle",
+        "soldier",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "drunk"
+      ],
+      "bluffs": [
+        "acrobat",
+        "klutz",
+        "recluse"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-1",
+          "compositionDelta": {
+            "townsfolk": 1,
+            "outsider": -1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：catfishing/godfather-outsider/remove-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：catfishing/godfather-outsider/remove-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    },
+    {
+      "templateId": "shu-xue-jia-sha-ren-shi-jian-candidate-22",
+      "scriptId": "shu-xue-jia-sha-ren-shi-jian",
+      "playerCount": 15,
+      "style": "chaos",
+      "roles": [
+        "scarletwoman",
+        "godfather",
+        "boffin",
+        "imp",
+        "juggler",
+        "philosopher",
+        "mathematician",
+        "washerwoman",
+        "librarian",
+        "investigator",
+        "grandmother",
+        "chambermaid",
+        "klutz",
+        "recluse",
+        "moonchild"
+      ],
+      "bluffs": [
+        "oracle",
+        "soldier",
+        "drunk"
+      ],
+      "setupAdjustments": [
+        {
+          "ruleId": "godfather-setup-count",
+          "choiceId": "count-choice-2",
+          "compositionDelta": {
+            "townsfolk": -1,
+            "outsider": 1
+          },
+          "note": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。；人数选项来源：bad-moon-rising/godfather-outsider/add-outsider。"
+        }
+      ],
+      "verified": true,
+      "notes": [
+        "批量配板草稿；角色组合与平衡性仍需核对。",
+        "人数修正复用已验证来源：bad-moon-rising/godfather-outsider/add-outsider/godfather-setup-count。",
+        "复用模板来源：provided；仍需核对本板特殊规则与组合。"
+      ]
+    }
+  ],
+  "setupRules": [
+    {
+      "id": "vigormortis-setup-count",
+      "roleId": "vigormortis",
+      "summary": "亡骨魔减少1外来者并增加1镇民；先应用其他人数修正，再最多移除1名外来者。零外来者时不凭空额外增加镇民。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Vigormortis"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "godfather-setup-count",
+      "roleId": "godfather",
+      "summary": "教父开局明确选择增加或减少1外来者，对应替换镇民；白天外来者死亡后的夜杀仍由主持核对。",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://wiki.bloodontheclocktower.com/Godfather"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "boffin-drunk-jinx",
+      "roleId": "boffin",
+      "summary": "The Demon cannot have the Drunk ability.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-chambermaid-jinx",
+      "roleId": "mathematician",
+      "summary": "The Chambermaid can detect if the Mathematician will wake tonight.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    },
+    {
+      "id": "mathematician-drunk-jinx",
+      "roleId": "mathematician",
+      "summary": "The Mathematician learns if the Drunk’s ability yielded false info or failed to work properly.",
+      "knowledgeStatus": "confirmed",
+      "sourceUrls": [
+        "https://release.botc.app/resources/data/jinxes.json"
+      ],
+      "reviewedAt": "2026-10-21"
+    }
+  ],
+  "knowledgeStatus": "confirmed",
+  "nightOrders": {
+    "firstNight": [
+      {
+        "roleId": "boffin",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "philosopher",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "washerwoman",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "librarian",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "investigator",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ],
+    "otherNight": [
+      {
+        "roleId": "philosopher",
+        "order": 1,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "poisoner",
+        "order": 2,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "gambler",
+        "order": 3,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "acrobat",
+        "order": 4,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "scarletwoman",
+        "order": 5,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "imp",
+        "order": 6,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "pukka",
+        "order": 7,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "nodashii",
+        "order": 8,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "vigormortis",
+        "order": 9,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "godfather",
+        "order": 10,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "moonchild",
+        "order": 11,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "grandmother",
+        "order": 12,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "fortuneteller",
+        "order": 13,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "oracle",
+        "order": 14,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "juggler",
+        "order": 15,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "chambermaid",
+        "order": 16,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      },
+      {
+        "roleId": "mathematician",
+        "order": 17,
+        "knowledgeStatus": "confirmed",
+        "note": "复用2026-10-21重新核对的当前官方夜表；触发和状态由主持确认。"
+      }
+    ]
+  },
+  "roleDefinitionHashes": {
+    "washerwoman": "sha256:a5447d91f7ba8eb611c52928fc1be043d95e8c89204f1f8b23168ee059926641",
+    "librarian": "sha256:a7b1d0c98589290c880ca8c610e022ce3573fb58ee6ded7659a8b22efbe5278d",
+    "investigator": "sha256:216861593841d940f8eabf4c34556454bef623f59b59f8eb3ac38ec86f90154a",
+    "grandmother": "sha256:ddae6200635dbe4275d6b9398d8a0dc528897b43686e7fb9599fec3f6961e069",
+    "fortuneteller": "sha256:9f26541a826034b29f6cc66bc7910de7f100aa2ca170fff5e9915ccc7428458e",
+    "chambermaid": "sha256:c217e4f9b7365b9ea92383f2af0b95f18e67a86bd13414ed63f07d9bf5d60144",
+    "acrobat": "sha256:dda6616445f1f1a0ee1fd5374a83adef8ca4ba32fb4a2632530215327ab68b76",
+    "gambler": "sha256:6ce92beee5117fb21f9c5cdf4bbe2578363a9069a3110b245bef6a04afb4b762",
+    "oracle": "sha256:4b6aa6a974c95072f7cef4fd181f335039560e6f40307aed1e2a64453cf89311",
+    "soldier": "sha256:e24f9025b8c74c0b5fae6536a74ffd2845b311d4a2f60272a3950476946fd523",
+    "juggler": "sha256:bbcea5b0d8167d59a0145880a0c448f02ff7ae87da08cf8f4f747b02220395b7",
+    "philosopher": "sha256:fd70d21483547cf0b602762542e93fee42d928ca81d2094ca99747255104d7c8",
+    "mathematician": "sha256:f1262386ef8bd2783d644dc5240ea8e3fe2ee414a55b3cc3b86f9aee91cd027d",
+    "drunk": "sha256:509ad01878c57f240c8f6e9690abe99049b6d79c8c766119a45f2fa62092a1cf",
+    "klutz": "sha256:3c7f19f518ebf523ae77562a799ff7a27fc20b0ec3d8c0e1d05bb733ada471fd",
+    "recluse": "sha256:587db1b9107db08d34473eef112bc13c0ecc663a72330ec8400a316fddc600cc",
+    "moonchild": "sha256:8cdf1c15876cc9c7833b2eee156ce02b6e2e90080412890a621d2d906ea547d8",
+    "poisoner": "sha256:202143988bec43e04fc4ad4fc4259ca0859818f48339e1a917a4e792ff75f987",
+    "scarletwoman": "sha256:2d21fb08707b00a2609653c4bc26a7939301d1ee977eec52ed7ec67b8e9f8ade",
+    "godfather": "sha256:a82774e6c9795decc597b182b460dc50359a1772b08ea214ad85bab7179f610a",
+    "boffin": "sha256:226f74d07df7fadf4df107b7d4e64d0283c16d5a1fa48f7f4ad70ac60d595173",
+    "imp": "sha256:f9bad65cc58b08b8f6d446d03bbf1fc3f0a9e5fd15c49f281bda13083cbfd743",
+    "pukka": "sha256:d9a9f07a7f4e59287c4b1f7d65ac524d2cb6d1426fd6eed50de4eb68a482130e",
+    "vigormortis": "sha256:8baabb351c2d05c45df9881323894aa4cb92b2c040860c68d294223fa433e1c1",
+    "nodashii": "sha256:7f27a15467aea2484affa0c005ef97aed9b1081cfc30adf08ae142e3371d3874",
+    "djinn": "sha256:3a5791ec2c504d4b4cde0dea4edd27539822eac113015cd7b9a6f275ffc91d46"
+  }
+}
