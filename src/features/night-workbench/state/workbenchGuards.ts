@@ -3,7 +3,8 @@ import { outcomeReady, targetRoleChoicesSatisfied, wakeTargetsStructurallyValid 
 import { currentRoleForItem } from './roleChanges'
 
 export function canEditItem(state: NightWorkbenchState, item: WakeItem) {
-  return (currentRoleForItem(item, state.roleChangeEvents).id === item.roleId || state.correctionItemId === item.id) &&
+  return ((item.abilitySource ? state.seatSnapshots[item.seatId]?.role?.id === item.abilitySource.actorRole.id
+    : currentRoleForItem(item, state.roleChangeEvents).id === item.roleId) || state.correctionItemId === item.id) &&
     state.previewEntryId === state.activeCursorId &&
     item.applicability === 'applicable' &&
     item.progress !== 'deferred' &&

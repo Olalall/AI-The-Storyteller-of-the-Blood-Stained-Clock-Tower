@@ -200,7 +200,7 @@ export function createFirstNightSystemSteps(
 }
 
 /** 剧本里的善良角色减去在场角色；配板时预设过的三张只做「预设」提示，不做校验。 */
-function createBluffChoices(session: GameSessionState, assignments: SetupAssignment[]): SystemStepBluffChoice[] {
+export function createBluffChoices(session: GameSessionState, assignments: SetupAssignment[]): SystemStepBluffChoice[] {
   const teamById = roleTeamByIdForScript(session.scriptId)
   const inPlay = new Set(assignments.map((assignment) => assignment.role.id))
   const suggested = new Set(
@@ -223,7 +223,7 @@ function allocationSystemRunId(session: GameSessionState, runId: string) {
   return source?.kind === 'setup_changed' ? `${runId}-allocation-${source.sourceNightActionId}` : runId
 }
 
-function createSystemStepItem(input: {
+export function createSystemStepItem(input: {
   session: GameSessionState
   playerStates: Record<number, PlayerState>
   runId: string

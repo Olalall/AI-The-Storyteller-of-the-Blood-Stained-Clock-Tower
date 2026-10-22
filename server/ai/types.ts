@@ -241,6 +241,7 @@ export interface NightSettlementProviderRequest {
     allowedTargetCounts?: readonly number[]
     roleCount?: number
     abilityPhase?: 'initial'
+    abilitySource?: { grantId: string; sourceSeatId: number; sourceRoleId: string; actorRole: { id: string; name: string; initial: string; iconPath: string } }
     targetRoleChoiceCount?: number
     targetRoleChoiceRoleIds?: readonly string[]
     minimumTargetCount?: number

@@ -19,7 +19,8 @@ import type { NightWorkbenchAction } from '../../night-workbench/state/nightWork
 import type { PhaseTimelineEntryInput, TimelineAppendInput } from './timeline'
 
 export type GameSessionAction =
-  | { type: 'confirm-night-role-change'; nightRunId: string; seatId: number; expectedRoleId: string; roleId: string; timing: 'tonight' | 'initial' | 'later'; reason: RoleChangeReason; id: string; expectedContextKey: string; expectedRevision: number; confirmedAt: string }
+  | { type: 'confirm-ability-change'; sourceSeatId: number; sourceRoleId: string; seatId: number; expectedRoleId: string; roleId: string | null; sourceEntryId?: string; triggerSeatId?: number; timing: 'tonight' | 'later'; reason: string; id: string; expectedContextKey: string; confirmedAt: string }
+  | { type: 'confirm-night-role-change'; nightRunId: string; seatId: number; expectedRoleId: string; roleId: string; timing: 'tonight' | 'initial' | 'initial-and-tonight' | 'later'; reason: RoleChangeReason; id: string; expectedContextKey: string; expectedRevision: number; confirmedAt: string }
   | { type: 'apply-kazali-allocation'; nightRunId: string; sourceEntryId: string; expectedContextKey: string; confirmedAt: string }
   | { type: 'add-state-followup'; id: string; sourceEntryId: string; seatId: number; note: string; createdAt: string }
   | { type: 'dismiss-state-followup'; id: string; reason: string; at: string }

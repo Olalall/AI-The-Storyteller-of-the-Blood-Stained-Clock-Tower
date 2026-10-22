@@ -104,7 +104,7 @@ describe('live-game AI regressions', () => {
       { ...request, draft: { ...request.draft, secondRoleChoice: [] } },
       { ...request, currentActor: { roleId: 'imp' } },
       { ...request, inPlayRoleIds: ['imp'] },
-      { ...request, wakeItem: { ...request.wakeItem, roleCount: 3 } },
+      { ...request, wakeItem: { ...request.wakeItem, roleCount: 5 } },
     ]
     for (const body of malformed) {
       expect(isNightSettlementRequest(body)).toBe(false)

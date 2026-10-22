@@ -8,7 +8,7 @@ import { createNightWakeInteraction } from './nightWakeInteraction'
 import { projectNightInteraction } from '../../night-workbench/state/projectNightInteraction'
 
 const previousTargetRoleIds = new Set(['exorcist', 'devilsadvocate'])
-const oncePerGameNightRoleIds = new Set(['professor', 'assassin', 'courtier', 'nightwatchman', 'seamstress', 'huntsman', 'engineer'])
+const oncePerGameNightRoleIds = new Set(['professor', 'assassin', 'courtier', 'nightwatchman', 'seamstress', 'huntsman', 'engineer', 'philosopher'])
 
 function segmentIds(session: GameSessionState, kind: 'night' | 'day', sequence: number) {
   return new Set(session.phaseSegments
@@ -58,6 +58,10 @@ function roleContinuityBroken(
   item: WakeItem,
   entry: NightActionEntry | DayActionEntry,
 ) {
+  if (entry.kind === 'night_action') {
+    const source = entry.abilitySource ?? session.nightRuns[entry.nightRunId]?.queue.find(i => i.id === entry.wakeItemId)?.abilitySource
+    if (source?.grantId !== item.abilitySource?.grantId) return true
+  }
   const createdAt = sourceCreatedAt(session, entry)
   return session.timeline.some((candidate) => candidate.kind === 'setup_changed'
     && candidate.seatId === item.seatId

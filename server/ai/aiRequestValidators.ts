@@ -200,6 +200,12 @@ export function isNightSettlementRequest(value: unknown): value is NightSettleme
     && typeof value.wakeItem.roleId === 'string'
     && typeof value.wakeItem.roleName === 'string'
     && typeof value.wakeItem.ability === 'string'
+    && (value.wakeItem.abilitySource === undefined || isRecord(value.wakeItem.abilitySource)
+      && typeof value.wakeItem.abilitySource.grantId === 'string' && Boolean(value.wakeItem.abilitySource.grantId.trim())
+      && Number.isInteger(value.wakeItem.abilitySource.sourceSeatId) && Number(value.wakeItem.abilitySource.sourceSeatId) > 0 && Number(value.wakeItem.abilitySource.sourceSeatId) <= value.playerCount
+      && typeof value.wakeItem.abilitySource.sourceRoleId === 'string' && isRecord(value.wakeItem.abilitySource.actorRole)
+      && typeof value.wakeItem.abilitySource.actorRole.id === 'string' && typeof value.wakeItem.abilitySource.actorRole.name === 'string'
+      && typeof value.wakeItem.abilitySource.actorRole.initial === 'string' && typeof value.wakeItem.abilitySource.actorRole.iconPath === 'string')
     && (value.wakeItem.abilityPhase === undefined || (value.wakeItem.abilityPhase === 'initial' && value.wakeItem.roleId === 'lleech' && value.nightType === 'other'))
     && (value.wakeItem.history === undefined || (typeof value.wakeItem.history === 'string' && value.wakeItem.history.length <= 1000))
     && Number.isInteger(value.wakeItem.seatId)
@@ -228,7 +234,7 @@ export function isNightSettlementRequest(value: unknown): value is NightSettleme
     && (value.draft.targetCountChoice === undefined || (Number.isInteger(value.draft.targetCountChoice) && Number(value.draft.targetCountChoice) >= 0 && Number(value.draft.targetCountChoice) <= Number(value.playerCount)))
     && (value.wakeItem.allowedTargetCounts === undefined || (Array.isArray(value.wakeItem.allowedTargetCounts) && value.wakeItem.allowedTargetCounts.length <= 3 && value.wakeItem.allowedTargetCounts.every(count => Number.isInteger(count) && count >= 0 && count <= Number(value.playerCount))))
     && (value.draft.storytellerContext === undefined || (typeof value.draft.storytellerContext === 'string' && value.draft.storytellerContext.length <= 1000))
-    && (value.wakeItem.roleCount === undefined || value.wakeItem.roleCount === 1 || value.wakeItem.roleCount === 2 || value.wakeItem.roleCount === 4)
+    && (value.wakeItem.roleCount === undefined || value.wakeItem.roleCount === 1 || value.wakeItem.roleCount === 2 || value.wakeItem.roleCount === 3 || value.wakeItem.roleCount === 4)
     && typeof value.draft.outcomeId === 'string'
     && validSelectedTargets(value.selectedTargets, value.playerCount)
     && (value.currentActor === undefined || validSelectedTargets([value.currentActor], value.playerCount))

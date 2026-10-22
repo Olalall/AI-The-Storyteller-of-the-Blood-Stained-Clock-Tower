@@ -3,6 +3,8 @@ import { normalizeRoleId } from './roleId'
 import { officialRoleIds } from './officialRoleIds'
 import { resolveCharacterIconPath } from './roleIconPaths'
 import officialNightSheet from '../../features/night-workbench/data/official/nightsheet.json' with { type: 'json' }
+import { normalizeLilMonstaTemplate } from '../setup-templates/normalizeLilMonstaTemplate'
+import { hasHereticConflict, normalizeHereticTemplate } from '../setup-templates/normalizeHereticTemplate'
 
 function isCustomRoleDefinition(role: SmartRoleDefinition) {
   const officialName = role.officialName?.trim().toLowerCase()
@@ -58,7 +60,15 @@ const canonicalRoleInputKinds: Readonly<Record<RoleId, readonly AbilityInputKind
   vortox: ['player'],
   vortex: ['player'],
   assassin: ['player'],
-  ravenkeeper: ['player'],
+  ravenkeeper: ['player', 'role'],
+  grandmother: ['player', 'role'],
+  philosopher: ['role'],
+  alchemist: ['role'],
+  boffin: ['role'],
+  pixie: ['role'],
+  clockmaker: ['number'],
+  shugenja: ['boolean'],
+  general: ['boolean'],
   monk: ['player'],
   butler: ['player'],
   professor: ['player'],
@@ -242,8 +252,13 @@ function normalizeNightOrderNote(note: string | undefined, roleId: RoleId, roles
 
 export function normalizeImportedPack(pack: SmartScriptPack): SmartScriptPack {
   const nightOrders = enrichNightOrders(pack)
+  const setupTemplates = pack.setupTemplates.map(template => normalizeHereticTemplate(normalizeLilMonstaTemplate(template, pack), pack))
+    .filter(template => !hasHereticConflict(template.roles))
+    .filter((template,index,all)=>all.findIndex(other=>other.playerCount===template.playerCount && [...other.roles].sort().join(',')===[...template.roles].sort().join(','))===index)
   return {
     ...pack,
+    setupTemplates,
+    playerCounts: pack.playerCounts.filter(count => setupTemplates.some(template => template.playerCount === count)),
     roles: pack.roles.map((role) => ({
       ...role,
       team: canonicalRoleTeam(role),

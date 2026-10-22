@@ -30,7 +30,7 @@ export interface WorkbenchCursorState {
 }
 
 /** 当前这一项：只看得见 id 与 progress，看不见生死毒醉——那些不该参与 mode 判定。 */
-export type WorkbenchCursorItem = Pick<WakeItem, 'id' | 'progress'>
+export type WorkbenchCursorItem = Pick<WakeItem, 'id' | 'progress'> & Partial<Pick<WakeItem, 'applicability'>>
 
 /**
  * 自上而下压下来的「这一屏在干什么」。live 之外的两档现在没有任何代码会传，
@@ -133,6 +133,7 @@ export function deriveWorkbenchMode(
   const previewing = state.previewEntryId !== state.activeCursorId
   const correcting = state.correctionItemId === current.id
   const settled = current.progress === 'skipped'
+    || current.applicability === 'not_applicable'
     || current.progress === 'deferred'
     || current.progress === 'not_applicable'
     || (current.progress === 'confirmed' && !correcting)

@@ -126,6 +126,7 @@ export interface NightSettlementContext {
       allowedTargetCounts?: readonly number[]
       roleCount?: number
       abilityPhase?: 'initial'
+      abilitySource?: import('../../features/game-session/model/abilityTypes').AbilitySource
       targetRoleChoiceCount?: number
       targetRoleChoiceRoleIds?: string[]
       minimumTargetCount?: number

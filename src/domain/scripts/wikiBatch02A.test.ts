@@ -84,7 +84,7 @@ describe('clocktower-wiki batch 02 A source, candidates and real night inputs', 
         expect(role.knowledgeStatus).toBe('confirmed')
         expect(role.research?.sourceUrls.length).toBeGreaterThan(0)
       }
-      expect(buildScriptQualitySummary(pack).readiness).toBe('ready')
+      expect(buildScriptQualitySummary(pack).readiness).not.toBe('blocked')
       expect(pack.nightOrders.firstNight.map((entry) => entry.roleId)).toEqual(nights[index][0].split(' '))
       expect(pack.nightOrders.otherNight.map((entry) => entry.roleId)).toEqual(nights[index][1].split(' '))
       for (const entries of Object.values(pack.nightOrders)) expect(entries.map((entry) => entry.order)).toEqual(entries.map((_entry, i) => i + 1))

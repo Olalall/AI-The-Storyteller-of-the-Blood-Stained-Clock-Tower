@@ -30,6 +30,7 @@ const phase = shape({ id: string, kind: oneOf('night', 'day'), sequence: number,
 const voteAdjustment = shape({ count: number, reason: string })
 const systemStep = shape({ kind: oneOf('minion_info', 'demon_info', 'audience_notice'), minionLabels: array(string), demonLabel: string, infoTokens: array(string), checks: array(shape({ id: string, label: string })), bluffCount: optional(count), bluffChoices: optional(array(shape({ id: string, label: string, teamLabel: string, suggested: boolean }))), audienceLabel: optional(string), recipientLabels: optional(array(string)), sensitive: optional(boolean) })
 const wake = shape({
+  abilitySource: optional(shape({ grantId: string, sourceSeatId: seat, sourceRoleId: string, actorRole: role })),
   lilMonstaStep: optional(oneOf('babysitter', 'death')),
   informationInput: optional(informationInput),
   systemStep: optional(systemStep), minimumTargetCount: optional(count), registrationSpec: optional(shape({ kind: oneOf('role_type', 'alignment'), label: string, choices: array(shape({ id: registrationValue, label: string })) })),
@@ -39,7 +40,7 @@ const wake = shape({
   id: string, orderIndex: number, seatId: number, playerLabel: string, roleId: string, roleName: string, roleInitial: string,
   iconPath: string, ability: string, storytellerPrompt: string, progress: oneOf('pending', 'draft', 'confirmed', 'deferred', 'skipped', 'not_applicable'),
   reason: optional(string),
-  applicability: oneOf('applicable', 'needs_review', 'not_applicable'), targetCount: number, targetRoleChoiceCount: optional(oneOf(1, 2, 3)), allowedTargetCounts: optional(array(targetMode)), roleCount: optional(oneOf(1, 2, 4)), interactionVersion: string,
+  applicability: oneOf('applicable', 'needs_review', 'not_applicable'), targetCount: number, targetRoleChoiceCount: optional(oneOf(1, 2, 3)), allowedTargetCounts: optional(array(targetMode)), roleCount: optional(oneOf(1, 2, 3, 4)), interactionVersion: string,
   status: shape({ life: oneOf('alive', 'dead'), impairments: array(oneOf('poisoned', 'drunk')), markers: array(marker) }),
   outcomeOptions: array(shape({ id: string, label: string, requiredInputs: array(oneOf('targets', 'role', 'information')), targetCounts: optional(array(count)), resultTemplate: string })),
   roleChoices: optional(array(shape({ id: string, label: string, alignment: optional(oneOf('good', 'evil')) }))),
@@ -59,8 +60,9 @@ const opVariants: Record<string, Check> = {
 }
 const op: Check = (v) => object(v) && typeof v.op === 'string' && Object.hasOwn(opVariants, v.op) && opVariants[v.op](v)
 const timelineVariants: Record<string, Check> = {
+  ability_changed: shape({ sourceSeatId: seat, sourceRoleId: string, seatId: seat, actorRole: role, abilityRole: nullable(role), sourceEntryId: optional(string), parentGrantId: optional(string), triggerSeatId: optional(seat), timing: oneOf('tonight', 'later'), reason: string }),
   setup_confirmed: shape({ setup: shape({ id: string, draft: setup, confirmedAt: string }) }),
-  setup_changed: shape({ baseSetupId: string, originNightRunId: optional(nullable(string)), sourceNightActionId: optional(string), nightAbilityTiming: optional(oneOf('tonight', 'initial', 'later')), seatId: number, fromRole: role, toRole: role, reason: string, effectiveFrom: oneOf('future_workbenches') }),
+  setup_changed: shape({ baseSetupId: string, originNightRunId: optional(nullable(string)), sourceNightActionId: optional(string), nightAbilityTiming: optional(oneOf('tonight', 'initial', 'initial-and-tonight', 'later')), seatId: number, fromRole: role, toRole: role, reason: string, effectiveFrom: oneOf('future_workbenches') }),
   player_state_changed: shape({ seatId: number, before: state, after: state, reason: string, ops: optional(array(op)), origin: optional(oneOf('player_panel', 'grimoire', 'night_workbench', 'day_workbench', 'handoff')), batchId: optional(string), revertOf: optional(string), backfill: optional(shape({ attributedPhaseSegmentId: string, sourceEntryId: optional(string) })) }),
   night_action: shape({ nightRunId: string, wakeItemId: string, summary: string, details: array(string), record: shape({ revision: number, snapshot: wakeDraft }) }),
   day_action: shape({ category: oneOf('skill', 'public_event'), actorSeatId: nullable(number), targetSeatIds: array(number), summary: string, details: array(string), skillContext: optional(skillContext) }),

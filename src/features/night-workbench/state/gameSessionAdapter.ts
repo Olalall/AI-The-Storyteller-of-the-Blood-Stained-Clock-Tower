@@ -7,6 +7,7 @@ import {
   projectNightConfirmedRecords,
 } from '../../game-session/state/projectors'
 import { nextNightSequence } from '../../game-session/state/createNextNightRun'
+import { projectAbilityItem } from '../../game-session/state/abilityNightQueue'
 import { getActiveNightRun } from '../../game-session/state/getActiveNightRun'
 import type { NightSeatSnapshot, NightWorkbenchState, PlayerStatusSnapshot, RoleChangeReason } from '../types'
 import { storytellerSeatLabel } from '../../game-session/seatPresentation'
@@ -134,10 +135,10 @@ export function sessionInitialNightState(binding: NightWorkbenchSessionBinding):
     }))
   const seatSnapshots = seatSnapshotsForSession(binding.session)
   const projectedRun = { ...run, queue: structuredClone(run.queue).map((item) => ({
-    ...projectNightInteraction(item, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount, status: seatSnapshots[item.seatId]?.status }),
+    ...projectNightInteraction(item, run.scriptId, { nightType: run.nightType, playerCount: run.playerCount, status: seatSnapshots[item.seatId]?.status, inPlayRoleIds: Object.values(seatSnapshots).flatMap(seat => seat.role ? [seat.role.id] : []) }),
     status: seatSnapshots[item.seatId]?.status ?? item.status,
   })) }
-  const queue = refreshNightRunHistoricalContext(binding.session, projectedRun)
+  const queue = refreshNightRunHistoricalContext(binding.session, projectedRun).map(item => projectAbilityItem(binding.session, item))
   return {
     nightRunId: run.id,
     scriptId: run.scriptId,

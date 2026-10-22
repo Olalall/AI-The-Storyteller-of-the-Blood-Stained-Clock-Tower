@@ -54,8 +54,12 @@ export function targetCountChosen(item: WakeItem, draft: WakeDraft) {
 
 export function roleInputsSatisfied(item: WakeItem, draft: WakeDraft) {
   if (item.targetRoleChoiceCount !== undefined) return targetRoleChoicesSatisfied(item, draft)
-  if (!item.roleChoices) return item.roleCount !== 2 && item.roleCount !== 4
+  if (!item.roleChoices) return !item.roleCount || item.roleCount === 1
   const first = item.roleChoices.find((role) => role.id === draft.roleChoice)
+  if (item.roleCount === 3) {
+    const ids = selectedRoleIds(item, draft)
+    return ids.length === 3 && new Set(ids).size === 3 && ids.every(id => item.roleChoices?.some(role => role.id === id))
+  }
   if (item.roleCount === 4) {
     const ids = selectedRoleIds(item, draft)
     return ids.length === 4 && new Set(ids).size === 4 && ids.every((id, index) =>
@@ -186,7 +190,7 @@ export function missingWakeInputReason(item: WakeItem, draft: WakeDraft) {
   if (!targetCountChosen(item, draft)) return '选择本次目标人数'
   if (selectedTargetCount(item, draft) > draft.targets.length) return `选${item.targetLabel ?? '目标'}`
   if (item.roleChoices && !roleInputsSatisfied(item, draft)) return item.roleCount === 4
-    ? '选两善两恶四个不同角色' : item.roleCount === 2 ? '选一善一恶两个角色' : `选${item.roleLabel ?? '角色'}`
+    ? '选两善两恶四个不同角色' : item.roleCount === 3 ? '选三个不同角色' : item.roleCount === 2 ? '选一善一恶两个角色' : `选${item.roleLabel ?? '角色'}`
   if (item.informationInput && !formalInformationValid(item, draft)) return `填写${item.informationInput.minimum}-${item.informationInput.maximum}的整数告知`
   return ''
 }

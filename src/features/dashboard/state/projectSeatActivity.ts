@@ -22,6 +22,10 @@ export function projectSeatActivity(session: GameSessionState, seatId: number): 
   for (const entry of projectEffectiveTimelineEntries(session.timeline)) {
     const phase = phaseLabel(session, entry)
     switch (entry.kind) {
+      case 'ability_changed':
+        if (entry.seatId === seatId || entry.sourceSeatId === seatId) activity.push({ id: entry.id, createdAt: entry.createdAt, phaseLabel: phase,
+          summary: `${entry.seatId}号${entry.abilityRole ? `获得${entry.abilityRole.name}能力` : '失去额外能力'}；真实身份保留` })
+        break
       case 'setup_confirmed': {
         const assignment = entry.setup.draft.assignments.find((item) => item.seatId === seatId)
         if (assignment) activity.push({ id: entry.id, createdAt: entry.createdAt, phaseLabel: phase, summary: `身份确认：${assignment.role.name}` })

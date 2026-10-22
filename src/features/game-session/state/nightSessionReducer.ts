@@ -13,6 +13,7 @@ const itemIndependentActions = new Set<NightWorkbenchAction['type']>([
 import { formalNightRecordValid, wakeTargetsStructurallyValid } from '../../night-workbench/state/projectWakeDraft'
 import { projectNightResultContract } from './nightWakeContract'
 import { hasLilMonstaOpening, validLilMonstaItem } from './lilMonstaNight'
+import { projectAbilityGrants } from './abilityChanges'
 
 type NightSessionActionType =
   | 'commit-night-workbench'
@@ -32,6 +33,12 @@ export function reduceNightSession(state: GameSessionState, action: NightSession
       const current = sessionInitialNightState(binding)
       if (!current) return state
       const targetId = action.action.type === 'skip-item' ? action.action.id : current.previewEntryId
+      const targetItem = current.queue.find(item => item.id === targetId)
+      const pendingInitialization = targetItem?.abilityPhase !== 'initial' && current.queue.some(item => item.abilityPhase === 'initial'
+        && item.seatId === targetItem?.seatId && item.roleId === targetItem?.roleId && item.progress !== 'confirmed')
+      if (pendingInitialization && ['confirm', 'outcome', 'apply-ai-advice'].includes(action.action.type)) return {
+        ...state, nightRuns: { ...state.nightRuns, [run.id]: { ...run, lastNotice: '请先确认存活宿主，再处理本夜攻击。' } },
+      }
       if (['confirm', 'outcome', 'apply-ai-advice', 'change-role', 'skip-item', 'resolve-applicability'].includes(action.action.type)
         && kazaliAllocationBlocksItem(state, targetId)) return {
         ...state, nightRuns: { ...state.nightRuns, [run.id]: { ...run, lastNotice: '请先确认并应用卡扎力首夜爪牙分配，再继续当晚夜序。' } },
@@ -93,8 +100,13 @@ function commitNightWorkbench(
     if (kazaliAllocationBlocksItem(state, record.wakeItemId)) return state
     const item = queueItemById.get(record.wakeItemId)
     if (!item) return state
+    if (!record.correctionOf && item.abilityPhase !== 'initial' && run.queue.some(initial => initial.abilityPhase === 'initial'
+      && initial.seatId === item.seatId && initial.roleId === item.roleId && initial.progress !== 'confirmed')) return state
     const nonSeated = validLilMonstaItem(item, currentQueueById.get(item.id)) && hasLilMonstaOpening(state, projectCurrentAssignments(state))
-    if (!record.correctionOf && !item.systemStep && !nonSeated && normalizeRoleId(projectCurrentAssignments(state).find((assignment) => assignment.seatId === item.seatId)?.role.id ?? '') !== normalizeRoleId(item.roleId)) return state
+    const granted = item.abilitySource && projectAbilityGrants(state).some(grant => grant.id === item.abilitySource?.grantId
+      && grant.seatId === item.seatId && grant.abilityRole?.id === item.roleId
+      && projectCurrentAssignments(state).some(a => a.seatId === item.seatId && a.role.id === grant.actorRole.id))
+    if (!record.correctionOf && !item.systemStep && !nonSeated && !granted && normalizeRoleId(projectCurrentAssignments(state).find((assignment) => assignment.seatId === item.seatId)?.role.id ?? '') !== normalizeRoleId(item.roleId)) return state
     if (!record.correctionOf && item.abilityPhase === 'initial' && (record.snapshot.targets.length !== 1 || record.snapshot.targets.some((seat) => projectCurrentPlayerStates(state)[seat]?.life !== 'alive'))) return state
     const entry = {
       kind: 'night_action' as const,
@@ -102,6 +114,7 @@ function commitNightWorkbench(
       wakeItemId: record.wakeItemId,
       actorSeatId: item.seatId,
       roleId: item.roleId,
+      ...(item.abilitySource ? { abilitySource: structuredClone(item.abilitySource) } : {}),
       summary: record.snapshot.storytellerResult || `${item.seatId}号记录已确认`,
       details: [record.snapshot.playerChoice, record.snapshot.informationGiven, record.snapshot.storytellerContext && `说书人已核对：${record.snapshot.storytellerContext}`].filter((value): value is string => Boolean(value)),
       record: { revision: record.revision, snapshot: structuredClone(record.snapshot) },

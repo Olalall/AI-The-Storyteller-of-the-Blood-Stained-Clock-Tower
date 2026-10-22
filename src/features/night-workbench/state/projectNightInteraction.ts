@@ -4,9 +4,20 @@ import { projectNightResultContract } from '../../game-session/state/nightWakeCo
 import type { NightType, WakeItem } from '../types'
 
 /** 只修正表单元数据；不重排旧夜序，也不重算已确认记录。 */
-export function projectNightInteraction(item: WakeItem, scriptId: string, night?: { nightType: NightType; playerCount: number; status?: WakeItem['status'] }): WakeItem {
+export function projectNightInteraction(item: WakeItem, scriptId: string, night?: { nightType: NightType; playerCount: number; status?: WakeItem['status']; inPlayRoleIds?: readonly string[] }): WakeItem {
   item = projectNightResultContract(item, night?.playerCount)
   const roleId = normalizeRoleId(item.roleId)
+  const teams = roleTeamByIdForScript(scriptId)
+  const good = (id: string) => teams[id] === 'townsfolk' || teams[id] === 'outsider'
+  const filters: Record<string, (id: string) => boolean> = {
+    philosopher: good,
+    alchemist: id => teams[id] === 'minion',
+    boffin: id => good(id) && !['drunk', 'heretic', 'ogre', 'politician'].includes(id) && (!night?.inPlayRoleIds?.includes(id) || id === 'villageidiot'),
+    cerenovus: id => good(id) || id === 'goblin',
+    pixie: id => teams[id] === 'townsfolk' || Boolean((night?.status ?? item.status).impairments.length),
+    summoner: id => night?.nightType === 'first' ? good(id) && !night.inPlayRoleIds?.includes(id) : teams[id] === 'demon',
+  }
+  if (filters[roleId]) item = { ...item, roleChoices: roleSnapshotsForScript(scriptId).filter(r => filters[roleId](r.id)).map(r => ({ id: r.id, label: r.name })) }
   if (roleId === 'farmer' && item.progress !== 'confirmed') {
     const statusChanged = night?.status && (item.status.life !== night.status.life
       || [...item.status.impairments].sort().join(',') !== [...night.status.impairments].sort().join(','))
@@ -48,8 +59,9 @@ export function projectNightInteraction(item: WakeItem, scriptId: string, night?
   }
   const spec = nightInteractionInputs[roleId]
   if (!spec) return item
-  const roleCount = spec.roleCount ?? item.roleCount
-  let roleChoices = item.roleChoices
+  const phaseRoleCount = night?.nightType === 'first' && spec.firstNightRoleCount ? spec.firstNightRoleCount : spec.firstNightRoleCount === 3 ? 1 : undefined
+  const roleCount = phaseRoleCount ?? spec.roleCount ?? item.roleCount
+  let roleChoices = roleCount && !item.roleChoices ? roleSnapshotsForScript(scriptId).map(role => ({ id: role.id, label: role.name })) : item.roleChoices
   if (roleCount === 2 || roleCount === 4) {
     const teams = roleTeamByIdForScript(scriptId)
     const choices = roleChoices ?? roleSnapshotsForScript(scriptId).map((role) => ({ id: role.id, label: role.name }))
@@ -60,10 +72,11 @@ export function projectNightInteraction(item: WakeItem, scriptId: string, night?
         : teams[choice.id] === 'minion' || teams[choice.id] === 'demon' ? 'evil' as const : undefined,
     }))
   }
-  let outcomeOptions = roleCount === 2 || roleCount === 4 ? item.outcomeOptions.map((option) => {
+  let outcomeOptions = roleCount ? item.outcomeOptions.map((option) => {
     if ((option.id === 'skip' || option.id === 'hold') && option.requiredInputs.length === 0) return option
     return {
       ...option,
+      requiredInputs: [...new Set([...option.requiredInputs, 'role' as const])],
       resultTemplate: option.resultTemplate.includes('{role}') ? option.resultTemplate : `${option.resultTemplate} 信息角色：{role}。`,
       informationTemplate: '{role}',
     }
@@ -75,5 +88,9 @@ export function projectNightInteraction(item: WakeItem, scriptId: string, night?
       resultTemplate: option.resultTemplate.includes('{targets}') ? option.resultTemplate : `${option.resultTemplate} 目标：{targets}。`,
     })
   if (spec.choiceResults) outcomeOptions = spec.choiceResults.map((choice) => ({ ...choice, requiredInputs: [], resultTemplate: `{actor}：${choice.label}。` }))
-  return { ...item, aiAdviceEnabled: spec.aiAdviceEnabled ?? (spec.choiceResults ? false : item.aiAdviceEnabled), targetCount: spec.targetCount ?? item.targetCount, allowedTargetCounts: spec.allowedTargetCounts?.slice() ?? item.allowedTargetCounts, targetKind: spec.targetKind ?? item.targetKind, roleCount, roleChoices, outcomeOptions }
+  const targetCount = (roleId === 'summoner' ? night?.nightType === 'first' ? spec.firstNightTargetCount : spec.otherNightTargetCount : undefined) ?? spec.targetCount ?? item.targetCount
+  if (roleId === 'summoner' && night?.nightType === 'first') outcomeOptions = [
+    { id: 'record', label: '记录三个伪装角色', requiredInputs: ['role'], resultTemplate: '{actor}首夜得知三个不在场角色：{role}。', informationTemplate: '{role}' },
+  ]
+  return { ...item, aiAdviceEnabled: spec.aiAdviceEnabled ?? (spec.choiceResults ? false : item.aiAdviceEnabled), targetCount, allowedTargetCounts: spec.allowedTargetCounts?.slice() ?? item.allowedTargetCounts, targetKind: spec.targetKind ?? item.targetKind, roleCount, roleChoices, outcomeOptions }
 }

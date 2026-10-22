@@ -46,8 +46,8 @@ function pack(overrides: Partial<SmartScriptPack> = {}): SmartScriptPack {
       scriptId: 'test-script',
       playerCount: playerCount as SmartScriptPack['playerCounts'][number],
       style: 'balanced',
-      roles: ['washerwoman'],
-      bluffs: ['chef'],
+      roles: [playerCount % 2 ? 'washerwoman' : 'chef'],
+      bluffs: [playerCount % 2 ? 'chef' : 'washerwoman'],
       notes: [],
       verified: true,
     })),
@@ -58,6 +58,12 @@ function pack(overrides: Partial<SmartScriptPack> = {}): SmartScriptPack {
 }
 
 describe('script quality projector', () => {
+  it('does not call source-complete scripts fully covered when a role never occurs in any template', () => {
+    const summary = buildScriptQualitySummary(pack({ roles: [role('washerwoman'), role('chef'), role('amnesiac')] }))
+    expect(summary.readiness).toBe('review')
+    expect(summary.reviewReasons).toContainEqual({ id: 'template-role-coverage', label: '模板角色覆盖', count: 1 })
+    expect(summary.warnings.some(warning => warning.includes('amnesiac') && warning.includes('不等于组合已实测'))).toBe(true)
+  })
   it('marks a fully reviewed smart script as ready', () => {
     const summary = buildScriptQualitySummary(pack())
 
