@@ -67,7 +67,7 @@ describe('invited fixed-server AI in public runtime mode', () => {
     expect(response.status).toBe(200)
     expect(response.headers.get('cache-control')).toBe('no-store')
     expect(JSON.parse(text)).toMatchObject({
-      settings: { mode: 'backend_proxy', provider: 'openai-compatible', model: 'fixed-test-model', timeoutSeconds: 90, apiKeyConfigured: true },
+      settings: { mode: 'backend_proxy', provider: 'openai-compatible', model: '服务器私有模型', timeoutSeconds: 90, apiKeyConfigured: true },
       access: { required: true, authorized: false, rememberDays: 30 },
     })
     expect(JSON.parse(text).settings).not.toHaveProperty('apiKey')
@@ -75,8 +75,11 @@ describe('invited fixed-server AI in public runtime mode', () => {
     expect(text).not.toContain(env.BOTC_AI_BASE_URL)
     expect(text).not.toContain(serverKey)
     expect(text).not.toContain(passcode)
+    expect(text).not.toContain('fixed-test-model')
     const check = await route(request('/api/settings/ai/test', { method: 'POST' }))
-    expect(await check.json()).toMatchObject({ ok: true, code: 'AI_PROVIDER_READY', model: 'fixed-test-model' })
+    const checked = await check.text()
+    expect(JSON.parse(checked)).toMatchObject({ ok: true, code: 'AI_PROVIDER_READY', model: '服务器私有模型' })
+    expect(checked).not.toContain('fixed-test-model')
     expect(fetcher).not.toHaveBeenCalled()
   })
 
@@ -125,7 +128,7 @@ describe('invited fixed-server AI in public runtime mode', () => {
 
   it.each(['x'.repeat(32), ` ${'x'.repeat(32)} `])('accepts a complete fixed configuration at the trimmed invitation boundary (%j)', (secret) => {
     const handlers = createAIProxyHandlers({ env: { ...env, BOTC_AI_ACCESS_SECRET: secret }, fetcher: mockProvider() })
-    expect(handlers.getPublicSettings()).toMatchObject({ mode: 'backend_proxy', model: 'fixed-test-model', timeoutSeconds: 90, apiKeyConfigured: true })
+    expect(handlers.getPublicSettings()).toMatchObject({ mode: 'backend_proxy', model: '服务器私有模型', timeoutSeconds: 90, apiKeyConfigured: true })
   })
 
   it('uses the same fixed resolver for an authorized live-test request', async () => {
@@ -133,7 +136,10 @@ describe('invited fixed-server AI in public runtime mode', () => {
     const route = createAIProxyRoutes(createAIProxyHandlers({ env, fetcher }), { env })
     const cookie = await authorize(route)
     const response = await route(request('/api/settings/ai/live-test', { method: 'POST', headers: { Cookie: cookie }, body: '{}' }))
-    expect(await response.json()).toMatchObject({ ok: true, code: 'AI_PROVIDER_READY', model: 'fixed-test-model' })
+    const text = await response.text()
+    expect(JSON.parse(text)).toMatchObject({ ok: true, code: 'AI_PROVIDER_READY', model: '服务器私有模型' })
+    expect(text).not.toContain('fixed-test-model')
+    expect(JSON.parse(String(fetcher.mock.calls[0][1]?.body)).model).toBe('fixed-test-model')
     expect(fetcher).toHaveBeenCalledExactlyOnceWith('https://server-provider.example.test/v1/chat/completions', expect.objectContaining({ redirect: 'error' }))
   })
 
@@ -185,7 +191,7 @@ describe('invited fixed-server AI in public runtime mode', () => {
     tempDirs.push(directory)
     const route = createArchiveRuntime({ publicAccessMode: true, dataFile: path.join(directory, 'archives.json'), recoveryDataFile: path.join(directory, 'recovery.json') })
     const settings = await route(request('/api/settings/ai'))
-    expect((await settings.json()).settings).toMatchObject({ mode: 'backend_proxy', model: 'fixed-test-model', timeoutSeconds: 90 })
+    expect((await settings.json()).settings).toMatchObject({ mode: 'backend_proxy', model: '服务器私有模型', timeoutSeconds: 90 })
     const cookie = await authorize(route)
     for (const pathname of ['/api/archives', '/api/recovery/snapshots']) {
       for (const method of ['GET', 'POST']) {

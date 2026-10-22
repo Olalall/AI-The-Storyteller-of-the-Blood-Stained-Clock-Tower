@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import { ChevronDown } from 'lucide-react'
 import { Button } from '../../components/ui/Button'
 import { Sheet } from '../../components/ui/Sheet'
 import { Field } from '../../components/ui/Field'
@@ -21,6 +22,8 @@ export function RulesAdvisorSheet({ open, onOpenChange, initialScriptId, conceal
   const [question, setQuestion] = useState(''), [turns, setTurns] = useState<Turn[]>([])
   const [status, setStatus] = useState<BackendAIStatus | null>(null), [error, setError] = useState('')
   const [busy, setBusy] = useState(false), [loadingPack, setLoadingPack] = useState(false)
+  const [contextOpen, setContextOpen] = useState(false)
+  const contextId = useId()
   const request = useRef<AbortController | null>(null), conversation = useRef<HTMLDivElement>(null)
   const runtime = readAIRuntimeSettings()
   const contextKey = `${scriptId}:${roleId}`
@@ -61,28 +64,30 @@ export function RulesAdvisorSheet({ open, onOpenChange, initialScriptId, conceal
     } finally { if (request.current === controller) { request.current = null; setBusy(false) } }
   }
 
-  return <Sheet open={open} onOpenChange={onOpenChange} title="钟楼搭档" description="板子与角色问答 · 建议由说书人核对" contentClassName="sheet-content--rules-advisor">
+  return <Sheet open={open} onOpenChange={onOpenChange} title="钟楼搭档" description="规则有疑问，随时聊聊" contentClassName="sheet-content--rules-advisor">
     {concealed ? <p>遮蔽中，请先退出遮蔽再查看问答。</p> : <div className="rules-advisor">
-      <div className="rules-advisor__context">
+      <Button variant="ghost" className="rules-advisor__scope" aria-label="问答范围" aria-expanded={contextOpen} aria-controls={contextId} onClick={() => setContextOpen(!contextOpen)}><span>{scopeLabel}</span><span>更换<ChevronDown aria-hidden="true" /></span></Button>
+      {contextOpen ? <div id={contextId} className="rules-advisor__context">
         <Field label="搜索问答板子"><input type="search" value={search} disabled={busy} onChange={event => setSearch(event.target.value)} placeholder="板子名称或英文 ID" /></Field>
         <Field label="问答板子"><select value={scriptId} disabled={busy} onChange={event => { setScriptId(event.target.value); setRoleId('') }}>{choices.map(script => <option key={script.scriptId} value={script.scriptId}>{script.displayName}</option>)}</select></Field>
         <Field label="关注角色"><select value={roleId} disabled={busy || loadingPack || !pack} onChange={event => setRoleId(event.target.value)}><option value="">全板规则与搭配</option>{pack?.roles.map(role => <option key={role.id} value={role.id}>{role.name}</option>)}</select></Field>
-        <p className="rules-advisor__note">只发送所选板子、角色资料和最近4轮同主题对话。不读取本局身份、状态或记录。选择板子不会切换对局。</p>
-      </div>
+        <p className="rules-advisor__note">仅改变问答范围，不切换本局。</p><Button onClick={() => setContextOpen(false)}>完成</Button>
+      </div> : null}
       <div ref={conversation} className="rules-advisor__conversation" role="log" aria-label="规则问答对话" aria-relevant="additions" aria-live="polite">
-        {!turns.length ? <div className="rules-advisor__welcome"><strong>我是你的钟楼搭档。</strong><p>可以问技能怎么发动、夜序如何衔接，或两个角色碰在一起怎么处理。我会先讲结论，再给依据；资料不足时会追问。</p><p className="rules-advisor__note">例如：这块板的首夜有哪些特别步骤？某角色中毒后要注意什么？</p></div> : turns.map((turn, index) => <article key={index}>
-          <p className="rules-advisor__question"><span>你 · {turn.answer.scopeLabel}</span>{turn.question}</p>
+        {!turns.length ? <div className="rules-advisor__welcome"><strong>这局有什么疑问？</strong><p>聊聊技能、夜序，或角色之间的配合。</p></div> : turns.map((turn, index) => <article key={index}>
+          <p className="rules-advisor__question"><span>{turn.answer.scopeLabel}</span>{turn.question}</p>
           <RulesAdvisorAnswer answer={turn.answer} />
         </article>)}
-        {busy ? <p role="status">正在查阅 {scopeLabel} 的已存资料并组织回答…可以先关闭侧窗，回来继续查看。</p> : null}
+        {busy ? <p className="rules-advisor__note" role="status">正在查阅资料…</p> : null}
       </div>
-      {status?.state === 'locked' ? <AIAccessSettings runtime={runtime} authorized={false} onChanged={refreshStatus} /> : null}
+      {status?.state === 'locked' ? <AIAccessSettings compact runtime={runtime} authorized={false} onChanged={refreshStatus} /> : null}
       {status && status.state !== 'ready' && status.state !== 'locked' ? <p role="status">{status.message}<Button variant="ghost" onClick={() => { void refreshStatus() }}>重新检查</Button></p> : null}
       {error ? <p role="alert">{error}</p> : null}
-      <form className="rules-advisor__composer" onSubmit={event => { event.preventDefault(); void send() }}>
-        <Field label={`询问 · ${scopeLabel}`}><textarea aria-label="规则问题" rows={3} maxLength={1200} value={question} disabled={busy} onChange={event => setQuestion(event.target.value)} placeholder="描述问题；涉及具体局面时，请补充生死、毒醉和发生时点。" /></Field>
-        <div className="rules-advisor__footer"><span className="rules-advisor__note">{loadingPack ? '正在加载板子资料…' : !status ? '正在检查 AI 访问…' : '对话仅留在本页，刷新后清空。每次发送会调用 AI。'}</span><Button type="submit" variant="primary" disabled={busy || loadingPack || !pack || !question.trim() || status?.state !== 'ready'}>{busy ? '回答中' : '发送'}</Button></div>
-      </form>
+      {status?.state !== 'locked' ? <form className="rules-advisor__composer" onSubmit={event => { event.preventDefault(); void send() }}>
+        <textarea aria-label="规则问题" rows={2} maxLength={1200} value={question} disabled={busy} onChange={event => setQuestion(event.target.value)} placeholder="问点什么…" />
+        <Button type="submit" variant="primary" disabled={busy || loadingPack || !pack || !question.trim() || status?.state !== 'ready'}>{busy ? '回答中' : '发送'}</Button>
+      </form> : null}
+      <div className="rules-advisor__footer"><span className="rules-advisor__note" role="status">{loadingPack ? '加载资料中…' : !status ? '检查访问中…' : 'AI 回答供核对'}</span><details><summary>使用说明</summary><p>不读取本局身份和记录。仅发送所选资料、你的问题和最近4轮同主题对话；每次发送会调用 AI。对话刷新后清空。</p></details></div>
     </div>}
   </Sheet>
 }

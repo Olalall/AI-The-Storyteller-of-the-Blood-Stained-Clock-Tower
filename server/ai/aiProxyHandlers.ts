@@ -122,7 +122,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
         return {
           ok: false,
           provider: settings.provider,
-          model: settings.model,
+          model: publicAISettingsFrom(settings).model,
           code: 'AI_PROVIDER_UNCONFIGURED',
           message: 'AI 配置不完整，未发起模型调用。',
         }
@@ -130,7 +130,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
       return {
         ok: true,
         provider: settings.provider,
-        model: settings.model,
+        model: publicAISettingsFrom(settings).model,
         code: 'AI_PROVIDER_READY',
         message: 'AI 后端配置已就绪；本次只检查配置，未调用模型。',
       }
@@ -150,7 +150,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
         return {
           ok: false,
           provider: settings.provider,
-          model: settings.model,
+          model: publicAISettingsFrom(settings).model,
           code: 'AI_PROVIDER_UNCONFIGURED',
           message: '缺少接入地址、模型或 API KEY，未调用模型。',
         }
@@ -161,7 +161,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
         return {
           ok: true,
           provider: settings.provider,
-          model: settings.model,
+          model: publicAISettingsFrom(settings).model,
           code: 'AI_PROVIDER_READY',
           message: '真实连通成功；模型已返回可解析 JSON。',
         }
@@ -170,7 +170,7 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
         return {
           ok: false,
           provider: settings.provider,
-          model: settings.model,
+          model: publicAISettingsFrom(settings).model,
           code,
           message: '真实连通失败；请检查地址、模型、Key、额度或网络。',
         }
