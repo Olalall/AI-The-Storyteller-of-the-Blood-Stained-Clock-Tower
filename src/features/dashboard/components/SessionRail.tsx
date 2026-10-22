@@ -15,6 +15,7 @@ function latestSummary(session: GameSessionState) {
   const latest = [...projectEffectiveTimelineEntries(session.timeline)]
     .sort((left, right) => right.createdAt.localeCompare(left.createdAt) || right.id.localeCompare(left.id))[0]
   if (!latest) return '尚无确认记录'
+  if (latest.kind === 'ability_changed') return `${latest.seatId}号${latest.abilityRole ? `获得${latest.abilityRole.name}能力` : '失去额外能力'}`
   if (latest.kind === 'night_action' || latest.kind === 'day_action') return latest.summary
   if (latest.kind === 'vote_round') return `${latest.nominatorSeatId}号提名${latest.nomineeSeatId}号 · ${latest.raisedSeatIds.length}票`
   if (latest.kind === 'execution') return `确认处决${latest.executedSeatId}号`

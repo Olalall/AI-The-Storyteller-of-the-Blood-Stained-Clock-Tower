@@ -3,6 +3,7 @@ import type { NightActionEntry } from './nightTypes'
 import type { PlayerStateChangedEntry } from './playerTypes'
 import type { SetupChangedEntry, SetupConfirmedEntry } from './setupTypes'
 import type { TimelineBase } from './timelineBaseTypes'
+import type { AbilityChangedEntry } from './abilityTypes'
 
 export interface VoteRoundEntry extends TimelineBase {
   kind: 'vote_round'
@@ -31,6 +32,7 @@ export interface ExecutionEntry extends TimelineBase {
 }
 
 export type TimelineEntry =
+  | AbilityChangedEntry
   | SetupConfirmedEntry
   | SetupChangedEntry
   | PlayerStateChangedEntry

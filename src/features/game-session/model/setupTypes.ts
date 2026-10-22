@@ -84,7 +84,7 @@ export interface SetupChangedEntry extends TimelineBase {
   originNightRunId: string | null
   /** 由说书人应用的首夜分配来源；只追加事件，不改写来源快照。 */
   sourceNightActionId?: string
-  nightAbilityTiming?: 'tonight' | 'initial' | 'later'
+  nightAbilityTiming?: 'tonight' | 'initial' | 'initial-and-tonight' | 'later'
   seatId: number
   fromRole: RoleSnapshot
   toRole: RoleSnapshot

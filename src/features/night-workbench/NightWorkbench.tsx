@@ -105,6 +105,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
   const canRevealInformation = current.targetRoleChoiceCount === undefined && canRevealNightResult(current.roleId) && !state.privacyShielded && !isPreviewing && Boolean(draft.outcomeId && draft.informationGiven.trim())
   const visibleNotice = state.lastNotice?.includes('夜序快照') ? '' : state.privacyShielded && state.lastNotice ? '提示内容已遮蔽，解除遮蔽后查看。' : state.lastNotice
   const isSettled = (current.progress === 'confirmed' && !isCorrecting)
+    || current.applicability === 'not_applicable'
     || current.progress === 'deferred'
     || current.progress === 'skipped'
     || current.progress === 'not_applicable'

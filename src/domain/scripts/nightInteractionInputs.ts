@@ -4,6 +4,19 @@ export type NightInformationInput = { kind: 'number'; maximum?: number } | { kin
 const yesNo: NightInformationInput = { kind: 'choice', choices: [{ id: 'yes', label: '是', information: '是。' }, { id: 'no', label: '否', information: '否。' }] }
 // 这里只描述记录表单，不执行技能；来源为对应角色官方规则。
 export const nightInteractionInputs: Readonly<Record<string, { targetCount?: number; aiAdviceEnabled?: boolean; firstNightTargetCount?: number; otherNightTargetCount?: number; allowedTargetCounts?: number[]; roleCount?: number; firstNightRoleCount?: number; targetKind?: 'storyteller_info'; revealResult?: boolean; informationInput?: NightInformationInput; midgameInitialization?: { label: string; prompt: string; resultTemplate: string }; choiceResults?: readonly { id: string; label: string }[] }>> = {
+  grandmother: { targetCount: 1, roleCount: 1, targetKind: 'storyteller_info' },
+  ravenkeeper: { targetCount: 1, roleCount: 1, targetKind: 'storyteller_info' },
+  clockmaker: { targetCount: 0, informationInput: { kind: 'number' } },
+  shugenja: { targetCount: 0, informationInput: { kind: 'choice', choices: [
+    { id: 'clockwise', label: '顺时针', information: '最近邪恶玩家位于顺时针方向。' },
+    { id: 'anticlockwise', label: '逆时针', information: '最近邪恶玩家位于逆时针方向。' },
+  ] } },
+  general: { targetCount: 0, informationInput: { kind: 'choice', choices: [
+    { id: 'good', label: '善良占优', information: '善良阵营占优。' },
+    { id: 'evil', label: '邪恶占优', information: '邪恶阵营占优。' },
+    { id: 'balanced', label: '势均力敌', information: '双方势均力敌。' },
+  ] } },
+  summoner: { firstNightTargetCount: 0, otherNightTargetCount: 1, firstNightRoleCount: 3 },
   chef: { informationInput: { kind: 'number' } },
   empath: { informationInput: { kind: 'number', maximum: 2 } },
   mathematician: { informationInput: { kind: 'number' } },

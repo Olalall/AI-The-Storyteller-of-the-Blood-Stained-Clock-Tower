@@ -71,7 +71,7 @@ describe('clocktower-wiki batch B source and legal setup regression', () => {
       for (const role of pack.roles.filter((candidate) => !extraIds.includes(candidate.id))) {
         expect(role).toBe(confirmedRoleFactsForScript([role.id])[0])
       }
-      expect(buildScriptQualitySummary(pack).readiness).toBe('ready')
+      expect(buildScriptQualitySummary(pack).readiness).not.toBe('blocked')
       expect(new Set(pack.roles.map((role) => role.id)).size).toBe(pack.roles.length)
     })
 

@@ -3,11 +3,12 @@ import { smartScriptPacks as sourcePacks } from '../../domain/scripts/allPacks'
 import { smartScriptRegistry, roleSnapshotsForScript } from '../../domain/scripts'
 import { scriptManifest } from '../../domain/scripts/catalog'
 import type { SmartScriptPack } from '../../domain/scripts'
+import { normalizeImportedPack } from '../../domain/scripts/normalizeImportedPack'
 import { actualCompositionForTemplate, validateTemplateComposition } from '../../domain/setup-templates/composition'
 import { createSmartScriptSetupCandidates, evaluateSmartScriptSetup } from './smartScriptSetupCandidates'
 import { hasBlockingSetupIssue } from './setupRuleEvaluator'
 
-const smartScriptPacks: readonly SmartScriptPack[] = sourcePacks
+const smartScriptPacks: readonly SmartScriptPack[] = sourcePacks.map(normalizeImportedPack)
 for (const pack of smartScriptPacks) if (!smartScriptRegistry.get(pack.scriptId)) smartScriptRegistry.register(pack)
 const pack = smartScriptPacks.find((entry) => entry.scriptId === 'one-in-one-out')!
 function board(roles: readonly string[], currentPack: SmartScriptPack = pack) {

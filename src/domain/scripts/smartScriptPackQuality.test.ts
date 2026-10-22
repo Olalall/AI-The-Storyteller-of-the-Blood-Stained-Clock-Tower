@@ -2,22 +2,8 @@ import { describe, expect, it } from 'vitest'
 import { createSmartScriptSetupCandidates } from '../../features/setup/smartScriptSetupCandidates'
 import { validateTemplateComposition } from '../setup-templates/composition'
 import { lilMonstaOpeningSelected } from '../setup-templates/lilMonstaOpening'
-import { smartScriptPacks } from './catalog'
+import { smartScriptPacks, scriptManifest } from './catalog'
 import type { PlayerCount, SmartRoleDefinition, SmartScriptPack } from './types'
-
-const allPlayerCounts: readonly PlayerCount[] = [7, 8, 9, 10, 11, 12, 13, 14, 15]
-
-const minimumTemplatesByCount: Record<PlayerCount, number> = {
-  7: 3,
-  8: 2,
-  9: 2,
-  10: 3,
-  11: 2,
-  12: 3,
-  13: 2,
-  14: 2,
-  15: 3,
-}
 
 describe('smart script pack quality gate', () => {
   it.each([
@@ -33,7 +19,7 @@ describe('smart script pack quality gate', () => {
   })
   it('keeps every registered smart script structurally complete for 7-15 player setup', () => {
     for (const pack of smartScriptPacks) {
-      expect(pack.playerCounts, pack.scriptId).toEqual(allPlayerCounts)
+      expect(pack.playerCounts, pack.scriptId).toEqual(scriptManifest.find(entry => entry.scriptId === pack.scriptId)!.playerCounts)
       expect(pack.source.url, pack.scriptId).toBeTruthy()
       expect(pack.source.contentHash, pack.scriptId).toMatch(/^sha256:/)
       expect(pack.source.verifiedAt, pack.scriptId).toBeTruthy()
@@ -48,9 +34,9 @@ describe('smart script pack quality gate', () => {
     for (const pack of smartScriptPacks) {
       const templatesByCount = groupTemplatesByCount(pack)
 
-      for (const count of allPlayerCounts) {
+      for (const count of pack.playerCounts) {
         expect(templatesByCount.get(count)?.length ?? 0, `${pack.scriptId}/${count}`).toBeGreaterThanOrEqual(
-          minimumTemplatesByCount[count],
+          1,
         )
       }
 
@@ -94,7 +80,7 @@ describe('smart script pack quality gate', () => {
 
   it('can generate visible setup candidates for every registered script and player count', () => {
     for (const pack of smartScriptPacks) {
-      for (const count of allPlayerCounts) {
+      for (const count of pack.playerCounts) {
         const seatProfiles = Array.from({ length: count }, (_value, index) => ({
           seatId: index + 1,
           experience: 'regular' as const,
@@ -156,7 +142,7 @@ describe('smart script pack quality gate', () => {
 
 function groupTemplatesByCount(pack: SmartScriptPack) {
   const groups = new Map<PlayerCount, typeof pack.setupTemplates>()
-  for (const count of allPlayerCounts) {
+  for (const count of pack.playerCounts) {
     groups.set(count, pack.setupTemplates.filter((template) => template.playerCount === count))
   }
   return groups

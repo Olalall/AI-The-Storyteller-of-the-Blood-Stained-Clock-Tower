@@ -76,6 +76,7 @@ function roleChangeTiming(entry: Extract<TimelineEntry, { kind: 'setup_changed' 
   if (!entry.originNightRunId) return '从后续工作台起生效'
   if (entry.nightAbilityTiming === 'tonight') return '身份立即更新，新能力按本夜夜序处理'
   if (entry.nightAbilityTiming === 'initial') return '身份立即更新，本夜仅处理新角色初始化'
+  if (entry.nightAbilityTiming === 'initial-and-tonight') return '身份立即更新，本夜先初始化宿主，再在合法时点处理一次攻击'
   if (entry.nightAbilityTiming === 'later') return '身份立即更新，本夜不再发动新能力'
   if (entry.sourceNightActionId) return '首夜分配已应用，新角色按本夜夜序处理'
   return '身份已更新；旧记录未注明本夜能力安排，请核对原记录'
@@ -93,6 +94,9 @@ function stateLabel(entry: Extract<TimelineEntry, { kind: 'player_state_changed'
  */
 function historyFields(session: GameSessionState, entry: TimelineEntry): TimelineHistoryFieldSet {
   switch (entry.kind) {
+    case 'ability_changed':
+      return { category: 'role_change', summary: `${entry.seatId}号${entry.abilityRole ? `获得${entry.abilityRole.name}能力` : '失去额外能力'}（身份仍为${entry.actorRole.name}）`,
+        details: [`来源：${entry.sourceSeatId}号 · ${entry.sourceRoleId}`, entry.reason, entry.timing === 'tonight' ? '主持确认本夜处理' : '本夜不再发动'], seatIds: uniqueSeatIds([entry.seatId, entry.sourceSeatId]) }
     case 'setup_confirmed':
       return {
         category: 'setup' as const,
@@ -178,6 +182,8 @@ function historyFields(session: GameSessionState, entry: TimelineEntry): Timelin
 function correctionHelp(entry: TimelineEntry, isSuperseded: boolean) {
   if (isSuperseded) return '这条记录已有更新，请在最新版本上继续更正。'
   switch (entry.kind) {
+    case 'ability_changed':
+      return '从“能力继承”追加撤销或新的能力确认；原记录保留。'
     case 'night_action':
     case 'day_action':
       return undefined
