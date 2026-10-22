@@ -1,5 +1,5 @@
 ﻿import { describe, expect, it } from 'vitest'
-import { isAIProviderConfigured, readAIProviderPrivateSettings, readPublicAISettings } from './aiProviderSettings'
+import { isAIProviderConfigured, publicAISettingsFrom, readAIProviderPrivateSettings, readPublicAISettings } from './aiProviderSettings'
 
 const secret = 'sk-test-secret-should-not-leak'
 
@@ -34,13 +34,14 @@ describe('AI provider settings', () => {
     expect(settings).toEqual({
       mode: 'backend_proxy',
       provider: 'openai-compatible',
-      baseUrl: 'https://ai.example.test/v1',
+      baseUrl: '/api/ai',
       model: 'review-model',
       timeoutSeconds: 45,
       contextLimit: 9000,
       apiKeyConfigured: true,
     })
     expect(JSON.stringify(settings)).not.toContain(secret)
+    expect(JSON.stringify(settings)).not.toContain('https://ai.example.test/v1')
   })
 
   it('keeps the private key out of public settings while allowing internal readiness checks', () => {
@@ -53,8 +54,11 @@ describe('AI provider settings', () => {
 
     expect(privateSettings.apiKey).toBe(secret)
     expect(isAIProviderConfigured(privateSettings)).toBe(true)
-    const { apiKey: _apiKey, enabled: _enabled, ...publicSettings } = privateSettings
+    const publicSettings = publicAISettingsFrom(privateSettings)
     expect(JSON.stringify(publicSettings)).not.toContain(secret)
+    expect(publicSettings.baseUrl).toBe('/api/ai')
+    expect(privateSettings.baseUrl).toBe('https://ai.example.test/v1')
+    expect(isAIProviderConfigured(privateSettings)).toBe(true)
   })
 
   it('falls back to safe numeric defaults for invalid timeout and context limits', () => {
