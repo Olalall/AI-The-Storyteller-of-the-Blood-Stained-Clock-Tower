@@ -18,7 +18,7 @@ it('keeps records and the current view visible while moving teaching and game en
 
   expect(screen.getByRole('button', { name: /本局记录/ })).toBeVisible()
   expect(screen.getByRole('button', { name: '本局' })).toBeVisible()
-  expect(screen.getByRole('list', { name: '阶段进度，可左右滑动' }).querySelector('[aria-current="step"]')).toHaveTextContent('夜第3夜')
+  expect(screen.getByRole('list', { name: '阶段进度，可左右滑动' }).querySelector('[aria-current="step"]')).toHaveTextContent('夜晚第3夜')
   fireEvent.click(screen.getByRole('button', { name: '更多' }))
   expect(screen.getByRole('heading', { name: '更多主持功能' })).toBeVisible()
   expect(screen.getByRole('button', { name: '新手教学' })).toBeVisible()

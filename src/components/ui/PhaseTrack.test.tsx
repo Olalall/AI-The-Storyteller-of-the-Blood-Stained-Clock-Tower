@@ -5,10 +5,10 @@ import { PhaseTrack } from './PhaseTrack'
 
 const nodes: readonly PhaseTrackNode[] = [
   { id: 'dusk', label: '黄昏', status: 'done' },
-  { id: 'night', label: '夜', status: 'done', segmentLabel: '第3夜' },
+  { id: 'night', label: '夜晚', status: 'done', segmentLabel: '第3夜' },
   { id: 'dawn', label: '黎明', status: 'done' },
   { id: 'day', label: '白天', status: 'open', segmentLabel: '第3天' },
-  { id: 'vote', label: '提名投票', status: 'open' },
+  { id: 'vote', label: '投票', status: 'open' },
   { id: 'execution', label: '处决', status: 'suggest' },
 ]
 
@@ -16,7 +16,7 @@ it('marks the explicit current stage and keeps the horizontal rail keyboard-scro
   render(<PhaseTrack nodes={nodes} currentNodeId="vote" />)
 
   const list = screen.getByRole('list', { name: '阶段进度，可左右滑动' })
-  expect(list.querySelector('[aria-current="step"]')).toHaveTextContent('提名投票')
+  expect(list.querySelector('[aria-current="step"]')).toHaveTextContent('投票')
 
   const scrollTo = vi.fn()
   Object.defineProperties(list, {

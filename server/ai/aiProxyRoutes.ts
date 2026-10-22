@@ -2,6 +2,8 @@ import type { createAIProxyHandlers } from './aiProxyHandlers'
 import { aiApiError, json } from './aiErrors'
 import { isNightSettlementRequest, isSetupAdviceRequest } from './aiRequestValidators'
 import { createAIAccessGuard } from './aiAccess'
+import { AIProviderError } from './aiProviderClient'
+import { isRulesAdvisorRequest } from '../../src/services/ai/rulesAdvisorTypes'
 
 export type AIProxyHandlers = ReturnType<typeof createAIProxyHandlers>
 
@@ -33,6 +35,17 @@ export function createAIProxyRoutes(handlers: AIProxyHandlers, options: { env?: 
         return json(await handlers.liveTestProviderSettings())
       } catch {
         return aiApiError('BAD_REQUEST', 400)
+      }
+    }
+    if (request.method === 'POST' && url.pathname === '/api/ai/rules-advisor') {
+      try {
+        const body: unknown = JSON.parse(await request.text())
+        if (!isRulesAdvisorRequest(body)) return aiApiError('BAD_REQUEST', 400)
+        const response = json({ accepted: true, data: { answer: await handlers.answerRulesQuestion(body) } })
+        response.headers.set('Cache-Control', 'no-store')
+        return response
+      } catch (error) {
+        return error instanceof AIProviderError ? aiApiError(error.code, error.status) : aiApiError('BAD_REQUEST', 400)
       }
     }
     if (request.method === 'POST' && url.pathname === '/api/ai/setup-advice') {
