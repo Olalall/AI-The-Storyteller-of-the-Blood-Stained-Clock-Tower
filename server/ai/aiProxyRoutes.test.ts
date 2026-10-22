@@ -105,6 +105,8 @@ describe('AI proxy routes', () => {
     const body = JSON.parse(text) as { settings: Record<string, unknown> }
     expect(body.settings.apiKeyConfigured).toBe(true)
     expect(body.settings).not.toHaveProperty('apiKey')
+    expect(body.settings.baseUrl).toBe('/api/ai')
+    expect(text).not.toContain('https://ai.example.test/v1')
   })
 
   it('checks disabled settings without calling a provider', async () => {
