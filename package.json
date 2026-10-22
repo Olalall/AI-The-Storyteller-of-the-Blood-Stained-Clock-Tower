@@ -23,6 +23,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "test:e2e:pwa": "playwright test --config playwright.pwa.config.ts",
+    "test:e2e:ipad": "playwright test --config playwright.ipad.config.ts",
     "test:e2e:mobile-audit": "npm run build && playwright test --config playwright.mobile-audit.config.ts",
     "smoke:backend": "npm run build:backend && node scripts/smoke-backend-runtime.mjs",
     "verify:architecture": "node scripts/verify-architecture.mjs",

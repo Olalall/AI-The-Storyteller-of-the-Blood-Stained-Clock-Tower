@@ -48,6 +48,11 @@ export function useGameSession() {
     }
     void acquire()
     const timer = window.setInterval(() => { void acquire() }, 5000)
+    // 后台可能暂停轮询；回到前台立即检查，编辑权仍由同一把锁决定。
+    const foreground = () => {
+      if (active && document.visibilityState === 'visible') void acquire()
+    }
+    document.addEventListener('visibilitychange', foreground)
     let interrupted = false
     const pageHide = () => {
       interrupted ||= lifecycle.current.saveFailed || lifecycle.current.editorStatus === 'conflict' ||
@@ -69,6 +74,7 @@ export function useGameSession() {
     return () => {
       active = false
       window.clearInterval(timer)
+      document.removeEventListener('visibilitychange', foreground)
       window.removeEventListener('pagehide', pageHide)
       window.removeEventListener('pageshow', pageShow)
       void lock.release().catch(() => undefined)

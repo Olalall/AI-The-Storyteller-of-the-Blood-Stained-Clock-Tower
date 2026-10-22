@@ -163,9 +163,14 @@ test('真实后退前进与返回旧文档不覆盖接手页新内容，记录�
   await page.goto(parked.href)
   await ready(second)
   const latest = await changeOneState(second, info, checks.raw)
+  const returnStarted = Date.now()
   await page.goBack({ waitUntil: 'commit' })
+  // Cold PWA module/knowledge loading precedes the editor; measure both stages separately.
+  await expect(page.locator('.dashboard')).toBeVisible({ timeout: 30_000 })
+  const returnAppReadyMs = Date.now() - returnStarted
   const protection = page.getByRole('dialog', { name: '编辑保护', exact: true })
   await expect(protection).toBeVisible({ timeout: readyTimeout })
+  const protectionAfterAppReadyMs = Date.now() - returnStarted - returnAppReadyMs
   expect(await writeHistory(page)).toEqual(originalDocumentWrites)
   await assertData(page, context, checks, latest)
   const eventsAfterBack = await historyEvents(page)
@@ -174,12 +179,14 @@ test('真实后退前进与返回旧文档不覆盖接手页新内容，记录�
     project: info.project.name,
     actualPersistedRestore: actualRestores.length > 0,
     syntheticPageTransitionEvents: false,
+    returnAppReadyMs,
+    protectionAfterAppReadyMs,
     claim: actualRestores.length ? 'real BFCache pageshow observed before product reload' : 'real back/forward navigation passed; no persisted restore observed',
     events: eventsAfterBack,
     cdpNotRestored,
   })
   await page.screenshot({ path: info.outputPath('back-to-old-document-blocked.png'), animations: 'disabled' })
-  await page.goForward({ waitUntil: 'commit' })
+  await page.goForward({ waitUntil: 'load' })
   await expect(page).toHaveURL(/favicon\.svg\?lifecycle-parked/)
   await second.close()
   const started = Date.now()
@@ -224,7 +231,7 @@ test('移动端未交付beforeunload且保存超额时，真实BFCache返回保�
   parked.hostname = 'localhost'
   await page.goto(parked.href)
   await page.goBack({ waitUntil: 'commit' })
-  await expect(page.locator('.dashboard')).toBeVisible()
+  await expect(page.locator('.dashboard')).toBeVisible({ timeout: 30_000 })
   await page.waitForLoadState('networkidle')
   const events = await historyEvents(page)
   const actualRestore = events.some((event) => event.type === 'pageshow' && event.persisted && new URL(event.url).pathname === '/')
