@@ -23,6 +23,7 @@ export interface ComplexRoleKnowledge {
   aiCan: readonly string[]
   aiCannot: readonly string[]
   sourceDoc: string
+  sourceUrls?: readonly string[]
 }
 
 export interface AIRoleKnowledgeBrief {
@@ -32,6 +33,7 @@ export interface AIRoleKnowledgeBrief {
   requiredContext: readonly string[]
   reminders: readonly string[]
   aiCannot: readonly string[]
+  sourceUrls?: readonly string[]
 }
 
 const baseDoc = 'dev-docs/role-research'
@@ -82,7 +84,7 @@ export const complexRoleKnowledge: readonly ComplexRoleKnowledge[] = [
   k('amnesiac', '失忆者', ['discretion', 'hidden-info'], ['自定义能力', '每日猜测', '准确度反馈'], ['自定义能力不能由系统推断。'], ['整理能力草稿', '记录猜测反馈'], ['自动创造权威能力', '自动判断准确度']),
   k('artist', '艺术家', ['hidden-info'], ['是否已使用', '是/否问题', '说书人回答'], ['每局一次白天私问是/否问题。'], ['整理问题文本', '记录回答'], ['替说书人决定答案', '自动消耗能力']),
   k('savant', '博学者', ['hidden-info', 'discretion'], ['今日是否拜访', '两条信息', '真假关系'], ['每天两条信息，一真一假。'], ['生成一真一假草稿', '提醒信息强度'], ['自动发送信息', '把草稿当最终信息']),
-  k('philosopher', '哲学家', ['drunk', 'hidden-info'], ['是否已使用', '选择善良角色', '该角色是否在场', '哲学家当前是否存活且清醒健康'], ['获得所选善良角色能力；若在场，原拥有者醉酒。', '哲学家死亡、醉酒或中毒时，被其致醉的玩家恢复清醒；若所选角色原本不在场、之后中途在场，该玩家同样醉酒（动态检测）。'], ['提醒是否在场', '生成获得能力草稿'], ['自动授予能力', '自动让原角色醉酒']),
+  k('philosopher', '哲学家', ['drunk', 'hidden-info'], ['是否已使用', '选择善良角色', '该角色是否在场', '哲学家当前是否存活且清醒健康'], ['获得所选善良角色能力；若在场，原拥有者醉酒。', '哲学家死亡、醉酒或中毒时，被其致醉的玩家恢复清醒；若所选角色原本不在场、之后中途在场，该玩家同样醉酒（动态检测）。', '获得夜间能力后按该能力时点唤醒；即使在后续夜晚获得只在首夜使用的能力，也在获得当晚使用，不能仅因全局不是首夜而跳过。'], ['提醒是否在场', '生成获得能力草稿'], ['自动授予能力', '自动让原角色醉酒'], ['https://wiki.bloodontheclocktower.com/Philosopher']),
   k('cannibal', '食人族', ['poison', 'hidden-info', 'delayed'], ['最近被处决死亡者', '其阵营', '当前获得能力'], ['拥有最近被处决死亡者能力；若对方邪恶则中毒。', '不要告诉食人族他获得了什么能力，他必须自己弄明白；只按所获角色的正常唤醒时机给信息。'], ['提醒更新获得能力', '提醒中毒条件'], ['自动授予能力', '自动解除中毒', '向食人族透露其获得的具体能力']),
   k('dreamer', '筑梦师', ['hidden-info'], ['非自己且非旅行者的目标', '善良角色和邪恶角色', '目标当前真实角色', '筑梦师当前是否有效'], ['每夜可选择除自己和旅行者以外的一名玩家，允许选择已死亡玩家，没有仅限存活的要求。', '正常有效且无其他信息干扰时，给一个善良角色和一个邪恶角色，其中一个是目标真实角色；一善一恶指角色类型，不是目标当前阵营。', '筑梦师毒醉时信息不必含真实角色；主持选定告知内容，玩家稿只给两个候选角色，不揭穿哪一个真、不泄露毒醉。'], ['组织两个角色信息草稿', '核对目标范围与信息真实性条件'], ['自动决定误导角色', '自动发送信息']),
   k('fortuneteller', '占卜师', ['hidden-info', 'setup'], ['两名目标', '红鲱鱼', '是否含恶魔'], ['一名善良玩家对占卜师登记为恶魔。', '占卜师可以选择任意两名玩家（无论存活与否，甚至可以选择自己）；选中已死亡的恶魔仍会得知“是”。'], ['提醒红鲱鱼', '生成是/否草稿'], ['自动选择红鲱鱼', '自动发送答案']),
@@ -142,6 +144,7 @@ export function roleKnowledgeForAI(roleId: RoleId): AIRoleKnowledgeBrief | undef
     requiredContext: knowledge.requiredContext.slice(0, 4),
     reminders: knowledge.reminders.slice(0, 3),
     aiCannot: knowledge.aiCannot.slice(0, 4),
+    ...(knowledge.sourceUrls ? { sourceUrls: knowledge.sourceUrls } : {}),
   }
 }
 
@@ -153,6 +156,7 @@ function k(
   reminders: readonly string[],
   aiCan: readonly string[],
   aiCannot: readonly string[],
+  sourceUrls?: readonly string[],
 ): ComplexRoleKnowledge {
   return {
     roleId,
@@ -163,5 +167,6 @@ function k(
     aiCan,
     aiCannot,
     sourceDoc: `${baseDoc}/${roleId}.md`,
+    ...(sourceUrls ? { sourceUrls } : {}),
   }
 }

@@ -49,7 +49,7 @@ export function SessionBackupSheet({ session, onRestore }: { session: GameSessio
   const phases = preview?.phaseSegments.filter((phase) => !phase.closedAt).map((phase) => phase.label).join('、') || '尚未开始 / 已结束'
   return <Sheet open={open} onOpenChange={(next) => { if (!busy) { setOpen(next); if (!next) { ++reading.current; setPreview(null); setError(''); setConfirmed(false) } } }}
     title="对局备份" description="备份只保存在你的设备中。选择文件后先预览，确认恢复才会替换当前局。"
-    trigger={<Button variant="ghost" compact><ArchiveRestore aria-hidden="true" />备份恢复</Button>}>
+    trigger={<Button variant="ghost" compact aria-label="备份恢复" title="导出或恢复对局备份"><ArchiveRestore aria-hidden="true" />备份</Button>}>
     <div className="session-backup">
       <div className="session-backup__actions">
         <Button onClick={() => downloadSessionBackup(session)} disabled={busy}>导出当前对局</Button>

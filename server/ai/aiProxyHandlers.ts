@@ -1,4 +1,6 @@
 import { AIProviderError, type FetchLike } from './aiProviderClient'
+import { generateRulesAdvisorAnswer } from './rulesAdvisorProvider'
+import type { RulesAdvisorRequest } from '../../src/services/ai/rulesAdvisorTypes'
 import { isAIProviderConfigured, publicAISettingsFrom, readAIProviderPrivateSettings } from './aiProviderSettings'
 import { runOpenAICompatibleLiveTest } from './liveTestProvider'
 import { createOpenAICompatibleNightSettlementProvider, fallbackNightSettlementAdviceDraft } from './nightSettlementProvider'
@@ -92,6 +94,18 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
   return {
     getPublicSettings() {
       return publicAISettingsFrom(privateSettingsForRequest())
+    },
+
+    async answerRulesQuestion(input: RulesAdvisorRequest) {
+      const settings = privateSettingsForRequest()
+      if (!settings.enabled) throw new AIProviderError('AI_PROVIDER_DISABLED', 400)
+      if (settings.provider !== 'openai-compatible' || !isAIProviderConfigured(settings)) {
+        throw new AIProviderError('AI_PROVIDER_UNCONFIGURED', 400)
+      }
+      return generateRulesAdvisorAnswer(input, {
+        baseUrl: settings.baseUrl!, model: settings.model!, apiKey: settings.apiKey!,
+        timeoutSeconds: settings.timeoutSeconds, fetcher: options.fetcher, redirect: 'error',
+      })
     },
 
     testProviderSettings(): AISettingsTestResult {

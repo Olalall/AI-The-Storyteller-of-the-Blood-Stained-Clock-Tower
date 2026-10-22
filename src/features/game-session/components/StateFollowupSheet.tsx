@@ -40,9 +40,10 @@ export function StateFollowupSheet({ session, dispatch, suggestedSourceId }: { s
     setOpen(next)
   }
   return <>
-    <Sheet open={open && !editingId} onOpenChange={changeOpen} title="状态待办" description="从已确认夜晚记录添加；更新玩家状态仍需单独确认。" trigger={<Button variant="ghost" compact>{suggestedSourceId ? '添加状态待办' : `状态待办${pending.length ? ` ${pending.length}` : ''}`}</Button>}>
+    <Sheet open={open && !editingId} onOpenChange={changeOpen} title="状态待办" description="从已确认夜晚记录添加；更新玩家状态仍需单独确认。" trigger={<Button variant="ghost" compact aria-label={suggestedSourceId ? '添加状态待办' : `状态待办${pending.length ? ` ${pending.length}` : ''}`} title="核对夜间记录涉及的玩家状态">{suggestedSourceId ? '添加状态待办' : <>待办{pending.length ? <span aria-hidden="true"> {pending.length}</span> : null}</>}</Button>}>
       <div className="night-close-checklist">
         {concealed ? <p>遮蔽中，请先退出遮蔽再查看状态待办。</p> : <>
+          <p>夜间记录已确认，但还要核对死亡、中毒或醉酒时，可以在这里留一条提醒。添加待办不会改变玩家状态；处理时仍需你确认。换角色或继承能力请使用对应入口。</p>
           <strong>待处理 {pending.length}</strong>
           {correctedCount ? <p className="followup-source-warning">{correctedCount}项待办的来源有更正（含已处理项）。</p> : null}
           <ul aria-label="状态待办清单">{pending.map((task) => <li key={task.id}>
