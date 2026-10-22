@@ -99,7 +99,7 @@ describe('game-session projections', () => {
     expect(run).not.toBeNull()
     expect(run?.phaseSegmentId).toBe(opened.phaseSegments.find((segment) => segment.kind === 'night')?.id)
     expect(run?.queue.length).toBeGreaterThan(0)
-    expect(run?.queue.every((item) => confirmedRoleBySeat.get(item.seatId) === item.roleId)).toBe(true)
+    expect(run?.queue.filter(item=>!item.systemStep).every((item) => confirmedRoleBySeat.get(item.seatId) === item.roleId)).toBe(true)
   })
 
   it('uses the timeline setup snapshot and preserves the current night records as projections', () => {

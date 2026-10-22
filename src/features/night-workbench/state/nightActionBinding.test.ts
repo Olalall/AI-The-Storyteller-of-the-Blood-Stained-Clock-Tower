@@ -5,6 +5,7 @@ import { createPrototypeGameSession } from '../../game-session/data/createProtot
 import { gameSessionReducer } from '../../game-session/state/sessionReducer'
 import { applyOutcome, emptyWakeDraft } from './projectWakeDraft'
 import { useNightWorkbench } from './useNightWorkbench'
+import { sessionInitialNightState } from './gameSessionAdapter'
 
 function preparedSession(targetCount = 0) {
   const session = createPrototypeGameSession()
@@ -15,6 +16,7 @@ function preparedSession(targetCount = 0) {
     outcomeOptions: [{ id: 'skip', label: '不发动', requiredInputs: [], resultTemplate: '{actor}本夜不发动。' }],
   }))
   run.activeCursorId = run.previewEntryId = run.queue[0].id
+  run.queue = sessionInitialNightState({session,dispatchSession:()=>{}})!.queue
   run.drafts = Object.fromEntries(run.queue.map((item) => [item.id, applyOutcome(item, emptyWakeDraft(), 'skip')]))
   return session
 }

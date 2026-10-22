@@ -107,7 +107,7 @@ export interface RoleChangeEvent {
   /** `null` 表示来自配板微调，只用于当前队列快照的角色提示，不写入本夜记录。 */
   originNightRunId: string | null
   sourceNightActionId?: string
-  nightAbilityTiming?: 'tonight' | 'initial' | 'later'
+  nightAbilityTiming?: 'tonight' | 'initial' | 'initial-and-tonight' | 'later'
   phaseLabel: string
   fromRole: RoleSnapshot
   toRole: RoleSnapshot
@@ -243,6 +243,7 @@ export interface SystemStepSpec {
 }
 
 export interface WakeItem {
+  abilitySource?: import('../game-session/model/abilityTypes').AbilitySource
   lilMonstaStep?: 'babysitter' | 'death'
   abilityPhase?: 'initial'
   id: string

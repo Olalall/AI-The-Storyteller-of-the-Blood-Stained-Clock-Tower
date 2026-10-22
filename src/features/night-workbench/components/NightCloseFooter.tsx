@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../../../components/ui/Button'
 import { Sheet } from '../../../components/ui/Sheet'
 import type { GameSessionAction } from '../../game-session/state/sessionReducer'
@@ -6,6 +6,7 @@ import type { GameSessionState } from '../../game-session/types'
 import type { WakeItem } from '../types'
 import './night-close-checklist.css'
 import { wakeShortLabel } from '../state/systemSteps'
+import { projectKazaliAllocation } from '../../game-session/state/applyKazaliAllocation'
 
 interface NightCloseFooterProps {
   session: GameSessionState
@@ -24,6 +25,11 @@ export function NightCloseFooter({ session, dispatch, nightRunId, queue, conceal
   const [reason, setReason] = useState('')
   const run = session.nightRuns[nightRunId]
   const segment = run?.phaseSegmentId ? session.phaseSegments.find((item) => item.id === run.phaseSegmentId) : undefined
+  const allocation = projectKazaliAllocation(session)
+  const allocationPending = allocation?.run.id === nightRunId && !allocation.isApplied
+  useEffect(() => {
+    if (confirming && segment?.closedAt) { setConfirming(false); onExit() }
+  }, [confirming, segment?.closedAt, onExit])
   if (!segment || segment.closedAt) return null
   const unresolved = queue.filter((item) => !['confirmed', 'not_applicable', 'skipped'].includes(item.progress))
   const pendingStateCount = (session.stateFollowups ?? []).filter((task) => !task.resolution).length
@@ -42,6 +48,7 @@ export function NightCloseFooter({ session, dispatch, nightRunId, queue, conceal
     </footer>
     <Sheet open={confirming} onOpenChange={(open) => { setConfirming(open); setSkipId(null); setReason('') }} title={`关闭${segment.label}？`} description="只关闭本夜记录，不会进入白天。">
       <div className="night-close-checklist">
+        {allocationPending ? <p role="alert">请先确认并应用卡扎力首夜爪牙分配，再结束本夜。</p> : null}
         {pendingStateCount ? <p>还有{pendingStateCount}项状态待办，可取消后从顶部“状态待办”处理。关闭本夜会保留待办。</p> : null}
         <strong>{unresolved.length ? `还有${unresolved.length}项未处理` : '夜序已检查完毕'}</strong>
         <ul aria-label="未处理夜序">{unresolved.map((item) => <li key={item.id}>
@@ -55,7 +62,7 @@ export function NightCloseFooter({ session, dispatch, nightRunId, queue, conceal
         </li>)}</ul>
         {skipped.length ? <details><summary>本夜不处理 {skipped.length} 项</summary><ul>{skipped.map((item) => <li key={item.id}><strong>{label(item)}</strong><span>{concealed ? '原因已隐藏' : item.reason}</span><Button variant="ghost" onClick={() => preview(item.id)}>查看{wakeShortLabel(item, concealed)}</Button></li>)}</ul></details> : null}
         {unresolved.length ? <p>可返回继续处理；直接关闭会保留以上未处理状态。</p> : null}
-        <div className="night-close-checklist__actions"><Button variant="ghost" onClick={() => setConfirming(false)}>取消</Button><Button variant="danger" disabled={Boolean(skipId)} onClick={() => { dispatch({ type: 'close-active-night-run', nightRunId, closedAt: new Date().toISOString() }); onExit() }}>确认关闭</Button></div>
+        <div className="night-close-checklist__actions"><Button variant="ghost" onClick={() => setConfirming(false)}>取消</Button><Button variant="danger" disabled={Boolean(skipId) || allocationPending} onClick={() => dispatch({ type: 'close-active-night-run', nightRunId, closedAt: new Date().toISOString() })}>确认关闭</Button></div>
       </div>
     </Sheet>
   </>

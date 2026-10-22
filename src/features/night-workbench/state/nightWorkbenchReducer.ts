@@ -144,16 +144,16 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       })
     case 'second-role-choice': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
-      if (!item || (item.roleCount !== 2 && item.roleCount !== 4) || !canEditItem(state, item)) return state
+      if (!item || ![2, 3, 4].includes(item.roleCount ?? 0) || !canEditItem(state, item)) return state
       return updatePreviewDraft(state, action.at, (draft) => applyDefaultOutcome(item, invalidateOutcome(item, {
         ...draft, secondRoleChoice: draft.secondRoleChoice === action.roleId ? '' : action.roleId,
       })))
     }
     case 'additional-role-choice': {
       const item = state.queue.find((entry) => entry.id === state.previewEntryId)
-      if (!item || item.roleCount !== 4 || !canEditItem(state, item) || !item.roleChoices?.some((role) => role.id === action.roleId)) return state
+      if (!item || ![3, 4].includes(item.roleCount ?? 0) || item.roleCount === 3 && action.index !== 0 || !canEditItem(state, item) || !item.roleChoices?.some((role) => role.id === action.roleId)) return state
       return updatePreviewDraft(state, action.at, (draft) => {
-        const choices = [...(draft.additionalRoleChoices ?? ['', ''])]
+        const choices = [...(draft.additionalRoleChoices ?? (item.roleCount === 3 ? [''] : ['', '']))].slice(0, item.roleCount === 3 ? 1 : 2)
         choices[action.index] = choices[action.index] === action.roleId ? '' : action.roleId
         return invalidateOutcome(item, { ...draft, additionalRoleChoices: choices })
       })
@@ -258,8 +258,15 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       )
       return { ...state, queue, revision: state.revision + 1, lastNotice: '已暂缓本项，夜间光标未移动' }
     }
-    case 'advance':
+    case 'advance': {
+      const current = state.queue.find(item => item.id === state.activeCursorId)
+      if (current?.applicability === 'not_applicable' && !['confirmed', 'not_applicable', 'skipped'].includes(current.progress)) {
+        if (state.previewEntryId !== state.activeCursorId || state.privacyShielded) return state
+        return advanceFrom({ ...state, revision: state.revision + 1,
+          queue: state.queue.map(item => item.id === current.id ? { ...item, progress: 'not_applicable' as const } : item) })
+      }
       return advanceFrom(state)
+    }
     case 'activate-preview': {
       const preview = state.queue.find((item) => item.id === state.previewEntryId)
       if (!preview) return state

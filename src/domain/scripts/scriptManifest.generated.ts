@@ -3260,8 +3260,7 @@ export const scriptManifest: readonly Pick<SmartScriptPack, 'scriptId' | 'displa
       11,
       12,
       13,
-      14,
-      15
+      14
     ],
     "knowledgeStatus": "confirmed"
   },

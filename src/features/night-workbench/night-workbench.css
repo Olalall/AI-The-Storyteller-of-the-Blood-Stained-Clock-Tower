@@ -11,6 +11,10 @@
 }
 .night-workbench--dimmed { filter: brightness(.72) saturate(.82); }
 
+/* 操作栏占自己的文档位置，不能盖住角色选项与目标。 */
+.night-workbench .night-action-zone, .night-action-zone > .sticky-action-bar { position: static; }
+.night-workbench .night-content-grid { padding-bottom: 0; }
+
 .night-header {
   min-height: 112px;
   padding: var(--space-20) clamp(var(--space-20), 3cqw, var(--space-32));

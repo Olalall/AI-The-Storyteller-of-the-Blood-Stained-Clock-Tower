@@ -1,5 +1,6 @@
 import { boundedSetupTransferForRole, inferModifierRoleId, isMandatorySetupCountRole } from '../../domain/setup-templates/setupCountChanges'
 import { lilMonstaOpeningSelected } from '../../domain/setup-templates/lilMonstaOpening'
+import { hereticForbiddenRoleIds } from '../../domain/setup-templates/normalizeHereticTemplate'
 import type { PlayerCount, ScriptId, SetupTemplate, SetupTemplateStyle, SmartScriptPack, SmartRoleDefinition } from '../../domain/scripts'
 import { getSmartScriptPack, roleSnapshotsForScript, roleTeamByIdForScript, scriptKnowledgeVersion, smartScriptRegistry } from '../../domain/scripts'
 import { selectSetupCandidates, type RandomSource } from '../../services/setup-candidates'
@@ -262,7 +263,11 @@ export function createSetupRulePackForScript(pack: SmartScriptPack): ScriptSetup
     version: `${pack.scriptId}/smart-setup-rules-v1`,
     baseDistributionByPlayerCount,
     modifiers: [...modifierByRule.values()],
-    conflicts: [],
+    conflicts: hereticForbiddenRoleIds.map(roleId => ({
+      id: `heretic-${roleId}`, roleIds: ['heretic', roleId], severity: 'fail' as const,
+      summary: `异端与${pack.roles.find(role => role.id === roleId)?.name ?? roleId}不能同时在场`,
+      source: 'https://release.botc.app/resources/data/jinxes.json (2026-10-22)；Heretic: Only 1 jinxed character can be in play.',
+    })),
     demonBluffPolicy: {
       count: pack.demonBluffPolicy?.count ?? 3,
       eligibleTeam: pack.demonBluffPolicy?.eligibleTeams[0] ?? 'townsfolk',

@@ -64,7 +64,7 @@ export function NightActionBar({
           : <Button variant="ghost" onClick={isCorrecting ? onCancelCorrection : onDefer} disabled={isReadOnly}>{isCorrecting ? '暂不更正' : '稍后处理'}</Button>}
     </div>
     <div className="action-bar__primary">
-      {isSettled ? <Button variant="primary" onClick={onAdvance}>进入下一位 <ArrowRight aria-hidden="true" /></Button>
+      {isSettled ? <Button variant="primary" onClick={onAdvance}>{current.applicability === 'not_applicable' && current.progress !== 'not_applicable' && current.progress !== 'confirmed' ? '确认不适用并继续' : '进入下一位'} <ArrowRight aria-hidden="true" /></Button>
         : <>
           <Button variant="secondary" onClick={onConfirmStay} disabled={!canConfirm}>{isCorrecting ? '确认更正' : '确认本项'}</Button>
           <Button variant="primary" onClick={onConfirmNext} disabled={!canConfirm}>{isCorrecting ? '更正并下一位' : '确认并下一位'}<ArrowRight aria-hidden="true" /></Button>

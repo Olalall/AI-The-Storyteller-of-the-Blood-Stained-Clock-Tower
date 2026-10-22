@@ -44,6 +44,7 @@ export type ScriptQualityReviewReasonId =
   | 'setup-rule'
   | 'night-order'
   | 'template'
+  | 'template-role-coverage'
 
 export interface ScriptQualityReviewReason {
   id: ScriptQualityReviewReasonId
@@ -92,6 +93,9 @@ export function buildScriptQualitySummary(pack: SmartScriptPack): ScriptQualityS
   const missingPlayerCounts = REQUIRED_PLAYER_COUNTS.filter((count) => !coveredPlayerCounts.includes(count))
   const verifiedTemplateCount = pack.setupTemplates.filter((template) => template.verified).length
   const reviewedRoleCount = pack.roles.filter((role) => hasReviewedResearch(role.research)).length
+  const templateRoles = new Set(pack.setupTemplates.flatMap(template => template.roles))
+  if (pack.setupTemplates.some(template => template.setupAdjustments?.some(a => a.ruleId === 'lilmonsta-extra-minion'))) templateRoles.add('lilmonsta')
+  const uncovered = pack.roles.filter(role => ['townsfolk', 'outsider', 'minion', 'demon'].includes(role.team) && !templateRoles.has(role.id))
 
   const warnings = buildWarnings({
     missingPlayerCounts,
@@ -104,7 +108,7 @@ export function buildScriptQualitySummary(pack: SmartScriptPack): ScriptQualityS
     totalTemplates: pack.setupTemplates.length,
     packStatus: pack.knowledgeStatus,
   })
-  const readiness = decideReadiness({
+  let readiness = decideReadiness({
     missingPlayerCounts,
     roleStatus,
     setupRuleStatus,
@@ -126,6 +130,10 @@ export function buildScriptQualitySummary(pack: SmartScriptPack): ScriptQualityS
     totalTemplates: pack.setupTemplates.length,
     packStatus: pack.knowledgeStatus,
   })
+  if (uncovered.length) {
+    if (readiness === 'ready') readiness = 'review'
+    warnings.unshift(`推荐模板未覆盖 ${uncovered.length} 个角色：${uncovered.map(role => role.name).join('、')}；手动配板需另行核对，资料齐全不等于组合已实测。`)
+  }
 
   return {
     scriptId: pack.scriptId,
@@ -148,7 +156,7 @@ export function buildScriptQualitySummary(pack: SmartScriptPack): ScriptQualityS
       covered: coveredPlayerCounts,
       missing: missingPlayerCounts,
     },
-    reviewReasons,
+    reviewReasons: uncovered.length ? [...reviewReasons, { id: 'template-role-coverage', label: '模板角色覆盖', count: uncovered.length }] : reviewReasons,
     warnings,
   }
 }

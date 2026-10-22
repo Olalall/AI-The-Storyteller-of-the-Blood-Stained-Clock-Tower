@@ -12,6 +12,7 @@ import { canConfirmDraft } from '../../night-workbench/state/workbenchGuards'
 import { emptyWakeDraft } from '../../night-workbench/state/projectWakeDraft'
 import { parseSessionBackup } from '../../../services/session/sessionBackup'
 import { focusLleechWake, lleechFirstNightFixture, lleechLaterNightFixture } from './lleechInitial.test-support'
+import { nextCardinalityNight } from '../../night-workbench/state/nightCardinality.test-support'
 
 type Change = Extract<GameSessionAction, { type: 'confirm-night-role-change' }>
 function change(session: GameSessionState, overrides: Partial<Change> = {}): Change {
@@ -28,6 +29,38 @@ function withInitial() {
   expect(after).not.toBe(before)
   return { before, after }
 }
+
+describe('midgame Lleech initialization and ordinary attack are independent steps', () => {
+  it('can initialize then attack once at a legal later-night time, with a confirmation barrier', () => {
+    const before = nextCardinalityNight(lleechFirstNightFixture(), 'vortox')
+    let after = gameSessionReducer(before, change(before, { timing:'initial-and-tonight' }))
+    const items = projected(after).queue.filter(i => i.roleId === 'lleech')
+    expect(items).toHaveLength(2)
+    expect(items[0].abilityPhase).toBe('initial')
+    expect(items[1].abilityPhase).toBeUndefined()
+    after = focusLleechWake(after,items[1].id)
+    const oldTimeline = structuredClone(after.timeline)
+    after = actNight(actNight(after,{type:'target',seatId:2}),{type:'outcome',outcomeId:'record'})
+    after = actNight(after,{type:'confirm',advance:false})
+    expect(after.timeline).toEqual(oldTimeline)
+    expect(after.nightRuns[after.activeNightRunId!].lastNotice).toContain('先确认存活宿主')
+    after = focusLleechWake(after,items[0].id)
+    after = actNight(actNight(after,{type:'target',seatId:1}),{type:'outcome',outcomeId:'record-initialization'})
+    after = actNight(after,{type:'confirm',advance:true})
+    after = focusLleechWake(after,items[1].id)
+    expect(projected(after).drafts[items[1].id].targets).toEqual([2])
+    after = actNight(after,{type:'outcome',outcomeId:'record'})
+    after = actNight(after,{type:'confirm',advance:true})
+    expect(after.timeline.filter(e=>e.kind==='night_action'&&items.some(i=>i.id===e.wakeItemId))).toHaveLength(2)
+    expect(parseSessionBackup(JSON.stringify(after))).toEqual(after)
+    expect(projectCurrentPlayerStates(after)).toEqual(projectCurrentPlayerStates(before))
+  })
+  it('refuses a second Demon attack after Hatter is killed by the original Demon', () => {
+    const before = lleechLaterNightFixture()
+    expect(gameSessionReducer(before,change(before,{timing:'initial-and-tonight'}))).toBe(before)
+    expect(gameSessionReducer(before,change(before,{timing:'initial'}))).not.toBe(before)
+  })
+})
 function readyForHost(session: GameSessionState, seatId: number) {
   session = focusLleechWake(session, initial(session).id)
   return actNight(actNight(session, { type: 'target', seatId }), { type: 'outcome', outcomeId: initial(session).outcomeOptions[0].id })

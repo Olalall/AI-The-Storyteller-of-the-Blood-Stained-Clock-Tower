@@ -1,6 +1,7 @@
 import type { Dispatch } from 'react'
 import type { GameSessionAction } from '../features/game-session/state/sessionActions'
 import { StateFollowupSheet } from '../features/game-session/components/StateFollowupSheet'
+import { AbilityChangeSheet } from '../features/game-session/components/AbilityChangeSheet'
 import { Archive, BookOpenCheck, History, RotateCcw } from 'lucide-react'
 import { Button } from '../components/ui/Button'
 import { BeginnerTutorialSheet } from './deferredFeatures'
@@ -21,6 +22,7 @@ interface PhaseUtilityActionsProps {
 
 export function PhaseUtilityActions({ session, dispatch, onRestore, tutorialOpen, onTutorialOpenChange, onOpenReview, onOpenRecords, onOpenSave, onOpenReset }: PhaseUtilityActionsProps) {
   return <>
+    <AbilityChangeSheet session={session} dispatch={dispatch} />
     <StateFollowupSheet session={session} dispatch={dispatch} />
     <SessionBackupSheet session={session} onRestore={onRestore} />
     <Button variant="ghost" compact onClick={() => onTutorialOpenChange(true)}><BookOpenCheck aria-hidden="true" />新手教程</Button>
