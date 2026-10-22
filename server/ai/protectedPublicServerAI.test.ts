@@ -71,6 +71,8 @@ describe('invited fixed-server AI in public runtime mode', () => {
       access: { required: true, authorized: false, rememberDays: 30 },
     })
     expect(JSON.parse(text).settings).not.toHaveProperty('apiKey')
+    expect(JSON.parse(text).settings.baseUrl).toBe('/api/ai')
+    expect(text).not.toContain(env.BOTC_AI_BASE_URL)
     expect(text).not.toContain(serverKey)
     expect(text).not.toContain(passcode)
     const check = await route(request('/api/settings/ai/test', { method: 'POST' }))
@@ -104,7 +106,10 @@ describe('invited fixed-server AI in public runtime mode', () => {
     expect(text).not.toContain(serverKey)
     expect(text).not.toContain(passcode)
     const status = await route(request('/api/settings/ai', { headers: { Cookie: cookie } }))
-    expect((await status.json()).access).toMatchObject({ required: true, authorized: true, rememberDays: 30 })
+    const statusBody = await status.json()
+    expect(statusBody.access).toMatchObject({ required: true, authorized: true, rememberDays: 30 })
+    expect(statusBody.settings.baseUrl).toBe('/api/ai')
+    expect(JSON.stringify(statusBody)).not.toContain(env.BOTC_AI_BASE_URL)
   })
 
   it.each([undefined, '', ' '.repeat(40), 'x'.repeat(31), ` ${'x'.repeat(31)} `])('keeps server configuration hidden and live tests offline without a sufficiently long invitation secret (%j)', async (secret) => {

@@ -48,8 +48,9 @@ export function readAIProviderPrivateSettings(env: NodeJS.ProcessEnv = process.e
 }
 
 export function publicAISettingsFrom(settings: AIProviderPrivateSettings): PublicAISettings {
-  const { enabled: _enabled, apiKey: _apiKey, ...publicSettings } = settings
-  return publicSettings
+  const { enabled: _enabled, apiKey: _apiKey, baseUrl, ...publicSettings } = settings
+  // 旧页面用此字段判断配置是否齐全；仅返回本网站代理路径，真实上游留在服务端。
+  return { ...publicSettings, ...(baseUrl ? { baseUrl: '/api/ai' } : {}) }
 }
 
 export function readPublicAISettings(env: NodeJS.ProcessEnv = process.env): PublicAISettings {
