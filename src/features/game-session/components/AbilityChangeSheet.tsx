@@ -51,7 +51,7 @@ export function AbilityChangeSheet({ session, dispatch, suggestedSourceId }: { s
   return <>
     {feedback ? <span role="status">{feedback}</span> : null}
     <Sheet open={open} onOpenChange={changeOpen} title="能力继承" description="由主持确认获得、替换或撤销；身份与生死、毒醉分别记录。"
-      trigger={<Button variant="ghost" compact>能力继承</Button>}>
+      trigger={<Button variant="ghost" compact aria-label="能力继承" title="确认获得、替换或撤销能力">{suggestedSourceId ? '能力继承' : '能力'}</Button>}>
       <div className="night-close-checklist">{concealed ? <p>请先退出遮蔽再调整能力。</p> : <>
         {grants.length ? <ul>{grants.map(g => <li key={g.id}>{g.seatId}号 {g.actorRole.name} · {g.abilityRole!.name}能力</li>)}</ul> : null}
         <form onSubmit={event => {

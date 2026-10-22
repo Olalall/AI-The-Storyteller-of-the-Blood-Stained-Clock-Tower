@@ -350,9 +350,9 @@
   gap: 3px;
   border-left: 1px solid var(--border);
 }
-.ui-phase-track__actions .ui-button { min-height: 44px; padding-inline: 10px; gap: 6px; color: var(--text-muted); }
+.ui-phase-track__actions .ui-button { min-height: 44px; min-width: 44px; padding-inline: 10px; gap: 6px; color: var(--text-muted); }
 .ui-phase-track__actions .ui-button svg { width: 17px; height: 17px; }
-.ui-phase-track__actions .ui-phase-track__reset { margin-left: 4px; color: var(--danger-text); }
+.ui-phase-track__actions .ui-phase-track__reset { margin-left: 8px; border-left: 1px solid var(--danger-border); color: var(--danger-text); }
 
 .ui-phase-node {
   min-height: 38px;

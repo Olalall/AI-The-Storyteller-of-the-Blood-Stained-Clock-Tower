@@ -6,8 +6,11 @@ import type { ScriptLibrarySheet as ScriptLibrarySheetComponent } from '../featu
 import type { GameEndSheet as GameEndSheetComponent } from '../features/game-end/GameEndSheet'
 import type { IdentityDealSheet as IdentityDealSheetComponent } from '../features/identity-deal/IdentityDealSheet'
 import type { SetupPanel as SetupPanelComponent } from '../features/setup/SetupPanel'
+import type { RulesAdvisorSheet as RulesAdvisorSheetComponent } from '../features/rules-advisor/RulesAdvisorSheet'
 import type { ComponentProps } from 'react'
 import { deferredPanel, deferredView } from './deferredFeature'
+
+export const RulesAdvisorSheet = deferredPanel<ComponentProps<typeof RulesAdvisorSheetComponent>>('钟楼搭档', () => import('../features/rules-advisor/RulesAdvisorSheet').then(module => ({ default: module.RulesAdvisorSheet })))
 
 export const SetupPanel = deferredPanel<ComponentProps<typeof SetupPanelComponent>>('智能配板与调整', () => import('../features/setup/SetupPanel').then((module) => ({ default: module.SetupPanel })))
 export const IdentityDealSheet = deferredPanel<ComponentProps<typeof IdentityDealSheetComponent>>('发身份', () => import('../features/identity-deal/IdentityDealSheet').then((module) => ({ default: module.IdentityDealSheet })))

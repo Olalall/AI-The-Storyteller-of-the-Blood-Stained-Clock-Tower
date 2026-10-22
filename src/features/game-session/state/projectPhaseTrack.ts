@@ -20,10 +20,10 @@ export interface PhaseTrackNode {
 
 const NODE_LABELS: Record<PhaseNodeId, string> = {
   dusk: '黄昏',
-  night: '夜',
+  night: '夜晚',
   dawn: '黎明',
   day: '白天',
-  vote: '提名投票',
+  vote: '投票',
   execution: '处决',
 }
 
