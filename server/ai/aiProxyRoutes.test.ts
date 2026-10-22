@@ -107,6 +107,7 @@ describe('AI proxy routes', () => {
     expect(body.settings).not.toHaveProperty('apiKey')
     expect(body.settings.baseUrl).toBe('/api/ai')
     expect(text).not.toContain('https://ai.example.test/v1')
+    expect(text).not.toContain('review-model')
   })
 
   it('checks disabled settings without calling a provider', async () => {

@@ -35,13 +35,14 @@ describe('AI provider settings', () => {
       mode: 'backend_proxy',
       provider: 'openai-compatible',
       baseUrl: '/api/ai',
-      model: 'review-model',
+      model: '服务器私有模型',
       timeoutSeconds: 45,
       contextLimit: 9000,
       apiKeyConfigured: true,
     })
     expect(JSON.stringify(settings)).not.toContain(secret)
     expect(JSON.stringify(settings)).not.toContain('https://ai.example.test/v1')
+    expect(JSON.stringify(settings)).not.toContain('review-model')
   })
 
   it('keeps the private key out of public settings while allowing internal readiness checks', () => {
@@ -57,6 +58,8 @@ describe('AI provider settings', () => {
     const publicSettings = publicAISettingsFrom(privateSettings)
     expect(JSON.stringify(publicSettings)).not.toContain(secret)
     expect(publicSettings.baseUrl).toBe('/api/ai')
+    expect(publicSettings.model).toBe('服务器私有模型')
+    expect(privateSettings.model).toBe('review-model')
     expect(privateSettings.baseUrl).toBe('https://ai.example.test/v1')
     expect(isAIProviderConfigured(privateSettings)).toBe(true)
   })
