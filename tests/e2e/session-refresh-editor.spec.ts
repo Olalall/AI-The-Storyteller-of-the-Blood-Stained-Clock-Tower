@@ -20,7 +20,7 @@ async function prepare(context: BrowserContext, fault?: BrowserFault) {
     }
     localStorage.setItem('botc-copilot-archive-runtime-settings-v1', JSON.stringify({ mode: 'local', baseUrl: location.origin, timeoutMs: 8000 }))
     // Observe the existing save boundary: a successful automatic save proves editor readiness.
-    Object.assign(window, { editorSessionWritesForTest: 0 })
+    Object.assign(window, { editorSessionWritesForTest: 0, editorIndexedDBFailuresForTest: 0 })
     const setItem = Storage.prototype.setItem
     Storage.prototype.setItem = function (key, value) {
       setItem.call(this, key, value)
@@ -38,7 +38,10 @@ async function prepare(context: BrowserContext, fault?: BrowserFault) {
       configurable: true,
       value: { request: () => { throw new DOMException('Injected synchronous Web Locks failure', 'SecurityError') } },
     })
-    if (fault === 'indexeddb-unavailable') indexedDB.open = () => { throw new DOMException('Injected IndexedDB rejection', 'SecurityError') }
+    if (fault === 'indexeddb-unavailable') IDBFactory.prototype.open = () => {
+      ;(window as unknown as { editorIndexedDBFailuresForTest: number }).editorIndexedDBFailuresForTest++
+      throw new DOMException('Injected IndexedDB rejection', 'SecurityError')
+    }
     if (fault === 'baseline-changed-during-load') {
       const parse = JSON.parse
       let injected = false
@@ -238,13 +241,17 @@ for (const fault of ['web-lock-rejects', 'web-lock-throws', 'indexeddb-unavailab
   test(`${fault}时明确停止编辑，不能降级为无保护写入`, async ({ page, context }) => {
     const checks = await prepare(context, fault)
     await page.goto('/')
+    await expect(page.locator('.dashboard')).toBeVisible({ timeout: 30_000 })
     const protection = page.getByRole('dialog', { name: '编辑保护', exact: true })
     await expect(protection).toBeVisible()
     await expect(protection).toContainText('浏览器暂时无法建立编辑保护')
+    if (fault === 'indexeddb-unavailable') expect(await page.evaluate(() => (window as unknown as { editorIndexedDBFailuresForTest: number }).editorIndexedDBFailuresForTest)).toBeGreaterThan(0)
     expect(await writes(page)).toBe(0)
     await assertUnchanged(page, checks.raw, checks.backup)
     await page.reload()
+    await expect(page.locator('.dashboard')).toBeVisible({ timeout: 30_000 })
     await expect(protection).toBeVisible()
+    if (fault === 'indexeddb-unavailable') expect(await page.evaluate(() => (window as unknown as { editorIndexedDBFailuresForTest: number }).editorIndexedDBFailuresForTest)).toBeGreaterThan(0)
     expect(await writes(page)).toBe(0)
     await assertUnchanged(page, checks.raw, checks.backup)
     expect(checks.paidRequests()).toBe(0)

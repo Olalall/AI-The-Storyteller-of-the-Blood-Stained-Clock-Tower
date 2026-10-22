@@ -8,6 +8,24 @@ import { useGameSession } from './useGameSession'
 beforeEach(() => { window.localStorage.clear(); window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(createPrototypeGameSession())) })
 afterEach(() => vi.restoreAllMocks())
 
+it('checks ownership immediately on foreground return, while a hidden or suspended page cannot resume editing', async () => {
+  const acquire = vi.spyOn(SessionEditLock.prototype, 'acquire').mockResolvedValue(false)
+  const visible = vi.spyOn(document, 'visibilityState', 'get').mockReturnValue('hidden')
+  const { result } = renderHook(useGameSession)
+  await waitFor(() => expect(result.current.editorStatus).toBe('blocked'))
+  const calls = acquire.mock.calls.length
+  act(() => document.dispatchEvent(new Event('visibilitychange')))
+  expect(acquire).toHaveBeenCalledTimes(calls)
+  acquire.mockResolvedValue(true)
+  visible.mockReturnValue('visible')
+  await act(async () => document.dispatchEvent(new Event('visibilitychange')))
+  expect(result.current.editorStatus).toBe('ready')
+  act(() => window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })))
+  const hiddenCalls = acquire.mock.calls.length
+  act(() => document.dispatchEvent(new Event('visibilitychange')))
+  expect(acquire).toHaveBeenCalledTimes(hiddenCalls)
+})
+
 it('retains the latest session on storage failure and retries without replaying actions', async () => {
   const original = Storage.prototype.setItem
   let fail = false
