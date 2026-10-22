@@ -20,6 +20,11 @@ export function NightRoleChoices({ item, draft, disabled, onRoleChoice, onSecond
     { title: '第二个善良角色', value: draft.additionalRoleChoices?.[0], choices: item.roleChoices.filter((choice) => choice.alignment === 'good'), change: (id) => onAdditionalRoleChoice?.(0, id) },
     { title: '第二个邪恶角色', value: draft.additionalRoleChoices?.[1], choices: item.roleChoices.filter((choice) => choice.alignment === 'evil'), change: (id) => onAdditionalRoleChoice?.(1, id) },
   )
+  if (item.roleCount === 3) groups.splice(0, groups.length,
+    { title: '第一个伪装角色', value: draft.roleChoice, choices: item.roleChoices, change: onRoleChoice },
+    { title: '第二个伪装角色', value: draft.secondRoleChoice, choices: item.roleChoices, change: onSecondRoleChoice },
+    { title: '第三个伪装角色', value: draft.additionalRoleChoices?.[0], choices: item.roleChoices, change: id => onAdditionalRoleChoice?.(0, id) },
+  )
   return <>
     {groups.map((group) => <fieldset disabled={disabled} key={group.title}>
       <legend className="choice-legend"><span>{group.title}</span><small>{dual ? `记录告知玩家的角色${item.roleCount === 4 ? '；四个角色须互不相同' : ''}，不改变任何人的身份或阵营` : roleChoiceHint(item)}</small></legend>

@@ -34,6 +34,10 @@ export function parseSessionBackup(raw: string): GameSessionState {
     if (Object.values(run.drafts).some((draft) => draft.targetRoleChoices?.some((choice) => choice.seatId !== 0 && !validSeat(choice.seatId)))) throw new Error('备份中的爪牙分配引用了不存在的座位。')
   }
   for (const entry of session.timeline) {
+    if (entry.kind === 'ability_changed' && (!validSeat(entry.seatId) || !validSeat(entry.sourceSeatId)
+      || entry.triggerSeatId !== undefined && !validSeat(entry.triggerSeatId)
+      || entry.parentGrantId && !session.timeline.some(parent => parent.id === entry.parentGrantId && parent.kind === 'ability_changed')
+      || entry.sourceEntryId && !entries.has(entry.sourceEntryId))) throw new Error('备份中的能力来源引用不完整。')
     if (entry.kind === 'night_action' && (!Object.hasOwn(session.nightRuns, entry.nightRunId) || !session.nightRuns[entry.nightRunId].queue.some((item) => item.id === entry.wakeItemId))) throw new Error('备份中的夜晚记录缺少对应夜序。')
     if (entry.kind === 'night_action' && entry.record.snapshot.targetRoleChoices?.some((choice) => choice.seatId !== 0 && !validSeat(choice.seatId))) throw new Error('备份中的爪牙分配记录引用了不存在的座位。')
     if ((entry.kind === 'player_state_changed' || entry.kind === 'setup_changed') && !validSeat(entry.seatId)) throw new Error('备份中的玩家记录引用了不存在的座位。')

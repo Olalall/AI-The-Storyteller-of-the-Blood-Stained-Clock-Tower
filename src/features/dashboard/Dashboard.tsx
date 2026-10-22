@@ -29,6 +29,7 @@ interface DashboardProps {
 
 function entrySummary(entry: TimelineEntry): string {
   switch (entry.kind) {
+    case 'ability_changed': return `${entry.seatId}号${entry.abilityRole ? `获得${entry.abilityRole.name}能力` : '失去额外能力'}`
     case 'night_action': return entry.summary
     case 'day_action': return entry.summary
     case 'vote_round': return `${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${entry.raisedSeatIds.length}票`

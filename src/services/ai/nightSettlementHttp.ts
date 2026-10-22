@@ -119,6 +119,7 @@ function requestBody({ state, item, draft }: CreateNightResultAdviceInput) {
       allowedTargetCounts: item.allowedTargetCounts,
       roleCount: item.roleCount,
       abilityPhase: item.abilityPhase,
+      abilitySource: item.abilitySource ? structuredClone(item.abilitySource) : undefined,
       targetRoleChoiceCount: item.targetRoleChoiceCount,
       targetRoleChoiceRoleIds: item.targetRoleChoiceCount ? item.roleChoices?.map(role => role.id) : undefined,
       targetLabel: item.targetLabel,

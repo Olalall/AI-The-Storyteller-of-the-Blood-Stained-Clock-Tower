@@ -1,10 +1,10 @@
-import { getSmartScriptPack, roleSnapshotsForScript } from '../../../domain/scripts'
+import { roleSnapshotsForScript, roleTeamByIdForScript } from '../../../domain/scripts'
 import type { WakeItem } from '../../night-workbench/types'
 import { nightContextKey } from '../../night-workbench/state/gameSessionAdapter'
 import { roleChangeReasonLabel } from '../../night-workbench/state/roleChanges'
 import type { GameSessionState, SetupChangedEntry } from '../types'
 import { createSmartScriptNightQueue } from './createNextNightRun'
-import { mergeFirstNightSystemSteps } from './firstNightSystemSteps'
+import { insertNightItems } from './insertNightItems'
 import { projectConfirmedSetup, projectCurrentAssignments, projectCurrentPlayerStates } from './projectors'
 import type { GameSessionAction } from './sessionActions'
 import { projectKazaliAllocation } from './applyKazaliAllocation'
@@ -48,9 +48,13 @@ export function confirmNightRoleChange(session: GameSessionState, action: Extrac
     || action.expectedContextKey !== nightContextKey(session) || action.expectedRevision !== run.revision
     || run.privacyShielded || run.correctionItemId || allocation && !allocation.isApplied
     || run.phaseSegmentId && session.phaseSegments.some((phase) => phase.id === run.phaseSegmentId && phase.closedAt)
-    || !['tonight', 'initial', 'later'].includes(action.timing) || !Object.hasOwn(roleChangeReasonLabel, action.reason)
+    || !['tonight', 'initial', 'initial-and-tonight', 'later'].includes(action.timing) || !Object.hasOwn(roleChangeReasonLabel, action.reason)
     || !action.id.trim() || session.timeline.some((entry) => entry.id === action.id)
     || !Number.isFinite(Date.parse(action.confirmedAt))) return session
+  if (action.timing === 'initial-and-tonight' && (toRole.id !== 'lleech' || run.nightType !== 'other'
+    || session.timeline.some(entry => entry.kind === 'night_action' && entry.nightRunId === run.id
+      && roleTeamByIdForScript(session.scriptId)[entry.roleId ?? ''] === 'demon'
+      && !['skip', 'hold'].includes(entry.record.snapshot.outcomeId)))) return session
   const previous = session.timeline.filter((entry) => entry.kind === 'setup_changed' && entry.seatId === action.seatId)
     .sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)).at(-1)
   const previousTime = Date.parse(previous?.createdAt ?? setup.confirmedAt), requestedTime = Date.parse(action.confirmedAt)
@@ -63,10 +67,12 @@ export function confirmNightRoleChange(session: GameSessionState, action: Extrac
     baseSetupId: setup.id, originNightRunId: run.id, seatId: action.seatId,
     nightAbilityTiming: action.timing,
     fromRole: { ...fromRole }, toRole: { ...toRole }, effectiveFrom: 'future_workbenches',
-    reason: `${roleChangeReasonLabel[action.reason]}；主持已核对${action.timing === 'initial' ? '当晚仅初始化新能力' : action.timing === 'tonight' ? '当晚处理新能力' : '本夜不再发动新能力'}`,
+    reason: `${roleChangeReasonLabel[action.reason]}；主持已核对${action.timing === 'initial-and-tonight' ? '当晚选宿主并在合法攻击时点行动一次' : action.timing === 'initial' ? '当晚仅初始化新能力' : action.timing === 'tonight' ? '当晚处理新能力' : '本夜不再发动新能力'}`,
   }
   const next = { ...session, timeline: [...session.timeline, entry] }
-  const additions = action.timing !== 'later' ? changedRoleNightItems(next, action.seatId, toRole.id, action.id, action.timing) : []
+  const additions = action.timing === 'initial-and-tonight'
+    ? [...changedRoleNightItems(next, action.seatId, toRole.id, `${action.id}-initial`, 'initial'), ...changedRoleNightItems(next, action.seatId, toRole.id, `${action.id}-attack`, 'tonight')]
+    : action.timing !== 'later' ? changedRoleNightItems(next, action.seatId, toRole.id, action.id, action.timing) : []
   if (action.timing !== 'later' && !additions.length) return session
   const currentAssignments = projectCurrentAssignments(next)
   const collectiveLegion = fromRole.id === 'legion' ? createSmartScriptNightQueue(next, currentAssignments, projectCurrentPlayerStates(next), run.id, run.nightType === 'first' ? 1 : 2)
@@ -80,25 +86,7 @@ export function confirmNightRoleChange(session: GameSessionState, action: Extrac
     if (!sourceRemoved && (item.systemStep || item.seatId !== action.seatId)) return item
     return { ...item, progress: 'not_applicable', applicability: 'not_applicable', reason: '主持已确认角色变化，原能力不再发动；原草稿保留。' }
   })
-  const orders = getSmartScriptPack(session.scriptId).nightOrders[run.nightType === 'first' ? 'firstNight' : 'otherNight']
-  const order = new Map(orders.map((item) => [item.roleId, item.order]))
-  const timingRoleId = (item: WakeItem) => /^drunk\/pretend-(.+)-v1$/.exec(item.interactionVersion)?.[1]
-    ?? (item.interactionVersion === 'marionette/pretend-v1' ? session.identityPresentations?.[item.seatId]?.shownRole.id
-      : item.systemStep?.kind === 'audience_notice' ? item.roleId.replace(/^system-audience-/, '') : item.roleId) ?? item.roleId
-  for (const item of additions) {
-    if (item.interactionVersion === 'legion/collective-night-v1' && queue.some(known => known.roleId === 'legion' && known.progress !== 'not_applicable')) continue
-    if (item.systemStep?.kind === 'audience_notice') {
-      const merged = mergeFirstNightSystemSteps(queue, [item])
-      queue.splice(0, queue.length, ...merged)
-      continue
-    }
-    const rank = item.abilityPhase === 'initial' ? undefined : order.get(timingRoleId(item))
-    const index = rank === undefined ? queue.findIndex((known) => known.id === run.activeCursorId) + 1
-      : queue.findIndex((known) => (order.get(timingRoleId(known)) ?? Infinity) > rank)
-    queue.splice(index < 0 ? queue.length : index, 0, { ...item,
-      reason: `${item.reason ? `${item.reason} ` : ''}主持已确认当晚处理新获得的能力；核对时点、旧持续效果及使用次数。`,
-    })
-  }
+  queue.splice(0, queue.length, ...insertNightItems(session, run, queue, additions))
   const active = queue.find((item) => ['pending', 'draft'].includes(item.progress) && item.applicability !== 'not_applicable')
     ?? queue.find((item) => item.id === run.activeCursorId)!
   return { ...next, nightRuns: { ...next.nightRuns, [run.id]: {

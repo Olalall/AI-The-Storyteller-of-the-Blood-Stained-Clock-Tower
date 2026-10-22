@@ -92,7 +92,12 @@ describe('batch 06 reuses existing definitions and validates each board separate
           expect(projectCurrentAssignments(confirmed)).toEqual(candidate.assignments)
           for (const sequence of [1, 2]) {
             const orders = sequence === 1 ? pack.nightOrders.firstNight : pack.nightOrders.otherNight
-            const expected = orders.flatMap((order) => candidate.assignments.filter((entry) => entry.role.id === order.roleId).map(() => order.roleId))
+            const expected = orders.flatMap((order) => {
+              const actors = candidate.assignments.filter(entry => entry.role.id === order.roleId)
+              return order.roleId === 'snitch' && actors.length
+                ? candidate.assignments.filter(a => a.role.id !== 'marionette' && pack.roles.find(r => r.id === a.role.id)?.team === 'minion').map(()=>'snitch')
+                : actors.map(()=>order.roleId)
+            })
             const queue = createSmartScriptNightQueue(confirmed, candidate.assignments, confirmed.initialPlayerStates, `night-${sequence}`, sequence)
             expect(queue.filter((entry) => !entry.id.includes('-pretend-')).map((entry) => entry.systemStep?.kind === 'audience_notice'
               ? entry.roleId.replace(/^system-audience-/, '') : entry.roleId)).toEqual(expected)

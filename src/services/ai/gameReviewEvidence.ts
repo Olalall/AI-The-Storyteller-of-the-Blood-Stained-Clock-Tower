@@ -19,7 +19,7 @@ export interface GameReviewInterpretation {
 
 /** 只投影说书人确认过的记录，AI 不重写事实或座位关联。 */
 export function gameReviewEvidence(archive: GameArchiveRecord): GameReviewEvidence[] {
-  const knownKinds = new Set(['setup_confirmed', 'setup_changed', 'player_state_changed', 'night_action', 'day_action', 'vote_round', 'execution', 'no_execution'])
+  const knownKinds = new Set(['setup_confirmed', 'setup_changed', 'ability_changed', 'player_state_changed', 'night_action', 'day_action', 'vote_round', 'execution', 'no_execution'])
   const timeline = archive.session.timeline.filter((entry) => knownKinds.has(entry.kind))
   return projectTimelineHistory({ ...archive.session, timeline }).map((entry) => ({
     recordId: entry.id,
@@ -45,7 +45,7 @@ export function keyGameReviewEvidence(archive: GameArchiveRecord): GameReviewEvi
     const source = sourceById.get(item.recordId)
     if (item.correctionOf) return 6
     if (source?.kind === 'execution') return 5
-    if (source?.kind === 'player_state_changed' || source?.kind === 'setup_changed') return 4
+    if (source?.kind === 'player_state_changed' || source?.kind === 'setup_changed' || source?.kind === 'ability_changed') return 4
     if (source?.kind === 'night_action' || source?.kind === 'day_action') return 3
     if (source?.kind === 'vote_round' || source?.kind === 'no_execution') return 2
     return 0

@@ -11,11 +11,14 @@ import { reduceTimelineSession } from './timelineSessionReducer'
 import type { GameSessionAction } from './sessionActions'
 import { applyKazaliAllocation } from './applyKazaliAllocation'
 import { confirmNightRoleChange } from './confirmNightRoleChange'
+import { confirmAbilityChange } from './abilityChanges'
 
 export type { GameSessionAction } from './sessionActions'
 
 export function gameSessionReducer(state: GameSessionState, action: GameSessionAction): GameSessionState {
   switch (action.type) {
+    case 'confirm-ability-change':
+      return confirmAbilityChange(state, action)
     case 'confirm-night-role-change':
       return confirmNightRoleChange(state, action)
     case 'apply-kazali-allocation':

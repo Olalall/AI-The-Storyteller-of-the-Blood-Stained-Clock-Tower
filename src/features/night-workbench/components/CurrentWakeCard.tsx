@@ -155,7 +155,9 @@ export function CurrentWakeCard({
         ) : null}
       </div>
 
-      <div className="wake-recorder" aria-disabled={formDisabled}>
+      {item.applicability === 'not_applicable' ? <div className="wake-recorder" role="status">
+        <h2>本夜不适用</h2><p>{item.history ?? item.reason ?? '无需录入技能结果；确认后可继续夜序。'}</p>
+      </div> : <div className="wake-recorder" aria-disabled={formDisabled}>
         <div className="section-heading">
           <div>
             <h2>本项记录</h2>
@@ -256,7 +258,7 @@ export function CurrentWakeCard({
           </section>
         ) : null}
 
-      </div>
+      </div>}
     </section>
   )
 }

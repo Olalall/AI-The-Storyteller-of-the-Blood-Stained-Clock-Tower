@@ -28,7 +28,7 @@ export function RoleChangeSheet({ open, onOpenChange, item, binding, roles }: Ro
   const [seatId, setSeatId] = useState(item.seatId)
   const [selectedId, setSelectedId] = useState('')
   const [reason, setReason] = useState<RoleChangeReason>('gameplay')
-  const [timing, setTiming] = useState<'' | 'tonight' | 'initial' | 'later'>('')
+  const [timing, setTiming] = useState<'' | 'tonight' | 'initial' | 'initial-and-tonight' | 'later'>('')
   const currentRole = assignments.find((assignment) => assignment.seatId === seatId)?.role
   const selectedRole = roles.find((role) => role.id === selectedId)
   const hasNightAbility = selectedRole && changedRoleNightItems(session, seatId, selectedRole.id, 'preview').length > 0
@@ -77,6 +77,7 @@ export function RoleChangeSheet({ open, onOpenChange, item, binding, roles }: Ro
           <legend>新能力当晚怎么处理</legend>
           <p>原角色未发动项会停用。请核对新能力时点、持续效果和使用次数；中途换角不重做开局人数修正，也不补发邪恶同伴信息。</p>
           {hasInitialization ? <label><input type="radio" name="role-change-timing" checked={timing === 'initial'} onChange={() => setTiming('initial')} />当晚只初始化新能力（选宿主，不额外攻击）</label> : null}
+          {hasInitialization ? <label><input type="radio" name="role-change-timing" checked={timing === 'initial-and-tonight'} onChange={() => setTiming('initial-and-tonight')} />当晚选宿主，并在尚未经过的攻击时点处理一次攻击</label> : null}
           <label><input type="radio" name="role-change-timing" checked={timing === 'tonight'} disabled={!hasNightAbility} onChange={() => setTiming('tonight')} />{hasInitialization ? '当晚处理普通夜间行动（不是选宿主）' : '当晚处理新能力'}</label>
           <label><input type="radio" name="role-change-timing" checked={timing === 'later'} onChange={() => setTiming('later')} />本夜不再发动新能力</label>
           {hasInitialization ? <p>新痢蛭必须在当晚选择存活宿主；普通攻击需要另核合法时点，不能替代宿主初始化或在本步多攻击一次。</p> : null}

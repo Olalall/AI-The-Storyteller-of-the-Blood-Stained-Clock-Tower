@@ -220,6 +220,11 @@ function isTimelineEntry(value: unknown) {
     !timelineKinds.has(value.kind) || !(value.segmentId === null || typeof value.segmentId === 'string') ||
     typeof value.createdAt !== 'string') return false
   switch (value.kind) {
+    case 'ability_changed':
+      return isInteger(value.seatId, 1, 15) && isInteger(value.sourceSeatId, 1, 15) && typeof value.sourceRoleId === 'string'
+        && isRoleSnapshot(value.actorRole) && (value.abilityRole === null || isRoleSnapshot(value.abilityRole))
+        && (value.sourceEntryId === undefined || typeof value.sourceEntryId === 'string')
+        && (value.timing === 'tonight' || value.timing === 'later') && typeof value.reason === 'string'
     case 'setup_confirmed':
       return isRecord(value.setup) && typeof value.setup.id === 'string' && isSetupDraft(value.setup.draft)
     case 'setup_changed':
