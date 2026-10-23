@@ -45,6 +45,9 @@
 .setup-panel__candidates { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-12); }
 .setup-panel__candidates > .setup-panel__section-heading { grid-column: 1 / -1; margin-bottom: 0; }
 .setup-candidate__disclaimer { grid-column: 1 / -1; }
+.setup-candidate__browse { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: var(--space-12); align-items: center; justify-content: space-between; color: var(--text-muted); }
+.setup-candidate__browse > div { display: flex; flex-wrap: wrap; gap: var(--space-8); }
+.setup-candidate__browse .ui-button { min-height: 44px; }
 .setup-candidate__heading-actions { display: flex; align-items: center; justify-content: flex-end; gap: var(--space-8); }
 .setup-candidate__heading-actions small { color: var(--text-muted); font-size: var(--type-meta); font-weight: 700; white-space: nowrap; }
 .setup-candidate__heading-actions .ui-button { min-width: 108px; }

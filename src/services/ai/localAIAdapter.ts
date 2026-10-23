@@ -161,7 +161,7 @@ function createNightResultAdvice({ state, item, draft }: CreateNightResultAdvice
 
 export const localAIAdapter: AIAdapter = {
   generateSetupCandidates(input) {
-    return createSmartScriptSetupCandidates(input.scriptId, input.seatProfiles)
+    return createSmartScriptSetupCandidates(input.scriptId, input.seatProfiles, { count: input.count, expand: true })
   },
 
   createNightResultAdvice,

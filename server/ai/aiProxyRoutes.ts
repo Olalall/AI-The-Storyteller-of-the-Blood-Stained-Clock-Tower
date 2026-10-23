@@ -8,7 +8,7 @@ import { isRulesAdvisorRequest } from '../../src/services/ai/rulesAdvisorTypes'
 export type AIProxyHandlers = ReturnType<typeof createAIProxyHandlers>
 
 export function createAIProxyRoutes(handlers: AIProxyHandlers, options: { env?: NodeJS.ProcessEnv } = {}) {
-  const access = createAIAccessGuard(options.env)
+  const access = createAIAccessGuard(options.env, Date.now, (options.env ?? process.env).BOTC_AI_PUBLIC_ACCESS === 'true')
   return async function handleAIProxyRequest(request: Request): Promise<Response> {
     const url = new URL(request.url)
 

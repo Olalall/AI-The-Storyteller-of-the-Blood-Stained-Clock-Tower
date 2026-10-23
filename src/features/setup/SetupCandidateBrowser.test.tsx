@@ -105,7 +105,7 @@ describe('SetupCandidateBrowser AI advice presentation', () => {
     await user.click(screen.getByRole('button', { name: 'AI推荐' }))
 
     expect(await screen.findByText('AI首选')).toBeInTheDocument()
-    const adviceStrip = screen.getByRole('status')
+    const adviceStrip = screen.getAllByRole('status').find(node => node.classList.contains('setup-candidate__ai-strip'))!
     expect(within(adviceStrip).getByText('首选')).toBeInTheDocument()
     expect(within(adviceStrip).getAllByText('戏剧反转').length).toBeGreaterThan(0)
     expect(within(adviceStrip).getByText('熟练座更多，反转局更适合本桌。')).toBeInTheDocument()

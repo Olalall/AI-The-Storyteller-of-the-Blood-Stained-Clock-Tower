@@ -83,11 +83,11 @@ function effectiveSettings(
 export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
   const env = options.env ?? process.env
   const publicAccess = resolveAIPublicAccessPolicy(options.publicAccess, env)
-  const invitedServerAccess = (env.BOTC_AI_ACCESS_SECRET?.trim().length ?? 0) >= 32
+  const serverAccess = env.BOTC_AI_PUBLIC_ACCESS === 'true' || (env.BOTC_AI_ACCESS_SECRET?.trim().length ?? 0) >= 32
   const privateSettingsForRequest = () => {
     const settings = readAIProviderPrivateSettings(env)
-    // 公开站的固定 API 必须与受邀设备保护同时启用；其他公开部署仍只接受浏览器 BYOK。
-    return publicAccess.mode !== 'public' || invitedServerAccess && isAIProviderConfigured(settings)
+    // Anonymous fixed-provider access requires an explicit server opt-in; private data keeps its own guard.
+    return publicAccess.mode !== 'public' || serverAccess && isAIProviderConfigured(settings)
       ? settings : readAIProviderPrivateSettings({})
   }
 

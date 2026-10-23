@@ -4,7 +4,7 @@ Import-Module (Join-Path $PSHOME 'Modules\Microsoft.PowerShell.Security\Microsof
 $script:AssistantAISettingNames = @(
   'BOTC_AI_ENABLED','BOTC_AI_PROVIDER','BOTC_AI_BASE_URL','BOTC_AI_MODEL',
   'BOTC_AI_API_KEY','BOTC_AI_TIMEOUT_MS','BOTC_AI_MAX_CONTEXT_TOKENS',
-  'BOTC_AI_ACCESS_SECRET','BOTC_AI_PUBLIC_ORIGIN'
+  'BOTC_AI_ACCESS_SECRET','BOTC_AI_PUBLIC_ORIGIN','BOTC_AI_PUBLIC_ACCESS'
 )
 
 function ConvertTo-AssistantAISettings([string]$Json) {
@@ -16,6 +16,7 @@ function ConvertTo-AssistantAISettings([string]$Json) {
     $settings[$property.Name] = $property.Value.Trim()
   }
   if ($settings.BOTC_AI_ENABLED -cnotin @('true','false')) { throw 'Invalid protected AI enabled flag' }
+  if ($settings.ContainsKey('BOTC_AI_PUBLIC_ACCESS') -and $settings.BOTC_AI_PUBLIC_ACCESS -cnotin @('true','false')) { throw 'Invalid public AI access flag' }
   foreach ($name in $settings.Keys) { if ($settings[$name].Length -gt 8192) { throw 'Protected AI setting exceeds limit' } }
   if ($settings.BOTC_AI_ACCESS_SECRET.Length -gt 256) { throw 'AI access secret exceeds login limit' }
   foreach ($name in @('BOTC_AI_BASE_URL','BOTC_AI_PUBLIC_ORIGIN')) {

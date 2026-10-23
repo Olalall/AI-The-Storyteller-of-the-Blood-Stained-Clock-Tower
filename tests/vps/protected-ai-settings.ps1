@@ -32,7 +32,12 @@ foreach ($patch in @(@{NODE_OPTIONS='--inspect'},@{BOTC_AI_ACCESS_SECRET='short'
 }
 foreach ($json in @('{bad','null','[]','"string"')) { Expect-Rejected { ConvertTo-AssistantAISettings $json }; $checks++ }
 $next = $valid.Clone(); $next.BOTC_AI_MODEL='fake-next-model'
+$next.BOTC_AI_PUBLIC_ACCESS='true'
 $receipt = Write-AssistantAISettings $path ($next | ConvertTo-Json -Compress)
+$publicRead = Read-AssistantAISettings $path
+if ($publicRead.BOTC_AI_PUBLIC_ACCESS -cne 'true' -or $publicRead.BOTC_AI_API_KEY -cne $fakeApi -or $publicRead.BOTC_AI_ACCESS_SECRET -cne $valid.BOTC_AI_ACCESS_SECRET) { throw 'Public AI update changed private credentials' }; $checks++
+$invalidPublic = $next.Clone(); $invalidPublic.BOTC_AI_PUBLIC_ACCESS='yes'
+Expect-Rejected { ConvertTo-AssistantAISettings ($invalidPublic | ConvertTo-Json -Compress) }; $checks++
 $backup = @(Get-ChildItem -LiteralPath (Split-Path -Parent $path) -Filter '*.previous.dpapi')
 if (!$receipt.BackupCreated -or $backup.Count -ne 1 -or (Read-AssistantAISettings $backup[0].FullName).BOTC_AI_MODEL -cne $valid.BOTC_AI_MODEL -or (Read-AssistantAISettings $path).BOTC_AI_MODEL -cne $next.BOTC_AI_MODEL) { throw 'Atomic update or encrypted backup failed' }; $checks++
 $originalAcl = Get-Acl -LiteralPath $path
@@ -41,7 +46,7 @@ $unsafeAcl = Get-Acl -LiteralPath $path
 Set-Acl -LiteralPath $path -AclObject $unsafeAcl
 Expect-Rejected { Read-AssistantAISettings $path }; $checks++
 Import-AssistantAISettings $path 3>$null
-if ($env:BOTC_AI_ENABLED -cne 'false' -or $env:BOTC_AI_API_KEY -or $env:BOTC_AI_ACCESS_SECRET) { throw 'Unsafe ACL did not disable AI' }; $checks++
+if ($env:BOTC_AI_ENABLED -cne 'false' -or $env:BOTC_AI_API_KEY -or $env:BOTC_AI_ACCESS_SECRET -or $env:BOTC_AI_PUBLIC_ACCESS) { throw 'Unsafe ACL did not disable AI' }; $checks++
 Set-Acl -LiteralPath $path -AclObject $originalAcl
 $app = Join-Path $scratch 'app'
 New-Item -ItemType Directory -Path (Join-Path $app 'dist-server') -Force | Out-Null

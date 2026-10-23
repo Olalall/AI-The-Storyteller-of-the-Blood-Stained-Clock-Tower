@@ -59,6 +59,34 @@ afterEach(async () => {
 })
 
 describe('invited fixed-server AI in public runtime mode', () => {
+  it('can explicitly allow anonymous AI while keeping origin checks and credentials private', async () => {
+    const publicEnv = { ...env, BOTC_AI_PUBLIC_ACCESS: 'true' }
+    const fetcher = mockProvider()
+    const route = createAIProxyRoutes(createAIProxyHandlers({ env: publicEnv, fetcher }), { env: publicEnv })
+    const settings = await route(request('/api/settings/ai'))
+    const text = await settings.text()
+    expect(JSON.parse(text)).toMatchObject({ access: { required: false, authorized: true }, settings: { apiKeyConfigured: true } })
+    for (const value of [serverKey, passcode, env.BOTC_AI_BASE_URL, env.BOTC_AI_MODEL]) expect(text).not.toContain(value)
+    expect((await route(request('/api/ai/setup-advice', { method: 'POST', body: '{}' }))).status).toBe(400)
+    expect((await route(request('/api/ai/setup-advice', { method: 'POST', headers: { Origin: 'https://other.example.test' }, body: JSON.stringify(input) }))).status).toBe(403)
+    expect(fetcher).not.toHaveBeenCalled()
+    const response = await route(request('/api/ai/setup-advice', { method: 'POST', body: JSON.stringify(input) }))
+    expect(response.status).toBe(200)
+    expect((await response.json()).data.draft.provider).toBe('openai-compatible')
+    expect(fetcher).toHaveBeenCalledOnce()
+  })
+
+  it.each([true, false])('never opens private data routes when anonymous AI is enabled (public runtime: %s)', async (publicAccessMode) => {
+    for (const [key, value] of Object.entries({ ...env, BOTC_AI_PUBLIC_ACCESS: 'true' })) vi.stubEnv(key, value)
+    const directory = await mkdtemp(path.join(os.tmpdir(), 'botc-anonymous-ai-'))
+    tempDirs.push(directory)
+    const route = createArchiveRuntime({ publicAccessMode, dataFile: path.join(directory, 'archives.json'), recoveryDataFile: path.join(directory, 'recovery.json') })
+    expect((await (await route(request('/api/settings/ai'))).json()).access.required).toBe(false)
+    for (const pathname of ['/api/archives', '/api/recovery/snapshots']) {
+      expect((await route(request(pathname))).status).toBe(publicAccessMode ? 403 : 401)
+    }
+  })
+
   it('preserves the public settings DTO and configuration check without exposing keys or invoking AI', async () => {
     const fetcher = mockProvider()
     const route = createAIProxyRoutes(createAIProxyHandlers({ env, fetcher }), { env })
