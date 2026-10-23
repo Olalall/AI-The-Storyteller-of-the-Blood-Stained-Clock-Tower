@@ -100,6 +100,13 @@ describe('OpenAI-compatible provider client', () => {
     })
   })
 
+  it('keeps a timeout classification when headers arrive before a stalled JSON body', async () => {
+    const fetcher: FetchLike = async (_input, init) => new Response(new ReadableStream({
+      start(controller) { init?.signal?.addEventListener('abort', () => controller.error(new Error('stream read aborted'))) },
+    }))
+    await expect(callOpenAICompatibleJSON({ ...settings(fetcher), timeoutSeconds: 0.001 }, [])).rejects.toMatchObject({ code: 'AI_PROVIDER_TIMEOUT', status: 504 })
+  })
+
   it('accepts JSON object content wrapped by provider prose or fences', async () => {
     const fetcher: FetchLike = async () => jsonResponse({
       choices: [{ message: { content: '```json\n{"ok":true,"summary":"wrapped"}\n```' } }],

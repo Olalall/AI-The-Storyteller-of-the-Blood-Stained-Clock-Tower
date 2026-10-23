@@ -23,7 +23,15 @@ function compactRoleResearch(role: SetupAdviceProviderRequest['candidates'][numb
   }
 }
 
+function compactRole(role: SetupAdviceProviderRequest['candidates'][number]['roles'][number]) {
+  return {
+    roleId: role.roleId, roleName: role.roleName, team: role.team, abilityText: role.abilityText,
+    roleKnowledge: compactRoleKnowledge(role), roleResearch: compactRoleResearch(role),
+  }
+}
+
 function compactSetupInput(input: SetupAdviceProviderRequest) {
+  const roleRules = new Map<string, ReturnType<typeof compactRole> & { id: string }>()
   return {
     scriptId: input.scriptId,
     scriptName: input.scriptName,
@@ -48,18 +56,17 @@ function compactSetupInput(input: SetupAdviceProviderRequest) {
       summary: candidate.summary,
       playerFit: candidate.playerFit,
       risk: candidate.risk,
-      roles: candidate.roles.map((role) => ({
-        seatId: role.seatId,
-        roleId: role.roleId,
-        roleName: role.roleName,
-        team: role.team,
-        abilityText: role.abilityText,
-        roleKnowledge: compactRoleKnowledge(role),
-        roleResearch: compactRoleResearch(role),
-      })),
+      roles: candidate.roles.map((role) => {
+        const facts = compactRole(role)
+        const key = JSON.stringify(facts)
+        const rule = roleRules.get(key) ?? { id: `R${roleRules.size + 1}`, ...facts }
+        roleRules.set(key, rule)
+        return { seatId: role.seatId, roleId: role.roleId, roleName: role.roleName, team: role.team, ruleRef: rule.id }
+      }),
       demonBluffs: candidate.demonBluffs,
       legalityChecks: compactArray(candidate.legalityChecks, 6),
     })),
+    roleRules: [...roleRules.values()],
   }
 }
 
@@ -70,6 +77,7 @@ export function buildSetupAdviceProviderMessages(input: SetupAdviceProviderReque
       content: [
         '你是血染钟楼线下说书人的配板平衡顾问。',
         '你必须只使用输入里的候选、当前板子角色池、角色能力、roleKnowledge 和 roleResearch；不要凭记忆补角色机制。',
+        '候选 roles[].ruleRef 对应 input.roleRules[].id；请从该共享规则条目读取角色名称、阵营、能力和依据。',
         '你可以排序现有候选，并给出最终平衡复核与角色池微调建议；微调只能是“建议替换方向”，不能自动应用。',
         '任何身份、座位、阵营、死亡、醉酒/中毒或开局状态，在说书人确认前都不生效。',
         '只返回 JSON 对象，不要 Markdown。',

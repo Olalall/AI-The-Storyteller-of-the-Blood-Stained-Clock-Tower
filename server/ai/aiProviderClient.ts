@@ -127,6 +127,7 @@ export async function callOpenAICompatibleJSON<T>(
     const content = contentFrom(await parseJson(response))
     return parseJSONContent<T>(content)
   } catch (error) {
+    if (controller.signal.aborted) throw providerError('AI_PROVIDER_TIMEOUT')
     if (error instanceof AIProviderError) throw error
     if (error instanceof DOMException && error.name === 'AbortError') {
       throw providerError('AI_PROVIDER_TIMEOUT')

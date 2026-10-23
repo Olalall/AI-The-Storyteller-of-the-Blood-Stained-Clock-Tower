@@ -29,7 +29,7 @@ describe.skipIf(process.env.BOTC_RUN_PUBLIC_SETUP_LIVE !== '1')('anonymous real 
     expect(response.status).toBe(200)
     const text = await response.text()
     const draft = JSON.parse(text).data.draft
-    expect(draft.provider).toBe('openai-compatible')
+    expect(draft.provider, JSON.stringify(draft.warnings)).toBe('openai-compatible')
     expect(draft.draftOnly).toBe(true)
     expect(draft.recommendedCandidateIds.length).toBeGreaterThan(0)
     expect(draft.recommendedCandidateIds.every((id: string) => candidates.some(c => c.id === id))).toBe(true)

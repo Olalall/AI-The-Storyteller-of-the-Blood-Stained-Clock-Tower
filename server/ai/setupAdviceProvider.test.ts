@@ -83,6 +83,19 @@ function response(content: unknown) {
 }
 
 describe('setup advice provider', () => {
+  it('shares identical character rules and keeps differing briefs separate', () => {
+    const input = setupInput()
+    const repeated = input.candidates[1]
+    input.candidates = [...input.candidates, { ...repeated, id: 'same-rules' }, { ...repeated, id: 'different-rules', roles: [{ ...repeated.roles[0], abilityText: '另一份明确能力' }] }]
+    const before = JSON.stringify(input)
+    const prompt = JSON.parse(buildSetupAdviceProviderMessages(input)[1].content).input
+    expect(prompt.roleRules).toHaveLength(3)
+    expect(prompt.candidates[1].roles[0].ruleRef).toBe(prompt.candidates[2].roles[0].ruleRef)
+    expect(prompt.candidates[3].roles[0].ruleRef).not.toBe(prompt.candidates[1].roles[0].ruleRef)
+    expect(prompt.candidates.every((candidate: { roles: { ruleRef: string }[] }) => candidate.roles.every(role => prompt.roleRules.some((rule: { id: string }) => rule.id === role.ruleRef)))).toBe(true)
+    expect(JSON.stringify(input)).toBe(before)
+  })
+
   it('builds setup advice context from candidate briefs only', () => {
     const messages = buildSetupAdviceProviderMessages(setupInput())
     const serialized = JSON.stringify(messages)

@@ -178,6 +178,15 @@ export function createAIProxyHandlers(options: AIProxyHandlerOptions = {}) {
     },
 
     async generateSetupAdvice(input: SetupAdviceProviderRequest): Promise<SetupAdviceDraft> {
+      const rolePool = new Map(input.rolePool?.map(role => [role.roleId, role]))
+      input = { ...input, candidates: input.candidates.map(candidate => ({
+        ...candidate,
+        roles: candidate.roles.map(role => ({
+          ...role,
+          roleKnowledge: role.roleKnowledge ?? rolePool.get(role.roleId)?.roleKnowledge,
+          roleResearch: role.roleResearch ?? rolePool.get(role.roleId)?.roleResearch,
+        })),
+      })) }
       const resolved = effectiveSettings(privateSettingsForRequest(), input.providerSettings, publicAccess)
       const settings = resolved.settings
       if (resolved.rejection) {

@@ -213,13 +213,15 @@ function setupRoleKnowledgeWarnings(input: CreateSetupAdviceDraftAsyncInput) {
 }
 
 function requestBody(input: CreateSetupAdviceDraftAsyncInput) {
+  const rolePool = rolePoolForScript(input.scriptId)
+  const pooledRoleIds = new Set(rolePool.map(role => role.roleId))
   return {
     scriptId: input.scriptId,
     scriptName: input.scriptName,
     knowledgeVersion: input.knowledgeVersion,
     playerCount: input.playerCount,
     seats: input.seats,
-    rolePool: rolePoolForScript(input.scriptId),
+    rolePool,
     candidates: input.candidates.map((candidate) => ({
       id: candidate.id,
       title: candidate.title,
@@ -233,8 +235,9 @@ function requestBody(input: CreateSetupAdviceDraftAsyncInput) {
         roleName: assignment.role.name,
         team: roleFromPack(input.scriptId, assignment.role.id)?.team,
         abilityText: roleAbilityForScript(input.scriptId, assignment.role.id),
-        roleKnowledge: roleKnowledgeForAI(assignment.role.id),
-        roleResearch: roleResearchForAI(input.scriptId, assignment.role.id),
+        // 同一角色的规则只随角色池发送一次；旧别名仍携带自身资料。
+        roleKnowledge: pooledRoleIds.has(assignment.role.id) ? undefined : roleKnowledgeForAI(assignment.role.id),
+        roleResearch: pooledRoleIds.has(assignment.role.id) ? undefined : roleResearchForAI(input.scriptId, assignment.role.id),
       })),
       demonBluffs: candidate.demonBluffs.map((role) => role.name),
       legalityChecks: candidate.legalityChecks.map((check) => ({
