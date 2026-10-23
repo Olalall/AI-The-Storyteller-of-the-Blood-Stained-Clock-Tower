@@ -3,7 +3,8 @@ import { gameSessionStorageKey, persistGameSession, sessionRecoveryStorageKey, t
 
 export const beforeRestoreStorageKey = 'botc-session-before-restore-v1'
 const leaseDuration = 15_000
-type Lease = { owner: string; expires: number; protocol?: 'web-lock-v1' }
+const releasedOwnerStorageKey = 'botc-session-editor-released-v1'
+type Lease = { owner: string; expires: number; protocol?: 'web-lock-v1'; handoff?: 'closed-owner-v1' }
 export class SessionConflictError extends Error {}
 
 /** IndexedDB 只存编辑租约；对局仍只写既有 localStorage 真源。 */
@@ -12,6 +13,7 @@ export class SessionEditLock {
   private db?: Promise<IDBDatabase>
   private baseline: string | null
   private closed = false
+  private leaseHeld = false
   private readonly nativeLocks = navigator.locks
   private nativeHeld = false
   private nativePending?: Promise<boolean>
@@ -73,10 +75,13 @@ export class SessionEditLock {
       if (this.closed || !await this.acquireNative()) return false
       const acquired = await this.transaction((lease, store) => {
         if (!this.canEdit()) return false
-        // 原生锁随旧文档结束而释放；只提前接手同协议租约，旧版页面仍等待过期。
-        if (lease && lease.owner !== this.owner && lease.expires > Date.now() && !(this.nativeHeld && lease.protocol === 'web-lock-v1')) return false
+        // 只提前接手原生锁已释放，或所属实例已永久停止编辑的租约。
+        if (lease && lease.owner !== this.owner && lease.expires > Date.now()
+          && !(this.nativeHeld && lease.protocol === 'web-lock-v1')
+          && !(lease.handoff === 'closed-owner-v1' && localStorage.getItem(releasedOwnerStorageKey) === lease.owner)) return false
         if (localStorage.getItem(gameSessionStorageKey) !== this.baseline) throw new SessionConflictError('另一页面已更新对局')
-        store.put({ owner: this.owner, expires: Date.now() + leaseDuration, ...(this.nativeHeld ? { protocol: 'web-lock-v1' } : {}) }, 'current')
+        store.put({ owner: this.owner, expires: Date.now() + leaseDuration, handoff: 'closed-owner-v1', ...(this.nativeHeld ? { protocol: 'web-lock-v1' } : {}) }, 'current')
+        this.leaseHeld = true
         return true
       })
       if (!acquired) this.dropNative()
@@ -94,7 +99,7 @@ export class SessionEditLock {
       }
       if (recovery && this.baseline !== recovery.raw) throw new SessionConflictError('原存档已变化')
       const expires = Date.now() + leaseDuration
-      store.put({ owner: this.owner, expires, ...(this.nativeHeld ? { protocol: 'web-lock-v1' } : {}) }, 'current')
+      store.put({ owner: this.owner, expires, handoff: 'closed-owner-v1', ...(this.nativeHeld ? { protocol: 'web-lock-v1' } : {}) }, 'current')
       return expires
     })
     if (!this.canEdit() || Date.now() >= renewedUntil || localStorage.getItem(gameSessionStorageKey) !== this.baseline) {
@@ -108,8 +113,14 @@ export class SessionEditLock {
   }
 
   async release() {
+    if (this.closed) return
     this.closed = true
     this.dropNative()
+    // pagehide 不保证异步清理完成；先关闭写入，再同步留下仅含 owner 的交接凭据。
+    if (this.leaseHeld) {
+      try { localStorage.setItem(releasedOwnerStorageKey, this.owner) }
+      catch { /* 无法留下凭据时，仍由原有租约过期或删除后接手。 */ }
+    }
     try {
       await this.transaction((lease, store) => { if (lease?.owner === this.owner) store.delete('current') })
     } finally {

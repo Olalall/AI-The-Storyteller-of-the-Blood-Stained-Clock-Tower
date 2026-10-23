@@ -4,7 +4,6 @@ import { gameSessionStorageKey } from '../../../services/session'
 import { beforeRestoreStorageKey, SessionConflictError, SessionEditLock } from '../../../services/session/sessionEditLock'
 import { createPrototypeGameSession } from '../data/createPrototypeSession'
 import { useGameSession } from './useGameSession'
-
 beforeEach(() => { window.localStorage.clear(); window.localStorage.setItem(gameSessionStorageKey, JSON.stringify(createPrototypeGameSession())) })
 afterEach(() => vi.restoreAllMocks())
 
@@ -301,9 +300,7 @@ it('registers beforeunload only while saving or failed, then removes it after a 
   await waitFor(() => expect(result.current.editorStatus).toBe('ready'))
   expect(activeListeners.size).toBe(0)
   let failSave!: () => void
-  vi.spyOn(SessionEditLock.prototype, 'save').mockImplementationOnce(() => new Promise<void>((_resolve, reject) => {
-    failSave = () => reject(new DOMException('Storage full', 'QuotaExceededError'))
-  }))
+  vi.spyOn(SessionEditLock.prototype, 'save').mockImplementationOnce(() => new Promise<void>((_resolve, reject) => { failSave = () => reject(new DOMException('Storage full', 'QuotaExceededError')) }))
   act(() => result.current.dispatch({ type: 'update-seat-nickname', seatId: 1, nickname: '需要离页保护的昵称' }))
   await waitFor(() => expect(activeListeners.size).toBe(1))
   const pendingLeave = new Event('beforeunload', { cancelable: true })
