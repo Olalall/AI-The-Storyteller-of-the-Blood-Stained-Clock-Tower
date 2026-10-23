@@ -57,7 +57,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
       experience: seat.experience,
     })), [session.seats])
   const candidates = useMemo(() => (
-    isPlayerCount(profiles.length) ? generateSetupCandidates({ scriptId: activeScriptId, seatProfiles: profiles }) : []
+    isPlayerCount(profiles.length) ? generateSetupCandidates({ scriptId: activeScriptId, seatProfiles: profiles, count: 36 }) : []
   ), [activeScriptId, profiles])
   const [draft, setDraft] = useState<SetupDraft | null>(null)
   const [draftScriptId, setDraftScriptId] = useState<ScriptId | null>(null)
@@ -226,7 +226,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
         {notice ? <HostNotice message={notice} autoHideMs={0} /> : null}
         {session.playerCount === 0
           ? <SetupStartPanel scriptId={activeScriptId} scriptName={activeScriptName} onScriptChange={onSetupScriptChange} onStart={startSetupSession} />
-          : !effectiveDraft || showCandidates ? <SetupCandidateBrowser scriptId={activeScriptId} scriptName={activeScriptName} knowledgeVersion={candidates[0]?.knowledgeVersion ?? session.knowledgeVersion} candidates={candidates} playerCount={session.playerCount} seats={adviceSeats} onUseCandidate={selectCandidateDraft} onPreviewMicroAdjustment={selectCandidateDraft} /> : <button type="button" className="setup-panel__advice-entry" onClick={() => setShowCandidates(true)}>
+          : !effectiveDraft || showCandidates ? <SetupCandidateBrowser key={candidates.map(candidate => candidate.id).join(',')} scriptId={activeScriptId} scriptName={activeScriptName} knowledgeVersion={candidates[0]?.knowledgeVersion ?? session.knowledgeVersion} candidates={candidates} playerCount={session.playerCount} seats={adviceSeats} onUseCandidate={selectCandidateDraft} onPreviewMicroAdjustment={selectCandidateDraft} /> : <button type="button" className="setup-panel__advice-entry" onClick={() => setShowCandidates(true)}>
           <span><Bot aria-hidden="true" />智能配板</span>
           <strong>{activeCandidate?.title ?? '查看角色组合'}</strong>
           <em>打开</em>

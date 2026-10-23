@@ -1,5 +1,5 @@
 import { ArrowLeft, Bot, ChevronRight, Sparkles } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { EmptyState } from '../../components/ui/EmptyState'
 import { StatusBadge, type BadgeTone } from '../../components/ui/StatusBadge'
@@ -134,15 +134,28 @@ export function SetupCandidateBrowser({
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [advice, setAdvice] = useState<SetupAdviceRuntimeDraft | null>(null)
   const [isAdviceLoading, setIsAdviceLoading] = useState(false)
+  const [range, setRange] = useState({ start: 0, end: 3 })
+  const requestVersion = useRef(0)
+  useEffect(() => () => { requestVersion.current++ }, [])
+  const batch = candidates.slice(range.start, range.end)
   const selected = candidates.find((candidate) => candidate.id === selectedId)
-  const visibleCandidates = adviceOrderedCandidates(candidates, advice)
+  const visibleCandidates = adviceOrderedCandidates(batch, advice)
   const adviceRanks = adviceRankById(advice)
   const qualityTags = qualityTagsByCandidate(advice)
   const topAdvice = advice ? visibleCandidates[0] : undefined
 
+  function browse(more: boolean) {
+    requestVersion.current++
+    setAdvice(null)
+    setIsAdviceLoading(false)
+    const start = range.end >= candidates.length ? 0 : range.end
+    setRange(more ? { start: range.start, end: Math.min(candidates.length, range.end + 3) } : { start, end: start + 3 })
+  }
+
   async function requestAdvice() {
     if (!candidates.length || isAdviceLoading) return
     setIsAdviceLoading(true)
+    const version = ++requestVersion.current
     try {
       const draft = await createSetupAdviceDraftAsync({
         scriptId,
@@ -150,11 +163,11 @@ export function SetupCandidateBrowser({
         knowledgeVersion,
         playerCount,
         seats,
-        candidates,
+        candidates: batch,
       })
-      setAdvice(draft)
+      if (version === requestVersion.current) setAdvice(draft)
     } finally {
-      setIsAdviceLoading(false)
+      if (version === requestVersion.current) setIsAdviceLoading(false)
     }
   }
 
@@ -248,9 +261,9 @@ export function SetupCandidateBrowser({
             ))}
           </div></div>
           {index === 0 && qualityTags.get(candidate.id)?.[0] ? <p className="setup-candidate__quality"><b>质量提示</b><span>{qualityTags.get(candidate.id)?.[0].reason}</span></p> : null}
-          {index === 0 ? <ol className="setup-candidate__roles" aria-label={`${candidate.title}角色组合`}>
+          <ol className="setup-candidate__roles" aria-label={`${candidate.title}角色组合`}>
             {candidate.assignments.map((assignment) => <li key={assignment.seatId}><span>{assignment.seatId}号</span><strong>{assignment.role.name}</strong></li>)}
-          </ol> : null}
+          </ol>
           <p className="setup-candidate__advice"><b>建议</b><span>{candidate.rationale.summary}</span></p>
           <div className="setup-candidate__actions">
             <Button variant="ghost" compact onClick={() => setSelectedId(candidate.id)}>查看详情<ChevronRight aria-hidden="true" /></Button>
@@ -258,6 +271,13 @@ export function SetupCandidateBrowser({
           </div>
         </article>
       ))}
+      {candidates.length ? <div className="setup-candidate__browse">
+        <span role="status">第 {range.start + 1}—{Math.min(range.end, candidates.length)} 个 / 共 {candidates.length} 个不同组合{range.end >= candidates.length ? '，本批已到底' : ''}</span>
+        <div>
+          <Button variant="secondary" disabled={candidates.length <= 3} onClick={() => browse(false)}>换一批</Button>
+          <Button variant="ghost" disabled={range.end >= candidates.length} onClick={() => browse(true)}>更多方案</Button>
+        </div>
+      </div> : null}
     </section>
   )
 }

@@ -4,7 +4,7 @@ import { aiApiError, json } from './aiErrors'
 const lifetimeSeconds = 30 * 24 * 60 * 60
 const localHosts = new Set(['localhost', '127.0.0.1', '[::1]'])
 
-export function createAIAccessGuard(env: NodeJS.ProcessEnv = process.env, now = Date.now) {
+export function createAIAccessGuard(env: NodeJS.ProcessEnv = process.env, now = Date.now, allowAnonymous = false) {
   const secret = env.BOTC_AI_ACCESS_SECRET?.trim() ?? ''
   const failures = new Map<string, { count: number; until: number }>()
   const digest = (value: string) => createHmac('sha256', secret).update(`botc-ai-access-v1:${value}`).digest()
@@ -27,7 +27,7 @@ export function createAIAccessGuard(env: NodeJS.ProcessEnv = process.env, now = 
     return same(match[3], digest(`${match[1]}.${match[2]}`).toString('hex'))
   }
   function status(request: Request) {
-    return { required: Boolean(secret), authorized: authorized(request), rememberDays: 30 }
+    return { required: !allowAnonymous && Boolean(secret), authorized: allowAnonymous || authorized(request), rememberDays: 30 }
   }
   function trustedOrigin(request: Request) {
     const origin = request.headers.get('origin')
@@ -38,9 +38,9 @@ export function createAIAccessGuard(env: NodeJS.ProcessEnv = process.env, now = 
     return response
   }
   function protect(request: Request) {
-    if (!secret) return null
+    if (!secret && !allowAnonymous) return null
     if (!trustedOrigin(request)) return noStore(aiApiError('BAD_REQUEST', 403, '请从本站使用 AI。'))
-    if (!authorized(request)) return noStore(aiApiError('AI_ACCESS_REQUIRED', 401))
+    if (!allowAnonymous && !authorized(request)) return noStore(aiApiError('AI_ACCESS_REQUIRED', 401))
     return null
   }
   async function handle(request: Request) {

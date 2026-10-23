@@ -4,6 +4,8 @@ import { hereticForbiddenRoleIds } from '../../domain/setup-templates/normalizeH
 import type { PlayerCount, ScriptId, SetupTemplate, SetupTemplateStyle, SmartScriptPack, SmartRoleDefinition } from '../../domain/scripts'
 import { getSmartScriptPack, roleSnapshotsForScript, roleTeamByIdForScript, scriptKnowledgeVersion, smartScriptRegistry } from '../../domain/scripts'
 import { selectSetupCandidates, type RandomSource } from '../../services/setup-candidates'
+import { validateTemplateComposition } from '../../domain/setup-templates/composition'
+import { setupCandidateVariants, setupCombinationKey } from './setupCandidateVariants'
 import type { DemonBluffAdvice, SetupAssignment, SetupRationale, SetupRuleSelection } from '../game-session/types'
 import type { RoleSnapshot } from '../night-workbench/types'
 import { baseDistributionByPlayerCount } from './baseDistribution'
@@ -29,6 +31,7 @@ const experienceRank = {
 
 export interface CreateSmartScriptCandidatesOptions {
   count?: number
+  expand?: boolean
   seed?: string | number
   random?: RandomSource
 }
@@ -367,7 +370,7 @@ export function createSmartScriptSetupCandidates(
   const pack = getSmartScriptPack(scriptId)
   const playerCount = playerCountFromSeatProfiles(seatProfiles)
   const expectedSeatIds = Array.from({ length: playerCount }, (_value, index) => index + 1)
-  const desiredCount = options.count ?? 3
+  const desiredCount = options.expand ? Math.max(1, Math.min(36, Math.floor(options.count ?? 3))) : options.count ?? 3
   const candidates = selectSetupCandidates({
     registry: smartScriptRegistry,
     scriptId: pack.scriptId,
@@ -378,10 +381,23 @@ export function createSmartScriptSetupCandidates(
   })
 
   const rejectionReasons: string[] = []
-  const visibleCandidates = candidates
-    .map(({ template }) => createCandidateFromTemplate(template, pack, seatProfiles, expectedSeatIds, playerCount, rejectionReasons))
-    .filter((candidate): candidate is SetupPrototypeCandidate => Boolean(candidate))
-    .slice(0, desiredCount)
+  const templates = candidates.map(candidate => candidate.template)
+  const visibleCandidates: SetupPrototypeCandidate[] = []
+  const seen = new Set<string>()
+  for (const template of options.expand ? [...templates, ...setupCandidateVariants(pack, templates)] : templates) {
+    const key = setupCombinationKey(template.roles)
+    if (options.expand && seen.has(key) || !validateTemplateComposition(pack, template).valid) continue
+    seen.add(key)
+    const candidate = createCandidateFromTemplate(template, pack, seatProfiles, expectedSeatIds, playerCount, rejectionReasons)
+    if (!candidate) continue
+    if (!template.verified) {
+      candidate.title += ` · 扩展${visibleCandidates.length + 1}`
+      candidate.rationale.summary = '从已核对模板替换同阵营角色，已通过开局检查。'
+      candidate.rationale.risk = '扩展组合尚未逐局验证平衡；请核对角色联动后确认。'
+    }
+    visibleCandidates.push(candidate)
+    if (visibleCandidates.length >= desiredCount) break
+  }
 
   if (!visibleCandidates.length) {
     const reason = [...new Set(rejectionReasons)].join('；')

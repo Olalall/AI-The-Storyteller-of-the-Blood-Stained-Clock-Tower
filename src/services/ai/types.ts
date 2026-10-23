@@ -7,6 +7,7 @@ import type { AIRoleResearchBrief } from '../../domain/scripts'
 import type { GameReviewEvidence, GameReviewInterpretation } from './gameReviewEvidence'
 
 export interface GenerateSetupCandidatesInput {
+  count?: number
   scriptId: string
   seatProfiles: readonly SetupSeatProfile[]
 }

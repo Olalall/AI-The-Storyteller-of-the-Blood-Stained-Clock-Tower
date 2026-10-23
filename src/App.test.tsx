@@ -288,7 +288,7 @@ describe('App game reset flow', () => {
       expect(session.phaseSegments).toEqual([])
       expect(session.seats[1]).toMatchObject({ nickname: '上一局1号', experience: 'veteran' })
     })
-    expect(await screen.findByRole('list', { name: /角色组合/ })).toBeInTheDocument()
+    expect(await screen.findAllByRole('list', { name: /角色组合/ })).toHaveLength(3)
   })
 
   it('keeps a requested board switch explicit and applies it only after confirmed archive and reset', async () => {
