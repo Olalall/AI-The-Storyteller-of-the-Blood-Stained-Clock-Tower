@@ -6,6 +6,17 @@ import { contradictsNominationRules, nominationRuleFacts, nominationRulesSource 
 
 export async function generateRulesAdvisorAnswer(input: RulesAdvisorRequest, settings: OpenAICompatibleClientSettings): Promise<RulesAdvisorAnswer> {
   const knowledge = await rulesAdvisorContext(input)
+  const pixie = knowledge.context.roles.find(role => role.id === 'pixie')
+  const questions = [input.question, ...input.history.map(turn => turn.question)].join(' ')
+  // shortcut: 错误信息与小精灵继承尚无完整已核实裁定，先返回来源边界，补齐专门裁定后再开放自由回答。
+  if (pixie?.reminders && (input.roleId === 'pixie' || /小精灵|pixie/iu.test(questions))
+    && /涡流|vortox|错误|假信息|醉酒|中毒|毒醉/iu.test(questions)) {
+    return { summary: '先分别记录实际 MAD 来源与实际告知。错误信息时，不能只按告知角色直接绑定来源或授予能力；这个组合的完整继承裁定仍需说书人核实。',
+      ruleFacts: [...pixie.reminders.reminders], considerations: ['以上是已核实的来源和处理边界，不把未经核实的组合推断当作完整官方裁定。'],
+      missingFacts: ['请核实本局采用的错误信息、疯狂与继承交互裁定，并在确认能力时填写依据。'],
+      sources: knowledge.sources.filter(source => pixie.reminders!.sourceUrls?.includes(source.url)),
+      knowledgeVersion: knowledge.knowledgeVersion, scopeLabel: knowledge.scopeLabel }
+  }
   const baseRulesAnswer: RulesAdvisorAnswer = {
     summary: `已核实基础规则：${nominationRuleFacts[0]}${nominationRuleFacts[1]}`,
     ruleFacts: [...nominationRuleFacts], considerations: [], missingFacts: [],

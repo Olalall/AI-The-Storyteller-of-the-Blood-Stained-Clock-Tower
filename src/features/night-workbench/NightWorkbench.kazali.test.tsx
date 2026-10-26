@@ -34,7 +34,7 @@ describe('Kazali first-night paired form', () => {
       await user.selectOptions(role, choices[index].id)
       if (index < 2) expect(screen.getByRole('button', { name: '记录结果' })).toBeDisabled()
     }
-    expect(within(screen.getByRole('combobox', { name: '第2组玩家' })).getByRole('option', { name: '6号玩家' })).toBeDisabled()
+    expect(within(screen.getByRole('combobox', { name: '第2组玩家' })).getByRole('option', { name: '6号 博学者 · 存活' })).toBeDisabled()
     expect(within(screen.getByRole('combobox', { name: '第2组爪牙' })).getByRole('option', { name: choices[0].label })).toBeDisabled()
     await user.click(screen.getByRole('button', { name: '记录结果' }))
     expect(screen.queryByRole('button', { name: '展示信息' })).toBeNull()

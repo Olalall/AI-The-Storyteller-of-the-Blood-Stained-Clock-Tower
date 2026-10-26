@@ -189,7 +189,7 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
       })
     case 'system-check':
       return updatePreviewDraft(state, action.at, (draft, item) => {
-        if (!item.systemStep?.checks.some((check) => check.id === action.checkId)) return draft
+        if (!item.systemStep?.checks.some((check) => check.id === action.checkId) && (item.hostConfirmation?.checkId !== action.checkId || item.hostConfirmation.blockedReason)) return draft
         const checked = draft.systemChecks ?? []
         const systemChecks = checked.includes(action.checkId)
           ? checked.filter((id) => id !== action.checkId)

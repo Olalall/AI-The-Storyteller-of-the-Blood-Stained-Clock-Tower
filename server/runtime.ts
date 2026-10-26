@@ -125,6 +125,7 @@ async function serveStatic(request: Request, staticDir: string) {
     if (request.method === 'HEAD') return new Response(null, { status: 200, headers })
     return new Response(await readFile(filePath), { status: 200, headers })
   } catch {
+    if (url.pathname.startsWith('/assets/') || path.extname(url.pathname)) return new Response(null, { status: 404 })
     const indexPath = path.resolve(staticDir, 'index.html')
     try {
       const headers = { 'Content-Type': contentType(indexPath) }

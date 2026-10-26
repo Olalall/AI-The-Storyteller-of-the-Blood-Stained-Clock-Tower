@@ -1,3 +1,4 @@
+import { validOpeningChoices, validOpeningPreparations } from './openingSchema'
 type Check = (value: unknown) => boolean
 const object = (value: unknown): value is Record<string, unknown> => Boolean(value) && typeof value === 'object' && !Array.isArray(value)
 const string: Check = (v) => typeof v === 'string'
@@ -25,7 +26,7 @@ const targetRoleChoices: Check = (value) => Array.isArray(value) && value.length
   Number.isInteger(choice.seatId) && Number(choice.seatId) >= 0 && Number(choice.seatId) <= 15 && typeof choice.roleId === 'string' && choice.roleId.length <= 100)
 const informationInput: Check = (v) => shape({ kind: oneOf('number'), minimum: count, maximum: count })(v) && object(v) && Number(v.minimum) <= Number(v.maximum)
 const wakeDraft = shape({ systemChecks: optional(array(string)), bluffRoleIds: optional(array(string)), registration: optional(registration), targets: array(number), targetRoleChoices: optional(targetRoleChoices), targetCountChoice: optional(targetMode), roleChoice: string, secondRoleChoice: optional(string), additionalRoleChoices: optional(extraRoleChoices), storytellerContext: optional(contextText), outcomeId: string, playerChoice: string, storytellerResult: string, informationGiven: string, draftRevision: number })
-const setup = shape({ candidateId: string, revision: number, updatedAt: string, assignments: array(shape({ seatId: number, role })), demonBluffs: array(role), repeatableRoleIds: optional(array(string)), setupRuleSelections: optional(array(shape({ ruleId: string, choiceId: string }))) })
+const setup = shape({ candidateId: string, revision: number, updatedAt: string, assignments: array(shape({ seatId: number, role })), demonBluffs: array(role), repeatableRoleIds: optional(array(string)), setupRuleSelections: optional(array(shape({ ruleId: string, choiceId: string }))), openingChoices: optional(validOpeningChoices) })
 const phase = shape({ id: string, kind: oneOf('night', 'day'), sequence: number, label: string, createdAt: string, closedAt: optional(string) })
 const voteAdjustment = shape({ count: number, reason: string })
 const systemStep = shape({ kind: oneOf('minion_info', 'demon_info', 'audience_notice'), minionLabels: array(string), demonLabel: string, infoTokens: array(string), checks: array(shape({ id: string, label: string })), bluffCount: optional(count), bluffChoices: optional(array(shape({ id: string, label: string, teamLabel: string, suggested: boolean }))), audienceLabel: optional(string), recipientLabels: optional(array(string)), sensitive: optional(boolean) })
@@ -72,6 +73,7 @@ const timelineVariants: Record<string, Check> = {
 }
 const timeline: Check = (v) => object(v) && shape({ id: string, kind: string, segmentId: nullable(string), createdAt: string, confirmedBy: oneOf('storyteller'), correctionOf: optional(string) })(v) && Object.hasOwn(timelineVariants, String(v.kind)) && timelineVariants[String(v.kind)](v)
 export const sessionBackupSchema = shape({
+  openingPreparations: validOpeningPreparations,
   hostingMode: optional(oneOf('record', 'grimoire')), hostingModeHistory: optional(array(shape({ mode: oneOf('record', 'grimoire'), changedAt: string, phaseLabel: string }))),
   identityPresentations: optional(record(shape({ actualRoleId: string, shownRole: role, confirmedAt: string }))),
   stateFollowups: optional(array(shape({ id: string, sourceEntryId: string, seatId: number, note: string, createdAt: string, resolution: optional(shape({ kind: oneOf('applied', 'dismissed'), at: string, reason: string, entryId: optional(string) })) }))),

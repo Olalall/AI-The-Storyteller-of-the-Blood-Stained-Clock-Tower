@@ -33,6 +33,10 @@ export function cardinalitySession(scriptId: string, roleId: string, playerCount
     session = gameSessionReducer(session, { type: 'close-open-segment', phaseKind: 'day', closedAt: nextAt() })
     session = gameSessionReducer(session, { type: 'start-next-night-run' })
   }
+  // 只测试目标人数；显式跳过无关疯子流程，完整交接由 openingPreparation 回归覆盖。
+  for (const other of projected(session).queue.filter(i => i.roleId === 'lunatic' && i.roleId !== roleId)) {
+    session = actNight(session, { type: 'skip-item', id: other.id, reason: '隔离目标人数回归，不执行疯子假装流程。' })
+  }
   const item = projected(session).queue.find((entry) => entry.roleId === roleId)
   if (!item) throw new Error(`Missing production wake: ${scriptId}/${roleId}`)
   return actNight(actNight(session, { type: 'preview', id: item.id }), { type: 'activate-preview' })
@@ -53,6 +57,9 @@ export function nextCardinalityNight(session: ReturnType<typeof cardinalitySessi
   session = gameSessionReducer(session, { type: 'confirm-day-no-execution', daySegmentId: session.phaseSegments.at(-1)!.id, entryId: `${previousRunId}-no-execution`, confirmedAt: nextAt() })
   session = gameSessionReducer(session, { type: 'close-open-segment', phaseKind: 'day', closedAt: nextAt() })
   session = gameSessionReducer(session, { type: 'start-next-night-run' })
+  for (const other of projected(session).queue.filter(i => i.roleId === 'lunatic' && i.roleId !== roleId)) {
+    session = actNight(session, { type: 'skip-item', id: other.id, reason: '隔离目标人数回归，不执行疯子假装流程。' })
+  }
   const item = projected(session).queue.find((entry) => entry.roleId === roleId)!
   return actNight(actNight(session, { type: 'preview', id: item.id }), { type: 'activate-preview' })
 }

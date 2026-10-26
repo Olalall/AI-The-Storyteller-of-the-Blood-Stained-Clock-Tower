@@ -1,11 +1,14 @@
 import type { GameSessionState, NightRunState } from '../types'
-import { projectCurrentAssignments, projectCurrentPlayerStates } from './projectors'
+import { projectConfirmedSetup, projectCurrentAssignments, projectCurrentPlayerStates } from './projectors'
 import { nextPhaseSequence } from './phaseSegments'
 import { createFirstNightSystemSteps, mergeFirstNightSystemSteps } from './firstNightSystemSteps'
 import { createSmartScriptNightQueue } from './smartScriptNightQueue'
 import { projectAbilityGrants } from './abilityChanges'
 import { abilityNightItems, projectAbilityItem } from './abilityNightQueue'
 import { insertNightItems } from './insertNightItems'
+import { projectOpeningNightFacts } from './openingNightFacts'
+import { openingChoiceForSeat } from './openingPreparation'
+import { emptyWakeDraft } from '../../night-workbench/state/projectWakeDraft'
 export { createSmartScriptNightQueue } from './smartScriptNightQueue'
 export function nextNightSequence(session: GameSessionState) {
   return nextPhaseSequence(session, 'night')
@@ -26,7 +29,7 @@ export function createNextNightRun(session: GameSessionState): NightRunState | n
   roles = insertNightItems(session, { nightType: sequence === 1 ? 'first' : 'other', activeCursorId: roles[0]?.id ?? '' }, roles, additions)
   const queue = (sequence === 1
     ? mergeFirstNightSystemSteps(roles, createFirstNightSystemSteps(session, assignments, playerStates, id)) : roles)
-    .map((item, index) => ({ ...item, orderIndex: index + 1 }))
+    .map((item, index) => projectOpeningNightFacts(session, { ...item, orderIndex: index + 1 }, id))
   if (!queue.length) return null
 
   return {
@@ -40,7 +43,13 @@ export function createNextNightRun(session: GameSessionState): NightRunState | n
     queue,
     activeCursorId: queue[0].id,
     previewEntryId: queue[0].id,
-    drafts: {},
+    drafts: Object.fromEntries(queue.flatMap(item => {
+      const bluffRoleIds = item.systemStep?.bluffCount ? projectConfirmedSetup(session)?.draft.demonBluffs.map(r => r.id)
+        .filter(id => item.systemStep?.bluffChoices?.some(c => c.id === id)) : undefined
+      const roleChoice = ['alchemist', 'pixie'].includes(item.roleId) ? openingChoiceForSeat(session, item.seatId)?.chosenRoleId : undefined
+      return bluffRoleIds?.length === item.systemStep?.bluffCount && bluffRoleIds?.length || roleChoice
+        ? [[item.id, { ...emptyWakeDraft(), ...(bluffRoleIds?.length ? { bluffRoleIds } : {}), ...(roleChoice ? { roleChoice } : {}) }]] : []
+    })),
     privacyShielded: false,
     dimmed: false,
     aiAdviceLog: {},

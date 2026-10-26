@@ -5,6 +5,7 @@ import { projectCurrentAssignments, projectCurrentPlayerStates } from './project
 import { nightContextKey } from '../../night-workbench/state/gameSessionAdapter'
 import { abilityNightItems, projectAbilityItem } from './abilityNightQueue'
 import { insertNightItems } from './insertNightItems'
+import { openingChoiceForSeat } from './openingPreparation'
 
 export const abilitySourceLabels: Readonly<Record<string, string>> = {
   philosopher: '哲学家', alchemist: '炼金术士', boffin: '科学怪人', pixie: '小精灵', cannibal: '食人族',
@@ -56,6 +57,12 @@ export function confirmAbilityChange(session: GameSessionState, action: Extract<
   const killedExecutee = session.timeline.findLast(e => e.kind === 'execution' && e.causedDeath !== false && !session.timeline.some(c => c.correctionOf === e.id))
   const pixieInfo = session.timeline.findLast(e => e.kind === 'night_action' && e.actorSeatId === action.sourceSeatId && e.roleId === 'pixie'
     && !session.timeline.some(c => c.correctionOf === e.id))
+  const pixiePreparation = action.sourceRoleId === 'pixie' ? openingChoiceForSeat(session, action.sourceSeatId) : undefined
+  const pixieInformationReviewed = pixieInfo?.kind === 'night_action' && pixieInfo.record.snapshot.roleChoice === pixiePreparation?.sourceRoleId || action.informationMismatchReviewed === true
+  const pixieSourceValid = pixiePreparation?.targetSeatId && pixiePreparation.sourceRoleId
+    ? action.triggerSeatId === pixiePreparation.targetSeatId && pixieInformationReviewed && (ability?.id === pixiePreparation.sourceRoleId
+      || action.informationMismatchReviewed === true && pixieInfo?.kind === 'night_action' && pixieInfo.record.snapshot.roleChoice !== pixiePreparation.sourceRoleId)
+    : pixieInfo?.kind === 'night_action' && (pixieInfo.record.snapshot.roleChoice === ability?.id || action.informationMismatchReviewed === true)
   const sourceEntryId = action.sourceRoleId === 'cannibal' ? killedExecutee?.id
     : action.sourceRoleId === 'pixie' ? pixieInfo?.id : action.sourceEntryId
   const run = session.activeNightRunId ? session.nightRuns[session.activeNightRunId] : undefined
@@ -69,13 +76,14 @@ export function confirmAbilityChange(session: GameSessionState, action: Extract<
     || action.expectedContextKey !== nightContextKey(session) || session.timeline.some(e => e.id === action.id)
     || run?.privacyShielded || run?.correctionItemId
     || ability && action.sourceRoleId === 'cannibal' && (!killedExecutee || action.sourceEntryId && action.sourceEntryId !== killedExecutee.id)
-    || ability && action.sourceRoleId === 'pixie' && (pixieInfo?.kind !== 'night_action' || pixieInfo.record.snapshot.roleChoice !== ability.id
+    || ability && action.sourceRoleId === 'pixie' && (pixieInfo?.kind !== 'night_action' || !pixieSourceValid
       || !action.triggerSeatId || projectCurrentPlayerStates(session)[action.triggerSeatId]?.life !== 'dead')
     || action.sourceEntryId && !session.timeline.some(e => e.id === action.sourceEntryId && !session.timeline.some(c => c.correctionOf === e.id))) return session
   const entry: AbilityChangedEntry = { id: action.id, kind: 'ability_changed', segmentId: openRun?.phaseSegmentId ?? null,
     createdAt: action.confirmedAt, confirmedBy: 'storyteller', sourceSeatId: action.sourceSeatId, sourceRoleId: action.sourceRoleId,
     seatId: action.seatId, actorRole: { ...actor }, abilityRole: ability ? { ...ability } : null,
-    sourceEntryId, ...(sourceGrant ? { parentGrantId: sourceGrant.id } : {}), ...(action.triggerSeatId ? { triggerSeatId: action.triggerSeatId } : {}), timing: action.timing, reason: action.reason.trim() }
+    sourceEntryId, ...(sourceGrant ? { parentGrantId: sourceGrant.id } : {}), ...(action.triggerSeatId ? { triggerSeatId: action.triggerSeatId } : {}), timing: action.timing,
+    reason: (action.sourceRoleId === 'pixie' && action.informationMismatchReviewed ? '已人工核对告知真假与实际标记来源；' : '') + action.reason.trim() }
   const next = { ...session, timeline: [...session.timeline, entry] }
   if (!openRun) return next
   const queue = openRun.queue.map(item => projectAbilityItem(next, item))

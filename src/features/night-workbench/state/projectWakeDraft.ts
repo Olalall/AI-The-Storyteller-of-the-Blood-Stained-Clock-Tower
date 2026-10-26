@@ -181,6 +181,9 @@ export function wakeInputsSatisfied(item: WakeItem, draft: WakeDraft) {
 }
 
 export function missingWakeInputReason(item: WakeItem, draft: WakeDraft) {
+  if (item.hostConfirmation?.blockedReason) return item.hostConfirmation.blockedReason
+  if (item.hostConfirmation?.expectedRoleIds && !item.hostConfirmation.expectedRoleIds.includes(draft.roleChoice) && !draft.storytellerContext?.trim()) return '改选符合已录状态的告知角色，或补充特殊裁定依据'
+  if (item.hostConfirmation && !draft.systemChecks?.includes(item.hostConfirmation.checkId)) return item.hostConfirmation.label
   const chosen = item.outcomeOptions.find((option) => option.id === draft.outcomeId)
   if (chosen && isEmptyInformationOutcome(chosen) && outcomeReady(chosen, item, draft)) return ''
   if (item.systemStep) return systemStepMissingReason(item, draft)
@@ -196,6 +199,8 @@ export function missingWakeInputReason(item: WakeItem, draft: WakeDraft) {
 }
 
 export function outcomeReady(option: WakeOutcomeOption, item: WakeItem, draft: WakeDraft) {
+  if (item.hostConfirmation && (item.hostConfirmation.blockedReason || !draft.systemChecks?.includes(item.hostConfirmation.checkId))) return false
+  if (item.hostConfirmation?.expectedRoleIds && !item.hostConfirmation.expectedRoleIds.includes(draft.roleChoice) && !draft.storytellerContext?.trim()) return false
   if (isEmptyInformationOutcome(option)) return draft.outcomeId !== option.id || (draft.targets.length === 0 && !draft.roleChoice && !draft.secondRoleChoice && !draft.additionalRoleChoices?.some(Boolean))
   if (item.targetRoleChoiceCount !== undefined && !targetRoleChoicesSatisfied(item, draft)) return false
   if (!isNoActionOutcome(option) && !wakeInputsSatisfied(item, draft)) return false
@@ -219,6 +224,8 @@ function isEmptyInformationOutcome(option: WakeOutcomeOption) {
 
 /** 新写入与更正共用；旧已确认快照在恢复时不重写或追补。 */
 export function formalNightRecordValid(item: WakeItem, draft: WakeDraft) {
+  if (item.hostConfirmation && (item.hostConfirmation.blockedReason || !draft.systemChecks?.includes(item.hostConfirmation.checkId))) return false
+  if (item.hostConfirmation?.expectedRoleIds && !item.hostConfirmation.expectedRoleIds.includes(draft.roleChoice) && !draft.storytellerContext?.trim()) return false
   const option = item.outcomeOptions.find((candidate) => candidate.id === draft.outcomeId)
   return (!item.informationInput || Boolean(option && (!option.requiredInputs.includes('information') || formalInformationValid(item, draft)))) &&
     (!option || !isEmptyInformationOutcome(option) || outcomeReady(option, item, draft))

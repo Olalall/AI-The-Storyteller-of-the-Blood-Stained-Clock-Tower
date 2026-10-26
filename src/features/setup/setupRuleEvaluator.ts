@@ -24,6 +24,7 @@ interface EvaluateSetupRulesInput {
   teamForRole: Readonly<Record<string, SetupTeam>>
   repeatableRoleIds?: readonly string[]
   modifierSourceRoleIds?: readonly string[]
+  additionalModifierRoleIds?: readonly string[]
 }
 
 function check(id: string, status: SetupLegalityCheck['status'], summary: string, detail?: string, source?: string): SetupLegalityCheck {
@@ -109,11 +110,12 @@ export function evaluateSetupRules({
   teamForRole,
   repeatableRoleIds = [],
   modifierSourceRoleIds,
+  additionalModifierRoleIds = [],
 }: EvaluateSetupRulesInput): SetupLegalityReport {
   const roleIds = assignments.map((assignment) => assignment.role.id)
   const seatIds = assignments.map((assignment) => assignment.seatId)
   const inPlay = new Set(roleIds)
-  const modifierSources = new Set(modifierSourceRoleIds ?? roleIds)
+  const modifierSources = new Set([...(modifierSourceRoleIds ?? roleIds), ...additionalModifierRoleIds])
   const actualCounts = emptyTeamCounts()
   roleIds.forEach((roleId) => {
     const team = teamForRole[roleId]
@@ -159,7 +161,9 @@ export function evaluateSetupRules({
       checks.push(check(`modifier-${rule.id}`, 'fail', `开局人数修正无效：${rule.label}`, '当前选项与已核对的角色人数事实不符；请重新生成候选。', rule.source))
       return
     }
-    appliedModifiers.push({ rule, choice: result.choice })
+    const baseSources = new Set(modifierSourceRoleIds ?? roleIds)
+    const copies = Math.max(1, (baseSources.has(rule.roleId) ? 1 : 0) + additionalModifierRoleIds.filter(id => id === rule.roleId).length)
+    for (let source = 0; source < copies; source++) appliedModifiers.push({ rule, choice: result.choice })
     activeSelections.push(result.selected)
   })
 
@@ -178,7 +182,8 @@ export function evaluateSetupRules({
     appliedModifiers.forEach(({ rule, choice }, index) => {
       const label = choice.boundedTransfer && resolved.effectiveDeltas[index].outsider === 0
         ? '无可移除外来者，不增加镇民' : choice.label
-      checks.push({ id: `modifier-${rule.id}`, status: 'pass', passed: true,
+      const copy = appliedModifiers.slice(0, index).filter(item => item.rule.id === rule.id).length
+      checks.push({ id: `modifier-${rule.id}${copy ? `-copy-${copy + 1}` : ''}`, status: 'pass', passed: true,
         summary: `${rule.label}：${label}`, detail: `目标人数：${formatCounts(expectedCounts!)}`, source: rule.source })
     })
     checks.push(check(

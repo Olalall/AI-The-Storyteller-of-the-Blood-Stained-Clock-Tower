@@ -157,7 +157,7 @@ function DeckNodeBody({
         /* 魔典模式下转盘在 core 上，这里不再画第二份——一屏两份会让遮蔽形同虚设。 */
         carouselElsewhere={session.hostingMode === 'grimoire'}
         onExit={onExitToArchive}
-        onCloseNight={() => onDeckNodeChange('dawn')}
+        onCloseNight={onStartDay}
       />
     )
   }

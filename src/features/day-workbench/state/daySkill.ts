@@ -3,6 +3,7 @@ import { projectCurrentAssignments } from '../../game-session/state/projectors'
 import { createDayActionSkillDraft } from '../../game-session/state/dayActionDraft'
 import type { DayActionSkillDraft, DaySkillContext, GameSessionState } from '../../game-session/types'
 import type { RoleSnapshot } from '../../night-workbench/types'
+import { savantInformationContextKey } from './savantInformation'
 
 export type DaySkillDraft = DayActionSkillDraft
 
@@ -56,12 +57,20 @@ export function buildDaySkillContext(
   return context.abilityRole ? context : null
 }
 
-export function canRecordDaySkill(draft: DaySkillDraft) {
+export function canRecordDaySkill(draft: DaySkillDraft, session?: GameSessionState) {
+  if (session && draft.savantContextKey && draft.savantContextKey !== savantInformationContextKey(session, draft.actorSeatId)) return false
+  if (session && draft.abilityRoleId === 'savant' && savantRecordedToday(session, draft.actorSeatId)) return false
   const registrationReady = draft.abilityRoleId !== 'moonchild' || (
     draft.targetSeatIds.length === 1 && draft.targetSeatIds.every((seatId) => Boolean(draft.targetAlignments?.[seatId]))
   )
   return draft.actorSeatId !== null && Boolean(draft.abilityRoleId) && Boolean(draft.outcomeKind) && registrationReady &&
     (draft.outcomeKind !== 'custom' || Boolean(draft.outcomeNote.trim()))
+}
+
+export function savantRecordedToday(session: GameSessionState, seatId: number | null) {
+  const day = session.phaseSegments.findLast(p => p.kind === 'day' && !p.closedAt)
+  return Boolean(day && session.timeline.some(e => e.kind === 'day_action' && e.segmentId === day.id && e.actorSeatId === seatId
+    && e.skillContext?.abilityRole?.id === 'savant' && !session.timeline.some(c => c.correctionOf === e.id)))
 }
 
 export function summaryForDaySkillContext(context: DaySkillContext | null, draft: DaySkillDraft) {

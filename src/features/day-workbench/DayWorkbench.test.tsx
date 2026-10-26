@@ -34,6 +34,8 @@ describe('DayWorkbench records', () => {
     render(<DayWorkbenchHarness />)
 
     await user.click(screen.getByRole('button', { name: '记技能/事件' }))
+    expect(screen.getByRole('button', { name: '选择6号为发动者' })).toHaveAccessibleDescription(/赌徒.*存活/)
+    expect(screen.getByRole('button', { name: '选择5号为目标' })).toHaveAccessibleDescription(/舞蛇人.*存活/)
     await user.click(screen.getByRole('button', { name: '选择6号为发动者' }))
     await user.click(screen.getByRole('button', { name: '选择5号为目标' }))
     await user.selectOptions(screen.getByLabelText('公开声称'), 'investigator')

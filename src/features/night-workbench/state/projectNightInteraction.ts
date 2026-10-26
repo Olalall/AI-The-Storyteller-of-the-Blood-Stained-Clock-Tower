@@ -5,6 +5,7 @@ import type { NightType, WakeItem } from '../types'
 
 /** 只修正表单元数据；不重排旧夜序，也不重算已确认记录。 */
 export function projectNightInteraction(item: WakeItem, scriptId: string, night?: { nightType: NightType; playerCount: number; status?: WakeItem['status']; inPlayRoleIds?: readonly string[] }): WakeItem {
+  if (item.interactionVersion?.startsWith('lunatic/pretend-')) return item
   item = projectNightResultContract(item, night?.playerCount)
   const roleId = normalizeRoleId(item.roleId)
   const teams = roleTeamByIdForScript(scriptId)

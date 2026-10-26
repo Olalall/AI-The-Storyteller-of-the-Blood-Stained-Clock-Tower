@@ -110,8 +110,9 @@ describe('night core safety regression', () => {
     expect(run.queue.some((item) => item.roleId === 'fanggu')).toBe(false)
     expect(run.queue.some((item) => item.roleId === 'chef')).toBe(true)
     const inPlay = new Set(projectCurrentAssignments(session).map((assignment) => assignment.role.id))
-    expect(run.queue.filter(item => !item.systemStep).map((item) => item.roleId)).toEqual(getSmartScriptPack('catfishing').nightOrders.firstNight.filter((entry) => inPlay.has(entry.roleId)).map((entry) => entry.roleId))
-    expect(run.queue.filter(item => item.systemStep).map(item=>item.systemStep?.kind)).toEqual(['minion_info','demon_info'])
+    expect(run.queue.filter(item => !item.systemStep).map((item) => item.roleId)).toEqual(getSmartScriptPack('catfishing').nightOrders.firstNight.filter((entry) => inPlay.has(entry.roleId) && entry.roleId !== 'lunatic').map((entry) => entry.roleId))
+    expect(run.queue.filter(item => item.systemStep).map(item=>item.systemStep?.kind)).toEqual(['minion_info','audience_notice','demon_info'])
+    expect(run.queue.find(item => item.roleId === 'lunatic')?.reason).toMatch(/开局信息/)
     expect(run.queue.find((item) => item.roleId === 'cerenovus')?.outcomeOptions.map((option) => option.id)).toContain('applied')
   })
 

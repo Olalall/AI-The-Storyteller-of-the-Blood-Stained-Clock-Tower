@@ -19,7 +19,9 @@ import type { NightWorkbenchAction } from '../../night-workbench/state/nightWork
 import type { PhaseTimelineEntryInput, TimelineAppendInput } from './timeline'
 
 export type GameSessionAction =
-  | { type: 'confirm-ability-change'; sourceSeatId: number; sourceRoleId: string; seatId: number; expectedRoleId: string; roleId: string | null; sourceEntryId?: string; triggerSeatId?: number; timing: 'tonight' | 'later'; reason: string; id: string; expectedContextKey: string; confirmedAt: string }
+  | { type: 'apply-poppy-recognition'; expectedContextKey: string }
+  | { type: 'confirm-opening-preparation'; preparation: import('../model/openingTypes').OpeningPreparation; expectedContextKey: string }
+  | { type: 'confirm-ability-change'; sourceSeatId: number; sourceRoleId: string; seatId: number; expectedRoleId: string; roleId: string | null; sourceEntryId?: string; triggerSeatId?: number; informationMismatchReviewed?: boolean; timing: 'tonight' | 'later'; reason: string; id: string; expectedContextKey: string; confirmedAt: string }
   | { type: 'confirm-night-role-change'; nightRunId: string; seatId: number; expectedRoleId: string; roleId: string; timing: 'tonight' | 'initial' | 'initial-and-tonight' | 'later'; reason: RoleChangeReason; id: string; expectedContextKey: string; expectedRevision: number; confirmedAt: string }
   | { type: 'apply-kazali-allocation'; nightRunId: string; sourceEntryId: string; expectedContextKey: string; confirmedAt: string }
   | { type: 'add-state-followup'; id: string; sourceEntryId: string; seatId: number; note: string; createdAt: string }

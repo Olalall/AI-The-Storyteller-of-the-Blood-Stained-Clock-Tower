@@ -9,6 +9,8 @@ import { NightActionBar } from './components/NightActionBar'
 import { GameRecordSheet } from './components/GameRecordSheet'
 import { NightConfirmedHandoff } from './components/NightConfirmedHandoff'
 import { NightCloseFooter } from './components/NightCloseFooter'
+import { NightSeatReference } from './components/NightSeatReference'
+import { PoppyRecognitionHandoff } from './components/PoppyRecognitionHandoff'
 import { NightPlayerCarousel } from './components/NightPlayerCarousel'
 import { NightQueueSheet } from './components/NightQueueSheet'
 import { PrivateRevealOverlay } from './components/PrivateRevealOverlay'
@@ -41,6 +43,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
   const guardedBinding = surface === 'live' ? sessionBinding : { ...sessionBinding, dispatchSession: () => {} }
   const [openPanel, setOpenPanel] = useState<'night-order' | 'game-record' | 'role-change' | null>(null)
   const [leavePromptOpen, setLeavePromptOpen] = useState(false)
+  const [closeOpen, setCloseOpen] = useState(false)
   const [privateInformation, setPrivateInformation] = useState<string | null>(null)
   const workbench = useNightWorkbench(sessionBinding, surface)
   const { loadingItemId, requestAIAdvice } = useNightAIAdvice(workbench ?? undefined)
@@ -198,6 +201,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
       /> : null}
       <HostNotice message={leavePromptOpen ? '' : visibleNotice} />
       {surface === 'live' ? <NightConfirmedHandoff binding={guardedBinding} /> : null}
+      {surface === 'live' ? <PoppyRecognitionHandoff binding={guardedBinding} /> : null}
       {!carouselElsewhere ? <NightPlayerCarousel
         current={current}
         currentRole={currentRole}
@@ -211,8 +215,10 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
         onPrevious={() => previous && dispatch({ type: 'preview', id: previous.id })}
         onNext={() => next && dispatch({ type: 'preview', id: next.id })}
       /> : null}
+      <NightSeatReference session={sessionBinding.session} concealed={state.privacyShielded} />
       <div className="night-content-grid">
         <CurrentWakeCard
+          seats={state.seatSnapshots}
           targetsOnRing={targetsOnRing}
           dayFacts={projectDayFacts(sessionBinding.session)}
           onRegistrationChoice={(value) => dispatch({ type: 'registration-choice', value })}
@@ -262,6 +268,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
             isReadOnly={isReadOnly}
             isCorrecting={isCorrecting}
             isSettled={isSettled}
+            lastItem={activeIndex === state.queue.length - 1 && !isPreviewing}
+            onFinish={() => setCloseOpen(true)}
             missingReason={state.privacyShielded && missingReason ? '待填信息已遮蔽' : missingReason}
             canConfirm={canConfirm}
             activeLabel={activeLabel}
@@ -279,6 +287,8 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
         </section>
       </div>
       {surface === 'live' ? <NightCloseFooter
+        open={closeOpen}
+        onOpenChange={setCloseOpen}
         session={sessionBinding.session}
         dispatch={guardedBinding.dispatchSession}
         nightRunId={state.nightRunId}

@@ -3,6 +3,7 @@ import { HostNotice } from '../components/ui/HostNotice'
 import { createNextNightRun } from '../features/game-session/state/createNextNightRun'
 import { getActiveNightRun } from '../features/game-session/state/getActiveNightRun'
 import { projectConfirmedSetup } from '../features/game-session/state/projectors'
+import { poppyRecognitionIncomplete } from '../features/game-session/state/poppyRecognition'
 import type { GameSessionAction } from '../features/game-session/state/sessionReducer'
 import type { GameSessionState } from '../features/game-session/types'
 
@@ -26,6 +27,7 @@ export function usePhaseEntry(session: GameSessionState, dispatch: Dispatch<Game
       onOpenSetup()
       return
     }
+    if (phase === 'day' && poppyRecognitionIncomplete(session)) { setNotice('罂粟已死亡，请先在夜晚补入并核对相认步骤。'); onReady('night'); return }
     if (phase === 'night') {
       const activeRun = getActiveNightRun(session)
       if (session.activeNightRunId && !activeRun) {

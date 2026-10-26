@@ -2,7 +2,7 @@ import { AlertTriangle, BookOpenText, History, ShieldCheck, Sparkles } from 'luc
 import { Button } from '../../../components/ui/Button'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
 import { outcomeReady } from '../state/projectWakeDraft'
-import type { AIResultAdvice, OutcomeResolutionHint, PlayerStatusSnapshot, RoleChangeEvent, WakeDraft, WakeItem } from '../types'
+import type { AIResultAdvice, NightSeatSnapshot, OutcomeResolutionHint, PlayerStatusSnapshot, RoleChangeEvent, WakeDraft, WakeItem } from '../types'
 import { PlayerStatusBar } from './PlayerStatusBar'
 import { SettlementAssistPanel } from './SettlementAssistPanel'
 import { canRevealNightResult } from '../../../domain/scripts/nightInteractionInputs'
@@ -32,6 +32,7 @@ interface CurrentWakeCardProps {
   onSystemCheck?: (checkId: string) => void
   onSystemBluff?: (roleId: string) => void
   playerCount: number
+  seats?: Record<number, NightSeatSnapshot>
   unavailableTargetSeatIds?: number[]
   aiAdvice?: AIResultAdvice
   resolutionHint?: OutcomeResolutionHint
@@ -72,6 +73,7 @@ export function CurrentWakeCard({
   onSystemCheck,
   onSystemBluff,
   playerCount,
+  seats,
   unavailableTargetSeatIds,
   aiAdvice,
   resolutionHint,
@@ -133,8 +135,13 @@ export function CurrentWakeCard({
         onChangeRole={onChangeRole}
       /> : null}
       <div className="wake-facts">
+        {item.hostConfirmation ? <fieldset disabled={formDisabled || Boolean(item.hostConfirmation.blockedReason)} className="night-disclosure">
+          <legend>信息交接核对</legend><p>{item.hostConfirmation.summary}</p>
+          {item.hostConfirmation.blockedReason ? <p role="alert">{item.hostConfirmation.blockedReason}</p> : <label><input type="checkbox" checked={draft.systemChecks?.includes(item.hostConfirmation.checkId) ?? false} onChange={() => onSystemCheck?.(item.hostConfirmation!.checkId)} />{item.hostConfirmation.label}</label>}
+        </fieldset> : null}
         <div className="section-kicker"><BookOpenText aria-hidden="true" />{item.systemStep ? `步骤说明 · ${item.roleName}` : roleChange ? `角色能力 · ${item.roleName}` : '角色能力'}</div>
         <p>{item.ability}</p>
+        {item.openingNote ? <p className="night-disclosure">{item.openingNote}</p> : null}
         {item.applicability === 'needs_review' ? <StatusBadge tone="warning">需要核对</StatusBadge> : null}
         {item.reason ? (
           <div className="inline-warning"><AlertTriangle aria-hidden="true" />{item.reason}</div>
@@ -176,10 +183,10 @@ export function CurrentWakeCard({
 
         {item.systemStep ? <SystemStepFields step={item.systemStep} draft={draft} disabled={formDisabled} onToggleCheck={(id) => onSystemCheck?.(id)} onToggleBluff={(id) => onSystemBluff?.(id)} /> : null}
         {item.registrationSpec ? <WakeRegistrationFields spec={item.registrationSpec} draft={draft} forbiddenValues={item.forbiddenRegistrationValues} disabled={formDisabled} onChange={(value) => onRegistrationChoice?.(value)} /> : null}
-        {targetsOnRing && item.targetCount > 0 && item.targetRoleChoiceCount === undefined ? <NightTargetEcho playerCount={playerCount} selfSeatId={item.seatId} targetLabel={item.targetLabel ?? '目标'} targetCount={item.targetCount} targets={draft.targets} forbiddenSeatIds={item.forbiddenTargetSeatIds} disabled={formDisabled} onTarget={onTarget} /> : null}
+        {targetsOnRing && item.targetCount > 0 && item.targetRoleChoiceCount === undefined ? <NightTargetEcho seats={seats} playerCount={playerCount} selfSeatId={item.seatId} targetLabel={item.targetLabel ?? '目标'} targetCount={item.targetCount} targets={draft.targets} forbiddenSeatIds={item.forbiddenTargetSeatIds} disabled={formDisabled} onTarget={onTarget} /> : null}
         {item.targetRoleChoiceCount !== undefined
-          ? <NightTargetRoleChoices item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onChange={onTargetRoleChoice} />
-          : <>{!targetsOnRing ? <NightTargetChoices item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onTarget={onTarget} onTargetCountChoice={onTargetCountChoice} unavailableSeatIds={unavailableTargetSeatIds} /> : null}
+          ? <NightTargetRoleChoices seats={seats} item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onChange={onTargetRoleChoice} />
+          : <>{!targetsOnRing ? <NightTargetChoices seats={seats} item={item} draft={draft} disabled={formDisabled} playerCount={playerCount} onTarget={onTarget} onTargetCountChoice={onTargetCountChoice} unavailableSeatIds={unavailableTargetSeatIds} /> : null}
             <NightRoleChoices item={item} draft={draft} disabled={formDisabled} onRoleChoice={onRoleChoice} onSecondRoleChoice={onSecondRoleChoice} onAdditionalRoleChoice={onAdditionalRoleChoice} /></>}
         <StorytellerContextEditor key={`${item.id}:${formDisabled}:${draft.storytellerContext ?? ''}`} value={draft.storytellerContext} disabled={formDisabled} onSave={onStorytellerContext} />
 

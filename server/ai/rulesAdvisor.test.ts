@@ -104,6 +104,21 @@ describe('grounded rules advisor', () => {
     expect(sent[0].content).toContain('不得凭模型记忆或 history 反向改写')
   })
 
+  it('sends separate Pixie sources and mandatory Lunatic counts and order to the provider', async () => {
+    const request = { scriptId: 'shuo-shu-ren-zhi-nu', question: '疯子和小精灵开局怎么准备？', history: [] }
+    const knowledge = await rulesAdvisorContext(request)
+    const { route, fetcher } = routes()
+    expect((await route(post(request))).status).toBe(200)
+    const [, init] = fetcher.mock.calls[0] as unknown as [unknown, RequestInit]
+    const context = JSON.parse(JSON.parse(init.body as string).messages[1].content).context
+    const facts = (id: string) => context.roles.find((r: { id: string }) => r.id === id).reminders.reminders.join(' ')
+    expect(facts('lunatic')).toContain('人数必须等于实际在场爪牙人数')
+    expect(facts('lunatic')).toContain('真恶魔才行动')
+    expect(facts('pixie')).toContain('不能把错误告知直接当作实际标记')
+    expect(knowledge.sources.some(s => s.url === 'https://wiki.bloodontheclocktower.com/Lunatic')).toBe(true)
+    expect(knowledge.sources.some(s => s.url === 'https://wiki.bloodontheclocktower.com/Pixie')).toBe(true)
+  })
+
   it('answers explicit base rules from the verified library before any model call, ignoring old false answers', async () => {
     const { route, fetcher } = routes()
     const response = await route(post({ scriptId: 'catfishing', question: '普通角色死亡后还能常规提名吗？死亡票属于普通投票吗？', history: [{ question: '提名几次？', answer: '死者可以无限提名，死亡票不算普通投票。' }] }))
@@ -123,6 +138,17 @@ describe('grounded rules advisor', () => {
     const response = await route(post({ scriptId: 'ku-mu-feng-chun', roleId: 'banshee', question: '女妖成功发动后每天提名几次？', history: [] }))
     expect(fetcher).toHaveBeenCalledTimes(1)
     expect((await response.json()).data.answer.summary).toBe(payload.summary)
+  })
+
+  it('does not invent a complete Pixie false-information inheritance ruling from a model draft', async () => {
+    const { route, fetcher } = routes(configured, { ...reply, summary: '错误告知就是实际标记，自动获得该能力。' })
+    const response = await route(post({ scriptId: 'shuo-shu-ren-zhi-nu', roleId: 'pixie', question: '涡流下小精灵得到错误信息，如何继承？', history: [] }))
+    const answer = (await response.json()).data.answer
+    expect(fetcher).not.toHaveBeenCalled()
+    expect(answer.summary).toContain('完整继承裁定仍需说书人核实')
+    expect(answer.ruleFacts.join(' ')).toContain('不能把错误告知直接当作实际标记')
+    expect(answer.sources.map((s: {url: string}) => s.url)).toEqual(expect.arrayContaining(['https://wiki.bloodontheclocktower.com/Pixie', 'https://wiki.bloodontheclocktower.com/Vortox']))
+    expect(JSON.stringify(answer)).not.toContain('自动获得该能力')
   })
 
   it('withdraws observed false summaries and advice and returns verified base rules with the real source', async () => {

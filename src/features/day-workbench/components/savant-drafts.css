@@ -1,0 +1,6 @@
+.savant-drafts { display: grid; gap: var(--space-12); border: 1px solid var(--accent-border); border-radius: var(--radius-md); padding: var(--space-16); background: var(--surface-soft); }
+.savant-drafts h3, .savant-drafts p { margin: 0; }
+.savant-drafts p, .savant-drafts small { color: var(--text-muted); line-height: 1.6; }
+.savant-drafts li { padding: var(--space-8); }
+.savant-drafts li small { display: block; margin-top: var(--space-8); }
+.savant-drafts > div { display: flex; flex-wrap: wrap; gap: var(--space-8); }

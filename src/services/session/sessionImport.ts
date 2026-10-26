@@ -1,4 +1,5 @@
 import { parseSessionBackup } from './sessionBackup'
+import { validOpeningChoices, validOpeningPreparations } from './openingSchema'
 import {
   createPrototypeGameSessionFromLegacyNight,
 } from '../../features/game-session/data/createPrototypeSession'
@@ -205,12 +206,14 @@ function isNightRun(value: unknown) {
 
 function isSetupDraft(value: unknown) {
   return isRecord(value) && typeof value.candidateId === 'string' && isInteger(value.revision) &&
+    (value.openingChoices === undefined || validOpeningChoices(value.openingChoices)) &&
     Array.isArray(value.assignments) && value.assignments.every((assignment) =>
       isRecord(assignment) && isInteger(assignment.seatId, 1, 15) && isRoleSnapshot(assignment.role)) &&
     Array.isArray(value.demonBluffs) && value.demonBluffs.every(isRoleSnapshot) && typeof value.updatedAt === 'string'
 }
 
 const timelineKinds = new Set([
+  'ability_changed',
   'setup_confirmed', 'setup_changed', 'player_state_changed', 'night_action',
   'day_action', 'vote_round', 'execution', 'no_execution',
 ])
@@ -304,7 +307,7 @@ export function isReadableGameSession(value: unknown): value is GameSessionState
     Object.values(value.nightRuns).every(isNightRun) &&
     isRecord(value.initialPlayerStates) &&
     (value.scriptRoles === undefined || (Array.isArray(value.scriptRoles) && value.scriptRoles.every(isRoleSnapshot))) &&
-    (value.setupDraft === null || isSetupDraft(value.setupDraft)) &&
+    (value.setupDraft === null || isSetupDraft(value.setupDraft)) && validOpeningPreparations(value.openingPreparations) &&
     (value.dayVoteDraft === undefined || isDayVoteDraft(value.dayVoteDraft)) &&
     (value.dayActionDraft === undefined || isDayActionDraft(value.dayActionDraft)) &&
     (value.activeNightRunId === null || (typeof value.activeNightRunId === 'string' && value.activeNightRunId in value.nightRuns)))) return false
