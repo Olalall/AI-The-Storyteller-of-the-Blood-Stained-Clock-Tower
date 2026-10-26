@@ -63,6 +63,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
   const [draftScriptId, setDraftScriptId] = useState<ScriptId | null>(null)
   const [selectedSeatId, setSelectedSeatId] = useState<number | null>(null)
   const [swapSummary, setSwapSummary] = useState<string | null>(null)
+  const [candidateNotice, setCandidateNotice] = useState('')
   const [seatAction, setSeatAction] = useState<SeatAction>('swap')
   const [seatEditor, setSeatEditor] = useState<{ kind: SetupSeatEditorKind; seatId: number } | null>(null)
   const [showCandidates, setShowCandidates] = useState(false)
@@ -114,10 +115,10 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     const updatedAt = new Date().toISOString()
     const nextDraft = createSetupDraftFromCandidate(candidate, updatedAt)
     const adjusted = adjustment ? previewDraftMicroAdjustment(nextDraft, adjustment, rolesForScript, updatedAt) : null
-    if (adjustment && !adjusted) return
+    if (adjustment && !adjusted) return setCandidateNotice('这条 AI 微调无法预览：角色不在当前方案、已在场或不属于本板子。原配板已保留，可选择其他建议或手动换角。')
     const draftToUse = adjusted?.draft ?? nextDraft
     saveLocalDraft(started && currentSetupId ? { ...draftToUse, baseSetupId: currentSetupId } : draftToUse)
-    setSelectedSeatId(null)
+    setSelectedSeatId(null); setCandidateNotice('')
     setSwapSummary(adjusted?.summary ?? null)
     setSeatAction('swap')
     setShowCandidates(false)
@@ -193,7 +194,6 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     const role = rolesForScript.find((item) => item.id === roleId)
     if (role) saveLocalDraft(replaceDraftDemonBluff(effectiveDraft, bluffIndex, role, new Date().toISOString()))
   }
-
   function confirmDraft() {
     if (!effectiveDraft || !canConfirm) return
     if (started && (!currentSetupId || effectiveDraft.baseSetupId !== currentSetupId)) return
@@ -223,7 +223,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
   return (
     <Sheet open={open} onOpenChange={onOpenChange} title="智能配板与调整" description={started ? '后续生效' : `${activeScriptName} · 确认配板后可进入夜晚。`} contentClassName="sheet-content--setup" presentation="page">
       <div className="setup-panel">
-        {notice ? <HostNotice message={notice} autoHideMs={0} /> : null}
+        {candidateNotice || notice ? <HostNotice message={candidateNotice || notice || ''} autoHideMs={0} /> : null}
         {session.playerCount === 0
           ? <SetupStartPanel scriptId={activeScriptId} scriptName={activeScriptName} onScriptChange={onSetupScriptChange} onStart={startSetupSession} />
           : !effectiveDraft || showCandidates ? <SetupCandidateBrowser key={candidates.map(candidate => candidate.id).join(',')} scriptId={activeScriptId} scriptName={activeScriptName} knowledgeVersion={candidates[0]?.knowledgeVersion ?? session.knowledgeVersion} candidates={candidates} playerCount={session.playerCount} seats={adviceSeats} onUseCandidate={selectCandidateDraft} onPreviewMicroAdjustment={selectCandidateDraft} /> : <button type="button" className="setup-panel__advice-entry" onClick={() => setShowCandidates(true)}>

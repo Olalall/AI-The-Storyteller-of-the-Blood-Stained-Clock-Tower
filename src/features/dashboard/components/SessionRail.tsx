@@ -4,6 +4,7 @@ import { storytellerSeatLabel, storytellerStateLabel } from '../../game-session/
 import { projectCurrentPlayerStates, projectOpenSegmentLabels } from '../../game-session/state/projectors'
 import { projectEffectiveTimelineEntries } from '../../game-session/state/projectTimelineHistory'
 import type { GameSessionState } from '../../game-session/types'
+import { voteCount } from '../../day-workbench/state/voteRound'
 import './session-rail.css'
 
 interface SessionRailProps {
@@ -17,7 +18,7 @@ function latestSummary(session: GameSessionState) {
   if (!latest) return '尚无确认记录'
   if (latest.kind === 'ability_changed') return `${latest.seatId}号${latest.abilityRole ? `获得${latest.abilityRole.name}能力` : '失去额外能力'}`
   if (latest.kind === 'night_action' || latest.kind === 'day_action') return latest.summary
-  if (latest.kind === 'vote_round') return `${latest.nominatorSeatId}号提名${latest.nomineeSeatId}号 · ${latest.raisedSeatIds.length}票`
+  if (latest.kind === 'vote_round') return `${latest.voided ? '已撤销：' : ''}${latest.nominatorSeatId}号提名${latest.nomineeSeatId}号 · ${voteCount(latest)}票`
   if (latest.kind === 'execution') return `确认处决${latest.executedSeatId}号`
   if (latest.kind === 'no_execution') return '确认无处决'
   if (latest.kind === 'player_state_changed') return `${latest.seatId}号状态已更新`

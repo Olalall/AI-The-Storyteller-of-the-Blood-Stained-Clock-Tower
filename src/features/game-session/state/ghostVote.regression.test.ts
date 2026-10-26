@@ -11,8 +11,9 @@ function fixture() {
   return state
 }
 function addVote(state: GameSessionState, id: string, raisedSeatIds = [1, 2]) {
+  const pair = id === 'first' ? [2, 3] : id === 'ordinary' ? [6, 7] : [4, 5]
   return gameSessionReducer(state, { type: 'append-phase-entry', phaseKind: 'day',
-    entry: { kind: 'vote_round', roundId: id, nominatorSeatId: 2, nomineeSeatId: 3, threshold: 3, raisedSeatIds, ghostVoteSeatIds: raisedSeatIds.includes(1) ? [1] : [] },
+    entry: { kind: 'vote_round', roundId: id, nominatorSeatId: pair[0], nomineeSeatId: pair[1], threshold: 3, raisedSeatIds, ghostVoteSeatIds: raisedSeatIds.includes(1) ? [1] : [] },
     input: { id, createdAt: `2026-10-21T01:0${id === 'first' ? 1 : 2}:00Z` } })
 }
 function revise(state: GameSessionState, original: VoteRoundEntry, raisedSeatIds: number[], id: string, voided = false) {
@@ -66,7 +67,7 @@ describe('dead vote history boundary', () => {
     expect(addVote(once, 'second').timeline).toHaveLength(4)
     const original = once.timeline[0] as VoteRoundEntry
     const special = gameSessionReducer(once, { type: 'append-phase-entry', phaseKind: 'day',
-      entry: { ...original, raisedSeatIds: [2], ghostVoteSeatIds: [], voteAdjustment: { count: 1, reason: '主持确认特殊能力的1号额外票' } },
+      entry: { ...original, nominatorSeatId: 4, nomineeSeatId: 5, raisedSeatIds: [2], ghostVoteSeatIds: [], voteAdjustment: { count: 1, reason: '主持确认特殊能力的1号额外票' } },
       input: { id: 'special', createdAt: '2026-10-21T01:03:00Z' } })
     expect(special.timeline.at(-1)).toMatchObject({ id: 'special', voteAdjustment: { count: 1 } })
   })

@@ -37,7 +37,7 @@ export type NightWorkbenchIntent =
   | { type: 'resume' }
   | { type: 'begin-correction' }
   | { type: 'cancel-correction' }
-  | { type: 'resolve-applicability'; value: 'applicable' | 'not_applicable' }
+  | { type: 'resolve-applicability'; value: 'applicable' | 'not_applicable'; advance?: boolean }
   | { type: 'toggle-privacy' }
   | { type: 'set-privacy'; shielded: boolean }
   | { type: 'toggle-dim' }
@@ -322,7 +322,8 @@ export function nightWorkbenchReducer(state: NightWorkbenchState, action: NightW
             }
           : item,
       )
-      return { ...state, queue, revision: state.revision + 1, lastNotice: action.value === 'applicable' ? '已确认本夜适用' : '已标记本夜不适用' }
+      const resolved = { ...state, queue, revision: state.revision + 1, lastNotice: action.value === 'applicable' ? '已确认本夜适用' : '已标记本夜不适用' }
+      return action.advance && action.value === 'not_applicable' ? advanceFrom(resolved) : resolved
     }
     case 'toggle-privacy':
       return { ...state, privacyShielded: !state.privacyShielded }

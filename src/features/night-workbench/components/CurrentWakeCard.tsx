@@ -56,7 +56,7 @@ interface CurrentWakeCardProps {
   onChangeRole: () => void
   onClearDraft: () => void
   onRevealInformation: () => void
-  onResolveApplicability: (value: 'applicable' | 'not_applicable') => void
+  onResolveApplicability: (value: 'applicable' | 'not_applicable', advance?: boolean) => void
 }
 
 export function CurrentWakeCard({
@@ -142,7 +142,7 @@ export function CurrentWakeCard({
         {item.applicability === 'needs_review' ? (
           <div className="applicability-actions">
             <Button variant="secondary" compact disabled={isPreviewing} onClick={() => onResolveApplicability('applicable')}>适用</Button>
-            <Button variant="ghost" compact disabled={isPreviewing} onClick={() => onResolveApplicability('not_applicable')}>不适用</Button>
+            <Button variant="ghost" compact disabled={isPreviewing} onClick={() => onResolveApplicability('not_applicable', playerStatus.life === 'dead')}>{playerStatus.life === 'dead' ? '确认不适用并继续' : '不适用'}</Button>
           </div>
         ) : null}
         {item.systemStep ? <><SystemStepRoster step={item.systemStep} /><p>出示信息标记：{item.systemStep.infoTokens.map((token) => `「${token}」`).join('、')}</p></> : null}

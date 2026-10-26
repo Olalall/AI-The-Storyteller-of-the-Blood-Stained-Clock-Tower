@@ -155,6 +155,7 @@ function historyFields(session: GameSessionState, entry: TimelineEntry): Timelin
         summary: `${entry.voided ? '已撤销：' : ''}${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${voteCount(entry)}票`,
         details: [
           `门槛：${entry.threshold}票`,
+          entry.nominationExceptionReason ? `特殊提名依据：${entry.nominationExceptionReason}` : '',
           `举手：${entry.raisedSeatIds.length ? `${entry.raisedSeatIds.join('、')}号` : '0票'}`,
           entry.ghostVoteSeatIds.length ? `死亡票：${entry.ghostVoteSeatIds.join('、')}号` : '',
           entry.voteAdjustment ? `手工票数修正：${entry.voteAdjustment.count > 0 ? '+' : ''}${entry.voteAdjustment.count}；原因：${entry.voteAdjustment.reason}` : '',

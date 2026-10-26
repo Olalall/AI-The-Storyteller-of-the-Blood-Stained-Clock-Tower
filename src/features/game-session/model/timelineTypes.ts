@@ -14,6 +14,7 @@ export interface VoteRoundEntry extends TimelineBase {
   raisedSeatIds: number[]
   ghostVoteSeatIds: number[]
   voteAdjustment?: { count: number; reason: string }
+  nominationExceptionReason?: string
   /** 撤销也追加同一条更正链，原票型始终保留。 */
   voided?: boolean
 }

@@ -80,6 +80,7 @@ for (const width of [390, 1440]) {
     await page.screenshot({ path: testInfo.outputPath(`day-special-${width}.png`), fullPage: true })
     await special.getByRole('button', { name: '确认特殊处决' }).click()
     await expect(special).toBeHidden()
+    await expect.poll(async () => (await read(page)).timeline.at(-1)?.kind).toBe('player_state_changed')
     const final = await read(page)
     expect(final.timeline.find((entry: { kind: string }) => entry.kind === 'vote_round').raisedSeatIds).toHaveLength(8)
     expect(final.timeline.find((entry) => entry.correctionReason === '核对现场实际6票').raisedSeatIds).toHaveLength(6)

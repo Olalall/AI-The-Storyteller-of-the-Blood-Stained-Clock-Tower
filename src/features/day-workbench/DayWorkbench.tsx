@@ -24,6 +24,7 @@ import { DayRecordSheet } from './components/DayRecordSheet'
 import { LeaveWorkbenchNotice } from '../game-session/components/LeaveWorkbenchNotice'
 import './day-workbench.css'
 import { canRecordGhostVotes } from './state/ghostVotes'
+import { nominationIssues } from './state/nominationRules'
 
 interface DayWorkbenchProps {
   session: GameSessionState
@@ -58,6 +59,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   const hasUnrecordedDayAction = dayActionKinds.length > 0
   const leaveNotice = leaveNoticeCopy(hasUnrecordedVote, dayActionKinds)
   const roundStatus = roundStatusLabel(draft)
+  const nominationErrors = nominationIssues(session, draft)
 
   // 环与抽屉共用确认闸门；只广播 UI 状态，不写入对局事实。
   useEffect(() => { setWriteLocked(dayLocked || leavePromptOpen) }, [dayLocked, leavePromptOpen, setWriteLocked])
@@ -67,6 +69,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
     updateDraft((current) => nominationTarget === 'nominator'
       ? setVoteNominator(current, seatId)
       : setVoteNominee(current, seatId))
+    if (nominationTarget === 'nominator') setNominationTarget('nominee')
   }
 
   function cancelRound() {
@@ -83,7 +86,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
   }
 
   function completeRound() {
-    if (dayLocked || leavePromptOpen || !canRecordGhostVotes(session, draft)) return
+    if (dayLocked || leavePromptOpen || nominationErrors.length || !canRecordGhostVotes(session, draft)) return
     const entry = completeVoteRound(draft, {
       id: `vote-round-${crypto.randomUUID()}`,
       roundId: `round-${roundNumber}`,
@@ -193,6 +196,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
         </section>
 
         <NominationStep
+          session={session} onChange={updateDraft}
           collapsed={activeStep !== 'nomination'} draft={draft} readOnly={dayLocked}
           playerCount={session.playerCount} playerStates={playerStates}
           target={nominationTarget} onChangeTarget={setNominationTarget}
@@ -204,7 +208,7 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
         /> : <DayStepRow index={2} title="举手"
           summary={draft.raisedSeatIds.length ? `举手${draft.raisedSeatIds.length} · 门槛${draft.threshold}` : '未记录'}
           done={dayEntries.some((entry) => entry.segmentId === openDay?.id) && !hasUnrecordedVote}
-          disabled={dayLocked || !nominationReady} onEdit={() => setStepOverride('vote')}
+            disabled={dayLocked || !nominationReady || Boolean(nominationErrors.length)} onEdit={() => setStepOverride('vote')}
         />}
         <Card
           className="day-card--standing"
@@ -248,14 +252,14 @@ export function DayWorkbench({ session, dispatch, onExit, onOpenTimer }: DayWork
       </div>
       {!dayLocked && !leavePromptOpen ? <StickyActionBar>
         <div className="day-action-bar">
-          <span className="day-action-bar__hint">{activeStep === 'nomination'
+          <span className="day-action-bar__hint">{nominationErrors[0] ?? (activeStep === 'nomination'
             ? (nominationReady ? '提名双方已选' : '还差：选择提名双方')
             : activeStep === 'vote' ? '核对举手、死亡票及特殊票数；确认后记录本轮。'
-              : '票型已记录，等待下一轮提名或确认本日结果。'}</span>
+              : '票型已记录，等待下一轮提名或确认本日结果。')}</span>
           <div className="day-action-bar__pair">
             {hasUnrecordedVote ? <Button variant="ghost" onClick={cancelRound}>取消本轮提名</Button> : null}
-            {activeStep === 'nomination' ? <Button variant="primary" disabled={!nominationReady} onClick={() => setStepOverride('vote')}>下一步：记录举手</Button>
-              : activeStep === 'vote' ? <Button variant="primary" disabled={!canCompleteVoteRound(draft) || !canRecordGhostVotes(session, draft)} onClick={completeRound}><Hand aria-hidden="true" />记录本轮票型</Button>
+            {activeStep === 'nomination' ? <Button variant="primary" disabled={!nominationReady || Boolean(nominationErrors.length)} onClick={() => setStepOverride('vote')}>下一步：记录举手</Button>
+              : activeStep === 'vote' ? <Button variant="primary" disabled={!canCompleteVoteRound(draft) || Boolean(nominationErrors.length) || !canRecordGhostVotes(session, draft)} onClick={completeRound}><Hand aria-hidden="true" />记录本轮票型</Button>
                 : <Button variant="primary" onClick={() => { setNominationTarget('nominator'); setStepOverride('nomination') }}>开始下一轮提名</Button>}
           </div>
         </div>

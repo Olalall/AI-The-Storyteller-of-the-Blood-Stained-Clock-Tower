@@ -74,7 +74,7 @@ function GameAIReviewContent({ archive }: GameAIReviewPanelProps) {
       <Button onClick={generateInterpretations} disabled={loading || !review.keyEvents.some((event) => !event.superseded && !event.voided)}>
         {loading ? '正在生成 AI 解读…' : '生成 AI 解读'}
       </Button>
-      </> : <p>当前使用本地记录，尚未连接后端 AI；连接后可生成带引用的解读。</p>}
+      </> : <p>当前展示本地记录提纲，尚未生成带引用的 AI 解读。</p>}
       {review.interpretations.length ? <ol aria-label="AI 解释">
         {review.interpretations.map((item, index) => <li key={index}>
           <strong>{item.explanation}</strong><small>引用记录：{item.recordIds.join('、')}</small>

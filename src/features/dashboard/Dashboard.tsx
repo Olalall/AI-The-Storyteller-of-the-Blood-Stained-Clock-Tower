@@ -13,6 +13,7 @@ import type { GameSessionAction } from '../game-session/state/sessionReducer'
 import type { GameSessionState, TimelineEntry } from '../game-session/types'
 import { PlayerStatusBoard } from './components/PlayerStatusBoard'
 import { TimelineHistorySheet } from '../history/TimelineHistorySheet'
+import { voteCount } from '../day-workbench/state/voteRound'
 import './dashboard.css'
 
 interface DashboardProps {
@@ -32,7 +33,7 @@ function entrySummary(entry: TimelineEntry): string {
     case 'ability_changed': return `${entry.seatId}号${entry.abilityRole ? `获得${entry.abilityRole.name}能力` : '失去额外能力'}`
     case 'night_action': return entry.summary
     case 'day_action': return entry.summary
-    case 'vote_round': return `${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${entry.raisedSeatIds.length}票`
+    case 'vote_round': return `${entry.voided ? '已撤销：' : ''}${entry.nominatorSeatId}号提名${entry.nomineeSeatId}号 · ${voteCount(entry)}票`
     case 'execution': return `确认处决${entry.executedSeatId}号`
     case 'no_execution': return '确认无处决'
     case 'player_state_changed': return `${entry.seatId}号状态已更新`

@@ -1,4 +1,5 @@
 import type { DayVoteDraft, VoteRoundEntry } from '../../game-session/types'
+import { validNominationException } from './nominationRules'
 
 export type VoteRoundDraft = DayVoteDraft
 
@@ -37,11 +38,11 @@ export function createVoteRoundDraft(segmentId: string, threshold: number): Vote
 }
 
 export function setVoteNominator(draft: VoteRoundDraft, seatId: number): VoteRoundDraft {
-  return { ...draft, nominatorSeatId: seatId }
+  return { ...draft, nominatorSeatId: seatId, ...(draft.nominationExceptionReason !== undefined ? { nominationExceptionReason: '' } : {}) }
 }
 
 export function setVoteNominee(draft: VoteRoundDraft, seatId: number): VoteRoundDraft {
-  return { ...draft, nomineeSeatId: seatId }
+  return { ...draft, nomineeSeatId: seatId, ...(draft.nominationExceptionReason !== undefined ? { nominationExceptionReason: '' } : {}) }
 }
 
 export function toggleRaisedVote(draft: VoteRoundDraft, seatId: number): VoteRoundDraft {
@@ -67,6 +68,7 @@ export function canCompleteVoteRound(draft: VoteRoundDraft) {
   return Number.isInteger(draft.threshold) &&
     draft.threshold > 0 &&
     validVoteAdjustment(draft) &&
+    validNominationException(draft.nominationExceptionReason) &&
     draft.nominatorSeatId !== null &&
     draft.nomineeSeatId !== null
 }
@@ -75,7 +77,7 @@ export function hasVoteRoundDraftContent(draft: VoteRoundDraft) {
   return draft.nominatorSeatId !== null ||
     draft.nomineeSeatId !== null ||
     draft.raisedSeatIds.length > 0 ||
-    draft.ghostVoteSeatIds.length > 0 || Boolean(draft.voteAdjustment?.count || draft.voteAdjustment?.reason)
+    draft.ghostVoteSeatIds.length > 0 || Boolean(draft.voteAdjustment?.count || draft.voteAdjustment?.reason || draft.nominationExceptionReason)
 }
 
 export function voteCount(round: Pick<VoteRoundEntry, 'raisedSeatIds' | 'voteAdjustment'>) {
@@ -110,6 +112,7 @@ export function completeVoteRound(
     threshold: draft.threshold,
     raisedSeatIds,
     ghostVoteSeatIds,
+    ...(draft.nominationExceptionReason ? { nominationExceptionReason: draft.nominationExceptionReason.trim() } : {}),
     ...(draft.voteAdjustment ? { voteAdjustment: { count: draft.voteAdjustment.count, reason: draft.voteAdjustment.reason.trim() } } : {}),
     createdAt: input.createdAt,
     confirmedBy: 'storyteller',

@@ -256,7 +256,7 @@ export function SetupCandidateBrowser({
               </StatusBadge>
             ) : null}
             <StatusBadge tone="neutral">{paceLabel(candidate.rationale.pace)}</StatusBadge>
-            {qualityTags.get(candidate.id)?.slice(0, 2).map((tag) => (
+            {qualityTags.get(candidate.id)?.filter((tag) => tag.label !== paceLabel(candidate.rationale.pace)).slice(0, 2).map((tag) => (
               <StatusBadge key={`${tag.candidateId}-${tag.label}`} tone={qualityTone(tag.tone)}>{tag.label}</StatusBadge>
             ))}
           </div></div>

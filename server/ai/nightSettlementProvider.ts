@@ -4,6 +4,8 @@ import { normalizeStateChangeDrafts, seatIdsInRequest } from './nightStateChange
 import { unknownSeatGap, unknownSeatQuestion } from './nightUnknownSeats'
 import type { AIAdviceConfidence, NightSettlementAdviceDraft, NightSettlementProviderRequest } from './types'
 import { missingKazaliTargetRoleChoices } from './kazaliTargetRoleChoices'
+import { violatesNightDeathTiming } from './nightDeathTiming'
+import { getComplexRoleKnowledge, roleKnowledgeForAI } from '../../src/domain/role-knowledge/complexRoleKnowledge'
 
 function missingNightInputs(input: NightSettlementProviderRequest): string[] {
   const missing = missingKazaliTargetRoleChoices(input)
@@ -217,6 +219,20 @@ export function createOpenAICompatibleNightSettlementProvider(options: OpenAINig
         redirect: options.redirect,
       }, buildNightSettlementProviderMessages(input))
       const draft = normalizeDraft(payload, input)
+      if (violatesNightDeathTiming(input, draft)) {
+        const warning = 'AI把夜间死亡推迟到了黎明，已拦截这条矛盾建议。请在该能力行动时核对死亡及后续夜序；黎明仅公开死讯。'
+        return { draft: {
+          ...fallbackNightSettlementAdviceDraft(input, warning), provider: draft.provider, confidence: 'low',
+          status: 'needs_input', recommendedOutcomeId: undefined, summary: 'AI建议与已核实的死亡时点冲突，请说书人核对。',
+          missing: [warning], ruleFacts: [...(roleKnowledgeForAI(input.wakeItem.roleId)?.reminders ?? [])],
+          authorityWarnings: [warning, '本项建议未采用；不写日志、不改状态，请按已核实规则手动确认。'],
+          disclaimer: '矛盾建议已拦截；AI仍不能替说书人确认技能结果。',
+        }, warnings: ['night_death_timing_conflict', 'draft_only'] }
+      }
+      if (getComplexRoleKnowledge(input.wakeItem.roleId)?.nightDeathTiming === 'at-action') {
+        draft.stateChangeDrafts = draft.stateChangeDrafts.map((item) => item.change?.field === 'life' && item.change.to === 'dead'
+          ? { ...item, text: `${item.text}（若能力实际生效，在本行动时核对死亡；黎明仅公开死讯。）` } : item)
+      }
       if (draft.status === 'answer' && !draft.recommendedOutcomeId) {
         throw new AIProviderError('AI_PROVIDER_BAD_RESPONSE', 502)
       }

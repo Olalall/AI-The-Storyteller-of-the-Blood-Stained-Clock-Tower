@@ -1,5 +1,6 @@
 import { roleKnowledgeForAI } from '../../src/domain/role-knowledge/complexRoleKnowledge'
 import type { NightSettlementProviderRequest } from './types'
+import { assertsDawnDeath } from './nightDeathTiming'
 
 export type NightSemanticCaseId = 'alhad-pending' | 'imp-timing' | 'pukka-drunk' | 'private-copy'
   | 'pithag-unverified' | 'unknown-alignment' | 'banshee-votes' | 'changed-actor' | 'dreamer-dead-target'
@@ -66,8 +67,7 @@ export function auditNightAdvice(caseId: NightSemanticCaseId, value: unknown): s
   }
   if (caseId === 'imp-timing') {
     require(/行动时|行动点|当夜|本夜|立即/.test(strings('stateChangeDrafts').join(' ')), 'death draft must identify the night action timing')
-    const assertions = text.replace(/(?:不能|不得|不要|不可|不是|并非|而非)[^。；\n]{0,24}黎明[^。；\n]{0,24}死亡/g, '')
-    require(!/(?:在|到|待|等到)?黎明.{0,8}(?:结算|标记|执行).{0,8}死亡/.test(assertions), 'must not defer actual death until dawn')
+    require(!assertsDawnDeath(text), 'must not defer actual death until dawn')
   }
   if (caseId === 'pukka-drunk') {
     require(/暂时失效|不再因普卡中毒|暂时健康|普卡毒.{0,6}失效/.test(text), 'must distinguish temporarily inactive Pukka poison from tracking marker')

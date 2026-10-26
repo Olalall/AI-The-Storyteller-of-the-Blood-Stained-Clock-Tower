@@ -11,6 +11,18 @@ import {
 describe('对局 JSON 安全导入解析', () => {
   beforeEach(() => window.localStorage.clear())
 
+  it('preserves special nomination grounds and an unfinished exception draft without changing old fields', () => {
+    const session = createPrototypeGameSession()
+    const vote = { id: 'special-nomination', kind: 'vote_round' as const, segmentId: null, createdAt: '2026-10-21T01:00:00Z', confirmedBy: 'storyteller' as const, roundId: 'special', nominatorSeatId: 1, nomineeSeatId: 2, threshold: 3, raisedSeatIds: [], ghostVoteSeatIds: [], nominationExceptionReason: '女妖：已确认当晚被恶魔杀死' }
+    session.timeline.push(vote)
+    session.dayVoteDraft = { segmentId: 'day-pending', nominatorSeatId: null, nomineeSeatId: null, threshold: 3, raisedSeatIds: [], ghostVoteSeatIds: [], nominationExceptionReason: '' }
+    const result = parseSessionImportText(JSON.stringify(session))
+    expect(result.ok).toBe(true)
+    if (result.ok) expect(result.session).toEqual(session)
+    vote.nominationExceptionReason = 'x'.repeat(501)
+    expect(parseSessionImportText(JSON.stringify(session)).ok).toBe(false)
+  })
+
   it('parses a current export and returns a confirmation preview without writing storage', () => {
     const session = createPrototypeGameSession()
     const setItem = vi.spyOn(Storage.prototype, 'setItem')
