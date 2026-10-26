@@ -96,7 +96,7 @@ function App() {
       >
         <PWAStatusNotices hasStarted={session.playerCount > 0} canReload={editorStatus === 'ready' && !saveFailed && !saving && !recovery} />
         {view === 'dashboard' ? <Dashboard session={session} dispatch={dispatch} onEnterNight={phaseEntry.enterNight} onEnterDay={phaseEntry.enterDay} onOpenTimer={() => setView('timer')} onOpenSetup={() => setSetupOpen(true)} onOpenIdentityDeal={() => setIdentityDealOpen(true)} onOpenScriptLibrary={() => setScriptLibraryOpen(true)} onOpenPlayerStatus={setPlayerStatusSeatId} /> : null}
-        {view === 'night' ? <NightWorkbench sessionBinding={nightBinding} onExit={() => setView('dashboard')} /> : null}
+        {view === 'night' ? <NightWorkbench sessionBinding={nightBinding} onExit={() => setView('dashboard')} onCloseNight={phaseEntry.enterDay} /> : null}
         {view === 'day' ? <DayWorkbench session={session} dispatch={dispatch} onExit={() => setView('dashboard')} /> : null}
         {view === 'timer' ? <PublicChatTimerPage onExit={() => setView('dashboard')} /> : null}
         <SetupPanel open={setupOpen} onOpenChange={(open) => { setSetupOpen(open); if (!open) phaseEntry.clearNotice() }} session={session} dispatch={dispatch} setupScriptId={setupScriptId} notice={phaseEntry.notice || (session.playerCount === 0 ? resetNotice : '')} onSetupScriptChange={(id) => { void scriptRequest.run(id, () => setSetupScriptId(id), '返回配板') }} />

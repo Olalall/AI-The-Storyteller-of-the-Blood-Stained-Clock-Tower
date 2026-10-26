@@ -37,6 +37,8 @@ export interface GameSessionState {
   hostingModeHistory?: readonly HostingModeChange[]
   /** 仅用于单人身份交接；实际角色仍由配板与角色更正投影。 */
   identityPresentations?: Record<number, { actualRoleId: string; shownRole: RoleSnapshot; confirmedAt: string }>
+  /** 已确认的开局选择，追加保存；实际毒醉/能力仍由既有事件投影。 */
+  openingPreparations?: import('./openingTypes').OpeningPreparation[]
   /** 说书人从已确认记录添加的状态待办；不参与玩家状态投影。 */
   stateFollowups?: StateFollowup[]
   schemaVersion: 1

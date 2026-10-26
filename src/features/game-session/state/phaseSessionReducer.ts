@@ -5,6 +5,7 @@ import { closeOpenSegment } from './timeline'
 import { closePhaseSegment, getOrCreateOpenSegment } from './phaseSegments'
 import type { GameSessionAction } from './sessionActions'
 import { projectKazaliAllocation } from './applyKazaliAllocation'
+import { poppyRecognitionIncomplete } from './poppyRecognition'
 
 type PhaseSessionActionType =
   | 'open-phase-segment'
@@ -23,6 +24,7 @@ export function reducePhaseSession(state: GameSessionState, action: PhaseSession
     case 'start-next-night-run':
       return startNextNightRun(state)
     case 'close-open-segment': {
+      if (action.phaseKind === 'night' && poppyRecognitionIncomplete(state)) return state
       const allocation = action.phaseKind === 'night' ? projectKazaliAllocation(state) : null
       if (allocation && !allocation.isApplied) return state
       const closed = closeOpenSegment(state, action.phaseKind, action.closedAt)
@@ -39,6 +41,7 @@ function closeActiveNightRun(
 ) {
   const run = state.nightRuns[action.nightRunId]
   if (!run || state.activeNightRunId !== run.id || !run.phaseSegmentId) return state
+  if (poppyRecognitionIncomplete(state)) return { ...state, nightRuns: { ...state.nightRuns, [run.id]: { ...run, lastNotice: '罂粟已死亡，请先补入并核对当晚相认步骤，再结束夜晚。' } } }
   const allocation = projectKazaliAllocation(state)
   if (allocation && !allocation.isApplied) return { ...state, nightRuns: { ...state.nightRuns, [run.id]: { ...run, lastNotice: '请先确认并应用卡扎力首夜爪牙分配，再结束本夜。' } } }
   const segment = state.phaseSegments.find((item) => item.id === run.phaseSegmentId)
@@ -51,6 +54,7 @@ function openPhaseSegment(
   state: GameSessionState,
   action: Extract<GameSessionAction, { type: 'open-phase-segment' }>,
 ) {
+  if (action.phaseKind === 'day' && poppyRecognitionIncomplete(state)) return state
   if (action.phaseKind === 'night' && !getActiveNightRun(state)) return state
   const opened = getOrCreateOpenSegment(state, action.phaseKind, action.createdAt)
   if (action.phaseKind !== 'night') return opened.state

@@ -69,8 +69,8 @@ describe('night close acknowledgement', () => {
     const session = openNight(cardinalitySession('punchy', 'kazali', 13)), dispatch = vi.fn(), onExit = vi.fn()
     render(<NightCloseFooter session={session} dispatch={dispatch} nightRunId={session.activeNightRunId!}
       queue={projected(session).queue} concealed={false} onPreview={() => {}} onSkip={() => {}} onExit={onExit} />)
-    await userEvent.click(screen.getByRole('button', { name: '检查并关闭' }))
-    expect(screen.getByRole('button', { name: '确认关闭' })).toBeDisabled()
+    await userEvent.click(screen.getByRole('button', { name: '夜晚收尾' }))
+    expect(screen.getByRole('button', { name: '确认结束，进入白天' })).toBeDisabled()
     expect(screen.getByRole('alert')).toHaveTextContent('首夜爪牙分配')
     expect(onExit).not.toHaveBeenCalled()
     expect(dispatch).not.toHaveBeenCalled()
@@ -84,9 +84,9 @@ describe('night close acknowledgement', () => {
         queue={projected(session).queue} concealed={false} onPreview={() => {}} onSkip={() => {}} onExit={onExit} />
     }
     render(<CloseHarness />)
-    await userEvent.click(screen.getByRole('button', { name: '检查并关闭' }))
+    await userEvent.click(screen.getByRole('button', { name: '夜晚收尾' }))
     expect(onExit).not.toHaveBeenCalled()
-    await userEvent.click(screen.getByRole('button', { name: '确认关闭' }))
+    await userEvent.click(screen.getByRole('button', { name: '确认结束，进入白天' }))
     await waitFor(() => expect(onExit).toHaveBeenCalledTimes(1))
   })
 })

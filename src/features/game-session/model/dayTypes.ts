@@ -46,6 +46,8 @@ export interface DaySkillContext {
  * 它是工作台草稿，不是 TimelineEntry，也不能因此创建昼夜段或改变局面。
  */
 export interface DayActionSkillDraft {
+  /** 信息草稿绑定采用时的事实版本；人工编辑后清除此提示。 */
+  savantContextKey?: string
   actorSeatId: number | null
   actorActualRoleId: string
   abilityRoleId: string

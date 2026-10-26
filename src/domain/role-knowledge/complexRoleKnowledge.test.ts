@@ -3,7 +3,7 @@ import { complexRoleKnowledge, getComplexRoleKnowledge, roleKnowledgeForAI } fro
 
 describe('complex role knowledge', () => {
   it('keeps the researched complex roles in a shared index', () => {
-    expect(complexRoleKnowledge).toHaveLength(76)
+    expect(complexRoleKnowledge).toHaveLength(77)
     expect(getComplexRoleKnowledge('snakecharmer')).toMatchObject({
       title: '舞蛇人',
       riskTags: expect.arrayContaining(['identity', 'team', 'poison']),
@@ -41,6 +41,7 @@ describe('complex role knowledge', () => {
   })
 
   it('normalizes legacy role id aliases before projecting AI briefs', () => {
+    expect(roleKnowledgeForAI('poppy_grower')?.reminders.join('')).toContain('三张')
     const brief = roleKnowledgeForAI('snake_charmer')
 
     expect(brief).toMatchObject({

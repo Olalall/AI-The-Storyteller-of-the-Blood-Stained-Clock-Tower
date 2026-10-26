@@ -228,6 +228,10 @@ export interface SystemStepSpec {
   minionLabels: string[]
   /** 只读：本局恶魔座位。 */
   demonLabel: string
+  /** 实际唤醒者与指认候选分开：魔术师只混入候选，不成为邪恶接收者。 */
+  pointedDemonLabels?: string[]
+  pointedMinionLabels?: string[]
+  hostNote?: string
   /** 要出示的信息标记文案，按出示顺序。 */
   infoTokens: string[]
   checks: SystemStepCheck[]
@@ -243,6 +247,8 @@ export interface SystemStepSpec {
 }
 
 export interface WakeItem {
+  openingNote?: string
+  hostConfirmation?: { label: string; checkId: string; summary: string; blockedReason?: string; expectedRoleIds?: string[] }
   abilitySource?: import('../game-session/model/abilityTypes').AbilitySource
   lilMonstaStep?: 'babysitter' | 'death'
   abilityPhase?: 'initial'

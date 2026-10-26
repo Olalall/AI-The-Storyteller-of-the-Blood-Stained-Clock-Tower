@@ -1,0 +1,13 @@
+.setup-opening { padding: var(--space-16); border: 1px solid var(--accent-border); border-radius: var(--radius-lg); background: var(--surface-soft); display: grid; gap: var(--space-16); }
+.setup-opening p { margin: 0; color: var(--text-muted); line-height: 1.6; }
+.setup-opening fieldset { min-width: 0; margin: 0; padding: var(--space-12); border: 1px solid var(--border); border-radius: var(--radius-sm); display: grid; gap: var(--space-10); }
+.setup-opening legend { font-weight: 800; color: var(--accent-text); }
+.setup-opening label { display: grid; gap: var(--space-8); }
+.setup-opening input, .setup-opening select, .setup-opening textarea { font: inherit; color: var(--text-strong); background: var(--surface-panel); border: 1px solid var(--border); border-radius: var(--radius-sm); min-height: var(--touch-min); min-width: 0; padding: var(--space-8); }
+.setup-opening textarea { min-height: 88px; resize: vertical; }
+.setup-opening__choices { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: var(--space-8); }
+.setup-opening__choices label { display: flex; align-items: center; min-height: var(--touch-min); }
+.setup-opening__choices input { min-height: 22px; width: 22px; flex-shrink: 0; }
+.setup-seat-grid button .role-disc { float: right; margin-left: var(--space-6); }
+.sheet-content--setup .sheet-body { scroll-padding-block: var(--space-24) 110px; }
+.setup-opening input, .setup-opening select, .setup-opening textarea { scroll-margin-block: var(--space-24) 110px; }

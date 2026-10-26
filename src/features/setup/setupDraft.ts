@@ -31,6 +31,7 @@ export function replaceDraftRole(
 ): SetupDraft {
   return {
     ...draft,
+    openingChoices: draft.openingChoices?.filter(choice => choice.seatId !== seatId),
     revision: draft.revision + 1,
     assignments: draft.assignments.map((assignment) => assignment.seatId === seatId
       ? { seatId, role: { ...role } }
@@ -50,6 +51,7 @@ export function swapDraftSeats(draft: SetupDraft, firstSeatId: number, secondSea
 
   return {
     ...draft,
+    openingChoices: draft.openingChoices?.filter(choice => choice.seatId !== firstSeatId && choice.seatId !== secondSeatId),
     revision: draft.revision + 1,
     assignments: draft.assignments.map((assignment) => {
       if (assignment.seatId === firstSeatId) return { seatId: firstSeatId, role: { ...second.role } }

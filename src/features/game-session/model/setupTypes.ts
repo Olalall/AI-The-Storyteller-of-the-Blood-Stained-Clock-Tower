@@ -51,6 +51,8 @@ export interface SetupCandidate {
 }
 
 export interface SetupDraft {
+  /** 新开局须完成的秘密准备；缺省表示兼容旧存档，不能猜填旧局信息。 */
+  openingChoices?: import('./openingTypes').OpeningChoice[]
   candidateId: string
   /** 编辑草稿基于哪一次已确认配板；开局后用于拒绝过期草稿。 */
   baseSetupId?: string

@@ -32,13 +32,16 @@ export function SystemStepRoster({ step }: { step: SystemStepSpec }) {
       <dl>
         <div>
           <dt>爪牙</dt>
-          <dd>{step.minionLabels.join(' / ')}</dd>
+          <dd>{step.minionLabels.join(' / ') || '不通知'}</dd>
         </div>
         <div>
           <dt>恶魔</dt>
           <dd>{step.demonLabel}</dd>
         </div>
       </dl>
+      {step.pointedDemonLabels ? <p>向爪牙指认：{step.pointedDemonLabels.join(' / ')}</p> : null}
+      {step.pointedMinionLabels ? <p>向恶魔指认：{step.pointedMinionLabels.join(' / ')}</p> : null}
+      {step.hostNote ? <p>{step.hostNote}</p> : null}
       <StatusBadge tone="neutral">只读 · 不自动结算</StatusBadge>
     </section>
   )

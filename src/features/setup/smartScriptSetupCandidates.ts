@@ -289,6 +289,7 @@ export function evaluateSmartScriptSetup(
   setupRuleSelections: readonly SetupRuleSelection[] = [],
   repeatableRoleIds: readonly string[] = [],
   modifierSourceRoleIds?: readonly string[],
+  additionalModifierRoleIds: readonly string[] = [],
 ): SetupLegalityReport {
   const pack = getSmartScriptPack(scriptId)
   const report = evaluateSetupRules({
@@ -301,6 +302,7 @@ export function evaluateSmartScriptSetup(
     teamForRole: roleTeamByIdForScript(pack.scriptId) as Readonly<Record<string, SetupTeam>>,
     repeatableRoleIds,
     modifierSourceRoleIds,
+    additionalModifierRoleIds,
   })
   // Confirmed games retain their original setup sources; new drafts must also satisfy starting seats.
   if (modifierSourceRoleIds === undefined) report.checks.push(...setupSeatingChecks(assignments, roleTeamByIdForScript(pack.scriptId)))

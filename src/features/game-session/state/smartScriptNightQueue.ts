@@ -12,6 +12,7 @@ import { createAudienceNoticeItem } from './firstNightSystemSteps'
 import { playerFacingIdentity } from '../../identity-deal/identityProjection'
 import { createLilMonstaItems, hasLilMonstaOpening } from './lilMonstaNight'
 import { createSnitchNightItems } from './snitchNight'
+import { createLunaticNightItems } from './lunaticNight'
 export function createSmartScriptNightQueue(
   session: GameSessionState,
   assignments: SetupAssignment[],
@@ -26,6 +27,7 @@ export function createSmartScriptNightQueue(
     const role = roleById.get(normalizeRoleId(order.roleId))
     if (!role) return []
     const roleAssignments = assignments.filter((assignment) => normalizeRoleId(assignment.role.id) === normalizeRoleId(order.roleId))
+    if (normalizeRoleId(role.id) === 'lunatic') return roleAssignments.flatMap(a => createLunaticNightItems(session, a, playerStates, runId, sequence === 1, order.order))
     if (role.id === 'snitch') return roleAssignments.flatMap(source => createSnitchNightItems(session, source, playerStates, runId, order.order))
     if (role.id === 'lilmonsta' && assignments.length === session.playerCount && !roleAssignments.length && hasLilMonstaOpening(session, assignments)) {
       return createLilMonstaItems(session, role, order, runId, sequence)

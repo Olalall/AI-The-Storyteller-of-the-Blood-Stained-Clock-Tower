@@ -75,8 +75,7 @@ export function createAudienceNoticeItem(input: {
 /** 《规则概要》二.2：七人及以上的首夜才走爪牙信息与恶魔信息。 */
 const systemStepMinPlayers = 7
 
-/** 《夜晚行动顺序一览》首夜段：这两个角色在场时整段跳过爪牙信息与恶魔信息。 */
-const infoSuppressingRoleIds = ['poppygrower', 'poppy_grower', 'tor']
+const active = (state: PlayerState | undefined) => state?.life === 'alive' && !state.drunk && !state.poisoned
 
 const firstNightSystemOrder = new Map(
   officialNightSheet.firstNight.map((roleId, index) => [roleId, index]),
@@ -120,13 +119,15 @@ export function createFirstNightSystemSteps(
   assignments: SetupAssignment[],
   playerStates: Record<number, PlayerState>,
   runId: string,
+  recognitionOnly = false,
 ): WakeItem[] {
   const allocationSource = session.timeline.filter((entry) => entry.kind === 'setup_changed' && entry.originNightRunId === runId && entry.sourceNightActionId).at(-1)
   // 卡扎力先分配身份，再发送新名单；更正分配后用新步骤保留原确认记录。
   if (assignments.some((assignment) => normalizeRoleId(assignment.role.id) === 'kazali') && !allocationSource) return []
   const systemRunId = allocationSystemRunId(session, runId)
   if (session.playerCount < systemStepMinPlayers) return []
-  if (assignments.some((assignment) => infoSuppressingRoleIds.includes(normalizeRoleId(assignment.role.id)))) return []
+  if (assignments.some((assignment) => normalizeRoleId(assignment.role.id) === 'tor')) return []
+  const hidden = assignments.some((assignment) => normalizeRoleId(assignment.role.id) === 'poppygrower' && active(playerStates[assignment.seatId]))
 
   const teamById = roleTeamByIdForScript(session.scriptId)
   const minions = assignments.filter((assignment) => (
@@ -141,26 +142,42 @@ export function createFirstNightSystemSteps(
   const demonSeat = collectiveLegion ? legion.map(assignment => `${assignment.seatId}号`).join('、') : `${demon.seatId}号`
   const minionLabels = minions.map((assignment) => seatLabel(session, assignment.seatId))
   const demonLabel = collectiveLegion ? `全体军团 · ${demonSeat}` : seatLabel(session, demon.seatId)
+  const magicians = assignments.filter((assignment) => normalizeRoleId(assignment.role.id) === 'magician' && active(playerStates[assignment.seatId]))
+  const pointed = (seats: SetupAssignment[]) => [...seats, ...magicians].sort((a, b) => a.seatId - b.seatId).map((a) => seatLabel(session, a.seatId))
+  const lunatics = assignments.filter(a => normalizeRoleId(a.role.id) === 'lunatic')
+  const hostNote = [hidden ? '罂粟种植者有效：不相认；恶魔仍获得三张不在场善良角色伪装。'
+    : magicians.length ? '魔术师只混入指认名单，不唤醒魔术师。自由调整指认次序，不透露哪名候选是真的。特殊恶魔/提线木偶互动请另行核对。' : undefined
+    , ...(lunatics.length ? [`仅真恶魔得知疯子：${lunatics.map(a => `${a.seatId}号`).join('、')}；先展示「你是」及真恶魔角色，再展示疯子身份。不能告诉疯子真实身份。`] : [])].filter(Boolean).join(' ') || undefined
 
   const minionStep: SystemStepSpec = {
     kind: 'minion_info',
     minionLabels,
     demonLabel,
+    ...(magicians.length ? { pointedDemonLabels: pointed([demon]), hostNote } : {}),
     infoTokens: ['他是恶魔'],
     checks: [{ id: 'pointed-demon', label: '已逐个指认恶魔（每名爪牙都看清了）' }],
   }
   const demonStep: SystemStepSpec = {
     kind: 'demon_info',
-    minionLabels,
+    minionLabels: hidden ? [] : minionLabels,
     demonLabel,
-    infoTokens: [...(minions.length ? ['他们是你的爪牙'] : []), '这些角色不在场'],
-    checks: collectiveLegion ? [{ id:'legion-recognized',label:'已共同唤醒全体军团并完成互认' }] : minions.length ? [{ id: 'pointed-minions', label: '已依次指认每一名爪牙' }] : [],
+    ...(!hidden && magicians.length ? { pointedMinionLabels: pointed(minions) } : {}),
+    hostNote,
+    infoTokens: [...(!hidden && minions.length ? ['他们是你的爪牙'] : []), '这些角色不在场'],
+    checks: hidden ? [] : collectiveLegion ? [{ id:'legion-recognized',label:'已共同唤醒全体军团并完成互认' }] : minions.length ? [{ id: 'pointed-minions', label: magicians.length ? '已依次指认每一名候选（含有效魔术师）' : '已依次指认每一名爪牙' }] : [],
     bluffCount: 3,
     bluffChoices: createBluffChoices(session, assignments),
   }
 
   const steps: WakeItem[] = []
-  if (minions.length) {
+  if (recognitionOnly) {
+    demonStep.bluffCount = undefined
+    demonStep.bluffChoices = undefined
+    demonStep.infoTokens = minions.length ? ['他们是你的爪牙'] : []
+    demonStep.hostNote = '罂粟死亡后的相认：仅补告知名单，不重复发伪装。' + (magicians.length ? '仍须混入有效魔术师；不要唤醒魔术师。' : '')
+  }
+  if (lunatics.length && !recognitionOnly) demonStep.checks.push({ id: 'real-demon-knows-lunatic', label: '已向真恶魔确认其真实恶魔身份，并指出疯子' })
+  if (minions.length && !hidden) {
     steps.push(createSystemStepItem({
       session,
       playerStates,
@@ -170,11 +187,11 @@ export function createFirstNightSystemSteps(
       roleId: 'system-minion-info',
       roleName: '爪牙信息',
       roleInitial: '爪',
-      ability: '同时唤醒所有爪牙，让他们互相看见；出示「他是恶魔」信息标记并指认恶魔，确认每名爪牙都看清后再让他们闭眼。',
+      ability: '同时唤醒实际爪牙，让他们互相看见；出示「他是恶魔」，指认名单中的恶魔候选（有魔术师时包含魔术师），再让爪牙闭眼。',
       storytellerPrompt: '只记录本步骤已完成，不改任何座位状态。',
       step: minionStep,
       outcomeLabel: '已给出爪牙信息',
-      resultTemplate: `爪牙信息：向${minionSeats}出示「他是恶魔」，指认${demonSeat}。`,
+      resultTemplate: `爪牙信息：向${minionSeats}出示「他是恶魔」，指认${pointed([demon]).join('、')}。`,
     }))
   }
   steps.push(createSystemStepItem({
@@ -186,14 +203,14 @@ export function createFirstNightSystemSteps(
     roleId: 'system-demon-info',
     roleName: '恶魔信息',
     roleInitial: '魔',
-    ability: collectiveLegion ? '共同唤醒全体军团并完成互认。本模板采用三枚不在场善良角色伪装；不将一名军团当作唯一恶魔。' : minions.length
-      ? '唤醒恶魔：出示「他们是你的爪牙」并依次指认每一名爪牙；再出示「这些角色不在场」，展示三个不在场的善良角色。'
+    ability: recognitionOnly ? '逐个唤醒恶魔，告知当前爪牙候选（包含有效魔术师）；不再发放伪装。特殊恶魔和提线木偶互动须单独核对。' : hidden ? hostNote! : collectiveLegion ? '共同唤醒全体军团并完成互认。本模板采用三枚不在场善良角色伪装；不将一名军团当作唯一恶魔。' : minions.length
+      ? '唤醒实际恶魔：出示「他们是你的爪牙」并指认候选名单（有魔术师时包含魔术师）；再展示三个不在场的善良角色。'
       : '唤醒恶魔：不指认提线木偶；出示「这些角色不在场」，展示三个不在场的善良角色。',
     storytellerPrompt: '记录本夜给出的三张伪装，后续几夜判断恶魔叙事空间要靠它。',
     step: demonStep,
     outcomeLabel: '已给出恶魔信息',
-    resultTemplate: minions.length
-      ? `恶魔信息：向${demonSeat}指认爪牙${minionSeats}；展示不在场善良角色{bluffs}。`
+    resultTemplate: recognitionOnly ? `罂粟死亡后：向${demonSeat}指认当前爪牙候选${pointed(minions).join('、') || '无'}；未重复发放伪装。` : !hidden && minions.length
+      ? `恶魔信息：向${demonSeat}指认爪牙候选${pointed(minions).join('、')}；展示不在场善良角色{bluffs}。`
       : `恶魔信息：向${demonSeat}展示不在场善良角色{bluffs}。`,
   }))
   return steps

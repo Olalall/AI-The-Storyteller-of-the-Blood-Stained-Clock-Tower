@@ -1,9 +1,11 @@
 import { ArrowLeftRight, Bot, Check, PencilLine, RefreshCw, ShieldCheck, Shuffle, Sparkles, X } from 'lucide-react'
-import { useEffect, useMemo, useState, type DragEvent } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Button } from '../../components/ui/Button'
 import { HostNotice } from '../../components/ui/HostNotice'
 import { Sheet } from '../../components/ui/Sheet'
 import { StatusBadge } from '../../components/ui/StatusBadge'
+import { SetupSeatGrid } from './SetupSeatGrid'
+import { SetupModifierChoices } from './SetupModifierChoices'
 import { getSmartScriptPack, roleSnapshotsForScript, roleTeamByIdForScript } from '../../domain/scripts'
 import type { PlayerCount, ScriptId } from '../../domain/scripts'
 import { generateSetupCandidates, type AIContextSeat, type SetupBalanceMicroAdjustment } from '../../services/ai'
@@ -25,6 +27,9 @@ import { SetupStartPanel } from './SetupStartPanel'
 import { chineseDisplayName } from './setupPresentation'
 import { previewDraftMicroAdjustment } from './setupMicroAdjustmentPreview'
 import { createDraftFromCurrent, currentConfirmedSetupId, draftForActiveScript } from './setupSession'
+import { OpeningPreparationFields } from './OpeningPreparationFields'
+import { currentOpeningPreparation, openingAssignmentKey, openingPreparationIssues } from '../game-session/state/openingPreparation'
+import { nightContextKey } from '../night-workbench/state/gameSessionAdapter'
 import type { SetupTeam } from './types'
 import './setup.css'
 
@@ -67,6 +72,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
   const [seatAction, setSeatAction] = useState<SeatAction>('swap')
   const [seatEditor, setSeatEditor] = useState<{ kind: SetupSeatEditorKind; seatId: number } | null>(null)
   const [showCandidates, setShowCandidates] = useState(false)
+  const [pendingSetupId, setPendingSetupId] = useState<string | null>(null)
   const currentSetupId = currentConfirmedSetupId(session)
   const expectedSeatIds = profiles.map((profile) => profile.seatId)
   const effectiveDraft = draftForActiveScript(activeScriptId, session.scriptId, draftScriptId, draft, session.setupDraft, createDraftFromCurrent(session))
@@ -79,11 +85,15 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
       effectiveDraft.setupRuleSelections,
       effectiveDraft.repeatableRoleIds,
       confirmedSetup?.draft.assignments.map((assignment) => assignment.role.id),
+      effectiveDraft.openingChoices?.filter(c => c.roleId === 'alchemist').flatMap(c => c.chosenRoleId ? [c.chosenRoleId] : []),
     )
     : null
   const legality = legalityReport?.checks ?? []
   const isStaleDraft = started && (!effectiveDraft?.baseSetupId || effectiveDraft.baseSetupId !== currentSetupId)
-  const canConfirm = Boolean(effectiveDraft && legalityReport && !isStaleDraft && !hasBlockingSetupIssue(legalityReport))
+  const prepared = currentOpeningPreparation(session)
+  const canPrepare = !session.phaseSegments.length && !Object.keys(session.nightRuns).length && !prepared
+  const preparationIssues = effectiveDraft && canPrepare ? openingPreparationIssues(activeScriptId, effectiveDraft.assignments, effectiveDraft.openingChoices ?? []) : []
+  const canConfirm = Boolean(effectiveDraft && legalityReport && !isStaleDraft && !hasBlockingSetupIssue(legalityReport) && (started || !preparationIssues.length))
   const activeCandidate = effectiveDraft ? candidates.find((candidate) => candidate.id === effectiveDraft.candidateId) : undefined
   const candidateAdvice = activeCandidate?.demonBluffAdvice
   const modifierReminders = legality.filter((check) => check.id.startsWith('modifier-'))
@@ -97,8 +107,14 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     ? effectiveDraft?.assignments.find((assignment) => assignment.seatId === seatEditor.seatId)?.role ?? null
     : null
   useEffect(() => { setSelectedSeatId(null); setSwapSummary(null); setShowCandidates(false) }, [activeScriptId])
+  useEffect(() => {
+    if (pendingSetupId && session.timeline.some(e => e.kind === 'setup_confirmed' && e.setup.id === pendingSetupId)) {
+      setPendingSetupId(null); setDraft(null); onOpenChange(false)
+    }
+  }, [pendingSetupId, session.timeline, onOpenChange])
   function saveLocalDraft(nextDraft: SetupDraft | null) {
     setDraft(nextDraft); setDraftScriptId(nextDraft ? activeScriptId : null)
+    dispatch({ type: 'set-setup-draft', draft: nextDraft })
   }
   function startSetupSession(input: { playerCount: PlayerCount; seats: readonly SetupRosterSeatInput[] }) {
     dispatch({
@@ -113,7 +129,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     const candidate = candidates.find((item) => item.id === candidateId)
     if (!candidate) return
     const updatedAt = new Date().toISOString()
-    const nextDraft = createSetupDraftFromCandidate(candidate, updatedAt)
+    const nextDraft = { ...createSetupDraftFromCandidate(candidate, updatedAt), openingChoices: [] }
     const adjusted = adjustment ? previewDraftMicroAdjustment(nextDraft, adjustment, rolesForScript, updatedAt) : null
     if (adjustment && !adjusted) return setCandidateNotice('这条 AI 微调无法预览：角色不在当前方案、已在场或不属于本板子。原配板已保留，可选择其他建议或手动换角。')
     const draftToUse = adjusted?.draft ?? nextDraft
@@ -152,25 +168,6 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     setSwapSummary(null)
   }
 
-  function startSeatDrag(event: DragEvent<HTMLButtonElement>, seatId: number) {
-    if (seatAction !== 'swap') return
-    event.dataTransfer.effectAllowed = 'move'
-    event.dataTransfer.setData('text/plain', String(seatId))
-    setSelectedSeatId(seatId)
-    setSwapSummary(null)
-  }
-
-  function allowSeatDrop(event: DragEvent<HTMLButtonElement>) {
-    event.preventDefault()
-    event.dataTransfer.dropEffect = 'move'
-  }
-
-  function dropSeat(event: DragEvent<HTMLButtonElement>, targetSeatId: number) {
-    event.preventDefault()
-    const sourceSeatId = Number(event.dataTransfer.getData('text/plain'))
-    if (Number.isInteger(sourceSeatId)) swapRoles(sourceSeatId, targetSeatId)
-  }
-
   function selectSeatAction(nextAction: SeatAction) {
     setSeatAction(nextAction)
     setSelectedSeatId(null)
@@ -198,8 +195,12 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
     if (!effectiveDraft || !canConfirm) return
     if (started && (!currentSetupId || effectiveDraft.baseSetupId !== currentSetupId)) return
     if (!started) {
-      dispatch({ type: 'set-setup-draft', draft: effectiveDraft })
-      dispatch({ type: 'confirm-setup', id: `setup-${Date.now()}`, confirmedAt: new Date().toISOString() })
+      const id = `setup-${Date.now()}`
+      dispatch({ type: 'set-setup-draft', draft: { ...effectiveDraft, openingChoices: effectiveDraft.openingChoices ?? [] } })
+      dispatch({ type: 'confirm-setup', id, confirmedAt: new Date().toISOString() })
+      setPendingSetupId(id)
+      setCandidateNotice('正在保存配板与开局准备；保存成功后关闭。若未关闭，请检查编辑权限及准备信息。')
+      return
     } else {
       const currentAssignments = new Map(projectCurrentAssignments(session).map((assignment) => [assignment.seatId, assignment]))
       effectiveDraft.assignments.forEach((assignment) => {
@@ -238,19 +239,7 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
             {!canConfirm ? <StatusBadge tone="warning">需调整</StatusBadge> : null}
           </div>
           <section className="setup-panel__role-panel">
-            <div className="setup-seat-grid" role="list" aria-label="配板座位">
-              {effectiveDraft.assignments.map((assignment) => <div key={assignment.seatId} role="listitem"><button
-                type="button"
-                draggable={seatAction === 'swap'}
-                aria-label={`${assignment.seatId}号 ${assignment.role.name}`}
-                aria-pressed={seatAction === 'swap' && assignment.seatId === selectedSeatId}
-                className={`${assignment.seatId === selectedSeatId ? 'is-selected ' : ''}is-action-${seatAction}`}
-                onClick={() => selectSeat(assignment.seatId)}
-                onDragStart={(event) => startSeatDrag(event, assignment.seatId)}
-                onDragOver={allowSeatDrop}
-                onDrop={(event) => dropSeat(event, assignment.seatId)}
-              ><span>{assignment.seatId}号</span><strong>{assignment.role.name}</strong></button></div>)}
-            </div>
+            <SetupSeatGrid assignments={effectiveDraft.assignments} action={seatAction} selectedSeatId={selectedSeatId} onSelect={selectSeat} onSwap={swapRoles} onDragStart={seatId => { setSelectedSeatId(seatId); setSwapSummary(null) }} />
             <div className="setup-panel__seat-action" aria-live="polite">
               <div className="setup-panel__seat-actions" role="group" aria-label="角色卡操作">
                 <button type="button" className={seatAction === 'swap' ? 'is-active' : ''} aria-pressed={seatAction === 'swap'} onClick={() => selectSeatAction('swap')}><ArrowLeftRight aria-hidden="true" />交换角色</button>
@@ -301,6 +290,13 @@ export function SetupPanel({ open, onOpenChange, session, dispatch, setupScriptI
               {modifierReminders.map((reminder) => <li key={reminder.id}><strong>{reminder.summary}</strong></li>)}
             </ul> : null}
           </section> : null}
+          <SetupModifierChoices scriptId={activeScriptId} draft={effectiveDraft} disabled={started} onChange={saveLocalDraft} />
+          <OpeningPreparationFields scriptId={activeScriptId} draft={{ ...effectiveDraft, openingChoices: prepared?.choices ?? effectiveDraft.openingChoices ?? [] }} disabled={!canPrepare} onChange={openingChoices => saveLocalDraft({ ...effectiveDraft, openingChoices, revision: effectiveDraft.revision + 1, updatedAt: new Date().toISOString() })} />
+          {preparationIssues.length ? <ul className="setup-panel__checks">{preparationIssues.map(issue => <li key={issue} className="is-failed">{issue}</li>)}</ul> : null}
+          {started && canPrepare ? <Button variant="secondary" disabled={Boolean(preparationIssues.length) || openingAssignmentKey(effectiveDraft.assignments) !== openingAssignmentKey(projectCurrentAssignments(session))} onClick={() => {
+            dispatch({ type: 'confirm-opening-preparation', expectedContextKey: nightContextKey(session), preparation: { id: `opening-${Date.now()}`, setupId: currentSetupId!, assignmentKey: openingAssignmentKey(effectiveDraft.assignments), choices: effectiveDraft.openingChoices ?? [], confirmedAt: new Date().toISOString() } })
+          }}>补齐并保存开局准备</Button> : null}
+          {prepared ? <p role="status">开局准备已保存。醉酒或能力变更请从状态、能力入口追加记录；不会重新覆盖已经进行的对局。</p> : null}
           {visibleChecks.length || isStaleDraft ? <ul className="setup-panel__checks">
             {isStaleDraft ? <li className="is-failed" role="alert"><X aria-hidden="true" />配板已更新；请重新载入当前配板或重新采用候选。</li> : null}
             {visibleChecks.map((check) => <li className={`is-${check.status}`} key={check.id}>{check.passed ? <Check aria-hidden="true" /> : <X aria-hidden="true" />}<span>{check.summary}</span></li>)}

@@ -17,8 +17,11 @@
  */
 import { X } from 'lucide-react'
 import { SeatButton } from '../../../components/ui/SeatButton'
+import type { NightSeatSnapshot } from '../types'
+import { seatDescription } from './seatDescription'
 
 interface NightTargetEchoProps {
+  seats?: Record<number, NightSeatSnapshot>
   playerCount: number
   /** 当前行动者本人，网格里给一枚「本人」角标。 */
   selfSeatId: number
@@ -34,6 +37,7 @@ interface NightTargetEchoProps {
 }
 
 export function NightTargetEcho({
+  seats,
   playerCount,
   selfSeatId,
   targetLabel,
@@ -86,6 +90,8 @@ export function NightTargetEcho({
               key={seat}
               seat={seat}
               selected={targets.includes(seat)}
+              description={seatDescription(seats?.[seat])}
+              dead={seats?.[seat]?.status.life === 'dead'}
               disabled={forbiddenSeatIds.includes(seat)}
               self={seat === selfSeatId}
               onClick={() => onTarget(seat)}

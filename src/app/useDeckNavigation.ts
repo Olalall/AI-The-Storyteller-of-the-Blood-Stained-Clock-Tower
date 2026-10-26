@@ -10,6 +10,7 @@ import { clearIdentityDealReceipts } from '../services/identity-deal'
 import type { AppOverlayState } from './useAppOverlays'
 import type { GameSessionAction } from '../features/game-session/state/sessionActions'
 import type { GameSessionState } from '../features/game-session/types'
+import { poppyRecognitionIncomplete } from '../features/game-session/state/poppyRecognition'
 
 export interface DeckNavigation {
   deckNode: DeckNode
@@ -56,6 +57,7 @@ export function useDeckNavigation(
   }
 
   function enterDay() {
+    if (poppyRecognitionIncomplete(session)) { setDeckNode('night'); onLeaveArchive(); return }
     dispatch({ type: 'open-phase-segment', phaseKind: 'day', createdAt: new Date().toISOString() })
     setDeckNode('day')
     onLeaveArchive()

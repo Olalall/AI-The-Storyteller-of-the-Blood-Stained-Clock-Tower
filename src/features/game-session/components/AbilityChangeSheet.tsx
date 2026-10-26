@@ -6,13 +6,14 @@ import type { GameSessionAction } from '../state/sessionActions'
 import { abilityRoleChoices, abilitySourceLabels, projectAbilityGrants } from '../state/abilityChanges'
 import { projectCurrentAssignments } from '../state/projectors'
 import { nightContextKey } from '../../night-workbench/state/gameSessionAdapter'
+import { openingChoiceForSeat } from '../state/openingPreparation'
 import '../../night-workbench/components/night-close-checklist.css'
 
 const prompts: Readonly<Record<string, string>> = {
   philosopher: '确认本次选择有效，并核对在场同角色醉酒、使用次数和发动时点；不会改变真实身份。',
   alchemist: '确认获得的是爪牙能力，并核对开局修正与相克；可重复在场爪牙，仍是善良炼金术士。',
   boffin: '仅一名恶魔获得不在场善良能力；核对科学怪人的存活、毒醉与相克，毒醉恶魔仍可保留此能力。',
-  pixie: '首夜告知角色不会立即授予能力。请确认被标记玩家已死亡，并且小精灵满足疯狂条件；获得的是最初告知的镇民能力。',
+  pixie: '首夜告知不会立即授予能力。请核对实际标记玩家已死亡、疯狂条件及能力有效性。告知受干扰或来源换角时，不能只凭告知角色推定继承结果。',
   cannibal: '确认最近一次处决确实杀死了玩家；死者未死或处决尸体均不触发。核对死者当时能力与阵营，中毒和假装能力需主持分别处理。',
 }
 
@@ -26,6 +27,7 @@ export function AbilityChangeSheet({ session, dispatch, suggestedSourceId }: { s
   const sources = assignments.flatMap(a => [a.role.id, ...grants.filter(g => g.seatId === a.seatId).map(g => g.abilityRole!.id)]
     .filter(id => Object.hasOwn(abilitySourceLabels, id)).map(id => ({ seatId: a.seatId, roleId: id, key: `${a.seatId}:${id}` })))
   const source = sources.find(s => s.key === sourceKey), recipient = assignments.find(a => a.seatId === Number(seat))
+  const pixie = source?.roleId === 'pixie' ? openingChoiceForSeat(session, source.seatId) : undefined
   const choices = source ? abilityRoleChoices(session, source.roleId) : []
   const run = session.activeNightRunId ? session.nightRuns[session.activeNightRunId] : undefined
   const concealed = Boolean(run?.privacyShielded)
@@ -35,7 +37,8 @@ export function AbilityChangeSheet({ session, dispatch, suggestedSourceId }: { s
   if (!sources.length && !grants.length) return null
   function changeSource(key: string) {
     const next = sources.find(s => s.key === key)
-    setSourceKey(key); setSeat(next?.roleId === 'boffin' ? '' : String(next?.seatId ?? '')); setRole(''); setChecked(false); setTriggerSeat('')
+    setSourceKey(key); setSeat(next?.roleId === 'boffin' ? '' : String(next?.seatId ?? '')); setRole(''); setChecked(false)
+    setTriggerSeat(next?.roleId === 'pixie' ? String(openingChoiceForSeat(session, next.seatId)?.targetSeatId ?? '') : '')
   }
   function changeOpen(next: boolean) {
     if (next) {
@@ -43,7 +46,7 @@ export function AbilityChangeSheet({ session, dispatch, suggestedSourceId }: { s
       const item = entry?.kind === 'night_action' ? session.nightRuns[entry.nightRunId]?.queue.find(i => i.id === entry.wakeItemId) : undefined
       const suggested = item && sources.find(s => s.seatId === item.seatId && s.roleId === item.roleId)
       const initial = suggested ?? sources[0]
-      if (initial) { changeSource(initial.key); setRole(entry?.kind === 'night_action' ? entry.record.snapshot.roleChoice : '') }
+      if (initial) { changeSource(initial.key); setRole(initial.roleId === 'pixie' ? openingChoiceForSeat(session, initial.seatId)?.sourceRoleId ?? (entry?.kind === 'night_action' ? entry.record.snapshot.roleChoice : '') : entry?.kind === 'night_action' ? entry.record.snapshot.roleChoice : '') }
       setReason(''); setChecked(false); setFeedback('')
     }
     setOpen(next)
@@ -59,10 +62,12 @@ export function AbilityChangeSheet({ session, dispatch, suggestedSourceId }: { s
           const id = `ability-${crypto.randomUUID()}`; setPendingId(id)
           dispatch({ type: 'confirm-ability-change', id, sourceSeatId: source.seatId, sourceRoleId: source.roleId, seatId: recipient.seatId,
             expectedRoleId: recipient.role.id, roleId: role === 'revoke' ? null : role, timing, reason,
-            sourceEntryId: suggestedSourceId, triggerSeatId: triggerSeat ? Number(triggerSeat) : undefined, expectedContextKey: nightContextKey(session), confirmedAt: new Date().toISOString() })
+            sourceEntryId: suggestedSourceId, triggerSeatId: triggerSeat ? Number(triggerSeat) : undefined,
+            informationMismatchReviewed: source.roleId === 'pixie' && checked, expectedContextKey: nightContextKey(session), confirmedAt: new Date().toISOString() })
         }}>
           <label>能力来源<select value={sourceKey} onChange={e => changeSource(e.target.value)}>{sources.map(s => <option key={s.key} value={s.key}>{s.seatId}号 {abilitySourceLabels[s.roleId]}</option>)}</select></label>
           {source ? <p>{prompts[source.roleId]}</p> : null}
+          {pixie?.targetSeatId ? <p>开局实际标记：{pixie.targetSeatId}号；原角色 {choices.find(c => c.id === pixie.sourceRoleId)?.name ?? pixie.sourceRoleId}。遇到假信息或换角时，请核对实际来源后选择本次授予的能力。</p> : null}
           <label>获得能力的玩家<select value={seat} onChange={e => { setSeat(e.target.value); setChecked(false) }} disabled={source?.roleId !== 'boffin'}>
             <option value="">选择玩家</option>{assignments.map(a => <option key={a.seatId} value={a.seatId}>{a.seatId}号 {a.role.name}</option>)}
           </select></label>
@@ -72,7 +77,7 @@ export function AbilityChangeSheet({ session, dispatch, suggestedSourceId }: { s
           <label>当晚时点<select value={timing} onChange={e => setTiming(e.target.value as 'tonight' | 'later')}><option value="tonight">当晚按对应能力的夜序处理</option><option value="later">本夜不再发动，下次按夜序处理</option></select></label>
           {source?.roleId === 'pixie' ? <label>最初标记并已死亡的玩家<select value={triggerSeat} onChange={e => { setTriggerSeat(e.target.value); setChecked(false) }}><option value="">选择玩家</option>{assignments.map(a => <option key={a.seatId} value={a.seatId}>{a.seatId}号</option>)}</select></label> : null}
           <label>判定依据<input value={reason} maxLength={500} onChange={e => setReason(e.target.value)} placeholder="记录死亡、疯狂、处决或能力变化的依据" /></label>
-          <label><input type="checkbox" checked={checked} onChange={e => setChecked(e.target.checked)} />我已核对触发条件、能力有效性、相克及发动时点</label>
+          <label><input type="checkbox" checked={checked} onChange={e => setChecked(e.target.checked)} />我已核对触发条件、能力有效性、相克及发动时点{source?.roleId === 'pixie' ? '，以及告知真假与实际标记来源' : ''}</label>
           {pendingId && !session.timeline.some(e => e.id === pendingId) ? <p role="alert">尚未保存。请核对来源、接收人的身份及当前局面，再确认。</p> : null}
           <Button type="submit" disabled={!source || !recipient || !role || !checked || !reason.trim()}>确认能力调整</Button>
         </form>

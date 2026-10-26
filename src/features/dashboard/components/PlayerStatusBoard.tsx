@@ -2,6 +2,7 @@ import { FlaskConical, HeartPulse, Skull, Tag, Wine } from 'lucide-react'
 import { Card } from '../../../components/ui/Card'
 import { EmptyState } from '../../../components/ui/EmptyState'
 import { StatusBadge } from '../../../components/ui/StatusBadge'
+import { RoleDisc } from '../../../components/ui/RoleDisc'
 import { storytellerStateLabel } from '../../game-session/seatPresentation'
 import type { StorytellerSeatSummary } from '../../game-session/state/projectors'
 
@@ -50,6 +51,7 @@ export function PlayerStatusBoard({ seats, onSelectSeat }: PlayerStatusBoardProp
             <button key={seatId} type="button" className={`dashboard-player-seat ${stateClasses}`} onClick={() => onSelectSeat(seatId)} aria-label={`查看${seatId}号 · ${displayNickname} · ${roleName}：${storytellerStateLabel(state)}`}>
               <span className="dashboard-player-seat__top">
                 <strong>{seatId}号</strong>
+                {role ? <RoleDisc initial={role.initial} roleName={role.name} imageSrc={role.iconPath} size="tiny" /> : null}
                 <span className="dashboard-player-seat__life">
                   <LifeIcon aria-hidden="true" />
                   {dead ? <StatusBadge tone="danger" size="sm">死亡</StatusBadge> : null}

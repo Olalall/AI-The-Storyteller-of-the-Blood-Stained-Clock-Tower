@@ -246,7 +246,7 @@ describe('首夜系统步骤卡', () => {
     expect(sixPlayers?.queue.some((item) => item.systemStep)).toBe(false)
   })
 
-  it('skips both steps when 罂粟种植者 is in play', () => {
+  it('hides recognition but retains real Demon bluffs when Poppy Grower is active', () => {
     const session = confirmedSession(12)
     const setup = session.timeline[0]
     if (setup.kind !== 'setup_confirmed') throw new Error('fixture is incomplete')
@@ -268,7 +268,11 @@ describe('首夜系统步骤卡', () => {
       }],
     }
 
-    expect(createNextNightRun(withPoppyGrower)?.queue.some((item) => item.systemStep)).toBe(false)
+    const steps = createNextNightRun(withPoppyGrower)?.queue.filter(item => item.systemStep) ?? []
+    expect(steps.map(item => item.roleId)).toEqual(['system-demon-info'])
+    expect(steps[0].systemStep?.minionLabels).toEqual([])
+    expect(steps[0].systemStep?.bluffCount).toBe(3)
+    expect(steps[0].systemStep?.checks).toEqual([])
   })
 
   it('also recognizes the poppy_grower id alias used by imported packs', () => {
@@ -297,7 +301,7 @@ describe('首夜系统步骤卡', () => {
 
     expect(queue.length).toBeGreaterThan(0)
     expect(queue.map((item) => item.roleId)).not.toContain('system-minion-info')
-    expect(queue.map((item) => item.roleId)).not.toContain('system-demon-info')
+    expect(queue.find(item => item.roleId === 'system-demon-info')?.systemStep?.bluffCount).toBe(3)
   })
 
   it('excludes the Marionette from both evil-information lists', () => {

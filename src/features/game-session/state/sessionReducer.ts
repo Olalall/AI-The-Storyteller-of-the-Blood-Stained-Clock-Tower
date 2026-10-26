@@ -12,11 +12,14 @@ import type { GameSessionAction } from './sessionActions'
 import { applyKazaliAllocation } from './applyKazaliAllocation'
 import { confirmNightRoleChange } from './confirmNightRoleChange'
 import { confirmAbilityChange } from './abilityChanges'
+import { applyPoppyRecognition } from './poppyRecognition'
 
 export type { GameSessionAction } from './sessionActions'
 
 export function gameSessionReducer(state: GameSessionState, action: GameSessionAction): GameSessionState {
   switch (action.type) {
+    case 'apply-poppy-recognition':
+      return applyPoppyRecognition(state, action.expectedContextKey)
     case 'confirm-ability-change':
       return confirmAbilityChange(state, action)
     case 'confirm-night-role-change':
@@ -27,6 +30,7 @@ export function gameSessionReducer(state: GameSessionState, action: GameSessionA
     case 'dismiss-state-followup':
       return reduceStateFollowup(state, action)
     case 'set-setup-draft':
+    case 'confirm-opening-preparation':
     case 'confirm-setup':
     case 'confirm-identity-presentation':
     case 'update-seat-nickname':

@@ -1,6 +1,7 @@
 import { SeatButton } from '../../../components/ui/SeatButton'
 import { selectedTargetCount, targetCountChosen } from '../state/projectWakeDraft'
-import type { WakeDraft, WakeItem } from '../types'
+import { seatDescription } from './seatDescription'
+import type { NightSeatSnapshot, WakeDraft, WakeItem } from '../types'
 
 interface Props {
   item: WakeItem
@@ -10,9 +11,10 @@ interface Props {
   onTarget: (seat: number) => void
   onTargetCountChoice?: (count: number) => void
   unavailableSeatIds?: number[]
+  seats?: Record<number, NightSeatSnapshot>
 }
 
-export function NightTargetChoices({ item, draft, disabled, playerCount, onTarget, onTargetCountChoice, unavailableSeatIds = [] }: Props) {
+export function NightTargetChoices({ item, draft, disabled, playerCount, onTarget, onTargetCountChoice, unavailableSeatIds = [], seats }: Props) {
   const count = selectedTargetCount(item, draft)
   const chosen = targetCountChosen(item, draft)
   return <>
@@ -31,7 +33,8 @@ export function NightTargetChoices({ item, draft, disabled, playerCount, onTarge
       <div className="seat-grid">
         {Array.from({ length: playerCount }, (_, index) => index + 1).map((seat) => <SeatButton
           key={seat} seat={seat} selected={draft.targets.includes(seat)} self={seat === item.seatId}
-          disabled={unavailableSeatIds.includes(seat) || Boolean(item.forbiddenTargetSeatIds?.includes(seat) && !draft.targets.includes(seat))} dead={unavailableSeatIds.includes(seat)}
+          disabled={unavailableSeatIds.includes(seat) || Boolean(item.forbiddenTargetSeatIds?.includes(seat) && !draft.targets.includes(seat))} dead={seats?.[seat]?.status.life === 'dead' || unavailableSeatIds.includes(seat)}
+          description={seatDescription(seats?.[seat])}
           onClick={() => onTarget(seat)} aria-label={`选择${seat}号玩家`}
         />)}
       </div>

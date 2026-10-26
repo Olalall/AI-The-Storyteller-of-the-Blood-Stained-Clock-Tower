@@ -12,6 +12,7 @@ async function runtime(publicAccessMode: boolean) {
   const staticDir = path.join(tempDir, 'static')
   await mkdir(staticDir, { recursive: true })
   await writeFile(path.join(staticDir, 'manifest.webmanifest'), '{"name":"BOTC"}', 'utf8')
+  await writeFile(path.join(staticDir, 'index.html'), '<!doctype html><title>Application</title>', 'utf8')
   return createArchiveRuntime({
     publicAccessMode,
     dataFile: path.join(tempDir, 'archives.json'),
@@ -26,6 +27,17 @@ afterEach(async () => {
 })
 
 describe('public access runtime boundary', () => {
+  it('returns 404 for missing icons and chunks, while preserving application route fallback', async () => {
+    const route = await runtime(true)
+    for (const pathname of ['/assets/characters/missing.webp', '/assets/missing.js', '/missing.png']) {
+      const response = await route(new Request(`http://public.example${pathname}`))
+      expect(response.status).toBe(404)
+      expect(response.headers.get('content-type') ?? '').not.toContain('text/html')
+    }
+    const page = await route(new Request('http://public.example/game'))
+    expect(page.status).toBe(200)
+    expect(page.headers.get('content-type')).toContain('text/html')
+  })
   it('keeps health checks anonymous', async () => {
     const route = await runtime(true)
 

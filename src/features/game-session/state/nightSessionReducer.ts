@@ -100,6 +100,8 @@ function commitNightWorkbench(
     if (kazaliAllocationBlocksItem(state, record.wakeItemId)) return state
     const item = queueItemById.get(record.wakeItemId)
     if (!item) return state
+    const currentItem = currentQueueById.get(record.wakeItemId)
+    if (currentItem?.hostConfirmation && !formalNightRecordValid(currentItem, record.snapshot)) return state
     if (!record.correctionOf && item.abilityPhase !== 'initial' && run.queue.some(initial => initial.abilityPhase === 'initial'
       && initial.seatId === item.seatId && initial.roleId === item.roleId && initial.progress !== 'confirmed')) return state
     const nonSeated = validLilMonstaItem(item, currentQueueById.get(item.id)) && hasLilMonstaOpening(state, projectCurrentAssignments(state))

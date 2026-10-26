@@ -1,5 +1,5 @@
 import { BookPlus, Megaphone, Trash2, WandSparkles } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '../../../components/ui/Button'
 import { SeatButton } from '../../../components/ui/SeatButton'
 import { Sheet } from '../../../components/ui/Sheet'
@@ -20,11 +20,15 @@ interface DayRecordSheetProps {
 
 export function DayRecordSheet({ session, dispatch }: DayRecordSheetProps) {
   const [open, setOpen] = useState(false)
+  const [pendingId, setPendingId] = useState<string | null>(null)
   const draft = session.dayActionDraft ?? createDayActionDraft()
   const isSkill = draft.category === 'skill'
   const skillDraft = draft.skill
   const eventDraft = draft.publicEvent
-  const canRecord = isSkill ? canRecordDaySkill(skillDraft) : Boolean(eventDraft.note.trim())
+  const canRecord = isSkill ? canRecordDaySkill(skillDraft, session) : Boolean(eventDraft.note.trim())
+  useEffect(() => {
+    if (pendingId && session.timeline.some(e => e.id === pendingId)) { setPendingId(null); setOpen(false) }
+  }, [pendingId, session.timeline])
 
   function updateDraft(update: typeof draft | ((current: typeof draft) => typeof draft)) {
     const next = typeof update === 'function' ? update(draft) : update
@@ -50,6 +54,8 @@ export function DayRecordSheet({ session, dispatch }: DayRecordSheetProps) {
     const summary = isSkill
       ? summaryForDaySkillContext(skillContext, skillDraft)
       : `公开事件：${eventDraft.note.trim()}`
+    const id = `day-action-${Date.now()}`
+    setPendingId(id)
     dispatch({
       type: 'append-phase-entry',
       phaseKind: 'day',
@@ -62,9 +68,8 @@ export function DayRecordSheet({ session, dispatch }: DayRecordSheetProps) {
         summary,
         details: [],
       },
-      input: { id: `day-action-${Date.now()}`, createdAt: new Date().toISOString() },
+      input: { id, createdAt: new Date().toISOString() },
     })
-    setOpen(false)
   }
 
   function clearDraft() {

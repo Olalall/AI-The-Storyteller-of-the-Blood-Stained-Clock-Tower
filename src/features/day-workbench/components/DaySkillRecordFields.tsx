@@ -1,6 +1,8 @@
 import { useMemo } from 'react'
 import { SeatButton } from '../../../components/ui/SeatButton'
 import { daySkillOutcomeLabels } from '../../game-session/daySkillPresentation'
+import { SavantInformationDrafts } from './SavantInformationDrafts'
+import { projectStorytellerSeatSummaries } from '../../game-session/state/projectors'
 import type { GameSessionState } from '../../game-session/types'
 import type { DaySkillOutcomeKind } from '../../game-session/types'
 import {
@@ -20,10 +22,19 @@ interface DaySkillRecordFieldsProps {
 
 const outcomeKinds: DaySkillOutcomeKind[] = ['no_effect', 'applied', 'custom']
 
-export function DaySkillRecordFields({ session, draft, onChange, actionPrefix = '选择' }: DaySkillRecordFieldsProps) {
+export function DaySkillRecordFields({ session, draft, onChange: applyChange, actionPrefix = '选择' }: DaySkillRecordFieldsProps) {
+  function onChange(next: DaySkillDraft) {
+    const differentActor = next.actorSeatId !== draft.actorSeatId || next.abilityRoleId !== draft.abilityRoleId
+    applyChange(differentActor ? { ...next, savantContextKey: undefined, ...(draft.abilityRoleId === 'savant' ? { outcomeKind: null, outcomeNote: '' } : {}) } : next)
+  }
   const roleOptions = useMemo(() => roleOptionsForSession(session), [session])
   const currentRoles = useMemo(() => currentRoleBySeat(session), [session])
   const context = buildDaySkillContext(session, draft, roleOptions)
+  const seats = projectStorytellerSeatSummaries(session)
+  function description(seatId: number) {
+    const seat = seats.find(s => s.seatId === seatId)
+    return seat ? [seat.role?.name ?? '未配角色', seat.state.life === 'dead' ? '死亡' : '存活', ...(seat.state.drunk ? ['醉酒'] : []), ...(seat.state.poisoned ? ['中毒'] : [])].join(' · ') : undefined
+  }
 
   function selectActor(seatId: number) {
     if (draft.actorSeatId === seatId) {
@@ -59,7 +70,7 @@ export function DaySkillRecordFields({ session, draft, onChange, actionPrefix = 
       <div className="day-record-sheet__seats">
         {Array.from({ length: session.playerCount }, (_value, index) => {
           const seatId = index + 1
-          return <SeatButton key={seatId} seat={seatId} selected={draft.actorSeatId === seatId} onClick={() => selectActor(seatId)} aria-label={`${actionPrefix}${seatId}号为发动者`} />
+          return <SeatButton key={seatId} seat={seatId} description={description(seatId)} selected={draft.actorSeatId === seatId} onClick={() => selectActor(seatId)} aria-label={`${actionPrefix}${seatId}号为发动者`} />
         })}
       </div>
       {draft.actorSeatId !== null ? <RoleSelect
@@ -80,7 +91,7 @@ export function DaySkillRecordFields({ session, draft, onChange, actionPrefix = 
       <div className="day-record-sheet__seats">
         {Array.from({ length: session.playerCount }, (_value, index) => {
           const seatId = index + 1
-          return <SeatButton key={seatId} seat={seatId} selected={draft.targetSeatIds.includes(seatId)} onClick={() => toggleTarget(seatId)} aria-label={`${actionPrefix}${seatId}号为目标`} />
+          return <SeatButton key={seatId} seat={seatId} description={description(seatId)} selected={draft.targetSeatIds.includes(seatId)} onClick={() => toggleTarget(seatId)} aria-label={`${actionPrefix}${seatId}号为目标`} />
         })}
       </div>
       {draft.targetSeatIds.length ? <div className="day-skill-fields__targets">
@@ -109,6 +120,7 @@ export function DaySkillRecordFields({ session, draft, onChange, actionPrefix = 
       </div> : null}
     </fieldset>
 
+    <SavantInformationDrafts session={session} draft={draft} onChange={onChange} />
     <fieldset>
       <legend>结果</legend>
       <div className="day-skill-fields__outcomes" role="group" aria-label="选择结果">
@@ -117,10 +129,10 @@ export function DaySkillRecordFields({ session, draft, onChange, actionPrefix = 
           key={kind}
           className={draft.outcomeKind === kind ? 'is-active' : ''}
           aria-pressed={draft.outcomeKind === kind}
-          onClick={() => onChange({ ...draft, outcomeKind: kind, outcomeNote: kind === 'custom' ? draft.outcomeNote : '' })}
+          onClick={() => onChange({ ...draft, outcomeKind: kind, outcomeNote: kind === 'custom' ? draft.outcomeNote : '', ...(kind !== 'custom' ? { savantContextKey: undefined } : {}) })}
         >{daySkillOutcomeLabels[kind]}</button>)}
       </div>
-      {draft.outcomeKind === 'custom' ? <label className="day-record-sheet__note">其他结果<textarea value={draft.outcomeNote} maxLength={120} placeholder="简短记录结果" onChange={(event) => onChange({ ...draft, outcomeNote: event.target.value })} /></label> : null}
+      {draft.outcomeKind === 'custom' ? <label className="day-record-sheet__note">{draft.abilityRoleId === 'savant' ? '告知信息与说书人依据（仅主持人记录）' : '其他结果'}<textarea value={draft.outcomeNote} maxLength={draft.abilityRoleId === 'savant' ? 1000 : 120} placeholder="记录结果" onChange={(event) => onChange({ ...draft, outcomeNote: event.target.value, savantContextKey: undefined })} /></label> : null}
     </fieldset>
 
     {context ? <p className="day-skill-fields__preview" aria-live="polite">{summaryForDaySkillContext(context, draft)}</p> : null}
