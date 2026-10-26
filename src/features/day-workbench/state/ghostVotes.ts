@@ -4,7 +4,7 @@ import type { VoteRoundDraft } from './voteRound'
 type VoteInput = Pick<VoteRoundEntry, 'raisedSeatIds' | 'ghostVoteSeatIds'>
 
 /** 更正在原投票发生的位置生效，不用补录时间重新消耗死亡票。 */
-function orderedEntries(session: GameSessionState) {
+export function orderedEntries(session: GameSessionState) {
   const changes = new Map(session.timeline.filter((entry) => entry.correctionOf).map((entry) => [entry.correctionOf!, entry]))
   return session.timeline.filter((entry) => !entry.correctionOf)
     // 旧时间可有不同毫秒精度；稳定排序保留同毫秒的真实追加顺序。

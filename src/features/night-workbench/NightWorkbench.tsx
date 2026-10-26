@@ -252,7 +252,7 @@ export function NightWorkbench({ sessionBinding, onExit, onCloseNight = onExit, 
             dispatch({ type: 'set-privacy', shielded: true })
             setPrivateInformation(draft.informationGiven)
           }}
-          onResolveApplicability={(value) => dispatch({ type: 'resolve-applicability', value })}
+          onResolveApplicability={(value, advance) => dispatch({ type: 'resolve-applicability', value, advance })}
         />
         <section className="night-action-zone" aria-label="当前夜间操作">
           <NightActionBar

@@ -66,7 +66,7 @@ const timelineVariants: Record<string, Check> = {
   player_state_changed: shape({ seatId: number, before: state, after: state, reason: string, ops: optional(array(op)), origin: optional(oneOf('player_panel', 'grimoire', 'night_workbench', 'day_workbench', 'handoff')), batchId: optional(string), revertOf: optional(string), backfill: optional(shape({ attributedPhaseSegmentId: string, sourceEntryId: optional(string) })) }),
   night_action: shape({ nightRunId: string, wakeItemId: string, summary: string, details: array(string), record: shape({ revision: number, snapshot: wakeDraft }) }),
   day_action: shape({ category: oneOf('skill', 'public_event'), actorSeatId: nullable(number), targetSeatIds: array(number), summary: string, details: array(string), skillContext: optional(skillContext) }),
-  vote_round: shape({ roundId: string, nominatorSeatId: number, nomineeSeatId: number, threshold: number, raisedSeatIds: array(number), ghostVoteSeatIds: array(number), voteAdjustment: optional(voteAdjustment), voided: optional(boolean) }),
+  vote_round: shape({ roundId: string, nominatorSeatId: number, nomineeSeatId: number, threshold: number, raisedSeatIds: array(number), ghostVoteSeatIds: array(number), voteAdjustment: optional(voteAdjustment), nominationExceptionReason: optional(string), voided: optional(boolean) }),
   execution: shape({ executedSeatId: optional(number), causedDeath: optional(boolean), exceptionReason: optional(string) }),
   no_execution: shape({}),
 }
@@ -78,6 +78,6 @@ export const sessionBackupSchema = shape({
   schemaVersion: oneOf(1), id: string, scriptId: string, playerCount: number, knowledgeVersion: string,
   scriptRoles: optional(array(role)), seats: record(shape({ seatId: number, label: string, nickname: string, experience: oneOf('new', 'regular', 'veteran') })),
   initialPlayerStates: record(state), phaseSegments: array(phase), timeline: array(timeline), nightRuns: record(night), activeNightRunId: nullable(string), setupDraft: nullable(setup),
-  dayVoteDraft: nullable(shape({ segmentId: string, nominatorSeatId: nullable(number), nomineeSeatId: nullable(number), threshold: number, raisedSeatIds: array(number), ghostVoteSeatIds: array(number), voteAdjustment: optional(voteAdjustment) })),
+  dayVoteDraft: nullable(shape({ segmentId: string, nominatorSeatId: nullable(number), nomineeSeatId: nullable(number), threshold: number, raisedSeatIds: array(number), ghostVoteSeatIds: array(number), voteAdjustment: optional(voteAdjustment), nominationExceptionReason: optional(string) })),
   dayActionDraft: nullable(shape({ category: oneOf('skill', 'public_event'), skill: shape({ actorSeatId: nullable(number), actorActualRoleId: string, abilityRoleId: string, claimedRoleId: string, targetSeatIds: array(number), targetActualRoleIds: record(string), targetAlignments: optional(record(oneOf('good', 'evil'))), outcomeKind: nullable(oneOf('no_effect', 'applied', 'custom')), outcomeNote: string }), publicEvent: shape({ targetSeatIds: array(number), note: string }) })),
 })

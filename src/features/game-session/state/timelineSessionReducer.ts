@@ -7,6 +7,7 @@ import { canAppendHistoryCorrection, canAppendNightActionEntry, hasDayResolution
 import { canCompleteVoteRound } from '../../day-workbench/state/voteRound'
 import { findOpenSegment } from './phaseSegments'
 import { canRecordGhostVotes, normalizeDeadVotes } from '../../day-workbench/state/ghostVotes'
+import { nominationIssues } from '../../day-workbench/state/nominationRules'
 
 type TimelineSessionActionType = 'append-phase-entry' | 'append-correction'
 
@@ -23,6 +24,7 @@ export function reduceTimelineSession(state: GameSessionState, action: TimelineS
           !state.seats[entry.nominatorSeatId] || !state.seats[entry.nomineeSeatId] ||
           entry.raisedSeatIds.some((id) => !state.seats[id]) || entry.ghostVoteSeatIds.some((id) => !state.seats[id]) ||
           !canRecordGhostVotes(state, entry) ||
+          nominationIssues(state, { ...entry, segmentId: day?.id ?? 'day-pending' }).length > 0 ||
           (day && hasDayResolution(state, day.id))) return state
       }
       switch (entry.kind) {
@@ -42,7 +44,7 @@ export function reduceTimelineSession(state: GameSessionState, action: TimelineS
           assertNever(entry)
       }
       const appended = appendPhaseEntry(state, action.phaseKind, entry.kind === 'vote_round'
-        ? { ...entry, ghostVoteSeatIds: normalizeDeadVotes(state, { ...entry, segmentId: 'day-pending' }).ghostVoteSeatIds } : entry, action.input)
+        ? { ...entry, ...(entry.nominationExceptionReason ? { nominationExceptionReason: entry.nominationExceptionReason.trim() } : {}), ghostVoteSeatIds: normalizeDeadVotes(state, { ...entry, segmentId: 'day-pending' }).ghostVoteSeatIds } : entry, action.input)
       if (appended.entry.kind === 'vote_round') {
         return {
           ...appended.state,

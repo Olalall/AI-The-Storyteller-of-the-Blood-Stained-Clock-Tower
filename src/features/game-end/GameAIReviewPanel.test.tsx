@@ -26,7 +26,7 @@ describe('GameAIReviewPanel', () => {
     expect(screen.queryByText('玩家评分草稿')).not.toBeInTheDocument()
     expect(createGameReviewDraftAsync).not.toHaveBeenCalled()
     expect(screen.queryByRole('button', { name: '生成 AI 解读' })).not.toBeInTheDocument()
-    expect(screen.getByText(/当前使用本地记录，尚未连接后端 AI/)).toBeInTheDocument()
+    expect(screen.getByText(/当前展示本地记录提纲，尚未生成带引用的 AI 解读/)).toBeInTheDocument()
     await userEvent.click(screen.getByRole('button', { name: '展开娱乐评分与吐槽' }))
     expect(screen.getByText('玩家评分草稿')).toBeInTheDocument()
     expect(screen.getByText('娱乐排行')).toBeInTheDocument()

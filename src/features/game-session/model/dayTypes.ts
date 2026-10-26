@@ -12,6 +12,8 @@ export interface DayVoteDraft {
   ghostVoteSeatIds: number[]
   /** 人工票数修正，不按角色自动推断；正数加票，负数减票。 */
   voteAdjustment?: { count: number; reason: string }
+  /** 说书人确认的特殊提名依据；常规提名不填写。 */
+  nominationExceptionReason?: string
 }
 
 export type DaySkillOutcomeKind = 'no_effect' | 'applied' | 'custom'

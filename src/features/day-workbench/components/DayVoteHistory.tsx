@@ -8,6 +8,7 @@ import { projectEffectiveTimelineEntries } from '../../game-session/state/projec
 import { canRecordGhostVotes, votePlayerStates } from '../state/ghostVotes'
 import { canCompleteVoteRound, voteCount, type VoteRoundDraft } from '../state/voteRound'
 import { DayVoteEditor } from './DayVoteEditor'
+import { nominationIssues } from '../state/nominationRules'
 
 export function DayVoteHistory({ session, dispatch, disabled }: { session: GameSessionState; dispatch: React.Dispatch<GameSessionAction>; disabled: boolean }) {
   const [editing, setEditing] = useState<{ entry: VoteRoundEntry; voided: boolean } | null>(null)
@@ -44,7 +45,7 @@ export function DayVoteHistory({ session, dispatch, disabled }: { session: GameS
         {!editing.voided ? <DayVoteEditor draft={draft} playerCount={session.playerCount} playerStates={votePlayerStates(session, editing.entry.id)} session={session} originalEntryId={editing.entry.id} onChange={(update) => setDraft((current) => current ? update(current) : current)} /> : null}
         <Field label={editing.voided ? '撤销原因' : '更正原因'}><textarea maxLength={500} value={reason} onChange={(event) => setReason(event.target.value)} /></Field>
         {submittedId ? <p role="status">尚未写入；请检查编辑权或记录是否已有新版本，输入已保留。</p> : null}
-        <Button variant={editing.voided ? 'danger' : 'primary'} disabled={disabled || !reason.trim() || (!editing.voided && (!canCompleteVoteRound(draft) || !canRecordGhostVotes(session, draft, editing.entry.id)))} onClick={confirm}>{editing.voided ? '确认撤销票型' : '确认更正票型'}</Button>
+        <Button variant={editing.voided ? 'danger' : 'primary'} disabled={disabled || !reason.trim() || (!editing.voided && (!canCompleteVoteRound(draft) || Boolean(nominationIssues(session, draft, editing.entry.id).length) || !canRecordGhostVotes(session, draft, editing.entry.id)))} onClick={confirm}>{editing.voided ? '确认撤销票型' : '确认更正票型'}</Button>
       </div> : null}
     </Sheet>
   </details>

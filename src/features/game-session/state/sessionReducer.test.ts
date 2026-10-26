@@ -18,7 +18,7 @@ function recordVoteRound(session = createPrototypeGameSession(), nomineeSeatId =
     entry: {
       kind: 'vote_round',
       roundId: `round-${nomineeSeatId}-${voteCount}`,
-      nominatorSeatId: 1,
+      nominatorSeatId: nomineeSeatId === 4 ? 1 : 2,
       nomineeSeatId,
       threshold: 6,
       raisedSeatIds,

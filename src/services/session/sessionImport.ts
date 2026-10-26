@@ -239,6 +239,7 @@ function isTimelineEntry(value: unknown) {
         isNumberArray(value.targetSeatIds) && typeof value.summary === 'string' && isStringArray(value.details)
     case 'vote_round':
       return isInteger(value.nominatorSeatId, 1, 15) && isInteger(value.nomineeSeatId, 1, 15) &&
+        (value.nominationExceptionReason === undefined || (typeof value.nominationExceptionReason === 'string' && value.nominationExceptionReason.trim().length > 0 && value.nominationExceptionReason.length <= 500)) &&
         isInteger(value.threshold) && isNumberArray(value.raisedSeatIds) && isNumberArray(value.ghostVoteSeatIds)
     case 'execution':
       return value.executedSeatId === undefined || isInteger(value.executedSeatId, 1, 15)
@@ -253,6 +254,7 @@ function isDayVoteDraft(value: unknown) {
   return value === null || (isRecord(value) && typeof value.segmentId === 'string' &&
     (value.nominatorSeatId === null || isInteger(value.nominatorSeatId, 1, 15)) &&
     (value.nomineeSeatId === null || isInteger(value.nomineeSeatId, 1, 15)) &&
+    (value.nominationExceptionReason === undefined || (typeof value.nominationExceptionReason === 'string' && value.nominationExceptionReason.length <= 500)) &&
     isInteger(value.threshold) && isNumberArray(value.raisedSeatIds) && isNumberArray(value.ghostVoteSeatIds))
 }
 

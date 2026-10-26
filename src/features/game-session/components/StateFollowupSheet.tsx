@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { Dispatch } from 'react'
 import { Button } from '../../../components/ui/Button'
 import { Sheet } from '../../../components/ui/Sheet'
+import { HostNotice } from '../../../components/ui/HostNotice'
 import { PlayerStatusOverlay } from '../../dashboard/components/PlayerStatusOverlay'
 import type { GameSessionState } from '../types'
 import type { GameSessionAction } from '../state/sessionActions'
@@ -19,6 +20,7 @@ export function StateFollowupSheet({ session, dispatch, suggestedSourceId }: { s
   const [editingId, setEditingId] = useState<string | null>(null)
   const [dismissId, setDismissId] = useState<string | null>(null)
   const [reason, setReason] = useState('')
+  const [notice, setNotice] = useState('')
   const tasks = session.stateFollowups ?? []
   const pending = tasks.filter((task) => !task.resolution)
   const records = session.timeline.filter((entry) => entry.kind === 'night_action').slice().reverse()
@@ -32,6 +34,7 @@ export function StateFollowupSheet({ session, dispatch, suggestedSourceId }: { s
     return record ? `${session.phaseSegments.find((phase) => phase.id === record.segmentId)?.label ?? '夜晚'} · ${record.summary}` : '来源记录不可用'
   }
   function changeOpen(next: boolean) {
+    if (next) setNotice('')
     if (next && suggestedSourceId) {
       if (sourceId !== suggestedSourceId) { setNote(''); setSeatId('') }
       setSourceId(suggestedSourceId)
@@ -40,6 +43,7 @@ export function StateFollowupSheet({ session, dispatch, suggestedSourceId }: { s
     setOpen(next)
   }
   return <>
+    <HostNotice message={notice} />
     <Sheet open={open && !editingId} onOpenChange={changeOpen} title="状态待办" description="从已确认夜晚记录添加；更新玩家状态仍需单独确认。" trigger={<Button variant="ghost" compact aria-label={suggestedSourceId ? '添加状态待办' : `状态待办${pending.length ? ` ${pending.length}` : ''}`} title="核对夜间记录涉及的玩家状态">{suggestedSourceId ? '添加状态待办' : <>待办{pending.length ? <span aria-hidden="true"> {pending.length}</span> : null}</>}</Button>}>
       <div className="night-close-checklist">
         {concealed ? <p>遮蔽中，请先退出遮蔽再查看状态待办。</p> : <>
@@ -68,6 +72,6 @@ export function StateFollowupSheet({ session, dispatch, suggestedSourceId }: { s
         </>}
       </div>
     </Sheet>
-    {editing && !concealed ? <PlayerStatusOverlay seatId={editing.seatId} session={session} dispatch={dispatch} followupId={editing.resolution ? undefined : editing.id} onOpenChange={(next) => { if (!next) setEditingId(null) }} /> : null}
+    {editing && !concealed ? <PlayerStatusOverlay seatId={editing.seatId} session={session} dispatch={dispatch} followupId={editing.resolution ? undefined : editing.id} onOpenChange={(next) => { if (!next) setEditingId(null) }} onCommitted={() => { setNotice(`已更新${editing.seatId}号状态，已返回工作台`); setEditingId(null); setOpen(false) }} /> : null}
   </>
 }

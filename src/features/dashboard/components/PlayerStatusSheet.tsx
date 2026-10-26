@@ -17,6 +17,7 @@ interface PlayerStatusSheetProps {
   playerState: PlayerState
   openSegments: Array<{ id: string; label: string }>
   activity: SeatActivity[]
+  notice?: string
   onConfirm: (input: { expectedBefore: PlayerState; after: PlayerState; segmentId: string | null }) => void
 }
 
@@ -29,7 +30,7 @@ function sameState(left: PlayerState, right: PlayerState) {
     left.markers.length === right.markers.length && left.markers.every((marker, index) => marker.id === right.markers[index]?.id && marker.label === right.markers[index]?.label)
 }
 
-export function PlayerStatusSheet({ open, onOpenChange, seat, role, playerState, openSegments, activity, onConfirm }: PlayerStatusSheetProps) {
+export function PlayerStatusSheet({ open, onOpenChange, seat, role, playerState, openSegments, activity, onConfirm, notice }: PlayerStatusSheetProps) {
   const [draft, setDraft] = useState(() => cloneState(playerState))
   const [segmentId, setSegmentId] = useState('')
 
@@ -68,6 +69,7 @@ export function PlayerStatusSheet({ open, onOpenChange, seat, role, playerState,
           {draft.markers.length ? <div className="player-status-sheet__markers">{draft.markers.map((marker) => <StatusBadge key={marker.id} tone="info"><Tag aria-hidden="true" />标记：{marker.label}</StatusBadge>)}</div> : null}
           <label className="player-status-sheet__segment">记入<select aria-label="记录位置" value={segmentId} onChange={(event) => setSegmentId(event.target.value)}><option value="">本局状态</option>{openSegments.map((segment) => <option key={segment.id} value={segment.id}>{segment.label}</option>)}</select></label>
           <p>确认后追加记录；不会处决、判胜或切换昼夜。</p>
+          {notice ? <p role="alert">{notice}</p> : null}
           <Button variant={draft.life === 'dead' && playerState.life !== 'dead' ? 'danger' : 'primary'} disabled={!changed} onClick={confirm}>确认状态</Button>
         </section>
 

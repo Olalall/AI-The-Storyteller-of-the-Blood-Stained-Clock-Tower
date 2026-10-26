@@ -56,7 +56,7 @@ describeLive('real model complex night settlement quality regression', () => {
     } finally {
       // 只输出评测元数据，不把私密局面、回答或凭据写进报告。
       console.info(JSON.stringify({
-        caseId: testCase.id, model, elapsedMs: Math.round(performance.now() - started),
+        caseId: testCase.id, modelConfigured: Boolean(model), elapsedMs: Math.round(performance.now() - started),
         status: draft?.status ?? 'provider_error', outcome: draft?.recommendedOutcomeId,
         missingCount: draft?.missing.length ?? 0, ruleFactCount: draft?.ruleFacts.length ?? 0,
         sourceCount: request.roleResearch?.sourceUrls.length ?? 0, passed,

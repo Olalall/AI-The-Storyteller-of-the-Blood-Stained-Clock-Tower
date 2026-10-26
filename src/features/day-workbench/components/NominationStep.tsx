@@ -8,13 +8,17 @@ import { Card } from '../../../components/ui/Card'
 import { SeatButton } from '../../../components/ui/SeatButton'
 import { DayStepRow } from './DayStepRow'
 import type { NominationTarget } from '../state/dayRingFocus'
-import type { DayVoteDraft, PlayerState } from '../../game-session/types'
+import type { DayVoteDraft, GameSessionState, PlayerState } from '../../game-session/types'
+import { nominationIssues } from '../state/nominationRules'
+import { NominationExceptionField } from './NominationExceptionField'
 
 // 类型的家在 dayRingFocus——环与抽屉共用同一个「当前指向哪个槽」，
 // 它不再是这张卡片私有的概念。这里只做转出口，免得既有调用方全部改 import。
 export type { NominationTarget }
 
 interface NominationStepProps {
+  session: GameSessionState
+  onChange: (update: (current: DayVoteDraft) => DayVoteDraft) => void
   collapsed: boolean
   draft: DayVoteDraft
   /**
@@ -31,6 +35,8 @@ interface NominationStepProps {
 }
 
 export function NominationStep({
+  session,
+  onChange,
   collapsed,
   draft,
   readOnly,
@@ -68,9 +74,12 @@ export function NominationStep({
       <div className="day-seat-grid" aria-label="提名座位">
         {Array.from({ length: playerCount }, (_value, index) => {
           const seatId = index + 1
-          return <SeatButton key={seatId} seat={seatId} disabled={readOnly} selected={seatId === selectedSeatId} dead={playerStates[seatId]?.life === 'dead'} onClick={() => onSelectSeat(seatId)} aria-label={`选择${seatId}号为${targetLabel}`} />
+          const blocked = draft.nominationExceptionReason === undefined ? nominationIssues(session, { segmentId: draft.segmentId, nominatorSeatId: target === 'nominator' ? seatId : null, nomineeSeatId: target === 'nominee' ? seatId : null })[0] : undefined
+          return <SeatButton key={seatId} seat={seatId} disabled={readOnly || Boolean(blocked)} title={blocked} selected={seatId === selectedSeatId} dead={playerStates[seatId]?.life === 'dead'} onClick={() => onSelectSeat(seatId)} aria-label={`选择${seatId}号为${targetLabel}`} />
         })}
       </div>
+      <NominationExceptionField session={session} draft={draft} onChange={onChange} disabled={readOnly} />
+      <p className="day-disabled-reason">常规提名须由存活玩家发起；每人每天只能提名一次、被提名一次。特殊能力请勾选并填写依据。</p>
     </Card>
   )
 }

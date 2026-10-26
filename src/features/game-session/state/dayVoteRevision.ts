@@ -3,6 +3,7 @@ import type { GameSessionState } from '../types'
 import type { GameSessionAction } from './sessionActions'
 import { appendCorrection } from './timeline'
 import { canRecordGhostVotes, normalizeDeadVotes } from '../../day-workbench/state/ghostVotes'
+import { nominationIssues } from '../../day-workbench/state/nominationRules'
 
 export function reviseVoteRound(state: GameSessionState, action: Extract<GameSessionAction, { type: 'revise-vote-round' }>) {
   const original = state.timeline.find((entry) => entry.id === action.originalEntryId)
@@ -12,7 +13,7 @@ export function reviseVoteRound(state: GameSessionState, action: Extract<GameSes
     ? completeVoteRound(normalizeDeadVotes(state, action.draft, original.id), { ...action.input, roundId: original.roundId }) : null
   if (!revised || !state.seats[revised.nominatorSeatId] || !state.seats[revised.nomineeSeatId] ||
     revised.raisedSeatIds.some((seatId) => !state.seats[seatId]) || revised.ghostVoteSeatIds.some((seatId) => !state.seats[seatId])) return state
-  if (!action.voided && !canRecordGhostVotes(state, revised, original.id)) return state
+  if (!action.voided && (!canRecordGhostVotes(state, revised, original.id) || nominationIssues(state, { ...revised, segmentId: original.segmentId }, original.id).length)) return state
   const result = appendCorrection(state, original.id, {
     ...revised, voided: action.voided, correctionReason: reason,
   }, action.input)
