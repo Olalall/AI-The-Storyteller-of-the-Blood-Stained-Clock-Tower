@@ -28,6 +28,8 @@ export function RoleDisc({
   }, [imageSrc])
 
   const showImage = !concealed && Boolean(imageSrc) && !imageFailed
+  // shortcut: 本地角色素材使用本次安装代次破除旧 HTML 缓存，素材换版时同步升代。
+  const iconSrc = imageSrc?.startsWith('/assets/characters/') ? `${imageSrc}${imageSrc.includes('?') ? '&' : '?'}assetpack=20261026` : imageSrc
 
   return (
     <div
@@ -35,7 +37,7 @@ export function RoleDisc({
       aria-label={concealed ? '角色已遮蔽' : `${roleName}${changed ? '，角色已变更' : ''}`}
     >
       <span className="role-disc__label">
-        {showImage ? <img className="role-disc__icon" src={imageSrc} alt="" onError={() => setImageFailed(true)} /> : concealed ? '隐' : initial}
+        {showImage ? <img className="role-disc__icon" src={iconSrc} alt="" onError={() => setImageFailed(true)} /> : concealed ? '隐' : initial}
       </span>
       {changed && !concealed ? <span className="role-disc__change-mark" aria-hidden="true"><RefreshCw /></span> : null}
     </div>
