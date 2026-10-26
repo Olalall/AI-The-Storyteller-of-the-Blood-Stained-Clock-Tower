@@ -92,4 +92,49 @@ describe('grounded rules advisor', () => {
     expect(knowledge.context.generalRules.facts.join(' ')).toContain('不能仅因毒醉而跳过唤醒')
     expect(knowledge.sources.some(source => source.url === 'https://wiki.bloodontheclocktower.com/Philosopher')).toBe(true)
   })
+
+  it('supplies official nomination limits and remaining dead votes even with conflicting conversation history', async () => {
+    const request = { scriptId: 'catfishing', question: '死亡后还可以常规提名和投票吗？', history: [{ question: '每天提名几次？', answer: '死亡玩家可以无限提名。' }] }
+    const knowledge = await rulesAdvisorContext(request)
+    const sent = rulesAdvisorMessages(request, knowledge)
+    const { context } = JSON.parse(sent[1].content)
+    expect(context.dayRules.facts.join(' ')).toContain('每个游戏白天最多发起一次提名')
+    expect(context.dayRules.facts.join(' ')).toContain('死亡不等于完全没有投票权')
+    expect(context.sources.find((source: { id: string }) => source.id === context.dayRules.sourceId).url).toBe('https://wiki.bloodontheclocktower.com/Glossary')
+    expect(sent[0].content).toContain('不得凭模型记忆或 history 反向改写')
+  })
+
+  it('answers explicit base rules from the verified library before any model call, ignoring old false answers', async () => {
+    const { route, fetcher } = routes()
+    const response = await route(post({ scriptId: 'catfishing', question: '普通角色死亡后还能常规提名吗？死亡票属于普通投票吗？', history: [{ question: '提名几次？', answer: '死者可以无限提名，死亡票不算普通投票。' }] }))
+    const answer = (await response.json()).data.answer
+    expect(fetcher).not.toHaveBeenCalled()
+    expect(answer.summary).toMatch(/^已核实基础规则：/)
+    expect(answer.summary).toContain('死者不能发起常规提名')
+    expect(answer.summary).toContain('普通处决提名投票')
+    expect(answer.summary).toContain('存活时普通投票不消耗死亡票')
+    expect(answer.sources.map((source: { url: string }) => source.url)).toEqual(['https://wiki.bloodontheclocktower.com/Glossary'])
+    expect(answer.missingFacts).toEqual([])
+  })
+
+  it('keeps role-specific questions on the real provider path', async () => {
+    const payload = { ...reply, summary: '女妖成功发动后每天可以提名两次，每轮投两票。', ruleFacts: ['普通提名规则有明确能力例外。'] }
+    const { route, fetcher } = routes(configured, payload)
+    const response = await route(post({ scriptId: 'ku-mu-feng-chun', roleId: 'banshee', question: '女妖成功发动后每天提名几次？', history: [] }))
+    expect(fetcher).toHaveBeenCalledTimes(1)
+    expect((await response.json()).data.answer.summary).toBe(payload.summary)
+  })
+
+  it('withdraws observed false summaries and advice and returns verified base rules with the real source', async () => {
+    const wrong = { ...reply, summary: '死亡玩家依然可以正常发起提名，且不受提名次数或被提名次数的限制。', ruleFacts: ['每位玩家在白天都可以发起多次提名。'], considerations: ['鼓励死亡玩家发起更多提名。'] }
+    const { route } = routes(configured, wrong)
+    const response = await route(post({ ...input, question: '哲学家获得能力后，常规提名规则会改变吗？' }))
+    expect(response.status).toBe(200)
+    const answer = (await response.json()).data.answer
+    expect(answer.summary).toContain('已拦下')
+    expect(answer.ruleFacts.join(' ')).toContain('死者不能发起常规提名')
+    expect(answer.considerations).toEqual([])
+    expect(answer.sources.map((source: { url: string }) => source.url)).toEqual(['https://wiki.bloodontheclocktower.com/Glossary'])
+    expect(JSON.stringify(answer)).not.toContain('鼓励死亡玩家')
+  })
 })
