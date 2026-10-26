@@ -2,6 +2,7 @@ import { loadSmartScriptPack, roleAbilityForScript, scriptKnowledgeVersion } fro
 import { roleKnowledgeForAI } from '../../src/domain/role-knowledge'
 import type { RulesAdvisorRequest, RulesAdvisorSource } from '../../src/services/ai/rulesAdvisorTypes'
 import { AIProviderError } from './aiProviderClient'
+import { nominationRuleFacts, nominationRulesSource } from './nominationAdvice'
 
 export async function rulesAdvisorContext(input: RulesAdvisorRequest) {
   const pack = await loadSmartScriptPack(input.scriptId).catch(() => { throw new AIProviderError('BAD_REQUEST', 400) })
@@ -19,6 +20,7 @@ export async function rulesAdvisorContext(input: RulesAdvisorRequest) {
   }
   const scriptSource = sourceId(pack.source.url, `${pack.displayName} · 板子来源`)
   const statesSource = sourceId('https://wiki.bloodontheclocktower.com/States', '通用规则 · 状态')
+  const nominationsSource = sourceId(nominationRulesSource, '通用规则 · 提名与投票')
   const questions = [input.question, ...input.history.map(turn => turn.question)].join('\n').toLowerCase()
   const roles = pack.roles.map(role => {
     const detailed = role.id === focused?.id || [role.name, role.officialName, role.id].some(name => name && questions.includes(name.toLowerCase()))
@@ -46,6 +48,7 @@ export async function rulesAdvisorContext(input: RulesAdvisorRequest) {
         '醉酒和中毒使能力无效，但通常仍按正常时点唤醒、收集选择或给信息；不能仅因毒醉而跳过唤醒。明确禁止唤醒的其他能力需另行核对。',
         '角色、阵营、生死、毒醉是分别核对的事实；换角色不自动换阵营或清除毒醉。处决不等于死亡，死亡玩家不能再次真正死亡。',
       ] },
+      dayRules: { sourceId: nominationsSource, reviewedAt: '2026-10-26', facts: nominationRuleFacts },
       sources,
     },
   }

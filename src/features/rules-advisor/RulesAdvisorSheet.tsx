@@ -87,7 +87,7 @@ export function RulesAdvisorSheet({ open, onOpenChange, initialScriptId, conceal
         <textarea aria-label="规则问题" rows={2} maxLength={1200} value={question} disabled={busy} onChange={event => setQuestion(event.target.value)} placeholder="问点什么…" />
         <Button type="submit" variant="primary" disabled={busy || loadingPack || !pack || !question.trim() || status?.state !== 'ready'}>{busy ? '回答中' : '发送'}</Button>
       </form> : null}
-      <div className="rules-advisor__footer"><span className="rules-advisor__note" role="status">{loadingPack ? '加载资料中…' : !status ? '检查访问中…' : 'AI 回答供核对'}</span><details><summary>使用说明</summary><p>不读取本局身份和记录。仅发送所选资料、你的问题和最近4轮同主题对话；每次发送会调用 AI。对话刷新后清空。</p></details></div>
+      <div className="rules-advisor__footer"><span className="rules-advisor__note" role="status">{loadingPack ? '加载资料中…' : !status ? '检查访问中…' : '回答供核对'}</span><details><summary>使用说明</summary><p>不读取本局身份和记录。基础规则直接查资料；复杂问题会将所选资料、问题和最近4轮同主题对话发送给 AI。对话刷新后清空。</p></details></div>
     </div>}
   </Sheet>
 }
